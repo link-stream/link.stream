@@ -1,0 +1,67 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of user_model
+ *
+ * @author paolo
+ */
+class User_model extends CI_Model {
+
+    //put your code here
+    //put your code here
+    public function __construct() {
+        parent::__construct();
+    }
+
+    public function insert_user($data) {
+        $this->db->insert('user', $data);
+        return $this->db->insert_id();
+    }
+
+    public function update_user($id, $data) {
+        $this->db->where('id', $id);
+        $this->db->update('user', $data);
+    }
+
+    public function fetch_user_by_id($id) {
+        $this->db->from('user');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        $result = $query->row_array();
+        $query->free_result();
+        return $result;
+    }
+
+    public function fetch_user_by_search($search) {
+        $this->db->from('user');
+        if (!empty($search['id'])) {
+            $this->db->where('id', $search['id']); //By Id
+        }
+        if (!empty($search['email'])) {
+            $this->db->where('email', $search['email']); //By Email
+        }
+        if (!empty($search['password'])) {
+            $this->db->where('password', $search['password']); //By Password
+        }
+        $query = $this->db->get();
+        $result = $query->row_array();
+        $query->free_result();
+        return $result;
+    }
+
+    public function fetch_user_history_by_user($user_id) {
+        $this->db->from('user_history');
+        $this->db->where('user', $user_id);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        $query->free_result();
+        return $result;
+    }
+
+}

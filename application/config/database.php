@@ -94,10 +94,3 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-
-
-//streamy_admin - e1e71bb468c3648954812eea911a0b25aba58a40
-
-//Hostname: db01.streamy.link
-//Username: root
-//Password: c2U7BqmSKK5s9iOV

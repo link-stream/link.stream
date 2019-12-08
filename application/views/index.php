@@ -8,6 +8,7 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Streamy Link</title>
+        <link rel="stylesheet" type="text/css"  href="<?= HTTP_ASSETS ?>css/mypage.css">
     </head>
     <body>
         <?php

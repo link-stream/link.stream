@@ -59,7 +59,7 @@ $autoload['packages'] = array();
   |
   |	$autoload['libraries'] = array('user_agent' => 'ua');
  */
-$autoload['libraries'] = array('database', 'session', 'instagram_api', 'encrypt');
+$autoload['libraries'] = array('database', 'session', 'encrypt');
 
 /*
   | -------------------------------------------------------------------

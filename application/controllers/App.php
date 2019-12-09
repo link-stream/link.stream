@@ -14,7 +14,7 @@ class App extends CI_Controller {
         //Session
         $this->update_cookie();
         //Libraries
-        $this->load->library('instagram_api');
+        $this->load->library('Instagram_api');
         //Vars
         $this->error = '';
     }

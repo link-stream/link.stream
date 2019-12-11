@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!--IE Compatibility Meta-->
-    <meta name="author" content="zytheme" />
+    <meta name="author" content="Streamy" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="Multi-purpose Makerting html5 landing page">
     <link href="<?= HTTP_ASSETS ?>images/favicon/favicon.ico" rel="icon">
@@ -29,7 +29,7 @@
 
     <!-- Document Title
     ============================================= -->
-    <title>Siena | Marketing Html5 Landing Page</title>
+    <title>Streamy - Stream Anywhere You Want</title>
 </head>
 
 <body class="body-scroll">

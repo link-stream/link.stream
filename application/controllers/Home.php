@@ -15,7 +15,7 @@ class Home extends CI_Controller {
 
     //put your code here
     private $loc_url = 'app';
-    private $loc_path = '';
+    private $loc_path = 'home';
     private $error;
     private $ses_name = 'app_session';
 
@@ -48,7 +48,20 @@ class Home extends CI_Controller {
         $data = array();
         $this->load->view('index', $data);
     }
-    
 
+    public function landing_click() {
+        $data = array();
+        $this->load->view($this->loc_path . '/landing-click', $data);
+    }
+
+    public function landing_form() {
+        $data = array();
+        $this->load->view($this->loc_path . '/landing-form', $data);
+    }
+
+    public function landing_lead() {
+        $data = array();
+        $this->load->view($this->loc_path . '/landing-lead', $data);
+    }
 
 }

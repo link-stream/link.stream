@@ -37,7 +37,7 @@ class Streamy_model extends CI_Model {
         return $result;
     }
 
-    public function fetch_streamys_by_search($search, $limit = 0, $offset = 0) {
+    public function fetch_streamys_by_search($search) {
         $this->db->from('streamy');
         if (!empty($search['user'])) {
             $this->db->where('user', $search['user']); //By Usew
@@ -53,38 +53,11 @@ class Streamy_model extends CI_Model {
         }
         if (!empty($search['status'])) {
             $this->db->where('status', $search['status']); //By Status
-        }
-        if (!empty($limit)) {
-            $this->db->limit($limit, $offset);
         }
         $query = $this->db->get();
         $result = $query->result_array();
         $query->free_result();
         return $result;
-    }
-    
-    public function fetch_streamys_count_by_search($search) {
-         $this->db->select('count(*) as Count');
-        $this->db->from('streamy');
-        if (!empty($search['user'])) {
-            $this->db->where('user', $search['user']); //By Usew
-        }
-        if (!empty($search['type'])) {
-            $this->db->where('type', $search['type']); //By Type
-        }
-        if (!empty($search['public'])) {
-            $this->db->where('public', $search['public']); //By Public
-        }
-        if (!empty($search['status'])) {
-            $this->db->where('status', $search['status']); //By Status
-        }
-        if (!empty($search['status'])) {
-            $this->db->where('status', $search['status']); //By Status
-        }
-        $query = $this->db->get();
-        $row = $query->row();
-        $query->free_result();
-        return $row->Count;
     }
 
 }

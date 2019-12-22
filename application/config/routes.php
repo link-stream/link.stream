@@ -51,12 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   |		my-controller/my-method	-> my_controller/my_method
  */
 $route['default_controller'] = 'home';
-//$route['404_override'] = 'app/not_found';
-$route['404_override'] = 'home';
+$route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['login'] = "app/login";
-$route['forgot'] = "app/forgot";
 $route['register'] = "app/register";
-$route['register_confirm'] = "app/register_confirm";
-$route['instagram_register'] = "app/instagram_register";
-$route['google_register'] = "app/google_register";
+$route['register_instagram'] = "app/register_instagram";

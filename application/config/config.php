@@ -42,7 +42,7 @@ $config['ssl_base_url'] = 'https://' . $host . str_replace(basename($_SERVER['SC
 $exp = explode(".", $host);
 if (array_shift($exp) == 'localhost') {
     define('ENV', 'dev');
-} elseif (array_shift($exp) == 'streamy-dev') {
+} elseif (array_shift($exp) == 'streamylinkdevenv') {
     define('ENV', 'staging');
 } else {
     define('ENV', 'live');
@@ -56,8 +56,6 @@ define('HTTP_ASSETS', $config['base_url'] . 'assets/');
 //define('HTTP_CSS_PATH_ADMIN', $config['base_url'] . 'assets/admin/css/');
 //define('HTTP_IMAGES_PATH_ADMIN', $config['base_url'] . 'assets/admin/images/');
 //define('HTTP_JS_PATH_ADMIN', $config['base_url'] . 'assets/js/jquery/');
-
-define('GOOGLE_LOGIN_CLIENT_ID', '508620332071-blu7sd9t3osgc56sg1hnq9m8mu9a6tda.apps.googleusercontent.com');
 
 /*
   |--------------------------------------------------------------------------
@@ -358,7 +356,7 @@ $config['cache_query_string'] = FALSE;
   | https://codeigniter.com/user_guide/libraries/encryption.html
   |
  */
-$config['encryption_key'] = 's0@psud$&*';
+$config['encryption_key'] = '';
 
 /*
   |--------------------------------------------------------------------------

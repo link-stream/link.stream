@@ -14,25 +14,25 @@ $url = (isset($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : 'www.streamy.lin
 $chk = explode('.', $url);
 if ($chk[0] == "localhost") {
     $config['instagram_client_name'] = 'Streamy.link';
-    $config['instagram_client_id'] = '581144849352056';
-    $config['instagram_client_secret'] = '79b850e476af6aa7d6ec00ecc880f464';
-    $config['instagram_callback_url'] = 'https://localhost/streamy.link/app/instagram_callback'; //e.g. http://yourwebsite.com/authorize/get_code/
+    $config['instagram_client_id'] = '697592760647122';
+    $config['instagram_client_secret'] = '6d3fb59a094855ce9471b9c88e8bfbbe';
+    $config['instagram_callback_url'] = 'https://localhost/streamy.link/app/instagram_oauth'; //e.g. http://yourwebsite.com/authorize/get_code/
     $config['instagram_website'] = 'https://localhost/streamy.link'; //e.g. http://yourwebsite.com/
     $config['instagram_description'] = '';
     //$db['default']['db_debug'] = TRUE;
 } elseif ($chk[0] == "streamylinkdevenv") {
     $config['instagram_client_name'] = 'Streamy.link';
-    $config['instagram_client_id'] = '581144849352056';
-    $config['instagram_client_secret'] = '79b850e476af6aa7d6ec00ecc880f464';
-    $config['instagram_callback_url'] = 'https://streamylinkdevenv.us-east-2.elasticbeanstalk.com/app/instagram_callback'; //e.g. http://yourwebsite.com/authorize/get_code/
-    $config['instagram_website'] = 'https://streamylinkdevenv.us-east-2.elasticbeanstalk.com/'; //e.g. http://yourwebsite.com/
+    $config['instagram_client_id'] = '697592760647122';
+    $config['instagram_client_secret'] = '6d3fb59a094855ce9471b9c88e8bfbbe';
+    $config['instagram_callback_url'] = 'https://streamy-dev.streamy.link/app/instagram_oauth'; //e.g. http://yourwebsite.com/authorize/get_code/
+    $config['instagram_website'] = 'https://streamy-dev.streamy.link'; //e.g. http://yourwebsite.com/
     $config['instagram_description'] = '';
 } else {
     $config['instagram_client_name'] = 'Streamy.link';
-    $config['instagram_client_id'] = '581144849352056';
-    $config['instagram_client_secret'] = '79b850e476af6aa7d6ec00ecc880f464';
-    $config['instagram_callback_url'] = ''; //e.g. http://yourwebsite.com/authorize/get_code/
-    $config['instagram_website'] = ''; //e.g. http://yourwebsite.com/
+    $config['instagram_client_id'] = '697592760647122';
+    $config['instagram_client_secret'] = '6d3fb59a094855ce9471b9c88e8bfbbe';
+    $config['instagram_callback_url'] = 'https://www.streamy.link/app/instagram_oauth'; //e.g. http://yourwebsite.com/authorize/get_code/
+    $config['instagram_website'] = 'https://www.streamy.link'; //e.g. http://yourwebsite.com/
     $config['instagram_description'] = '';
 }
 

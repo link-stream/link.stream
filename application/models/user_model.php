@@ -49,14 +49,25 @@ class User_model extends CI_Model {
         if (!empty($search['password'])) {
             $this->db->where('password', $search['password']); //By Password
         }
+        if (!empty($search['user_name'])) {
+            $this->db->where('user_name', $search['user_name']); //By Password
+        }
+        if (!empty($search['platform_id'])) {
+            $this->db->where('platform_id', $search['platform_id']); //By Password
+        }
         $query = $this->db->get();
         $result = $query->row_array();
         $query->free_result();
         return $result;
     }
+    
+     public function insert_user_log($data) {
+        $this->db->insert('user_log', $data);
+        //return $this->db->insert_id();
+    }
 
-    public function fetch_user_history_by_user($user_id) {
-        $this->db->from('user_history');
+    public function fetch_user_log_by_user($user_id) {
+        $this->db->from('user_log');
         $this->db->where('user', $user_id);
         $query = $this->db->get();
         $result = $query->result_array();

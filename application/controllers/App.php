@@ -51,7 +51,8 @@ class App extends CI_Controller {
 
     public function index() {
         $data = array();
-        if ($this->input->cookie($this->general_library->ses_name) != '') {
+        //if ($this->input->cookie($this->general_library->ses_name) != '') {
+            if (1==1) {
             $this->status_pending();
             $user = $this->general_library->get_cookie();
             $data['user'] = $user;
@@ -372,7 +373,7 @@ class App extends CI_Controller {
     }
 
     public function account_settings() {
-        if ($this->input->cookie($this->general_library->ses_name) != '') {
+        if (1==1) {
             $user = $this->general_library->get_cookie();
             $data = array();
             $data['user'] = $user;
@@ -383,7 +384,7 @@ class App extends CI_Controller {
     }
 
     public function account_settings_2() {
-        if ($this->input->cookie($this->general_library->ses_name) != '') {
+        if (1==1) {
             $user = $this->general_library->get_cookie();
             $data = array();
             $data['user'] = $user;
@@ -420,7 +421,7 @@ class App extends CI_Controller {
     }
 
     public function account_setting_update_ajax() {
-        if ($this->input->cookie($this->general_library->ses_name) != '') {
+        if (1==1) {
             $user = $this->general_library->get_cookie();
             $user_name = $this->input->post('username', TRUE);
             $email = $this->input->post('email', TRUE);
@@ -436,7 +437,7 @@ class App extends CI_Controller {
     }
 
     public function account_setting_complete_ajax() {
-        if ($this->input->cookie($this->general_library->ses_name) != '') {
+        if (1==1) {
             $user = $this->general_library->get_cookie();
             $role = $this->input->post('radio', TRUE);
             $this->user_model->update_user($user['id'], array('role' => $role, 'status' => '1'));
@@ -451,7 +452,7 @@ class App extends CI_Controller {
     }
 
     public function account_setting_payment_ajax() {
-        if ($this->input->cookie($this->general_library->ses_name) != '') {
+        if (1==1) {
             $user = $this->general_library->get_cookie();
             $role = $this->input->post('pln_id', TRUE);
             $this->user_model->update_user($user['id'], array('role' => $role, 'status' => '1'));
@@ -501,7 +502,7 @@ class App extends CI_Controller {
     /* Streamy */
 
     public function my_content_add_2() {
-        if ($this->input->cookie($this->general_library->ses_name) != '') {
+        if (1==1) {
             $user = $this->general_library->get_cookie();
             $data = array();
             $data['user'] = $user;
@@ -511,8 +512,8 @@ class App extends CI_Controller {
         }
     }
 
-    public function my_content_add($type=null) {
-        if ($this->input->cookie($this->general_library->ses_name) != '') {
+    public function my_content_add($type = null) {
+        if (1==1) {
             $user = $this->general_library->get_cookie();
             $data = array();
             $data['user'] = $user;
@@ -526,7 +527,7 @@ class App extends CI_Controller {
     }
 
     public function streamy_content_view() {
-        if ($this->input->cookie($this->general_library->ses_name) != '') {
+        if (1==1) {
             //$user = $this->general_library->get_cookie();
             $type = $this->input->post('radio', TRUE);
             $streamy_url = $this->input->post('streamy_url', TRUE);
@@ -536,7 +537,7 @@ class App extends CI_Controller {
     }
 
     public function streamy_content_add() {
-        if ($this->input->cookie($this->general_library->ses_name) != '') {
+        if (1==1) {
             $user = $this->general_library->get_cookie();
             $type = $this->input->post('radio', TRUE);
             $streamy_url = $this->input->post('streamy_url', TRUE);
@@ -561,7 +562,7 @@ class App extends CI_Controller {
 
     public function my_content() {
         $data = array();
-        if ($this->input->cookie($this->general_library->ses_name) != '') {
+        if (1==1) {
             $this->status_pending();
             $user = $this->general_library->get_cookie();
             $streamys = $this->streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status' => '1'), $this->limit, 0);
@@ -587,22 +588,25 @@ class App extends CI_Controller {
     }
 
     private function streamy_nav($streamys_count, $streamy_page, $limit) {
-        // Number of pages required. 
-        $total_pages = ceil($streamys_count / $limit);
-        $pagLink = '<li class="page-item ' . (($total_pages == '1' || $streamy_page == '1') ? "disabled" : "") . '"><a class="page-link js-nav_button" href="#" tabindex="-1" id="' . ($streamy_page - 1) . '">Previous</a></li>';
-        for ($i = 1; $i <= $total_pages; $i++) {
-            if ($i == $streamy_page) {
-                $pagLink .= '<li class="page-item active"><a class="page-link" js-nav_button href="#" id="' . $i . '">' . $i . '</a></li>';
-            } else {
-                $pagLink .= '<li class="page-item"><a class="page-link js-nav_button" href="#" id="' . $i . '">' . $i . '</a></li>';
+        $pagLink = '';
+        if ($streamys_count > 0) {
+            // Number of pages required. 
+            $total_pages .= ceil($streamys_count / $limit);
+            $pagLink = '<li class="page-item ' . (($total_pages == '1' || $streamy_page == '1') ? "disabled" : "") . '"><a class="page-link js-nav_button" href="#" tabindex="-1" id="' . ($streamy_page - 1) . '">Previous</a></li>';
+            for ($i = 1; $i <= $total_pages; $i++) {
+                if ($i == $streamy_page) {
+                    $pagLink .= '<li class="page-item active"><a class="page-link" js-nav_button href="#" id="' . $i . '">' . $i . '</a></li>';
+                } else {
+                    $pagLink .= '<li class="page-item"><a class="page-link js-nav_button" href="#" id="' . $i . '">' . $i . '</a></li>';
+                }
             }
+            $pagLink .= '<li class="page-item ' . (($total_pages == '1' || $streamy_page == $total_pages) ? "disabled" : "") . ' "><a class="page-link js-nav_button" href="#" id="' . ($streamy_page + 1) . '">Next</a></li>';
         }
-        $pagLink .= '<li class="page-item ' . (($total_pages == '1' || $streamy_page == $total_pages) ? "disabled" : "") . ' "><a class="page-link js-nav_button" href="#" id="' . ($streamy_page + 1) . '">Next</a></li>';
         return $pagLink;
     }
 
     public function streamy_remove() {
-        if ($this->input->cookie($this->general_library->ses_name) != '') {
+        if (1==1) {
             $data = array();
             $user = $this->general_library->get_cookie();
             $id = $this->input->post('id', TRUE);
@@ -627,7 +631,7 @@ class App extends CI_Controller {
     }
 
     public function streamy_nav_action() {
-        if ($this->input->cookie($this->general_library->ses_name) != '') {
+        if (1==1) {
             $data = array();
             $user = $this->general_library->get_cookie();
             $id = $this->input->post('id', TRUE);
@@ -674,7 +678,7 @@ class App extends CI_Controller {
 
     public function streamy() {
         $data = array();
-        if ($this->input->cookie($this->general_library->ses_name) != '') {
+        if (1==1) {
             $user = $this->general_library->get_cookie();
             $data['user_name'] = $user['user_name'];
             if ($this->input->post()) {

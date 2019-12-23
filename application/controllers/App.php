@@ -17,8 +17,8 @@ class App extends CI_Controller {
         //Libraries
         $this->load->library(array('Instagram_api', 'aws_s3'));
         //Models
-        $this->load->model("user_model");
-        $this->load->model("streamy_model");
+        $this->load->model("User_model");
+        $this->load->model("Streamy_model");
         //Vars
         $this->error = '';
     }

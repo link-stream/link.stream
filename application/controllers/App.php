@@ -814,7 +814,7 @@ class App extends CI_Controller {
     }
 
     public function test_sql() {
-        $sql = 'select * from user';
+        $sql = 'select * from streamy_dev.user';
         echo $sql . '<br>';
         $query = $this->db->query($sql);
         $result = $query->result_array();

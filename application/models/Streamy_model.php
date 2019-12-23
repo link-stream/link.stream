@@ -32,11 +32,7 @@ class Streamy_model extends CI_Model {
         $this->db->from('streamy');
         $this->db->where('id', $id);
         $query = $this->db->get();
-        if ($query !== false) {
-            $result = $query->row_array();
-        } else {
-            return array();
-        }
+        $result = $query->row_array();
         $query->free_result();
         return $result;
     }

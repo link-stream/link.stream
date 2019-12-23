@@ -33,11 +33,7 @@ class User_model extends CI_Model {
         $this->db->from('user');
         $this->db->where('id', $id);
         $query = $this->db->get();
-        if ($query !== false) {
-            $result = $query->row_array();
-        } else {
-            return array();
-        }
+        $result = $query->row_array();
         $query->free_result();
         return $result;
     }
@@ -60,11 +56,7 @@ class User_model extends CI_Model {
             $this->db->where('platform_id', $search['platform_id']); //By Password
         }
         $query = $this->db->get();
-        if ($query !== false) {
-            $result = $query->row_array();
-        } else {
-            return array();
-        }
+        $result = $query->row_array();
         $query->free_result();
         return $result;
     }

@@ -813,24 +813,4 @@ class App extends CI_Controller {
         return $cronDir;
     }
 
-    public function test_sql() {
-        $sql = 'select * from streamy_dev.user';
-        echo $sql . '<br>';
-        $query = $this->db->query($sql);
-        $result = $query->result_array();
-        echo '<pre>';
-        print_r($result);
-        echo '</pre>';
-    }
-    
-    public function test_sql2() {
-        $sql = 'select * from user';
-        echo $sql . '<br>';
-        $query = $this->db->query($sql);
-        $result = $query->result_array();
-        echo '<pre>';
-        print_r($result);
-        echo '</pre>';
-    }
-
 }

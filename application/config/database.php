@@ -76,6 +76,7 @@ $query_builder = TRUE;
 
 $url = (isset($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : 'www.streamy.link';
 $chk = explode('.', $url);
+print_r($chk);echo '<br>';
 if ($chk[0] == "localhost") {
     define('DB_HOST', 'db01.streamy.link');
     define('DB_USER', 'streamy_admin');

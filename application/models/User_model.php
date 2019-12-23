@@ -55,14 +55,17 @@ class User_model extends CI_Model {
         if (!empty($search['platform_id'])) {
             $this->db->where('platform_id', $search['platform_id']); //By Password
         }
-        $this->db->order_by('id ASC');
         $query = $this->db->get();
-        $result = $query->row_array();
+        if ($query !== false) {
+            $result = $query->row_array();
+        } else {
+            return array();
+        }
         $query->free_result();
         return $result;
     }
-    
-     public function insert_user_log($data) {
+
+    public function insert_user_log($data) {
         $this->db->insert('user_log', $data);
         //return $this->db->insert_id();
     }

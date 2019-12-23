@@ -41,6 +41,26 @@ if (!empty($streamys)) {
         </div>
         <?php
     }
-}
-?>
- 
+} else {
+    ?>
+    <div class="col-md-12 col-lg-12 mb-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h2 class="ul-widget-card__title">Your Content is Empty</h2>
+                <p class="card-text text-mute">Start inserting your content.</p>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="card mb-5">
+                            <div class="card-body">
+                                <a href="<?= base_url() ?>app/my_content_add" class="btn btn-success m-1 js-content" type="button">My Content</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+

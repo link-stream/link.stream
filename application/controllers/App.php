@@ -17,8 +17,8 @@ class App extends CI_Controller {
         //Libraries
         $this->load->library(array('Instagram_api', 'aws_s3'));
         //Models
-        $this->load->model("user_model");
-        $this->load->model("streamy_model");
+        $this->load->model("User_model");
+        $this->load->model("Streamy_model");
         //Vars
         $this->error = '';
     }
@@ -96,7 +96,7 @@ class App extends CI_Controller {
 
     public function verify_username() {
         $user_name = $this->input->post('username', TRUE);
-        $register_user = $this->user_model->fetch_user_by_search(array('user_name' => $user_name));
+        $register_user = $this->User_model->fetch_user_by_search(array('user_name' => $user_name));
         if (empty($register_user)) {
             echo 'true';
         } else {

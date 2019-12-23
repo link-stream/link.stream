@@ -33,7 +33,11 @@ class User_model extends CI_Model {
         $this->db->from('user');
         $this->db->where('id', $id);
         $query = $this->db->get();
-        $result = $query->row_array();
+        if ($query !== false) {
+            $result = $query->row_array();
+        } else {
+            $result = array();
+        }
         $query->free_result();
         return $result;
     }
@@ -59,7 +63,7 @@ class User_model extends CI_Model {
         if ($query !== false) {
             $result = $query->row_array();
         } else {
-            return array();
+            $result = array();
         }
         $query->free_result();
         return $result;

@@ -196,9 +196,9 @@ class App extends CI_Controller {
         $email = $var['register-email'];
         $id = $var['register-id'];
         $user = $var['register-user'];
-        $email_e = $this->general_library->urlsafe_b64encode($this->encrypt->encode($email));
-        $id_e = $this->general_library->urlsafe_b64encode($this->encrypt->encode($id));
-        $user_e = $this->general_library->urlsafe_b64encode($this->encrypt->encode($user));
+        $email_e = $this->general_library->urlsafe_b64encode($email);
+        $id_e = $this->general_library->urlsafe_b64encode($id);
+        $user_e = $this->general_library->urlsafe_b64encode($user);
         $url = base_url() . 'app/email_confirm/' . $email_e . '/' . $id_e . '/' . $user_e;
         echo 'Please Check your email and confirm your address: ' . $url;
         $this->general_library->send_ses('Paul Ferra', 'paul@streamy.link', 'Streamy', 'noreply@streamy.link', 'Register on Streamy', 'Link ' . $url);
@@ -206,9 +206,9 @@ class App extends CI_Controller {
 
     public function email_confirm($email_e, $id_e, $user_e) {
         //$data = array();
-        $email = $this->encrypt->decode($this->general_library->urlsafe_b64decode($email_e));
-        $id = $this->encrypt->decode($this->general_library->urlsafe_b64decode($id_e));
-        $user = $this->encrypt->decode($this->general_library->urlsafe_b64decode($user_e));
+        $email = $this->general_library->urlsafe_b64decode($email_e);
+        $id = $this->general_library->urlsafe_b64decode($id_e);
+        $user = $this->general_library->urlsafe_b64decode($user_e);
         //Check User
         $register_user = $this->User_model->fetch_user_by_search(array('email' => $email, 'user_name' => $user, 'id' => $id));
         if (!empty($register_user)) {
@@ -371,7 +371,7 @@ class App extends CI_Controller {
         $this->load->view($this->loc_path . 'account', $data);
     }
 
-    public function account_settings() {
+    public function account_settings_2() {
         if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $data = array();
@@ -382,7 +382,7 @@ class App extends CI_Controller {
         }
     }
 
-    public function account_settings_2() {
+    public function account_settings() {
         if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $data = array();

@@ -822,5 +822,15 @@ class App extends CI_Controller {
         print_r($result);
         echo '</pre>';
     }
+    
+    public function test_sql2() {
+        $sql = 'select * from user';
+        echo $sql . '<br>';
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        echo '<pre>';
+        print_r($result);
+        echo '</pre>';
+    }
 
 }

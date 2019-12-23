@@ -51,8 +51,7 @@ class App extends CI_Controller {
 
     public function index() {
         $data = array();
-        //if ($this->input->cookie($this->general_library->ses_name) != '') {
-            if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $this->status_pending();
             $user = $this->general_library->get_cookie();
             $data['user'] = $user;
@@ -373,7 +372,7 @@ class App extends CI_Controller {
     }
 
     public function account_settings() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $data = array();
             $data['user'] = $user;
@@ -384,7 +383,7 @@ class App extends CI_Controller {
     }
 
     public function account_settings_2() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $data = array();
             $data['user'] = $user;
@@ -421,7 +420,7 @@ class App extends CI_Controller {
     }
 
     public function account_setting_update_ajax() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $user_name = $this->input->post('username', TRUE);
             $email = $this->input->post('email', TRUE);
@@ -437,7 +436,7 @@ class App extends CI_Controller {
     }
 
     public function account_setting_complete_ajax() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $role = $this->input->post('radio', TRUE);
             $this->user_model->update_user($user['id'], array('role' => $role, 'status' => '1'));
@@ -452,7 +451,7 @@ class App extends CI_Controller {
     }
 
     public function account_setting_payment_ajax() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $role = $this->input->post('pln_id', TRUE);
             $this->user_model->update_user($user['id'], array('role' => $role, 'status' => '1'));
@@ -502,7 +501,7 @@ class App extends CI_Controller {
     /* Streamy */
 
     public function my_content_add_2() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $data = array();
             $data['user'] = $user;
@@ -513,7 +512,7 @@ class App extends CI_Controller {
     }
 
     public function my_content_add($type = null) {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $data = array();
             $data['user'] = $user;
@@ -527,7 +526,7 @@ class App extends CI_Controller {
     }
 
     public function streamy_content_view() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             //$user = $this->general_library->get_cookie();
             $type = $this->input->post('radio', TRUE);
             $streamy_url = $this->input->post('streamy_url', TRUE);
@@ -537,7 +536,7 @@ class App extends CI_Controller {
     }
 
     public function streamy_content_add() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $type = $this->input->post('radio', TRUE);
             $streamy_url = $this->input->post('streamy_url', TRUE);
@@ -562,7 +561,7 @@ class App extends CI_Controller {
 
     public function my_content() {
         $data = array();
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $this->status_pending();
             $user = $this->general_library->get_cookie();
             $streamys = $this->streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status' => '1'), $this->limit, 0);
@@ -606,7 +605,7 @@ class App extends CI_Controller {
     }
 
     public function streamy_remove() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $data = array();
             $user = $this->general_library->get_cookie();
             $id = $this->input->post('id', TRUE);
@@ -631,7 +630,7 @@ class App extends CI_Controller {
     }
 
     public function streamy_nav_action() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $data = array();
             $user = $this->general_library->get_cookie();
             $id = $this->input->post('id', TRUE);
@@ -678,7 +677,7 @@ class App extends CI_Controller {
 
     public function streamy() {
         $data = array();
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $data['user_name'] = $user['user_name'];
             if ($this->input->post()) {

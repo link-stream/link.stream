@@ -11,7 +11,7 @@
  *
  * @author paolo
  */
-class Streamy_model extends CI_Model {
+class streamy_model extends CI_Model {
 
     //put your code here
     public function __construct() {

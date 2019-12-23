@@ -55,6 +55,7 @@ class User_model extends CI_Model {
         if (!empty($search['platform_id'])) {
             $this->db->where('platform_id', $search['platform_id']); //By Password
         }
+        $this->db->order_by('id ASC');
         $query = $this->db->get();
         $result = $query->row_array();
         $query->free_result();

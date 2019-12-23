@@ -11,7 +11,7 @@
  *
  * @author paolo
  */
-class user_model extends CI_Model {
+class User_model extends CI_Model {
 
     //put your code here
     //put your code here

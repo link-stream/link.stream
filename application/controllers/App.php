@@ -590,8 +590,8 @@ class App extends CI_Controller {
         $pagLink = '';
         if ($streamys_count > 0) {
             // Number of pages required. 
-            $total_pages .= ceil($streamys_count / $limit);
-            $pagLink = '<li class="page-item ' . (($total_pages == '1' || $streamy_page == '1') ? "disabled" : "") . '"><a class="page-link js-nav_button" href="#" tabindex="-1" id="' . ($streamy_page - 1) . '">Previous</a></li>';
+            $total_pages = ceil($streamys_count / $limit);
+            $pagLink .= '<li class="page-item ' . (($total_pages == '1' || $streamy_page == '1') ? "disabled" : "") . '"><a class="page-link js-nav_button" href="#" tabindex="-1" id="' . ($streamy_page - 1) . '">Previous</a></li>';
             for ($i = 1; $i <= $total_pages; $i++) {
                 if ($i == $streamy_page) {
                     $pagLink .= '<li class="page-item active"><a class="page-link" js-nav_button href="#" id="' . $i . '">' . $i . '</a></li>';

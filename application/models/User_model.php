@@ -36,7 +36,7 @@ class User_model extends CI_Model {
         if ($query !== false) {
             $result = $query->row_array();
         } else {
-            $result = array();
+            return array();
         }
         $query->free_result();
         return $result;
@@ -63,7 +63,7 @@ class User_model extends CI_Model {
         if ($query !== false) {
             $result = $query->row_array();
         } else {
-            $result = array();
+            return array();
         }
         $query->free_result();
         return $result;

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
   <!-- Title of Website -->
-  <title>Kounter – Coming Soon Landing Page</title>
+  <title>Streamy – Your Streams Come True (Spring 2020)</title>
 
   <meta name="description"
         content="Coming Soon Landing Page"/>
@@ -88,14 +88,13 @@
 
           <!-- Headline -->
           <div class="wrap-line border-dark">
-            <h3><span class="font-weight-200">Stay</span> Tuned</h3>
+            <h3>Free <span class="font-weight-200">Early Access</span></h3>
           </div>
           <!-- /End Headline -->
 
           <!-- Description -->
           <div class="p-t-b-15">
-            <p>We launch our new website soon.<br>
-              Please stay updated and follow.</p>
+              <p>Sign-up for free early access to the Streamy platform with your phone or email, and we'll let you know when you can Start <u>Your</u> Stream.</p>
           </div>
           <!-- /End Description -->
 
@@ -149,36 +148,36 @@
        Header Navigation
   ================================= -->
 
-  <header>
+<!--  <header>
     <nav class="navbar navbar-fixed-top">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12 text-white col-transform">
             <div class="navbar-wrapper">
 
-              <!-- Navbar Button -->
+               Navbar Button 
               <button class="navbar-button show-info" data-href="#content">
                 <span></span>
                 <span></span>
                 <span></span>
               </button>
-              <!-- /End Navbar Button -->
+               /End Navbar Button 
 
-              <!-- Navbar Links -->
+               Navbar Links 
               <div class="navbar-links scrollspy">
                 <ul class="nav">
                   <li><a class="smooth-scroll link-white" href="#about">About</a></li>
                   <li><a class="smooth-scroll link-white" href="#contact">Contact</a></li>
                 </ul>
               </div>
-              <!-- /End Navbar Links -->
+               /End Navbar Links 
 
             </div>
           </div>
         </div>
       </div>
     </nav>
-  </header>
+  </header>-->
 
   <div class="container-fluid">
     <div class="row">
@@ -194,49 +193,48 @@
 
             <!-- Logo -->
             <div class="p-t-b-15">
-              <img src="<?= HTTP_ASSETS ?>solid-bg/images/logo-lg.png" height="86" width="70" alt="">
+              <img src="<?= HTTP_ASSETS ?>solid-bg/images/streamy_logo_vertical_negative_RGB.png" width="180px" alt="streamy logo">
             </div>
             <!-- /End Logo -->
 
             <div class="p-t-b-15">
               <!-- Headline & Description -->
-              <h2><span class="font-weight-200">We're launching our</span><br>new Website</h2>
+              <h2><span class="font-weight-200">Your streams come true </span><br>Spring 2020</h2>
 
-              <p>We're coming soon! Awesome template to present your future product or service.<br>We're
-                working hard to give you the best experience!<br>
+              <p>Musicians, Podcasters, YouTubers, Creators and Streamers: <br>Lead the wave with free early access to Streamy in Spring 2020.<br>
               </p>
               <!-- /End Headline & Description -->
             </div>
-            <!-- Arrow -->
+            <!-- Arrow 
             <div class="p-t-b-20">
               <i class="icon icon-sm icon-arrows-slim-down-dashed"></i>
             </div>
-            <!-- /End Arrow -->
+             /End Arrow -->
 
             <!-- Buttons -->
             <div class="p-t-b-15 btn-row">
               <button class="btn btn-color" data-toggle="modal"
                       data-target="#modal-notify"
-                      role="button">Notify me
+                      role="button">&#128588; Get Early Access &#128588;
               </button>
-              <a class="btn btn-border-white show-info"
+              <!-- <a class="btn btn-border-white show-info"
                  role="button" data-href="#content">
                 More info
-              </a>
+              </a> -->
             </div>
             <!-- /End Buttons -->
 
             <!-- Social Media Links -->
             <div class="p-t-b-30">
               <p>
-                <a href="https://www.facebook.com/egotypes" class="link-white"><i
-                    class="fa fa-facebook"></i></a>
-                <a href="https://twitter.com/egotype" class="link-white"><i
-                    class="fa fa-twitter"></i></a>
+                <a href="https://www.instagram.com/streamy.link" target="_blank" class="link-white"><i
+                    class="fa fa-instagram"></i>Join the fam on Instgram! </a>
+                <!--<a href="https://twitter.com/egotype" class="link-white"><i
+                    class="fa fa-youtube"></i></a>
                 <a href="https://plus.google.com" class="link-white"><i
                     class="fa fa-google-plus"></i></a>
                 <a href="https://www.behance.net/egotype" class="link-white"><i
-                    class="fa fa-behance"></i></a>
+                    class="fa fa-behance"></i></a> -->
               </p>
             </div>
             <!-- Social Media Links -->
@@ -250,30 +248,30 @@
            Content
       ================================= -->
 
-      <div id="content" class="page-content col-md-6 text-center bg-white-09">
+<!--      <div id="content" class="page-content col-md-6 text-center bg-white-09">
 
-        <!-- ----------------------------
+         ----------------------------
              About Section
-        --------------------------------- -->
+        --------------------------------- 
 
         <section id="about" class="p-t-b-30">
           <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
 
-              <!-- Headline -->
+               Headline 
               <div class="wrap-line border-dark">
                 <h3><span class="font-weight-200">About</span> Us</h3>
               </div>
-              <!-- /End Headline -->
+               /End Headline 
 
-              <!-- Description -->
+               Description 
               <div class="p-t-b-15  text-grey">
                 <p>Lorem ipsum dolor sit amet, consetetur sadipscing.<br>
                   Elitr sed diam nonumy eirmod, tempor invidunt.</p>
               </div>
-              <!-- /End Description -->
+               /End Description 
 
-              <!-- Social Media Links -->
+               Social Media Links 
               <div class="p-t-b-15">
                 <p>
                   <a href="https://www.facebook.com/egotypes" target="_blank">
@@ -284,15 +282,15 @@
                     <i class="fa fa-instagram"></i></a>
                 </p>
               </div>
-              <!-- /End Social Media Links -->
+               /End Social Media Links 
 
             </div>
           </div>
 
-          <!-- Gallery -->
+           Gallery 
           <div class="gallery row no-gutters p-t-b-30">
 
-            <!-- Image 1 -->
+             Image 1 
             <figure class="col-xs-6 img-hover-effect">
               <a href="<?= HTTP_ASSETS ?>solid-bg/images/placeholder-1800-1200.jpg"
                  data-size="900x600">
@@ -305,9 +303,9 @@
                 sed diam nonumy eirmod tempor invidunt ut labore et dolore.</span>
               <span class="img-overlay"></span>
             </figure>
-            <!-- /End Image 1 -->
+             /End Image 1 
 
-            <!-- Image 2 -->
+             Image 2 
             <figure class="col-xs-6 img-hover-effect">
               <a href="<?= HTTP_ASSETS ?>solid-bg/images/placeholder-1800-1200.jpg"
                  data-size="900x600">
@@ -320,9 +318,9 @@
                 sed diam nonumy eirmod tempor invidunt ut labore et dolore.</span>
               <span class="img-overlay"></span>
             </figure>
-            <!-- /End Image 2 -->
+             /End Image 2 
 
-            <!-- Image 3 -->
+             Image 3 
             <figure class="col-xs-6 img-hover-effect">
               <a href="<?= HTTP_ASSETS ?>solid-bg/images/placeholder-1800-1200.jpg"
                  data-size="900x600">
@@ -335,9 +333,9 @@
                 sed diam nonumy eirmod tempor invidunt ut labore et dolore.</span>
               <span class="img-overlay"></span>
             </figure>
-            <!-- /End Image 3 -->
+             /End Image 3 
 
-            <!-- Image 4 -->
+             Image 4 
             <figure class="col-xs-6 img-hover-effect">
               <a href="<?= HTTP_ASSETS ?>solid-bg/images/placeholder-1800-1200.jpg"
                  data-size="900x600">
@@ -349,67 +347,67 @@
                 sed diam nonumy eirmod tempor invidunt ut labore et dolore.</span>
               <span class="img-overlay"></span>
             </figure>
-            <!-- /End Image 4 -->
+             /End Image 4 
 
           </div>
-          <!-- /End Gallery -->
+           /End Gallery 
 
         </section>
 
 
-        <!-- ----------------------------
+         ----------------------------
              Contact Section
-        --------------------------------- -->
+        --------------------------------- 
 
         <section id="contact" class="p-t-b-30">
           <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
 
-              <!-- Headline -->
+               Headline 
               <div class="wrap-line border-dark">
                 <h3>Contact</h3>
               </div>
-              <!-- /End Headline -->
+               /End Headline 
 
-              <!-- Description -->
+               Description 
               <div class="p-t-b-15  text-grey">
                 <p>We launch our new website soon.<br>
                   Please stay updated and follow.</p>
               </div>
-              <!-- /End Description -->
+               /End Description 
 
-              <!-- Contact Form -->
+               Contact Form 
               <form action="php/contact-process.php" id="contact-form" method="post">
 
                 <input type="text" class="form-control form-control-custom" tabindex="-1"
                        id="text-field" name="text-field">
 
-                <!-- Input Name -->
+                 Input Name 
                 <div class="form-group" id="name-field">
                   <label for="form-name" class="sr-only">Name</label>
                   <input type="text" class="form-control form-control-dark"
                          id="form-name" name="form-name" placeholder="Name">
                 </div>
-                <!-- /End Input Name -->
+                 /End Input Name 
 
-                <!-- Input Email -->
+                 Input Email 
                 <div class="form-group" id="email-field">
                   <label for="form-email" class="sr-only">Email</label>
                   <input type="email" class="form-control form-control-dark"
                          id="form-email" name="form-email" placeholder="Email">
                 </div>
-                <!-- /End Input Email -->
+                 /End Input Email 
 
-                <!-- Input Message -->
+                 Input Message 
                 <div class="form-group" id="message-field">
                   <label for="form-message" class="sr-only">Message</label>
                                 <textarea class="form-control form-control-dark" rows="1"
                                           id="form-message" name="form-message"
                                           placeholder="Message"></textarea>
                 </div>
-                <!-- /End Input Message -->
+                 /End Input Message 
 
-                <!-- Submit Button -->
+                 Submit Button 
                 <div class="btn-row">
                   <div class="form-group">
                     <button type="submit" class="btn btn-dark" role="button">
@@ -417,16 +415,16 @@
                     </button>
                   </div>
                 </div>
-                <!-- /End Submit Button -->
+                 /End Submit Button 
 
               </form>
-              <!-- /End Contact Form -->
+               /End Contact Form 
 
-              <!-- Arrow -->
+               Arrow 
               <div class="p-t-b-40">
                 <i class="icon icon-sm icon-arrows-slim-down-dashed"></i>
               </div>
-              <!-- /End Arrow -->
+               /End Arrow 
 
             </div>
           </div>
@@ -436,74 +434,74 @@
               <div class="row">
                 <div class="col-sm-4 col-xs-6 p-t-b-5">
 
-                  <!-- Icon -->
+                   Icon 
                   <div class="p-t-b-15">
                     <i class="icon icon-lg icon-basic-geolocalize-01"></i>
                   </div>
-                  <!-- /End Icon -->
+                   /End Icon 
 
-                  <!-- Address -->
+                   Address 
                   <div class="p-t-b-15">
                     <h4>Address</h4>
 
                     <p>45 Park Avenue,<br>
                       New York, NY 10016</p>
                   </div>
-                  <!-- /End Address -->
+                   /End Address 
 
                 </div>
 
                 <div class="col-sm-4 col-xs-6 p-t-b-5">
 
-                  <!-- Icon -->
+                   Icon 
                   <div class="p-t-b-15">
                     <i class="icon icon-lg icon-basic-smartphone"></i>
                   </div>
-                  <!-- /End Icon -->
+                   /End Icon 
 
-                  <!-- Address -->
+                   Address 
                   <div class="p-t-b-15">
                     <h4>Direct</h4>
 
                     <p>T. <a href="tel:012345678991"> 01 23 456 78 99 1</a><br>
                       M. <a href="tel:012345678991">01 23 456 78 99 2</a></p>
                   </div>
-                  <!-- /End Address -->
+                   /End Address 
 
                 </div>
 
                 <div class="col-sm-4  col-sm-offset-0 col-xs-6 col-xs-offset-3 p-t-b-5">
 
-                  <!-- Icon -->
+                   Icon 
                   <div class="p-t-b-15">
                     <i class="icon icon-lg icon-basic-globe"></i>
                   </div>
-                  <!-- /End Icon -->
+                   /End Icon 
 
-                  <!-- Address -->
+                   Address 
                   <div class="p-t-b-15">
                     <h4>Web</h4>
 
                     <p><a href="mailto:">info@kounter.com</a><br>
                       <a href="">www.kounter.com</a></p>
                   </div>
-                  <!-- /End Address -->
+                   /End Address 
 
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Contact Alert -->
+           Contact Alert 
           <div id="message-contact" class="message-wrapper text-white message">
             <i class="icon icon-sm icon-arrows-slim-right-dashed"></i>
             <span class="message-text"></span>
           </div>
-          <!-- /End Contact Alert -->
+           /End Contact Alert 
 
         </section>
 
-      </div>
+      </div>-->
     </div>
   </div>
 

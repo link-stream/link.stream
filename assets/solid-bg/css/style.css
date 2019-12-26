@@ -237,7 +237,7 @@ b {
 }
 
 .bg-solid-color {
-  background-color: #1f64c5;
+  background-color: #000000;
 }
 
 .bg-dark {
@@ -368,7 +368,7 @@ a.btn.btn-dark:focus {
 .btn-color,
 a.btn-color {
   color: #fff;
-  background-color: #00ACC1;
+  background-color: #ff6666;
 }
 
 .btn.btn-color:hover,
@@ -378,7 +378,7 @@ a.btn.btn-color:hover,
 a.btn.btn-color:active,
 a.btn.btn-color:focus {
   color: #fff;
-  background-color: #0097A7;
+  background-color: #ff9936;
 }
 
 /* ----------------------------------
@@ -840,7 +840,7 @@ header {
 
 .overlay-opacity {
   filter: alpha(opacity=50);
-  opacity: 0.3;
+  opacity: 100;
 }
 
 .overlay-opacity-2 {
@@ -969,7 +969,7 @@ body.vegas-container > .vegas-slide {
 }
 
 .ball-scale-ripple-multiple-color > div {
-  border-color: #00ACC1;
+  border-color: #ff6666;
 }
 
 .ball-scale-ripple-multiple-bw > div {

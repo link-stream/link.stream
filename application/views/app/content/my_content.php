@@ -74,7 +74,7 @@ $this->load->view('app/_inc/header', $data);
                 </div>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-end js-streamys_nav">
-                        <?= (!empty($streamys_nav)) ? $streamys_nav : '<li class="page-item active"><a class="page-link" href="#">1</a></li>' ?>
+                        <?= (!empty($streamys_nav)) ? $streamys_nav : '' ?>
                     </ul>
                 </nav>
                 <!-- END NEW CONTENT -->

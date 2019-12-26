@@ -17,8 +17,8 @@ class App extends CI_Controller {
         //Libraries
         $this->load->library(array('Instagram_api', 'aws_s3'));
         //Models
-        $this->load->model("user_model");
-        $this->load->model("streamy_model");
+        $this->load->model("User_model");
+        $this->load->model("Streamy_model");
         //Vars
         $this->error = '';
     }
@@ -51,8 +51,7 @@ class App extends CI_Controller {
 
     public function index() {
         $data = array();
-        //if ($this->input->cookie($this->general_library->ses_name) != '') {
-            if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $this->status_pending();
             $user = $this->general_library->get_cookie();
             $data['user'] = $user;
@@ -80,13 +79,13 @@ class App extends CI_Controller {
 
     private function generate_username($user_name = null) {
         $streamy_username = (!empty($user_name)) ? strtolower(str_replace(' ', '', $user_name)) : uniqid();
-        $register_user = $this->user_model->fetch_user_by_search(array('user_name' => $streamy_username));
+        $register_user = $this->User_model->fetch_user_by_search(array('user_name' => $streamy_username));
         if (empty($register_user)) {
             return $streamy_username;
         } else {
             $streamy_username = strtolower(str_replace(' ', '', $user_name)) . rand(0, 100);
             //echo $streamy_username . '<br>';
-            $register_user = $this->user_model->fetch_user_by_search(array('user_name' => $streamy_username));
+            $register_user = $this->User_model->fetch_user_by_search(array('user_name' => $streamy_username));
             if (empty($register_user)) {
                 return $streamy_username;
             } else {
@@ -97,7 +96,7 @@ class App extends CI_Controller {
 
     public function verify_username() {
         $user_name = $this->input->post('username', TRUE);
-        $register_user = $this->user_model->fetch_user_by_search(array('user_name' => $user_name));
+        $register_user = $this->User_model->fetch_user_by_search(array('user_name' => $user_name));
         if (empty($register_user)) {
             echo 'true';
         } else {
@@ -107,7 +106,7 @@ class App extends CI_Controller {
 
     public function verify_email() {
         $email = $this->input->post('email', TRUE);
-        $register_user = $this->user_model->fetch_user_by_search(array('email' => $email));
+        $register_user = $this->User_model->fetch_user_by_search(array('email' => $email));
         if (empty($register_user)) {
             echo 'true';
         } else {
@@ -129,7 +128,7 @@ class App extends CI_Controller {
             if (!empty($email) && !empty($password)) {
                 $password_e = $this->general_library->encrypt_txt($password);
                 //Check Email And User
-                $register_user = $this->user_model->fetch_user_by_search(array('email' => $email, 'password' => $password_e));
+                $register_user = $this->User_model->fetch_user_by_search(array('email' => $email, 'password' => $password_e));
                 if (!empty($register_user)) {
                     $this->user_session($register_user);
                     redirect($this->loc_url, 'location', 302);
@@ -155,10 +154,10 @@ class App extends CI_Controller {
             $confirm_password = trim($this->input->post('repassword', TRUE));
             if (!empty($email) && !empty($user_name) && !empty($password) && !empty($confirm_password)) {
                 //Check Email And User
-                $register_user = $this->user_model->fetch_user_by_search(array('email' => $email));
+                $register_user = $this->User_model->fetch_user_by_search(array('email' => $email));
                 if (empty($register_user)) {
                     $user_name = $this->generate_username($user_name);
-                    //$register_user = $this->user_model->fetch_user_by_search(array('user_name' => $user_name));
+                    //$register_user = $this->User_model->fetch_user_by_search(array('user_name' => $user_name));
 //                    if (empty($register_user)) {
                     if ($password == $confirm_password) {
                         //Create Account
@@ -169,8 +168,8 @@ class App extends CI_Controller {
                         $user['role'] = '1';
                         $user['status'] = '3';
                         $user['platform'] = 'Streamy';
-                        $user['id'] = $this->user_model->insert_user($user);
-                        $this->user_model->insert_user_log(array('user' => $user['id'], 'event' => 'Registered'));
+                        $user['id'] = $this->User_model->insert_user($user);
+                        $this->User_model->insert_user_log(array('user' => $user['id'], 'event' => 'Registered'));
                         $this->session->set_userdata('register-email', $user['email']);
                         $this->session->set_userdata('register-id', $user['id']);
                         $this->session->set_userdata('register-user', $user['user_name']);
@@ -197,9 +196,9 @@ class App extends CI_Controller {
         $email = $var['register-email'];
         $id = $var['register-id'];
         $user = $var['register-user'];
-        $email_e = $this->general_library->urlsafe_b64encode($this->encrypt->encode($email));
-        $id_e = $this->general_library->urlsafe_b64encode($this->encrypt->encode($id));
-        $user_e = $this->general_library->urlsafe_b64encode($this->encrypt->encode($user));
+        $email_e = $this->general_library->urlsafe_b64encode($email);
+        $id_e = $this->general_library->urlsafe_b64encode($id);
+        $user_e = $this->general_library->urlsafe_b64encode($user);
         $url = base_url() . 'app/email_confirm/' . $email_e . '/' . $id_e . '/' . $user_e;
         echo 'Please Check your email and confirm your address: ' . $url;
         $this->general_library->send_ses('Paul Ferra', 'paul@streamy.link', 'Streamy', 'noreply@streamy.link', 'Register on Streamy', 'Link ' . $url);
@@ -207,15 +206,15 @@ class App extends CI_Controller {
 
     public function email_confirm($email_e, $id_e, $user_e) {
         //$data = array();
-        $email = $this->encrypt->decode($this->general_library->urlsafe_b64decode($email_e));
-        $id = $this->encrypt->decode($this->general_library->urlsafe_b64decode($id_e));
-        $user = $this->encrypt->decode($this->general_library->urlsafe_b64decode($user_e));
+        $email = $this->general_library->urlsafe_b64decode($email_e);
+        $id = $this->general_library->urlsafe_b64decode($id_e);
+        $user = $this->general_library->urlsafe_b64decode($user_e);
         //Check User
-        $register_user = $this->user_model->fetch_user_by_search(array('email' => $email, 'user_name' => $user, 'id' => $id));
+        $register_user = $this->User_model->fetch_user_by_search(array('email' => $email, 'user_name' => $user, 'id' => $id));
         if (!empty($register_user)) {
             $this->user_session($register_user);
-            $this->user_model->update_user($register_user['id'], array('email_confirmed' => '1'));
-            $this->user_model->insert_user_log(array('user' => $register_user['id'], 'event' => 'Confirmed Email'));
+            $this->User_model->update_user($register_user['id'], array('email_confirmed' => '1'));
+            $this->User_model->insert_user_log(array('user' => $register_user['id'], 'event' => 'Confirmed Email'));
             redirect($this->loc_url, 'location', 302);
         } else {
             redirect($this->loc_url . '/register', 'location', 302);
@@ -281,7 +280,7 @@ class App extends CI_Controller {
 
     private function instagram_user($user_id, $access_token, $instagram_user, $instagram_avatar) {
         //Check User
-        $register_user = $this->user_model->fetch_user_by_search(array('platform' => 'IG', 'platform_id' => $user_id));
+        $register_user = $this->User_model->fetch_user_by_search(array('platform' => 'IG', 'platform_id' => $user_id));
         if (empty($register_user)) {
             //Create Account
             $user = array();
@@ -293,11 +292,11 @@ class App extends CI_Controller {
             $user['platform_token'] = $access_token;
             $user['image'] = $instagram_avatar;
             $user['status'] = '3';
-            $user['id'] = $this->user_model->insert_user($user);
-            $this->user_model->insert_user_log(array('user' => $user['id'], 'event' => 'Registered'));
+            $user['id'] = $this->User_model->insert_user($user);
+            $this->User_model->insert_user_log(array('user' => $user['id'], 'event' => 'Registered'));
             $this->user_session($user);
         } else {
-            $this->user_model->insert_user_log(array('user' => $register_user['id'], 'event' => 'Logged in'));
+            $this->User_model->insert_user_log(array('user' => $register_user['id'], 'event' => 'Logged in'));
             $this->user_session($register_user);
         }
         return true;
@@ -322,7 +321,7 @@ class App extends CI_Controller {
 
         if (isset($token_info->email, $token_info->aud) && $token_info->aud == GOOGLE_LOGIN_CLIENT_ID) {
             //Check User
-            $register_user = $this->user_model->fetch_user_by_search(array('platform' => 'Google', 'platform_id' => $token_info->sub));
+            $register_user = $this->User_model->fetch_user_by_search(array('platform' => 'Google', 'platform_id' => $token_info->sub));
             if (empty($register_user)) {
                 //Create Account
                 $user = array();
@@ -337,11 +336,11 @@ class App extends CI_Controller {
                 $user['image'] = $token_info->picture;
                 $user['status'] = '3';
                 $user['email_confirmed'] = '1';
-                $user['id'] = $this->user_model->insert_user($user);
-                $this->user_model->insert_user_log(array('user' => $user['id'], 'event' => 'Registered'));
+                $user['id'] = $this->User_model->insert_user($user);
+                $this->User_model->insert_user_log(array('user' => $user['id'], 'event' => 'Registered'));
                 $this->user_session($user);
             } else {
-                $this->user_model->insert_user_log(array('user' => $register_user['id'], 'event' => 'Logged in'));
+                $this->User_model->insert_user_log(array('user' => $register_user['id'], 'event' => 'Logged in'));
                 $this->user_session($register_user);
             }
             return $this->output->set_output(json_encode(['success' => true]));
@@ -372,8 +371,8 @@ class App extends CI_Controller {
         $this->load->view($this->loc_path . 'account', $data);
     }
 
-    public function account_settings() {
-        if (1==1) {
+    public function account_settings_2() {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $data = array();
             $data['user'] = $user;
@@ -383,8 +382,8 @@ class App extends CI_Controller {
         }
     }
 
-    public function account_settings_2() {
-        if (1==1) {
+    public function account_settings() {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $data = array();
             $data['user'] = $user;
@@ -397,7 +396,7 @@ class App extends CI_Controller {
     public function verify_account_username() {
         $user_name = $this->input->post('username', TRUE);
         $user = $this->general_library->get_cookie();
-        $register_user = $this->user_model->fetch_user_by_search(array('user_name' => $user_name));
+        $register_user = $this->User_model->fetch_user_by_search(array('user_name' => $user_name));
         if (empty($register_user)) {
             echo 'true';
         } elseif ($user['user_name'] == $user_name) {
@@ -410,7 +409,7 @@ class App extends CI_Controller {
     public function verify_account_email() {
         $email = $this->input->post('email', TRUE);
         $user = $this->general_library->get_cookie();
-        $register_user = $this->user_model->fetch_user_by_search(array('email' => $email));
+        $register_user = $this->User_model->fetch_user_by_search(array('email' => $email));
         if (empty($register_user)) {
             echo 'true';
         } elseif ($user['email'] == $email) {
@@ -421,11 +420,11 @@ class App extends CI_Controller {
     }
 
     public function account_setting_update_ajax() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $user_name = $this->input->post('username', TRUE);
             $email = $this->input->post('email', TRUE);
-            $this->user_model->update_user($user['id'], array('user_name' => $user_name, 'email' => $email));
+            $this->User_model->update_user($user['id'], array('user_name' => $user_name, 'email' => $email));
             //update cookie
             $user['user_name'] = $user_name;
             $user['email'] = $email;
@@ -437,10 +436,10 @@ class App extends CI_Controller {
     }
 
     public function account_setting_complete_ajax() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $role = $this->input->post('radio', TRUE);
-            $this->user_model->update_user($user['id'], array('role' => $role, 'status' => '1'));
+            $this->User_model->update_user($user['id'], array('role' => $role, 'status' => '1'));
             //update cookie
             $user['role'] = $role;
             $user['status'] = '1';
@@ -452,10 +451,10 @@ class App extends CI_Controller {
     }
 
     public function account_setting_payment_ajax() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $role = $this->input->post('pln_id', TRUE);
-            $this->user_model->update_user($user['id'], array('role' => $role, 'status' => '1'));
+            $this->User_model->update_user($user['id'], array('role' => $role, 'status' => '1'));
             //update cookie
             $user['role'] = $role;
             $user['status'] = '1';
@@ -502,7 +501,7 @@ class App extends CI_Controller {
     /* Streamy */
 
     public function my_content_add_2() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $data = array();
             $data['user'] = $user;
@@ -513,7 +512,7 @@ class App extends CI_Controller {
     }
 
     public function my_content_add($type = null) {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $data = array();
             $data['user'] = $user;
@@ -527,7 +526,7 @@ class App extends CI_Controller {
     }
 
     public function streamy_content_view() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             //$user = $this->general_library->get_cookie();
             $type = $this->input->post('radio', TRUE);
             $streamy_url = $this->input->post('streamy_url', TRUE);
@@ -537,7 +536,7 @@ class App extends CI_Controller {
     }
 
     public function streamy_content_add() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $type = $this->input->post('radio', TRUE);
             $streamy_url = $this->input->post('streamy_url', TRUE);
@@ -555,18 +554,18 @@ class App extends CI_Controller {
                 'publish_at' => date('Y-m-d 00:00:00', strtotime($date)),
                 'name' => $name
             );
-            $this->streamy_model->insert_streamy($data);
+            $this->Streamy_model->insert_streamy($data);
             echo json_encode(array('status' => 'Success'));
         }
     }
 
     public function my_content() {
         $data = array();
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $this->status_pending();
             $user = $this->general_library->get_cookie();
-            $streamys = $this->streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status' => '1'), $this->limit, 0);
-            $streamys_count = $this->streamy_model->fetch_streamys_count_by_search(array('user' => $user['id'], 'status' => '1'));
+            $streamys = $this->Streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status' => '1'), $this->limit, 0);
+            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search(array('user' => $user['id'], 'status' => '1'));
             $stramy_list = array();
             foreach ($streamys as $streamy) {
                 $stramy_list[] = $this->streamy_desc($streamy);
@@ -591,8 +590,8 @@ class App extends CI_Controller {
         $pagLink = '';
         if ($streamys_count > 0) {
             // Number of pages required. 
-            $total_pages .= ceil($streamys_count / $limit);
-            $pagLink = '<li class="page-item ' . (($total_pages == '1' || $streamy_page == '1') ? "disabled" : "") . '"><a class="page-link js-nav_button" href="#" tabindex="-1" id="' . ($streamy_page - 1) . '">Previous</a></li>';
+            $total_pages = ceil($streamys_count / $limit);
+            $pagLink .= '<li class="page-item ' . (($total_pages == '1' || $streamy_page == '1') ? "disabled" : "") . '"><a class="page-link js-nav_button" href="#" tabindex="-1" id="' . ($streamy_page - 1) . '">Previous</a></li>';
             for ($i = 1; $i <= $total_pages; $i++) {
                 if ($i == $streamy_page) {
                     $pagLink .= '<li class="page-item active"><a class="page-link" js-nav_button href="#" id="' . $i . '">' . $i . '</a></li>';
@@ -606,13 +605,13 @@ class App extends CI_Controller {
     }
 
     public function streamy_remove() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $data = array();
             $user = $this->general_library->get_cookie();
             $id = $this->input->post('id', TRUE);
-            $this->streamy_model->update_streamy($id, array('status' => '3'));
-            $streamys = $this->streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status' => '1'), $this->limit, 0);
-            $streamys_count = $this->streamy_model->fetch_streamys_count_by_search(array('user' => $user['id'], 'status' => '1'));
+            $this->Streamy_model->update_streamy($id, array('status' => '3'));
+            $streamys = $this->Streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status' => '1'), $this->limit, 0);
+            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search(array('user' => $user['id'], 'status' => '1'));
             $stramy_list = array();
             foreach ($streamys as $streamy) {
                 $stramy_list[] = $this->streamy_desc($streamy);
@@ -631,14 +630,14 @@ class App extends CI_Controller {
     }
 
     public function streamy_nav_action() {
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $data = array();
             $user = $this->general_library->get_cookie();
             $id = $this->input->post('id', TRUE);
-            //$this->streamy_model->update_streamy($id, array('status' => '3'));
+            //$this->Streamy_model->update_streamy($id, array('status' => '3'));
             $offset = ($id == 1) ? 0 : (($id - 1) * $this->limit);
-            $streamys = $this->streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status' => '1'), $this->limit, $offset);
-            $streamys_count = $this->streamy_model->fetch_streamys_count_by_search(array('user' => $user['id'], 'status' => '1'));
+            $streamys = $this->Streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status' => '1'), $this->limit, $offset);
+            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search(array('user' => $user['id'], 'status' => '1'));
             $stramy_list = array();
             foreach ($streamys as $streamy) {
                 $stramy_list[] = $this->streamy_desc($streamy);
@@ -658,7 +657,7 @@ class App extends CI_Controller {
 
     public function streamy_view() {
         $id = $this->input->post('id', TRUE);
-        $streamy = $this->streamy_model->fetch_streamy_by_id($id);
+        $streamy = $this->Streamy_model->fetch_streamy_by_id($id);
         $streamy = $this->streamy_desc($streamy);
 //        $streamy['type_desc'] = ($streamy['type'] == '1') ? 'SoundCloud' : (($streamy['type'] == '2') ? 'YouTube' : 'LinkStreams');
 //        $streamy['public_desc'] = ($streamy['public'] == '1') ? 'Public' : 'Private';
@@ -678,7 +677,7 @@ class App extends CI_Controller {
 
     public function streamy() {
         $data = array();
-        if (1==1) {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $data['user_name'] = $user['user_name'];
             if ($this->input->post()) {

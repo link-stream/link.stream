@@ -60,8 +60,8 @@ class User_model extends CI_Model {
         $query->free_result();
         return $result;
     }
-    
-     public function insert_user_log($data) {
+
+    public function insert_user_log($data) {
         $this->db->insert('user_log', $data);
         //return $this->db->insert_id();
     }

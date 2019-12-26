@@ -74,11 +74,11 @@ class Home extends CI_Controller {
                 $this->load->view('app/content/my_live_content', $data);
             } else {
                 $data = array();
-                $this->load->view('index', $data);
+                $this->load->view($this->loc_path . 'index', $data);
             }
         } else {
             $data = array();
-            $this->load->view('index', $data);
+            $this->load->view($this->loc_path . '/index', $data);
         }
     }
 

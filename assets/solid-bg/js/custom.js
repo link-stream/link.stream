@@ -1260,7 +1260,7 @@ $(document).ready(function () {
     };
 
 
-    $("#photoswipe").load("js/plugins/photoswipe/include/photoswipe.html", function () {
+    $("#photoswipe").load("assets/solid-bg/js/plugins/photoswipe/include/photoswipe.html", function () {
       // Initialization .gallery
       initPhotoSwipeFromDOM('.gallery');
       // write your init for further galleries here
@@ -1460,6 +1460,4 @@ $(document).ready(function () {
       );
       document.querySelector("head").appendChild(msViewportStyle)
     }
-  }
-)
-;
+  });

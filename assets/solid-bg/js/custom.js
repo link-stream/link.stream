@@ -1350,12 +1350,12 @@ $(document).ready(function () {
                 },
                 success: function (data)
                 {
-                    console.log(data);
+                    //console.log(data);
                     $(".js-email").removeAttr("disabled");
                     $('#modal-notify').modal('hide');
                 },
                 error: function (textStatus, errorThrown) {
-                    window.location.href = 'app/';
+                    window.location.href = 'home/';
                 }
             });
         }

@@ -34,20 +34,22 @@
         </ul>
         <!-- my_content -->
         <ul class="childNav" data-parent="my_content">
-            <li class="nav-item"><a href="<?= base_url() ?>app/my_content_add/1"><i class="nav-icon i-Soundcloud"></i><span class="item-name">Add SoundCloud</span></a></li>
-            <li class="nav-item"><a href="<?= base_url() ?>app/my_content_add/2"><i class="nav-icon i-Youtube"></i><span class="item-name">Add Youtube</span></a></li>
-            <li class="nav-item"><a href="<?= base_url() ?>app/my_streamy_add"><i class="nav-icon i-Share-on-Cloud"></i><span class="item-name">Upload Files</span></a></li>
-            <li class="nav-item"><a href="<?= base_url() ?>app/my_content"><i class="nav-icon i-Data-Cloud"></i><span class="item-name">Manage</span></a></li>
-
             <li class="nav-item"><a href="<?= base_url() ?>app/audio"><i class="nav-icon i-Music-Note-2"></i><span class="item-name">Add Audio</span></a></li>
             <li class="nav-item"><a href="<?= base_url() ?>app/video"><i class="nav-icon i-Film"></i><span class="item-name">Add Video</span></a></li>
+<!--            <li class="nav-item"><a href="<?= base_url() ?>app/my_content_add/1"><i class="nav-icon i-Soundcloud"></i><span class="item-name">Add SoundCloud</span></a></li>
+            <li class="nav-item"><a href="<?= base_url() ?>app/my_content_add/2"><i class="nav-icon i-Youtube"></i><span class="item-name">Add Youtube</span></a></li>
+            <li class="nav-item"><a href="<?= base_url() ?>app/my_streamy_add"><i class="nav-icon i-Share-on-Cloud"></i><span class="item-name">Upload Files</span></a></li>-->
+            <li class="nav-item"><a href="<?= base_url() ?>app/my_content"><i class="nav-icon i-Data-Cloud"></i><span class="item-name">Manage</span></a></li>
+
+            
         </ul>
         <!-- my_content -->
         <ul class="childNav" data-parent="my_link">
-            <li class="nav-item"><a href="<?= base_url() ?>app/my_linkstream_add"><i class="nav-icon i-Cloud-"></i><span class="item-name">Add Link</span></a></li>
-            <li class="nav-item"><a href="<?= base_url() ?>app/my_content"><i class="nav-icon i-Data-Cloud"></i><span class="item-name">Manage</span></a></li>
-
             <li class="nav-item"><a href="<?= base_url() ?>app/linkstream"><i class="nav-icon i-Cloud-"></i><span class="item-name">Add Link</span></a></li>
+            <!--<li class="nav-item"><a href="<?= base_url() ?>app/my_linkstream_add"><i class="nav-icon i-Cloud-"></i><span class="item-name">Add Link</span></a></li>-->
+            <li class="nav-item"><a href="<?= base_url() ?>app/my_content/link"><i class="nav-icon i-Data-Cloud"></i><span class="item-name">Manage</span></a></li>
+
+            
         </ul>
 
 

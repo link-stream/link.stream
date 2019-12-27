@@ -43,7 +43,11 @@ class Streamy_model extends CI_Model {
             $this->db->where('user', $search['user']); //By Usew
         }
         if (!empty($search['type'])) {
-            $this->db->where('type', $search['type']); //By Type
+            if ($search['type'] == '3') {
+                $this->db->where('type', $search['type']); //By Type 
+            } else {
+                $this->db->where('type <> ', '3'); //By Type   
+            }
         }
         if (!empty($search['public'])) {
             $this->db->where('public', $search['public']); //By Public
@@ -62,15 +66,19 @@ class Streamy_model extends CI_Model {
         $query->free_result();
         return $result;
     }
-    
+
     public function fetch_streamys_count_by_search($search) {
-         $this->db->select('count(*) as Count');
+        $this->db->select('count(*) as Count');
         $this->db->from('streamy');
         if (!empty($search['user'])) {
             $this->db->where('user', $search['user']); //By Usew
         }
         if (!empty($search['type'])) {
-            $this->db->where('type', $search['type']); //By Type
+            if ($search['type'] == '3') {
+                $this->db->where('type', $search['type']); //By Type 
+            } else {
+                $this->db->where('type <> ', '3'); //By Type   
+            }
         }
         if (!empty($search['public'])) {
             $this->db->where('public', $search['public']); //By Public
@@ -86,7 +94,7 @@ class Streamy_model extends CI_Model {
         $query->free_result();
         return $row->Count;
     }
-    
+
     public function fetch_genres() {
         $this->db->from('genre');
         $query = $this->db->get();
@@ -94,7 +102,7 @@ class Streamy_model extends CI_Model {
         $query->free_result();
         return $result;
     }
-    
+
     public function fetch_genre_by_id($id) {
         $this->db->from('genre');
         $this->db->where('id', $id);
@@ -102,6 +110,11 @@ class Streamy_model extends CI_Model {
         $result = $query->row_array();
         $query->free_result();
         return $result;
+    }
+    
+    public function insert_early_access($data) {
+        $this->db->insert('early_access', $data);
+        return $this->db->insert_id();
     }
 
 }

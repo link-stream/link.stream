@@ -15,7 +15,7 @@ class App extends CI_Controller {
         //Session
         $this->general_library->update_cookie();
         //Libraries
-        $this->load->library(array('Instagram_api', 'aws_s3'));
+        $this->load->library(array('Instagram_api', 'aws_s3', 'Aws_pinpoint'));
         //Models
         $this->load->model("User_model");
         $this->load->model("Streamy_model");
@@ -545,15 +545,15 @@ class App extends CI_Controller {
         if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $type = $this->input->post('radio', TRUE);
-            //$streamy_url = $this->input->post('streamy_url', TRUE); 
+            $streamy_url = (!empty($this->input->post('streamy_url'))) ? $this->input->post('streamy_url', TRUE) : '';
             $priority = $this->input->post('priority', TRUE);
             $visibility = $this->input->post('visibility', TRUE);
             $name = $this->input->post('song_name', TRUE);
-            $date = $this->input->post('date', TRUE);
+            $date = (!empty($this->input->post('date'))) ? $this->input->post('date', TRUE) : date('Y-m-d');
             $genre = $this->input->post('genre', TRUE);
             $data = array(
                 'user' => $user['id'],
-                'url' => '',
+                'url' => $streamy_url,
                 'type' => $type,
                 'public' => $visibility,
                 'status' => '1',
@@ -562,27 +562,26 @@ class App extends CI_Controller {
                 'name' => $name,
                 'genre' => $genre
             );
-
-            //FILE
-            if (!empty($_FILES['input_b1']['name'])) {
-                $upload = $this->s3_upload('input_b1', 'Media');
-                if ($upload['status']) {
-                    $data['url'] = $upload['file_name'];
-                } else {
-                    
+            if ($type == '4') {
+                //FILE
+                if (!empty($_FILES['input_b1']['name'])) {
+                    $upload = $this->s3_upload('input_b1', 'Media');
+                    if ($upload['status']) {
+                        $data['url'] = $upload['file_name'];
+                    } else {
+                        
+                    }
+                }
+                //FILE
+                if (!empty($_FILES['input_b2']['name'])) {
+                    $upload = $this->s3_upload('input_b2', 'Media');
+                    if ($upload['status']) {
+                        $data['coverart'] = $upload['file_name'];
+                    } else {
+                        
+                    }
                 }
             }
-            //FILE
-            if (!empty($_FILES['input_b2']['name'])) {
-                $upload = $this->s3_upload('input_b2', 'Media');
-                if ($upload['status']) {
-                    $data['coverart'] = $upload['file_name'];
-                } else {
-                    
-                }
-            }
-
-
             $this->Streamy_model->insert_streamy($data);
             echo json_encode(array('status' => 'Success'));
         }
@@ -607,7 +606,7 @@ class App extends CI_Controller {
             $file_uploades = $this->upload->data();
             //SAVE S3
             $bucket = 'files.streamy.link';
-            $path = (ENV == 'live') ? 'PROD/' : 'DEV/';
+            $path = (ENV == 'live') ? 'prod/' : 'dev/';
             $destination = $path . $dest_folder . '/' . $file_uploades['file_name'];
             $s3_source = $source . '/' . $file_uploades['file_name'];
             $this->aws_s3->s3push($s3_source, $destination, $bucket);
@@ -618,13 +617,18 @@ class App extends CI_Controller {
         return $response;
     }
 
-    public function my_content() {
+    public function my_content($type = null) {
         $data = array();
         if ($this->input->cookie($this->general_library->ses_name) != '') {
             $this->status_pending();
             $user = $this->general_library->get_cookie();
-            $streamys = $this->Streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status' => '1'), $this->limit, 0);
-            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search(array('user' => $user['id'], 'status' => '1'));
+            $search = array(
+                'user' => $user['id'],
+                'status' => '1',
+                'type' => (!empty($type) && $type == 'link') ? '3' : 'Streamy'
+            );
+            $streamys = $this->Streamy_model->fetch_streamys_by_search($search, $this->limit, 0);
+            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search($search);
             $stramy_list = array();
             foreach ($streamys as $streamy) {
                 $stramy_list[] = $this->streamy_desc($streamy);
@@ -742,6 +746,9 @@ class App extends CI_Controller {
         } elseif ($streamy['type'] == '4') {
             $streamy['type_desc'] = 'Streamy';
             $streamy['type_icon'] = '<i class="i-Play-Music"></i>';
+        } elseif ($streamy['type'] == '5') {
+            $streamy['type_desc'] = 'TikTok';
+            $streamy['type_icon'] = '<i class="i-Play-Music"></i>';
         }
 
 
@@ -801,36 +808,33 @@ class App extends CI_Controller {
                     . 'frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen '
                     . '</iframe>';
         } elseif ($type == '3') {
-//            $tags = get_meta_tags($url);
-//            $embed_url = (!empty($tags['description'])) ? '<p>' . $tags['description'] . '</p>' : '';
+            //LinkStreams
             $embed_url = '<div class="row"> <div class="col-md-12 p-10"><a href="' . $url . '" class="btn btn-success" target="_blank">View</a></div></div>';
-        } else {
+        } elseif ($type == '4') {
+            //Streamy
             $path = (ENV == 'live') ? 'prod/media/' : 'dev/media/';
-            //$data = $this->aws_s3->s3_read('files.streamy.link', $path, $url);
             $file = 'https://s3.us-east-2.amazonaws.com/files.streamy.link/' . $path . $url;
-            //$audio_file = $this->aws_s3->s3_read('files.streamy.link', $path, $url);
-            //$cronDir = $this->get_temp_dir();
-            //file_put_contents($cronDir . '/' . $url, $audio_file);
-            //$audio_temp = base_url() . '/tmp/' . $url;
             $embed_url = '<audio id="myAudio">
   <source src="' . $file . '" type="audio/ogg">
   <source src="' . $file . '" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio><p>Click the buttons to play or pause the audio.</p>
-
 <button onclick="playAudio()" type="button">Play Audio</button>
 <button onclick="pauseAudio()" type="button">Pause Audio</button>';
-
-//            $embed_url = '<div class="example"><ul class="playlist">
-//
-// 
-//
-//    <li data-cover="cover-1.jpg" data-artist="Artist-1">
-//
-//      <a href="' . $file . '">Music 1</a>
-//
-//    </li></ul>
-//</div>';
+        } elseif ($type == '5') {
+            //Tik Tok
+            $tiktok_url = "https://www.tiktok.com/oembed?url=" . $url;
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $tiktok_url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 4);
+            $json = curl_exec($ch);
+            if (!$json) {
+                $embed_url = curl_error($ch);
+            }
+            curl_close($ch);
+            $tik_tok = json_decode($json);
+            $embed_url = (!empty($tik_tok->html)) ? $tik_tok->html : 'Error';
         }
         return $embed_url;
     }
@@ -886,6 +890,52 @@ class App extends CI_Controller {
             $data['type_url'] = ($data['type'] == '1') ? 'SoundCloud URL' : (($data['type'] == '2') ? 'YouTube URL' : 'URL');
             $data['genres'] = $this->Streamy_model->fetch_genres();
             $this->load->view($this->loc_path . 'content/my_streamy_add', $data);
+        } else {
+            redirect($this->loc_url . '/login', 'location', 302);
+        }
+    }
+
+    //NEW
+    public function video() {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $user = $this->general_library->get_cookie();
+            $data = array();
+            $data['user'] = $user;
+            $data['type'] = '';
+            $data['placeholder_url'] = '';
+            $data['type_url'] = '';
+            $data['genres'] = $this->Streamy_model->fetch_genres();
+            $this->load->view($this->loc_path . 'content/video', $data);
+        } else {
+            redirect($this->loc_url . '/login', 'location', 302);
+        }
+    }
+
+    public function audio() {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $user = $this->general_library->get_cookie();
+            $data = array();
+            $data['user'] = $user;
+            $data['type'] = '';
+            $data['placeholder_url'] = '';
+            $data['type_url'] = '';
+            $data['genres'] = $this->Streamy_model->fetch_genres();
+            $this->load->view($this->loc_path . 'content/audio', $data);
+        } else {
+            redirect($this->loc_url . '/login', 'location', 302);
+        }
+    }
+
+    public function linkstream() {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $user = $this->general_library->get_cookie();
+            $data = array();
+            $data['user'] = $user;
+            $data['type'] = '3';
+            $data['placeholder_url'] = 'https://www.streamy.link';
+            $data['type_url'] = 'URL';
+            $data['genres'] = $this->Streamy_model->fetch_genres();
+            $this->load->view($this->loc_path . 'content/linkstream', $data);
         } else {
             redirect($this->loc_url . '/login', 'location', 302);
         }
@@ -978,15 +1028,26 @@ class App extends CI_Controller {
 
     public function early_access_sms() {
         $email = $this->input->post('email', TRUE);
-        $data = array();
-        $body = $this->load->view('email/email_coming_soon', $data, true);
-        $this->general_library->send_ses($email, $email, 'Streamy', 'noreply@streamy.link', 'Early Access', $body);
-        echo json_encode(array('status' => 'Success', 'email' => $email));
+        $phone = $this->input->post('phone', TRUE);
+        if (!empty($email)) {
+            $data = array();
+            $body = $this->load->view('email/email_coming_soon', $data, true);
+            $this->general_library->send_ses($email, $email, 'Streamy', 'noreply@streamy.link', 'Early Access', $body);
+        }
+        if (!empty($phone)) {
+            $this->aws_pinpoint->send($phone, 'Welcome to Streamy');
+        }
+        $this->Streamy_model->insert_early_access(array('email' => $email, 'phone' => $phone));
+        echo json_encode(array('status' => 'Success'));
     }
-    
-    public function email_coming_soon(){
+
+    public function email_coming_soon() {
         $data = array();
-        $body = $this->load->view('email/email_coming_soon', $data);
+        $this->load->view('email/email_coming_soon', $data);
+    }
+
+    public function send_sms() {
+        $this->aws_pinpoint->send('+13059705118', 'Welcome to Streamy');
     }
 
 }

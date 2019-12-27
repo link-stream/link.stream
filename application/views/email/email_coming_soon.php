@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>SFE</title>
+        <title>Streamy</title>
     </head>
     <body>
         <table width="500" border="0" align="center">

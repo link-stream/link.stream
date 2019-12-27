@@ -8,7 +8,8 @@ class Aws_s3 {
     private $s3;
 
     public function __construct() {
-        include_once dirname(__FILE__) . '/aws_sns/aws-autoloader.php';
+        //include_once dirname(__FILE__) . '/aws_sns/aws-autoloader.php';
+        include_once dirname(__FILE__) . '/aws/aws-autoloader.php';
         $this->aws_key = 'AKIAXBDC73PH3KDCPMFN';
         $this->aws_secret = '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';
         $this->s3 = Aws\S3\S3Client::factory(array(

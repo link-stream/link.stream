@@ -48,7 +48,7 @@ $this->load->view('app/_inc/header', $data);
     }
     .list-group-item {
         border: 0px solid rgba(0, 0, 0, 0.125);
-        text-align: left;
+        text-align: center;
 
     }
 </style>
@@ -62,7 +62,7 @@ $this->load->view('app/_inc/header', $data);
             <div class="main-content">
                 <div class="breadcrumb">
                     <h1><?= $data['page'] ?></h1>
-                    <!--                    <ul>
+<!--                                       <ul>
                                             <li><a href="">Pages</a></li>
                                             <li>Blank</li>
                                         </ul>-->
@@ -117,7 +117,7 @@ $this->load->view('app/_inc/header', $data);
                                         <p class="card-text text-mute">Complete Your Account</p>
                                         <div class="col-md-12">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-4 mb-4">
                                                     <h3>Rookie</h3>
                                                     <h3>Free </h3>
                                                     <div class="col-md-12 mb-2">
@@ -132,7 +132,7 @@ $this->load->view('app/_inc/header', $data);
                                                         <li class="list-group-item"><i class="fa fa-check text-success" aria-hidden="true"></i> Link</li>
                                                     </ul>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-4 mb-4">
                                                     <h3>Pro</h3>
                                                     <h3>$ 4.95 / Month </h3>
                                                     <div class="col-md-12 mb-2">
@@ -148,7 +148,7 @@ $this->load->view('app/_inc/header', $data);
                                                         <li class="list-group-item"><i class="fa fa-check text-success" aria-hidden="true"></i> Schedule</li>
                                                     </ul>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-4 mb-4">
                                                     <h3>Start</h3>
                                                     <h3>$ 24.95 / Month </h3>
                                                     <div class="col-md-12 mb-2">

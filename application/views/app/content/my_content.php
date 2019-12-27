@@ -49,8 +49,16 @@ $this->load->view('app/_inc/header', $data);
         text-align: left;
 
     }
+    ._embed_video_card-button{
+        display:none !important;
+    }
+    
+    ._embed_video_card-wrapper{
+         display:none !important;
+    }
 </style>
 <link rel="stylesheet" href="<?= HTTP_ASSETS ?>dist-assets/css/plugins/datatables.min.css" />
+<script src="<?= HTTP_ASSETS ?>mini-music-player-master/css/styles.css"></script>
 <body class="text-left">
     <div class="app-admin-wrap layout-sidebar-large">
         <?php $this->load->view('app/_inc/main-header', $data); ?>
@@ -90,6 +98,8 @@ $this->load->view('app/_inc/header', $data);
     <script src="<?= HTTP_ASSETS ?>dist-assets/js/scripts/customizer.script.min.js"></script>
     <!--bootbox--> 
     <script src="<?= HTTP_ASSETS ?>vendor/bootbox-4.4.0/bootbox.min.js" type="text/javascript"></script> 
+
+    <script src="<?= HTTP_ASSETS ?>mini-music-player-master/js/musicplayer-min.js"></script>
     <script> var urlBase = "<?= base_url(); ?>";</script>
     <script>
         $(document).ready(function () {
@@ -107,10 +117,10 @@ $this->load->view('app/_inc/header', $data);
                     }
                 });
             });
-            $('body').on('click', '.js-delete', function (e) {
 
+            $('body').on('click', '.js-delete', function (e) {
                 var id = this.id;
-                bootbox.confirm('Are you sure you want to process this content', function (result) {
+                bootbox.confirm('Are you sure you want to delete this content', function (result) {
                     if (result) {
                         $.ajax({
                             type: "POST",
@@ -139,6 +149,7 @@ $this->load->view('app/_inc/header', $data);
                 });
                 console.log(id);
             });
+
             $('body').on('click', '.js-nav_button', function (e) {
                 e.preventDefault();
                 var id = this.id;
@@ -167,7 +178,145 @@ $this->load->view('app/_inc/header', $data);
                     }
                 });
             });
+
+//            $("#my_content_update").validate({
+//                onkeyup: false,
+//                errorClass: "state-error",
+//                validClass: "state-success",
+//                errorElement: "em",
+//                errorPlacement: function (label, element) {
+//                    label.addClass('invalid-tooltip');
+//                    label.insertAfter(element);
+//                },
+//                rules: {
+////                    radio: {
+////                        required: true
+////                    },
+////                    streamy_url: {
+////                        required: true,
+////                        url: true,
+////                        url_type: "#streamy_url"
+////                    },
+//                    priority: {
+//                        required: true
+//                    },
+//                    visibility: {
+//                        required: true
+//                    },
+//                    date: {
+//                        required: true,
+//                        date: true
+//                    },
+//                    song_name: {
+//                        required: true
+//                    },
+//                    genre: {
+//                        required: true
+//                    }
+//                },
+//                messages: {
+////                username: {
+////                    remote: 'User Name Already Register'
+////                }
+//                },
+//                submitHandler: function (form) {
+//                    form.submit();
+//                }
+//            });
+
+            $('body').on('click', '.js-update', function (e) {
+                var form_name = '#my_content_update';
+                if ($(form_name).valid()) {
+                    $.ajax({
+                        type: 'post',
+                        url: urlBase + "app/streamy_update",
+                        data: $(form_name).serialize(),
+                        dataType: 'json',
+                        success: function (r)
+                        {
+                            if (r.status === 'Success') {
+                                var streamy = r.streamy;
+                                var card = '#card_' + streamy.id;
+                                $(card + ' .ul-widget-card_title').html(streamy.type_icon + ' ' + streamy.name);
+                                //$(card + ' .card-text').text(streamy.url);
+                                $(card + ' .public_desc').text('Visibility: ' + streamy.public_desc);
+                                $(card + ' .priority_desc').text('Priority: ' + streamy.priority_desc);
+                                $(card + ' .publish_at').text('Scheduled: ' + streamy.publish_at);
+                                $(card + ' .genre_desc').text(streamy.genre_desc);
+                                $('#orderDetail').modal('hide');
+                            }
+                        },
+                        error: function (textStatus, errorThrown) {
+                            window.location.href = 'app/';
+                        }
+                    });
+                }
+            });
+
+$(".example").musicPlayer();
+
         });
+        var x = document.getElementById("myAudio");
+
+        function playAudio() {
+            console.log(x);
+            x.play();
+        }
+
+        function pauseAudio() {
+            x.pause();
+        }
+        
+        
+
+
+//        $(".example").musicPlayer({
+//
+//            autoPlay: false,
+//
+//            volume: 80,
+//
+//            loop: false,
+//
+//            timeSeparator: ' / ',
+//
+//            playerAbovePlaylist: true,
+//
+//            infoElements: ['title', 'artist'],
+//
+//            elements: ['artwork', 'information', 'controls', 'progress', 'time', 'volume'],
+//
+//            timeElements: ['current', 'duration'],
+//
+//            controlElements: ['backward', 'play', 'forward', 'stop'],
+//
+//        });
+
+
+//$('._embed_video_card-wrapper').
+//    contents().find("head").append(
+//     $("<style type='text/css'>"+
+//       "#tawkchat-status-text-container {"+
+//         "background: url(https://example.net/img/my_mobile_bg.png) no-repeat center center blue;"+
+//         "background-size: 100%;"+
+//       "} "+
+//       "#tawkchat-status-icon {display:none} </style>")
+//   );
+   
+   
+   //$('._embed_video_card-wrapper').addClass("tiktok");
+   
+//   var iframe = document.getElementsByClassName('tiktok-embed');
+//   console.log(iframe);
+//var style = document.createElement('style');
+//style.textContent =
+//  'body {' +
+//  '  background-color: some-color;' +
+//  '  background-image: some-image;' +
+//  '}' 
+//;
+//iframe.contentDocument.head.appendChild(style);
+
     </script>
 </body>
 </html>

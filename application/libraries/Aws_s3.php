@@ -249,11 +249,11 @@ class Aws_s3 {
                 //'ACL' => 'public-read',
                 'StorageClass' => 'STANDARD'
             ));
-            var_dump($result['ObjectURL']);
+            //var_dump($result['ObjectURL']);
             //echo "Upload Complete $destination\n";
             return $result['ObjectURL'];
         } catch (Exception $e) {
-            echo $e->getMessage() . "\n";
+            //echo $e->getMessage() . "\n";
             return false;
         }
     }

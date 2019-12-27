@@ -63,11 +63,39 @@ $this->load->view('app/_inc/header', $data);
             <div class="main-content">
                 <div class="breadcrumb">
                     <h1><?= $data['page'] ?></h1>
-                    <!--                    <ul>
-                                            <li><a href="">Pages</a></li>
-                                            <li>Blank</li>
-                                        </ul>-->
+
+
+                    <!--                                     <ul>
+                                                                <li><a href="">Pages</a></li>
+                                                                <li>Blank</li>
+                                                            </ul>-->
                 </div>
+                <!--<label for="basic-url">Your Streamy URL</label>-->
+
+                <!--                    <div class="input-group mb-3 col-md-4">
+                                        <input class="form-control" type="text" placeholder="Streamy Url" aria-label="Streamy Url" aria-describedby="basic-addon2" readonly="" value="<?= $user['url'] ?>"/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">Copy</span>
+                                        </div>
+                                    </div>-->
+                <!--                <div class="input-group row">
+                                    <label class="col-sm-2 col-form-label" for="inputEmail3">Your Streamy URL</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" id="inputEmail3" type="email" placeholder="Email" /> 
+                                        <div class="input-group-append"><span class="input-group-text" id="basic-addon2">Copy</span></div>
+                                    </div>
+                                                        <div class="col-sm-4">
+                                                            <button class="btn btn-success m-1 js-next" id="next_1" data-step="1" data-next="2" type="button">Next</button>
+                                                        </div>
+                                </div>-->
+
+                <!--                <div class="input-group mb-3 col-md-6">
+                                    <label class="col-form-label" for="inputEmail3">Your Streamy URL:&nbsp;&nbsp;</label>
+                                    <input class="form-control" type="text" placeholder="Your Streamy URL" aria-label="Your Streamy URL" aria-describedby="basic-addon2" value="<?= $user['url'] ?>" readonly=""/>
+                                    <div class="input-group-append"><span class="input-group-text" id="basic-addon2">Copy</span></div>
+                                </div>-->
+
+
                 <div class="separator-breadcrumb border-top"></div>
                 <!-- end of main-content -->
                 <!-- NEW CONTENT -->
@@ -206,32 +234,45 @@ $this->load->view('app/_inc/header', $data);
                                         <p class="card-text text-mute">Step 4 / 4 </p>
                                         <div class="col-md-12 text-left">
                                             <div class="row">
-
                                                 <div class="col-md-12 form-group mb-3">
                                                     <label for="song_name">Name</label>
                                                     <input class="form-control" type="text" id="song_name" name="song_name" placeholder="Enter name" required="" value=""/>
                                                 </div>
-
                                             </div>
                                             <div class="row">
-
-                                                <div class="col-md-4 form-group mb-3">
+                                                <div class="col-md-6 form-group mb-3">
+                                                    <label for="genre">Genre</label>
+                                                    <select class="form-control" id="genre" name="genre">
+                                                        <!--                                                        <option value="" selected="">Select Genre</option>-->
+                                                        <?php
+                                                        if (!empty($genres)) {
+                                                            foreach ($genres as $genre) {
+                                                                ?>
+                                                                <option value="<?= $genre['id'] ?>" <?= ($genre['id'] == '1') ? 'selected=""' : '' ?>><?= $genre['genre'] ?></option>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6 form-group mb-3">
                                                     <label for="priority">Priority</label>
                                                     <select class="form-control" id="priority" name="priority">
-                                                        <option value="1">Spotlight</option>
+                                                        <option value="1" <?= ($user['role'] == '1') ? 'disabled=""' : '' ?> ><?= ($user['role'] == '1') ? 'Spotlight - Not available for Free Account' : 'Spotlight' ?></option>
                                                         <option value="2" selected="">Normal</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-4 form-group mb-3">
+                                                <div class="col-md-6 form-group mb-3">
                                                     <label for="visibility">Visibility</label>
                                                     <select class="form-control" id="visibility" name="visibility">
                                                         <option value="1" selected="">Public</option>
                                                         <option value="2">Private</option>
+                                                        <option value="3" <?= ($user['role'] == '1') ? 'disabled=""' : '' ?>><?= ($user['role'] == '1') ? 'Scheduled - Not available for Free Account' : 'Scheduled' ?> </option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-4 form-group mb-3">
-                                                    <label for="date">Schedule</label>
-                                                    <input class="form-control" id="date"  name="date" type="text" placeholder="Date" value="<?= date('m/d/Y') ?>" <?= ($user['role'] != '1') ? 'readonly=""' : '' ?> />
+                                                <div class="col-md-6 form-group mb-3">
+                                                    <label for="date">Scheduled</label>
+                                                    <input class="form-control" id="date"  name="date" type="text" placeholder="Date" value="<?= date('m/d/Y') ?>" <?= ($user['role'] == '1') ? 'readonly=""' : '' ?> />
                                                 </div>
                                             </div>
                                         </div>
@@ -333,6 +374,9 @@ $this->load->view('app/_inc/header', $data);
                     date: true
                 },
                 song_name: {
+                    required: true
+                },
+                genre: {
                     required: true
                 }
             },
@@ -440,12 +484,9 @@ $this->load->view('app/_inc/header', $data);
             var value = $(this).val();
             var d = new Date();
             var strDate = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
-            if ($.trim(value) === '1') {
-                if (role !== '1') {
-                    $('#date').attr('readonly', false);
-                }
-                $('#date').val(strDate);
-            } else if ($.trim(value) === '2') {
+            if ($.trim(value) === '3' && role !== '1') {
+                $('#date').attr('readonly', false);
+            } else {
                 $('#date').attr('readonly', true);
                 $('#date').val(strDate);
             }

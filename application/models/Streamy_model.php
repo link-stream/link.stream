@@ -86,5 +86,22 @@ class Streamy_model extends CI_Model {
         $query->free_result();
         return $row->Count;
     }
+    
+    public function fetch_genres() {
+        $this->db->from('genre');
+        $query = $this->db->get();
+        $result = $query->result_array();
+        $query->free_result();
+        return $result;
+    }
+    
+    public function fetch_genre_by_id($id) {
+        $this->db->from('genre');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        $result = $query->row_array();
+        $query->free_result();
+        return $result;
+    }
 
 }

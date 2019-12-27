@@ -105,7 +105,7 @@
              write your email in newsletter-process.php and use:
              <form action="php/newsletter-process.php" id="newsletter-form" method="post"> insted of
              <form id="mc-form"> -->
-            <form id="mc-form">
+            <form id="mc-form" action="">
 
               <input type="text" class="form-control form-control-custom" tabindex="-1"
                      id="text-field-nl" name="text-field-nl">
@@ -116,7 +116,7 @@
                        name="email"
                        placeholder="Enter your Email here...">
                   <span class="input-group-btn">
-                    <button type="submit" class="btn btn-color"><i
+                      <button type="button" class="btn btn-color js-email"><i
                         class="icon icon-sm icon-arrows-slim-right-dashed"></i>
                     </button>
                   </span>
@@ -520,6 +520,9 @@
 <script src="<?= HTTP_ASSETS ?>solid-bg/js/plugins/photoswipe/photoswipe-ui-default.min.js"></script>
 <script src="<?= HTTP_ASSETS ?>solid-bg/js/plugins/jquery.countdown.min.js"></script>
 <script src="<?= HTTP_ASSETS ?>solid-bg/js/plugins/prefixfree.min.js"></script>
+<script src="<?= HTTP_ASSETS ?>jquery-validation-1.19.1/dist/jquery.validate.min.js"></script>
+
+<script> var urlBase = "<?= base_url(); ?>";</script>
 
 <!-- Custom Script -->
 <script src="<?= HTTP_ASSETS ?>solid-bg/js/custom.js"></script>

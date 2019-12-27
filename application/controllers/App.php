@@ -72,7 +72,8 @@ class App extends CI_Controller {
             'platform' => $register_user['platform'],
             'platform_id' => $register_user['platform_id'],
             'image' => $register_user['image'],
-            'status' => $register_user['status']
+            'status' => $register_user['status'],
+            'url' => $register_user['url']
         ));
         $this->general_library->create_cookie($streamy_user);
     }
@@ -201,7 +202,7 @@ class App extends CI_Controller {
         $user_e = $this->general_library->urlsafe_b64encode($user);
         $url = base_url() . 'app/email_confirm/' . $email_e . '/' . $id_e . '/' . $user_e;
         echo 'Please Check your email and confirm your address: ' . $url;
-        $this->general_library->send_ses('Paul Ferra', 'paul@streamy.link', 'Streamy', 'noreply@streamy.link', 'Register on Streamy', 'Link ' . $url);
+        $this->general_library->send_ses($user, $email, 'Streamy', 'noreply@streamy.link', 'Register on Streamy', 'Link ' . $url);
     }
 
     public function email_confirm($email_e, $id_e, $user_e) {
@@ -439,10 +440,12 @@ class App extends CI_Controller {
         if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $role = $this->input->post('radio', TRUE);
-            $this->User_model->update_user($user['id'], array('role' => $role, 'status' => '1'));
+            $url = base_url() . $this->general_library->urlsafe_b64encode($user['user_name']);
+            $this->User_model->update_user($user['id'], array('role' => $role, 'status' => '1', 'url' => $url));
             //update cookie
             $user['role'] = $role;
             $user['status'] = '1';
+            $user['url'] = $url;
             $encrypted_user = $this->general_library->urlsafe_b64encode(json_encode($user));
             $this->general_library->update_cookie(serialize(array('user' => $encrypted_user)));
             //
@@ -454,10 +457,12 @@ class App extends CI_Controller {
         if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $role = $this->input->post('pln_id', TRUE);
+            $url = base_url() . $user['user_name'];
             $this->User_model->update_user($user['id'], array('role' => $role, 'status' => '1'));
             //update cookie
             $user['role'] = $role;
             $user['status'] = '1';
+            $user['url'] = $url;
             $encrypted_user = $this->general_library->urlsafe_b64encode(json_encode($user));
             $this->general_library->update_cookie(serialize(array('user' => $encrypted_user)));
             //
@@ -519,6 +524,7 @@ class App extends CI_Controller {
             $data['type'] = (!empty($type)) ? $type : '';
             $data['placeholder_url'] = ($data['type'] == '1') ? 'https://soundcloud.com/iamstarinthesky/go-hard-prod-silo' : (($data['type'] == '2') ? 'https://www.youtube.com/watch?v=h_D3VFfhvs4' : 'https://www.streamy.link');
             $data['type_url'] = ($data['type'] == '1') ? 'SoundCloud URL' : (($data['type'] == '2') ? 'YouTube URL' : 'URL');
+            $data['genres'] = $this->Streamy_model->fetch_genres();
             $this->load->view($this->loc_path . 'content/my_content_add_2', $data);
         } else {
             redirect($this->loc_url . '/login', 'location', 302);
@@ -539,24 +545,77 @@ class App extends CI_Controller {
         if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $type = $this->input->post('radio', TRUE);
-            $streamy_url = $this->input->post('streamy_url', TRUE);
+            //$streamy_url = $this->input->post('streamy_url', TRUE); 
             $priority = $this->input->post('priority', TRUE);
             $visibility = $this->input->post('visibility', TRUE);
             $name = $this->input->post('song_name', TRUE);
             $date = $this->input->post('date', TRUE);
+            $genre = $this->input->post('genre', TRUE);
             $data = array(
                 'user' => $user['id'],
-                'url' => $streamy_url,
+                'url' => '',
                 'type' => $type,
                 'public' => $visibility,
                 'status' => '1',
                 'priority' => $priority,
                 'publish_at' => date('Y-m-d 00:00:00', strtotime($date)),
-                'name' => $name
+                'name' => $name,
+                'genre' => $genre
             );
+
+            //FILE
+            if (!empty($_FILES['input_b1']['name'])) {
+                $upload = $this->s3_upload('input_b1', 'Media');
+                if ($upload['status']) {
+                    $data['url'] = $upload['file_name'];
+                } else {
+                    
+                }
+            }
+            //FILE
+            if (!empty($_FILES['input_b2']['name'])) {
+                $upload = $this->s3_upload('input_b2', 'Media');
+                if ($upload['status']) {
+                    $data['coverart'] = $upload['file_name'];
+                } else {
+                    
+                }
+            }
+
+
             $this->Streamy_model->insert_streamy($data);
             echo json_encode(array('status' => 'Success'));
         }
+    }
+
+    private function s3_upload($field_name, $dest_folder = null) {
+        $response = array('status' => true, 'msg' => '', 'file_name' => '');
+        $this->load->library('upload');
+        $source = $this->get_temp_dir();
+        $config['upload_path'] = $source . '/';
+        $config['allowed_types'] = '*';
+        $config['max_size'] = 102400;
+        $config['encrypt_name'] = TRUE;
+        //$config['file_name'] = $filename;
+        //unlink($source .'/'.$config['file_name']);
+        $this->upload->initialize($config);
+        if (!$this->upload->do_upload($field_name)) {
+            $error = array('error' => $this->upload->display_errors());
+            $response['status'] = false;
+            $response['msg'] = $error['error'];
+        } else {
+            $file_uploades = $this->upload->data();
+            //SAVE S3
+            $bucket = 'files.streamy.link';
+            $path = (ENV == 'live') ? 'PROD/' : 'DEV/';
+            $destination = $path . $dest_folder . '/' . $file_uploades['file_name'];
+            $s3_source = $source . '/' . $file_uploades['file_name'];
+            $this->aws_s3->s3push($s3_source, $destination, $bucket);
+            $response['file_name'] = $file_uploades['file_name'];
+            unlink($source . '/' . $file_uploades['file_name']);
+            $response['status'] = true;
+        }
+        return $response;
     }
 
     public function my_content() {
@@ -659,19 +718,43 @@ class App extends CI_Controller {
         $id = $this->input->post('id', TRUE);
         $streamy = $this->Streamy_model->fetch_streamy_by_id($id);
         $streamy = $this->streamy_desc($streamy);
+        $user = $this->general_library->get_cookie();
 //        $streamy['type_desc'] = ($streamy['type'] == '1') ? 'SoundCloud' : (($streamy['type'] == '2') ? 'YouTube' : 'LinkStreams');
 //        $streamy['public_desc'] = ($streamy['public'] == '1') ? 'Public' : 'Private';
 //        $streamy['priority_desc'] = ($streamy['priority'] == '1') ? 'High' : (($streamy['priority'] == '2') ? 'Normal' : 'Low');
 //        $streamy['publish_at'] = date('m/d/Y', strtotime($streamy['publish_at']));
+        $streamy['genres'] = $this->Streamy_model->fetch_genres();
+        $streamy['user'] = $user;
         $this->load->view($this->loc_path . 'content/my_content_modal', $streamy);
     }
 
     private function streamy_desc($streamy) {
         $streamy['embeed'] = $this->embed_url($streamy['url'], $streamy['type']);
-        $streamy['type_desc'] = ($streamy['type'] == '1') ? 'SoundCloud' : (($streamy['type'] == '2') ? 'YouTube' : 'LinkStreams');
-        $streamy['public_desc'] = ($streamy['public'] == '1') ? 'Public' : 'Private';
-        $streamy['priority_desc'] = ($streamy['priority'] == '1') ? 'Spotlight' : (($streamy['priority'] == '2') ? 'Normal' : 'Low');
+        if ($streamy['type'] == '1') {
+            $streamy['type_desc'] = 'SoundCloud';
+            $streamy['type_icon'] = '<i class="i-Soundcloud"></i>';
+        } elseif ($streamy['type'] == '2') {
+            $streamy['type_desc'] = 'YouTube';
+            $streamy['type_icon'] = '<i class="i-Youtube"></i>';
+        } elseif ($streamy['type'] == '3') {
+            $streamy['type_desc'] = 'LinkStreams';
+            $streamy['type_icon'] = '<i class="i-Link"></i>';
+        } elseif ($streamy['type'] == '4') {
+            $streamy['type_desc'] = 'Streamy';
+            $streamy['type_icon'] = '<i class="i-Play-Music"></i>';
+        }
+
+
+
+
+        //$streamy['type_desc'] = ($streamy['type'] == '1') ? 'SoundCloud' : (($streamy['type'] == '2') ? 'YouTube' : 'LinkStreams');
+        //$streamy['type_icon'] = ($streamy['type'] == '1') ? ' <i class="i-Soundcloud"></i>' : (($streamy['type'] == '2') ? '<i class="i-Youtube"></i>' : '<i class="i-Link"></i>');
+        $streamy['public_desc'] = ($streamy['public'] == '1') ? 'Public' : (($streamy['public'] == '2') ? 'Private' : 'Scheduled');
+        $streamy['priority_desc'] = ($streamy['priority'] == '1') ? 'Spotlight' : 'Normal';
+        //$streamy['publish_at'] = ($streamy['public'] == '3') ? date('m/d/Y', strtotime($streamy['publish_at'])) : '';
         $streamy['publish_at'] = date('m/d/Y', strtotime($streamy['publish_at']));
+        $genre = $this->Streamy_model->fetch_genre_by_id($streamy['genre']);
+        $streamy['genre_desc'] = $genre['genre'];
         return $streamy;
     }
 
@@ -717,15 +800,95 @@ class App extends CI_Controller {
                     . 'src="https://www.youtube.com/embed/' . $youtube_id . '"> '
                     . 'frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen '
                     . '</iframe>';
+        } elseif ($type == '3') {
+//            $tags = get_meta_tags($url);
+//            $embed_url = (!empty($tags['description'])) ? '<p>' . $tags['description'] . '</p>' : '';
+            $embed_url = '<div class="row"> <div class="col-md-12 p-10"><a href="' . $url . '" class="btn btn-success" target="_blank">View</a></div></div>';
         } else {
-            $tags = get_meta_tags($url);
-            $embed_url = (!empty($tags['description'])) ? '<p>' . $tags['description'] . '</p>' : '';
+            $path = (ENV == 'live') ? 'prod/media/' : 'dev/media/';
+            //$data = $this->aws_s3->s3_read('files.streamy.link', $path, $url);
+            $file = 'https://s3.us-east-2.amazonaws.com/files.streamy.link/' . $path . $url;
+            //$audio_file = $this->aws_s3->s3_read('files.streamy.link', $path, $url);
+            //$cronDir = $this->get_temp_dir();
+            //file_put_contents($cronDir . '/' . $url, $audio_file);
+            //$audio_temp = base_url() . '/tmp/' . $url;
+            $embed_url = '<audio id="myAudio">
+  <source src="' . $file . '" type="audio/ogg">
+  <source src="' . $file . '" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio><p>Click the buttons to play or pause the audio.</p>
+
+<button onclick="playAudio()" type="button">Play Audio</button>
+<button onclick="pauseAudio()" type="button">Pause Audio</button>';
+
+//            $embed_url = '<div class="example"><ul class="playlist">
+//
+// 
+//
+//    <li data-cover="cover-1.jpg" data-artist="Artist-1">
+//
+//      <a href="' . $file . '">Music 1</a>
+//
+//    </li></ul>
+//</div>';
         }
         return $embed_url;
     }
 
+    public function streamy_update() {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $user = $this->general_library->get_cookie();
+            $id = $this->input->post('id', TRUE);
+            $streamy = $this->Streamy_model->fetch_streamy_by_id($id);
+            $priority = $this->input->post('priority', TRUE);
+            $visibility = $this->input->post('visibility', TRUE);
+            $name = $this->input->post('song_name', TRUE);
+            $date = $this->input->post('date', TRUE);
+            $genre = $this->input->post('genre', TRUE);
+            $streamy['public'] = $visibility;
+            $streamy['priority'] = $priority;
+            $streamy['publish_at'] = date('Y-m-d 00:00:00', strtotime($date));
+            $streamy['name'] = $name;
+            $streamy['genre'] = $genre;
+            $this->Streamy_model->update_streamy($id, $streamy);
+            $streamy = $this->streamy_desc($streamy);
+            echo json_encode(array('status' => 'Success', 'streamy' => $streamy));
+            //echo json_encode(array('status' => 'Success', 'streamys_view' => $data['streamys_view'], 'streamys_nav' => $data['streamys_nav']));
+        }
+    }
+
     public function email_test() {
         $this->general_library->send_ses('Paul Ferra', 'paul@streamy.link', 'Streamy', 'noreply@streamy.link', 'Email Test', 'Email Test: Body');
+    }
+
+    public function my_linkstream_add() {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $user = $this->general_library->get_cookie();
+            $data = array();
+            $data['user'] = $user;
+            $data['type'] = '3';
+            $data['placeholder_url'] = ($data['type'] == '1') ? 'https://soundcloud.com/iamstarinthesky/go-hard-prod-silo' : (($data['type'] == '2') ? 'https://www.youtube.com/watch?v=h_D3VFfhvs4' : 'https://www.streamy.link');
+            $data['type_url'] = ($data['type'] == '1') ? 'SoundCloud URL' : (($data['type'] == '2') ? 'YouTube URL' : 'URL');
+            $data['genres'] = $this->Streamy_model->fetch_genres();
+            $this->load->view($this->loc_path . 'content/my_linkstream_add', $data);
+        } else {
+            redirect($this->loc_url . '/login', 'location', 302);
+        }
+    }
+
+    public function my_streamy_add() {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $user = $this->general_library->get_cookie();
+            $data = array();
+            $data['user'] = $user;
+            $data['type'] = '4';
+            $data['placeholder_url'] = ($data['type'] == '1') ? 'https://soundcloud.com/iamstarinthesky/go-hard-prod-silo' : (($data['type'] == '2') ? 'https://www.youtube.com/watch?v=h_D3VFfhvs4' : 'https://www.streamy.link');
+            $data['type_url'] = ($data['type'] == '1') ? 'SoundCloud URL' : (($data['type'] == '2') ? 'YouTube URL' : 'URL');
+            $data['genres'] = $this->Streamy_model->fetch_genres();
+            $this->load->view($this->loc_path . 'content/my_streamy_add', $data);
+        } else {
+            redirect($this->loc_url . '/login', 'location', 302);
+        }
     }
 
 //<script>
@@ -804,13 +967,18 @@ class App extends CI_Controller {
 
     private function get_temp_dir() {
         $cronDir = sys_get_temp_dir() . '';
-//        if ($_SERVER['HTTP_HOST'] == 'localhost') {
-//            $cronDir = '';
-//        }
-//        if (!is_dir($cronDir)) {
-//            mkdir($cronDir, 0777, true);
-//        }
+        if ($_SERVER['HTTP_HOST'] == 'localhost') {
+            $cronDir = FCPATH . 'tmp';
+        }
+        if (!is_dir($cronDir)) {
+            mkdir($cronDir, 0777, true);
+        }
         return $cronDir;
+    }
+
+    public function early_access_sms() {
+        $email = $this->input->post('email', TRUE);
+        echo json_encode(array('status' => 'Success', 'email' => $email));
     }
 
 }

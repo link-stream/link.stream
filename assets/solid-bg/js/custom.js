@@ -1350,9 +1350,18 @@ $(document).ready(function () {
                 },
                 success: function (data)
                 {
-                    //console.log(data);
                     $(".js-email").removeAttr("disabled");
-                    $('#modal-notify').modal('hide');
+                    var messageContainer = $('#message-newsletter');
+                    messageContainer.text('Thank you! You are now registered for early access to the Streamy platform. Please check your email to confirm and ensure that you will receive your notification when Streamy launches.');
+                    form.find('.form-control').fadeIn().val('');
+                    messageContainer.slideDown('slow', 'swing');
+                    setTimeout(function () {
+                        messageContainer.slideUp('slow', 'swing');
+                        setTimeout(function () {
+                            $('#modal-notify').modal('hide');
+                        }, 1000);
+                    }, 4000);
+
                 },
                 error: function (textStatus, errorThrown) {
                     window.location.href = 'home/';

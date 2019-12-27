@@ -125,7 +125,7 @@
 
               <!-- Message Alert -->
               <div id="message-newsletter" class="message-wrapper text-white message">
-
+                 
                 <span><i class="icon icon-sm icon-arrows-slim-right-dashed"></i><label
                     class="message-text" for="email"></label></span>
               </div>

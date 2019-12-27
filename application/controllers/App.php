@@ -978,8 +978,15 @@ class App extends CI_Controller {
 
     public function early_access_sms() {
         $email = $this->input->post('email', TRUE);
-         $this->general_library->send_ses($email, $email, 'Streamy', 'noreply@streamy.link', 'Early Access', '<img src="'.HTTP_ASSETS.'images/logo/streamy_logo_vertical_positive_RGB.png" width="180px" alt="streamy logo"><br><br>Thank you for register with us, once we launch our wonderful system you will get a free pro account.<br><br>Streamy Team');
+        $data = array();
+        $body = $this->load->view('email/email_coming_soon', $data, true);
+        $this->general_library->send_ses($email, $email, 'Streamy', 'noreply@streamy.link', 'Early Access', $body);
         echo json_encode(array('status' => 'Success', 'email' => $email));
+    }
+    
+    public function email_coming_soon(){
+        $data = array();
+        $body = $this->load->view('email/email_coming_soon', $data);
     }
 
 }

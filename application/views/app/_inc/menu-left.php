@@ -13,7 +13,7 @@
             <li class="nav-item" data-item="my_link"><a class="nav-item-hold" href="#"><i class="nav-icon i-File-Clipboard-File--Text"></i><span class="nav-text">My LinkStream</span></a>
                 <div class="triangle"></div>
             </li>
-             <li class="nav-item" data-item="my_report"><a class="nav-item-hold" href="#"><i class="nav-icon i-File-Clipboard-File--Text"></i><span class="nav-text">My Reports</span></a>
+            <li class="nav-item" data-item="my_report"><a class="nav-item-hold" href="#"><i class="nav-icon i-File-Clipboard-File--Text"></i><span class="nav-text">My Reports</span></a>
                 <div class="triangle"></div>
             </li>
         </ul>
@@ -38,17 +38,22 @@
             <li class="nav-item"><a href="<?= base_url() ?>app/my_content_add/2"><i class="nav-icon i-Youtube"></i><span class="item-name">Add Youtube</span></a></li>
             <li class="nav-item"><a href="<?= base_url() ?>app/my_streamy_add"><i class="nav-icon i-Share-on-Cloud"></i><span class="item-name">Upload Files</span></a></li>
             <li class="nav-item"><a href="<?= base_url() ?>app/my_content"><i class="nav-icon i-Data-Cloud"></i><span class="item-name">Manage</span></a></li>
+
+            <li class="nav-item"><a href="<?= base_url() ?>app/audio"><i class="nav-icon i-Music-Note-2"></i><span class="item-name">Add Audio</span></a></li>
+            <li class="nav-item"><a href="<?= base_url() ?>app/video"><i class="nav-icon i-Film"></i><span class="item-name">Add Video</span></a></li>
         </ul>
         <!-- my_content -->
         <ul class="childNav" data-parent="my_link">
             <li class="nav-item"><a href="<?= base_url() ?>app/my_linkstream_add"><i class="nav-icon i-Cloud-"></i><span class="item-name">Add Link</span></a></li>
             <li class="nav-item"><a href="<?= base_url() ?>app/my_content"><i class="nav-icon i-Data-Cloud"></i><span class="item-name">Manage</span></a></li>
+
+            <li class="nav-item"><a href="<?= base_url() ?>app/linkstream"><i class="nav-icon i-Cloud-"></i><span class="item-name">Add Link</span></a></li>
         </ul>
-        
-        
-        
-        
-        
+
+
+
+
+
         <ul class="childNav" data-parent="forms">
             <li class="nav-item"><a href="form.basic.html"><i class="nav-icon i-File-Clipboard-Text--Image"></i><span class="item-name">Basic Elements</span></a></li>
             <li class="nav-item"><a href="form.layouts.html"><i class="nav-icon i-Split-Vertical"></i><span class="item-name">Form Layouts</span></a></li>
@@ -128,12 +133,12 @@
             <li class="nav-item"><a href="user.profile.html"><i class="nav-icon i-Male"></i><span class="item-name">User Profile</span></a></li>
             <li class="nav-item"><a class="open" href="blank.html"><i class="nav-icon i-File-Horizontal"></i><span class="item-name">Blank Page</span></a></li>
         </ul>
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
     </div>
     <div class="sidebar-overlay"></div>
 </div>

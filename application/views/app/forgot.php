@@ -12,7 +12,7 @@ $this->load->view('app/_inc/header-sign', $data);
                 <div class="row">
                     <div class="col-md-6">
                         <div class="p-4">
-                            <div class="auth-logo text-center mb-4"><img src="<?= HTTP_ASSETS ?>dist-assets/images/logo.png" alt=""></div>
+                            <div class="auth-logo text-center mb-4"><img src="<?= HTTP_ASSETS ?>images/logo/streamy_icon_RGB.png" alt=""></div>
                             <h1 class="mb-3 text-18">Forgot Password</h1>
                             <form action="" method="post" role="form" id="forgot">
                                 <div class="form-group">

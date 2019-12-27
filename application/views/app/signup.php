@@ -12,7 +12,7 @@ $this->load->view('app/_inc/header-sign', $data);
                 <div class="row">
                     <div class="col-md-6 text-center" style="background-size: cover;background-image: url(<?= HTTP_ASSETS ?>dist-assets/images/photo-long-3.jpg)">
                         <div class="pl-3 auth-right">
-                            <div class="auth-logo text-center mt-4"><img src="<?= HTTP_ASSETS ?>dist-assets/images/logo.png" alt=""></div>
+                            <div class="auth-logo text-center mt-4"><img src="<?= HTTP_ASSETS ?>images/logo/streamy_icon_RGB.png" alt=""></div>
                             <div class="flex-grow-1"></div>
                             <div class="w-100 mb-4">
                                 <a class="btn btn-outline-primary btn-block btn-icon-text btn-rounded" href="<?= base_url() . 'login' ?>"><i class="i-Mail-with-At-Sign"></i> Sign in with Email</a>

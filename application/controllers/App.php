@@ -978,6 +978,7 @@ class App extends CI_Controller {
 
     public function early_access_sms() {
         $email = $this->input->post('email', TRUE);
+         $this->general_library->send_ses($email, $email, 'Streamy', 'noreply@streamy.link', 'Early Access', 'Thank you for register with us, once we launch our wonderful system you will get a free pro account.<br><br>Streamy Team');
         echo json_encode(array('status' => 'Success', 'email' => $email));
     }
 

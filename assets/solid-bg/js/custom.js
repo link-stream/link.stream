@@ -1318,25 +1318,24 @@ $(document).ready(function () {
         },
         rules: {
             email: {
-                required: true,
+                required: {
+                    depends: function (element) {
+                        return $('#phone').val() === '';
+                    }
+                },
                 email: true
             },
             phone: {
-                required: true,
+                required: {
+                    depends: function (element) {
+                        return $('#email').val() === '';
+                    }
+                },
                 phoneUS: true
             }
         },
         submitHandler: function (form) {
-//            $.ajax({
-//                dataType: 'json',
-//                type: 'post',
-//                url: urlBase + "home/early_access_sms",
-//                data: form.serialize(),
-//                success: function (r)
-//                {
-//                    console.log(r);
-//                }
-//            });
+            return false;
         }
     });
 

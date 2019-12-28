@@ -115,12 +115,25 @@
                 <input type="email" id="email" class="form-control form-control-light"
                        name="email"
                        placeholder="Enter your Email here...">
-                  <span class="input-group-btn">
+<!--                  <span class="input-group-btn">
                       <button type="button" class="btn btn-color js-email"><i
                         class="icon icon-sm icon-arrows-slim-right-dashed"></i>
                     </button>
-                  </span>
+                  </span>-->
               </div>
+               <div class="input-group">
+                <input type="text" id="phone" class="form-control form-control-light"
+                       name="phone"
+                       placeholder="Enter your Phone here...">
+<!--                  <span class="input-group-btn">
+                      <button type="button" class="btn btn-color js-email"><i
+                        class="icon icon-sm icon-arrows-slim-right-dashed"></i>
+                    </button>
+                  </span>-->
+              </div>
+              <br>
+              <button type="button" class="btn btn-color js-email">Get Early Access
+                    </button>
               <!-- /End Input Group -->
 
               <!-- Message Alert -->
@@ -521,6 +534,7 @@
 <script src="<?= HTTP_ASSETS ?>solid-bg/js/plugins/jquery.countdown.min.js"></script>
 <script src="<?= HTTP_ASSETS ?>solid-bg/js/plugins/prefixfree.min.js"></script>
 <script src="<?= HTTP_ASSETS ?>jquery-validation-1.19.1/dist/jquery.validate.min.js"></script>
+<script src="<?= HTTP_ASSETS ?>jquery-validation-1.19.1/dist/additional-methods.min.js"></script>
 
 <script> var urlBase = "<?= base_url(); ?>";</script>
 

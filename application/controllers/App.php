@@ -1035,6 +1035,7 @@ class App extends CI_Controller {
             $this->general_library->send_ses($email, $email, 'Streamy', 'noreply@streamy.link', 'Early Access', $body);
         }
         if (!empty($phone)) {
+            $this->load->library('Aws_pinpoint');
             $this->aws_pinpoint->send($phone, 'Welcome to Streamy');
         }
         $this->Streamy_model->insert_early_access(array('email' => $email, 'phone' => $phone));
@@ -1047,7 +1048,7 @@ class App extends CI_Controller {
     }
 
     public function send_sms() {
-        $this->aws_pinpoint->send('+13059705118', 'Welcome to Streamy');
+        $this->aws_pinpoint->send('13059705118', 'Welcome to Streamy');
     }
 
 }

@@ -23,6 +23,15 @@ class Aws_pinpoint {
         ));
     }
 
+    private function cleanPhone($phone) {
+        $phone = preg_replace('/\D/', '', $phone);
+        if (strlen($phone) == 10)
+            return '+1' . $phone;
+        elseif (strlen($phone) == 11)
+            return '+' . $phone;;
+        return false;
+    }
+
     public function send($phone, $message) {
         try {
 
@@ -33,7 +42,7 @@ class Aws_pinpoint {
 //                        'MessageConfiguration': {'SMSMessage': {'Body': 'hola desde libreria', 'MessageType': 'TRANSACTIONAL'}}
 //                        
 //                        });
-
+            $phone = $this->cleanPhone($phone);
             $result = $this->pp->sendMessages([
                 'ApplicationId' => 'b8bbabd828a145eda2e49dd2a573bddf', // REQUIRED
                 'MessageRequest' => [// REQUIRED

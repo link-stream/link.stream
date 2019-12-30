@@ -43,11 +43,12 @@ class Streamy_model extends CI_Model {
             $this->db->where('user', $search['user']); //By Usew
         }
         if (!empty($search['type'])) {
-            if ($search['type'] == '3') {
-                $this->db->where('type', $search['type']); //By Type 
-            } else {
-                $this->db->where('type <> ', '3'); //By Type   
-            }
+            $this->db->where('type', $search['type']); //By Type 
+//            if ($search['type'] == '3') {
+//                $this->db->where('type', $search['type']); //By Type 
+//            } else {
+//                $this->db->where('type <> ', '3'); //By Type   
+//            }
         }
         if (!empty($search['public'])) {
             $this->db->where('public', $search['public']); //By Public
@@ -74,11 +75,12 @@ class Streamy_model extends CI_Model {
             $this->db->where('user', $search['user']); //By Usew
         }
         if (!empty($search['type'])) {
-            if ($search['type'] == '3') {
-                $this->db->where('type', $search['type']); //By Type 
-            } else {
-                $this->db->where('type <> ', '3'); //By Type   
-            }
+            $this->db->where('type', $search['type']); //By Type 
+//            if ($search['type'] == '3') {
+//                $this->db->where('type', $search['type']); //By Type 
+//            } else {
+//                $this->db->where('type <> ', '3'); //By Type   
+//            }
         }
         if (!empty($search['public'])) {
             $this->db->where('public', $search['public']); //By Public

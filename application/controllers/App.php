@@ -622,26 +622,81 @@ class App extends CI_Controller {
         if ($this->input->cookie($this->general_library->ses_name) != '') {
             $this->status_pending();
             $user = $this->general_library->get_cookie();
+//            $search = array(
+//                'user' => $user['id'],
+//                'status' => '1',
+//                'type' => (!empty($type) && $type == 'link') ? '3' : 'Streamy'
+//            );
+//            $streamys = $this->Streamy_model->fetch_streamys_by_search($search, 0, 0);
+//            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search($search);
+//            $stramy_list = array();
+//            foreach ($streamys as $streamy) {
+//                $stramy_list[] = $this->streamy_desc($streamy);
+////                $streamy['embeed'] = $this->embed_url($streamy['url'], $streamy['type']);
+////                $streamy['type_desc'] = ($streamy['type'] == '1') ? 'SoundCloud' : (($streamy['type'] == '2') ? 'YouTube' : 'LinkStreams');
+////                $streamy['public_desc'] = ($streamy['public'] == '1') ? 'Public' : 'Private';
+////                $streamy['priority_desc'] = ($streamy['priority'] == '1') ? 'High' : (($streamy['priority'] == '2') ? 'Normal' : 'Low');
+////                $streamy['publish_at'] = date('m/d/Y', strtotime($streamy['publish_at']));
+////                $stramy_list[] = $streamy;
+//            }
+//            $data['streamys'] = $stramy_list;
+//            $data['streamys_view'] = $this->load->view($this->loc_path . 'content/my_content_list', $data, true);
+//            $data['streamys_nav'] = $this->streamy_nav($streamys_count, 1, $this->limit);
+            //Soundcloud
             $search = array(
                 'user' => $user['id'],
                 'status' => '1',
-                'type' => (!empty($type) && $type == 'link') ? '3' : 'Streamy'
+                'type' => '1'
             );
-            $streamys = $this->Streamy_model->fetch_streamys_by_search($search, $this->limit, 0);
-            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search($search);
+            $streamys = $this->Streamy_model->fetch_streamys_by_search($search, 0, 0);
+//            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search($search);
             $stramy_list = array();
             foreach ($streamys as $streamy) {
                 $stramy_list[] = $this->streamy_desc($streamy);
-//                $streamy['embeed'] = $this->embed_url($streamy['url'], $streamy['type']);
-//                $streamy['type_desc'] = ($streamy['type'] == '1') ? 'SoundCloud' : (($streamy['type'] == '2') ? 'YouTube' : 'LinkStreams');
-//                $streamy['public_desc'] = ($streamy['public'] == '1') ? 'Public' : 'Private';
-//                $streamy['priority_desc'] = ($streamy['priority'] == '1') ? 'High' : (($streamy['priority'] == '2') ? 'Normal' : 'Low');
-//                $streamy['publish_at'] = date('m/d/Y', strtotime($streamy['publish_at']));
-//                $stramy_list[] = $streamy;
             }
-            $data['streamys'] = $stramy_list;
-            $data['streamys_view'] = $this->load->view($this->loc_path . 'content/my_content_list', $data, true);
-            $data['streamys_nav'] = $this->streamy_nav($streamys_count, 1, $this->limit);
+            $data['soundCloud'] = $stramy_list;
+            //Youtube
+            $search = array(
+                'user' => $user['id'],
+                'status' => '1',
+                'type' => '2'
+            );
+            $streamys = $this->Streamy_model->fetch_streamys_by_search($search, 0, 0);
+//            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search($search);
+            $stramy_list = array();
+            foreach ($streamys as $streamy) {
+                $stramy_list[] = $this->streamy_desc($streamy);
+            }
+            $data['youTube'] = $stramy_list;
+            //LinkStreams
+            $search = array(
+                'user' => $user['id'],
+                'status' => '1',
+                'type' => '3'
+            );
+            $streamys = $this->Streamy_model->fetch_streamys_by_search($search, 0, 0);
+//            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search($search);
+            $stramy_list = array();
+            foreach ($streamys as $streamy) {
+                $stramy_list[] = $this->streamy_desc($streamy);
+            }
+            $data['linkStreams'] = $stramy_list;
+            //mystream
+            $search = array(
+                'user' => $user['id'],
+                'status' => '1',
+                'type' => '4'
+            );
+            $streamys = $this->Streamy_model->fetch_streamys_by_search($search, 0, 0);
+//            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search($search);
+            $stramy_list = array();
+            foreach ($streamys as $streamy) {
+                $stramy_list[] = $this->streamy_desc($streamy);
+            }
+            $data['mystream'] = $stramy_list;
+
+
+
             $data['user'] = $user;
             $this->load->view($this->loc_path . 'content/my_content', $data);
         } else {
@@ -790,6 +845,17 @@ class App extends CI_Controller {
         }
     }
 
+    public function audio_content($name = null) {
+        $path = (ENV == 'live') ? 'prod/media/' : 'dev/media/';
+        $file = 'https://s3.us-east-2.amazonaws.com/files.streamy.link/' . $path . $name;
+        header("Cache-Control: no-cache, must-revalidate");
+        header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+        header('Content-type: audio/mpeg3;audio/x-mpeg-3;video/mpeg;video/x-mpeg;text/xml');
+        header('Content-Disposition: inline; filename="' . $name . '"');
+        echo $file;
+        //return $file;
+    }
+
     private function embed_url($url, $type) {
         $embed_url = $url;
         if ($type == '1') {
@@ -814,13 +880,49 @@ class App extends CI_Controller {
             //Streamy
             $path = (ENV == 'live') ? 'prod/media/' : 'dev/media/';
             $file = 'https://s3.us-east-2.amazonaws.com/files.streamy.link/' . $path . $url;
-            $embed_url = '<audio id="myAudio">
+            //$file = base_url() . 'app/audio_content/' . $url;
+            $embed_url_old = '<audio id="myAudio">
   <source src="' . $file . '" type="audio/ogg">
   <source src="' . $file . '" type="audio/mpeg">
   Your browser does not support the audio element.
-</audio><p>Click the buttons to play or pause the audio.</p>
-<button onclick="playAudio()" type="button">Play Audio</button>
-<button onclick="pauseAudio()" type="button">Pause Audio</button>';
+</audio>
+<div class="row" style="padding: 10px;">
+                <div class="col-5">
+                 <button class="btn btn-outline-success m-1" onclick="playAudio()" type="button">Play Audio</button>
+
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col-5">
+                  <button class="btn btn-outline-success m-1" onclick="pauseAudio()" type="button">Pause Audio</button>
+                </div>
+            </div>';
+//            $embed_url = '           
+//<figure>
+//    <figcaption>Listen to the ' . $url . ':</figcaption>
+//    <audio
+//        controls
+//        src=" ' . $file . '">
+//            Your browser does not support the
+//            <code>audio</code> element.
+//    </audio>
+//</figure>
+//
+//';
+            
+            
+            $embed_url = '           
+<figure>
+   
+    <audio
+        controls style="width: 100%;"
+        src="' . $file . '">
+            Your browser does not support the
+            <code>audio</code> element.
+    </audio>
+</figure>
+
+';
         } elseif ($type == '5') {
             //Tik Tok
             $tiktok_url = "https://www.tiktok.com/oembed?url=" . $url;

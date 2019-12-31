@@ -7,12 +7,12 @@
             <li class="nav-item" data-item="my_streamy"><a class="nav-item-hold" href="#"><i class="nav-icon i-File-Clipboard-File--Text"></i><span class="nav-text">My Stream</span></a>
                 <div class="triangle"></div>
             </li>
-            <li class="nav-item" data-item="my_content"><a class="nav-item-hold" href="#"><i class="nav-icon i-File-Clipboard-File--Text"></i><span class="nav-text">My Media</span></a>
+            <li class="nav-item" data-item="my_content"><a class="nav-item-hold" href="#"><i class="nav-icon i-File-Clipboard-File--Text"></i><span class="nav-text">My Content</span></a>
                 <div class="triangle"></div>
             </li>
-            <li class="nav-item" data-item="my_link"><a class="nav-item-hold" href="#"><i class="nav-icon i-File-Clipboard-File--Text"></i><span class="nav-text">My LinkStream</span></a>
+<!--            <li class="nav-item" data-item="my_link"><a class="nav-item-hold" href="#"><i class="nav-icon i-File-Clipboard-File--Text"></i><span class="nav-text">My LinkStream</span></a>
                 <div class="triangle"></div>
-            </li>
+            </li>-->
             <li class="nav-item" data-item="my_report"><a class="nav-item-hold" href="#"><i class="nav-icon i-File-Clipboard-File--Text"></i><span class="nav-text">My Reports</span></a>
                 <div class="triangle"></div>
             </li>
@@ -29,27 +29,28 @@
         <!-- streamy -->
         <ul class="childNav" data-parent="my_streamy">
             <!--<li class="nav-item"><a href="<?= base_url() ?>app/my_content"><i class="nav-icon i-Data-Cloud"></i><span class="item-name">Manage</span></a></li>-->
-            <li class="nav-item"><a href="<?= base_url() ?><?= !empty($user['user_name']) ? $user['user_name'] : '' ?>"><i class="nav-icon i-URL-Window"></i><span class="item-name">Live View</span></a></li>
+            <li class="nav-item"><a href="<?= !empty($user['url']) ? $user['url'] : '' ?>" target="_blank"><i class="nav-icon i-URL-Window"></i><span class="item-name">Live View</span></a></li>
             <li class="nav-item"><a href="#"><i class="nav-icon i-Monitor-2"></i><span class="item-name">Customize</span></a></li>
         </ul>
         <!-- my_content -->
         <ul class="childNav" data-parent="my_content">
-            <li class="nav-item"><a href="<?= base_url() ?>app/audio"><i class="nav-icon i-Music-Note-2"></i><span class="item-name">Add Audio</span></a></li>
-            <li class="nav-item"><a href="<?= base_url() ?>app/video"><i class="nav-icon i-Film"></i><span class="item-name">Add Video</span></a></li>
-<!--            <li class="nav-item"><a href="<?= base_url() ?>app/my_content_add/1"><i class="nav-icon i-Soundcloud"></i><span class="item-name">Add SoundCloud</span></a></li>
-            <li class="nav-item"><a href="<?= base_url() ?>app/my_content_add/2"><i class="nav-icon i-Youtube"></i><span class="item-name">Add Youtube</span></a></li>
-            <li class="nav-item"><a href="<?= base_url() ?>app/my_streamy_add"><i class="nav-icon i-Share-on-Cloud"></i><span class="item-name">Upload Files</span></a></li>-->
-            <li class="nav-item"><a href="<?= base_url() ?>app/my_content"><i class="nav-icon i-Data-Cloud"></i><span class="item-name">Manage</span></a></li>
+<!--            <li class="nav-item"><a href="<?= base_url() ?>app/audio"><i class="nav-icon i-Music-Note-2"></i><span class="item-name">Add Audio</span></a></li>
+            <li class="nav-item"><a href="<?= base_url() ?>app/video"><i class="nav-icon i-Film"></i><span class="item-name">Add Video</span></a></li>-->
+            <li class="nav-item"><a href="<?= base_url() ?>app/content/add/sc"><i class="nav-icon i-Soundcloud"></i><span class="item-name">Add SoundCloud</span></a></li>
+            <li class="nav-item"><a href="<?= base_url() ?>app/content/add/yt"><i class="nav-icon i-Youtube"></i><span class="item-name">Add Youtube</span></a></li>
+            <li class="nav-item"><a href="<?= base_url() ?>app/content/add/lk"><i class="nav-icon i-Cloud-"></i><span class="item-name">Add Link</span></a></li>
+            <li class="nav-item"><a href="<?= base_url() ?>app/content/add/st"><i class="nav-icon i-Music-Note-2"></i><span class="item-name">Add Streamy</span></a></li>
+            <li class="nav-item"><a href="<?= base_url() ?>app/content"><i class="nav-icon i-Data-Cloud"></i><span class="item-name">Manage</span></a></li>
 
-            
+
         </ul>
         <!-- my_content -->
         <ul class="childNav" data-parent="my_link">
-            <li class="nav-item"><a href="<?= base_url() ?>app/linkstream"><i class="nav-icon i-Cloud-"></i><span class="item-name">Add Link</span></a></li>
+<!--            <li class="nav-item"><a href="<?= base_url() ?>app/linkstream"><i class="nav-icon i-Cloud-"></i><span class="item-name">Add Link</span></a></li>-->
             <!--<li class="nav-item"><a href="<?= base_url() ?>app/my_linkstream_add"><i class="nav-icon i-Cloud-"></i><span class="item-name">Add Link</span></a></li>-->
             <li class="nav-item"><a href="<?= base_url() ?>app/my_content/link"><i class="nav-icon i-Data-Cloud"></i><span class="item-name">Manage</span></a></li>
 
-            
+
         </ul>
 
 

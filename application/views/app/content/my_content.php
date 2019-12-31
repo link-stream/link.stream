@@ -126,6 +126,8 @@ $this->load->view('app/_inc/header', $data);
         margin-bottom: 10px !important;
 
     }
+    
+ 
 
 
 
@@ -265,9 +267,9 @@ $this->load->view('app/_inc/header', $data);
                         }
                         ?>
                     </div>
-                     <div class="owl-carousel owl-theme">
+                    <div class="owl-carousel owl-theme">
                         <?php
-                        if (!empty($mystream)) {
+                        if (!empty($mystream1)) {
                             $i = 0;
                             foreach ($mystream as $streamy) {
                                 $i++;
@@ -327,6 +329,12 @@ $this->load->view('app/_inc/header', $data);
     <script> var urlBase = "<?= base_url(); ?>";</script>
     <script>
         $(document).ready(function () {
+            
+            
+            console.log('load');
+            
+            
+            
             $('body').on('click', '.js-edit', function (e) {
                 var id = this.id;
                 console.log(id);
@@ -434,8 +442,9 @@ $this->load->view('app/_inc/header', $data);
 
             $('.owl-carousel').owlCarousel({
                 loop: true,
-                margin: 10,
+                margin: 5,
                 responsiveClass: true,
+                //navText : ["",""],
                 responsive: {
                     0: {
                         items: 1,
@@ -469,6 +478,16 @@ $this->load->view('app/_inc/header', $data);
             });
 
             //$(".example").musicPlayer();
+            //
+            //
+            //
+            //
+            var owl = $('.owl-carousel');
+            owl.owlCarousel();
+// Listen to owl events:
+            owl.on('changed.owl.carousel', function (event) {
+                console.log(event);
+            });
 //
         });
         var x = document.getElementById("myAudio");

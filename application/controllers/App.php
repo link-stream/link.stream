@@ -1250,7 +1250,7 @@ class App extends CI_Controller {
         }
         if (!empty($phone)) {
             $this->load->library('Aws_pinpoint');
-            $this->aws_pinpoint->send($phone, "Welcome! Let's bring social media and streaming music together in 2020. Thanks for registering, we are giving free Pro accounts to all early birds ;) Stay tuned in, we will notify you as soon as you can start your stream!");
+            $this->aws_pinpoint->send($phone, "Welcome! Let's bring social media and streaming music together in 2020. Thanks for registering, we are giving free Pro accounts to all early birds ;) Stay tuned in, we will notify you as soon as you can start your stream! Reply “STOP” to cancel this reminder.");
         }
         $this->Streamy_model->insert_early_access(array('email' => $email, 'phone' => $phone));
         echo json_encode(array('status' => 'Success'));

@@ -1,9 +1,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Streamy</title>
+        <title>Streamy - Your Streams Come True</title>
     </head>
-    <body>
+    <body style="background:#000;color:#fff;">
         <table width="500" border="0" align="center">
             <tr>
                 <td align="center">
@@ -14,7 +14,7 @@
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td><strong>Dear Streamer</strong></td>
+                <td style="font-family: arial"><strong>Making Your Streams Come True</strong></td>
             </tr>
             <tr>
                 <td><hr></td>
@@ -26,7 +26,7 @@
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td>Thank you for register with us, once we launch our wonderful system you will get a free pro account.</td>
+                <td style="font-family: arial">Streamy is going to bring social media and streaming music together in 2020. Thanks for registering, we are giving free Pro accounts to all early birds ;) Stay tuned in, we will notify you as soon as you can start your stream!</td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -38,7 +38,7 @@
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td><p><strong><em>Streamy Team.</em></strong></p></td>
+                <td><p style="font-family: arial"><strong>&#x1F496; Streamy</strong></p></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

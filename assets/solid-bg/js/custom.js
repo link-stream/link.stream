@@ -1547,4 +1547,30 @@ $(document).ready(function () {
 //    $('button_video').toggleClass("active");
 //  }
 //});
+
+
+//var playButton = document.getElementById("play_button");
+//// Event listener for the play/pause button
+//playButton.addEventListener("click", function() {
+//  if (video.paused == true) {
+//    // Play the video
+//    video.play();
+//
+//    // Update the button text to 'Pause'
+//    playButton.innerHTML = "Pause";
+//  } else {
+//    // Pause the video
+//    video.pause();
+//
+//    // Update the button text to 'Play'
+//    playButton.innerHTML = "Play";
+//  }
+//});
+//$('.video').parent().click(function () {
+//  if($(this).children(".video").get(0).paused){        $(this).children(".video").get(0).play();   $(this).children(".playpause").fadeOut();
+//    }else{       $(this).children(".video").get(0).pause();
+//  $(this).children(".playpause").fadeIn();
+//    }
+//});
+
 });

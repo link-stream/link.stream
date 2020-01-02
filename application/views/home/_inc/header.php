@@ -80,7 +80,7 @@
               transition: all 1s;
             }*/
 
-            .button_video {
+/*            .button_video {
                 background-color: #666;
                 border: medium none;
                 color: #fff;
@@ -96,7 +96,7 @@
 
             .button_video.active {
                 background-color: #0077a2;
-            }
+            }*/
             /*video::-webkit-media-controls-overlay-play-button {
               display: none;
             }
@@ -113,5 +113,21 @@
                border: none !important;
                box-shadow: none !important;
             }*/
+            
+/*            
+            .playpause {
+    background-image:url(<?= HTTP_ASSETS ?>solid-bg/images/streamy_icon_RGB.png);
+    background-repeat:no-repeat;
+    width:50%;
+    height:50%;
+    position:absolute;
+    left:0%;
+    right:0%;
+    top:0%;
+    bottom:0%;
+    margin:auto;
+    background-size:contain;
+    background-position: center;
+}*/
         </style>
     </head>

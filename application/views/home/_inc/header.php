@@ -6,13 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
         <!-- Title of Website -->
-        <title>Streamy – Your Streams Come True (Spring 2020)</title>
+        <title>Your Streams Come True - Streamy</title>
 
-        <meta name="description"
-              content="Coming Soon Landing Page"/>
-        <meta name="keywords"
-              content="Kounter, html theme, Coming Soon Landing Page, Coming Soon Landing Page template, html landing page, one page, responsive landing page"/>
-        <meta name="author" content="Egotype">
+        <meta name="description" content="Streamy is changing the way social media and streaming music work together to help connect audiences and support artists."/>
+        <meta name="keywords" content="streamy, soundcloud alternative, spotify alternative"/>
+        <meta name="author" content="Streamy">
 
         <!-- Favicon -->
         <link rel="icon" href="<?= HTTP_ASSETS ?>images/favicon/streamy_favicon_color.png" type="image/png">

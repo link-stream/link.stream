@@ -2,7 +2,7 @@
 $data = array();
 $this->load->view('home/_inc/header', $data);
 ?>
-<body data-spy="scroll" data-target=".scrollspy" class="bg-dark">
+<body data-spy="scroll" data-target=".scrollspy" class="bg-dark" style="overflow:  auto !important">
 
     <!-- Preloader  -->
     <div class="loader bg-dark">
@@ -125,7 +125,7 @@ $this->load->view('home/_inc/header', $data);
                      Info
                 ================================= -->
 
-                <div id="info" class="col-md-12 text-white text-center page-info col-transform">
+                <div id="info" class="col-md-12 text-white text-center  col-transform">
                     <div class="vert-middle">
                         <div class="reveal scale-out">
 
@@ -144,11 +144,48 @@ $this->load->view('home/_inc/header', $data);
                                 <!-- /End Headline & Description -->
                             </div>
                             <!-- Arrow 
+                            -->                            
                             <div class="p-t-b-20">
-                              <i class="icon icon-sm icon-arrows-slim-down-dashed"></i>
-                            </div>
-                             /End Arrow -->
+                                <div class="row">
+                                    <div class="col-md-3">
 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <video width="100%" height="100%" controls>
+                                            <source src="https://s3.us-east-2.amazonaws.com/files.streamy.link/video/streamy_early_reg_video.mp4" type="video/mp4">
+                                            <source src="https://s3.us-east-2.amazonaws.com/files.streamy.link/video/streamy_early_reg_video.ogg" type="video/ogg">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </div>
+                                    <div class="col-md-3">
+
+                                    </div>
+                                </div>
+
+            <!--                              <i class="icon icon-sm icon-arrows-slim-down-dashed"></i>-->
+
+                            </div><!--
+                             /End Arrow -->
+                            <div class="p-t-b-15">
+                                <!-- Headline & Description -->
+                                <h2><span class="font-weight-200">How Does It Work? </span></h2>
+                                <div class="row text-justify">
+                                    <div class="col-md-3">
+
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <p>Early registration for Artists is now open, enter your information to get a notification when early access is live! Also, when you sign-up early you'll get a free Pro account for life, including INSTANT access to our proprietary LinkStream tool. </p>
+                                        <p>LinkStream will enable you to actually stream your music and beats from multiple platforms (e.g. SoundCloud, YouTube) to multiple platforms (e.g. Instagram) with one easy-to-use link.</p>
+                                        <p>We need you early birds to spread the word to other Artists, because once enough artists get their LinkStream's setup we can launch the Streamy mobile app to your audiences.</p>
+
+                                    </div>
+                                    <div class="col-md-3">
+
+                                    </div>
+                                </div>
+                                <!-- /End Headline & Description -->
+                            </div>
                             <!-- Buttons -->
                             <div class="p-t-b-15 btn-row">
                                 <button class="btn btn-color" data-toggle="modal"
@@ -179,7 +216,7 @@ $this->load->view('home/_inc/header', $data);
                             <div class="p-t-b-1">
                                 <p>
                                     ©2020 Streamy LLC. All Rights Reserved.
-                                </p>
+                                </p><br><br>
                             </div>
                             <!-- Social Media Links -->
 

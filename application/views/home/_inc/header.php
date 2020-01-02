@@ -56,5 +56,11 @@
 
             gtag('config', 'UA-155051853-1');
         </script>
+        <style>
+            .video{
 
+  border: 2px solid gray;
+
+}
+        </style>
     </head>

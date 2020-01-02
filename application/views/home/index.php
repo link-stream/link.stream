@@ -139,8 +139,8 @@ $this->load->view('home/_inc/header', $data);
                                 <!-- Headline & Description -->
                                 <h2><span class="font-weight-200">Your streams come true </span><br>Spring 2020</h2>
 
-                                <p>Musicians, Podcasters, YouTubers, Creators and Streamers: <br>Lead the wave with free early access to Streamy in Spring 2020.<br>
-                                </p>
+<!--                                <p>Musicians, Podcasters, YouTubers, Creators and Streamers: <br>Lead the wave with free early access to Streamy in Spring 2020.<br>
+                                </p>-->
                                 <!-- /End Headline & Description -->
                             </div>
                             <!-- Arrow 
@@ -150,7 +150,7 @@ $this->load->view('home/_inc/header', $data);
                                     <div class="col-md-3">
 
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="video col-md-6">
                                         <video width="100%" height="100%" controls>
                                             <source src="https://s3.us-east-2.amazonaws.com/files.streamy.link/video/streamy_early_reg_video.mp4" type="video/mp4">
                                             <source src="https://s3.us-east-2.amazonaws.com/files.streamy.link/video/streamy_early_reg_video.ogg" type="video/ogg">

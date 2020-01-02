@@ -96,5 +96,10 @@ class Home extends CI_Controller {
         $data = array();
         $this->load->view($this->loc_path . '/landing-lead', $data);
     }
+    
+    public function legal() {
+        $data = array();
+        $this->load->view($this->loc_path . '/legal', $data);
+    }
 
 }

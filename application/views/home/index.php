@@ -131,6 +131,9 @@
                                             </button>
                                           </span>-->
                                     </div>
+                                    <div class="p-t-b-10">
+                                        <p class="text-center" style="font-size: 0.75em;">I agree to receive email, SMS (text), and alert notifications from Streamy. Carrier fees may apply.</p>
+                                    </div>
                                     <br>
                                     <button type="button" class="btn btn-color js-email">Get Early Access
                                     </button>
@@ -143,7 +146,11 @@
                                                 class="message-text" for="email"></label></span>
                                     </div>
                                     <!-- /End Message Alert -->
-
+                                    <div class="p-t-30">
+                                        <p>
+                                            <a href="<?= base_url() . 'legal' ?>" target="_blank" class="link-white">Privacy Policy</a>
+                                        </p>
+                                    </div>
                                 </form>
                                 <!-- /End Newsletter Form -->
 

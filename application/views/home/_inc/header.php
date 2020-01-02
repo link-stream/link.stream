@@ -9,7 +9,7 @@
         <title>Your Streams Come True - Streamy</title>
 
         <meta name="description" content="Streamy is changing the way social media and streaming music work together to help connect audiences and support artists."/>
-        <meta name="keywords" content="streamy, soundcloud alternative, spotify alternative"/>
+        <meta name="keywords" content="streamy, soundcloud alternative, spotify alternative, music, online, listen, streaming, play, digital, album, artist, playlist"/>
         <meta name="author" content="Streamy">
 
         <!-- Favicon -->

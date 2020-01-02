@@ -153,8 +153,8 @@ $this->load->view('home/_inc/header', $data);
                                     <div class="video col-md-6">
                                         <!--<button class="active button_video">play</button>-->
                                         <video id="video" width="100%" height="100%" controls poster="<?= HTTP_ASSETS ?>solid-bg/images/poster-image-for-video.jpg">
-                                            <source src="https://s3.us-east-2.amazonaws.com/files.streamy.link/video/streamy_early_reg_video.mp4" type="video/mp4">
-                                            <source src="https://s3.us-east-2.amazonaws.com/files.streamy.link/video/streamy_early_reg_video.ogg" type="video/ogg">
+                                            <source src="https://s3.us-east-2.amazonaws.com/files.streamy.link/video/streamy_early_reg_video_2.mp4" type="video/mp4">
+                                            <source src="https://s3.us-east-2.amazonaws.com/files.streamy.link/video/streamy_early_reg_video_2.ogg" type="video/ogg">
                                             Your browser does not support the video tag.
                                         </video>
                                         <!--<div class="playpause"></div>-->
@@ -178,9 +178,11 @@ $this->load->view('home/_inc/header', $data);
                                     </div>
                                     
                                     <div class="col-md-6">
-                                        <p>Early registration for Artists is now open, enter your information to get a notification when early access is live! Also, when you sign-up early you'll get a free Pro account for life, including INSTANT access to our proprietary LinkStream tool. </p>
-                                        <p>LinkStream will enable you to actually stream your music and beats from multiple platforms (e.g. SoundCloud, YouTube) to multiple platforms (e.g. Instagram) with one easy-to-use link.</p>
-                                        <p>We need you early birds to spread the word to other Artists, because once enough artists get their LinkStream's setup we can launch the Streamy mobile app to your audiences.</p>
+                                        <p>Early registration for Artists is now open, enter your information to get a notification when early access is live! Also, when you sign-up early you'll get a free Pro account for life, including INSTANT access to our proprietary <strong>LinkStream</strong> tool. </p>
+                                        <br>
+                                        <p><strong>LinkStream</strong> will enable you to actually stream your music and beats from multiple platforms (e.g. SoundCloud, YouTube) to multiple platforms (e.g. Instagram) with one easy-to-use link.</p>
+                                        <br>
+                                        <p>We need you early birds to spread the word to other Artists, because once enough artists get their <strong>LinkStream's</strong> setup we can launch the <strong>LinkStream</strong> mobile app to your audiences.</p>
 
                                     </div>
                                     <div class="col-md-3">

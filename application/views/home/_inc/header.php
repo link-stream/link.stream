@@ -63,7 +63,12 @@
 
             }
 
-
+a:focus {
+outline: none;
+}
+video{
+  outline:none;
+}
 
             /*video {
               position: absolute;

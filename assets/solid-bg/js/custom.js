@@ -25,7 +25,7 @@ $(document).ready(function () {
             loader.addClass('fade-out');
             setTimeout(function () {
                 loader.hide();
-            }, 1000);
+            }, 500);
         });
     }
 

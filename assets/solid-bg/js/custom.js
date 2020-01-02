@@ -1528,4 +1528,23 @@ $(document).ready(function () {
                 );
         document.querySelector("head").appendChild(msViewportStyle)
     }
+    
+    
+//    var ctrlVideo = document.getElementById("video"); 
+// 
+//$('button_video').click(function(){
+//  if ($('button_video').hasClass("active")){
+//    
+//        ctrlVideo.play();
+//    
+//    $('button_video').html("Pause");
+//    $('button_video').toggleClass("active");
+//  } else {
+//    
+//        ctrlVideo.pause();
+//    
+//    $('button_video').html("play");
+//    $('button_video').toggleClass("active");
+//  }
+//});
 });

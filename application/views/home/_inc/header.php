@@ -59,8 +59,59 @@
         <style>
             .video{
 
-  border: 2px solid gray;
+                border: 2px solid gray;
 
-}
+            }
+
+
+
+            /*video {
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              min-width: 100%;
+              min-height: 100%;
+              z-index: -1;
+              -webkit-transition: all 1s;
+              -moz-transition: all 1s;
+              -o-transition: all 1s;
+              transition: all 1s;
+            }*/
+
+            .button_video {
+                background-color: #666;
+                border: medium none;
+                color: #fff;
+                display: block;
+                font-size: 18px;
+                left: 0;
+                margin: 0 auto;
+                padding: 8px 16px;
+                position: absolute;
+                right: 0;
+                top: 50%;
+            }
+
+            .button_video.active {
+                background-color: #0077a2;
+            }
+            /*video::-webkit-media-controls-overlay-play-button {
+              display: none;
+            }
+            video::-webkit-media-controls-start-playback-button {
+              display: none !important;
+            }
+            
+            .video-js .vjs-big-play-button .vjs-icon-placeholder:before {
+               content: "";
+               background-image: url('https://pngimage.net/wp-content/uploads/2018/06/svt-png-9.png');
+               background-repeat: no-repeat;
+               background-size: 46px;
+               background-position: 55% calc(50% - 0px);
+               border: none !important;
+               box-shadow: none !important;
+            }*/
         </style>
     </head>

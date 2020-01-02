@@ -151,7 +151,8 @@ $this->load->view('home/_inc/header', $data);
 
                                     </div>
                                     <div class="video col-md-6">
-                                        <video width="100%" height="100%" controls>
+                                        <!--<button class="active button_video">play</button>-->
+                                        <video width="100%" height="100%" controls poster="<?= HTTP_ASSETS ?>solid-bg/images/poster-image-for-video.jpg">
                                             <source src="https://s3.us-east-2.amazonaws.com/files.streamy.link/video/streamy_early_reg_video.mp4" type="video/mp4">
                                             <source src="https://s3.us-east-2.amazonaws.com/files.streamy.link/video/streamy_early_reg_video.ogg" type="video/ogg">
                                             Your browser does not support the video tag.

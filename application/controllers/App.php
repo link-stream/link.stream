@@ -873,7 +873,9 @@ class App extends CI_Controller {
             $this->status_pending();
             $user = $this->general_library->get_cookie();
             $aaData = array();
-            //$state = $this->input->post('state');
+            $name = $this->input->post('name', TRUE);
+            $type = $this->input->post('type', TRUE);
+            $genre = $this->input->post('genre', TRUE);
             $limit = $this->input->post('iDisplayLength');
             $offset = $this->input->post('iDisplayStart');
             $isort_col = $this->input->post('iSortCol_0');
@@ -885,9 +887,12 @@ class App extends CI_Controller {
                 'user' => $user['id'],
                 'status' => '1',
                 'sort_col' => $sort_col,
-                'sort_dir' => $sort_dir
+                'sort_dir' => $sort_dir,
+                'name' => $name,
+                'type' => $type,
+                'genre' => $genre
             );
-            $streamys = $this->Streamy_model->fetch_streamys_by_search($search, 0, 0);
+            $streamys = $this->Streamy_model->fetch_streamys_by_search($search, $limit, $offset);
             $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search($search);
             //CREATING DATA TO SHOW
             if ($streamys_count > 0) {

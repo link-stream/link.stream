@@ -95,7 +95,7 @@ $this->load->view('app/_inc/header', $data);
                                                 <div class="col-md-4">
                                                     <!--<label for="visibility">Visibility</label>-->
                                                     <select class="form-control" id="type" name="type">
-                                                        <option value="">Select Type</option>
+                                                        <option value="">All Types</option>
                                                         <?php
                                                         if (!empty($types)) {
                                                             foreach ($types as $type_item) {
@@ -110,7 +110,7 @@ $this->load->view('app/_inc/header', $data);
                                                 <div class="col-md-4 ">
                                                     <!--                                                    <label for="genre">Genre</label>-->
                                                     <select class="form-control" id="genre" name="genre">
-                                                        <option value="">Select Genre</option>
+                                                        <option value="">All Genres</option>
                                                         <?php
                                                         if (!empty($genres)) {
                                                             foreach ($genres as $genre_item) {
@@ -123,7 +123,7 @@ $this->load->view('app/_inc/header', $data);
                                                     </select>
                                                 </div>
                                                 <div class="col-md-12 mt-3 mt-md-10">
-                                                    <button class="btn btn-primary btn-block">Search</button>
+                                                    <button class="btn btn-primary btn-block" id="search">Search</button>
                                                 </div>
                                             </div>
                                             <div class="row row-xs">
@@ -328,6 +328,10 @@ $this->load->view('app/_inc/header', $data);
                 columnDefs: [
                     {"orderable": false, "targets": [0, 3]}
                 ]
+            });
+
+            search_button.on('click', function () {
+                dt.DataTable().draw();
             });
 
             $('body').on('click', '.js-edit', function (e) {

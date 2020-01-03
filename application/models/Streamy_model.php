@@ -45,18 +45,16 @@ class Streamy_model extends CI_Model {
             $this->db->where('user', $search['user']); //By Usew
         }
         if (!empty($search['type'])) {
-            $this->db->where('type', $search['type']); //By Type 
-//            if ($search['type'] == '3') {
-//                $this->db->where('type', $search['type']); //By Type 
-//            } else {
-//                $this->db->where('type <> ', '3'); //By Type   
-//            }
+            $this->db->where('a.type', $search['type']); //By Type 
+        }
+        if (!empty($search['genre'])) {
+            $this->db->where('a.genre', $search['genre']); //By Type 
+        }
+        if (!empty($search['name'])) {
+            $this->db->where('a.name', $search['name']); //By Type 
         }
         if (!empty($search['public'])) {
             $this->db->where('public', $search['public']); //By Public
-        }
-        if (!empty($search['status'])) {
-            $this->db->where('status', $search['status']); //By Status
         }
         if (!empty($search['status'])) {
             $this->db->where('status', $search['status']); //By Status
@@ -86,6 +84,15 @@ class Streamy_model extends CI_Model {
 //            } else {
 //                $this->db->where('type <> ', '3'); //By Type   
 //            }
+        }
+        if (!empty($search['type'])) {
+            $this->db->where('type', $search['type']); //By Type 
+        }
+        if (!empty($search['genre'])) {
+            $this->db->where('genre', $search['genre']); //By Type 
+        }
+        if (!empty($search['name'])) {
+            $this->db->where('name', $search['name']); //By Type 
         }
         if (!empty($search['public'])) {
             $this->db->where('public', $search['public']); //By Public

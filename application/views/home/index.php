@@ -182,7 +182,7 @@ $this->load->view('home/_inc/header', $data);
                                         <br>
                                         <p><strong>LinkStream</strong> will enable you to actually stream your music and beats from multiple platforms (e.g. SoundCloud, YouTube) to multiple platforms (e.g. Instagram) with one easy-to-use link.</p>
                                         <br>
-                                        <p>We need you early birds to spread the word to other Artists, because once enough artists get their <strong>LinkStream's</strong> setup we can launch the <strong>LinkStream</strong> mobile app to your audiences.</p>
+                                        <p>We need you early birds to spread the word to other Artists, because once enough artists get their <strong>LinkStream's</strong> setup we can launch the <strong>Streamy</strong> mobile app to your audiences.</p>
 
                                     </div>
                                     <div class="col-md-3">

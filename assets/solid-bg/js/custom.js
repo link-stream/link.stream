@@ -17,17 +17,17 @@ $(document).ready(function () {
      Preloader
      _____________________________________ */
 
-    var loader = $(".loader");
-
-    if (loader.length) {
-        // show Preloader until the website ist loaded
-        $(window).on("load", function () {
-            loader.addClass('fade-out');
-            setTimeout(function () {
-                loader.hide();
-            }, 500);
-        });
-    }
+//    var loader = $(".loader");
+//
+//    if (loader.length) {
+//        // show Preloader until the website ist loaded
+//        $(window).on("load", function () {
+//            loader.addClass('fade-out');
+//            setTimeout(function () {
+//                loader.hide();
+//            }, 500);
+//        });
+//    }
 
     /* _____________________________________
      
@@ -57,24 +57,24 @@ $(document).ready(function () {
      _____________________________________ */
 
 
-    function initScroll(anchor) {
-        $("html, body").stop().animate({
-            scrollTop: $(anchor).offset().top
-        }, {
-            duration: 1000,
-            specialEasing: {
-                width: "linear",
-                height: "easeInOutCubic"
-            }
-        });
-
-    }
-
-    $("a.smooth-scroll").on("click", function (event) {
-        var anchor = $(this).attr("href");
-        initScroll(anchor);
-        event.preventDefault();
-    });
+//    function initScroll(anchor) {
+//        $("html, body").stop().animate({
+//            scrollTop: $(anchor).offset().top
+//        }, {
+//            duration: 1000,
+//            specialEasing: {
+//                width: "linear",
+//                height: "easeInOutCubic"
+//            }
+//        });
+//
+//    }
+//
+//    $("a.smooth-scroll").on("click", function (event) {
+//        var anchor = $(this).attr("href");
+//        initScroll(anchor);
+//        event.preventDefault();
+//    });
 
 
     /* _____________________________________
@@ -82,39 +82,39 @@ $(document).ready(function () {
      Scroll Reveal
      _____________________________________ */
 
-    var reveal = $(".reveal");
-
-    if (reveal.length) {
-        window.sr = ScrollReveal();
-
-        // Add class to <html> if ScrollReveal is supported
-        if (sr.isSupported()) {
-            document.documentElement.classList.add('sr');
-        }
-
-        sr.reveal('.reveal.scale-in', {
-            origin: 'bottom',
-            distance: '20px',
-            duration: 1500,
-            delay: 400,
-            opacity: 1,
-            scale: 1.1,
-            easing: 'linear',
-            reset: false
-        });
-
-
-        sr.reveal('.reveal.scale-out', {
-            origin: 'bottom',
-            distance: '20px',
-            duration: 1500,
-            delay: 400,
-            opacity: 1,
-            scale: 0.9,
-            easing: 'linear',
-            reset: false
-        });
-    }
+//    var reveal = $(".reveal");
+//
+//    if (reveal.length) {
+//        window.sr = ScrollReveal();
+//
+//        // Add class to <html> if ScrollReveal is supported
+//        if (sr.isSupported()) {
+//            document.documentElement.classList.add('sr');
+//        }
+//
+//        sr.reveal('.reveal.scale-in', {
+//            origin: 'bottom',
+//            distance: '20px',
+//            duration: 1500,
+//            delay: 400,
+//            opacity: 1,
+//            scale: 1.1,
+//            easing: 'linear',
+//            reset: false
+//        });
+//
+//
+//        sr.reveal('.reveal.scale-out', {
+//            origin: 'bottom',
+//            distance: '20px',
+//            duration: 1500,
+//            delay: 400,
+//            opacity: 1,
+//            scale: 0.9,
+//            easing: 'linear',
+//            reset: false
+//        });
+//    }
 
     /* _____________________________________
      

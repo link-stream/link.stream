@@ -5,13 +5,13 @@ $this->load->view('home/_inc/header', $data);
 <body data-spy="scroll" data-target=".scrollspy" class="bg-dark" style="overflow:  auto !important">
 
     <!-- Preloader  -->
-    <div class="loader bg-dark">
-        <div class="loader-inner ball-scale-ripple-multiple ball-scale-ripple-multiple-color">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
+    <!--    <div class="loader bg-dark">
+            <div class="loader-inner ball-scale-ripple-multiple ball-scale-ripple-multiple-color">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>-->
     <!-- /End Preloader  -->
 
 
@@ -176,9 +176,9 @@ $this->load->view('home/_inc/header', $data);
                                     <div class="col-md-3">
 
                                     </div>
-                                    
+
                                     <div class="col-md-6">
-                                        <p>Early registration for Artists is now open, enter your information to get a notification when early access is live! Also, when you sign-up early you'll get a free Pro account for life, including INSTANT access to our proprietary <strong>LinkStream</strong> tool. </p>
+                                        <p>Early registration for Artists is now open! Click the button below to enter your information and you will receive a notification when early access is live. Also, when you sign-up early you're guaranteed a free Pro account for life, including INSTANT access to our proprietary <strong>LinkStream</strong> tool. </p>
                                         <br>
                                         <p><strong>LinkStream</strong> will enable you to actually stream your music and beats from multiple platforms (e.g. SoundCloud, YouTube) to multiple platforms (e.g. Instagram) with one easy-to-use link.</p>
                                         <br>

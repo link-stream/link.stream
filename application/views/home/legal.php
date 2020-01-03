@@ -5,13 +5,13 @@ $this->load->view('home/_inc/header', $data);
 <body data-spy="scroll" data-target=".scrollspy" class="bg-dark" style="overflow:  auto !important">
 
     <!-- Preloader  -->
-    <div class="loader bg-dark">
+<!--    <div class="loader bg-dark">
         <div class="loader-inner ball-scale-ripple-multiple ball-scale-ripple-multiple-color">
             <div></div>
             <div></div>
             <div></div>
         </div>
-    </div>
+    </div>-->
     <!-- /End Preloader  -->
 
 

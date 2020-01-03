@@ -548,6 +548,59 @@ class App extends CI_Controller {
                     $this->load->view($this->loc_path . 'content/content_add', $data);
                 }
             } else {
+                $data['user'] = $user;
+                $data['genres'] = $this->Streamy_model->fetch_genres();
+                $data['types'] = $this->Streamy_model->fetch_types();
+                $this->load->view($this->loc_path . 'content/my_content_dt', $data);
+            }
+        } else {
+            redirect($this->loc_url . '/login', 'location', 302);
+        }
+    }
+
+    public function content_old($action = null, $type = null) {
+        $data = array();
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $this->status_pending();
+            $user = $this->general_library->get_cookie();
+            if (!empty($action) && $action == 'add') {
+                $data['user'] = $user;
+                $data['type'] = '';
+                $data['placeholder_url'] = '';
+                $data['type_url'] = '';
+                $data['genres'] = $this->Streamy_model->fetch_genres();
+                if (!empty($type)) {
+                    if ($type == 'sc') {
+                        $data['type'] = '1';
+                        $data['placeholder_url'] = 'https://soundcloud.com/iamstarinthesky/go-hard-prod-silo';
+                        $data['type_url'] = 'SoundCloud URL';
+                        $this->load->view($this->loc_path . 'content/content_add', $data);
+                    } elseif ($type == 'yt') {
+                        $data['type'] = '2';
+                        $data['placeholder_url'] = 'https://www.youtube.com/watch?v=h_D3VFfhvs4';
+                        $data['type_url'] = 'YouTube URL';
+                        $this->load->view($this->loc_path . 'content/content_add', $data);
+                    } elseif ($type == 'lk') {
+                        $data['type'] = '3';
+                        $data['placeholder_url'] = 'https://www.streamy.link';
+                        $data['type_url'] = 'LinkStreams URL';
+                        $this->load->view($this->loc_path . 'content/linkstream', $data);
+                    } elseif ($type == 'st') {
+                        $data['type'] = '3';
+                        $this->load->view($this->loc_path . 'content/my_streamy_add', $data);
+                    } else {
+                        $data['type'] = '';
+                        $data['placeholder_url'] = '';
+                        $data['type_url'] = '';
+                        $this->load->view($this->loc_path . 'content/content_add', $data);
+                    }
+                } else {
+                    $data['type'] = '';
+                    $data['placeholder_url'] = '';
+                    $data['type_url'] = '';
+                    $this->load->view($this->loc_path . 'content/content_add', $data);
+                }
+            } else {
                 //Soundcloud
                 $search = array(
                     'user' => $user['id'],
@@ -815,6 +868,45 @@ class App extends CI_Controller {
         }
     }
 
+    public function my_content_ajax() {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $this->status_pending();
+            $user = $this->general_library->get_cookie();
+            $aaData = array();
+            //$state = $this->input->post('state');
+            $limit = $this->input->post('iDisplayLength');
+            $offset = $this->input->post('iDisplayStart');
+            $isort_col = $this->input->post('iSortCol_0');
+            $sort_dir = $this->input->post('sSortDir_0');
+            $sSearch = $this->input->post('sSearch');
+            $array_field = array("id", "name", "type_name");
+            $sort_col = $array_field[$isort_col];
+            $search = array(
+                'user' => $user['id'],
+                'status' => '1',
+                'sort_col' => $sort_col,
+                'sort_dir' => $sort_dir
+            );
+            $streamys = $this->Streamy_model->fetch_streamys_by_search($search, 0, 0);
+            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search($search);
+            //CREATING DATA TO SHOW
+            if ($streamys_count > 0) {
+                foreach ($streamys as $row) {
+                    //$customerName = ($state == 'CA' || $state == 'MD') ? $row['shipName'] : $row['firstname'] . ' ' . $row['lastname'];
+                    //$row['phone'] = str_replace(array("(", ")", "-", " "), "", $row['phone']);
+                    $aaData[] = array(
+                        '<button class="btn btn-outline-secondary m-1 js-edit" id="' . $row['id'] . '"><i class="fa fa-search-plus"></i></button>',
+                        $row['name'],
+                        $row['type_name'],
+                        '<button class="btn btn-outline-danger m-1 js-delete" id="' . $row['id'] . '" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>',
+                        $row
+                    );
+                }
+            }
+            echo json_encode(array('aaData' => $aaData, "iTotalRecords" => $streamys_count, "iTotalDisplayRecords" => $streamys_count));
+        }
+    }
+
     private function streamy_nav($streamys_count, $streamy_page, $limit) {
         $pagLink = '';
         if ($streamys_count > 0) {
@@ -833,7 +925,7 @@ class App extends CI_Controller {
         return $pagLink;
     }
 
-    public function streamy_remove() {
+    public function streamy_remove_old() {
         if ($this->input->cookie($this->general_library->ses_name) != '') {
             $data = array();
             $user = $this->general_library->get_cookie();
@@ -855,6 +947,31 @@ class App extends CI_Controller {
             $data['streamys_view'] = $this->load->view($this->loc_path . 'content/my_content_list', $data, true);
             $data['streamys_nav'] = $this->streamy_nav($streamys_count, 1, $this->limit);
             echo json_encode(array('status' => 'Success', 'streamys_view' => $data['streamys_view'], 'streamys_nav' => $data['streamys_nav']));
+        }
+    }
+
+    public function streamy_remove() {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $data = array();
+            $user = $this->general_library->get_cookie();
+            $id = $this->input->post('id', TRUE);
+            $this->Streamy_model->update_streamy($id, array('status' => '3'));
+//            $streamys = $this->Streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status' => '1'), $this->limit, 0);
+//            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search(array('user' => $user['id'], 'status' => '1'));
+//            $stramy_list = array();
+//            foreach ($streamys as $streamy) {
+//                $stramy_list[] = $this->streamy_desc($streamy);
+////                $streamy['embeed'] = $this->embed_url($streamy['url'], $streamy['type']);
+////                $streamy['type_desc'] = ($streamy['type'] == '1') ? 'SoundCloud' : (($streamy['type'] == '2') ? 'YouTube' : 'LinkStreams');
+////                $streamy['public_desc'] = ($streamy['public'] == '1') ? 'Public' : 'Private';
+////                $streamy['priority_desc'] = ($streamy['priority'] == '1') ? 'High' : (($streamy['priority'] == '2') ? 'Normal' : 'Low');
+////                $streamy['publish_at'] = date('m/d/Y', strtotime($streamy['publish_at']));
+////                $stramy_list[] = $streamy;
+//            }
+//            $data['streamys'] = $stramy_list;
+//            $data['streamys_view'] = $this->load->view($this->loc_path . 'content/my_content_list', $data, true);
+//            $data['streamys_nav'] = $this->streamy_nav($streamys_count, 1, $this->limit);
+            echo json_encode(array('status' => 'Success'));
         }
     }
 
@@ -900,7 +1017,7 @@ class App extends CI_Controller {
 
     private function streamy_desc($streamy, $i = 0) {
         //$streamy['embeed'] = ($i <= 6) ? $this->embed_url($streamy['url'], $streamy['type']) : '';
-         $streamy['embeed'] = $this->embed_url($streamy['url'], $streamy['type']);
+        $streamy['embeed'] = $this->embed_url($streamy['url'], $streamy['type']);
         if ($streamy['type'] == '1') {
             $streamy['type_desc'] = 'SoundCloud';
             $streamy['type_icon'] = '<i class="i-Soundcloud"></i>';

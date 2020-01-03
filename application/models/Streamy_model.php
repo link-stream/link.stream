@@ -38,7 +38,9 @@ class Streamy_model extends CI_Model {
     }
 
     public function fetch_streamys_by_search($search, $limit = 0, $offset = 0) {
-        $this->db->from('streamy');
+        $this->db->select('a.*,b.id as type_id,b.type as type_name');
+        $this->db->from('streamy a');
+        $this->db->join('streamy_type b', 'a.type = b.id');
         if (!empty($search['user'])) {
             $this->db->where('user', $search['user']); //By Usew
         }
@@ -58,6 +60,9 @@ class Streamy_model extends CI_Model {
         }
         if (!empty($search['status'])) {
             $this->db->where('status', $search['status']); //By Status
+        }
+        if (!empty($search['sort_col'])) {
+            $this->db->order_by($search['sort_col'], $search['sort_dir']);
         }
         if (!empty($limit)) {
             $this->db->limit($limit, $offset);
@@ -113,10 +118,27 @@ class Streamy_model extends CI_Model {
         $query->free_result();
         return $result;
     }
-    
+
     public function insert_early_access($data) {
         $this->db->insert('early_access', $data);
         return $this->db->insert_id();
+    }
+    
+    public function fetch_types() {
+        $this->db->from('streamy_type');
+        $query = $this->db->get();
+        $result = $query->result_array();
+        $query->free_result();
+        return $result;
+    }
+
+    public function fetch_types_by_id($id) {
+        $this->db->from('streamy_type');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        $result = $query->row_array();
+        $query->free_result();
+        return $result;
     }
 
 }

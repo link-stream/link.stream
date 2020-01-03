@@ -1,7 +1,7 @@
 <?php
 $data = array();
 $data['title'] = 'Streamy - My Content';
-$data['page'] = 'Add Audio Content';
+$data['page'] = 'Add Content';
 $this->load->view('app/_inc/header', $data);
 ?>
 <style>
@@ -232,12 +232,12 @@ $this->load->view('app/_inc/header', $data);
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="col-md-4 ">   
-                                                            <a href="<?= base_url() ?>app/my_content" class="btn btn-secondary m-1 js-content" type="button">Manage</a>
+                                                            <a href="<?= base_url() ?>app/content" class="btn btn-secondary m-1 js-content" type="button">Manage</a>
                                                         </div>
                                                         <div class="col-md-4 ">
                                                         </div>
                                                         <div class="col-md-4 ">
-                                                            <a href="<?= base_url() ?>app/audio" class="btn btn-success m-1 js-content" type="button">Add New Content</a>
+                                                            <a href="<?= base_url() ?>app/content/add" class="btn btn-success m-1 js-content" type="button">Add New Content</a>
                                                         </div>
                                                     </div>
                                                 </div>

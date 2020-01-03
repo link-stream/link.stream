@@ -174,12 +174,12 @@ $this->load->view('app/_inc/header', $data);
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="col-md-4 ">   
-                                                            <a href="<?= base_url() ?>app/my_content" class="btn btn-secondary m-1 js-content" type="button">Manage</a>
+                                                            <a href="<?= base_url() ?>app/content" class="btn btn-secondary m-1 js-content" type="button">Manage</a>
                                                         </div>
                                                         <div class="col-md-4 ">
                                                         </div>
                                                         <div class="col-md-4 ">
-                                                            <a href="<?= base_url() ?>app/linkstream" class="btn btn-success m-1 js-content" type="button">Add New Link</a>
+                                                            <a href="<?= base_url() ?>app/content/add/lk" class="btn btn-success m-1 js-content" type="button">Add New Link</a>
                                                         </div>
                                                     </div>
                                                 </div>

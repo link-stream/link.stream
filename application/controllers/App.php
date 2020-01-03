@@ -483,24 +483,24 @@ class App extends CI_Controller {
         $search_link = 'https://soundcloud.com/iamstarinthesky/if-stars-could-wish-feat-whywewish-prod-young-flaco';
 //Get the JSON data of song details with embed code from SoundCloud oEmbed
         $getValues = file_get_contents('http://soundcloud.com/oembed?format=js&url=' . $url . '&iframe=true');
-        print_r($getValues);
-        echo '<br>';
-        $pos = strpos($getValues, $search_link);
-        echo '<br>';
-        if ($pos === FALSE) {
-            echo 'No exist';
-        } else {
-            echo 'Exist, Position: ' . $pos;
-        }
+//        print_r($getValues);
+//        echo '<br>';
+//        $pos = strpos($getValues, $search_link);
+//        echo '<br>';
+//        if ($pos === FALSE) {
+//            echo 'No exist';
+//        } else {
+//            echo 'Exist, Position: ' . $pos;
+//        }
 
 //        //Clean the Json to decode
 //        $decodeiFrame = substr($getValues, 1, -2);
 //        //json decode to convert it as an array
 //        $jsonObj = json_decode($decodeiFrame);
 //        //Change the height of the embed player if you want else uncomment below line
-//        //echo $jsonObj->html;
+//        echo $jsonObj->html;
 //        //Print the embed player to the page
-//        echo str_replace('height="4000"', 'height="2400"', $jsonObj->html);
+//        //echo str_replace('height="4000"', 'height="2400"', $jsonObj->html);
     }
 
     /* Streamy */
@@ -1097,7 +1097,7 @@ class App extends CI_Controller {
             $embed_url = '<iframe width="425" height="315" scrolling="no" frameborder="no" allow="autoplay" '
                     . 'src="https://w.soundcloud.com/player/?' . ''
                     . 'url=' . $url
-                    . '&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">'
+                    . '&color=%23ff5500&auto_play=false&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=true&visual=true&show_artwork=false">'
                     . '</iframe>';
         } elseif ($type == '2') {
             //YouTube
@@ -1276,6 +1276,23 @@ class App extends CI_Controller {
             redirect($this->loc_url . '/login', 'location', 302);
         }
     }
+    
+    //
+    public function customize(){
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $user = $this->general_library->get_cookie();
+            $data = array();
+            $data['user'] = $user;
+//            $data['type'] = '3';
+//            $data['placeholder_url'] = 'https://www.streamy.link';
+//            $data['type_url'] = 'URL';
+//            $data['genres'] = $this->Streamy_model->fetch_genres();
+            $this->load->view($this->loc_path . 'customize', $data);
+        } else {
+            redirect($this->loc_url . '/login', 'location', 302);
+        }
+    }
+    
 
 //<script>
 //  window.fbAsyncInit = function() {

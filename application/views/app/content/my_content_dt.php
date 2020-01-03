@@ -1,6 +1,6 @@
 <?php
 $data = array();
-$data['title'] = 'Streamy';
+$data['title'] = 'Streamy - My Content';
 $data['page'] = 'My Content';
 $this->load->view('app/_inc/header', $data);
 ?>
@@ -89,12 +89,12 @@ $this->load->view('app/_inc/header', $data);
                                         <div class="card-body">
                                             <div class="row row-xs">
                                                 <div class="col-md-4">
-                                                    <input class="form-control" id="name" name="name" type="text" placeholder="Name" />
+                                                    <input class="form-control mb-1" id="name" name="name" type="text" placeholder="Name" />
                                                 </div>
 
                                                 <div class="col-md-4">
                                                     <!--<label for="visibility">Visibility</label>-->
-                                                    <select class="form-control" id="type" name="type">
+                                                    <select class="form-control mb-1" id="type" name="type">
                                                         <option value="">All Types</option>
                                                         <?php
                                                         if (!empty($types)) {
@@ -109,7 +109,7 @@ $this->load->view('app/_inc/header', $data);
                                                 </div>
                                                 <div class="col-md-4 ">
                                                     <!--                                                    <label for="genre">Genre</label>-->
-                                                    <select class="form-control" id="genre" name="genre">
+                                                    <select class="form-control mb-1" id="genre" name="genre">
                                                         <option value="">All Genres</option>
                                                         <?php
                                                         if (!empty($genres)) {
@@ -122,8 +122,14 @@ $this->load->view('app/_inc/header', $data);
                                                         ?>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-12 mt-3 mt-md-10">
-                                                    <button class="btn btn-primary btn-block" id="search">Search</button>
+                                                <div class="col-md-3 mt-3 mt-md-10">
+                                                   
+                                                </div>
+                                                <div class="col-md-6 mt-3 mt-md-10">
+                                                   <button class="btn btn-primary btn-block" id="search">Search</button>
+                                                </div>
+                                                <div class="col-md-3 mt-3 mt-md-10">
+                                                    
                                                 </div>
                                             </div>
                                             <div class="row row-xs">

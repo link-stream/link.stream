@@ -30,7 +30,7 @@
         <ul class="childNav" data-parent="my_streamy">
             <!--<li class="nav-item"><a href="<?= base_url() ?>app/my_content"><i class="nav-icon i-Data-Cloud"></i><span class="item-name">Manage</span></a></li>-->
             <li class="nav-item"><a href="<?= !empty($user['url']) ? $user['url'] : '' ?>" target="_blank"><i class="nav-icon i-URL-Window"></i><span class="item-name">Live View</span></a></li>
-            <li class="nav-item"><a href="#"><i class="nav-icon i-Monitor-2"></i><span class="item-name">Customize</span></a></li>
+            <li class="nav-item"><a href="<?= base_url() ?>app/customize"><i class="nav-icon i-Monitor-2"></i><span class="item-name">Customize</span></a></li>
         </ul>
         <!-- my_content -->
         <ul class="childNav" data-parent="my_content">

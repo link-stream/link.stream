@@ -3,12 +3,12 @@
         <form action="" method="post" role="form" id="my_content_update" >
             <input name="id" id="id" type="hidden" value="<?= $id ?>">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Media Edit</h5>
+                <h5 class="modal-title" id="exampleModalLabel">My Content Edit</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
-                <h3 class="ul-widget-card__title"><?= $type_icon ?> <?= $type_desc ?></h3>
-                <p class="card-text text-mute"><?= ($type!='4')?'URL: '.$url:'' ?></p>
+                <!--<h3 class="ul-widget-card__title"><?= $type_icon ?> <?= $type_desc ?></h3>-->
+                <!--<p class="card-text text-mute"><?= ($type != '4') ? 'URL: ' . $url : '' ?></p>-->
 
                 <div class="col-md-12 text-left">
                     <div class="row">
@@ -48,7 +48,7 @@
                                 <option value="3" <?= ('3' == $public ? 'selected=""' : '') ?> <?= ($user['role'] == '1') ? 'disabled=""' : '' ?>><?= ($user['role'] == '1') ? 'Scheduled - Not available for Free Account' : 'Scheduled' ?> </option>
                             </select>
                         </div>
-                        <div class="col-md-6 form-group mb-3">
+                        <div class="col-md-6 form-group mb-3 js-scheduled" style="<?= ('3' == $public ? '' : 'display:none') ?>">
                             <label for="date">Scheduled</label>
                             <input class="form-control" id="date"  name="date" type="text" placeholder="Date" value="<?= $publish_at ?>" <?= ($user['role'] == '1' || $public != '3') ? 'readonly=""' : '' ?> />
                         </div>
@@ -62,19 +62,20 @@
         </form>
     </div>
 </div>
+<script> var role = "<?= $user['role'] ?>";</script>
 <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            $("#my_content_update").validate({
-                onkeyup: false,
-                errorClass: "state-error",
-                validClass: "state-success",
-                errorElement: "em",
-                errorPlacement: function (label, element) {
-                    label.addClass('invalid-tooltip');
-                    label.insertAfter(element);
-                },
-                rules: {
+        $("#my_content_update").validate({
+            onkeyup: false,
+            errorClass: "state-error",
+            validClass: "state-success",
+            errorElement: "em",
+            errorPlacement: function (label, element) {
+                label.addClass('invalid-tooltip');
+                label.insertAfter(element);
+            },
+            rules: {
 //                    radio: {
 //                        required: true
 //                    },
@@ -83,34 +84,50 @@
 //                        url: true,
 //                        url_type: "#streamy_url"
 //                    },
-                    priority: {
-                        required: true
-                    },
-                    visibility: {
-                        required: true
-                    },
-                    date: {
-                        required: true,
-                        date: true
-                    },
-                    song_name: {
-                        required: true
-                    },
-                    genre: {
-                        required: true
-                    }
+                priority: {
+                    required: true
                 },
-                messages: {
+                visibility: {
+                    required: true
+                },
+                date: {
+                    required: true,
+                    date: true
+                },
+                song_name: {
+                    required: true
+                },
+                genre: {
+                    required: true
+                }
+            },
+            messages: {
 //                username: {
 //                    remote: 'User Name Already Register'
 //                }
-                },
-                submitHandler: function (form) {
-                    form.submit();
-                }
-            });
-            
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+
+
+        $('body').on('change', '#visibility', function (e) {
+            var id = this.id;
+            var value = $(this).val();
+            var d = new Date();
+            var strDate = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
+            if ($.trim(value) === '3' && role !== '1') {
+                $('#date').attr('readonly', false);
+                $('.js-scheduled').css('display', '');
+            } else {
+                $('#date').attr('readonly', true);
+                $('#date').val(strDate);
+                $('.js-scheduled').css('display', 'none');
+            }
+        });
+
     });
 
 
-    </script>
+</script>

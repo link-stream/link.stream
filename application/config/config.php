@@ -48,6 +48,7 @@ if (array_shift($exp) == 'localhost') {
     define('ENV', 'live');
 }
 echo ENV;
+echo array_shift($exp);
 
 //define('HTTPS_URL', $config['ssl_base_url']);
 define('HTTP_ASSETS', $config['base_url'] . 'assets/');

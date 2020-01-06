@@ -9,6 +9,7 @@ class App extends CI_Controller {
     private $error;
     private $ses_name = 'app_session';
     private $limit = 0;
+    private $bucket = 'files.streamy.link';
 
     public function __construct() {
         parent::__construct();
@@ -492,7 +493,6 @@ class App extends CI_Controller {
 //        } else {
 //            echo 'Exist, Position: ' . $pos;
 //        }
-
 //        //Clean the Json to decode
 //        $decodeiFrame = substr($getValues, 1, -2);
 //        //json decode to convert it as an array
@@ -1276,13 +1276,14 @@ class App extends CI_Controller {
             redirect($this->loc_url . '/login', 'location', 302);
         }
     }
-    
+
     //
-    public function customize(){
+    public function customize() {
         if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
+            $register_user = $this->User_model->fetch_user_by_search(array('id' => $user['id']));
             $data = array();
-            $data['user'] = $user;
+            $data['user'] = $register_user;
 //            $data['type'] = '3';
 //            $data['placeholder_url'] = 'https://www.streamy.link';
 //            $data['type_url'] = 'URL';
@@ -1292,7 +1293,69 @@ class App extends CI_Controller {
             redirect($this->loc_url . '/login', 'location', 302);
         }
     }
+
+    public function get_banner() {
+        $user = $this->general_library->get_cookie();
+        $user_id = $user['id'];
+        $register_user = $this->User_model->fetch_user_by_search(array('id' => $user_id));
+        if (!empty($register_user['banner'])) {
+            $bucket = $this->bucket;
+            $path = (ENV == 'live') ? 'prod/banner' : 'dev/banner';
+            $data = $this->aws_s3->s3_read($bucket, $path, $register_user['banner']);
+            if (!empty($data)) {
+                header("Cache-Control: no-cache, must-revalidate");
+                header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+                header('Content-type: image/jpeg');
+                header('Content-Disposition: inline; filename="' . time() . '.jpg' . '"');
+                echo $data;
+            } else {
+                $data = file_get_contents(HTTP_ASSETS . 'dist-assets/images/photo-wide-4.jpg');
+                header("Cache-Control: no-cache, must-revalidate");
+                header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+                header('Content-type: image/jpeg');
+                header('Content-Disposition: inline; filename="' . time() . '.jpg' . '"');
+                echo $data;
+            }
+        } else {
+            $data = file_get_contents(HTTP_ASSETS . 'dist-assets/images/photo-wide-4.jpg');
+            header("Cache-Control: no-cache, must-revalidate");
+            header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+            header('Content-type: image/jpeg');
+            header('Content-Disposition: inline; filename="' . time() . '.jpg' . '"');
+            echo $data;
+        }
+    }
     
+     public function get_avatar() {
+        $user = $this->general_library->get_cookie();
+        $register_user = $this->User_model->fetch_user_by_search(array('id' => $user['id']));
+        if (!empty($register_user['image'])) {
+            $bucket = $this->bucket;
+            $path = (ENV == 'live') ? 'prod/avatar' : 'dev/avatar';
+            $data = $this->aws_s3->s3_read($bucket, $path, $register_user['image']);
+            if (!empty($data)) {
+                header("Cache-Control: no-cache, must-revalidate");
+                header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+                header('Content-type: image/jpeg');
+                header('Content-Disposition: inline; filename="' . time() . '.jpg' . '"');
+                echo $data;
+            } else {
+                $data = file_get_contents(HTTP_ASSETS . 'images/logo/streamy_icon_RGB.png');
+                header("Cache-Control: no-cache, must-revalidate");
+                header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+                header('Content-type: image/jpeg');
+                header('Content-Disposition: inline; filename="' . time() . '.jpg' . '"');
+                echo $data;
+            }
+        } else {
+            $data = file_get_contents(HTTP_ASSETS . 'images/logo/streamy_icon_RGB.png');
+            header("Cache-Control: no-cache, must-revalidate");
+            header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+            header('Content-type: image/jpeg');
+            header('Content-Disposition: inline; filename="' . time() . '.jpg' . '"');
+            echo $data;
+        }
+    }
 
 //<script>
 //  window.fbAsyncInit = function() {

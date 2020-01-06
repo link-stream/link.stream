@@ -41,9 +41,9 @@ $config['ssl_base_url'] = 'https://' . $host . str_replace(basename($_SERVER['SC
 //Enviroment
 $exp = explode(".", $host);
 print_r($exp);
-if ($exp == 'localhost') {
+if ($exp[0] == 'localhost') {
     define('ENV', 'dev');
-} elseif ($exp == 'streamy-dev') {
+} elseif ($exp[0] == 'streamy-dev') {
     define('ENV', 'staging');
 } else {
     define('ENV', 'live');

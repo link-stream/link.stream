@@ -39,16 +39,16 @@ $config['base_url'] = $root;
 $config['ssl_base_url'] = 'https://' . $host . str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
 
 //Enviroment
-$exp = explode(".", $host);print_r($exp);
-if (array_shift($exp) == 'localhost') {
+$exp = explode(".", $host);
+print_r($exp);
+if ($exp == 'localhost') {
     define('ENV', 'dev');
-} elseif (array_shift($exp) == 'streamy-dev') {
+} elseif ($exp == 'streamy-dev') {
     define('ENV', 'staging');
 } else {
     define('ENV', 'live');
 }
 echo ENV;
-echo array_shift($exp);
 
 //define('HTTPS_URL', $config['ssl_base_url']);
 define('HTTP_ASSETS', $config['base_url'] . 'assets/');

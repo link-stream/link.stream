@@ -881,7 +881,7 @@ class App extends CI_Controller {
             $isort_col = $this->input->post('iSortCol_0');
             $sort_dir = $this->input->post('sSortDir_0');
             $sSearch = $this->input->post('sSearch');
-            $array_field = array("id", "name", "type_name");
+            $array_field = array("id", "name", "type_name", "created_at");
             $sort_col = $array_field[$isort_col];
             $search = array(
                 'user' => $user['id'],
@@ -903,6 +903,7 @@ class App extends CI_Controller {
                         '<button class="btn btn-outline-secondary m-1 js-edit" id="' . $row['id'] . '"><i class="fa fa-search-plus"></i></button>',
                         $row['name'],
                         $row['type_name'],
+                        date('m/d/Y h:m:s', strtotime($row['created_at'])),
                         '<button class="btn btn-outline-danger m-1 js-delete" id="' . $row['id'] . '" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>',
                         $row
                     );
@@ -1284,10 +1285,7 @@ class App extends CI_Controller {
             $register_user = $this->User_model->fetch_user_by_search(array('id' => $user['id']));
             $data = array();
             $data['user'] = $register_user;
-//            $data['type'] = '3';
-//            $data['placeholder_url'] = 'https://www.streamy.link';
-//            $data['type_url'] = 'URL';
-//            $data['genres'] = $this->Streamy_model->fetch_genres();
+            $data['order'] = $this->Streamy_model->fetch_content_order($register_user['id']);
             $this->load->view($this->loc_path . 'customize', $data);
         } else {
             redirect($this->loc_url . '/login', 'location', 302);
@@ -1301,32 +1299,23 @@ class App extends CI_Controller {
         if (!empty($register_user['banner'])) {
             $bucket = $this->bucket;
             $path = (ENV == 'live') ? 'prod/banner' : 'dev/banner';
-            $data = $this->aws_s3->s3_read($bucket, $path, $register_user['banner']);
-            if (!empty($data)) {
-                header("Cache-Control: no-cache, must-revalidate");
-                header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
-                header('Content-type: image/jpeg');
-                header('Content-Disposition: inline; filename="' . time() . '.jpg' . '"');
-                echo $data;
+            $s3_data = $this->aws_s3->s3_read($bucket, $path, $register_user['banner']);
+            if (!empty($s3_data)) {
+                $data = $s3_data;
             } else {
                 $data = file_get_contents(HTTP_ASSETS . 'dist-assets/images/photo-wide-4.jpg');
-                header("Cache-Control: no-cache, must-revalidate");
-                header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
-                header('Content-type: image/jpeg');
-                header('Content-Disposition: inline; filename="' . time() . '.jpg' . '"');
-                echo $data;
             }
         } else {
             $data = file_get_contents(HTTP_ASSETS . 'dist-assets/images/photo-wide-4.jpg');
-            header("Cache-Control: no-cache, must-revalidate");
-            header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
-            header('Content-type: image/jpeg');
-            header('Content-Disposition: inline; filename="' . time() . '.jpg' . '"');
-            echo $data;
         }
+        header("Cache-Control: no-cache, must-revalidate");
+        header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+        header('Content-type: image/jpeg');
+        header('Content-Disposition: inline; filename="' . time() . '.jpg' . '"');
+        echo $data;
     }
-    
-     public function get_avatar() {
+
+    public function get_avatar() {
         $user = $this->general_library->get_cookie();
         $register_user = $this->User_model->fetch_user_by_search(array('id' => $user['id']));
         if (!empty($register_user['image'])) {
@@ -1355,6 +1344,41 @@ class App extends CI_Controller {
             header('Content-Disposition: inline; filename="' . time() . '.jpg' . '"');
             echo $data;
         }
+    }
+
+    public function banner_upload_ajax() {
+        $upload = $this->s3_upload('file_photo2', 'banner');
+        $user = $this->general_library->get_cookie();
+        $data = array();
+        $data['banner'] = $upload['file_name'];
+        $this->User_model->update_user($user['id'], $data); //banner_example.jpg
+        echo json_encode(array('status' => 'Success', 'upload' => $upload['file_name']));
+    }
+
+    public function avatar_upload_ajax() {
+        //$response = array('status' => true, 'msg' => '', 'file_name' => '');
+        $croped_image = $this->input->post('image');
+        list($type, $croped_image) = explode(';', $croped_image);
+        list(, $croped_image) = explode(',', $croped_image);
+        $croped_image = base64_decode($croped_image);
+        $image_name = time() . '.png';
+        // upload cropped image to server 
+        $source = $this->get_temp_dir();
+        file_put_contents($source . '/' . $image_name, $croped_image);
+        //SAVE S3
+        $bucket = 'files.streamy.link';
+        $path = (ENV == 'live') ? 'prod/' : 'dev/';
+        $dest_folder = 'avatar';
+        $destination = $path . $dest_folder . '/' . $image_name;
+        $s3_source = $source . '/' . $image_name;
+        $this->aws_s3->s3push($s3_source, $destination, $bucket);
+        //$response['file_name'] = $image_name;
+        unlink($source . '/' . $image_name);
+        $user = $this->general_library->get_cookie();
+        $data = array();
+        $data['image'] = $image_name;
+        $this->User_model->update_user($user['id'], $data); //banner_example.jpg
+        echo json_encode(array('status' => 'Success', 'upload' => $image_name));
     }
 
 //<script>

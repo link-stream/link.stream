@@ -16,6 +16,9 @@
             <li class="nav-item" data-item="my_report"><a class="nav-item-hold" href="#"><i class="nav-icon i-File-Clipboard-File--Text"></i><span class="nav-text">My Reports</span></a>
                 <div class="triangle"></div>
             </li>
+            <li class="nav-item"><a class="nav-item-hold" href="#"><i class="nav-icon i-File-Horizontal-Text"></i><span class="nav-text">Upgrade</span></a>
+                        <div class="triangle"></div>
+                    </li>
         </ul>
     </div>
     <div class="sidebar-left-secondary rtl-ps-none" data-perfect-scrollbar="" data-suppress-scroll-x="true">

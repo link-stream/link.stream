@@ -51,7 +51,7 @@ class Streamy_model extends CI_Model {
             $this->db->where('a.genre', $search['genre']); //By Type 
         }
         if (!empty($search['name'])) {
-            $this->db->where('a.name', $search['name']); //By Type 
+            $this->db->like('a.name', $search['name']); //By Type 
         }
         if (!empty($search['public'])) {
             $this->db->where('public', $search['public']); //By Public
@@ -92,7 +92,7 @@ class Streamy_model extends CI_Model {
             $this->db->where('genre', $search['genre']); //By Type 
         }
         if (!empty($search['name'])) {
-            $this->db->where('name', $search['name']); //By Type 
+            $this->db->like('name', $search['name']); //By Type 
         }
         if (!empty($search['public'])) {
             $this->db->where('public', $search['public']); //By Public
@@ -130,9 +130,10 @@ class Streamy_model extends CI_Model {
         $this->db->insert('early_access', $data);
         return $this->db->insert_id();
     }
-    
+
     public function fetch_types() {
         $this->db->from('streamy_type');
+        $this->db->where('active', 1); //By Status
         $query = $this->db->get();
         $result = $query->result_array();
         $query->free_result();
@@ -144,6 +145,15 @@ class Streamy_model extends CI_Model {
         $this->db->where('id', $id);
         $query = $this->db->get();
         $result = $query->row_array();
+        $query->free_result();
+        return $result;
+    }
+
+    public function fetch_content_order($user_id) {
+        $this->db->from('user_content');
+        $this->db->where('user_id', $user_id); //By Status
+        $query = $this->db->get();
+        $result = $query->result_array();
         $query->free_result();
         return $result;
     }

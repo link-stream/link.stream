@@ -150,6 +150,7 @@ $this->load->view('app/_inc/header', $data);
                                             <th></th>
                                             <th>Name</th>
                                             <th>Type</th>
+                                            <th>Date</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -329,10 +330,11 @@ $this->load->view('app/_inc/header', $data);
                     {"sClass": 'text-center'}, ///// THIS COLUMN IS NOT EDITABLE
                     null, ///// THIS COLUMN IS NOT EDITABLE
                     null, ///// THIS COLUMN IS NOT EDITABLE
+                    null, ///// THIS COLUMN IS NOT EDITABLE
                     {"sClass": 'text-center'}
                 ],
                 columnDefs: [
-                    {"orderable": false, "targets": [0, 3]}
+                    {"orderable": false, "targets": [0, 4]}
                 ]
             });
 

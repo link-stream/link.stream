@@ -1496,8 +1496,8 @@ class App extends CI_Controller {
         $ip = $this->input->ip_address();
         echo $ip;
         echo '<br>';
-        //$ip = '108.162.210.140';
-        //echo $ip;
+        $ip = '108.162.210.140';
+        echo $ip;
         echo '<br>';
         $location = file_get_contents('http://ip-api.com/json/' . $ip);
         //you can also use ipinfo.io or any other ip location provider API

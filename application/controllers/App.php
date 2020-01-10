@@ -1491,4 +1491,67 @@ class App extends CI_Controller {
         $this->aws_pinpoint->send('13059705118', 'Welcome to Streamy');
     }
 
+    public function get_data() {
+        //IP
+        $ip = $this->input->ip_address();
+        echo $ip;
+        echo '<br>';
+        $ip = '108.162.210.140';
+        echo $ip;
+        echo '<br>';
+        $location = file_get_contents('http://ip-api.com/json/' . $ip);
+        //you can also use ipinfo.io or any other ip location provider API
+        //print_r($location);exit;
+        $data_loc = json_decode($location, true);
+        print_r($data_loc);
+        echo '<br>';
+        echo $data_loc['country'];
+        echo '<br>';
+        echo $data_loc['countryCode'];
+        echo '<br>';
+        echo $data_loc['region'];
+        echo '<br>';
+        echo $data_loc['regionName'];
+        echo '<br>';
+        echo $data_loc['city'];
+        echo '<br>';
+        echo $data_loc['zip'];
+        echo '<br>';
+
+        $this->load->library('user_agent');
+        if ($this->agent->is_browser()) {
+            $agent = $this->agent->browser() . ' ' . $this->agent->version();
+        } elseif ($this->agent->is_robot()) {
+            $agent = $this->agent->robot();
+        } elseif ($this->agent->is_mobile()) {
+            $agent = $this->agent->mobile();
+        } else {
+            $agent = 'Unidentified User Agent';
+        }
+
+        echo $agent;
+        echo '<br>';
+
+        echo $this->agent->platform(); // Platform info (Windows, Linux, Mac, etc.)
+        echo '<br>';
+
+//        $newdata = array(
+//            'username' => 'johndoe',
+//            'email' => 'johndoe@some-site.com',
+//            'logged_in' => TRUE
+//        );
+//        $this->session->set_userdata($newdata);
+//        print_r($this->session->userdata());
+//        echo '<br>';
+//        $session_id = $this->session->userdata('session_id');
+//        print_r($session_id);
+//        echo '<br>';
+        print_r($this->session);
+        echo '<br>';
+//        print_r($this->session->tempdata());
+//        echo '<br>';
+        print_r(session_id());
+        echo '<br>';
+    }
+
 }

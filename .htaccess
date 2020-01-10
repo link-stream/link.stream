@@ -13,5 +13,6 @@ RewriteRule ^(.*)$ ./index.php?$1 [L,QSA]
 
 AuthType Basic
 AuthName "Password Protected Area"
+#AuthUserFile /Applications/XAMPP/xamppfiles/htdocs/streamy.link/.htpasswd
 AuthUserFile /var/www/html/.htpasswd
 Require valid-user

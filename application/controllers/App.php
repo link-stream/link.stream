@@ -1635,5 +1635,18 @@ class App extends CI_Controller {
         echo '<br>';
         echo '<br>';
     }
+    
+    public function upgrade(){
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $user = $this->general_library->get_cookie();
+            $register_user = $this->User_model->fetch_user_by_search(array('id' => $user['id']));
+            $data = array();
+            $data['user'] = $register_user;
+            //$data['order'] = $this->Streamy_model->fetch_content_order($register_user['id']);
+            $this->load->view($this->loc_path . 'content/upgrade', $data);
+        } else {
+            redirect($this->loc_url . '/login', 'location', 302);
+        }
+    }
 
 }

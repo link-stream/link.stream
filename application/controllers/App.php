@@ -1496,7 +1496,7 @@ class App extends CI_Controller {
         $ip = $this->input->ip_address();
         echo $ip;
         echo '<br>';
-        //$ip = '108.162.210.140';
+        $ip = '108.162.210.140';
         echo $ip;
         echo '<br>';
         $location = file_get_contents('http://ip-api.com/json/' . $ip);
@@ -1552,6 +1552,9 @@ class App extends CI_Controller {
 //        echo '<br>';
         print_r(session_id());
         echo '<br>';
+        
+        
+        echo $_SERVER['DOCUMENT_ROOT'];
     }
 
 }

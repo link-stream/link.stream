@@ -1492,50 +1492,72 @@ class App extends CI_Controller {
     }
 
     public function get_data() {
+
         //IP
-        $ip = $this->input->ip_address();
+        $ip = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
         echo $ip;
         echo '<br>';
-        $ip = '108.162.210.140';
+        echo '<br>';
+        $ip = ($ip == '::1') ? '170.55.19.206' : $ip;
         echo $ip;
         echo '<br>';
+        echo '<br>';
+        //LOCATION ip-api.com
+        echo 'ip-api.com';
         $location = file_get_contents('http://ip-api.com/json/' . $ip);
-        //you can also use ipinfo.io or any other ip location provider API
-        //print_r($location);exit;
-        $data_loc = json_decode($location, true);
-        echo '<pre>';
-        print_r($data_loc);
-        echo '</pre>';
-        echo '<br>';
-        echo $data_loc['country'];
-        echo '<br>';
-        echo $data_loc['countryCode'];
-        echo '<br>';
-        echo $data_loc['region'];
-        echo '<br>';
-        echo $data_loc['regionName'];
-        echo '<br>';
-        echo $data_loc['city'];
-        echo '<br>';
-        echo $data_loc['zip'];
-        echo '<br>';
-        echo '<br>';
-        echo '<br>';
-        echo '<br>';
-
-
-        $location = file_get_contents('https://api.ipgeolocationapi.com/geolocate/' . $ip);
-        //you can also use ipinfo.io or any other ip location provider API
-        //print_r($location);exit;
         $data_loc = json_decode($location, true);
         echo '<pre>';
         print_r($data_loc);
         echo '</pre>';
         echo '<br>';
         echo '<br>';
-        echo '<br>';
-        echo '<br>';
+        
+        
+        
+        
+        //IP
+        //$ip = $this->input->ip_address();
+        //echo $ip;
+        //echo '<br>';
+        //$ip = '108.162.210.140';
+        //echo $ip;
+        //echo '<br>';
+//        $location = file_get_contents('http://ip-api.com/json/' . $ip);
+//        //you can also use ipinfo.io or any other ip location provider API
+//        //print_r($location);exit;
+//        $data_loc = json_decode($location, true);
+//        echo '<pre>';
+//        print_r($data_loc);
+//        echo '</pre>';
+//        echo '<br>';
+//        echo $data_loc['country'];
+//        echo '<br>';
+//        echo $data_loc['countryCode'];
+//        echo '<br>';
+//        echo $data_loc['region'];
+//        echo '<br>';
+//        echo $data_loc['regionName'];
+//        echo '<br>';
+//        echo $data_loc['city'];
+//        echo '<br>';
+//        echo $data_loc['zip'];
+//        echo '<br>';
+//        echo '<br>';
+//        echo '<br>';
+//        echo '<br>';
 
+//
+//        $location = file_get_contents('https://api.ipgeolocationapi.com/geolocate/' . $ip);
+//        //you can also use ipinfo.io or any other ip location provider API
+//        //print_r($location);exit;
+//        $data_loc = json_decode($location, true);
+//        echo '<pre>';
+//        print_r($data_loc);
+//        echo '</pre>';
+//        echo '<br>';
+//        echo '<br>';
+//        echo '<br>';
+//        echo '<br>';
 //        $location = file_get_contents('https://api.ipgeolocationapi.com/countries');
 //        //you can also use ipinfo.io or any other ip location provider API
 //        //print_r($location);exit;
@@ -1547,35 +1569,27 @@ class App extends CI_Controller {
 //        echo '<br>';
 //        echo '<br>';
 //        echo '<br>';
-
-        $ip = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
-        echo $ip;
-        echo '<br>';
-        echo '<br>';
-        echo '<br>';
-
-
-        $ipaddress = '';
-        if (isset($_SERVER['HTTP_CLIENT_IP']))
-            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-        else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        else if (isset($_SERVER['HTTP_X_FORWARDED']))
-            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-        else if (isset($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']))
-            $ipaddress = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
-        else if (isset($_SERVER['HTTP_FORWARDED_FOR']))
-            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-        else if (isset($_SERVER['HTTP_FORWARDED']))
-            $ipaddress = $_SERVER['HTTP_FORWARDED'];
-        else if (isset($_SERVER['REMOTE_ADDR']))
-            $ipaddress = $_SERVER['REMOTE_ADDR'];
-        else
-            $ipaddress = 'UNKNOWN';
-        echo $ipaddress;
-        echo '<br>';
-        echo '<br>';
-        echo '<br>';
+//        $ipaddress = '';
+//        if (isset($_SERVER['HTTP_CLIENT_IP']))
+//            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+//        else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+//            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+//        else if (isset($_SERVER['HTTP_X_FORWARDED']))
+//            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+//        else if (isset($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']))
+//            $ipaddress = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
+//        else if (isset($_SERVER['HTTP_FORWARDED_FOR']))
+//            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+//        else if (isset($_SERVER['HTTP_FORWARDED']))
+//            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+//        else if (isset($_SERVER['REMOTE_ADDR']))
+//            $ipaddress = $_SERVER['REMOTE_ADDR'];
+//        else
+//            $ipaddress = 'UNKNOWN';
+//        echo $ipaddress;
+//        echo '<br>';
+//        echo '<br>';
+//        echo '<br>';
 
         $this->load->library('user_agent');
         if ($this->agent->is_browser()) {

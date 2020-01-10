@@ -9,3 +9,9 @@ RewriteCond $1 !^(index\.php|(.*)\.swf|assets|upload|forums|images|css|downloads
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ ./index.php?$1 [L,QSA]
+
+
+AuthType Basic
+AuthName "Password Protected Area"
+AuthUserFile /var/www/html/.htpasswd
+Require valid-user

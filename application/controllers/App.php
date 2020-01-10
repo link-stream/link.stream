@@ -1503,7 +1503,9 @@ class App extends CI_Controller {
         //you can also use ipinfo.io or any other ip location provider API
         //print_r($location);exit;
         $data_loc = json_decode($location, true);
+        echo '<pre>';
         print_r($data_loc);
+        echo '</pre>';
         echo '<br>';
         echo $data_loc['country'];
         echo '<br>';
@@ -1516,6 +1518,40 @@ class App extends CI_Controller {
         echo $data_loc['city'];
         echo '<br>';
         echo $data_loc['zip'];
+        echo '<br>';
+        echo '<br>';
+        echo '<br>';
+        echo '<br>';
+
+
+        $location = file_get_contents('https://api.ipgeolocationapi.com/geolocate/' . $ip);
+        //you can also use ipinfo.io or any other ip location provider API
+        //print_r($location);exit;
+        $data_loc = json_decode($location, true);
+        echo '<pre>';
+        print_r($data_loc);
+        echo '</pre>';
+        echo '<br>';
+        echo '<br>';
+        echo '<br>';
+        echo '<br>';
+
+//        $location = file_get_contents('https://api.ipgeolocationapi.com/countries');
+//        //you can also use ipinfo.io or any other ip location provider API
+//        //print_r($location);exit;
+//        $data_loc = json_decode($location, true);
+//        echo '<pre>';
+//        print_r($data_loc);
+//        echo '</pre>';
+//        echo '<br>';
+//        echo '<br>';
+//        echo '<br>';
+//        echo '<br>';
+
+        $ip = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
+        echo $ip;
+        echo '<br>';
+        echo '<br>';
         echo '<br>';
 
         $this->load->library('user_agent');
@@ -1531,8 +1567,10 @@ class App extends CI_Controller {
 
         echo $agent;
         echo '<br>';
+        echo '<br>';
 
         echo $this->agent->platform(); // Platform info (Windows, Linux, Mac, etc.)
+        echo '<br>';
         echo '<br>';
 
 //        $newdata = array(
@@ -1548,13 +1586,17 @@ class App extends CI_Controller {
 //        echo '<br>';
         print_r($this->session);
         echo '<br>';
+        echo '<br>';
 //        print_r($this->session->tempdata());
 //        echo '<br>';
         print_r(session_id());
         echo '<br>';
-        
-        
+        echo '<br>';
+
+
         echo $_SERVER['DOCUMENT_ROOT'];
+        echo '<br>';
+        echo '<br>';
     }
 
 }

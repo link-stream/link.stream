@@ -145,7 +145,7 @@
         <!-- User avatar dropdown -->
         <div class="dropdown">
             <div class="user col align-self-end">
-                <img src="<?= HTTP_ASSETS ?>dist-assets/images/faces/1.jpg" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="<?= base_url() . 'app/get_avatar' ?>" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <div class="dropdown-header">
                         <i class="i-Lock-User mr-1"></i> <?= !empty($user['user_name']) ? $user['user_name'] : 'Dear Customer' ?>

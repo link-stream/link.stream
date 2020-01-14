@@ -19,9 +19,6 @@
             <tr>
                 <td><hr></td>
             </tr>
-<!--            <tr>
-                <td><strong>Streamy</strong></td>
-            </tr>-->
             <tr>
                 <td>&nbsp;</td>
             </tr>
@@ -43,12 +40,6 @@
             <tr>
                 <td>&nbsp;</td>
             </tr>
-<!--            <tr>
-                <td style="text-align:justify;color:#999" align="center">Streamy.link - Legal Content</td>
-            </tr>-->
-<!--            <tr>
-                <td valign="top"><img src="<?= HTTP_ASSETS ?>images/footer-mail.png" width="500" height="73" /></td>
-            </tr>-->
         </table>
     </body>
 </html>

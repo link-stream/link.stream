@@ -95,7 +95,6 @@ class App extends CI_Controller {
             return $streamy_username;
         } else {
             $streamy_username = strtolower(str_replace(' ', '', $user_name)) . rand(0, 100);
-            //echo $streamy_username . '<br>';
             $register_user = $this->User_model->fetch_user_by_search(array('user_name' => $streamy_username));
             if (empty($register_user)) {
                 return $streamy_username;
@@ -173,11 +172,11 @@ class App extends CI_Controller {
                     if ($password == $confirm_password) {
                         //Create Account
                         $user = array();
-                        $user['user_name'] = strtolower(str_replace(' ', '', $user_name));
+                        $user['user_name'] = $user['display_name'] = $user['url'] = strtolower(str_replace(' ', '', $user_name));
                         $user['email'] = $email;
                         $user['password'] = $this->general_library->encrypt_txt($password);
                         $user['plan_id'] = '1';
-                        $user['status_id'] = '3';
+                        $user['status_id'] = '1';
                         $user['platform'] = 'Streamy';
                         $user['id'] = $this->User_model->insert_user($user);
                         $this->User_model->insert_user_log(array('user_id' => $user['id'], 'event' => 'Registered'));
@@ -211,8 +210,9 @@ class App extends CI_Controller {
         $id_e = $this->general_library->urlsafe_b64encode($id);
         $user_e = $this->general_library->urlsafe_b64encode($user);
         $url = base_url() . 'app/email_confirm/' . $email_e . '/' . $id_e . '/' . $user_e;
-        echo 'Please Check your email and confirm your address: ' . $url;
-        $this->general_library->send_ses($user, $email, 'Streamy', 'noreply@streamy.link', 'Register on Streamy', 'Link ' . $url);
+        $body = $this->load->view('email/email_register', array('user' => $user, 'email' => $email, 'url' => $url), true);
+        $this->general_library->send_ses($email, $email, 'Streamy', 'noreply@streamy.link', "Register on Streamy", $body);
+        echo 'Please Check your email and confirm your email address';
     }
 
     public function email_confirm($email_e, $id_e, $user_e) {
@@ -336,7 +336,7 @@ class App extends CI_Controller {
             if (empty($register_user)) {
                 //Create Account
                 $user = array();
-                $user['user_name'] = (!empty($token_info->name)) ? $this->generate_username($token_info->name) : $this->generate_username();
+                $user['user_name'] = $user['display_name'] = $user['url'] = (!empty($token_info->name)) ? $this->generate_username($token_info->name) : $this->generate_username();
                 $user['first_name'] = (!empty($token_info->given_name)) ? $token_info->given_name : '';
                 $user['last_name'] = (!empty($token_info->family_name)) ? $token_info->family_name : '';
                 $user['email'] = (!empty($token_info->email)) ? $token_info->email : '';
@@ -344,8 +344,27 @@ class App extends CI_Controller {
                 $user['platform'] = 'Google';
                 $user['platform_id'] = $token_info->sub;
                 $user['platform_token'] = $token;
-                $user['image'] = $token_info->picture;
-                $user['status_id'] = '3';
+                $user['image'] = '';
+                if (!empty($token_info->picture)) {
+                    $content = file_get_contents($token_info->picture);
+                    //
+                    $image_name = time() . '.png';
+                    // upload cropped image to server 
+                    $source = $this->get_temp_dir();
+                    file_put_contents($source . '/' . $image_name, $content);
+                    //SAVE S3
+                    $bucket = 'files.streamy.link';
+                    $path = (ENV == 'live') ? 'prod/' : 'dev/';
+                    $dest_folder = 'avatar';
+                    $destination = $path . $dest_folder . '/' . $image_name;
+                    $s3_source = $source . '/' . $image_name;
+                    $this->aws_s3->s3push($s3_source, $destination, $bucket);
+                    //$response['file_name'] = $image_name;
+                    unlink($source . '/' . $image_name);
+                    $user['image'] = $image_name;
+                }
+                //$user['image'] = $token_info->picture;
+                $user['status_id'] = '1';
                 $user['email_confirmed'] = '1';
                 $user['id'] = $this->User_model->insert_user($user);
                 $this->User_model->insert_user_log(array('user_id' => $user['id'], 'event' => 'Registered'));
@@ -1286,9 +1305,9 @@ class App extends CI_Controller {
             redirect($this->loc_url . '/login', 'location', 302);
         }
     }
-    
+
     public function stream() {
-         if ($this->input->cookie($this->general_library->ses_name) != '') {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $data = array();
             $data['user'] = $user;
@@ -1301,9 +1320,6 @@ class App extends CI_Controller {
             redirect($this->loc_url . '/login', 'location', 302);
         }
     }
-    
-  
-    
 
     //
     public function customize() {
@@ -1345,26 +1361,11 @@ class App extends CI_Controller {
     public function get_avatar() {
         $user = $this->general_library->get_cookie();
         $register_user = $this->User_model->fetch_user_by_search(array('id' => $user['id']));
-        if (!empty($register_user['image'])) {
-            $bucket = $this->bucket;
-            $path = (ENV == 'live') ? 'prod/avatar' : 'dev/avatar';
-            $data = $this->aws_s3->s3_read($bucket, $path, $register_user['image']);
-            if (!empty($data)) {
-                header("Cache-Control: no-cache, must-revalidate");
-                header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
-                header('Content-type: image/jpeg');
-                header('Content-Disposition: inline; filename="' . time() . '.jpg' . '"');
-                echo $data;
-            } else {
-                $data = file_get_contents(HTTP_ASSETS . 'images/logo/streamy_icon_RGB.png');
-                header("Cache-Control: no-cache, must-revalidate");
-                header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
-                header('Content-type: image/jpeg');
-                header('Content-Disposition: inline; filename="' . time() . '.jpg' . '"');
-                echo $data;
-            }
-        } else {
-            $data = file_get_contents(HTTP_ASSETS . 'images/logo/streamy_icon_RGB.png');
+        $bucket = $this->bucket;
+        $path = (ENV == 'live') ? 'prod/avatar' : 'dev/avatar';
+        $register_user['image'] = (!empty($register_user['image'])) ? $register_user['image'] : 'avatar_example.jpg';
+        $data = $this->aws_s3->s3_read($bucket, $path, $register_user['image']);
+        if (!empty($data)) {
             header("Cache-Control: no-cache, must-revalidate");
             header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
             header('Content-type: image/jpeg');
@@ -1512,6 +1513,11 @@ class App extends CI_Controller {
     public function email_coming_soon() {
         $data = array();
         $this->load->view('email/email_coming_soon', $data);
+    }
+
+    public function email_register() {
+        $data = array();
+        $this->load->view('email/email_register', $data);
     }
 
     public function send_sms() {

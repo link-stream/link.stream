@@ -152,7 +152,7 @@
                     </div>
                     <a class="dropdown-item">Account settings</a>
                     <a class="dropdown-item">Billing history</a>
-                    <a class="dropdown-item" href="signin.html">Sign out</a>
+                    <a class="dropdown-item" href="<?= base_url() ?>app/logout">Sign out</a>
                 </div>
             </div>
         </div>

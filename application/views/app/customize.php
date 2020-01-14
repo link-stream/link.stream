@@ -280,19 +280,19 @@ $this->load->view('app/_inc/header', $data);
                                         <?php
                                     } else {
                                         foreach ($order as $type_row) {
-                                            if ($type_row['type_id'] == '1') {
+                                            if ($type_row['content_type_id'] == '1') {
                                                 ?>
                                                 <li class="list-group-item"><i class="fa fa-bars"></i>&nbsp;&nbsp;<img src="<?= HTTP_ASSETS ?>images/logo/sc.png" alt="" height="40px"/> SoundCloud</li>
                                                 <?php
-                                            } elseif ($type_row['type_id'] == '2') {
+                                            } elseif ($type_row['content_type_id'] == '2') {
                                                 ?>
                                                 <li class="list-group-item"><i class="fa fa-bars"></i>&nbsp;&nbsp;<img src="<?= HTTP_ASSETS ?>images/logo/yb.png" alt="" height="40px"/> Youtube</li>
                                                 <?php
-                                            } elseif ($type_row['type_id'] == '3') {
+                                            } elseif ($type_row['content_type_id'] == '3') {
                                                 ?>
                                                 <li class="list-group-item"><i class="fa fa-bars"></i>&nbsp;&nbsp;<img src="<?= HTTP_ASSETS ?>images/logo/streamy_icon_RGB.png" alt="" height="40px"/> Streamy</li>
                                                 <?php
-                                            } elseif ($type_row['type_id'] == '4') {
+                                            } elseif ($type_row['content_type_id'] == '4') {
                                                 ?>
                                                 <li class="list-group-item"><i class="fa fa-bars"></i>&nbsp;&nbsp;<img src="<?= HTTP_ASSETS ?>images/logo/streamy_icon_RGB.png" alt="" height="40px"/> LinkStreams</li>
                                                 <?php

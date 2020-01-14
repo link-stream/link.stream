@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <!--<h3 class="ul-widget-card__title"><?= $type_icon ?> <?= $type_desc ?></h3>-->
-                <!--<p class="card-text text-mute"><?= ($type != '4') ? 'URL: ' . $url : '' ?></p>-->
+                <!--<p class="card-text text-mute"><?= ($type_id != '4') ? 'URL: ' . $url : '' ?></p>-->
 
                 <div class="col-md-12 text-left">
                     <div class="row">
@@ -26,7 +26,7 @@
                                 if (!empty($genres)) {
                                     foreach ($genres as $genre_item) {
                                         ?>
-                                        <option value="<?= $genre_item['id'] ?>" <?= ($genre_item['id'] == $genre ? 'selected=""' : '') ?>><?= $genre_item['genre'] ?></option>
+                                        <option value="<?= $genre_item['id'] ?>" <?= ($genre_item['id'] == $genre_id ? 'selected=""' : '') ?>><?= $genre_item['genre'] ?></option>
                                         <?php
                                     }
                                 }
@@ -36,8 +36,8 @@
                         <div class="col-md-6 form-group mb-3">
                             <label for="priority">Priority</label>
                             <select class="form-control" id="priority" name="priority">
-                                <option value="1" <?= ('1' == $priority ? 'selected=""' : '') ?> <?= ($user['role'] == '1') ? 'disabled=""' : '' ?> ><?= ($user['role'] == '1') ? 'Spotlight - Not available for Free Account' : 'Spotlight' ?></option>
-                                <option value="2" <?= ('2' == $priority ? 'selected=""' : '') ?>>Normal</option>
+                                <option value="1" <?= ('1' == $priority_id ? 'selected=""' : '') ?> <?= ($user['plan_id'] == '1') ? 'disabled=""' : '' ?> ><?= ($user['plan_id'] == '1') ? 'Spotlight - Not available for Free Account' : 'Spotlight' ?></option>
+                                <option value="2" <?= ('2' == $priority_id ? 'selected=""' : '') ?>>Normal</option>
                             </select>
                         </div>
                         <div class="col-md-6 form-group mb-3">
@@ -45,12 +45,12 @@
                             <select class="form-control" id="visibility" name="visibility">
                                 <option value="1" <?= ('1' == $public ? 'selected=""' : '') ?>>Public</option>
                                 <option value="2" <?= ('2' == $public ? 'selected=""' : '') ?>>Private</option>
-                                <option value="3" <?= ('3' == $public ? 'selected=""' : '') ?> <?= ($user['role'] == '1') ? 'disabled=""' : '' ?>><?= ($user['role'] == '1') ? 'Scheduled - Not available for Free Account' : 'Scheduled' ?> </option>
+                                <option value="3" <?= ('3' == $public ? 'selected=""' : '') ?> <?= ($user['plan_id'] == '1') ? 'disabled=""' : '' ?>><?= ($user['plan_id'] == '1') ? 'Scheduled - Not available for Free Account' : 'Scheduled' ?> </option>
                             </select>
                         </div>
                         <div class="col-md-6 form-group mb-3 js-scheduled" style="<?= ('3' == $public ? '' : 'display:none') ?>">
                             <label for="date">Scheduled</label>
-                            <input class="form-control" id="date"  name="date" type="text" placeholder="Date" value="<?= $publish_at ?>" <?= ($user['role'] == '1' || $public != '3') ? 'readonly=""' : '' ?> />
+                            <input class="form-control" id="date"  name="date" type="text" placeholder="Date" value="<?= $publish_at ?>" <?= ($user['plan_id'] == '1' || $public != '3') ? 'readonly=""' : '' ?> />
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
         </form>
     </div>
 </div>
-<script> var role = "<?= $user['role'] ?>";</script>
+<script> var role = "<?= $user['plan_id'] ?>";</script>
 <script>
     $(document).ready(function () {
 

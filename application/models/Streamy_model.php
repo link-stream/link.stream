@@ -19,17 +19,17 @@ class Streamy_model extends CI_Model {
     }
 
     public function insert_streamy($data) {
-        $this->db->insert('streamy', $data);
+        $this->db->insert('st_streamy', $data);
         return $this->db->insert_id();
     }
 
     public function update_streamy($id, $data) {
         $this->db->where('id', $id);
-        $this->db->update('streamy', $data);
+        $this->db->update('st_streamy', $data);
     }
 
     public function fetch_streamy_by_id($id) {
-        $this->db->from('streamy');
+        $this->db->from('st_streamy');
         $this->db->where('id', $id);
         $query = $this->db->get();
         $result = $query->row_array();
@@ -39,16 +39,16 @@ class Streamy_model extends CI_Model {
 
     public function fetch_streamys_by_search($search, $limit = 0, $offset = 0) {
         $this->db->select('a.*,b.id as type_id,b.type as type_name');
-        $this->db->from('streamy a');
-        $this->db->join('streamy_type b', 'a.type = b.id');
+        $this->db->from('st_streamy a');
+        $this->db->join('st_streamy_type b', 'a.type_id = b.id');
         if (!empty($search['user'])) {
-            $this->db->where('user', $search['user']); //By Usew
+            $this->db->where('user_id', $search['user']); //By Usew
         }
         if (!empty($search['type'])) {
-            $this->db->where('a.type', $search['type']); //By Type 
+            $this->db->where('a.type_id', $search['type']); //By Type 
         }
         if (!empty($search['genre'])) {
-            $this->db->where('a.genre', $search['genre']); //By Type 
+            $this->db->where('a.genre_id', $search['genre']); //By Type 
         }
         if (!empty($search['name'])) {
             $this->db->like('a.name', $search['name']); //By Type 
@@ -57,7 +57,7 @@ class Streamy_model extends CI_Model {
             $this->db->where('public', $search['public']); //By Public
         }
         if (!empty($search['status'])) {
-            $this->db->where('status', $search['status']); //By Status
+            $this->db->where('status_id', $search['status']); //By Status
         }
         if (!empty($search['sort_col'])) {
             $this->db->order_by($search['sort_col'], $search['sort_dir']);
@@ -73,23 +73,15 @@ class Streamy_model extends CI_Model {
 
     public function fetch_streamys_count_by_search($search) {
         $this->db->select('count(*) as Count');
-        $this->db->from('streamy');
+        $this->db->from('st_streamy');
         if (!empty($search['user'])) {
-            $this->db->where('user', $search['user']); //By Usew
+            $this->db->where('user_id', $search['user']); //By Usew
         }
         if (!empty($search['type'])) {
-            $this->db->where('type', $search['type']); //By Type 
-//            if ($search['type'] == '3') {
-//                $this->db->where('type', $search['type']); //By Type 
-//            } else {
-//                $this->db->where('type <> ', '3'); //By Type   
-//            }
-        }
-        if (!empty($search['type'])) {
-            $this->db->where('type', $search['type']); //By Type 
+            $this->db->where('type_id', $search['type']); //By Type 
         }
         if (!empty($search['genre'])) {
-            $this->db->where('genre', $search['genre']); //By Type 
+            $this->db->where('genre_id', $search['genre']); //By Type 
         }
         if (!empty($search['name'])) {
             $this->db->like('name', $search['name']); //By Type 
@@ -98,10 +90,7 @@ class Streamy_model extends CI_Model {
             $this->db->where('public', $search['public']); //By Public
         }
         if (!empty($search['status'])) {
-            $this->db->where('status', $search['status']); //By Status
-        }
-        if (!empty($search['status'])) {
-            $this->db->where('status', $search['status']); //By Status
+            $this->db->where('status_id', $search['status']); //By Status
         }
         $query = $this->db->get();
         $row = $query->row();
@@ -110,7 +99,7 @@ class Streamy_model extends CI_Model {
     }
 
     public function fetch_genres() {
-        $this->db->from('genre');
+        $this->db->from('st_streamy_genre');
         $query = $this->db->get();
         $result = $query->result_array();
         $query->free_result();
@@ -118,7 +107,7 @@ class Streamy_model extends CI_Model {
     }
 
     public function fetch_genre_by_id($id) {
-        $this->db->from('genre');
+        $this->db->from('st_streamy_genre');
         $this->db->where('id', $id);
         $query = $this->db->get();
         $result = $query->row_array();
@@ -127,12 +116,12 @@ class Streamy_model extends CI_Model {
     }
 
     public function insert_early_access($data) {
-        $this->db->insert('early_access', $data);
+        $this->db->insert('st_early_access', $data);
         return $this->db->insert_id();
     }
 
     public function fetch_types() {
-        $this->db->from('streamy_type');
+        $this->db->from('st_streamy_type');
         $this->db->where('active', 1); //By Status
         $query = $this->db->get();
         $result = $query->result_array();
@@ -141,7 +130,7 @@ class Streamy_model extends CI_Model {
     }
 
     public function fetch_types_by_id($id) {
-        $this->db->from('streamy_type');
+        $this->db->from('st_streamy_type');
         $this->db->where('id', $id);
         $query = $this->db->get();
         $result = $query->row_array();
@@ -150,7 +139,7 @@ class Streamy_model extends CI_Model {
     }
 
     public function fetch_content_order($user_id) {
-        $this->db->from('user_content');
+        $this->db->from('st_user_streamy_order');
         $this->db->where('user_id', $user_id); //By Status
         $query = $this->db->get();
         $result = $query->result_array();

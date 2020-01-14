@@ -17,8 +17,8 @@
                 <div class="triangle"></div>
             </li>
             <li class="nav-item"><a class="nav-item-hold" href="<?= base_url() ?>app/upgrade"><i class="nav-icon i-File-Horizontal-Text"></i><span class="nav-text">Upgrade</span></a>
-                        <div class="triangle"></div>
-                    </li>
+                <div class="triangle"></div>
+            </li>
         </ul>
     </div>
     <div class="sidebar-left-secondary rtl-ps-none" data-perfect-scrollbar="" data-suppress-scroll-x="true">
@@ -39,10 +39,12 @@
         <ul class="childNav" data-parent="my_content">
 <!--            <li class="nav-item"><a href="<?= base_url() ?>app/audio"><i class="nav-icon i-Music-Note-2"></i><span class="item-name">Add Audio</span></a></li>
             <li class="nav-item"><a href="<?= base_url() ?>app/video"><i class="nav-icon i-Film"></i><span class="item-name">Add Video</span></a></li>-->
-            <li class="nav-item"><a href="<?= base_url() ?>app/content/add/sc"><i class="nav-icon i-Soundcloud"></i><span class="item-name">Add SoundCloud</span></a></li>
+<!--            <li class="nav-item"><a href="<?= base_url() ?>app/content/add/sc"><i class="nav-icon i-Soundcloud"></i><span class="item-name">Add SoundCloud</span></a></li>
             <li class="nav-item"><a href="<?= base_url() ?>app/content/add/yt"><i class="nav-icon i-Youtube"></i><span class="item-name">Add Youtube</span></a></li>
             <li class="nav-item"><a href="<?= base_url() ?>app/content/add/lk"><i class="nav-icon i-Cloud-"></i><span class="item-name">Add Link</span></a></li>
-            <li class="nav-item"><a href="<?= base_url() ?>app/content/add/st"><i class="nav-icon i-Music-Note-2"></i><span class="item-name">Add Streamy</span></a></li>
+            <li class="nav-item"><a href="<?= base_url() ?>app/content/add/st"><i class="nav-icon i-Music-Note-2"></i><span class="item-name">Add Streamy</span></a></li>-->
+            <li class="nav-item"><a href="<?= base_url() ?>app/stream"><i class="nav-icon i-Music-Note-2"></i><span class="item-name">Add Stream</span></a></li>
+            <li class="nav-item"><a href="<?= base_url() ?>app/linkstream"><i class="nav-icon i-Cloud-"></i><span class="item-name">Add Link</span></a></li>
             <li class="nav-item"><a href="<?= base_url() ?>app/content"><i class="nav-icon i-Data-Cloud"></i><span class="item-name">Manage</span></a></li>
 
 

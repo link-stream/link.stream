@@ -45,7 +45,7 @@ class App extends CI_Controller {
 
     private function status_pending() {
         $user = $this->general_library->get_cookie();
-        if ($user['status'] == '3') {
+        if ($user['status_id'] == '3') {
             redirect($this->loc_url . '/account_settings', 'location', 302);
         }
     }
@@ -62,6 +62,15 @@ class App extends CI_Controller {
         }
     }
 
+    public function logout() {
+        delete_cookie($this->ses_name);
+        $this->output->set_header("Expires: Tue, 01 Jul 2001 06:00:00 GMT");
+        $this->output->set_header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+        $this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate, no-transform, max-age=0, post-check=0, pre-check=0");
+        $this->output->set_header("Pragma: no-cache");
+        redirect('login', 'location', 302);
+    }
+
     /* Login & Register Section */
 
     private function user_session($register_user) {
@@ -69,11 +78,11 @@ class App extends CI_Controller {
             'id' => $register_user['id'],
             'email' => $register_user['email'],
             'user_name' => $register_user['user_name'],
-            'role' => $register_user['role'],
+            'plan_id' => $register_user['plan_id'],
             'platform' => $register_user['platform'],
             'platform_id' => $register_user['platform_id'],
             'image' => $register_user['image'],
-            'status' => $register_user['status'],
+            'status_id' => $register_user['status_id'],
             'url' => $register_user['url']
         ));
         $this->general_library->create_cookie($streamy_user);
@@ -167,11 +176,11 @@ class App extends CI_Controller {
                         $user['user_name'] = strtolower(str_replace(' ', '', $user_name));
                         $user['email'] = $email;
                         $user['password'] = $this->general_library->encrypt_txt($password);
-                        $user['role'] = '1';
-                        $user['status'] = '3';
+                        $user['plan_id'] = '1';
+                        $user['status_id'] = '3';
                         $user['platform'] = 'Streamy';
                         $user['id'] = $this->User_model->insert_user($user);
-                        $this->User_model->insert_user_log(array('user' => $user['id'], 'event' => 'Registered'));
+                        $this->User_model->insert_user_log(array('user_id' => $user['id'], 'event' => 'Registered'));
                         $this->session->set_userdata('register-email', $user['email']);
                         $this->session->set_userdata('register-id', $user['id']);
                         $this->session->set_userdata('register-user', $user['user_name']);
@@ -216,7 +225,7 @@ class App extends CI_Controller {
         if (!empty($register_user)) {
             $this->user_session($register_user);
             $this->User_model->update_user($register_user['id'], array('email_confirmed' => '1'));
-            $this->User_model->insert_user_log(array('user' => $register_user['id'], 'event' => 'Confirmed Email'));
+            $this->User_model->insert_user_log(array('user_id' => $register_user['id'], 'event' => 'Confirmed Email'));
             redirect($this->loc_url, 'location', 302);
         } else {
             redirect($this->loc_url . '/register', 'location', 302);
@@ -288,17 +297,17 @@ class App extends CI_Controller {
             $user = array();
             $user['user_name'] = (!empty($instagram_user->username)) ? $this->generate_username($instagram_user->username) : $this->generate_username();
             $user['email'] = '';
-            $user['role'] = '1';
+            $user['plan_id'] = '1';
             $user['platform'] = 'IG';
             $user['platform_id'] = $user_id;
             $user['platform_token'] = $access_token;
             $user['image'] = $instagram_avatar;
-            $user['status'] = '3';
+            $user['status_id'] = '3';
             $user['id'] = $this->User_model->insert_user($user);
-            $this->User_model->insert_user_log(array('user' => $user['id'], 'event' => 'Registered'));
+            $this->User_model->insert_user_log(array('user_id' => $user['id'], 'event' => 'Registered'));
             $this->user_session($user);
         } else {
-            $this->User_model->insert_user_log(array('user' => $register_user['id'], 'event' => 'Logged in'));
+            $this->User_model->insert_user_log(array('user_id' => $register_user['id'], 'event' => 'Logged in'));
             $this->user_session($register_user);
         }
         return true;
@@ -331,18 +340,18 @@ class App extends CI_Controller {
                 $user['first_name'] = (!empty($token_info->given_name)) ? $token_info->given_name : '';
                 $user['last_name'] = (!empty($token_info->family_name)) ? $token_info->family_name : '';
                 $user['email'] = (!empty($token_info->email)) ? $token_info->email : '';
-                $user['role'] = '1';
+                $user['plan_id'] = '1';
                 $user['platform'] = 'Google';
                 $user['platform_id'] = $token_info->sub;
                 $user['platform_token'] = $token;
                 $user['image'] = $token_info->picture;
-                $user['status'] = '3';
+                $user['status_id'] = '3';
                 $user['email_confirmed'] = '1';
                 $user['id'] = $this->User_model->insert_user($user);
-                $this->User_model->insert_user_log(array('user' => $user['id'], 'event' => 'Registered'));
+                $this->User_model->insert_user_log(array('user_id' => $user['id'], 'event' => 'Registered'));
                 $this->user_session($user);
             } else {
-                $this->User_model->insert_user_log(array('user' => $register_user['id'], 'event' => 'Logged in'));
+                $this->User_model->insert_user_log(array('user_id' => $register_user['id'], 'event' => 'Logged in'));
                 $this->user_session($register_user);
             }
             return $this->output->set_output(json_encode(['success' => true]));
@@ -442,10 +451,10 @@ class App extends CI_Controller {
             $user = $this->general_library->get_cookie();
             $role = $this->input->post('radio', TRUE);
             $url = base_url() . $this->general_library->urlsafe_b64encode($user['user_name']);
-            $this->User_model->update_user($user['id'], array('role' => $role, 'status' => '1', 'url' => $url));
+            $this->User_model->update_user($user['id'], array('plan_id' => $role, 'status_id' => '1', 'url' => $url));
             //update cookie
-            $user['role'] = $role;
-            $user['status'] = '1';
+            $user['plan_id'] = $role;
+            $user['status_id'] = '1';
             $user['url'] = $url;
             $encrypted_user = $this->general_library->urlsafe_b64encode(json_encode($user));
             $this->general_library->update_cookie(serialize(array('user' => $encrypted_user)));
@@ -459,10 +468,10 @@ class App extends CI_Controller {
             $user = $this->general_library->get_cookie();
             $role = $this->input->post('pln_id', TRUE);
             $url = base_url() . $user['user_name'];
-            $this->User_model->update_user($user['id'], array('role' => $role, 'status' => '1'));
+            $this->User_model->update_user($user['id'], array('plan_id' => $role, 'status_id' => '1'));
             //update cookie
-            $user['role'] = $role;
-            $user['status'] = '1';
+            $user['plan_id'] = $role;
+            $user['status_id'] = '1';
             $user['url'] = $url;
             $encrypted_user = $this->general_library->urlsafe_b64encode(json_encode($user));
             $this->general_library->update_cookie(serialize(array('user' => $encrypted_user)));
@@ -604,7 +613,7 @@ class App extends CI_Controller {
                 //Soundcloud
                 $search = array(
                     'user' => $user['id'],
-                    'status' => '1',
+                    'status_id' => '1',
                     'type' => '1'
                 );
                 $streamys = $this->Streamy_model->fetch_streamys_by_search($search, $this->limit, 0);
@@ -619,7 +628,7 @@ class App extends CI_Controller {
                 //Youtube
                 $search = array(
                     'user' => $user['id'],
-                    'status' => '1',
+                    'status_id' => '1',
                     'type' => '2'
                 );
                 $streamys = $this->Streamy_model->fetch_streamys_by_search($search, $this->limit, 0);
@@ -634,7 +643,7 @@ class App extends CI_Controller {
                 //LinkStreams
                 $search = array(
                     'user' => $user['id'],
-                    'status' => '1',
+                    'status_id' => '1',
                     'type' => '3'
                 );
                 $streamys = $this->Streamy_model->fetch_streamys_by_search($search, $this->limit, 0);
@@ -649,7 +658,7 @@ class App extends CI_Controller {
                 //mystream
                 $search = array(
                     'user' => $user['id'],
-                    'status' => '1',
+                    'status_id' => '1',
                     'type' => '4'
                 );
                 $streamys = $this->Streamy_model->fetch_streamys_by_search($search, $this->limit, 0);
@@ -716,15 +725,15 @@ class App extends CI_Controller {
             $date = (!empty($this->input->post('date'))) ? $this->input->post('date', TRUE) : date('Y-m-d');
             $genre = $this->input->post('genre', TRUE);
             $data = array(
-                'user' => $user['id'],
+                'user_id' => $user['id'],
                 'url' => $streamy_url,
-                'type' => $type,
+                'type_id' => $type,
                 'public' => $visibility,
-                'status' => '1',
-                'priority' => $priority,
+                'status_id' => '1',
+                'priority_id' => $priority,
                 'publish_at' => date('Y-m-d 00:00:00', strtotime($date)),
                 'name' => $name,
-                'genre' => $genre
+                'genre_id' => $genre
             );
             if ($type == '4') {
                 //FILE
@@ -809,7 +818,7 @@ class App extends CI_Controller {
             //Soundcloud
             $search = array(
                 'user' => $user['id'],
-                'status' => '1',
+                'status_id' => '1',
                 'type' => '1'
             );
             $streamys = $this->Streamy_model->fetch_streamys_by_search($search, 0, 0);
@@ -822,7 +831,7 @@ class App extends CI_Controller {
             //Youtube
             $search = array(
                 'user' => $user['id'],
-                'status' => '1',
+                'status_id' => '1',
                 'type' => '2'
             );
             $streamys = $this->Streamy_model->fetch_streamys_by_search($search, 0, 0);
@@ -835,7 +844,7 @@ class App extends CI_Controller {
             //LinkStreams
             $search = array(
                 'user' => $user['id'],
-                'status' => '1',
+                'status_id' => '1',
                 'type' => '3'
             );
             $streamys = $this->Streamy_model->fetch_streamys_by_search($search, 0, 0);
@@ -848,7 +857,7 @@ class App extends CI_Controller {
             //mystream
             $search = array(
                 'user' => $user['id'],
-                'status' => '1',
+                'status_id' => '1',
                 'type' => '4'
             );
             $streamys = $this->Streamy_model->fetch_streamys_by_search($search, 0, 0);
@@ -885,7 +894,7 @@ class App extends CI_Controller {
             $sort_col = $array_field[$isort_col];
             $search = array(
                 'user' => $user['id'],
-                'status' => '1',
+                'status_id' => '1',
                 'sort_col' => $sort_col,
                 'sort_dir' => $sort_dir,
                 'name' => $name,
@@ -936,9 +945,9 @@ class App extends CI_Controller {
             $data = array();
             $user = $this->general_library->get_cookie();
             $id = $this->input->post('id', TRUE);
-            $this->Streamy_model->update_streamy($id, array('status' => '3'));
-            $streamys = $this->Streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status' => '1'), $this->limit, 0);
-            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search(array('user' => $user['id'], 'status' => '1'));
+            $this->Streamy_model->update_streamy($id, array('status_id' => '3'));
+            $streamys = $this->Streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status_id' => '1'), $this->limit, 0);
+            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search(array('user' => $user['id'], 'status_id' => '1'));
             $stramy_list = array();
             foreach ($streamys as $streamy) {
                 $stramy_list[] = $this->streamy_desc($streamy);
@@ -961,7 +970,7 @@ class App extends CI_Controller {
             $data = array();
             $user = $this->general_library->get_cookie();
             $id = $this->input->post('id', TRUE);
-            $this->Streamy_model->update_streamy($id, array('status' => '3'));
+            $this->Streamy_model->update_streamy($id, array('status_id' => '3'));
 //            $streamys = $this->Streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status' => '1'), $this->limit, 0);
 //            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search(array('user' => $user['id'], 'status' => '1'));
 //            $stramy_list = array();
@@ -988,8 +997,8 @@ class App extends CI_Controller {
             $id = $this->input->post('id', TRUE);
             //$this->Streamy_model->update_streamy($id, array('status' => '3'));
             $offset = ($id == 1) ? 0 : (($id - 1) * $this->limit);
-            $streamys = $this->Streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status' => '1'), $this->limit, $offset);
-            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search(array('user' => $user['id'], 'status' => '1'));
+            $streamys = $this->Streamy_model->fetch_streamys_by_search(array('user' => $user['id'], 'status_id' => '1'), $this->limit, $offset);
+            $streamys_count = $this->Streamy_model->fetch_streamys_count_by_search(array('user' => $user['id'], 'status_id' => '1'));
             $stramy_list = array();
             foreach ($streamys as $streamy) {
                 $stramy_list[] = $this->streamy_desc($streamy);
@@ -1023,20 +1032,20 @@ class App extends CI_Controller {
 
     private function streamy_desc($streamy, $i = 0) {
         //$streamy['embeed'] = ($i <= 6) ? $this->embed_url($streamy['url'], $streamy['type']) : '';
-        $streamy['embeed'] = $this->embed_url($streamy['url'], $streamy['type']);
-        if ($streamy['type'] == '1') {
+        $streamy['embeed'] = $this->embed_url($streamy['url'], $streamy['type_id']);
+        if ($streamy['type_id'] == '1') {
             $streamy['type_desc'] = 'SoundCloud';
             $streamy['type_icon'] = '<i class="i-Soundcloud"></i>';
-        } elseif ($streamy['type'] == '2') {
+        } elseif ($streamy['type_id'] == '2') {
             $streamy['type_desc'] = 'YouTube';
             $streamy['type_icon'] = '<i class="i-Youtube"></i>';
-        } elseif ($streamy['type'] == '3') {
+        } elseif ($streamy['type_id'] == '3') {
             $streamy['type_desc'] = 'LinkStreams';
             $streamy['type_icon'] = '<i class="i-Link"></i>';
-        } elseif ($streamy['type'] == '4') {
+        } elseif ($streamy['type_id'] == '4') {
             $streamy['type_desc'] = 'Streamy';
             $streamy['type_icon'] = '<i class="i-Play-Music"></i>';
-        } elseif ($streamy['type'] == '5') {
+        } elseif ($streamy['type_id'] == '5') {
             $streamy['type_desc'] = 'TikTok';
             $streamy['type_icon'] = '<i class="i-Play-Music"></i>';
         }
@@ -1047,10 +1056,10 @@ class App extends CI_Controller {
         //$streamy['type_desc'] = ($streamy['type'] == '1') ? 'SoundCloud' : (($streamy['type'] == '2') ? 'YouTube' : 'LinkStreams');
         //$streamy['type_icon'] = ($streamy['type'] == '1') ? ' <i class="i-Soundcloud"></i>' : (($streamy['type'] == '2') ? '<i class="i-Youtube"></i>' : '<i class="i-Link"></i>');
         $streamy['public_desc'] = ($streamy['public'] == '1') ? 'Public' : (($streamy['public'] == '2') ? 'Private' : 'Scheduled');
-        $streamy['priority_desc'] = ($streamy['priority'] == '1') ? 'Spotlight' : 'Normal';
+        $streamy['priority_desc'] = ($streamy['priority_id'] == '1') ? 'Spotlight' : 'Normal';
         //$streamy['publish_at'] = ($streamy['public'] == '3') ? date('m/d/Y', strtotime($streamy['publish_at'])) : '';
         $streamy['publish_at'] = date('m/d/Y', strtotime($streamy['publish_at']));
-        $genre = $this->Streamy_model->fetch_genre_by_id($streamy['genre']);
+        $genre = $this->Streamy_model->fetch_genre_by_id($streamy['genre_id']);
         $streamy['genre_desc'] = $genre['genre'];
         return $streamy;
     }
@@ -1187,10 +1196,10 @@ class App extends CI_Controller {
             $date = $this->input->post('date', TRUE);
             $genre = $this->input->post('genre', TRUE);
             $streamy['public'] = $visibility;
-            $streamy['priority'] = $priority;
+            $streamy['priority_id'] = $priority;
             $streamy['publish_at'] = date('Y-m-d 00:00:00', strtotime($date));
             $streamy['name'] = $name;
-            $streamy['genre'] = $genre;
+            $streamy['genre_id'] = $genre;
             $this->Streamy_model->update_streamy($id, $streamy);
             $streamy = $this->streamy_desc($streamy);
             echo json_encode(array('status' => 'Success', 'streamy' => $streamy));
@@ -1277,6 +1286,24 @@ class App extends CI_Controller {
             redirect($this->loc_url . '/login', 'location', 302);
         }
     }
+    
+    public function stream() {
+         if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $user = $this->general_library->get_cookie();
+            $data = array();
+            $data['user'] = $user;
+            $data['type'] = '';
+            $data['placeholder_url'] = '';
+            $data['type_url'] = '';
+            $data['genres'] = $this->Streamy_model->fetch_genres();
+            $this->load->view($this->loc_path . 'content/stream', $data);
+        } else {
+            redirect($this->loc_url . '/login', 'location', 302);
+        }
+    }
+    
+  
+    
 
     //
     public function customize() {
@@ -1511,10 +1538,10 @@ class App extends CI_Controller {
         echo '</pre>';
         echo '<br>';
         echo '<br>';
-        
-        
-        
-        
+
+
+
+
         //IP
         //$ip = $this->input->ip_address();
         //echo $ip;
@@ -1545,7 +1572,6 @@ class App extends CI_Controller {
 //        echo '<br>';
 //        echo '<br>';
 //        echo '<br>';
-
 //
 //        $location = file_get_contents('https://api.ipgeolocationapi.com/geolocate/' . $ip);
 //        //you can also use ipinfo.io or any other ip location provider API
@@ -1635,8 +1661,8 @@ class App extends CI_Controller {
         echo '<br>';
         echo '<br>';
     }
-    
-    public function upgrade(){
+
+    public function upgrade() {
         if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $register_user = $this->User_model->fetch_user_by_search(array('id' => $user['id']));

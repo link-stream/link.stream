@@ -133,8 +133,9 @@ $this->load->view('app/_inc/header', $data);
                                                 <div class="col-md-6 form-group mb-3">
                                                     <label for="priority">Priority</label>
                                                     <select class="form-control" id="priority" name="priority">
-                                                        <option value="1" <?= ($user['role'] == '1') ? 'disabled=""' : '' ?> ><?= ($user['role'] == '1') ? 'Spotlight - Not available for Free Account' : 'Spotlight' ?></option>
                                                         <option value="2" selected="">Normal</option>
+                                                        <option value="1" <?= ($user['plan_id'] == '1') ? 'disabled=""' : '' ?> ><?= ($user['plan_id'] == '1') ? 'Spotlight - Not available for Free Account' : 'Spotlight' ?></option>
+                                                        
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6 form-group mb-3">
@@ -142,12 +143,12 @@ $this->load->view('app/_inc/header', $data);
                                                     <select class="form-control" id="visibility" name="visibility">
                                                         <option value="1" selected="">Public</option>
                                                         <option value="2">Private</option>
-                                                        <option value="3" <?= ($user['role'] == '1') ? 'disabled=""' : '' ?>><?= ($user['role'] == '1') ? 'Scheduled - Not available for Free Account' : 'Scheduled' ?> </option>
+                                                        <option value="3" <?= ($user['plan_id'] == '1') ? 'disabled=""' : '' ?>><?= ($user['plan_id'] == '1') ? 'Scheduled - Not available for Free Account' : 'Scheduled' ?> </option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6 form-group mb-3 js-scheduled" style="display:none">
                                                     <label for="date">Scheduled</label>
-                                                    <input class="form-control" id="date"  name="date" type="text" placeholder="Date" value="<?= date('m/d/Y') ?>" <?= ($user['role'] == '1') ? 'readonly=""' : '' ?> />
+                                                    <input class="form-control" id="date"  name="date" type="text" placeholder="Date" value="<?= date('m/d/Y') ?>" <?= ($user['plan_id'] == '1') ? 'readonly=""' : '' ?> />
                                                 </div>
                                             </div>
                                         </div>
@@ -179,7 +180,7 @@ $this->load->view('app/_inc/header', $data);
                                                         <div class="col-md-4 ">
                                                         </div>
                                                         <div class="col-md-4 ">
-                                                            <a href="<?= base_url() ?>app/content/add/lk" class="btn btn-success m-1 js-content" type="button">Add New Link</a>
+                                                            <a href="<?= base_url() ?>app/linkstream" class="btn btn-success m-1 js-content" type="button">Add New Link</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -200,30 +201,30 @@ $this->load->view('app/_inc/header', $data);
     </div>
     <?php $this->load->view('app/_inc/footer', $data); ?>
     <script> var urlBase = "<?= base_url(); ?>";</script>
-    <script> var role = "<?= $user['role'] ?>";</script>
+    <script> var role = "<?= $user['plan_id'] ?>";</script>
     <script>
         $(document).ready(function () {
 
-            $('body').on('change', '#radio', function (e) {
-                var id = this.id;
-                var value = $(this).val();
-                var streamy_content = $('.js-streamy_content');
-                streamy_content.removeClass("embed-responsive embed-responsive-16by9 z-depth-1-half").addClass("embed-responsive embed-responsive-16by9 z-depth-1-half");
-                if ($.trim(value) === '1') {
-                    $('#card_2 .ul-widget-card__title').text('Add your SoundCloud URL');
-                    $('#streamy_url').attr("placeholder", "https://soundcloud.com/iamstarinthesky/go-hard-prod-silo");
-                } else if ($.trim(value) === '2') {
-                    $('#card_2 .ul-widget-card__title').text('Add your YouTube URL');
-                    $('#streamy_url').attr("placeholder", "https://www.youtube.com/watch?v=h_D3VFfhvs4");
-                } else if ($.trim(value) === '3') {
-                    $('#card_2 .ul-widget-card__title').text('Add your URL');
-                    $('#streamy_url').attr("placeholder", "https://www.streamy.link");
-                } else if ($.trim(value) === '5') {
-                    $('#card_2 .ul-widget-card__title').text('Add your TikTok URL');
-                    $('#streamy_url').attr("placeholder", "https://www.tiktok.com/@scout2015/video/6718335390845095173");
-                    streamy_content.removeClass("embed-responsive embed-responsive-16by9 z-depth-1-half")
-                }
-            });
+//            $('body').on('change', '#radio', function (e) {
+//                var id = this.id;
+//                var value = $(this).val();
+//                var streamy_content = $('.js-streamy_content');
+//                streamy_content.removeClass("embed-responsive embed-responsive-16by9 z-depth-1-half").addClass("embed-responsive embed-responsive-16by9 z-depth-1-half");
+//                if ($.trim(value) === '1') {
+//                    $('#card_2 .ul-widget-card__title').text('Add your SoundCloud URL');
+//                    $('#streamy_url').attr("placeholder", "https://soundcloud.com/iamstarinthesky/go-hard-prod-silo");
+//                } else if ($.trim(value) === '2') {
+//                    $('#card_2 .ul-widget-card__title').text('Add your YouTube URL');
+//                    $('#streamy_url').attr("placeholder", "https://www.youtube.com/watch?v=h_D3VFfhvs4");
+//                } else if ($.trim(value) === '3') {
+//                    $('#card_2 .ul-widget-card__title').text('Add your URL');
+//                    $('#streamy_url').attr("placeholder", "https://www.streamy.link");
+//                } else if ($.trim(value) === '5') {
+//                    $('#card_2 .ul-widget-card__title').text('Add your TikTok URL');
+//                    $('#streamy_url').attr("placeholder", "https://www.tiktok.com/@scout2015/video/6718335390845095173");
+//                    streamy_content.removeClass("embed-responsive embed-responsive-16by9 z-depth-1-half")
+//                }
+//            });
 
             $('body').on('click', '.js-prev', function (e) {
                 e.preventDefault();

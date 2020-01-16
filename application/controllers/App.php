@@ -53,9 +53,14 @@ class App extends CI_Controller {
     public function index() {
         $data = array();
         if ($this->input->cookie($this->general_library->ses_name) != '') {
-            $this->status_pending();
+            //$this->status_pending();
             $user = $this->general_library->get_cookie();
             $data['user'] = $user;
+            $data['plan_modal'] = ($user['status_id'] == '3') ? true : false;
+            $user['status_id'] = '1';
+            $this->User_model->update_user($user['id'], array('status_id' => $user['status_id']));
+            $encrypted_user = $this->general_library->urlsafe_b64encode(json_encode($user));
+            $this->general_library->update_cookie(serialize(array('user' => $encrypted_user)));
             $this->load->view($this->loc_path . 'dashboard', $data);
         } else {
             redirect($this->loc_url . '/login', 'location', 302);
@@ -176,7 +181,7 @@ class App extends CI_Controller {
                         $user['email'] = $email;
                         $user['password'] = $this->general_library->encrypt_txt($password);
                         $user['plan_id'] = '1';
-                        $user['status_id'] = '1';
+                        $user['status_id'] = '3';
                         $user['platform'] = 'Streamy';
                         $user['id'] = $this->User_model->insert_user($user);
                         $this->User_model->insert_user_log(array('user_id' => $user['id'], 'event' => 'Registered'));
@@ -321,7 +326,7 @@ class App extends CI_Controller {
                 unlink($source . '/' . $image_name);
                 $user['image'] = $image_name;
             }
-            $user['status_id'] = '1';
+            $user['status_id'] = '3';
             $user['id'] = $this->User_model->insert_user($user);
             $this->User_model->insert_user_log(array('user_id' => $user['id'], 'event' => 'Registered'));
             $this->user_session($user);
@@ -383,7 +388,7 @@ class App extends CI_Controller {
                     $user['image'] = $image_name;
                 }
                 //$user['image'] = $token_info->picture;
-                $user['status_id'] = '1';
+                $user['status_id'] = '3';
                 $user['email_confirmed'] = '1';
                 $user['id'] = $this->User_model->insert_user($user);
                 $this->User_model->insert_user_log(array('user_id' => $user['id'], 'event' => 'Registered'));
@@ -555,7 +560,7 @@ class App extends CI_Controller {
     public function content($action = null, $type = null) {
         $data = array();
         if ($this->input->cookie($this->general_library->ses_name) != '') {
-            $this->status_pending();
+            //$this->status_pending();
             $user = $this->general_library->get_cookie();
             if (!empty($action) && $action == 'add') {
                 $data['user'] = $user;
@@ -608,7 +613,7 @@ class App extends CI_Controller {
     public function content_old($action = null, $type = null) {
         $data = array();
         if ($this->input->cookie($this->general_library->ses_name) != '') {
-            $this->status_pending();
+            //$this->status_pending();
             $user = $this->general_library->get_cookie();
             if (!empty($action) && $action == 'add') {
                 $data['user'] = $user;
@@ -831,7 +836,7 @@ class App extends CI_Controller {
     public function my_content($type = null) {
         $data = array();
         if ($this->input->cookie($this->general_library->ses_name) != '') {
-            $this->status_pending();
+            //$this->status_pending();
             $user = $this->general_library->get_cookie();
 //            $search = array(
 //                'user' => $user['id'],
@@ -917,7 +922,7 @@ class App extends CI_Controller {
 
     public function my_content_ajax() {
         if ($this->input->cookie($this->general_library->ses_name) != '') {
-            $this->status_pending();
+            //$this->status_pending();
             $user = $this->general_library->get_cookie();
             $aaData = array();
             $name = $this->input->post('name', TRUE);

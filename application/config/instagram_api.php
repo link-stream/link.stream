@@ -20,7 +20,7 @@ if ($chk[0] == "localhost") {
     $config['instagram_website'] = 'https://localhost/streamy.link'; //e.g. http://yourwebsite.com/
     $config['instagram_description'] = '';
     //$db['default']['db_debug'] = TRUE;
-} elseif ($chk[0] == "streamylinkdevenv") {
+} elseif ($chk[0] == "streamy-dev") {
     $config['instagram_client_name'] = 'Streamy.link';
     $config['instagram_client_id'] = '697592760647122';
     $config['instagram_client_secret'] = '6d3fb59a094855ce9471b9c88e8bfbbe';

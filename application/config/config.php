@@ -49,7 +49,6 @@ if ($exp[0] == 'localhost') {
     define('ENV', 'live');
 }
 //echo ENV;
-
 //define('HTTPS_URL', $config['ssl_base_url']);
 define('HTTP_ASSETS', $config['base_url'] . 'assets/');
 //define('HTTP_CSS_PATH', $config['base_url'] . 'assets/css/');
@@ -420,7 +419,6 @@ $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
-
 /*
   |--------------------------------------------------------------------------
   | Cookie Related Variables

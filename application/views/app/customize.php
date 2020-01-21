@@ -655,19 +655,19 @@ $this->load->view('app/_inc/header', $data);
                     document.execCommand("copy");
                     $temp.remove();
                 }
-    //
-    //            $uploadCrop = $('#upload-demo').croppie({
-    //                enableExif: true,
-    //                viewport: {
-    //                    width: 200,
-    //                    height: 200,
-    //                    type: 'circle'
-    //                },
-    //                boundary: {
-    //                    width: 300,
-    //                    height: 300
-    //                }
-    //            });
+                //
+                //            $uploadCrop = $('#upload-demo').croppie({
+                //                enableExif: true,
+                //                viewport: {
+                //                    width: 200,
+                //                    height: 200,
+                //                    type: 'circle'
+                //                },
+                //                boundary: {
+                //                    width: 300,
+                //                    height: 300
+                //                }
+                //            });
 
                 //$('#upload-demo').croppie('bind');
 
@@ -733,7 +733,7 @@ $this->load->view('app/_inc/header', $data);
 
             });
 
-    // Start upload preview image
+            // Start upload preview image
             //$(".gambar").attr("src", "http://erssolucoes.com.br/profile_male.jpg");
             var $uploadCrop,
                     tempFilename,
@@ -771,12 +771,12 @@ $this->load->view('app/_inc/header', $data);
                 });
             });
 
-    //        $('.item-img').on('change', function () {
-    //            imageId = $(this).data('id');
-    //            tempFilename = $(this).val();
-    //            $('#cancelCropBtn').data('id', imageId);
-    //            readFile(this);
-    //        });
+            //        $('.item-img').on('change', function () {
+            //            imageId = $(this).data('id');
+            //            tempFilename = $(this).val();
+            //            $('#cancelCropBtn').data('id', imageId);
+            //            readFile(this);
+            //        });
 
             $('#file_photo3').on('change', function () {
                 imageId = $(this).data('id');
@@ -792,7 +792,7 @@ $this->load->view('app/_inc/header', $data);
                     size: {width: 270, height: 270}
                 }).then(function (resp) {
                     $('#profile-picture').attr('src', resp);
-    //		$('#cropImagePop').modal('hide');
+                    //		$('#cropImagePop').modal('hide');
                     console.log('update');
                     $.ajax({
                         url: urlBase + "app/avatar_upload_ajax",

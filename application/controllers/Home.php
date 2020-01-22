@@ -53,8 +53,8 @@ class Home extends CI_Controller {
     }
     
 
-    public function index($username = null) {
-        //$username = $this->uri->segment(1);
+    public function index() {
+        $username = $this->uri->segment(1);
         //echo 'A:' . $pepe;
         //exit;
         if (!empty($username)) {

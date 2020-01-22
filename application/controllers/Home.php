@@ -107,6 +107,7 @@ class Home extends CI_Controller {
                 $agent = 'Unidentified User Agent';
             }
             $platform = $this->agent->platform(); // Platform info (Windows, Linux, Mac, etc.)
+            $agent_string = $this->agent->agent_string();
             //
         //LOCATION
             $location = file_get_contents('http://ip-api.com/json/' . $ip);
@@ -126,7 +127,8 @@ class Home extends CI_Controller {
                 'zip' => ($data_loc['status'] == 'success') ? $data_loc['zip'] : '33132',
                 'lat' => ($data_loc['status'] == 'success') ? $data_loc['lat'] : '25.7806',
                 'lon' => ($data_loc['status'] == 'success') ? $data_loc['lon'] : '-80.1826',
-                'timezone' => ($data_loc['status'] == 'success') ? $data_loc['timezone'] : 'America/New_York'
+                'timezone' => ($data_loc['status'] == 'success') ? $data_loc['timezone'] : 'America/New_York',
+                'agent_string'=>$agent_string
             );
 //            echo '<pre>';
 //            print_r($data);

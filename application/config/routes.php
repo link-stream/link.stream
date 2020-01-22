@@ -62,4 +62,4 @@ $route['instagram_register'] = "app/instagram_register";
 $route['google_register'] = "app/google_register";
 $route['legal'] = 'home/legal';
 
-$route['(:any)'] = "home/index/$1";
+//$route['(:any)'] = "home/index/$1";

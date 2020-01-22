@@ -53,33 +53,52 @@ $this->load->view('app/_inc/header', $data);
 <link rel="stylesheet" href="<?= HTTP_ASSETS ?>dist-assets/css/plugins/datatables.min.css" />
 <body class="text-left">
     <div class="app-admin-wrap layout-sidebar-large">
-          <?php $this->load->view('app/_inc/main-header', $data); ?>
-       
+        <?php $this->load->view('app/_inc/main-header-live', $data); ?>
+
 
         <!-- =============== Left side End ================-->
-        <div class="main-content-wrap sidenav-open d-flex flex-column">
+        <div class="main-content-wrap  d-flex flex-column">
             <!-- ============ Body content start ============= -->
-            <div class="main-content">
-                <div class="breadcrumb">
-                    <h1>PROFILE PAGE</h1>
-                    <!--                    <ul>
-                                            <li><a href="">Pages</a></li>
-                                            <li>Blank</li>
-                                        </ul>-->
-                </div>
-                <div class="separator-breadcrumb border-top"></div>
+            <div class="main-content">            
                 <!-- end of main-content -->
                 <!-- NEW CONTENT -->
+                <div class="card user-profile o-hidden mb-4">
+                    <div id="header-cover" class="header-cover" style="background-image: url('<?= base_url() . 'home/get_banner/'.$user['id'] ?>')">
+                    </div>
+                    <div class="user-info"><img class="profile-picture avatar-lg mb-2" src="<?= base_url() . 'home/get_avatar/'.$user['id'] ?>" alt="" id="profile-picture"/>
+                        <p class="m-0 text-24"><?= $user['display_name'] ?></p>
+                        <p class="text-muted m-0"><?= $user['about'] ?></p>
+                    </div>
+                    <div class="card-body">
+                        <ul class="nav nav-tabs profile-nav mb-4" id="profileTab" role="tablist">
+                            <li class="nav-item"><a class="nav-link active" id="timeline-tab" data-toggle="tab" href="#url" role="tab" aria-controls="timeline" aria-selected="false">Streamy</a></li>
+                            <li class="nav-item"><a class="nav-link" id="friends-tab" data-toggle="tab" href="#friends" role="tab" aria-controls="friends" aria-selected="false">Links</a></li>
+                            <li class="nav-item"><a class="nav-link" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="true">Tracks</a></li>
+                        </ul>
 
-                Profile Content
+                        <div class="tab-content" id="profileTabContent">
+                            <div class="tab-pane fade active show" id="url" role="tabpanel" aria-labelledby="timeline-tab">
+                                A
+                            </div>
+                            <div class="tab-pane fade" id="friends" role="tabpanel" aria-labelledby="friends-tab">
+                                B
+                            </div>
+                            <div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+                                C
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- END NEW CONTENT -->
+                </div>
                 <!-- END NEW CONTENT -->
             </div>
             <?php $this->load->view('app/_inc/main-footer', $data); ?>
         </div>
     </div>
     <!-- Detail Modal -->
-     <?php $this->load->view('app/_inc/footer', $data); ?>
-    
+    <?php $this->load->view('app/_inc/footer', $data); ?>
+
     <script> var urlBase = "<?= base_url(); ?>";</script>
     <script>
         $(document).ready(function () {

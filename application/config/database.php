@@ -78,14 +78,14 @@ $url = (isset($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : 'www.streamy.lin
 $chk = explode('.', $url);
 //print_r($chk);echo '<br>';
 if ($chk[0] == "localhost") {
-    define('DB_HOST', 'localhost');
-    define('DB_USER', 'root');
-    define('DB_PASS', '');
-    define('DB_TABLE', 'streamy');
-//    define('DB_HOST', 'db01.streamy.link');
-//    define('DB_USER', 'streamy_admin');
-//    define('DB_PASS', 'e1e71bb468c3648954812eea911a0b25aba58a40');
-//    define('DB_TABLE', 'streamy_dev');
+//    define('DB_HOST', 'localhost');
+//    define('DB_USER', 'root');
+//    define('DB_PASS', '');
+//    define('DB_TABLE', 'streamy');
+    define('DB_HOST', 'db01.streamy.link');
+    define('DB_USER', 'streamy_admin');
+    define('DB_PASS', 'e1e71bb468c3648954812eea911a0b25aba58a40');
+    define('DB_TABLE', 'streamy_dev');
     define('DB_DEBUG', TRUE);
     //$db['default']['db_debug'] = TRUE;
 } elseif ($chk[0] == "streamy-dev") {

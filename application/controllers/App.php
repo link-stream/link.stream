@@ -1710,5 +1710,10 @@ class App extends CI_Controller {
             redirect($this->loc_url . '/login', 'location', 302);
         }
     }
+    
+    public function youtube(){
+        $data = array();
+        $this->load->view($this->loc_path . 'youtube_test', $data);
+    }
 
 }

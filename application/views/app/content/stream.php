@@ -89,6 +89,7 @@ $this->load->view('app/_inc/header', $data);
                                                                 <option value="1"<?= ($type == '1' ? 'selected=""' : '') ?>>SoundCloud</option>
                                                                 <option value="2"<?= ($type == '2' ? 'selected=""' : '') ?>>YouTube</option>
                                                                 <option value="4"<?= ($type == '4' ? 'selected=""' : '') ?>>Streamy</option>
+                                                                <option value="6"<?= ($type == '6' ? 'selected=""' : '') ?>>Spotify</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -192,7 +193,7 @@ $this->load->view('app/_inc/header', $data);
                                                     <select class="form-control" id="priority" name="priority">
                                                         <option value="2" selected="">Normal</option>
                                                         <option value="1" <?= ($user['plan_id'] == '1') ? 'disabled=""' : '' ?> ><?= ($user['plan_id'] == '1') ? 'Spotlight - Not available for Free Account' : 'Spotlight' ?></option>
-  
+
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6 form-group mb-3">
@@ -328,7 +329,10 @@ $this->load->view('app/_inc/header', $data);
                 } else if ($.trim(value) === '5') {
                     $('#card_2 .ul-widget-card__title').text('Add your TikTok URL');
                     $('#streamy_url').attr("placeholder", "https://www.tiktok.com/@scout2015/video/6718335390845095173");
-                    streamy_content.removeClass("embed-responsive embed-responsive-16by9 z-depth-1-half")
+                    streamy_content.removeClass("embed-responsive embed-responsive-16by9 z-depth-1-half");
+                } else if ($.trim(value) === '6') {
+                    $('#card_2 .ul-widget-card__title').text('Add your Spotify URL');
+                    $('#streamy_url').attr("placeholder", "https://open.spotify.com/track/7mkRzIiioITA6ETM7QQ1d8");
                 }
             });
 
@@ -353,6 +357,9 @@ $this->load->view('app/_inc/header', $data);
                     return (value.match(p)) ? RegExp.$1 : false;
                 } else if (url_type === '5') {
                     var p = /^(?:https?:\/\/)?(?:www\.)?tiktok\.com\/(.*)\/video\/(.*)$/;
+                    return (value.match(p)) ? RegExp.$1 : false;
+                } else if (url_type === '6') {
+                    var p = /^(?:https?:\/\/)?(?:www\.)?open\.spotify\.com\/track\/(.*)$/;
                     return (value.match(p)) ? RegExp.$1 : false;
                 } else {
                     return true;
@@ -418,7 +425,7 @@ $this->load->view('app/_inc/header', $data);
                     var card_in = '#card_' + next;
                     var selValue = $('#my_content_url #radio').val();
                     if (button_id === 'next_1') {
-                        if (selValue === '1' || selValue === '2') {
+                        if (selValue === '1' || selValue === '2' || selValue === '6') {
                             $(card_out).fadeOut(200, function () {
                                 $(card_in).fadeIn(100);
                             });
@@ -430,7 +437,7 @@ $this->load->view('app/_inc/header', $data);
                         }
 
                     } else if (button_id === 'next_2') {
-                        if (selValue === '1' || selValue === '2') {
+                        if (selValue === '1' || selValue === '2' || selValue === '6') {
                             $.ajax({
                                 type: 'post',
                                 url: urlBase + "app/streamy_content_view",

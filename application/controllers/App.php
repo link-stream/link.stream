@@ -61,6 +61,11 @@ class App extends CI_Controller {
             $this->User_model->update_user($user['id'], array('status_id' => $user['status_id']));
             $encrypted_user = $this->general_library->urlsafe_b64encode(json_encode($user));
             $this->general_library->update_cookie(serialize(array('user' => $encrypted_user)));
+//            $data['title'] = 'Streamy'; 
+//            $data['page'] = 'Dashboard'; 
+//            $data['body_content'] = 'dashboard'; 
+//            $this->load->view('layouts/layout2', $data);
+
             $this->load->view($this->loc_path . 'dashboard', $data);
         } else {
             redirect($this->loc_url . '/login', 'location', 302);
@@ -1224,8 +1229,65 @@ class App extends CI_Controller {
             curl_close($ch);
             $tik_tok = json_decode($json);
             $embed_url = (!empty($tik_tok->html)) ? $tik_tok->html : 'Error';
+        } elseif ($type == '6') {
+            //Spotify
+            //https://open.spotify.com/track/7mkRzIiioITA6ETM7QQ1d8
+            preg_match('/[\\spotify.com\\track\\][a-zA-Z0-9]{22}/', $url, $matches);
+            $spotify_id = (!empty($matches[0])) ? $matches[0] : '';
+            $embed_url = '<iframe src="https://open.spotify.com/embed/track/'.$spotify_id.'" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>';
         }
         return $embed_url;
+    }
+
+    public function test_url() {
+//        $url = 'https://open.spotify.com/embed/track/7mkRzIiioITA6ETM7QQ1d8';
+//        echo 'URL: ' . $url;
+//        echo'<br>';
+//        if (preg_match('/spotify:track:([a-zA-Z0-9]{22})/', $url, $matches)) {
+//            $spotifyId = $re[1];
+//        }
+//        echo '<pre>';
+//        print_r($matches);
+//        echo '</pre>';
+//        //$youtube_id = (!empty($matches[1])) ? $matches[1] : '';
+
+        $url = "spotify:track:5xioIP2HexKl3QsI8JDlG8";
+        //$url = 'https://open.spotify.com/track/7mkRzIiioITA6ETM7QQ1d8';
+        echo 'URL: ' . $url;
+        echo'<br>';
+        if (preg_match('/spotify:track:([a-zA-Z0-9]{22})/', $url, $matches)) {
+            $spotifyId = $matches[1];
+            echo 'ID: ' . $spotifyId;
+            echo'<br>';
+        }
+
+        $url = "spotify:track:5xioIP2HexKl3QsI8JDlG8";
+        //$url = 'https://open.spotify.com/track/7mkRzIiioITA6ETM7QQ1d8';
+        echo 'URL: ' . $url;
+        echo'<br>';
+        if (preg_match('/(?<=spotify:track:)[a-zA-Z0-9]{22}/', $url, $matches)) {
+            $id = $matches[0];
+            echo 'ID: ' . $id;
+            echo'<br>';
+        }
+
+
+
+        $url = 'https://open.spotify.com/track/7mkRzIiioITA6ETM7QQ1d8';
+        //$url = "spotify:track:5xioIP2HexKl3QsI8JDlG8";
+        //$url='https://open.spotify.com/album/4RuzGKLG99XctuBMBkFFOC';
+        echo 'URL: ' . $url;
+        echo'<br>';
+        //preg_match('/[\\?\\&]v=([^\\?\\&]+)/', $url, $matches);
+        preg_match('/[\\spotify.com\\track\\][a-zA-Z0-9]{22}/', $url, $matches1);
+//        if (preg_match('/track([a-zA-Z0-9]{22})/', $url, $matches)) {
+//            $id = $matches[0];
+//            echo 'ID: ' . $id;
+//            echo'<br>';
+//        }
+        echo '<pre>';
+        print_r($matches1);
+        echo '</pre>';
     }
 
     public function streamy_update() {
@@ -1710,10 +1772,15 @@ class App extends CI_Controller {
             redirect($this->loc_url . '/login', 'location', 302);
         }
     }
-    
-    public function youtube(){
+
+    public function youtube() {
         $data = array();
         $this->load->view($this->loc_path . 'youtube_test', $data);
+    }
+
+    public function dash() {
+        $data = array();
+        $this->load->view('partials/dashboard', $data);
     }
 
 }

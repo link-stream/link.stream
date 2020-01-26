@@ -150,8 +150,12 @@ class App extends CI_Controller {
                 //Check Email And User
                 $register_user = $this->User_model->fetch_user_by_search(array('email' => $email, 'password' => $password_e));
                 if (!empty($register_user)) {
-                    $this->user_session($register_user);
-                    redirect($this->loc_url, 'location', 302);
+                    if ($register_user['status_id'] == 1) {
+                        $this->user_session($register_user);
+                        redirect($this->loc_url, 'location', 302);
+                    } else {
+                        $data['msg'] = 'User in PENDING Status, please confirm your email';
+                    }
                 } else {
                     $data['msg'] = 'Email or Password Incorrect';
                 }
@@ -1234,7 +1238,7 @@ class App extends CI_Controller {
             //https://open.spotify.com/track/7mkRzIiioITA6ETM7QQ1d8
             preg_match('/[\\spotify.com\\track\\][a-zA-Z0-9]{22}/', $url, $matches);
             $spotify_id = (!empty($matches[0])) ? $matches[0] : '';
-            $embed_url = '<iframe src="https://open.spotify.com/embed/track/'.$spotify_id.'" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>';
+            $embed_url = '<iframe src="https://open.spotify.com/embed/track/' . $spotify_id . '" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>';
         }
         return $embed_url;
     }

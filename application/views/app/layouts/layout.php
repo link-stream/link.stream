@@ -74,7 +74,7 @@
                     </q-drawer>
                     
                     <q-page-container>
-                        <!--?php $this->load->view('app/partials/' . $body_content); ?-->
+                        <?php $this->load->view('app/partials/' . $body_content); ?>
                     </q-page-container>
                 </q-layout>
             </template>
@@ -132,16 +132,7 @@
                     }
                 })
             </script>
-            <script> var urlBase = "<?= base_url(); ?>";</script>
-            <!--script>
-                var $plan_modal = "<?= $plan_modal; ?>";
-                $(document).ready(function () {
-                    if ($plan_modal) {
-                        console.log('OK');
-                        $('#orderDetail').modal('show');
-                    }
-                });
-            </script-->
+            <script> var urlBase = "<?= base_url(); ?>";</script>            
         </div>
     </body>
 </html>

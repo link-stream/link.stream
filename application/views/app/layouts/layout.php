@@ -64,15 +64,17 @@
                                         <q-icon color="white" size="20px" :name="menuItem.icon" />
                                     </q-item-section>
                                     <q-item-section class="q-mx-none q-mb-sm q-my-none">
-                                        <q-item-label style="text-align: center">{{ menuItem.label }}</q-item-label>
-                                    </q-item-section>                                                                      
+                                        <q-item-label  class="font-menu">{{ menuItem.label }}</q-item-label>
+                                    </q-item-section> 
+                                    <q-slide-transition>                                                                                                                              
                                 </q-item>
                                 <q-separator dark/>
-                            </q-list>
-                        </q-scroll-area>
+                            </q-list>                            
+                        </q-scroll-area>                        
                     </q-drawer>
+                    
                     <q-page-container>
-                        <?php $this->load->view('app/partials/' . $body_content); ?>
+                        <!--?php $this->load->view('app/partials/' . $body_content); ?-->
                     </q-page-container>
                 </q-layout>
             </template>
@@ -87,6 +89,7 @@
                     },
                     data: function () {
                         return {
+                            size: window.screen.height,
                             version: Quasar.version,
                             drawerState: true,
                             left: false,
@@ -112,6 +115,10 @@
                                 { setting: 'Sign Out'}
                             ]
                         }
+                    },
+                    mounted() {
+                        console.log(this.size)
+                        console.log(window.screen.width)
                     },
                     watch: {
                         left () {

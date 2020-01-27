@@ -1782,9 +1782,4 @@ class App extends CI_Controller {
         $this->load->view($this->loc_path . 'youtube_test', $data);
     }
 
-    public function dash() {
-        $data = array();
-        $this->load->view('partials/dashboard', $data);
-    }
-
 }

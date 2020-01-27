@@ -2,7 +2,7 @@
                     <!-- ============ Body content start ============= -->
                     <div class="main-content">
                         <div class="breadcrumb">
-                            <h1><?= $page ?></h1>            
+                            <h1>Dashboard</h1>
                         </div>
                         <div class="separator-breadcrumb border-top"></div>     
                         <!-- end of main-content -->
@@ -12,7 +12,7 @@
                 </div>
             </div>
             <!-- Detail Modal -->
-            <div class="modal fade" id="orderDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+            <!--div class="modal fade" id="orderDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <form action="" method="post" role="form" id="my_content_update" >
@@ -25,12 +25,12 @@
 
                             </div>
                             <div class="modal-footer">
-                                <!--<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>-->
-                                <!--<button class="btn btn-primary ml-2 js-update" type="button">Save changes</button>-->
+                                <<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                <button class="btn btn-primary ml-2 js-update" type="button">Save changes</button>
                             </div>
                         </form>
                     </div>
-                </div>
+                </div-->
             </div>
 
 

@@ -129,7 +129,16 @@ $this->load->view('app/_inc/header', $data);
                             </tfoot>
                         </table>
                     </div>
-                    <div class="col-lg-12 col-xl-6 col-md-12 mt-3">
+                    <div class="col-lg-12 col-xl-4 col-md-12 mt-3">
+                        <div class="panel panel-default">
+                            <div class="panel-body" style=" border: 1px solid #EBEBEB;">
+                                <figure class="highcharts-figure">
+                                    <div id="container-2"></div>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-xl-4 col-md-12 mt-3">
                         <div class="panel panel-default">
                             <div class="panel-body" style=" border: 1px solid #EBEBEB;">
                                 <figure class="highcharts-figure">
@@ -138,7 +147,7 @@ $this->load->view('app/_inc/header', $data);
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-xl-6 col-md-12 mt-3">
+                    <div class="col-lg-12 col-xl-4 col-md-12 mt-3">
                         <table class="display table table-striped table-bordered" id="deafult_ordering_table" style="width:100%">
                             <thead>
                                 <tr>
@@ -286,6 +295,63 @@ $this->load->view('app/_inc/header', $data);
                         name: 'Spotify',
                         data: [42, 33, 34, 39, 52, 75, 57]
 
+                    }]
+            });
+
+            Highcharts.chart('container-2', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Top 10 Streams'
+                },
+                subtitle: {
+                    text: 'Last 7 Days'
+                },
+                xAxis: {
+                    categories: ['Title_1', 'Title_2', 'Title_3', 'Title_4', 'Title_5', 'Title_6', 'Title_7', 'Title_8', 'Title_9', 'Title_10'],
+                    title: {
+                        text: null
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Streams',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    //valueSuffix: ' millions'
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: false
+                        }
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'top',
+                    x: -40,
+                    y: 80,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor:
+                            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                    shadow: true
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                        name: 'Streams',
+                        data: [1000, 900, 800, 700, 600, 500, 400, 300, 200, 100]
                     }]
             });
 

@@ -7,4 +7,41 @@ and open the template in the editor.
     Created on : Dec 8, 2019, 8:27:55 AM
     Author     : paolo
 */
+.streamy_logo {
+    width: 60px;
+    height: 60px;
+}
+
+.menu_icon {
+    width: 20px;
+    height: 20px; 
+}
+
+@font-face {
+    font-family: customfont;
+    src: url(./fonts/typeface-montserrat/files/montserrat-latin-400.woff);   
+  }  
+  
+  .font-menu {
+    font-family: 'customfont';
+    color: #9D9D9D;
+    font-weight: bold;
+    size: 14px;
+    letter-spacing: 0.11px;
+    line-height: 18px;
+    text-align: center;
+  }
+
+  .my-menu-link {
+    color: white;
+    background: #F2C037;
+  }
+  
+
+ 
+
+  
+ 
+
+
 

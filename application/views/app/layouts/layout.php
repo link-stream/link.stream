@@ -13,7 +13,7 @@
     <body class="text-left">
         <div id="q-app">
             <template>
-                <q-layout view="hHh lpR fFf">
+                <q-layout view="hHh LpR fFf">
                     <q-header reveal class="bg-black text-white" style="height: 80px">
                         <q-toolbar>
                             <q-toolbar-title class="row items-center content-center">
@@ -39,7 +39,7 @@
                                 </q-btn>
                                 <q-btn round flat>
                                     <q-avatar size="40px">
-                                    <img src="<?= base_url() . 'app/get_avatar' ?>" alt="avatar" class="self-center"/>
+                                    <img src="<?= base_url() . 'app/get_avatar' ?>" alt="avatar" class="self-center"></img>
                                     </q-avatar>
                                     <q-tooltip>Account</q-tooltip>
                                     <q-menu :offset="[100, 5]">
@@ -55,13 +55,13 @@
                             </div>
                         </q-toolbar>
                     </q-header>    
-                    <q-drawer show-if-above v-model="left" side="left" :width="dynamicWidth" :content-style="{backgroundColor: '#333333'}">                        
-                        <q-scroll-area class="fit">                        
+                    <q-drawer show-if-above v-model="left" side="left" :width="dynamicWidth" :content-style="{backgroundColor: '#333333'}" :overlay="submenu" behavior="desktop">                          
+                        <q-scroll-area class="fit" :visible="false">                        
                             <div class="row">
                                 <div class="col"> 
-                                    <q-card class="my-card" style="width:128px; height: 93vh; background-color: #333333; color: white" square flat>                                                           
+                                    <q-card class="my-card" square flat>                                                           
                                         <q-list v-for="(menuItem, index) in menuList" :key="index" class="text-grey-8">
-                                            <q-item clickable style="height: 85px" class="column items-center content-center q-pa-sm" :active="selectedMenu === menuItem.label" @click="setActiveItem(menuItem)" active-class="my-menu-link"> 
+                                            <q-item clickable style="height: 85px" class="column items-center content-center q-pa-sm" :active="selectedMenu === menuItem.label" @click="setActiveItem(menuItem)" active-class="my-menu-link" > 
                                                 <q-item-section class="q-ml-none q-mt-md">                                       
                                                     <q-icon color="white" size="20px" :name="menuItem.icon" />
                                                 </q-item-section>                                               
@@ -73,12 +73,12 @@
                                                 <q-separator ></q-separator>
                                                 </q-item-section>                                                                                                                                                                                       
                                             </q-item>
-                                            <q-separator dark/>   
+                                            <q-separator dark></q-separator> 
                                         </q-list>
                                     </q-card>
                                 </div>
                                 <div class="col" style="width:128px" v-show="submenu">
-                                    <q-card class="my-card" style="width:128px; height: 93vh; background-color: rgba(0,0,0,0.5); color: white" square flat>                        
+                                    <q-card class="my-card" style="width:128px; height: 100vh; background-color: rgba(0,0,0,0.5); color: white" square flat>                        
                                         <q-list v-for="(menuItem, index) in submenuList" :key="index" class="text-grey-8">
                                             <q-item clickable style="height: 15px" class="column items-left content-left q-pa-xs">                                                
                                                 <q-item-section class="q-ml-xs q-mt-xs q-my-none">
@@ -92,148 +92,28 @@
                             </div>                            
                         </q-scroll-area>  
                     </q-drawer>                      
-                    <v-div>
+                    <div>
                         <q-page-container>                        
                             <?php $this->load->view('app/partials/' . $body_content); ?>
                         </q-page-container>
-                    </v-div> 
+                    </div> 
                 </q-layout>
-            </template>
-
-            <script src="<?= HTTP_ASSETS ?>node_modules/vue/dist/vue.min.js"></script>
-            <script src="<?= HTTP_ASSETS ?>node_modules/quasar/dist/quasar.umd.min.js"></script>
-            <script>
-                Vue.use('typeface-montserrat');
-                new Vue({
-                    el: '#q-app',
-                    components: {
-                    },
-                    data: function () {
-                        return {
-                            size: window.screen.height,
-                            version: Quasar.version,
-                            drawerState: true,
-                            left: false,
-                            dynamicWidth: 128,
-                            menuState: '',
-                            submenu: true,
-                            selectedMenu: 'Dashboard',
-                            submenuList: [],                       
-                            menuList: [
-                                { 
-                                    icon: 'img:assets/images/icons/tachometer-alt.svg', 
-                                    label: 'Dashboard',
-                                    linkTo: '#', 
-                                    submenu: [] 
-                                },
-                                { 
-                                    icon: 'img:assets/images/icons/icon-user-circle.svg', 
-                                    label: 'My Profile', 
-                                    linkTo: '#',
-                                    submenu: [
-                                        { linkTo: '#', label: 'Edit Profile' },
-                                        { linkTo: '#', label: 'View Profile' }
-                                    ] 
-                                },
-                                { 
-                                    icon: 'img:assets/images/icons/icon-tracks.svg', 
-                                    label: 'My Tracks',
-                                    linkTo: '#',
-                                    submenu: [
-                                        { linkTo: '#', label: 'Add New Tracks' },
-                                        { linkTo: '#', label: 'Manage Tracks' },
-                                        { linkTo: '#', label: 'Manage Reposts' },
-                                    ] 
-                                },
-                                { 
-                                    icon: 'img:assets/images/icons/icon-user-circle.svg', 
-                                    label: 'My Content',
-                                    linkTo: '#',
-                                    submenu: [
-                                        { linkTo: '#', label: 'Add Content' },
-                                        { linkTo: '#', label: 'Manage Content' }
-                                    ]  
-                                },
-                                { 
-                                    icon: 'img:assets/images/icons/icon-link.svg', 
-                                    label: 'My Links',
-                                    linkTo: '#',
-                                    submenu: [
-                                        { linkTo: '#', label: 'Add Links' },
-                                        { linkTo: '#', label: 'Manage Links' }
-                                    ]  
-                                },
-                                { 
-                                    icon: 'img:assets/images/icons/chart-bar.svg', 
-                                    label: 'Analytics',
-                                    linkTo: '#', 
-                                    submenu: [] 
-                                },
-                                { 
-                                    icon: 'img:assets/images/icons/icon-reports.svg', 
-                                    label: 'Reports',
-                                    linkTo: '#', 
-                                    submenu: [] 
-                                },
-                                { 
-                                    icon: 'img:assets/images/icons/icon-upgrade.svg', 
-                                    label: 'Upgrade',
-                                    linkTo: '#', 
-                                    submenu: [] 
-                                },
-                                { 
-                                    icon: 'img:assets/images/icons/icon-settings.svg', 
-                                    label: 'Account Settings',
-                                    linkTo: '#', 
-                                    submenu: [] 
-                                }
-                            ],
-                            notificationsMenu: [
-                                { icon: 'assets/images/testimonials/1.png', notification: 'theredfantastic started following you 1h' },
-                                { icon: 'assets/images/testimonials/2.png', notification: 'jmirra started following you 2d' }
-                            ],
-                            accountSettings: [
-                                { setting: 'Account Settings'},
-                                { setting: 'Billing History'},
-                                { setting: 'Sign Out'}
-                            ]
-                        }
-                    },
-                    mounted() {
-                        this.submenu = false;
-                    },
-                    watch: {                        
-                        left () {
-                            (this.left === false) ? this.menuState = 'assets/images/icons/bars.svg' : this.menuState = 'assets/images/icons/icon-close-sharp.svg';
-                        },
-                        submenu () {                           
-                            this.submenu ? this.dynamicWidth = 256 : this.dynamicWidth = 128;
-                        }
-                    },
-                    methods: {
-                        onItemClick () {
-                        // console.log('Clicked on an Item')
-                        },
-
-                        setActiveItem (item) {                             
-                            this.selectedMenu = item.label;
-                            if (item.submenu.length !== 0) {
-                                this.submenuList = item.submenu;
-                                this.submenu = true;
-                            } else { 
-                                this.submenu = false;
-                            }                                                      
-                        }
-
-                    }
-                })
-            </script>
-            <script> var urlBase = "<?= base_url(); ?>";</script>            
+            </template>            
+                   
         </div>
+        <script src="assets/public/app.js"></script>
+            <script> var urlBase = "<?= base_url(); ?>";</script>     
     </body>
 </html>
+
 <style lang="sass">
 .my-menu-link{ 
   border-left: 6px solid #FDD311;
+}
+.my-card{
+    width:128px; 
+    min-height: calc(100%); 
+    background-color: #333333; 
+    color: white;
 }
 </style>

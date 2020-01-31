@@ -4,9 +4,12 @@
   "description": "streamy package.json",
   "main": "index.js",
   "dependencies": {
+    "axios": "^0.19.2",
     "laravel-mix": "^5.0.1",
+    "lodash": "^4.17.15",
     "quasar": "^1.8.2",
     "typeface-montserrat": "^0.0.75",
+    "vee-validate": "^2.2.15",
     "vue": "^2.6.11"
   },
   "devDependencies": {

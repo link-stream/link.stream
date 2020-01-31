@@ -98,11 +98,10 @@
                         </q-page-container>
                     </div> 
                 </q-layout>
-            </template>            
-                   
+            </template>      
         </div>
         <script src="assets/public/app.js"></script>
-            <script> var urlBase = "<?= base_url(); ?>";</script>     
+        <script> var urlBase = "<?= base_url(); ?>";</script>     
     </body>
 </html>
 

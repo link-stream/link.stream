@@ -41,7 +41,7 @@ $this->load->view('home/_inc/header', $data);
 
                         <!-- Headline -->
                         <div class="wrap-line border-dark">
-                            <h3>Free <span class="font-weight-200">Early Access</span></h3>
+                            <h3>Free <span class="font-weight-200">Early Access A</span></h3>
                         </div>
                         <!-- /End Headline -->
 

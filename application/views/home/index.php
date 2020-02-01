@@ -137,7 +137,7 @@ $this->load->view('home/_inc/header', $data);
 
                             <div class="p-t-b-15">
                                 <!-- Headline & Description -->
-                                <h2><span class="font-weight-200">Your streams come true </span><br>Spring 2020 TEST</h2>
+                                <h2><span class="font-weight-200">Your streams come true </span><br>Spring 2020</h2>
 
 <!--                                <p>Musicians, Podcasters, YouTubers, Creators and Streamers: <br>Lead the wave with free early access to Streamy in Spring 2020.<br>
                                 </p>-->
@@ -171,7 +171,7 @@ $this->load->view('home/_inc/header', $data);
                              /End Arrow -->
                             <div class="p-t-b-15">
                                 <!-- Headline & Description -->
-                                <h2><span class="font-weight-200">Get a <strong>Free PRO Account</strong> For Life! </span></h2>
+                                <h2><span class="font-weight-200">Get a <strong>Free PRO Account</strong> For Life! - TEST</span></h2>
                                 <div class="row text-justify">
                                     <div class="col-md-3">
 

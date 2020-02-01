@@ -41,7 +41,7 @@ $this->load->view('home/_inc/header', $data);
 
                         <!-- Headline -->
                         <div class="wrap-line border-dark">
-                            <h3>Free <span class="font-weight-200">Early Access A</span></h3>
+                            <h3>Free <span class="font-weight-200">Early Access</span></h3>
                         </div>
                         <!-- /End Headline -->
 
@@ -137,7 +137,7 @@ $this->load->view('home/_inc/header', $data);
 
                             <div class="p-t-b-15">
                                 <!-- Headline & Description -->
-                                <h2><span class="font-weight-200">Your streams come true </span><br>Spring 2020</h2>
+                                <h2><span class="font-weight-200">Your streams come true </span><br>Spring 2020 TEST</h2>
 
 <!--                                <p>Musicians, Podcasters, YouTubers, Creators and Streamers: <br>Lead the wave with free early access to Streamy in Spring 2020.<br>
                                 </p>-->

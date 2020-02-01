@@ -25,7 +25,7 @@
                     <div class="signup">Sign Up</div>
                 </q-card-section>
                 <q-card-section class="q-pa-none">
-                    <q-form @submit="onSubmit" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
+                    <q-form  autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
                         <div>
                             <label class="form">Username</label>
                             <div class="row justify-center">                                    

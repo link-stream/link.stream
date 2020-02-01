@@ -8,34 +8,33 @@ and open the template in the editor.
     Author     : paolo
 */
 .streamy_logo {
-    width: 60px;
-    height: 60px;
+  width: 60px;
+  height: 60px;
 }
 
 .menu_icon {
-    width: 20px;
-    height: 20px; 
+  width: 20px;
+  height: 20px;
 }
 
 @font-face {
-    font-family: customfont;
-    src: url(./fonts/typeface-montserrat/files/montserrat-latin-400.woff);   
-}  
+  font-family: customfont;
+  src: url(./fonts/typeface-montserrat/files/montserrat-latin-400.woff);
+}
 
-  
 .font-menu {
-    font-family: 'customfont';
-    color: #9D9D9D;
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.11px;
-    line-height: 18px;
-    text-align: center;    
+  font-family: "customfont";
+  color: #9d9d9d;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.11px;
+  line-height: 18px;
+  text-align: center;
 }
 
 .font-submenu {
-  font-family: 'customfont';
-  color:#ffffff;
+  font-family: "customfont";
+  color: #ffffff;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.09px;
@@ -44,166 +43,156 @@ and open the template in the editor.
 }
 
 .my-menu-link {
-    border-left: 6px solid #FDD311;   
+  border-left: 6px solid #fdd311;
 }
 
-/* #region Sign-In-Up*/    
-    .my-card {    
-        height: 503px;	
-        width: 678px;     
-        background-color: #FFFFFF;
-        border-color: #F5F5F5;    
-        
-    }
+/* #region Sign-In-Up*/
+.my-card {
+  height: 503px;
+  width: 678px;
+  background-color: #ffffff;
+  border-color: #f5f5f5;
+}
 
-    .streamylink {
-        background-color: #F5F5F5;
-        height: 503px;	
-    }
+.streamylink {
+  background-color: #f5f5f5;
+  height: 503px;
+}
 
-    .signin {
-        background-color: #FFFFFF;
-        height: 503px;	
-    }
+.signin {
+  background-color: #ffffff;
+  height: 503px;
+}
 
-    .logo {
-        width: 52px;
-        height: 52px;
-        margin-top: 20px;
-    }
+.logo {
+  width: 52px;
+  height: 52px;
+  margin-top: 20px;
+}
 
-    .logotext {     
-        color: #000000;	
-        font-family: Montserrat;	
-        font-size: 16px;	
-        font-weight: bold;	
-        letter-spacing: 0.12px;	
-        line-height: 24px;
-    }
+.logotext {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.12px;
+  line-height: 24px;
+}
 
-    .btnemail {
-        box-sizing: border-box;	
-        height: 37px;	
-        width: 272px;	
-        border: 2px solid #915EC6;	
-        border-radius: 25px;
-        color: #915EC6;	
-        font-family: Montserrat;	
-        font-size: 13px;	
-        font-weight: 500;	
-        line-height: 16px;
-    }
+.btnemail {
+  box-sizing: border-box;
+  height: 37px;
+  width: 272px;
+  border: 2px solid #915ec6;
+  border-radius: 25px;
+  color: #915ec6;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+}
 
-    .btninstagram {
-        box-sizing: border-box;	
-        height: 37px;	
-        width: 272px;	
-        border: 2px solid #3897F1;	
-        border-radius: 25px;
-        color: #3898EF;	
-        font-family: Montserrat;	
-        font-size: 13px;	
-        font-weight: 500;	
-        line-height: 16px;	
-        text-align: center;
-    }
+.btninstagram {
+  box-sizing: border-box;
+  height: 37px;
+  width: 272px;
+  border: 2px solid #3897f1;
+  border-radius: 25px;
+  color: #3898ef;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: center;
+}
 
-    .btngoogle {
-        box-sizing: border-box;	
-        height: 37px;	
-        width: 272px;	
-        border: 2px solid #F1736C;	
-        border-radius: 25px;
-        color: #F1736C;	
-        font-family: Montserrat;	
-        font-size: 13px;	
-        font-weight: 500;	
-        line-height: 16px;	
-        text-align: center;
-    }
+.btngoogle {
+  box-sizing: border-box;
+  height: 37px;
+  width: 272px;
+  border: 2px solid #f1736c;
+  border-radius: 25px;
+  color: #f1736c;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: center;
+}
 
-    .signintxt {	
-        margin-top: 30px;
-        margin-left: 30px;
-        height: 24px;	
-        width: 67px;	
-        color: #000000;	
-        font-family: Montserrat;	
-        font-size: 16px;	
-        font-weight: bold;	
-        letter-spacing: 0.12px;	
-        line-height: 24px;
-    }
+.signintxt {
+  margin-top: 30px;
+  margin-left: 30px;
+  height: 24px;
+  width: 67px;
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.12px;
+  line-height: 24px;
+}
 
-    .signup {	
-        margin-top: 40px;
-        margin-left: 30px;
-        height: 24px;	
-        width: 67px;	
-        color: #000000;	
-        font-family: Montserrat;	
-        font-size: 16px;	
-        font-weight: bold;	
-        letter-spacing: 0.12px;	
-        line-height: 24px;
-    }
+.signup {
+  margin-top: 40px;
+  margin-left: 30px;
+  height: 24px;
+  width: 67px;
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.12px;
+  line-height: 24px;
+}
 
-    .form {	
-        color: #000000;	
-        font-family: Montserrat;	
-        font-size: 14px;	
-        letter-spacing: 0.11px;	
-        line-height: 24px;
-        margin-left: 30px;
-    }
+.form {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 14px;
+  letter-spacing: 0.11px;
+  line-height: 24px;
+  margin-left: 30px;
+}
 
-    .forminput {	
-        width: 280px;
-    }
+.forminput {
+  width: 280px;
+}
 
-    .signupbtn {
-        height: 50px;	
-        width: 156px;
-        margin-left: 30px;
-        border-radius: 25px;
-        background-color: #DC2EA6;
-    }
+.signupbtn {
+  height: 50px;
+  width: 156px;
+  margin-left: 30px;
+  border-radius: 25px;
+  background-color: #dc2ea6;
+}
 
-    .signuptxt {	
-        height: 18px;	
-        width: 75px;	
-        color: #FFFFFF;	
-        font-family: Montserrat;	
-        font-size: 14px;	
-        font-weight: bold;	
-        letter-spacing: 2px;	
-        line-height: 18px;	
-        text-align: center;
-    }
+.signuptxt {
+  height: 18px;
+  width: 75px;
+  color: #ffffff;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  line-height: 18px;
+  text-align: center;
+}
 
-    .btnemails {
-        margin-top: 175px;
-    }
+.btnemails {
+  margin-top: 175px;
+}
 
-    .forgotpassword {
-        color: #000000;	
-        font-family: Montserrat;	
-        font-size: 14px;	
-        letter-spacing: 0.11px;	
-        line-height: 24px;
-        margin-left: 25px;        
-    }
+.forgotpassword {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 14px;
+  letter-spacing: 0.11px;
+  line-height: 24px;
+  margin-left: 25px;
+}
 
-    a:link {
-        color: #000000;	
-    }
+a:link {
+  color: #000000;
+}
 /* #endregion */
-  
-
- 
-
-  
- 
-
-
-

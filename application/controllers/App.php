@@ -164,7 +164,37 @@ class App extends CI_Controller {
             }
         }
         //$this->load->view($this->loc_path . 'login', $data);
-        $this->load->view($this->loc_path . 'signin', $data);
+        //$this->load->view($this->loc_path . 'signin', $data);
+        $data['body_content'] = '<sign_in></sign_in>';
+        $this->load->view($this->loc_path . 'layouts/common', $data);
+    }
+
+    public function login_js() {
+        $status = 'Success';
+        $msg = '';
+        $email = trim($this->input->post('email', TRUE));
+        $password = trim($this->input->post('password', TRUE));
+        if (!empty($email) && !empty($password)) {
+            $password_e = $this->general_library->encrypt_txt($password);
+            //Check Email And User
+            $register_user = $this->User_model->fetch_user_by_search(array('email' => $email, 'password' => $password_e));
+            if (!empty($register_user)) {
+                if ($register_user['status_id'] == 1) {
+                    $this->user_session($register_user);
+                    redirect($this->loc_url, 'location', 302);
+                } else {
+                    $msg = 'User in PENDING Status, please confirm your email';
+                    $status = 'Error';
+                }
+            } else {
+                $msg = 'Email or Password Incorrect';
+                $status = 'Error';
+            }
+        } else {
+            $msg = 'Fields can not be empty';
+            $status = 'Error';
+        }
+        echo json_encode(array('status' => $status, 'msg' => $msg));
     }
 
     public function register() {
@@ -212,7 +242,9 @@ class App extends CI_Controller {
                 $data['msg'] = 'Fields can not be empty';
             }
         }
-        $this->load->view($this->loc_path . 'signup', $data);
+        //$this->load->view($this->loc_path . 'signup', $data);
+        $data['body_content'] = '<sign_up></sign_up>';
+        $this->load->view($this->loc_path . 'layouts/common', $data);
     }
 
     public function register_confirm() {
@@ -422,7 +454,9 @@ class App extends CI_Controller {
 
     public function forgot() {
         $data = array();
-        $this->load->view($this->loc_path . 'forgot', $data);
+        //$this->load->view($this->loc_path . 'forgot', $data);
+        $data['body_content'] = '<forgot_password></forgot_password>';
+        $this->load->view($this->loc_path . 'layouts/common', $data);
     }
 
     /* End Login & Register Section */

@@ -40,7 +40,7 @@ $config['ssl_base_url'] = 'https://' . $host . str_replace(basename($_SERVER['SC
 
 //Enviroment
 $exp = explode(".", $host);
-print_r($exp[0]);echo '<br>';
+//print_r($exp[0]);echo '<br>';
 if ($exp[0] == 'localhost') {
     define('ENV', 'dev');
 } elseif ($exp[0] == 'link-dev') {
@@ -48,7 +48,7 @@ if ($exp[0] == 'localhost') {
 } else {
     define('ENV', 'live');
 }
-echo ENV;echo '<br>';
+//echo ENV;echo '<br>';
 //define('HTTPS_URL', $config['ssl_base_url']);
 define('HTTP_ASSETS', $config['base_url'] . 'assets/');
 //define('HTTP_CSS_PATH', $config['base_url'] . 'assets/css/');

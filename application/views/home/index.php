@@ -171,7 +171,7 @@ $this->load->view('home/_inc/header', $data);
                              /End Arrow -->
                             <div class="p-t-b-15">
                                 <!-- Headline & Description -->
-                                <h2><span class="font-weight-200">Get a <strong>Free PRO Account</strong> For Life! - TEST 005</span></h2>
+                                <h2><span class="font-weight-200">Get a <strong>Free PRO Account</strong> For Life!</span></h2>
                                 <div class="row text-justify">
                                     <div class="col-md-3">
 

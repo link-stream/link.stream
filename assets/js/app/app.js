@@ -1,25 +1,27 @@
 import Vue from "vue";
-require("../../../assets/css/streamy.css");
+require('../../../assets/css/streamy.css');
 
 import Quasar from "quasar";
 import axios from "axios";
-import VeeValidate, { Validator } from "vee-validate";
+import Vuelidate from 'vuelidate'
 
-import sign_in from "../../../application/views/app/access/sign-in";
-import sign_up from "../../../application/views/app/access/sign-up";
+import sign_in from '../../../application/views/app/access/sign-in';
+import sign_up from '../../../application/views/app/access/sign-up';  
+import forgot_password from '../../../application/views/app/access/forgot-pass';  
 
 Vue.use(Quasar);
-Vue.use(VeeValidate);
+Vue.use(Vuelidate);
+
 window._ = require("lodash");
 Vue.prototype.$http = axios;
 
-Vue.use(Quasar);
-
-let app = new Vue({
+let app = new Vue({   
   el: "#q-app",
+  props: [],
   components: {
     sign_in,
-    sign_up
+    sign_up,
+    forgot_password
   },
   Quasar,
   data: function() {
@@ -34,7 +36,7 @@ let app = new Vue({
       submenu: false,
       selectedMenu: "Dashboard",
       submenuList: [],
-      menuList: [
+      menuList: [ 
         {
           icon: "img:assets/images/icons/tachometer-alt.svg",
           label: "Dashboard",

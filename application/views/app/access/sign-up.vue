@@ -3,16 +3,16 @@
         <div class="row">
             <div class="col streamylink">
                 <q-card-section class="q-pa-md row justify-center">
-                    <img src="assets/images/icons/streamy-logo.svg" alt="logo" class="logo" />                                
+                    <img src="assets/images/icons/streamy-logo.svg" alt="logo" class="logo" >                                
                 </q-card-section>
                 <q-card-section class="q-ma-none q-pa-none row justify-center">
                     <div class="logotext">streamy.link</div>                                
                 </q-card-section>
                 <q-card-section class="q-ma-none q-pa-lg row justify-center">
-                    <q-btn class="q-ma-xs btnemail" no-caps flat type="a" href="http://localhost/streamy.link/register">
+                    <q-btn class="q-ma-xs btnemail" no-caps flat type="a" href="http://localhost/link.stream/register">
                         <div>Sign up with email</div>
                     </q-btn>
-                    <q-btn class="q-ma-xs btninstagram" no-caps flat type="a" href="http://localhost/streamy.link/instagram_register">
+                    <q-btn class="q-ma-xs btninstagram" no-caps flat type="a" href="http://localhost/link.stream/instagram_register">
                         <div>Sign up with Instagram</div>
                     </q-btn>
                     <q-btn class="q-ma-xs btngoogle" no-caps flat type="a" href="#">
@@ -25,33 +25,33 @@
                     <div class="signup">Sign Up</div>
                 </q-card-section>
                 <q-card-section class="q-pa-none">
-                    <q-form  autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
+                    <q-form @submit.prevent.stop="onSubmit" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
                         <div>
                             <label class="form">Username</label>
-                            <div class="row justify-center">                                    
-                                <q-input class="q-ma-none q-pa-none forminput" v-model="sign_up.username" outlined square bg-color="white" dense id="username" name="username"
-                                        :rules="[val => !!val || 'The username is required']" no-error-icon ref="username" lazy-rules/>
+                            <div class="row justify-center">                                           
+                                <q-input class="q-ma-none q-pb-xs forminput" v-model.trim="$v.signUp.username.$model" :error-message="usernameErrors" :error="$v.signUp.username.$anyError"
+                                outlined square bg-color="white" bottom-slots dense id="username" name="username"/>
                             </div>
                         </div>
                         <div class="q-mt-md">
                             <label class="form">Email</label>
                             <div class="q-mt-xs row justify-center">                                    
-                                <q-input class="q-ma-none q-pa-none forminput" v-model="sign_up.email" outlined square bg-color="white" dense type="email" id="email" name="email" 
-                                        error-message="You must enter a valid email address" :error="!isEmailValid" no-error-icon ref="email" lazy-rules/>
+                                <q-input class="q-ma-none q-pb-xs forminput" v-model.trim="$v.signUp.email.$model" :error-message="emailErrors" :error="$v.signUp.email.$anyError"
+                                outlined square bg-color="white" dense type="email" id="email" name="email" />
                             </div>
                         </div>                                
                         <div class="q-mt-md">
                             <label class="form">Password</label>
                             <div class="q-mt-xs row justify-center">                                    
-                                <q-input class="q-ma-none q-pa-none forminput" v-model="sign_up.password" outlined square bg-color="white" dense type="password" id="password" name="password"
-                                        :rules="[val => !!val || 'The password is required']" no-error-icon ref="password" lazy-rules/>
+                                <q-input class="q-ma-none q-pb-xs forminput" v-model.trim="$v.signUp.password.$model" :error-message="passwordErrors" :error="$v.signUp.password.$anyError"
+                                outlined square bg-color="white" dense type="password" id="password" name="password"/>
                             </div>
                         </div>                                
                         <div class="q-mt-md">
                             <label class="form">Retype Password</label>
                             <div class="q-mt-xs row justify-center">                                    
-                                <q-input class="q-ma-none q-pa-none forminput" v-model="sign_up.rpassword" outlined square bg-color="white" dense type="password" id="rpassword" name="rpassword"
-                                        error-message="The password does not match" :error="!isRPasswordValid" no-error-icon ref="rpassword" lazy-rules/>
+                                <q-input class="q-ma-none q-pb-xs forminput" v-model.trim="$v.signUp.rpassword.$model" :error-message="rpasswordErrors" :error="$v.signUp.rpassword.$anyError"
+                                outlined square bg-color="white" dense type="password" id="rpassword" name="rpassword"/>
                             </div>
                         </div> 
                         <q-btn class="q-mt-lg signupbtn" flat type="submit">
@@ -64,39 +64,87 @@
     </q-card>           
 </template>
 <script>
+    import axios from '../../../../assets/node_modules/axios';
+    import { required, email, sameAs, minLength } from '../../../../assets/node_modules/vuelidate/lib/validators';
+    const myIcons = {
+        'app:error': 'img:assets/images/icons/alert-circle-outline.png'
+    };
     export default {
         name: "sign_up",
         data () {
             return {    
-                sign_up: {
+                signUp: {
                     username: '',
                     email: '',
                     password: '',
                     rpassword: ''
-                },
-                reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
-                errorMessage: ''                
+                }                           
             }
         },
-        computed: {
-            isEmailValid () {
-                return (this.sign_up.email == "")? "" : (this.reg.test(this.sign_up.email)) ? true : false;
-            },
-            isRPasswordValid () {
-                return (this.sign_up.rpassword == "")? "" : (this.sign_up.rpassword === this.sign_up.password) ? true : false;
+        validations: {
+            signUp: {
+                username: {
+                    required,
+                    minLength: minLength(4)
+                },
+                email: {
+                    required,
+                    email
+                },
+                password: {
+                    required,
+                    minLength: minLength(8)
+                },
+                rpassword: {
+                    required,
+                    sameAsPassword: sameAs('password')
+                }
             }
-        },  
+        }, 
+        computed: {
+            usernameErrors () {
+                if (!this.$v.signUp.username.required) return '* Required';
+                if (!this.$v.signUp.username.minLength) return 'The username must have at least 4 characters';
+            },
+            emailErrors () {
+                if (!this.$v.signUp.email.required) return '* Required';
+                if (!this.$v.signUp.email.email) return 'You must enter a valid email address';
+            },
+            passwordErrors () {
+                if (!this.$v.signUp.password.required) return '* Required';
+                if (!this.$v.signUp.password.minLength) return 'The password must have at least 8 characters';
+            },
+            rpasswordErrors () {
+                if (!this.$v.signUp.rpassword.required) return '* Required';
+                if (!this.$v.signUp.rpassword.rpassword) return 'The password does not match';
+            },
+        },
+        methods: {                          
+            onSubmit () { 
+               this.$v.signUp.$touch() 
+               if (!this.$v.signUp.$invalid) {
+                   axios.post('http://localhost/link.stream/login', this.signUp)
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                } 
+            }
+        },
+        created () {
+            this.$q.iconMapFn = (iconName) => {
+                const icon = myIcons[iconName]
+                if (icon !== void 0) {
+                    return { icon: icon }
+                }
+            }
+            //console.log(this.$q.iconSet)
+            this.$q.iconSet.field.error = 'app:error';
+        }    
     }
 </script> 
-<style>
-    body {
-        background-color: rgb(0,0,0); 
-        display: grid;
-        height: 100vh;
-        margin: 0;
-        place-items: center center;
-        align-items: center;
-        justify-content: center;
-    }
+<style> 
 </style>
 

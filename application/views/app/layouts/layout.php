@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" dir="">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1" >
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" >
         <title><?= $title ?></title>
-        <link href="<?= HTTP_ASSETS ?>images/logo/streamy_icon_RGB.png" rel="shortcut icon" type="image/png" />
-        <link href="<?= HTTP_ASSETS ?>css/streamy.css" rel="stylesheet" />
-        <link href="<?= HTTP_ASSETS ?>node_modules/quasar/dist/quasar.min.css" rel="stylesheet" />
-        <link href="<?= HTTP_ASSETS ?>node_modules/typeface-montserrat/index.css" rel="stylesheet" />      
+        <link href="<?= HTTP_ASSETS ?>images/logo/streamy_icon_RGB.png" rel="shortcut icon" type="image/png">
+        <link href="<?= HTTP_ASSETS ?>css/streamy.css" rel="stylesheet">
+        <link href="<?= HTTP_ASSETS ?>node_modules/quasar/dist/quasar.min.css" rel="stylesheet" >   
     </head>
     <body class="text-left">
         <div id="q-app">
@@ -17,8 +16,8 @@
                     <q-header reveal class="bg-black text-white" style="height: 80px">
                         <q-toolbar>
                             <q-toolbar-title class="row items-center content-center">
-                                <img src="assets/images/logo/streamy_icon_RGB.png" alt="streamy" class="q-mt-sm q-pa-none streamy_logo" />
-                                <img :src="menuState" @click="left = !left" alt="menu" class="q-mt-sm q-ml-sm cursor-pointer menu_icon" />      
+                                <img src="assets/images/logo/streamy_icon_RGB.png" alt="streamy" class="q-mt-sm q-pa-none streamy_logo">
+                                <img :src="menuState" @click="left = !left" alt="menu" class="q-mt-sm q-ml-sm cursor-pointer menu_icon">      
                             </q-toolbar-title>                                                  
                             <div class="q-gutter-sm row items-center q-mr-sm">
                                 <q-btn round dense flat color="grey-8" icon="img:assets/images/icons/icon-alerts.svg" class="q-mr-none">
@@ -39,7 +38,7 @@
                                 </q-btn>
                                 <q-btn round flat>
                                     <q-avatar size="40px">
-                                    <img src="<?= base_url() . 'app/get_avatar' ?>" alt="avatar" class="self-center"></img>
+                                    <img src="<?= base_url() . 'app/get_avatar' ?>" alt="avatar" class="self-center">
                                     </q-avatar>
                                     <q-tooltip>Account</q-tooltip>
                                     <q-menu :offset="[100, 5]">
@@ -70,10 +69,10 @@
                                                 </q-item-section>   
                                                 <q-slide-transition>
                                                 <q-item-section >                                       
-                                                <q-separator ></q-separator>
+                                                <q-separator />
                                                 </q-item-section>                                                                                                                                                                                       
                                             </q-item>
-                                            <q-separator dark></q-separator> 
+                                            <q-separator dark />
                                         </q-list>
                                     </q-card>
                                 </div>

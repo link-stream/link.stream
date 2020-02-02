@@ -13,26 +13,26 @@
 $url = (isset($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : 'www.streamy.link';
 $chk = explode('.', $url);
 if ($chk[0] == "localhost") {
-    $config['instagram_client_name'] = 'Streamy.link';
+    $config['instagram_client_name'] = 'LinkStream';
     $config['instagram_client_id'] = '697592760647122';
     $config['instagram_client_secret'] = '6d3fb59a094855ce9471b9c88e8bfbbe';
-    $config['instagram_callback_url'] = 'https://localhost/streamy.link/app/instagram_oauth'; //e.g. http://yourwebsite.com/authorize/get_code/
-    $config['instagram_website'] = 'https://localhost/streamy.link'; //e.g. http://yourwebsite.com/
+    $config['instagram_callback_url'] = 'https://localhost/link.stream/app/instagram_oauth'; //e.g. http://yourwebsite.com/authorize/get_code/
+    $config['instagram_website'] = 'https://localhost/link.stream'; //e.g. http://yourwebsite.com/
     $config['instagram_description'] = '';
     //$db['default']['db_debug'] = TRUE;
 } elseif ($chk[0] == "streamy-dev") {
-    $config['instagram_client_name'] = 'Streamy.link';
+    $config['instagram_client_name'] = 'LinkStream';
     $config['instagram_client_id'] = '697592760647122';
     $config['instagram_client_secret'] = '6d3fb59a094855ce9471b9c88e8bfbbe';
-    $config['instagram_callback_url'] = 'https://streamy-dev.streamy.link/app/instagram_oauth'; //e.g. http://yourwebsite.com/authorize/get_code/
-    $config['instagram_website'] = 'https://streamy-dev.streamy.link'; //e.g. http://yourwebsite.com/
+    $config['instagram_callback_url'] = 'https://link-dev.link.stream/app/instagram_oauth'; //e.g. http://yourwebsite.com/authorize/get_code/
+    $config['instagram_website'] = 'https://link-dev.link.stream'; //e.g. http://yourwebsite.com/
     $config['instagram_description'] = '';
 } else {
-    $config['instagram_client_name'] = 'Streamy.link';
+    $config['instagram_client_name'] = 'LinkStream';
     $config['instagram_client_id'] = '697592760647122';
     $config['instagram_client_secret'] = '6d3fb59a094855ce9471b9c88e8bfbbe';
-    $config['instagram_callback_url'] = 'https://www.streamy.link/app/instagram_oauth'; //e.g. http://yourwebsite.com/authorize/get_code/
-    $config['instagram_website'] = 'https://www.streamy.link'; //e.g. http://yourwebsite.com/
+    $config['instagram_callback_url'] = 'https://www.link.stream/app/instagram_oauth'; //e.g. http://yourwebsite.com/authorize/get_code/
+    $config['instagram_website'] = 'https://www.link.stream'; //e.g. http://yourwebsite.com/
     $config['instagram_description'] = '';
 }
 

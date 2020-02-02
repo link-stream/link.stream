@@ -40,7 +40,7 @@ $config['ssl_base_url'] = 'https://' . $host . str_replace(basename($_SERVER['SC
 
 //Enviroment
 $exp = explode(".", $host);
-print_r($chk[0]);echo '<br>';
+print_r($exp[0]);echo '<br>';
 if ($exp[0] == 'localhost') {
     define('ENV', 'dev');
 } elseif ($exp[0] == 'link-dev') {

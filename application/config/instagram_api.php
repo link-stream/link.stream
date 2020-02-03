@@ -10,7 +10,7 @@
  */
 
 
-$url = (isset($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : 'www.streamy.link';
+$url = (isset($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : 'www.link.stream';
 $chk = explode('.', $url);
 if ($chk[0] == "localhost") {
     $config['instagram_client_name'] = 'LinkStream';

@@ -114,7 +114,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
 
         <div id="container">
-            <a href="https://www.streamy.link" target="_blank">Streamy</a>
+            <a href="https://www.link.stream" target="_blank">Streamy</a>
 
             <a href="https://www.google.com" target="_blank">Google</a>
 

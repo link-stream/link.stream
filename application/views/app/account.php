@@ -52,7 +52,7 @@ $this->load->view('app/_inc/header', $data);
                                         </div>
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="url">Url *</label>
-                                            <input class="form-control" id="url" placeholder="https://www.streamy.link/myurl" />
+                                            <input class="form-control" id="url" placeholder="https://www.link.stream/myurl" />
                                         </div>
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="youtube">Youtube</label>

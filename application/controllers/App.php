@@ -9,7 +9,7 @@ class App extends CI_Controller {
     private $error;
     private $ses_name = 'app_session';
     private $limit = 0;
-    private $bucket = 'files.streamy.link';
+    private $bucket = 'files.link.stream';
 
     public function __construct() {
         parent::__construct();
@@ -401,7 +401,7 @@ class App extends CI_Controller {
                 $source = $this->get_temp_dir();
                 file_put_contents($source . '/' . $image_name, $content);
                 //SAVE S3
-                $bucket = 'files.streamy.link';
+                $bucket = 'files.link.stream';
                 $path = (ENV == 'live') ? 'prod/' : 'dev/';
                 $dest_folder = 'avatar';
                 $destination = $path . $dest_folder . '/' . $image_name;
@@ -462,7 +462,7 @@ class App extends CI_Controller {
                     $source = $this->get_temp_dir();
                     file_put_contents($source . '/' . $image_name, $content);
                     //SAVE S3
-                    $bucket = 'files.streamy.link';
+                    $bucket = 'files.link.stream';
                     $path = (ENV == 'live') ? 'prod/' : 'dev/';
                     $dest_folder = 'avatar';
                     $destination = $path . $dest_folder . '/' . $image_name;
@@ -908,7 +908,7 @@ class App extends CI_Controller {
         } else {
             $file_uploades = $this->upload->data();
             //SAVE S3
-            $bucket = 'files.streamy.link';
+            $bucket = 'files.link.stream';
             $path = (ENV == 'live') ? 'prod/' : 'dev/';
             $destination = $path . $dest_folder . '/' . $file_uploades['file_name'];
             $s3_source = $source . '/' . $file_uploades['file_name'];
@@ -1221,7 +1221,7 @@ class App extends CI_Controller {
 
     public function audio_content($name = null) {
         $path = (ENV == 'live') ? 'prod/media/' : 'dev/media/';
-        $file = 'https://s3.us-east-2.amazonaws.com/files.streamy.link/' . $path . $name;
+        $file = 'https://s3.us-east-2.amazonaws.com/files.link.stream/' . $path . $name;
         header("Cache-Control: no-cache, must-revalidate");
         header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
         header('Content-type: audio/mpeg3;audio/x-mpeg-3;video/mpeg;video/x-mpeg;text/xml');
@@ -1253,7 +1253,7 @@ class App extends CI_Controller {
         } elseif ($type == '4') {
             //Streamy
             $path = (ENV == 'live') ? 'prod/media/' : 'dev/media/';
-            $file = 'https://s3.us-east-2.amazonaws.com/files.streamy.link/' . $path . $url;
+            $file = 'https://s3.us-east-2.amazonaws.com/files.link.stream/' . $path . $url;
             //$file = base_url() . 'app/audio_content/' . $url;
             $embed_url_old = '<audio id="myAudio">
   <source src="' . $file . '" type="audio/ogg">
@@ -1568,7 +1568,7 @@ class App extends CI_Controller {
         $source = $this->get_temp_dir();
         file_put_contents($source . '/' . $image_name, $croped_image);
         //SAVE S3
-        $bucket = 'files.streamy.link';
+        $bucket = 'files.link.stream';
         $path = (ENV == 'live') ? 'prod/' : 'dev/';
         $dest_folder = 'avatar';
         $destination = $path . $dest_folder . '/' . $image_name;
@@ -1645,12 +1645,12 @@ class App extends CI_Controller {
         //echo $temp_dir;
         $source = "tmp/test.png";
         $destination = 'test.png';
-        $bucket = 'files.streamy.link';
+        $bucket = 'files.link.stream';
         $this->aws_s3->s3push($source, $destination, $bucket);
     }
 
     public function fetch_list() {
-        $bucket = 'files.streamy.link';
+        $bucket = 'files.link.stream';
         $list = $this->aws_s3->fetch_list($bucket);
         print_r($list);
 //         $pdf_file = $this->aws_s3->read_file('test.png', $bucket);

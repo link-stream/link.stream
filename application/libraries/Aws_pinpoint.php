@@ -99,7 +99,7 @@ class Aws_pinpoint {
         }
     }
 
-    public function fetch_list($bucket = 'files.streamy.link', $prefix = null) {
+    public function fetch_list($bucket = 'files.link.stream', $prefix = null) {
         try {
             $result = $this->s3->listObjects(array('Bucket' => $bucket, 'Prefix' => $prefix));
             $files = $result->getPath('Contents');
@@ -118,7 +118,7 @@ class Aws_pinpoint {
         }
     }
 
-    public function read_file($filename, $bucket = 'files.streamy.link') {
+    public function read_file($filename, $bucket = 'files.link.stream') {
         try {
             $handle = fopen('php://temp/', 'wb');
             $result = $this->s3->getObject(
@@ -139,7 +139,7 @@ class Aws_pinpoint {
         }
     }
 
-    public function fetch_file($filename, $path = FCPATH . 'download', $bucket = 'files.streamy.link') {
+    public function fetch_file($filename, $path = FCPATH . 'download', $bucket = 'files.link.stream') {
         try {
             $result = $this->s3->getObject(
                     array(
@@ -162,9 +162,9 @@ class Aws_pinpoint {
         try {
             $result = $this->s3->copyObject(
                     array(
-                        'Bucket' => 'files.streamy.link',
+                        'Bucket' => 'files.link.stream',
                         'Key' => $targetKeyname,
-                        'CopySource' => 'files.streamy.link/' . $sourceKeyname,
+                        'CopySource' => 'files.link.stream/' . $sourceKeyname,
                     )
             );
             return $this->delete_file($sourceKeyname);
@@ -179,9 +179,9 @@ class Aws_pinpoint {
         try {
             $result = $this->s3->copyObject(
                     array(
-                        'Bucket' => 'files.streamy.link',
+                        'Bucket' => 'files.link.stream',
                         'Key' => $targetKeyname,
-                        'CopySource' => 'files.streamy.link' . $sourceKeyname,
+                        'CopySource' => 'files.link.stream' . $sourceKeyname,
                     )
             );
             return $this->delete_file($sourceKeyname);
@@ -192,7 +192,7 @@ class Aws_pinpoint {
         }
     }
 
-    public function delete_file($filename, $bucket = 'files.streamy.link') {
+    public function delete_file($filename, $bucket = 'files.link.stream') {
         try {
             $result = $this->s3->deleteObject(
                     array(
@@ -211,7 +211,7 @@ class Aws_pinpoint {
         try {
             $result = $this->s3->putObject(
                     array(
-                        'Bucket' => 'files.streamy.link',
+                        'Bucket' => 'files.link.stream',
                         'Key' => $filename,
                         'SourceFile' => FCPATH . 'download/' . $filename,
                         'ContentType' => 'application/pdf',
@@ -247,7 +247,7 @@ class Aws_pinpoint {
         try {
             echo "<h1>listObjects</h1>\n";
             $result = $s3->listObjects(array(
-                'Bucket' => 'files.streamy.link'
+                'Bucket' => 'files.link.stream'
             ));
             var_dump($result);
             echo "<h1>Contents</h1>\n";
@@ -257,7 +257,7 @@ class Aws_pinpoint {
             echo "<h1>getObject</h1>\n";
             $result = $s3->getObject(
                     array(
-                        'Bucket' => 'files.streamy.link',
+                        'Bucket' => 'files.link.stream',
                         'Key' => $files[0]['Key'],
                         'SaveAs' => FCPATH . 'download/demo2.pdf'
                     )
@@ -272,8 +272,8 @@ class Aws_pinpoint {
 
             echo "<h1>response</h1>\n";
             // Upload data.
-            //$response = $s3->getIterator('ListObjects', array('Bucket' => 'files.streamy.link', 'MaxKeys' => 1000, 'Prefix' => 'files/'));
-            $response = $s3->getIterator('ListObjects', array('Bucket' => 'files.streamy.link'));
+            //$response = $s3->getIterator('ListObjects', array('Bucket' => 'files.link.stream', 'MaxKeys' => 1000, 'Prefix' => 'files/'));
+            $response = $s3->getIterator('ListObjects', array('Bucket' => 'files.link.stream'));
             // Print the URL to the object.
             print_r($response);
             //$files = $response->getPath('Contents');
@@ -289,13 +289,13 @@ class Aws_pinpoint {
         $tmp = FCPATH . 'download/demo.pdf';
         $filename = 'mynew.pdf';
 
-        $bucket = 'files.streamy.link';
+        $bucket = 'files.link.stream';
         $s3 = Aws\S3\S3Client::factory(array(
                     'credentials' => array(
                         'key' => 'AKIAIZL3XSI46NFUZVEA',
                         'secret' => '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',
                     ),
-                    'bucket' => 'files.streamy.link',
+                    'bucket' => 'files.link.stream',
                     'region' => 'us-east-1',
                     'version' => 'latest',
                     'debug' => true, // bool|array
@@ -314,7 +314,7 @@ class Aws_pinpoint {
         echo $message;
     }
 
-    public function s3push($source, $destination, $bucket = 'files.streamy.link') {
+    public function s3push($source, $destination, $bucket = 'files.link.stream') {
         //echo "Start Upload $destination\n";
         // Upload a file.
         try {
@@ -340,9 +340,9 @@ class Aws_pinpoint {
         try {
             $result = $this->s3->copyObject(
                     array(
-                        'Bucket' => 'files.streamy.link',
+                        'Bucket' => 'files.link.stream',
                         'Key' => $targetKeyname,
-                        'CopySource' => 'files.streamy.link/' . $sourceKeyname,
+                        'CopySource' => 'files.link.stream/' . $sourceKeyname,
                     )
             );
             return $this->delete_file($sourceKeyname);
@@ -353,7 +353,7 @@ class Aws_pinpoint {
         }
     }
 
-    public function fetch_file2($filename, $path = FCPATH . 'download', $bucket = 'files.streamy.link', $folder = '') {
+    public function fetch_file2($filename, $path = FCPATH . 'download', $bucket = 'files.link.stream', $folder = '') {
         try {
             $result = $this->s3->getObject(
                     array(
@@ -373,7 +373,7 @@ class Aws_pinpoint {
     public function s3_put($bucket, $path, $filename, $data) {
         // Register the stream wrapper from an S3Client object
         $this->s3->registerStreamWrapper();
-        //$data = file_get_contents('s3://files.streamy.link/doc.pdf');
+        //$data = file_get_contents('s3://files.link.stream/doc.pdf');
         //echo $data;
         if (ENV != 'live')
             $path = 'dev_' . $path;

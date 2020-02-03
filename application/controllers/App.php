@@ -181,7 +181,7 @@ class App extends CI_Controller {
             if (!empty($register_user)) {
                 if ($register_user['status_id'] == 1) {
                     $this->user_session($register_user);
-                    redirect($this->loc_url, 'location', 302);
+                    //redirect($this->loc_url, 'location', 302);
                 } else {
                     $msg = 'User in PENDING Status, please confirm your email';
                     $status = 'Error';
@@ -245,6 +245,50 @@ class App extends CI_Controller {
         //$this->load->view($this->loc_path . 'signup', $data);
         $data['body_content'] = '<sign_up></sign_up>';
         $this->load->view($this->loc_path . 'layouts/common', $data);
+    }
+
+    public function register_js() {
+        $status = 'Success';
+        $msg = '';
+        $email = trim($this->input->post('email', TRUE));
+        $user_name = trim($this->input->post('username', TRUE));
+        $password = trim($this->input->post('password', TRUE));
+        $confirm_password = trim($this->input->post('repassword', TRUE));
+        if (!empty($email) && !empty($user_name) && !empty($password) && !empty($confirm_password)) {
+            //Check Email And User
+            $register_user = $this->User_model->fetch_user_by_search(array('email' => $email));
+            if (empty($register_user)) {
+                $user_name = $this->generate_username($user_name);
+                //$register_user = $this->User_model->fetch_user_by_search(array('user_name' => $user_name));
+//                    if (empty($register_user)) {
+                if ($password == $confirm_password) {
+                    //Create Account
+                    $user = array();
+                    $user['user_name'] = $user['display_name'] = $user['url'] = strtolower(str_replace(' ', '', $user_name));
+                    $user['email'] = $email;
+                    $user['password'] = $this->general_library->encrypt_txt($password);
+                    $user['plan_id'] = '1';
+                    $user['status_id'] = '3';
+                    $user['platform'] = 'Streamy';
+                    $user['id'] = $this->User_model->insert_user($user);
+                    $this->User_model->insert_user_log(array('user_id' => $user['id'], 'event' => 'Registered'));
+                    $this->session->set_userdata('register-email', $user['email']);
+                    $this->session->set_userdata('register-id', $user['id']);
+                    $this->session->set_userdata('register-user', $user['user_name']);
+                    //redirect($this->loc_url . '/register_confirm', 'location', 302);
+                } else {
+                    $status = 'Error';
+                    $msg = 'Password and Confirm Password Should Be Equals';
+                }
+            } else {
+                $status = 'Error';
+                $msg = 'Email Already Register';
+            }
+        } else {
+            $status = 'Error';
+            $msg = 'Fields can not be empty';
+        }
+        echo json_encode(array('status' => $status, 'msg' => $msg));
     }
 
     public function register_confirm() {

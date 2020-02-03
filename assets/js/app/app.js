@@ -4,6 +4,7 @@ require('../../../assets/css/streamy.css');
 import Quasar from "quasar";
 import axios from "axios";
 import Vuelidate from 'vuelidate'
+import { mixin as clickaway } from 'vue-clickaway';
 
 import sign_in from '../../../application/views/app/access/sign-in';
 import sign_up from '../../../application/views/app/access/sign-up';  
@@ -17,12 +18,13 @@ Vue.prototype.$http = axios;
 
 let app = new Vue({   
   el: "#q-app",
+  mixins: [ clickaway],
   props: [],
   components: {
     sign_in,
     sign_up,
     forgot_password
-  },
+  },  
   Quasar,
   data: function() {
     return {
@@ -59,10 +61,10 @@ let app = new Vue({
           submenu: [
             { linkTo: "#", label: "Add New Tracks" },
             { linkTo: "#", label: "Manage Tracks" },
-            { linkTo: "#", label: "Manage Reposts" }
+            { linkTo: "#", label: "Promote" }
           ]
         },
-        {
+        /*{
           icon: "img:assets/images/icons/icon-user-circle.svg",
           label: "My Content",
           linkTo: "#",
@@ -70,7 +72,7 @@ let app = new Vue({
             { linkTo: "#", label: "Add Content" },
             { linkTo: "#", label: "Manage Content" }
           ]
-        },
+        },*/
         {
           icon: "img:assets/images/icons/icon-link.svg",
           label: "My Links",
@@ -84,27 +86,35 @@ let app = new Vue({
           icon: "img:assets/images/icons/chart-bar.svg",
           label: "Analytics",
           linkTo: "#",
-          submenu: []
+          submenu: [
+            { linkTo: "#", label: "Traffic" },
+            { linkTo: "#", label: "Revenue" }
+          ]
         },
         {
+          icon: "img:assets/images/icons/icon-settings.svg",
+          label: "Account Settings",
+          linkTo: "#",
+          submenu: [
+            { linkTo: "#", label: "Settings" },
+            { linkTo: "#", label: "Billing" }
+          ]
+        },
+        /*{
           icon: "img:assets/images/icons/icon-reports.svg",
           label: "Reports",
           linkTo: "#",
           submenu: []
-        },
+        },*/
         {
           icon: "img:assets/images/icons/icon-upgrade.svg",
           label: "Upgrade",
           linkTo: "#",
           submenu: []
         },
-        {
-          icon: "img:assets/images/icons/icon-settings.svg",
-          label: "Account Settings",
-          linkTo: "#",
-          submenu: []
-        }
+        
       ],
+
       notificationsMenu: [
         {
           icon: "assets/images/testimonials/1.png",
@@ -141,6 +151,10 @@ let app = new Vue({
   methods: {
     onItemClick() {
       // console.log('Clicked on an Item')
+    },
+
+    away() {
+      this.submenu = false;
     },
 
     setActiveItem(item) {

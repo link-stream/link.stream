@@ -350,14 +350,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
 /* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-clickaway */ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js");
-/* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_clickaway__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _application_views_app_access_sign_in__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../application/views/app/access/sign-in */ "../application/views/app/access/sign-in.vue");
-/* harmony import */ var _application_views_app_access_sign_up__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../application/views/app/access/sign-up */ "../application/views/app/access/sign-up.vue");
-/* harmony import */ var _application_views_app_access_forgot_pass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../application/views/app/access/forgot-pass */ "../application/views/app/access/forgot-pass.vue");
+/* harmony import */ var _application_views_app_access_sign_in__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../application/views/app/access/sign-in */ "../application/views/app/access/sign-in.vue");
+/* harmony import */ var _application_views_app_access_sign_up__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../application/views/app/access/sign-up */ "../application/views/app/access/sign-up.vue");
+/* harmony import */ var _application_views_app_access_forgot_pass__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../application/views/app/access/forgot-pass */ "../application/views/app/access/forgot-pass.vue");
 
 
 __webpack_require__(/*! ../../../assets/css/streamy.css */ "./css/streamy.css");
+
 
 
 
@@ -372,12 +371,11 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_2___default.a;
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: "#q-app",
-  mixins: [vue_clickaway__WEBPACK_IMPORTED_MODULE_4__["mixin"]],
   props: [],
   components: {
-    sign_in: _application_views_app_access_sign_in__WEBPACK_IMPORTED_MODULE_5__["default"],
-    sign_up: _application_views_app_access_sign_up__WEBPACK_IMPORTED_MODULE_6__["default"],
-    forgot_password: _application_views_app_access_forgot_pass__WEBPACK_IMPORTED_MODULE_7__["default"]
+    sign_in: _application_views_app_access_sign_in__WEBPACK_IMPORTED_MODULE_4__["default"],
+    sign_up: _application_views_app_access_sign_up__WEBPACK_IMPORTED_MODULE_5__["default"],
+    forgot_password: _application_views_app_access_forgot_pass__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   Quasar: quasar__WEBPACK_IMPORTED_MODULE_1__["default"],
   data: function data() {
@@ -420,19 +418,20 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
           label: "Manage Tracks"
         }, {
           linkTo: "#",
-          label: "Promote"
+          label: "Manage Reposts"
         }]
-      },
-      /*{
+      }, {
         icon: "img:assets/images/icons/icon-user-circle.svg",
         label: "My Content",
         linkTo: "#",
-        submenu: [
-          { linkTo: "#", label: "Add Content" },
-          { linkTo: "#", label: "Manage Content" }
-        ]
-      },*/
-      {
+        submenu: [{
+          linkTo: "#",
+          label: "Add Content"
+        }, {
+          linkTo: "#",
+          label: "Manage Content"
+        }]
+      }, {
         icon: "img:assets/images/icons/icon-link.svg",
         label: "My Links",
         linkTo: "#",
@@ -447,34 +446,20 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
         icon: "img:assets/images/icons/chart-bar.svg",
         label: "Analytics",
         linkTo: "#",
-        submenu: [{
-          linkTo: "#",
-          label: "Traffic"
-        }, {
-          linkTo: "#",
-          label: "Revenue"
-        }]
+        submenu: []
       }, {
-        icon: "img:assets/images/icons/icon-settings.svg",
-        label: "Account Settings",
-        linkTo: "#",
-        submenu: [{
-          linkTo: "#",
-          label: "Settings"
-        }, {
-          linkTo: "#",
-          label: "Billing"
-        }]
-      },
-      /*{
         icon: "img:assets/images/icons/icon-reports.svg",
         label: "Reports",
         linkTo: "#",
         submenu: []
-      },*/
-      {
+      }, {
         icon: "img:assets/images/icons/icon-upgrade.svg",
         label: "Upgrade",
+        linkTo: "#",
+        submenu: []
+      }, {
+        icon: "img:assets/images/icons/icon-settings.svg",
+        label: "Account Settings",
         linkTo: "#",
         submenu: []
       }],
@@ -510,9 +495,6 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   },
   methods: {
     onItemClick: function onItemClick() {// console.log('Clicked on an Item')
-    },
-    away: function away() {
-      this.submenu = false;
     },
     setActiveItem: function setActiveItem(item) {
       this.selectedMenu = item.label;
@@ -2351,10 +2333,31 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _assets_node_modules_axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../assets/node_modules/axios */ "./node_modules/axios/index.js");
-/* harmony import */ var _assets_node_modules_axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_assets_node_modules_axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../assets/node_modules/vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../assets/node_modules/vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+var _email;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2402,57 +2405,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-
-var myIcons = {
-  'app:error': 'img:assets/images/icons/alert-circle-outline.png'
-};
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "forgot_password",
   data: function data() {
     return {
-      email: ''
+      email: "",
+      login: sessionStorage.baseUrl + "login",
+      forgot: sessionStorage.baseUrl + "forgot",
+      register: sessionStorage.baseUrl + "register",
+      instagram: sessionStorage.baseUrl + "instagram_register"
     };
   },
   validations: {
-    email: {
-      required: _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
-      email: _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["email"]
-    }
+    email: (_email = {
+      required: _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+    }, _defineProperty(_email, "required", _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]), _defineProperty(_email, "email", _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["email"]), _email)
   },
   computed: {
     emailErrors: function emailErrors() {
-      if (!this.$v.email.required) return '* Required';
-      if (!this.$v.email.email) return 'You must enter a valid email address';
+      if (!this.$v.email.required) return "* Required";
+      if (!this.$v.email.email) return "You must enter a valid email address";
     }
   },
+  mounted: function mounted() {},
   methods: {
     onSubmit: function onSubmit() {
       this.$v.$touch();
 
-      if (!this.$v.$invalid) {
-        /*axios.post('http://localhost/link.stream/login', this.signIn)
-         .then(function (response) {
-             console.log(response);
-         })
-         .catch(function (error) {
-             console.log(error);
-         });*/
-      }
+      if (!this.$v.$invalid) {}
     }
-  },
-  created: function created() {
-    this.$q.iconMapFn = function (iconName) {
-      var icon = myIcons[iconName];
-
-      if (icon !== void 0) {
-        return {
-          icon: icon
-        };
-      }
-    }; //console.log(this.$q.iconSet)
-
-
-    this.$q.iconSet.field.error = 'app:error';
   }
 });
 
@@ -2524,19 +2505,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
-var myIcons = {
-  'app:error': 'img:assets/images/icons/alert-circle-outline.png'
-};
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    baseurl: {
+      type: String,
+      "default": ""
+    }
+  },
   name: "sign_in",
   data: function data() {
     return {
       signIn: {
-        email: '',
-        password: ''
-      }
+        email: "",
+        password: ""
+      },
+      login: this.baseurl + "login",
+      forgot: this.baseurl + "forgot",
+      register: this.baseurl + "register",
+      instagram: this.baseurl + "instagram_register"
     };
   },
   validations: {
@@ -2553,41 +2571,37 @@ var myIcons = {
   },
   computed: {
     emailErrors: function emailErrors() {
-      if (!this.$v.signIn.email.required) return '* Required';
-      if (!this.$v.signIn.email.email) return 'You must enter a valid email address';
+      if (!this.$v.signIn.email.required) return "* Required";
+      if (!this.$v.signIn.email.email) return "You must enter a valid email address";
     },
     passwordErrors: function passwordErrors() {
-      if (!this.$v.signIn.password.required) return '* Required';
-      if (!this.$v.signIn.password.minLength) return 'The password must have at least 8 characters';
+      if (!this.$v.signIn.password.required) return "* Required";
+      if (!this.$v.signIn.password.minLength) return "The password must have at least 8 characters";
     }
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    sessionStorage.setItem("baseUrl", this.baseurl);
+  },
   methods: {
     onSubmit: function onSubmit() {
+      var _this = this;
+
       this.$v.signIn.$touch();
 
       if (!this.$v.signIn.$invalid) {
-        _assets_node_modules_axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://localhost/link.stream/login', this.signIn).then(function (response) {
-          console.log(response);
+        _assets_node_modules_axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.baseurl + "app/login_js", this.signIn).then(function (response) {
+          if (response.data.status === "Success") {
+            window.location = "app";
+          } else _this.$q.notify({
+            message: response.data.msg,
+            color: "negative",
+            icon: "error"
+          });
         })["catch"](function (error) {
           console.log(error);
         });
       }
     }
-  },
-  created: function created() {
-    this.$q.iconMapFn = function (iconName) {
-      var icon = myIcons[iconName];
-
-      if (icon !== void 0) {
-        return {
-          icon: icon
-        };
-      }
-    }; //console.log(this.$q.iconSet)
-
-
-    this.$q.iconSet.field.error = 'app:error';
   }
 });
 
@@ -2671,32 +2685,92 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
-var myIcons = {
-  'app:error': 'img:assets/images/icons/alert-circle-outline.png'
-};
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "sign_up",
   data: function data() {
     return {
       signUp: {
-        username: '',
-        email: '',
-        password: '',
-        rpassword: ''
-      }
+        username: "",
+        email: "",
+        password: "",
+        rpassword: ""
+      },
+      bdUsername: "",
+      bdEmail: "",
+      index: sessionStorage.baseUrl + "index",
+      register: sessionStorage.baseUrl + "register",
+      instagram: sessionStorage.baseUrl + "instagram_register"
     };
   },
   validations: {
     signUp: {
       username: {
         required: _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
-        minLength: Object(_assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(4)
+        minLength: Object(_assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(5),
+        sameAsUsername: Object(_assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["not"])(Object(_assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["sameAs"])(function () {
+          return this.bdUsername;
+        }))
       },
       email: {
         required: _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
-        email: _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["email"]
+        email: _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["email"],
+        sameAsEmail: Object(_assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["not"])(Object(_assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["sameAs"])(function () {
+          return this.bdEmail;
+        }))
       },
       password: {
         required: _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
@@ -2704,54 +2778,81 @@ var myIcons = {
       },
       rpassword: {
         required: _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
-        sameAsPassword: Object(_assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["sameAs"])('password')
+        sameAsPassword: Object(_assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["sameAs"])("password")
       }
     }
   },
   computed: {
     usernameErrors: function usernameErrors() {
-      if (!this.$v.signUp.username.required) return '* Required';
-      if (!this.$v.signUp.username.minLength) return 'The username must have at least 4 characters';
+      if (!this.$v.signUp.username.required) return "* Required";
+      if (!this.$v.signUp.username.minLength) return "The username must have at least 4 characters";
+      if (!this.$v.signUp.username.sameAsUsername) return "The username is already in use";
     },
     emailErrors: function emailErrors() {
-      if (!this.$v.signUp.email.required) return '* Required';
-      if (!this.$v.signUp.email.email) return 'You must enter a valid email address';
+      if (!this.$v.signUp.email.required) return "* Required";
+      if (!this.$v.signUp.email.email) return "You must enter a valid email address";
+      if (!this.$v.signUp.email.sameAsEmail) return "The email is already in use";
     },
     passwordErrors: function passwordErrors() {
-      if (!this.$v.signUp.password.required) return '* Required';
-      if (!this.$v.signUp.password.minLength) return 'The password must have at least 8 characters';
+      if (!this.$v.signUp.password.required) return "* Required";
+      if (!this.$v.signUp.password.minLength) return "The password must have at least 8 characters";
     },
     rpasswordErrors: function rpasswordErrors() {
-      if (!this.$v.signUp.rpassword.required) return '* Required';
-      if (!this.$v.signUp.rpassword.rpassword) return 'The password does not match';
+      if (!this.$v.signUp.rpassword.required) return "* Required";
+      if (!this.$v.signUp.rpassword.rpassword) return "The password does not match";
     }
   },
+  mounted: function mounted() {
+    console.log(sessionStorage);
+  },
   methods: {
-    onSubmit: function onSubmit() {
-      this.$v.signUp.$touch();
+    onChangedUsername: function onChangedUsername(value) {
+      var _this = this;
 
-      if (!this.$v.signUp.$invalid) {
-        _assets_node_modules_axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://localhost/link.stream/login', this.signUp).then(function (response) {
-          console.log(response);
+      if (value.length > 5) {
+        _assets_node_modules_axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(sessionStorage.baseUrl + "app/verify_username", value).then(function (response) {
+          if (response.data === false) {
+            _this.bdUsername = value;
+          } else {
+            _this.bdUsername = "";
+          }
         })["catch"](function (error) {
           console.log(error);
         });
       }
+    },
+    onChangedEmail: function onChangedEmail(value) {
+      var _this2 = this;
+
+      _assets_node_modules_axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(sessionStorage.baseUrl + "app/verify_email", value).then(function (response) {
+        if (response.data === false) {
+          _this2.bdEmail = value;
+        } else {
+          _this2.bdEmail = "";
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   },
-  created: function created() {
-    this.$q.iconMapFn = function (iconName) {
-      var icon = myIcons[iconName];
+  onSubmit: function onSubmit() {
+    var _this3 = this;
 
-      if (icon !== void 0) {
-        return {
-          icon: icon
-        };
-      }
-    }; //console.log(this.$q.iconSet)
+    this.$v.signUp.$touch();
 
-
-    this.$q.iconSet.field.error = 'app:error';
+    if (!this.$v.signUp.$invalid) {
+      _assets_node_modules_axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.baseurl + "app/login_js", this.signIn).then(function (response) {
+        if (response.data.status === "Success") {
+          window.location = "app";
+        } else _this3.$q.notify({
+          message: response.data.msg,
+          color: "negative",
+          icon: "error"
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
   }
 });
 
@@ -60714,100 +60815,6 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
-/***/ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/vue-clickaway/dist/vue-clickaway.common.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-Vue = 'default' in Vue ? Vue['default'] : Vue;
-
-var version = '2.2.2';
-
-var compatible = (/^2\./).test(Vue.version);
-if (!compatible) {
-  Vue.util.warn('VueClickaway ' + version + ' only supports Vue 2.x, and does not support Vue ' + Vue.version);
-}
-
-
-
-// @SECTION: implementation
-
-var HANDLER = '_vue_clickaway_handler';
-
-function bind(el, binding, vnode) {
-  unbind(el);
-
-  var vm = vnode.context;
-
-  var callback = binding.value;
-  if (typeof callback !== 'function') {
-    if (true) {
-      Vue.util.warn(
-        'v-' + binding.name + '="' +
-        binding.expression + '" expects a function value, ' +
-        'got ' + callback
-      );
-    }
-    return;
-  }
-
-  // @NOTE: Vue binds directives in microtasks, while UI events are dispatched
-  //        in macrotasks. This causes the listener to be set up before
-  //        the "origin" click event (the event that lead to the binding of
-  //        the directive) arrives at the document root. To work around that,
-  //        we ignore events until the end of the "initial" macrotask.
-  // @REFERENCE: https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
-  // @REFERENCE: https://github.com/simplesmiler/vue-clickaway/issues/8
-  var initialMacrotaskEnded = false;
-  setTimeout(function() {
-    initialMacrotaskEnded = true;
-  }, 0);
-
-  el[HANDLER] = function(ev) {
-    // @NOTE: this test used to be just `el.containts`, but working with path is better,
-    //        because it tests whether the element was there at the time of
-    //        the click, not whether it is there now, that the event has arrived
-    //        to the top.
-    // @NOTE: `.path` is non-standard, the standard way is `.composedPath()`
-    var path = ev.path || (ev.composedPath ? ev.composedPath() : undefined);
-    if (initialMacrotaskEnded && (path ? path.indexOf(el) < 0 : !el.contains(ev.target))) {
-      return callback.call(vm, ev);
-    }
-  };
-
-  document.documentElement.addEventListener('click', el[HANDLER], false);
-}
-
-function unbind(el) {
-  document.documentElement.removeEventListener('click', el[HANDLER], false);
-  delete el[HANDLER];
-}
-
-var directive = {
-  bind: bind,
-  update: function(el, binding) {
-    if (binding.value === binding.oldValue) return;
-    bind(el, binding);
-  },
-  unbind: unbind,
-};
-
-var mixin = {
-  directives: { onClickaway: directive },
-};
-
-exports.version = version;
-exports.directive = directive;
-exports.mixin = mixin;
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!../application/views/app/access/forgot-pass.vue?vue&type=template&id=28f14aa8&":
 /*!********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!../application/views/app/access/forgot-pass.vue?vue&type=template&id=28f14aa8& ***!
@@ -60904,8 +60911,7 @@ var render = function() {
                               dense: "",
                               type: "email",
                               id: "email",
-                              name: "email",
-                              "no-error-icon": ""
+                              name: "email"
                             },
                             model: {
                               value: _vm.$v.email.$model,
@@ -60938,13 +60944,9 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "q-mt-lg forgotpassword" }, [
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "http://localhost/link.stream/login" }
-                        },
-                        [_vm._v("Sign In")]
-                      )
+                      _c("a", { attrs: { href: _vm.login } }, [
+                        _vm._v("Sign In")
+                      ])
                     ])
                   ],
                   1
@@ -60972,7 +60974,7 @@ var render = function() {
                       "no-caps": "",
                       flat: "",
                       type: "a",
-                      href: "http://localhost/link.stream/register"
+                      href: _vm.register
                     }
                   },
                   [_c("div", [_vm._v("Sign up with email")])]
@@ -60986,7 +60988,7 @@ var render = function() {
                       "no-caps": "",
                       flat: "",
                       type: "a",
-                      href: "http://localhost/link.stream/instagram_register"
+                      href: _vm.instagram
                     }
                   },
                   [_c("div", [_vm._v("Sign up with Instagram")])]
@@ -61111,8 +61113,7 @@ var render = function() {
                               dense: "",
                               type: "email",
                               id: "email",
-                              name: "email",
-                              "no-error-icon": ""
+                              name: "email"
                             },
                             model: {
                               value: _vm.$v.signIn.email.$model,
@@ -61151,8 +61152,7 @@ var render = function() {
                               dense: "",
                               type: "password",
                               id: "password",
-                              name: "password",
-                              "no-error-icon": ""
+                              name: "password"
                             },
                             model: {
                               value: _vm.$v.signIn.password.$model,
@@ -61185,13 +61185,9 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "q-mt-lg forgotpassword" }, [
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "http://localhost/link.stream/forgot" }
-                        },
-                        [_vm._v("Forgot Password?")]
-                      )
+                      _c("a", { attrs: { href: _vm.forgot } }, [
+                        _vm._v("Forgot Password?")
+                      ])
                     ])
                   ],
                   1
@@ -61219,7 +61215,7 @@ var render = function() {
                       "no-caps": "",
                       flat: "",
                       type: "a",
-                      href: "http://localhost/link.stream/register"
+                      href: _vm.register
                     }
                   },
                   [_c("div", [_vm._v("Sign up with email")])]
@@ -61233,7 +61229,7 @@ var render = function() {
                       "no-caps": "",
                       flat: "",
                       type: "a",
-                      href: "http://localhost/link.stream/instagram_register"
+                      href: _vm.instagram
                     }
                   },
                   [_c("div", [_vm._v("Sign up with Instagram")])]
@@ -61323,7 +61319,7 @@ var render = function() {
                       "no-caps": "",
                       flat: "",
                       type: "a",
-                      href: "http://localhost/link.stream/register"
+                      href: _vm.register
                     }
                   },
                   [_c("div", [_vm._v("Sign up with email")])]
@@ -61337,7 +61333,7 @@ var render = function() {
                       "no-caps": "",
                       flat: "",
                       type: "a",
-                      href: "http://localhost/link.stream/instagram_register"
+                      href: _vm.instagram
                     }
                   },
                   [_c("div", [_vm._v("Sign up with Instagram")])]
@@ -61410,6 +61406,11 @@ var render = function() {
                               id: "username",
                               name: "username"
                             },
+                            on: {
+                              blur: function(evt) {
+                                return _vm.onChangedUsername(evt.target.value)
+                              }
+                            },
                             model: {
                               value: _vm.$v.signUp.username.$model,
                               callback: function($$v) {
@@ -61446,6 +61447,11 @@ var render = function() {
                               type: "email",
                               id: "email",
                               name: "email"
+                            },
+                            on: {
+                              blur: function(evt) {
+                                return _vm.onChangedEmail(evt.target.value)
+                              }
                             },
                             model: {
                               value: _vm.$v.signUp.email.$model,

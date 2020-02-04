@@ -76,8 +76,8 @@ $query_builder = TRUE;
 
 $url = (isset($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : 'www.link.stream';
 $chk = explode('.', $url);
-print_r($chk);echo '<br>';
-print_r($chk[0]);echo '<br>';
+//print_r($chk);echo '<br>';
+//print_r($chk[0]);echo '<br>';
 if ($chk[0] == "localhost") {
 //    define('DB_HOST', 'localhost');
 //    define('DB_USER', 'root');

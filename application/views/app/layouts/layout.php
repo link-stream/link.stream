@@ -80,12 +80,14 @@
                                 <div class="col" style="width:128px" v-show="submenu">
                                     <q-card class="my-card" style="width:128px; height: 100vh; background-color: rgba(0,0,0,0.5); color: white" square flat>                        
                                         <q-list v-for="(menuItem, index) in submenuList" :key="index" class="text-grey-8">
+                                        <a :href = menuItem.linkTo>
                                             <q-item clickable style="height: 15px" class="column items-left content-left q-pa-xs">                                                
                                                 <q-item-section class="q-ml-xs q-mt-xs q-my-none">
                                                     <q-item-label  class="font-submenu">{{ menuItem.label }}</q-item-label>
                                                 </q-item-section> 
                                                 <q-slide-transition>                                                                                              
                                             </q-item> 
+                                            </a>
                                         </q-list>
                                     </q-card>    
                                 </div>                

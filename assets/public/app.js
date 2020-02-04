@@ -350,9 +350,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
 /* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _application_views_app_access_sign_in__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../application/views/app/access/sign-in */ "../application/views/app/access/sign-in.vue");
-/* harmony import */ var _application_views_app_access_sign_up__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../application/views/app/access/sign-up */ "../application/views/app/access/sign-up.vue");
-/* harmony import */ var _application_views_app_access_forgot_pass__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../application/views/app/access/forgot-pass */ "../application/views/app/access/forgot-pass.vue");
+/* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-clickaway */ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js");
+/* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_clickaway__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _application_views_app_access_sign_in__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../application/views/app/access/sign-in */ "../application/views/app/access/sign-in.vue");
+/* harmony import */ var _application_views_app_access_sign_up__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../application/views/app/access/sign-up */ "../application/views/app/access/sign-up.vue");
+/* harmony import */ var _application_views_app_access_forgot_pass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../application/views/app/access/forgot-pass */ "../application/views/app/access/forgot-pass.vue");
 
 
 __webpack_require__(/*! ../../../assets/css/streamy.css */ "./css/streamy.css");
@@ -363,8 +365,7 @@ __webpack_require__(/*! ../../../assets/css/streamy.css */ "./css/streamy.css");
 
 
 
-
-
+ //import tracks from "../../../application/views/app/partials/tracks";
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(quasar__WEBPACK_IMPORTED_MODULE_1__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuelidate__WEBPACK_IMPORTED_MODULE_3___default.a);
@@ -372,11 +373,13 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_2___default.a;
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: "#q-app",
+  mixins: [vue_clickaway__WEBPACK_IMPORTED_MODULE_4__["mixin"]],
   props: [],
   components: {
-    sign_in: _application_views_app_access_sign_in__WEBPACK_IMPORTED_MODULE_4__["default"],
-    sign_up: _application_views_app_access_sign_up__WEBPACK_IMPORTED_MODULE_5__["default"],
-    forgot_password: _application_views_app_access_forgot_pass__WEBPACK_IMPORTED_MODULE_6__["default"]
+    sign_in: _application_views_app_access_sign_in__WEBPACK_IMPORTED_MODULE_5__["default"],
+    sign_up: _application_views_app_access_sign_up__WEBPACK_IMPORTED_MODULE_6__["default"],
+    forgot_password: _application_views_app_access_forgot_pass__WEBPACK_IMPORTED_MODULE_7__["default"] // tracks,
+
   },
   Quasar: quasar__WEBPACK_IMPORTED_MODULE_1__["default"],
   data: function data() {
@@ -412,33 +415,32 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
         label: "My Tracks",
         linkTo: "#",
         submenu: [{
-          linkTo: "#",
-          label: "Add New Tracks"
+          linkTo: "/link.stream/login",
+          label: "Add Track"
         }, {
           linkTo: "#",
           label: "Manage Tracks"
         }, {
           linkTo: "#",
-          label: "Manage Reposts"
+          label: "Promote"
         }]
-      }, {
+      },
+      /*{
         icon: "img:assets/images/icons/icon-user-circle.svg",
         label: "My Content",
         linkTo: "#",
-        submenu: [{
-          linkTo: "#",
-          label: "Add Content"
-        }, {
-          linkTo: "#",
-          label: "Manage Content"
-        }]
-      }, {
+        submenu: [
+          { linkTo: "#", label: "Add Content" },
+          { linkTo: "#", label: "Manage Content" }
+        ]
+      },*/
+      {
         icon: "img:assets/images/icons/icon-link.svg",
         label: "My Links",
         linkTo: "#",
         submenu: [{
           linkTo: "#",
-          label: "Add Links"
+          label: "Add Link"
         }, {
           linkTo: "#",
           label: "Manage Links"
@@ -447,20 +449,34 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
         icon: "img:assets/images/icons/chart-bar.svg",
         label: "Analytics",
         linkTo: "#",
-        submenu: []
+        submenu: [{
+          linkTo: "#",
+          label: "Traffic"
+        }, {
+          linkTo: "#",
+          label: "Revenue"
+        }]
       }, {
+        icon: "img:assets/images/icons/icon-settings.svg",
+        label: "Account Settings",
+        linkTo: "#",
+        submenu: [{
+          linkTo: "#",
+          label: "Settings"
+        }, {
+          linkTo: "#",
+          label: "Billing"
+        }]
+      },
+      /*{
         icon: "img:assets/images/icons/icon-reports.svg",
         label: "Reports",
         linkTo: "#",
         submenu: []
-      }, {
+      },*/
+      {
         icon: "img:assets/images/icons/icon-upgrade.svg",
         label: "Upgrade",
-        linkTo: "#",
-        submenu: []
-      }, {
-        icon: "img:assets/images/icons/icon-settings.svg",
-        label: "Account Settings",
         linkTo: "#",
         submenu: []
       }],
@@ -496,6 +512,9 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   },
   methods: {
     onItemClick: function onItemClick() {// console.log('Clicked on an Item')
+    },
+    away: function away() {
+      this.submenu = false;
     },
     setActiveItem: function setActiveItem(item) {
       this.selectedMenu = item.label;
@@ -60849,6 +60868,100 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/vue-clickaway/dist/vue-clickaway.common.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+Vue = 'default' in Vue ? Vue['default'] : Vue;
+
+var version = '2.2.2';
+
+var compatible = (/^2\./).test(Vue.version);
+if (!compatible) {
+  Vue.util.warn('VueClickaway ' + version + ' only supports Vue 2.x, and does not support Vue ' + Vue.version);
+}
+
+
+
+// @SECTION: implementation
+
+var HANDLER = '_vue_clickaway_handler';
+
+function bind(el, binding, vnode) {
+  unbind(el);
+
+  var vm = vnode.context;
+
+  var callback = binding.value;
+  if (typeof callback !== 'function') {
+    if (true) {
+      Vue.util.warn(
+        'v-' + binding.name + '="' +
+        binding.expression + '" expects a function value, ' +
+        'got ' + callback
+      );
+    }
+    return;
+  }
+
+  // @NOTE: Vue binds directives in microtasks, while UI events are dispatched
+  //        in macrotasks. This causes the listener to be set up before
+  //        the "origin" click event (the event that lead to the binding of
+  //        the directive) arrives at the document root. To work around that,
+  //        we ignore events until the end of the "initial" macrotask.
+  // @REFERENCE: https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
+  // @REFERENCE: https://github.com/simplesmiler/vue-clickaway/issues/8
+  var initialMacrotaskEnded = false;
+  setTimeout(function() {
+    initialMacrotaskEnded = true;
+  }, 0);
+
+  el[HANDLER] = function(ev) {
+    // @NOTE: this test used to be just `el.containts`, but working with path is better,
+    //        because it tests whether the element was there at the time of
+    //        the click, not whether it is there now, that the event has arrived
+    //        to the top.
+    // @NOTE: `.path` is non-standard, the standard way is `.composedPath()`
+    var path = ev.path || (ev.composedPath ? ev.composedPath() : undefined);
+    if (initialMacrotaskEnded && (path ? path.indexOf(el) < 0 : !el.contains(ev.target))) {
+      return callback.call(vm, ev);
+    }
+  };
+
+  document.documentElement.addEventListener('click', el[HANDLER], false);
+}
+
+function unbind(el) {
+  document.documentElement.removeEventListener('click', el[HANDLER], false);
+  delete el[HANDLER];
+}
+
+var directive = {
+  bind: bind,
+  update: function(el, binding) {
+    if (binding.value === binding.oldValue) return;
+    bind(el, binding);
+  },
+  unbind: unbind,
+};
+
+var mixin = {
+  directives: { onClickaway: directive },
+};
+
+exports.version = version;
+exports.directive = directive;
+exports.mixin = mixin;
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!../application/views/app/access/forgot-pass.vue?vue&type=template&id=28f14aa8&":
 /*!********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!../application/views/app/access/forgot-pass.vue?vue&type=template&id=28f14aa8& ***!
@@ -75890,7 +76003,7 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\link.stream\assets\js\app\app.js */"./js/app/app.js");
+module.exports = __webpack_require__(/*! D:\Mio\link.stream\assets\js\app\app.js */"./js/app/app.js");
 
 
 /***/ })

@@ -74,19 +74,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-$url = (isset($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : 'www.streamy.link';
+$url = (isset($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : 'www.link.stream';
 $chk = explode('.', $url);
 //print_r($chk);echo '<br>';
 //print_r($chk[0]);echo '<br>';
 if ($chk[0] == "localhost") {
-    define('DB_HOST', 'localhost');
-    define('DB_USER', 'root');
-    define('DB_PASS', '');
-    define('DB_TABLE', 'streamy');
-//    define('DB_HOST', 'db01.streamy.link');
-//    define('DB_USER', 'streamy_admin');
-//    define('DB_PASS', 'e1e71bb468c3648954812eea911a0b25aba58a40');
-//    define('DB_TABLE', 'streamy_dev');
+//    define('DB_HOST', 'localhost');
+//    define('DB_USER', 'root');
+//    define('DB_PASS', '');
+//    define('DB_TABLE', 'streamy');
+    define('DB_HOST', 'db01.link.stream');
+    define('DB_USER', 'streamy_admin');
+    define('DB_PASS', 'e1e71bb468c3648954812eea911a0b25aba58a40');
+    define('DB_TABLE', 'streamy_dev');
     define('DB_DEBUG', TRUE);
     //$db['default']['db_debug'] = TRUE;
 } elseif ($chk[0] == "link-dev") {

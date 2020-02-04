@@ -9,7 +9,7 @@ class App extends CI_Controller {
     private $error;
     private $ses_name = 'app_session';
     private $limit = 0;
-    private $bucket = 'files.streamy.link';
+    private $bucket = 'files.link.stream';
 
     public function __construct() {
         parent::__construct();
@@ -61,12 +61,14 @@ class App extends CI_Controller {
             $this->User_model->update_user($user['id'], array('status_id' => $user['status_id']));
             $encrypted_user = $this->general_library->urlsafe_b64encode(json_encode($user));
             $this->general_library->update_cookie(serialize(array('user' => $encrypted_user)));
-//            $data['title'] = 'Streamy'; 
-//            $data['page'] = 'Dashboard'; 
-//            $data['body_content'] = 'dashboard'; 
-//            $this->load->view('layouts/layout2', $data);
 
-            $this->load->view($this->loc_path . 'dashboard', $data);
+
+            $data['title'] = 'Streamy';
+            $data['page'] = 'Dashboard';
+            $data['body_content'] = 'dashboard';
+            $this->load->view($this->loc_path . 'layouts/layout', $data);
+
+            //$this->load->view($this->loc_path . 'dashboard', $data);
         } else {
             redirect($this->loc_url . '/login', 'location', 302);
         }
@@ -164,9 +166,9 @@ class App extends CI_Controller {
             }
         }
         //$this->load->view($this->loc_path . 'login', $data);
-        //$this->load->view($this->loc_path . 'signin', $data);
+        $this->load->view($this->loc_path . 'signin', $data);
         $data['body_content'] = '<sign_in></sign_in>';
-        $this->load->view($this->loc_path . 'layouts/common', $data);
+        //$this->load->view($this->loc_path . 'layouts/common', $data);
     }
 
     public function login_js() {
@@ -301,7 +303,7 @@ class App extends CI_Controller {
         $user_e = $this->general_library->urlsafe_b64encode($user);
         $url = base_url() . 'app/email_confirm/' . $email_e . '/' . $id_e . '/' . $user_e;
         $body = $this->load->view('email/email_register', array('user' => $user, 'email' => $email, 'url' => $url), true);
-        $this->general_library->send_ses($email, $email, 'Streamy', 'noreply@streamy.link', "Register on Streamy", $body);
+        $this->general_library->send_ses($email, $email, 'Streamy', 'noreply@link.stream', "Register on Streamy", $body);
         echo 'Please Check your email and confirm your email address';
     }
 
@@ -401,7 +403,7 @@ class App extends CI_Controller {
                 $source = $this->get_temp_dir();
                 file_put_contents($source . '/' . $image_name, $content);
                 //SAVE S3
-                $bucket = 'files.streamy.link';
+                $bucket = 'files.link.stream';
                 $path = (ENV == 'live') ? 'prod/' : 'dev/';
                 $dest_folder = 'avatar';
                 $destination = $path . $dest_folder . '/' . $image_name;
@@ -462,7 +464,7 @@ class App extends CI_Controller {
                     $source = $this->get_temp_dir();
                     file_put_contents($source . '/' . $image_name, $content);
                     //SAVE S3
-                    $bucket = 'files.streamy.link';
+                    $bucket = 'files.link.stream';
                     $path = (ENV == 'live') ? 'prod/' : 'dev/';
                     $dest_folder = 'avatar';
                     $destination = $path . $dest_folder . '/' . $image_name;
@@ -668,7 +670,7 @@ class App extends CI_Controller {
                         $this->load->view($this->loc_path . 'content/content_add', $data);
                     } elseif ($type == 'lk') {
                         $data['type'] = '3';
-                        $data['placeholder_url'] = 'https://www.streamy.link';
+                        $data['placeholder_url'] = 'https://www.link.stream';
                         $data['type_url'] = 'LinkStreams URL';
                         $this->load->view($this->loc_path . 'content/linkstream', $data);
                     } elseif ($type == 'st') {
@@ -721,7 +723,7 @@ class App extends CI_Controller {
                         $this->load->view($this->loc_path . 'content/content_add', $data);
                     } elseif ($type == 'lk') {
                         $data['type'] = '3';
-                        $data['placeholder_url'] = 'https://www.streamy.link';
+                        $data['placeholder_url'] = 'https://www.link.stream';
                         $data['type_url'] = 'LinkStreams URL';
                         $this->load->view($this->loc_path . 'content/linkstream', $data);
                     } elseif ($type == 'st') {
@@ -825,7 +827,7 @@ class App extends CI_Controller {
             $data = array();
             $data['user'] = $user;
             $data['type'] = (!empty($type)) ? $type : '';
-            $data['placeholder_url'] = ($data['type'] == '1') ? 'https://soundcloud.com/iamstarinthesky/go-hard-prod-silo' : (($data['type'] == '2') ? 'https://www.youtube.com/watch?v=h_D3VFfhvs4' : 'https://www.streamy.link');
+            $data['placeholder_url'] = ($data['type'] == '1') ? 'https://soundcloud.com/iamstarinthesky/go-hard-prod-silo' : (($data['type'] == '2') ? 'https://www.youtube.com/watch?v=h_D3VFfhvs4' : 'https://www.link.stream');
             $data['type_url'] = ($data['type'] == '1') ? 'SoundCloud URL' : (($data['type'] == '2') ? 'YouTube URL' : 'URL');
             $data['genres'] = $this->Streamy_model->fetch_genres();
             $this->load->view($this->loc_path . 'content/my_content_add_2', $data);
@@ -908,7 +910,7 @@ class App extends CI_Controller {
         } else {
             $file_uploades = $this->upload->data();
             //SAVE S3
-            $bucket = 'files.streamy.link';
+            $bucket = 'files.link.stream';
             $path = (ENV == 'live') ? 'prod/' : 'dev/';
             $destination = $path . $dest_folder . '/' . $file_uploades['file_name'];
             $s3_source = $source . '/' . $file_uploades['file_name'];
@@ -1221,7 +1223,7 @@ class App extends CI_Controller {
 
     public function audio_content($name = null) {
         $path = (ENV == 'live') ? 'prod/media/' : 'dev/media/';
-        $file = 'https://s3.us-east-2.amazonaws.com/files.streamy.link/' . $path . $name;
+        $file = 'https://s3.us-east-2.amazonaws.com/files.link.stream/' . $path . $name;
         header("Cache-Control: no-cache, must-revalidate");
         header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
         header('Content-type: audio/mpeg3;audio/x-mpeg-3;video/mpeg;video/x-mpeg;text/xml');
@@ -1253,7 +1255,7 @@ class App extends CI_Controller {
         } elseif ($type == '4') {
             //Streamy
             $path = (ENV == 'live') ? 'prod/media/' : 'dev/media/';
-            $file = 'https://s3.us-east-2.amazonaws.com/files.streamy.link/' . $path . $url;
+            $file = 'https://s3.us-east-2.amazonaws.com/files.link.stream/' . $path . $url;
             //$file = base_url() . 'app/audio_content/' . $url;
             $embed_url_old = '<audio id="myAudio">
   <source src="' . $file . '" type="audio/ogg">
@@ -1395,7 +1397,7 @@ class App extends CI_Controller {
     }
 
     public function email_test() {
-        $this->general_library->send_ses('Paul Ferra', 'paul@streamy.link', 'Streamy', 'noreply@streamy.link', 'Email Test', 'Email Test: Body');
+        $this->general_library->send_ses('Paul Ferra', 'paul@link.stream', 'Streamy', 'noreply@link.stream', 'Email Test', 'Email Test: Body');
     }
 
     public function my_linkstream_add() {
@@ -1404,7 +1406,7 @@ class App extends CI_Controller {
             $data = array();
             $data['user'] = $user;
             $data['type'] = '3';
-            $data['placeholder_url'] = ($data['type'] == '1') ? 'https://soundcloud.com/iamstarinthesky/go-hard-prod-silo' : (($data['type'] == '2') ? 'https://www.youtube.com/watch?v=h_D3VFfhvs4' : 'https://www.streamy.link');
+            $data['placeholder_url'] = ($data['type'] == '1') ? 'https://soundcloud.com/iamstarinthesky/go-hard-prod-silo' : (($data['type'] == '2') ? 'https://www.youtube.com/watch?v=h_D3VFfhvs4' : 'https://www.link.stream');
             $data['type_url'] = ($data['type'] == '1') ? 'SoundCloud URL' : (($data['type'] == '2') ? 'YouTube URL' : 'URL');
             $data['genres'] = $this->Streamy_model->fetch_genres();
             $this->load->view($this->loc_path . 'content/my_linkstream_add', $data);
@@ -1419,7 +1421,7 @@ class App extends CI_Controller {
             $data = array();
             $data['user'] = $user;
             $data['type'] = '4';
-            $data['placeholder_url'] = ($data['type'] == '1') ? 'https://soundcloud.com/iamstarinthesky/go-hard-prod-silo' : (($data['type'] == '2') ? 'https://www.youtube.com/watch?v=h_D3VFfhvs4' : 'https://www.streamy.link');
+            $data['placeholder_url'] = ($data['type'] == '1') ? 'https://soundcloud.com/iamstarinthesky/go-hard-prod-silo' : (($data['type'] == '2') ? 'https://www.youtube.com/watch?v=h_D3VFfhvs4' : 'https://www.link.stream');
             $data['type_url'] = ($data['type'] == '1') ? 'SoundCloud URL' : (($data['type'] == '2') ? 'YouTube URL' : 'URL');
             $data['genres'] = $this->Streamy_model->fetch_genres();
             $this->load->view($this->loc_path . 'content/my_streamy_add', $data);
@@ -1465,7 +1467,7 @@ class App extends CI_Controller {
             $data = array();
             $data['user'] = $user;
             $data['type'] = '3';
-            $data['placeholder_url'] = 'https://www.streamy.link';
+            $data['placeholder_url'] = 'https://www.link.stream';
             $data['type_url'] = 'URL';
             $data['genres'] = $this->Streamy_model->fetch_genres();
             $this->load->view($this->loc_path . 'content/linkstream', $data);
@@ -1568,7 +1570,7 @@ class App extends CI_Controller {
         $source = $this->get_temp_dir();
         file_put_contents($source . '/' . $image_name, $croped_image);
         //SAVE S3
-        $bucket = 'files.streamy.link';
+        $bucket = 'files.link.stream';
         $path = (ENV == 'live') ? 'prod/' : 'dev/';
         $dest_folder = 'avatar';
         $destination = $path . $dest_folder . '/' . $image_name;
@@ -1645,12 +1647,12 @@ class App extends CI_Controller {
         //echo $temp_dir;
         $source = "tmp/test.png";
         $destination = 'test.png';
-        $bucket = 'files.streamy.link';
+        $bucket = 'files.link.stream';
         $this->aws_s3->s3push($source, $destination, $bucket);
     }
 
     public function fetch_list() {
-        $bucket = 'files.streamy.link';
+        $bucket = 'files.link.stream';
         $list = $this->aws_s3->fetch_list($bucket);
         print_r($list);
 //         $pdf_file = $this->aws_s3->read_file('test.png', $bucket);
@@ -1674,7 +1676,7 @@ class App extends CI_Controller {
         if (!empty($email)) {
             $data = array();
             $body = $this->load->view('email/email_coming_soon', $data, true);
-            $this->general_library->send_ses($email, $email, 'Streamy', 'noreply@streamy.link', "You're In! Free Early Access Confirmed", $body);
+            $this->general_library->send_ses($email, $email, 'Streamy', 'noreply@link.stream', "You're In! Free Early Access Confirmed", $body);
         }
         if (!empty($phone)) {
             $this->load->library('Aws_pinpoint');

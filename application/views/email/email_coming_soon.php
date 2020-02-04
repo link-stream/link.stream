@@ -7,7 +7,7 @@
         <table width="500" border="0" align="center">
             <tr>
                 <td align="center">
-                    <img src="https://streamy-dev.streamy.link/assets/images/logo/streamy_icon_RGB.png" width="180px" alt="streamy logo">
+                    <img src="https://link-dev.link.stream/assets/images/logo/streamy_icon_RGB.png" width="180px" alt="streamy logo">
                 </td>
             </tr>
             <tr>

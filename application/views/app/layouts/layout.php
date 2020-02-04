@@ -56,11 +56,12 @@
                     </q-header>    
                     <q-drawer show-if-above v-model="left" side="left" :width="dynamicWidth" :content-style="{backgroundColor: '#333333'}" :overlay="submenu" behavior="desktop">                          
                         <q-scroll-area class="fit" :visible="false">                        
-                            <div class="row">
+                            <div class="row" v-on-clickaway="away">
                                 <div class="col"> 
                                     <q-card class="my-card" square flat>                                                           
                                         <q-list v-for="(menuItem, index) in menuList" :key="index" class="text-grey-8">
-                                            <q-item clickable style="height: 85px" class="column items-center content-center q-pa-sm" :active="selectedMenu === menuItem.label" @click="setActiveItem(menuItem)" active-class="my-menu-link" > 
+                                            <q-item clickable style="height: 85px" class="column items-center content-center q-pa-sm" :active="selectedMenu === menuItem.label" 
+                                            @click="setActiveItem(menuItem)" active-class="my-menu-link" @mouseover="setActiveItem(menuItem)" >
                                                 <q-item-section class="q-ml-none q-mt-md">                                       
                                                     <q-icon color="white" size="20px" :name="menuItem.icon" />
                                                 </q-item-section>                                               

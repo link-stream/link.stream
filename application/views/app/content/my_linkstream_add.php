@@ -444,7 +444,7 @@ $this->load->view('app/_inc/header', $data);
                 $('#streamy_url').attr("placeholder", "https://www.youtube.com/watch?v=h_D3VFfhvs4");
             } else if ($.trim(value) === '3') {
                 $('#card_2 .ul-widget-card__title').text('Add your URL');
-                $('#streamy_url').attr("placeholder", "https://www.streamy.link");
+                $('#streamy_url').attr("placeholder", "https://www.link.stream");
             }
         });
 

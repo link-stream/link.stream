@@ -61,7 +61,7 @@ class Aws_sns {
                        'key' => $this->aws_key,
                         'secret' => $this->aws_secret
                     ),
-                    'bucket' => 'logs.streamy.link',
+                    'bucket' => 'logs.link.stream',
                     'region' => 'us-east-2',
                     'version' => '2010-03-31',
                     'debug' => false, // bool|array

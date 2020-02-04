@@ -207,7 +207,7 @@ $this->load->view('home/_inc/header', $data);
                             <!-- Social Media Links -->
                             <div class="p-t-b-30">
                                 <p>
-                                    <a href="https://www.instagram.com/streamy.link" target="_blank" class="link-white"><i
+                                    <a href="https://www.instagram.com/_linkstream" target="_blank" class="link-white"><i
                                             class="fa fa-instagram"></i>Join the fam on Instgram!</a>&nbsp&nbsp&nbsp    
                                     <!--               <a href="#" class="link-white">Legal Content</a>-->
                                                      <!--<a href="https://plus.google.com" class="link-white"><i

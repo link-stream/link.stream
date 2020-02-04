@@ -19,7 +19,7 @@ class Home extends CI_Controller {
     private $error;
     private $ses_name = 'app_session';
     private $limit = 9;
-    private $bucket = 'files.streamy.link';
+    private $bucket = 'files.link.stream';
 
     public function __construct() {
         parent::__construct();
@@ -30,7 +30,7 @@ class Home extends CI_Controller {
         $this->load->model("User_model");
         $this->load->model("Streamy_model");
         //
-         $this->load->library(array('user_agent', 'aws_s3'));
+        $this->load->library(array('user_agent', 'aws_s3'));
     }
 
     public function _remap($method, $params = array()) {
@@ -51,7 +51,6 @@ class Home extends CI_Controller {
             redirect('/' . $this->loc_url, 'location', 302);
         }
     }
-    
 
     public function index() {
         $username = $this->uri->segment(1);

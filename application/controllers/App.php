@@ -165,15 +165,21 @@ class App extends CI_Controller {
                 $data['msg'] = 'Fields can not be empty';
             }
         }
-        //$this->load->view($this->loc_path . 'login', $data);
-        $this->load->view($this->loc_path . 'signin', $data);
-        $data['body_content'] = '<sign_in></sign_in>';
-        //$this->load->view($this->loc_path . 'layouts/common', $data);
+        //$this->load->view($this->loc_path . 'signin', $data);
+        $baseUrl = base_url();
+        $data['body_content'] = "<sign_in baseurl={$baseUrl}></sign_in>";
+        $this->load->view($this->loc_path . 'layouts/common', $data);
     }
 
     public function login_js() {
         $status = 'Success';
         $msg = '';
+//        print_r($this->input->post());
+//        $email = trim($this->input->post('name', TRUE));
+//        echo $email;
+//        $json = json_decode(file_get_contents('php://input'), true);    
+//        $email = trim($json['email']);
+//        $password = trim($json['password']);
         $email = trim($this->input->post('email', TRUE));
         $password = trim($this->input->post('password', TRUE));
         if (!empty($email) && !empty($password)) {
@@ -245,7 +251,9 @@ class App extends CI_Controller {
             }
         }
         //$this->load->view($this->loc_path . 'signup', $data);
-        $data['body_content'] = '<sign_up></sign_up>';
+        //$data['body_content'] = '<sign_up></sign_up>';
+        $baseUrl = base_url();
+        $data['body_content'] = "<sign_up baseurl={$baseUrl}></sign_up>";
         $this->load->view($this->loc_path . 'layouts/common', $data);
     }
 
@@ -303,7 +311,7 @@ class App extends CI_Controller {
         $user_e = $this->general_library->urlsafe_b64encode($user);
         $url = base_url() . 'app/email_confirm/' . $email_e . '/' . $id_e . '/' . $user_e;
         $body = $this->load->view('email/email_register', array('user' => $user, 'email' => $email, 'url' => $url), true);
-        $this->general_library->send_ses($email, $email, 'Streamy', 'noreply@link.stream', "Register on Streamy", $body);
+        $this->general_library->send_ses($email, $email, 'LinkStream', 'noreply@link.stream', "Register on LinksStream", $body);
         echo 'Please Check your email and confirm your email address';
     }
 

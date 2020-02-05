@@ -1492,8 +1492,10 @@ class App extends CI_Controller {
             $data['type'] = '';
             $data['placeholder_url'] = '';
             $data['type_url'] = '';
-            $data['genres'] = $this->Streamy_model->fetch_genres();
+            $data['genres'] = $this->Streamy_model->fetch_genres();			
             $this->load->view($this->loc_path . 'content/stream', $data);
+			//$data['body_content'] = '<test></test>';
+            //$this->load->view($this->loc_path . 'layouts/layout', $data);
         } else {
             redirect($this->loc_url . '/login', 'location', 302);
         }

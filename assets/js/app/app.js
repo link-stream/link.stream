@@ -9,7 +9,7 @@ import { mixin as clickaway } from "vue-clickaway";
 import sign_in from "../../../application/views/app/access/sign-in";
 import sign_up from "../../../application/views/app/access/sign-up";
 import forgot_password from "../../../application/views/app/access/forgot-pass";
-//import tracks from "../../../application/views/app/partials/tracks";
+import test from "../../../application/views/app/partials/test";
 
 
 Vue.use(Quasar);
@@ -26,7 +26,7 @@ let app = new Vue({
     sign_in,
     sign_up,
     forgot_password,
-   // tracks,
+    test,
 
   },
   Quasar,
@@ -63,7 +63,7 @@ let app = new Vue({
           label: "My Tracks",
           linkTo: "#",
           submenu: [
-            { linkTo: "/link.stream/login", label: "Add Track" },
+            { linkTo: "/link.stream/app/stream", label: "Add Track" },
             { linkTo: "#", label: "Manage Tracks" },
             { linkTo: "#", label: "Promote" }
           ]

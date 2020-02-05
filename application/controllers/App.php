@@ -1488,14 +1488,15 @@ class App extends CI_Controller {
         if ($this->input->cookie($this->general_library->ses_name) != '') {
             $user = $this->general_library->get_cookie();
             $data = array();
+            $data['title'] = 'Add Content';
             $data['user'] = $user;
             $data['type'] = '';
             $data['placeholder_url'] = '';
             $data['type_url'] = '';
-            $data['genres'] = $this->Streamy_model->fetch_genres();			
-            $this->load->view($this->loc_path . 'content/stream', $data);
-			//$data['body_content'] = '<test></test>';
-            //$this->load->view($this->loc_path . 'layouts/layout', $data);
+            $data['genres'] = $this->Streamy_model->fetch_genres();
+            //$this->load->view($this->loc_path . 'content/stream', $data);
+            $data['body_content'] = '<test></test>';
+            $this->load->view($this->loc_path . 'layouts/layout', $data);
         } else {
             redirect($this->loc_url . '/login', 'location', 302);
         }

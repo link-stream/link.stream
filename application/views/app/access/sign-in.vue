@@ -1,52 +1,50 @@
 <template>
   <div>
-    <q-card-section class="q-ma-none q-pa-none" v-show="this.$q.platform.is.mobile">
-      <div>
-        <img src="assets/images/icons/streamy-logo.svg" alt="logo" class="logo-cell">
-        <span class="logotext-cell">LINKSTREAM</span>
-      </div>
+    <q-card-section class="q-ma-none q-pa-none" v-show="windowWidth<600">
+      <img src="assets/images/icons/streamy-logo.svg" alt="logo" class="logo-cell">
+      <span class="logotext-cell">LINKSTREAM</span>
     </q-card-section>
-    <q-card :class="[ $q.platform.is.mobile ? 'my-card-cell' : 'self-center my-card midlle' ]"  square flat bordered>
+    <q-card class="self-center" :class="[ windowWidth<600 ? 'my-card-cell' : 'my-card' ]"  square flat bordered>
       <div class="row">
-        <div class="col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 signin">
-          <div v-show="!this.$q.platform.is.mobile">
+        <div class="col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" >    
+          <div v-show="windowWidth>=600">
             <q-card-section class="q-pa-md row justify-center" >
               <img src="assets/images/icons/streamy-logo.svg" alt="logo" class="logo" >
             </q-card-section>
             <q-card-section class="q-ma-none q-pa-none row justify-center">
               <div class="logotext">LINKSTREAM</div>
             </q-card-section>
-          </div>          
+          </div>     
           <q-card-section class="col q-pa-none q-mb-md">
-            <div :class="[ $q.platform.is.mobile ? 'signintxt-cell' : 'signintxt' ]" >Sign In</div>
+            <div :class="[ windowWidth<600 ? 'signintxt-cell' : 'signintxt' ]" >Sign In</div>
           </q-card-section>
           <q-card-section class="q-pa-none col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
             <q-form @submit.prevent.stop="onSubmit" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
               <div class="q-mt-md">
-                <label :class="[ $q.platform.is.mobile ? 'form-cell' : 'form' ]" >Email address</label>
+                <label class="form" >Email address</label>
                 <div class="q-mt-xs row justify-center">
                   <q-input class="q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput" v-model.trim="$v.email.$model" :error-message="emailErrors" :error="$v.email.$anyError" @input="$v.email.$touch()" 
                   outlined square bg-color="white" bottom-slots dense type="email" id="email" name="email"></q-input>
                 </div>
               </div>
               <div class="q-mt-md">
-                <label :class="[ $q.platform.is.mobile ? 'form-cell' : 'form' ]" >Password</label>
+                <label class="form" >Password</label>
                 <div class="q-mt-xs row justify-center">
                   <q-input class="q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput" v-model.trim="$v.password.$model" :error-message="passwordErrors" :error="$v.password.$anyError" @input="$v.password.$touch()"
                     outlined square bg-color="white" dense type="password" id="password" name="password" />
                 </div>
               </div>
-              <q-btn class="q-mt-lg" :class="[ $q.platform.is.mobile ? 'signupbtn-cell' : 'signupbtn' ]" flat type="submit">
+              <q-btn class="q-mt-lg signinbtn" flat type="submit">
                 <div class="signuptxt">Sign in</div>
               </q-btn>
-              <div class="q-mt-lg" :class="[ $q.platform.is.mobile ? 'forgotpassword-cell' : 'forgotpassword' ]">
+              <div class="q-mt-lg forgotpassword">
                 <a :href="forgot">Forgot Password?</a>
               </div>
             </q-form>
           </q-card-section>
         </div>
-        <div class="col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" :class="[ $q.platform.is.mobile ? 'streamylink-cell' : 'streamylink' ]">
-          <q-card-section :class="[ $q.platform.is.mobile ? 'row justify-center q-py-lg' : 'q-pa-lg row justify-center btnemails' ]">
+        <div class="col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" :class="[windowWidth<600 ? 'streamylink-cell' : 'streamylink']">
+          <q-card-section class="q-pa-lg row justify-center" :class="[ windowWidth<600 ? '' : 'btnemails' ]">
             <q-btn class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btnemail" no-caps flat type="a" :href="register">
               <div>Sign up with email</div>
             </q-btn>
@@ -83,7 +81,9 @@ export default {
       login: this.baseurl + 'login',
       forgot: this.baseurl + 'forgot',
       register: this.baseurl + 'register',
-      instagram: this.baseurl + 'instagram_register'
+      instagram: this.baseurl + 'instagram_register',
+      windowWidth: 0,
+      windowHeight: 0
     };
   },
   validations: {
@@ -97,24 +97,38 @@ export default {
     }
   },
   computed: {
-    emailErrors() {
+    emailErrors () {
       if (!this.$v.email.required) return '* Required';
       if (!this.$v.email.email) return 'You must enter a valid email address';
     },
-    passwordErrors() {
+    passwordErrors () {
       if (!this.$v.password.required) return '* Required';
       if (!this.$v.password.minLength) return 'The password must have at least 8 characters';
     }
   },
   mounted() {
-    if (this.$q.platform.is.mobile) {    
-      document.getElementById('loginContainer').className = '';     
-    } else {      
-      document.getElementById('loginContainer').className = 'vertical-center'; 
-    }
+    this.$nextTick(function() {
+      window.addEventListener('resize', this.getWindowWidth);
+      window.addEventListener('resize', this.getWindowHeight);
+      this.getWindowWidth();
+      this.getWindowHeight()
+    })
   },
   methods: {
-    onSubmit() {
+    getWindowWidth(event) {
+      this.windowWidth = document.documentElement.clientWidth;
+      (this.windowWidth >= 600) 
+        ? document.getElementById('loginContainer').className = 'vertical-center' 
+        : document.getElementById('loginContainer').className = '' 
+    },
+    getWindowHeight(event) {
+      this.windowHeight = document.documentElement.clientHeight
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.getWindowWidth);
+      window.removeEventListener('resize', this.getWindowHeight)
+    },
+    onSubmit () {
       this.$v.$touch();
       if (!this.$v.$anyError) {
         let formData = new FormData();

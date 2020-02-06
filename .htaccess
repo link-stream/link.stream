@@ -17,7 +17,7 @@ RewriteRule ^(.*)$ ./index.php?$1 [L,QSA]
 #AuthUserFile /var/www/html/.htpasswd
 #Require valid-user
 
-<If "%{SERVER_NAME} == 'link-dev'">
+<If "%{SERVER_NAME} == 'link-dev.link.stream'">
     AuthType Basic
     AuthName "Password Protected Area"
     AuthUserFile /var/www/html/.htpasswd

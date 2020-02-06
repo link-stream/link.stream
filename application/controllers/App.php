@@ -1708,7 +1708,8 @@ class App extends CI_Controller {
     }
 
     public function send_sms() {
-        $this->aws_pinpoint->send('13059705118', 'Welcome to Streamy');
+        $this->aws_pinpoint->send('13059705118', 'Welcome to LinkStream');
+        //$this->aws_pinpoint->send('17142718161', 'Welcome to LinkStream');
     }
 
     public function get_data() {

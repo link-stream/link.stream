@@ -99,7 +99,7 @@ if ($chk[0] == "localhost") {
     define('DB_HOST', 'db01.link.stream');
     define('DB_USER', 'streamy_admin');
     define('DB_PASS', 'e1e71bb468c3648954812eea911a0b25aba58a40');
-    define('DB_TABLE', 'streamy');
+    define('DB_TABLE', 'streamy_dev');
     define('DB_DEBUG', FALSE);
 }
 

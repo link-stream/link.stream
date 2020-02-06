@@ -131,7 +131,7 @@ $this->load->view('home/_inc/header', $data);
 
                             <!-- Logo -->
                             <div class="p-t-b-15">
-                                <img src="<?= HTTP_ASSETS ?>solid-bg/images/streamy_logos_outlined_RGB_streamy_logo_vertical_negative_RGB.png" width="480px" alt="streamy logo">
+                                <img src="<?= HTTP_ASSETS ?>solid-bg/images/streamy_logos_outlined_RGB_streamy_logo_vertical_negative_RGB.png" width="360px" alt="streamy logo">
                             </div>
                             <!-- /End Logo -->
 

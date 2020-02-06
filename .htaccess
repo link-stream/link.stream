@@ -16,3 +16,10 @@ RewriteRule ^(.*)$ ./index.php?$1 [L,QSA]
 ##AuthUserFile /Applications/XAMPP/xamppfiles/htdocs/link.stream/.htpasswd
 #AuthUserFile /var/www/html/.htpasswd
 #Require valid-user
+
+<If "%{SERVER_NAME} == 'link-dev'">
+    AuthType Basic
+    AuthName "Password Protected Area"
+    AuthUserFile /var/www/html/.htpasswd
+    Require valid-user
+</If>

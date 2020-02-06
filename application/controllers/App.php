@@ -63,12 +63,12 @@ class App extends CI_Controller {
             $this->general_library->update_cookie(serialize(array('user' => $encrypted_user)));
 
 
-            $data['title'] = 'Streamy';
-            $data['page'] = 'Dashboard';
-            $data['body_content'] = 'dashboard';
-            $this->load->view($this->loc_path . 'layouts/layout', $data);
+//            $data['title'] = 'Streamy';
+//            $data['page'] = 'Dashboard';
+//            $data['body_content'] = 'dashboard';
+//            $this->load->view($this->loc_path . 'layouts/layout', $data);
 
-            //$this->load->view($this->loc_path . 'dashboard', $data);
+            $this->load->view($this->loc_path . 'dashboard', $data);
         } else {
             redirect($this->loc_url . '/login', 'location', 302);
         }
@@ -165,10 +165,10 @@ class App extends CI_Controller {
                 $data['msg'] = 'Fields can not be empty';
             }
         }
-        //$this->load->view($this->loc_path . 'signin', $data);
-        $baseUrl = base_url();
-        $data['body_content'] = "<sign_in baseurl={$baseUrl}></sign_in>";
-        $this->load->view($this->loc_path . 'layouts/common', $data);
+        $this->load->view($this->loc_path . 'signin', $data);
+//        $baseUrl = base_url();
+//        $data['body_content'] = "<sign_in baseurl={$baseUrl}></sign_in>";
+//        $this->load->view($this->loc_path . 'layouts/common', $data);
     }
 
     public function login_js() {
@@ -250,11 +250,11 @@ class App extends CI_Controller {
                 $data['msg'] = 'Fields can not be empty';
             }
         }
-        //$this->load->view($this->loc_path . 'signup', $data);
+        $this->load->view($this->loc_path . 'signup', $data);
         //$data['body_content'] = '<sign_up></sign_up>';
-        $baseUrl = base_url();
-        $data['body_content'] = "<sign_up baseurl={$baseUrl}></sign_up>";
-        $this->load->view($this->loc_path . 'layouts/common', $data);
+//        $baseUrl = base_url();
+//        $data['body_content'] = "<sign_up baseurl={$baseUrl}></sign_up>";
+//        $this->load->view($this->loc_path . 'layouts/common', $data);
     }
 
     public function register_js() {

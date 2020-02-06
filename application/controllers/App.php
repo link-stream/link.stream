@@ -412,8 +412,8 @@ class App extends CI_Controller {
                 file_put_contents($source . '/' . $image_name, $content);
                 //SAVE S3
                 $bucket = 'files.link.stream';
-                $path = (ENV == 'live') ? 'prod/' : 'dev/';
-                $dest_folder = 'avatar';
+                $path = (ENV == 'live') ? 'Prod/' : 'Dev/';
+                $dest_folder = 'Profile';
                 $destination = $path . $dest_folder . '/' . $image_name;
                 $s3_source = $source . '/' . $image_name;
                 $this->aws_s3->s3push($s3_source, $destination, $bucket);
@@ -473,8 +473,8 @@ class App extends CI_Controller {
                     file_put_contents($source . '/' . $image_name, $content);
                     //SAVE S3
                     $bucket = 'files.link.stream';
-                    $path = (ENV == 'live') ? 'prod/' : 'dev/';
-                    $dest_folder = 'avatar';
+                    $path = (ENV == 'live') ? 'Prod/' : 'Dev/';
+                    $dest_folder = 'Profile';
                     $destination = $path . $dest_folder . '/' . $image_name;
                     $s3_source = $source . '/' . $image_name;
                     $this->aws_s3->s3push($s3_source, $destination, $bucket);
@@ -919,7 +919,7 @@ class App extends CI_Controller {
             $file_uploades = $this->upload->data();
             //SAVE S3
             $bucket = 'files.link.stream';
-            $path = (ENV == 'live') ? 'prod/' : 'dev/';
+            $path = (ENV == 'live') ? 'Prod/' : 'Dev/';
             $destination = $path . $dest_folder . '/' . $file_uploades['file_name'];
             $s3_source = $source . '/' . $file_uploades['file_name'];
             $this->aws_s3->s3push($s3_source, $destination, $bucket);
@@ -1230,7 +1230,7 @@ class App extends CI_Controller {
     }
 
     public function audio_content($name = null) {
-        $path = (ENV == 'live') ? 'prod/media/' : 'dev/media/';
+        $path = (ENV == 'live') ? 'Prod/Audio/' : 'Dev/Audio/';
         $file = 'https://s3.us-east-2.amazonaws.com/files.link.stream/' . $path . $name;
         header("Cache-Control: no-cache, must-revalidate");
         header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
@@ -1262,7 +1262,7 @@ class App extends CI_Controller {
             $embed_url = '<div class="row"> <div class="col-md-12 p-10"><a href="' . $url . '" class="btn btn-success" target="_blank">View</a></div></div>';
         } elseif ($type == '4') {
             //Streamy
-            $path = (ENV == 'live') ? 'prod/media/' : 'dev/media/';
+            $path = (ENV == 'live') ? 'Prod/Audio/' : 'Dev/Audio/';
             $file = 'https://s3.us-east-2.amazonaws.com/files.link.stream/' . $path . $url;
             //$file = base_url() . 'app/audio_content/' . $url;
             $embed_url_old = '<audio id="myAudio">
@@ -1522,7 +1522,7 @@ class App extends CI_Controller {
         $register_user = $this->User_model->fetch_user_by_search(array('id' => $user_id));
         if (!empty($register_user['banner'])) {
             $bucket = $this->bucket;
-            $path = (ENV == 'live') ? 'prod/banner' : 'dev/banner';
+            $path = (ENV == 'live') ? 'Prod/Profile' : 'Dev/Profile';
             $s3_data = $this->aws_s3->s3_read($bucket, $path, $register_user['banner']);
             if (!empty($s3_data)) {
                 $data = $s3_data;
@@ -1544,7 +1544,7 @@ class App extends CI_Controller {
         $register_user = $this->User_model->fetch_user_by_search(array('id' => $user['id']));
         if (!empty($register_user['image'])) {
             $bucket = $this->bucket;
-            $path = (ENV == 'live') ? 'prod/avatar' : 'dev/avatar';
+            $path = (ENV == 'live') ? 'Prod/Profile' : 'Dev/Profile';
             $s3_data = $this->aws_s3->s3_read($bucket, $path, $register_user['image']);
             if (!empty($s3_data)) {
                 $data = $s3_data;
@@ -1562,7 +1562,7 @@ class App extends CI_Controller {
     }
 
     public function banner_upload_ajax() {
-        $upload = $this->s3_upload('file_photo2', 'banner');
+        $upload = $this->s3_upload('file_photo2', 'Profile');
         $user = $this->general_library->get_cookie();
         $data = array();
         $data['banner'] = $upload['file_name'];
@@ -1582,8 +1582,8 @@ class App extends CI_Controller {
         file_put_contents($source . '/' . $image_name, $croped_image);
         //SAVE S3
         $bucket = 'files.link.stream';
-        $path = (ENV == 'live') ? 'prod/' : 'dev/';
-        $dest_folder = 'avatar';
+        $path = (ENV == 'live') ? 'Prod/' : 'Dev/';
+        $dest_folder = 'Profile';
         $destination = $path . $dest_folder . '/' . $image_name;
         $s3_source = $source . '/' . $image_name;
         $this->aws_s3->s3push($s3_source, $destination, $bucket);
@@ -1874,4 +1874,117 @@ class App extends CI_Controller {
         $this->load->view($this->loc_path . 'youtube_test', $data);
     }
 
+    //NEW FUNCTIONS 02/2020
+
+    public function track_add_js() {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $user = $this->general_library->get_cookie();
+            $streamy = array();
+            $streamy['user_id'] = $user['id'];
+            $streamy['name'] = $this->input->post('song_name', TRUE);
+            $streamy['status_id'] = '1';
+            $streamy['type_id'] = '4'; //Track
+            $streamy['priority_id'] = $this->input->post('priority', TRUE);
+            $streamy['genre_id'] = $this->input->post('genre', TRUE);
+            $streamy['public'] = $this->input->post('visibility', TRUE);
+            $date = (!empty($this->input->post('date'))) ? $this->input->post('date', TRUE) : date('Y-m-d');
+            $streamy['publish_at'] = date('Y-m-d', strtotime($date));
+            $streamy['url'] = '';
+            $streamy['audio_file'] = '';
+            $streamy['coverart'] = '';
+            $streamy['prize'] = $this->input->post('prize', TRUE);
+            $streamy['track_type'] = $this->input->post('track_type', TRUE);
+            //AUDIO FILE
+            if (!empty($_FILES['input_b1']['name'])) {
+                $upload = $this->s3_upload('input_b1', 'Audio');
+                if ($upload['status']) {
+                    $streamy['audio_file'] = $upload['file_name'];
+                } else {
+                    
+                }
+            }
+            //COVERART FILE
+            if (!empty($_FILES['input_b2']['name'])) {
+                $upload = $this->s3_upload('input_b2', 'Coverart');
+                if ($upload['status']) {
+                    $streamy['coverart'] = $upload['file_name'];
+                } else {
+                    
+                }
+            }
+            $streamy_id = $this->Streamy_model->insert_streamy($streamy);
+            $this->User_model->insert_user_log(array('user_id' => $user['id'], 'event' => 'Track Added: ' . $streamy_id));
+            echo json_encode(array('status' => 'Success'));
+        }
+    }
+
+    public function link_add_js() {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $user = $this->general_library->get_cookie();
+            $streamy = array();
+            $streamy['user_id'] = $user['id'];
+            $streamy['name'] = $this->input->post('title', TRUE);
+            $streamy['status_id'] = '1';
+            $streamy['type_id'] = '3'; //Link
+            //$streamy['priority_id'] = '';
+            //$streamy['genre_id'] = '';
+            //$streamy['public'] = '';
+            //$date = (!empty($this->input->post('date'))) ? $this->input->post('date', TRUE) : date('Y-m-d');
+            //$streamy['publish_at'] = '';
+            $streamy['url'] = $this->input->post('url', TRUE);
+            //$streamy['audio_file'] = '';
+            //$streamy['coverart'] = '';
+            //$streamy['prize'] = '0.00';
+            //$streamy['track_type'] = '';
+            //$streamy['audio_file'] = '';
+            //COVERART FILE
+            if (!empty($_FILES['input_b2']['name'])) {
+                $upload = $this->s3_upload('input_b2', 'Coverart');
+                if ($upload['status']) {
+                    $streamy['coverart'] = $upload['file_name'];
+                } else {
+                    
+                }
+            }
+            $streamy_id = $this->Streamy_model->insert_streamy($streamy);
+            $this->User_model->insert_user_log(array('user_id' => $user['id'], 'event' => 'Link Added: ' . $streamy_id));
+            echo json_encode(array('status' => 'Success'));
+        }
+    }
+
+    public function video_add_js() {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $user = $this->general_library->get_cookie();
+            $streamy = array();
+            $streamy['user_id'] = $user['id'];
+            $streamy['name'] = $this->input->post('title', TRUE);
+            $streamy['status_id'] = '1';
+            $streamy['type_id'] = '2'; //Youtube
+            //$streamy['priority_id'] = '';
+            //$streamy['genre_id'] = '';
+            //$streamy['public'] = '';
+            //$date = (!empty($this->input->post('date'))) ? $this->input->post('date', TRUE) : date('Y-m-d');
+            //$streamy['publish_at'] = '';
+            $streamy['url'] = $this->input->post('url', TRUE);
+            //$streamy['audio_file'] = '';
+            //$streamy['coverart'] = '';
+            //$streamy['prize'] = '0.00';
+            //$streamy['track_type'] = '';
+            //$streamy['audio_file'] = '';
+            //$streamy['coverart'] = '';
+            $streamy_id = $this->Streamy_model->insert_streamy($streamy);
+            $this->User_model->insert_user_log(array('user_id' => $user['id'], 'event' => 'Video Added: ' . $streamy_id));
+            echo json_encode(array('status' => 'Success'));
+        }
+    }
+
+    public function content_by_id_js() {
+        if ($this->input->cookie($this->general_library->ses_name) != '') {
+            $id = $this->input->post('id', TRUE);
+            $content = $this->Streamy_model->fetch_streamy_by_id($id);
+            echo json_encode(array('status' => 'Success', 'content' => $content));
+        }
+    }
+
+    //END NEW FUNCTIONS 02/2020
 }

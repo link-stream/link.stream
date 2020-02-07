@@ -13,7 +13,7 @@
         <link href="<?= HTTP_ASSETS ?>node_modules/quasar/dist/quasar.min.css" rel="stylesheet" >
         <link href="<?= HTTP_ASSETS ?>node_modules/typeface-montserrat/index.css" rel="stylesheet" >   
     </head>
-    <body class="common-body">
+    <body>
         <div id="q-app">  
             <q-layout class="horizontal-center"> 
                 <q-page-container id="loginContainer">  

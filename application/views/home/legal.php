@@ -4,17 +4,6 @@ $this->load->view('home/_inc/header', $data);
 ?>
 <body data-spy="scroll" data-target=".scrollspy" class="bg-dark" style="overflow:  auto !important">
 
-    <!-- Preloader  -->
-<!--    <div class="loader bg-dark">
-        <div class="loader-inner ball-scale-ripple-multiple ball-scale-ripple-multiple-color">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>-->
-    <!-- /End Preloader  -->
-
-
     <div id="page">
 
         <!-- ============================
@@ -39,7 +28,7 @@ $this->load->view('home/_inc/header', $data);
 
                             <!-- Logo -->
                             <div class="p-t-b-15">
-                                <img src="<?= HTTP_ASSETS ?>solid-bg/images/streamy_logo_vertical_negative_RGB.png" width="180px" alt="streamy logo">
+                                <img src="<?= HTTP_ASSETS ?>solid-bg/images/streamy_logos_outlined_RGB_streamy_logo_vertical_negative_RGB.png" width="180px" alt="streamy logo">
                             </div>
                             <!-- /End Logo -->
 

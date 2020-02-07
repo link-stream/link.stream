@@ -1,67 +1,51 @@
 <template>
-  <div>
-    <q-card-section class="q-ma-none q-pa-none" v-show="this.$q.platform.is.mobile">
-      <div>
-        <img src="assets/images/icons/streamy-logo.svg" alt="logo" class="logo-cell">
-        <span class="logotext-cell">LINKSTREAM</span>
-      </div>
-    </q-card-section>
-    <q-card :class="[ $q.platform.is.mobile ? 'my-card-cell' : 'self-center my-card midlle' ]"  square flat bordered>
-      <div class="row">
-        <div class="col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 signin">
-          <div v-show="!this.$q.platform.is.mobile">
-            <q-card-section class="q-pa-md row justify-center" >
-              <img src="assets/images/icons/streamy-logo.svg" alt="logo" class="logo" >
-            </q-card-section>
-            <q-card-section class="q-ma-none q-pa-none row justify-center">
-              <div class="logotext">LINKSTREAM</div>
-            </q-card-section>
-          </div>          
-          <q-card-section class="col q-pa-none q-mb-md">
-            <div :class="[ $q.platform.is.mobile ? 'signintxt-cell' : 'signintxt' ]" >Sign In</div>
-          </q-card-section>
-          <q-card-section class="q-pa-none col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-            <q-form @submit.prevent.stop="onSubmit" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
-              <div class="q-mt-md">
-                <label :class="[ $q.platform.is.mobile ? 'form-cell' : 'form' ]" >Email address</label>
-                <div class="q-mt-xs row justify-center">
-                  <q-input class="q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput" v-model.trim="$v.email.$model" :error-message="emailErrors" :error="$v.email.$anyError" @input="$v.email.$touch()" 
-                  outlined square bg-color="white" bottom-slots dense type="email" id="email" name="email"></q-input>
-                </div>
-              </div>
-              <div class="q-mt-md">
-                <label :class="[ $q.platform.is.mobile ? 'form-cell' : 'form' ]" >Password</label>
-                <div class="q-mt-xs row justify-center">
-                  <q-input class="q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput" v-model.trim="$v.password.$model" :error-message="passwordErrors" :error="$v.password.$anyError" @input="$v.password.$touch()"
-                    outlined square bg-color="white" dense type="password" id="password" name="password" />
-                </div>
-              </div>
-              <q-btn class="q-mt-lg" :class="[ $q.platform.is.mobile ? 'signupbtn-cell' : 'signupbtn' ]" flat type="submit">
-                <div class="signuptxt">Sign in</div>
-              </q-btn>
-              <div class="q-mt-lg" :class="[ $q.platform.is.mobile ? 'forgotpassword-cell' : 'forgotpassword' ]">
-                <a :href="forgot">Forgot Password?</a>
+    <div>
+        <div class="top-nav">
+            <q-card-section class="q-ma-none q-pa-none logo-linkstream">            
+                <img :src="'assets/images/icons/streamy-logo.svg'" alt="logo" class="streamy-icon">
+                <span class="linkstream">LINKSTREAM</span>
+            </q-card-section>            
+        </div>
+        <div class="container">
+            <q-card-section class="row justify-center social-sign-up-options">                      
+                <q-btn align="left" class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 rectangle" no-caps flat type="a" :href="instagram">
+                    <q-icon left class="q-mr-xl icon-instagram" name="img:assets/images/icons/icon-instagram.svg" />
+                    <div class="social-btn-txt">Sign in with Instagram</div>
+                </q-btn>
+                <q-btn align="left" class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sign-up-with-google" no-caps flat type="a" href="#">
+                    <q-icon left class="q-mr-xl icon-google" name="img:assets/images/icons/icon-google.svg" /> 
+                    <div class="social-btn-txt q-ml-md">Sign in with Google</div>
+                </q-btn>  
+                <div align="center" class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sign-in-with-email">Or sign in with your email</div>   
+            </q-card-section>                      
+        </div>
+        <q-card-section class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 card-form">
+            <q-form @submit.prevent.stop="onSubmit" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false" class="user-form">    
+              <label class="input-label">Email Address</label>  
+              <q-input class="col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input" outlined square bottom-slots  type="email" id="email" name="email"
+              color="dark" v-model.trim="$v.email.$model" :error-message="emailErrors" :error="$v.email.$anyError" />     
+              <label class="input-label" >Password</label>
+              <q-input class="col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input" outlined square bg-color="white" type="password" id="password" name="password"
+              color="dark" :type="isPwd ? 'password' : 'text'" v-model.trim="$v.password.$model" :error-message="passwordErrors" :error="$v.password.$anyError">
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwd ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwd = !isPwd"
+                  />
+                </template>
+              </q-input>
+              <div class="row justify-center">
+                <q-btn class="btn-sign-in" flat type="submit">
+                  <div class="txt-sign-in">Sign in</div>
+                </q-btn>                
               </div>
             </q-form>
-          </q-card-section>
-        </div>
-        <div class="col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" :class="[ $q.platform.is.mobile ? 'streamylink-cell' : 'streamylink' ]">
-          <q-card-section :class="[ $q.platform.is.mobile ? 'row justify-center q-py-lg' : 'q-pa-lg row justify-center btnemails' ]">
-            <q-btn class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btnemail" no-caps flat type="a" :href="register">
-              <div>Sign up with email</div>
+            <q-btn class="row justify-center" flat type="a" :href="forgot" no-caps unelevated dense color="white">
+              <div class="forgot-password">Forgot Password?</div>
             </q-btn>
-            <q-btn class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btninstagram" no-caps flat type="a" :href="instagram">
-              <div>Sign up with Instagram</div>
-            </q-btn>
-            <q-btn class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btngoogle" no-caps flat type="a" href="#">
-              <div>Sign up with Google</div>
-            </q-btn>
-          </q-card-section>
-        </div>
-      </div>
-    </q-card>
-  </div>
-  
+        </q-card-section>  
+    </div>
 </template>
 <script>
 import axios from "../../../../assets/node_modules/axios";
@@ -83,7 +67,8 @@ export default {
       login: this.baseurl + 'login',
       forgot: this.baseurl + 'forgot',
       register: this.baseurl + 'register',
-      instagram: this.baseurl + 'instagram_register'
+      instagram: this.baseurl + 'instagram_register', 
+      isPwd: true     
     };
   },
   validations: {
@@ -97,24 +82,17 @@ export default {
     }
   },
   computed: {
-    emailErrors() {
+    emailErrors () {
       if (!this.$v.email.required) return '* Required';
       if (!this.$v.email.email) return 'You must enter a valid email address';
     },
-    passwordErrors() {
+    passwordErrors () {
       if (!this.$v.password.required) return '* Required';
       if (!this.$v.password.minLength) return 'The password must have at least 8 characters';
     }
   },
-  mounted() {
-    if (this.$q.platform.is.mobile) {    
-      document.getElementById('loginContainer').className = '';     
-    } else {      
-      document.getElementById('loginContainer').className = 'vertical-center'; 
-    }
-  },
-  methods: {
-    onSubmit() {
+  methods: {    
+    onSubmit () {
       this.$v.$touch();
       if (!this.$v.$anyError) {
         let formData = new FormData();
@@ -142,7 +120,7 @@ export default {
       }
     }
   }
-};
+}
 </script> 
 <style>
 </style>

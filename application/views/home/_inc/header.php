@@ -6,11 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
         <!-- Title of Website -->
-        <title>Your Streams Come True - Streamy</title>
+        <title>Your Streams Come True - LinkStream</title>
 
-        <meta name="description" content="Streamy is changing the way social media and streaming music work together to help connect audiences and support artists."/>
-        <meta name="keywords" content="streamy, soundcloud alternative, spotify alternative, music, online, listen, streaming, play, digital, album, artist, playlist"/>
-        <meta name="author" content="Streamy">
+        <meta name="description" content="LinkStream is changing the way social media and streaming music work together to help connect audiences and support artists."/>
+        <meta name="keywords" content="linkstream, stream, link, soundcloud alternative, spotify alternative, music, online, listen, streaming, play, digital, album, artist, playlist"/>
+        <meta name="author" content="LinkStream">
 
         <!-- Favicon -->
         <link rel="icon" href="<?= HTTP_ASSETS ?>images/favicon/streamy_favicon_color.png" type="image/png">

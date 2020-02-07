@@ -17,13 +17,8 @@ and open the template in the editor.
   height: 20px;
 }
 
-@font-face {
-  font-family: customfont;
-  src: url(./fonts/typeface-montserrat/files/montserrat-latin-400.woff);
-}
-
 .font-menu {
-  font-family: 'customfont';
+  font-family: Montserrat;
   color: #9d9d9d;
   font-weight: 600;
   font-size: 14px;
@@ -33,7 +28,7 @@ and open the template in the editor.
 }
 
 .font-submenu {
-  font-family: 'customfont';
+  font-family: Montserrat;
   color: #ffffff;
   font-size: 12px;
   font-weight: 600;
@@ -46,165 +41,225 @@ and open the template in the editor.
   border-left: 6px solid #fdd311;
 }
 
-/*region Sign-in/Sign-up*/
-  .common-body {
-    background-color: rgb(0,0,0); 
+/*region Login New Design*/
+  .top-nav {
+    height: 80px;
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    margin: 0;
   }
 
-  .vertical-center {
+  .logo-linkstream {	
+    height: 34px;	
+    width: 165px;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -251px 0 0 -339px;   
+    margin-top: 23px;       
   }
 
-  .my-card {    
-    height: 503px;	
-    max-width: 678px;     
-    background-color: #FFFFFF;
-    border-color: #F5F5F5;    
+  .streamy-icon {	
+    display:inline-block;
+    vertical-align:middle;
+    height: 32.28px;	
+    width: 28.79px;
   }
 
-  .my-card-cell {   
-    padding: 0;
-    background-color: #FFFFFF;
-    border-color: #F5F5F5; 
-    margin: 0 auto;   
-  }
-
-  .streamylink {
-    background-color: #F5F5F5;
-    height: 502px !important;
-  }
-
-  .signin {
-    background-color: #FFFFFF;
-    height: 503px;	
-  }
-
-  .logo {
-    width: 52px;
-    height: 52px;
-    margin-top: 20px;
-  }
-
-  .logotext {     
-    color: #000000;	
+  .linkstream {	
+    height: 18px;	
+    width: 119px;	
+    color: #FFFFFF;	
     font-family: Montserrat;	
-    font-size: 16px;	
-    font-weight: bold;	
-    letter-spacing: 0.12px;	
-    line-height: 24px;    
+    font-size: 14px;	
+    font-weight: 900;	
+    letter-spacing: 2px;	
+    line-height: 18px;    
+    display:inline-block;
+    vertical-align:middle;
+    margin-left: 10px;
   }
 
-  .btnemail {
-    box-sizing: border-box;	
-    height: 37px;	
-    width: 272px;	
-    border: 2px solid #915EC6;	
-    border-radius: 25px;
-    color: #915EC6 !important;	
-    font-family: Montserrat;	
-    font-size: 13px;	
-    font-weight: 500;	
-    line-height: 16px;
-  }
-
-  .btninstagram {
-    box-sizing: border-box;	
-    height: 37px;	
-    width: 272px;	
-    border: 2px solid #3897F1;	
-    border-radius: 25px;
-    color: #3898EF !important;	
-    font-family: Montserrat;	
-    font-size: 13px;	
-    font-weight: 500;	
-    line-height: 16px;	
-    text-align: center;
-  }
-
-  .btngoogle {
-    box-sizing: border-box;	
-    height: 37px;	
-    width: 272px;	
-    border: 2px solid #F1736C;	
-    border-radius: 25px;
-    color: #F1736C !important;	
-    font-family: Montserrat;	
-    font-size: 13px;	
-    font-weight: 500;	
-    line-height: 16px;	
-    text-align: center;
-  }
-
-  .signintxt {	
+  .container {
+    display: flex;
+    justify-content: center;
+    height: 180px;
     margin-top: 30px;
-    margin-left: 30px;
+  }
+
+  .social-sign-up-options {	    	
+    width: 500px; 
+    height: 180px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .rectangle {	
+    height: 50px !important;	
+    width: 300px !important;	
+    border-radius: 25px;	
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #A624D2 0%, #CE5353 47.8%, #FFB02D 100%);
+  }
+
+  .sign-up-with-google {	
+    height: 50px !important;	
+    width: 300px !important;	
+    border-radius: 25px;	
+    background-color: #D44C4C;
+  }
+
+  .social-btn-txt {	
+    height: 18px;	    
+    color: #FFFFFF;	
+    font-family: Montserrat;	
+    font-size: 14px;	
+    font-weight: 600;	
+    line-height: 18px;	
+    text-align: center;
+  }  
+
+  .icon-instagram {	
+    height: 18px;	
+    width: 18px;
+  }
+
+  .icon-google {	
+    height: 14.4px;	
+    width: 14.4px;
+  }
+
+  .sign-in-with-email {	
     height: 24px;	
-    width: 150px;	
+    width: 220px;	
     color: #000000;	
     font-family: Montserrat;	
     font-size: 16px;	
     font-weight: bold;	
     letter-spacing: 0.12px;	
-    line-height: 24px;
+    line-height: 24px;   
+    margin-top: 20px; 
   }
 
-  .form {	
+  .card-form {
+    margin-top: 20px;
+    padding: 0;
+  }
+
+  .input-label {	    
     color: #000000;	
     font-family: Montserrat;	
     font-size: 14px;	
+    letter-spacing: 0.11px;
+    line-height: 24px;
+  }
+
+  .user-form {
+    width: 350px;
+    height: 180px;
+    margin: 0 auto;
+    padding: 0;    
+  }
+
+  .form-input {	
+    height: 42px;	
+    wmax-width: 350px;	
+    background-color: #FFFFFF;  
+    padding: 0;
+    margin-top: 10px;
+    margin-bottom: 25px;
+  }
+
+  .btn-sign-in {
+    height: 50px;	
+    width: 300px;	
+    border-radius: 25px;	
+    background-color: #DC2EA6;
+    margin-top: 15px;
+  }
+  
+  .txt-sign-in {    
+    color: #FFFFFF;	
+    font-family: Montserrat;	
+    font-size: 13px;	
+    font-weight: bold;	
+    letter-spacing: 1.85px;	
+    line-height: 16px;	
+    text-align: center;
+  }
+
+  .forgot-password {	
+    color: #DC2EA6;	
+    font-family: Montserrat;	
+    font-size: 14px;	
+    font-weight: 500;	
     letter-spacing: 0.11px;	
     line-height: 24px;
-    margin-left: 30px;
+    margin-top: 100px;
   }
 
-  .forminput {	
-    width: 280px;
+  .sign-up-terms {	
+    height: 32px;	
+    color: #333333;	
+    font-family: Montserrat;	
+    font-size: 11px;	
+    line-height: 16px; 
+    text-align: center;
+    padding-left: 40px;
+    padding-right: 40px;
   }
 
-  .signup {	
-    margin-top: 40px;
-    margin-left: 30px;
-    height: 24px;	
-    width: 67px;	
+  .link-login {
+    color: #DC2EA6;
+    text-decoration: none;
+  }
+
+  .already-sign-up {	
+    height: 18px;    
     color: #000000;	
     font-family: Montserrat;	
+    font-size: 13px;	
+    font-weight: 500;	
+    letter-spacing: 0.1px;	
+    line-height: 18px;	
+    text-align: center;
+    margin-bottom: 20px;
+  }  
+
+  .txt-login-big {	
+    height: 68px;	
+    color: #000000;	
+    font-family: Montserrat;	
+    font-size: 30px;	
+    font-weight: 800;	
+    line-height: 34px;	
+    text-align: center;
+    margin-top: 35px;
+  }
+
+  .enter-email {	
+    height: 56px;
+    color: #333333;	
+    font-family: Montserrat;	
     font-size: 16px;	
-    font-weight: bold;	
-    letter-spacing: 0.12px;	
-    line-height: 24px;
+    line-height: 28px;	
+    text-align: center;
+    padding-left: 45px;
+    padding-right: 45px;
   }
 
-  .signinbtn {
+  .card-forgot {
+    padding: 0;
+  }
+
+  .btn-reset {	
     height: 50px;	
-    width: 156px;
-    margin-left: 30px;
-    border-radius: 25px;
+    width: 170px;	
+    border-radius: 25px;	
     background-color: #DC2EA6;
+    margin-top: 35px;
   }
 
-  .signupbtn {
-    height: 50px;	
-    width: 156px;
-    margin-left: 30px;
-    border-radius: 25px;
-    background-color: #DC2EA6;
-  }
-
-  .forgotbtn {
-    height: 50px;	
-    width: 250px;
-    margin-left: 30px;
-    border-radius: 25px;
-    text-justify: auto;
-    background-color: #DC2EA6;
-  }
-
-  .signuptxt {	
+  .txt-reset {	
     height: 18px;	
-    width: 200px;	
     color: #FFFFFF;	
     font-family: Montserrat;	
     font-size: 14px;	
@@ -213,220 +268,28 @@ and open the template in the editor.
     line-height: 18px;	
     text-align: center;
   }
-
-  .btnemails {
-    margin-top: 175px;
+  
+  .txt-confirm-email {
+    padding-left: 60px;
+    padding-right: 60px;
+    margin-top: 15px;
   }
 
-  .forgotpassword {
-    color: #000000;	
+  .resend-confirmation {	
+    height: 18px;	
+    width: 197px;	
     font-family: Montserrat;	
     font-size: 14px;	
+    font-weight: 500;	
     letter-spacing: 0.11px;	
-    line-height: 24px;
-    margin-left: 25px;        
+    line-height: 18px;	
+    text-align: center;
+    margin-top: 30px;
   }
 
-  a:link {
-    color: #000000;	
-  } 
-
-  @media (max-width: 38em) {
-    .my-card {   
-      padding: 0;
-      background-color: #FFFFFF;
-      border-color: #F5F5F5; 
-      height: 188px;
-    }
-
-    .verticalCenter {
-      margin: 0 auto;     
-    }
-
-    .logo {
-      margin-top: 24px;
-      padding: 0;
-      height: 32.28px;	
-      width: 28.79px;
-      display:inline-block;
-      vertical-align:middle;
-    }
-
-    .streamylink-cell {
-      background-color: #F5F5F5;
-      height: 188px !important;	
-      order: 2;
-    }
-
-    .logo-cell {
-      margin-left: 30%;
-      margin-top: 30px;
-      margin-bottom: 24px;
-      padding: 0;
-      height: 32.28px;	
-      width: 28.79px;
-      display:inline-block;
-      vertical-align:middle;
-    }
-
-    .logotext-cell {     
-      height: 18px;	
-      width: 109px;	
-      color: #FFFFFF;	
-      font-family: Montserrat;	
-      font-size: 14px;	
-      font-weight: 900;	
-      letter-spacing: 1px;	
-      line-height: 18px;
-      display:inline-block;
-      vertical-align:middle;
-      margin-top: 24px;
-      margin-left: 10px;
-      margin-bottom: 24px;
-    }    
-
-    .signintxt-cell {	
-      margin-top: 30px;
-      margin-left: 20px;
-      height: 24px;	
-      width: 59px;	
-      color: #000000;	
-      font-family: Montserrat;	
-      font-size: 16px;	
-      font-weight: bold;	
-      letter-spacing: 0.12px;	
-      line-height: 24px;
-    }
-
-    .forgot-cell {	
-      margin-top: 30px;
-      margin-left: 20px;
-      height: 24px;	
-      width: 150px;	
-      color: #000000;	
-      font-family: Montserrat;	
-      font-size: 16px;	
-      font-weight: bold;	
-      letter-spacing: 0.12px;	
-      line-height: 24px;
-    }    
-
-    .form {	
-      color: #000000;	
-      font-family: Montserrat;	
-      font-size: 14px;	
-      letter-spacing: 0.11px;	
-      line-height: 24px;
-      margin-left: 20px;
-    }
-
-    .signinbtn {
-      height: 50px;	
-      width: 156px;
-      margin-left: 20px;
-      border-radius: 25px;
-      background-color: #DC2EA6;
-    }
-
-    .signupbtn {
-      height: 50px;	
-      width: 156px;
-      margin-left: 20px;
-      margin-bottom: 20px;
-      border-radius: 25px;
-      background-color: #DC2EA6;
-    }
-
-    .forgotpassword {
-      color: #000000;	
-      font-family: Montserrat;	
-      font-size: 14px;	
-      letter-spacing: 0.11px;	
-      line-height: 24px;
-      margin-left: 20px;
-      margin-bottom: 30px;        
-    }   
-    
-    .signin {
-      order: 1;
-    }
-
-    .signinbtn {
-      height: 50px;	
-      width: 156px;
-      margin-left: 20px;
-      border-radius: 25px;
-      background-color: #DC2EA6;
-    }
-  }
-
-  @media (max-width: 40em) {
-    .my-card {
-      height: 503px;	
-      max-width: 539px;     
-      background-color: #FFFFFF;
-      border-color: #F5F5F5;  
-    }
-
-    .vertical-center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin: -250px 0 0 -269px;   
-    }
-
-    .streamylink{
-      background-color: #F5F5F5;
-      height: 499px;
-    }
-
-    .streamylink-up {
-      background-color: #F5F5F5;
-      height: 503px;
-    }
-
-    .logo {
-      width: 52px;
-      height: 52px;
-    }
-  
-    .logotext {     
-      color: #000000;	
-      font-family: Montserrat;	
-      font-size: 16px;	
-      font-weight: bold;	
-      letter-spacing: 0.12px;	
-      line-height: 24px;   
-      margin-bottom: 10px;
-    }
-
-    .forgotbtn {
-      width: 205px;
-    }    
-
-    .signintxt {	
-      margin-top: 10;      
-      margin-left: 30px;
-      height: 24px;	
-      width: 150px;	
-      color: #000000;	
-      font-family: Montserrat;	
-      font-size: 16px;	
-      font-weight: bold;	
-      letter-spacing: 0.12px;	
-      line-height: 24px;
-    }
-
-    .signupbtn {
-      height: 50px;	
-      width: 156px;
-      margin-left: 20px;
-      border-radius: 25px;
-      background-color: #DC2EA6;
-    }
-
-  } 
 /*endregion*/
+
+
 
 
 

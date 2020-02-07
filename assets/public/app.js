@@ -362,17 +362,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./css/fonts/typeface-montserrat/files/montserrat-latin-400.woff":
-/*!***********************************************************************!*\
-  !*** ./css/fonts/typeface-montserrat/files/montserrat-latin-400.woff ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/fonts/montserrat-latin-400.woff?8102c4838f9e3d08dad644290a9cb701";
-
-/***/ }),
-
 /***/ "./css/streamy.css":
 /*!*************************!*\
   !*** ./css/streamy.css ***!
@@ -2458,32 +2447,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2500,9 +2463,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       forgot: this.baseurl + "forgot",
       index: this.baseurl + "index",
       register: this.baseurl + "register",
-      instagram: this.baseurl + "instagram_register",
-      windowWidth: 0,
-      windowHeight: 0
+      instagram: this.baseurl + "instagram_register"
     };
   },
   validations: {
@@ -2516,26 +2477,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (!this.$v.email.email) return "You must enter a valid email address";
     }
   },
-  mounted: function mounted() {
-    this.$nextTick(function () {
-      window.addEventListener('resize', this.getWindowWidth);
-      window.addEventListener('resize', this.getWindowHeight);
-      this.getWindowWidth();
-      this.getWindowHeight();
-    });
-  },
   methods: {
-    getWindowWidth: function getWindowWidth(event) {
-      this.windowWidth = document.documentElement.clientWidth;
-      this.windowWidth >= 600 ? document.getElementById('loginContainer').className = 'vertical-center' : document.getElementById('loginContainer').className = '';
-    },
-    getWindowHeight: function getWindowHeight(event) {
-      this.windowHeight = document.documentElement.clientHeight;
-    },
-    beforeDestroy: function beforeDestroy() {
-      window.removeEventListener('resize', this.getWindowWidth);
-      window.removeEventListener('resize', this.getWindowHeight);
-    },
     onSubmit: function onSubmit() {
       this.$v.$touch();
 
@@ -2608,20 +2550,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2642,8 +2570,7 @@ __webpack_require__.r(__webpack_exports__);
       forgot: this.baseurl + 'forgot',
       register: this.baseurl + 'register',
       instagram: this.baseurl + 'instagram_register',
-      windowWidth: 0,
-      windowHeight: 0
+      isPwd: true
     };
   },
   validations: {
@@ -2666,26 +2593,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.$v.password.minLength) return 'The password must have at least 8 characters';
     }
   },
-  mounted: function mounted() {
-    this.$nextTick(function () {
-      window.addEventListener('resize', this.getWindowWidth);
-      window.addEventListener('resize', this.getWindowHeight);
-      this.getWindowWidth();
-      this.getWindowHeight();
-    });
-  },
   methods: {
-    getWindowWidth: function getWindowWidth(event) {
-      this.windowWidth = document.documentElement.clientWidth;
-      this.windowWidth >= 600 ? document.getElementById('loginContainer').className = 'vertical-center' : document.getElementById('loginContainer').className = '';
-    },
-    getWindowHeight: function getWindowHeight(event) {
-      this.windowHeight = document.documentElement.clientHeight;
-    },
-    beforeDestroy: function beforeDestroy() {
-      window.removeEventListener('resize', this.getWindowWidth);
-      window.removeEventListener('resize', this.getWindowHeight);
-    },
     onSubmit: function onSubmit() {
       var _this = this;
 
@@ -2789,33 +2697,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2834,14 +2715,14 @@ __webpack_require__.r(__webpack_exports__);
       repassword: "",
       bdUsername: "",
       bdEmail: "",
+      login: this.baseurl + 'login',
       index: this.baseurl + "index",
       register: this.baseurl + "register",
       instagram: this.baseurl + "instagram_register",
+      forgot: this.baseurl + 'forgot',
       loading: false,
       loadingUsername: false,
-      loadingEmail: false,
-      windowWidth: 0,
-      windowHeight: 0
+      loadingEmail: false
     };
   },
   validations: {
@@ -2898,26 +2779,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.$v.repassword.repassword) return "The password does not match";
     }
   },
-  mounted: function mounted() {
-    this.$nextTick(function () {
-      window.addEventListener('resize', this.getWindowWidth);
-      window.addEventListener('resize', this.getWindowHeight);
-      this.getWindowWidth();
-      this.getWindowHeight();
-    });
-  },
   methods: {
-    getWindowWidth: function getWindowWidth(event) {
-      this.windowWidth = document.documentElement.clientWidth;
-      this.windowWidth >= 600 ? document.getElementById('loginContainer').className = 'vertical-center' : document.getElementById('loginContainer').className = '';
-    },
-    getWindowHeight: function getWindowHeight(event) {
-      this.windowHeight = document.documentElement.clientHeight;
-    },
-    beforeDestroy: function beforeDestroy() {
-      window.removeEventListener('resize', this.getWindowWidth);
-      window.removeEventListener('resize', this.getWindowHeight);
-    },
     onChangedUsername: function onChangedUsername(value) {
       var _this = this;
 
@@ -2984,7 +2846,6 @@ __webpack_require__.r(__webpack_exports__);
       this.$v.username.$touch();
 
       if (!this.$v.$anyError) {
-        console.log('ssss');
         this.loading = true;
         var formData = new FormData();
         formData.append('username', this.username);
@@ -3052,13 +2913,12 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var escape = __webpack_require__(/*! ../node_modules/css-loader/lib/url/escape.js */ "./node_modules/css-loader/lib/url/escape.js");
 exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, "/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\r\n/* \r\n    Created on : Dec 8, 2019, 8:27:55 AM\r\n    Author     : paolo\r\n*/\r\n.streamy_logo {\r\n  width: 60px;\r\n  height: 60px;\r\n}\r\n\r\n.menu_icon {\r\n  width: 20px;\r\n  height: 20px;\r\n}\r\n\r\n@font-face {\r\n  font-family: customfont;\r\n  src: url(" + escape(__webpack_require__(/*! ./fonts/typeface-montserrat/files/montserrat-latin-400.woff */ "./css/fonts/typeface-montserrat/files/montserrat-latin-400.woff")) + ");\r\n}\r\n\r\n.font-menu {\r\n  font-family: 'customfont';\r\n  color: #9d9d9d;\r\n  font-weight: 600;\r\n  font-size: 14px;\r\n  letter-spacing: 0.11px;\r\n  line-height: 18px;\r\n  text-align: center;\r\n}\r\n\r\n.font-submenu {\r\n  font-family: 'customfont';\r\n  color: #ffffff;\r\n  font-size: 12px;\r\n  font-weight: 600;\r\n  letter-spacing: 0.09px;\r\n  line-height: 32px;\r\n  text-align: left;\r\n}\r\n\r\n.my-menu-link {\r\n  border-left: 6px solid #fdd311;\r\n}\r\n\r\n/*region Sign-in/Sign-up*/\r\n  .common-body {\r\n    background-color: rgb(0,0,0); \r\n  }\r\n\r\n  .vertical-center {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    margin: -251px 0 0 -339px;   \r\n  }\r\n\r\n  .my-card {    \r\n    height: 503px;\t\r\n    max-width: 678px;     \r\n    background-color: #FFFFFF;\r\n    border-color: #F5F5F5;    \r\n  }\r\n\r\n  .my-card-cell {   \r\n    padding: 0;\r\n    background-color: #FFFFFF;\r\n    border-color: #F5F5F5; \r\n    margin: 0 auto;   \r\n  }\r\n\r\n  .streamylink {\r\n    background-color: #F5F5F5;\r\n    height: 502px !important;\r\n  }\r\n\r\n  .signin {\r\n    background-color: #FFFFFF;\r\n    height: 503px;\t\r\n  }\r\n\r\n  .logo {\r\n    width: 52px;\r\n    height: 52px;\r\n    margin-top: 20px;\r\n  }\r\n\r\n  .logotext {     \r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 16px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 0.12px;\t\r\n    line-height: 24px;    \r\n  }\r\n\r\n  .btnemail {\r\n    box-sizing: border-box;\t\r\n    height: 37px;\t\r\n    width: 272px;\t\r\n    border: 2px solid #915EC6;\t\r\n    border-radius: 25px;\r\n    color: #915EC6 !important;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 13px;\t\r\n    font-weight: 500;\t\r\n    line-height: 16px;\r\n  }\r\n\r\n  .btninstagram {\r\n    box-sizing: border-box;\t\r\n    height: 37px;\t\r\n    width: 272px;\t\r\n    border: 2px solid #3897F1;\t\r\n    border-radius: 25px;\r\n    color: #3898EF !important;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 13px;\t\r\n    font-weight: 500;\t\r\n    line-height: 16px;\t\r\n    text-align: center;\r\n  }\r\n\r\n  .btngoogle {\r\n    box-sizing: border-box;\t\r\n    height: 37px;\t\r\n    width: 272px;\t\r\n    border: 2px solid #F1736C;\t\r\n    border-radius: 25px;\r\n    color: #F1736C !important;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 13px;\t\r\n    font-weight: 500;\t\r\n    line-height: 16px;\t\r\n    text-align: center;\r\n  }\r\n\r\n  .signintxt {\t\r\n    margin-top: 30px;\r\n    margin-left: 30px;\r\n    height: 24px;\t\r\n    width: 150px;\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 16px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 0.12px;\t\r\n    line-height: 24px;\r\n  }\r\n\r\n  .form {\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    letter-spacing: 0.11px;\t\r\n    line-height: 24px;\r\n    margin-left: 30px;\r\n  }\r\n\r\n  .forminput {\t\r\n    width: 280px;\r\n  }\r\n\r\n  .signup {\t\r\n    margin-top: 40px;\r\n    margin-left: 30px;\r\n    height: 24px;\t\r\n    width: 67px;\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 16px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 0.12px;\t\r\n    line-height: 24px;\r\n  }\r\n\r\n  .signinbtn {\r\n    height: 50px;\t\r\n    width: 156px;\r\n    margin-left: 30px;\r\n    border-radius: 25px;\r\n    background-color: #DC2EA6;\r\n  }\r\n\r\n  .signupbtn {\r\n    height: 50px;\t\r\n    width: 156px;\r\n    margin-left: 30px;\r\n    border-radius: 25px;\r\n    background-color: #DC2EA6;\r\n  }\r\n\r\n  .forgotbtn {\r\n    height: 50px;\t\r\n    width: 250px;\r\n    margin-left: 30px;\r\n    border-radius: 25px;\r\n    text-justify: auto;\r\n    background-color: #DC2EA6;\r\n  }\r\n\r\n  .signuptxt {\t\r\n    height: 18px;\t\r\n    width: 200px;\t\r\n    color: #FFFFFF;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 2px;\t\r\n    line-height: 18px;\t\r\n    text-align: center;\r\n  }\r\n\r\n  .btnemails {\r\n    margin-top: 175px;\r\n  }\r\n\r\n  .forgotpassword {\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    letter-spacing: 0.11px;\t\r\n    line-height: 24px;\r\n    margin-left: 25px;        \r\n  }\r\n\r\n  a:link {\r\n    color: #000000;\t\r\n  } \r\n\r\n  @media (max-width: 38em) {\r\n    .my-card {   \r\n      padding: 0;\r\n      background-color: #FFFFFF;\r\n      border-color: #F5F5F5; \r\n      height: 188px;\r\n    }\r\n\r\n    .verticalCenter {\r\n      margin: 0 auto;     \r\n    }\r\n\r\n    .logo {\r\n      margin-top: 24px;\r\n      padding: 0;\r\n      height: 32.28px;\t\r\n      width: 28.79px;\r\n      display:inline-block;\r\n      vertical-align:middle;\r\n    }\r\n\r\n    .streamylink-cell {\r\n      background-color: #F5F5F5;\r\n      height: 188px !important;\t\r\n      order: 2;\r\n    }\r\n\r\n    .logo-cell {\r\n      margin-left: 30%;\r\n      margin-top: 30px;\r\n      margin-bottom: 24px;\r\n      padding: 0;\r\n      height: 32.28px;\t\r\n      width: 28.79px;\r\n      display:inline-block;\r\n      vertical-align:middle;\r\n    }\r\n\r\n    .logotext-cell {     \r\n      height: 18px;\t\r\n      width: 109px;\t\r\n      color: #FFFFFF;\t\r\n      font-family: Montserrat;\t\r\n      font-size: 14px;\t\r\n      font-weight: 900;\t\r\n      letter-spacing: 1px;\t\r\n      line-height: 18px;\r\n      display:inline-block;\r\n      vertical-align:middle;\r\n      margin-top: 24px;\r\n      margin-left: 10px;\r\n      margin-bottom: 24px;\r\n    }    \r\n\r\n    .signintxt-cell {\t\r\n      margin-top: 30px;\r\n      margin-left: 20px;\r\n      height: 24px;\t\r\n      width: 59px;\t\r\n      color: #000000;\t\r\n      font-family: Montserrat;\t\r\n      font-size: 16px;\t\r\n      font-weight: bold;\t\r\n      letter-spacing: 0.12px;\t\r\n      line-height: 24px;\r\n    }\r\n\r\n    .forgot-cell {\t\r\n      margin-top: 30px;\r\n      margin-left: 20px;\r\n      height: 24px;\t\r\n      width: 150px;\t\r\n      color: #000000;\t\r\n      font-family: Montserrat;\t\r\n      font-size: 16px;\t\r\n      font-weight: bold;\t\r\n      letter-spacing: 0.12px;\t\r\n      line-height: 24px;\r\n    }    \r\n\r\n    .form {\t\r\n      color: #000000;\t\r\n      font-family: Montserrat;\t\r\n      font-size: 14px;\t\r\n      letter-spacing: 0.11px;\t\r\n      line-height: 24px;\r\n      margin-left: 20px;\r\n    }\r\n\r\n    .signinbtn {\r\n      height: 50px;\t\r\n      width: 156px;\r\n      margin-left: 20px;\r\n      border-radius: 25px;\r\n      background-color: #DC2EA6;\r\n    }\r\n\r\n    .signupbtn {\r\n      height: 50px;\t\r\n      width: 156px;\r\n      margin-left: 20px;\r\n      margin-bottom: 20px;\r\n      border-radius: 25px;\r\n      background-color: #DC2EA6;\r\n    }\r\n\r\n    .forgotpassword {\r\n      color: #000000;\t\r\n      font-family: Montserrat;\t\r\n      font-size: 14px;\t\r\n      letter-spacing: 0.11px;\t\r\n      line-height: 24px;\r\n      margin-left: 20px;\r\n      margin-bottom: 30px;        \r\n    }   \r\n    \r\n    .signin {\r\n      order: 1;\r\n    }\r\n\r\n    .signinbtn {\r\n      height: 50px;\t\r\n      width: 156px;\r\n      margin-left: 20px;\r\n      border-radius: 25px;\r\n      background-color: #DC2EA6;\r\n    }\r\n  }\r\n\r\n  @media (max-width: 40em) {\r\n    .my-card {\r\n      height: 503px;\t\r\n      max-width: 539px;     \r\n      background-color: #FFFFFF;\r\n      border-color: #F5F5F5;  \r\n    }\r\n\r\n    .vertical-center {\r\n      position: absolute;\r\n      top: 50%;\r\n      left: 50%;\r\n      margin: -250px 0 0 -269px;   \r\n    }\r\n\r\n    .streamylink{\r\n      background-color: #F5F5F5;\r\n      height: 499px;\r\n    }\r\n\r\n    .streamylink-up {\r\n      background-color: #F5F5F5;\r\n      height: 503px;\r\n    }\r\n\r\n    .logo {\r\n      width: 52px;\r\n      height: 52px;\r\n    }\r\n  \r\n    .logotext {     \r\n      color: #000000;\t\r\n      font-family: Montserrat;\t\r\n      font-size: 16px;\t\r\n      font-weight: bold;\t\r\n      letter-spacing: 0.12px;\t\r\n      line-height: 24px;   \r\n      margin-bottom: 10px;\r\n    }\r\n\r\n    .forgotbtn {\r\n      width: 205px;\r\n    }    \r\n\r\n    .signintxt {\t\r\n      margin-top: 10;      \r\n      margin-left: 30px;\r\n      height: 24px;\t\r\n      width: 150px;\t\r\n      color: #000000;\t\r\n      font-family: Montserrat;\t\r\n      font-size: 16px;\t\r\n      font-weight: bold;\t\r\n      letter-spacing: 0.12px;\t\r\n      line-height: 24px;\r\n    }\r\n\r\n    .signupbtn {\r\n      height: 50px;\t\r\n      width: 156px;\r\n      margin-left: 20px;\r\n      border-radius: 25px;\r\n      background-color: #DC2EA6;\r\n    }\r\n\r\n  } \r\n/*endregion*/\r\n\r\n\r\n\r\n\r\n\r\n", ""]);
+exports.push([module.i, "/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\r\n/* \r\n    Created on : Dec 8, 2019, 8:27:55 AM\r\n    Author     : paolo\r\n*/\r\n.streamy_logo {\r\n  width: 60px;\r\n  height: 60px;\r\n}\r\n\r\n.menu_icon {\r\n  width: 20px;\r\n  height: 20px;\r\n}\r\n\r\n.font-menu {\r\n  font-family: Montserrat;\r\n  color: #9d9d9d;\r\n  font-weight: 600;\r\n  font-size: 14px;\r\n  letter-spacing: 0.11px;\r\n  line-height: 18px;\r\n  text-align: center;\r\n}\r\n\r\n.font-submenu {\r\n  font-family: Montserrat;\r\n  color: #ffffff;\r\n  font-size: 12px;\r\n  font-weight: 600;\r\n  letter-spacing: 0.09px;\r\n  line-height: 32px;\r\n  text-align: left;\r\n}\r\n\r\n.my-menu-link {\r\n  border-left: 6px solid #fdd311;\r\n}\r\n\r\n/*region Login New Design*/\r\n  .top-nav {\r\n    height: 80px;\r\n    background-color: #000000;\r\n    display: flex;\r\n    justify-content: center;\r\n    margin: 0;\r\n  }\r\n\r\n  .logo-linkstream {\t\r\n    height: 34px;\t\r\n    width: 165px;\r\n    position: absolute;\r\n    margin-top: 23px;       \r\n  }\r\n\r\n  .streamy-icon {\t\r\n    display:inline-block;\r\n    vertical-align:middle;\r\n    height: 32.28px;\t\r\n    width: 28.79px;\r\n  }\r\n\r\n  .linkstream {\t\r\n    height: 18px;\t\r\n    width: 119px;\t\r\n    color: #FFFFFF;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    font-weight: 900;\t\r\n    letter-spacing: 2px;\t\r\n    line-height: 18px;    \r\n    display:inline-block;\r\n    vertical-align:middle;\r\n    margin-left: 10px;\r\n  }\r\n\r\n  .container {\r\n    display: flex;\r\n    justify-content: center;\r\n    height: 180px;\r\n    margin-top: 30px;\r\n  }\r\n\r\n  .social-sign-up-options {\t    \t\r\n    width: 500px; \r\n    height: 180px;\r\n    padding-top: 0;\r\n    padding-bottom: 0;\r\n  }\r\n\r\n  .rectangle {\t\r\n    height: 50px !important;\t\r\n    width: 300px !important;\t\r\n    border-radius: 25px;\t\r\n    margin-bottom: 10px;\r\n    background: linear-gradient(135deg, #A624D2 0%, #CE5353 47.8%, #FFB02D 100%);\r\n  }\r\n\r\n  .sign-up-with-google {\t\r\n    height: 50px !important;\t\r\n    width: 300px !important;\t\r\n    border-radius: 25px;\t\r\n    background-color: #D44C4C;\r\n  }\r\n\r\n  .social-btn-txt {\t\r\n    height: 18px;\t    \r\n    color: #FFFFFF;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    font-weight: 600;\t\r\n    line-height: 18px;\t\r\n    text-align: center;\r\n  }  \r\n\r\n  .icon-instagram {\t\r\n    height: 18px;\t\r\n    width: 18px;\r\n  }\r\n\r\n  .icon-google {\t\r\n    height: 14.4px;\t\r\n    width: 14.4px;\r\n  }\r\n\r\n  .sign-in-with-email {\t\r\n    height: 24px;\t\r\n    width: 220px;\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 16px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 0.12px;\t\r\n    line-height: 24px;   \r\n    margin-top: 20px; \r\n  }\r\n\r\n  .card-form {\r\n    margin-top: 20px;\r\n    padding: 0;\r\n  }\r\n\r\n  .input-label {\t    \r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    letter-spacing: 0.11px;\r\n    line-height: 24px;\r\n  }\r\n\r\n  .user-form {\r\n    width: 350px;\r\n    height: 180px;\r\n    margin: 0 auto;\r\n    padding: 0;    \r\n  }\r\n\r\n  .form-input {\t\r\n    height: 42px;\t\r\n    wmax-width: 350px;\t\r\n    background-color: #FFFFFF;  \r\n    padding: 0;\r\n    margin-top: 10px;\r\n    margin-bottom: 25px;\r\n  }\r\n\r\n  .btn-sign-in {\r\n    height: 50px;\t\r\n    width: 300px;\t\r\n    border-radius: 25px;\t\r\n    background-color: #DC2EA6;\r\n    margin-top: 15px;\r\n  }\r\n  \r\n  .txt-sign-in {    \r\n    color: #FFFFFF;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 13px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 1.85px;\t\r\n    line-height: 16px;\t\r\n    text-align: center;\r\n  }\r\n\r\n  .forgot-password {\t\r\n    color: #DC2EA6;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    font-weight: 500;\t\r\n    letter-spacing: 0.11px;\t\r\n    line-height: 24px;\r\n    margin-top: 100px;\r\n  }\r\n\r\n  .sign-up-terms {\t\r\n    height: 32px;\t\r\n    color: #333333;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 11px;\t\r\n    line-height: 16px; \r\n    text-align: center;\r\n    padding-left: 40px;\r\n    padding-right: 40px;\r\n  }\r\n\r\n  .link-login {\r\n    color: #DC2EA6;\r\n    text-decoration: none;\r\n  }\r\n\r\n  .already-sign-up {\t\r\n    height: 18px;    \r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 13px;\t\r\n    font-weight: 500;\t\r\n    letter-spacing: 0.1px;\t\r\n    line-height: 18px;\t\r\n    text-align: center;\r\n    margin-bottom: 20px;\r\n  }  \r\n\r\n  .txt-login-big {\t\r\n    height: 68px;\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 30px;\t\r\n    font-weight: 800;\t\r\n    line-height: 34px;\t\r\n    text-align: center;\r\n    margin-top: 35px;\r\n  }\r\n\r\n  .enter-email {\t\r\n    height: 56px;\r\n    color: #333333;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 16px;\t\r\n    line-height: 28px;\t\r\n    text-align: center;\r\n    padding-left: 45px;\r\n    padding-right: 45px;\r\n  }\r\n\r\n  .card-forgot {\r\n    padding: 0;\r\n  }\r\n\r\n  .btn-reset {\t\r\n    height: 50px;\t\r\n    width: 170px;\t\r\n    border-radius: 25px;\t\r\n    background-color: #DC2EA6;\r\n    margin-top: 35px;\r\n  }\r\n\r\n  .txt-reset {\t\r\n    height: 18px;\t\r\n    color: #FFFFFF;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 2px;\t\r\n    line-height: 18px;\t\r\n    text-align: center;\r\n  }\r\n  \r\n  .txt-confirm-email {\r\n    padding-left: 60px;\r\n    padding-right: 60px;\r\n    margin-top: 15px;\r\n  }\r\n\r\n  .resend-confirmation {\t\r\n    height: 18px;\t\r\n    width: 197px;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    font-weight: 500;\t\r\n    letter-spacing: 0.11px;\t\r\n    line-height: 18px;\t\r\n    text-align: center;\r\n    margin-top: 30px;\r\n  }\r\n\r\n/*endregion*/\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -3147,33 +3007,6 @@ function toComment(sourceMap) {
 	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
 
 	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/lib/url/escape.js":
-/*!***************************************************!*\
-  !*** ./node_modules/css-loader/lib/url/escape.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function escape(url) {
-    if (typeof url !== 'string') {
-        return url
-    }
-    // If url is already wrapped in quotes, remove them
-    if (/^['"].*['"]$/.test(url)) {
-        url = url.slice(1, -1);
-    }
-    // Should url be wrapped?
-    // See https://drafts.csswg.org/css-values-3/#urls
-    if (/["'() \t\n]/.test(url)) {
-        return '"' + url.replace(/"/g, '\\"').replace(/\n/g, '\\n') + '"'
-    }
-
-    return url
 }
 
 
@@ -61115,253 +60948,139 @@ var render = function() {
     "div",
     [
       _c(
-        "q-card-section",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.windowWidth < 600,
-              expression: "windowWidth<600"
-            }
-          ],
-          staticClass: "q-ma-none q-pa-none"
-        },
+        "div",
+        { staticClass: "top-nav" },
         [
-          _c("img", {
-            staticClass: "logo-cell",
-            attrs: { src: "assets/images/icons/streamy-logo.svg", alt: "logo" }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "logotext-cell" }, [_vm._v("LINKSTREAM")])
-        ]
+          _c(
+            "q-card-section",
+            { staticClass: "q-ma-none q-pa-none logo-linkstream" },
+            [
+              _c("img", {
+                staticClass: "streamy-icon",
+                attrs: {
+                  src: "assets/images/icons/streamy-logo.svg",
+                  alt: "logo"
+                }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "linkstream" }, [_vm._v("LINKSTREAM")])
+            ]
+          )
+        ],
+        1
       ),
       _vm._v(" "),
       _c(
-        "q-card",
+        "div",
+        { staticClass: "container" },
+        [
+          _c(
+            "q-card-section",
+            { staticClass: "row justify-center social-sign-up-options" },
+            [
+              _c("div", { staticClass: "row justify-center txt-login-big" }, [
+                _vm._v("Password Reset")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row justify-center enter-email" }, [
+                _vm._v(
+                  "Enter the email address you used at sign up and we’ll send you password reset instructions."
+                )
+              ])
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "q-card-section",
         {
-          staticClass: "self-center",
-          class: [_vm.windowWidth < 600 ? "my-card-cell" : "my-card"],
-          attrs: { square: "", flat: "", bordered: "" }
+          staticClass:
+            "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 card-forgot q-mt-lg"
         },
         [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              {
-                staticClass: "col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+          _c(
+            "q-form",
+            {
+              staticClass: "user-form",
+              attrs: {
+                autocorrect: "off",
+                autocapitalize: "off",
+                autocomplete: "off",
+                spellcheck: "false"
               },
-              [
-                _c(
-                  "div",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.windowWidth >= 600,
-                        expression: "windowWidth>=600"
-                      }
-                    ]
-                  },
-                  [
-                    _c(
-                      "q-card-section",
-                      { staticClass: "q-pa-md row justify-center" },
-                      [
-                        _c("img", {
-                          staticClass: "logo",
-                          attrs: {
-                            src: "assets/images/icons/streamy-logo.svg",
-                            alt: "logo"
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "q-card-section",
-                      { staticClass: "q-ma-none q-pa-none row justify-center" },
-                      [
-                        _c("div", { staticClass: "logotext" }, [
-                          _vm._v("LINKSTREAM")
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("q-card-section", { staticClass: "q-pa-none q-mb-md" }, [
-                  _c(
-                    "div",
-                    {
-                      class: [
-                        _vm.windowWidth < 600 ? "forgot-cell" : "signintxt"
-                      ]
-                    },
-                    [_vm._v("Forgot Password")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "q-card-section",
-                  {
-                    staticClass:
-                      "q-pa-none col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6"
-                  },
-                  [
-                    _c(
-                      "q-form",
-                      {
-                        attrs: {
-                          autocorrect: "off",
-                          autocapitalize: "off",
-                          autocomplete: "off",
-                          spellcheck: "false"
-                        },
-                        on: {
-                          submit: function($event) {
-                            $event.preventDefault()
-                            $event.stopPropagation()
-                            return _vm.onSubmit($event)
-                          }
-                        }
-                      },
-                      [
-                        _c("div", { staticClass: "q-mt-md" }, [
-                          _c("label", { staticClass: "form" }, [
-                            _vm._v("Email address")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "q-mt-xs row justify-center" },
-                            [
-                              _c("q-input", {
-                                staticClass:
-                                  "q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput",
-                                attrs: {
-                                  "error-message": _vm.emailErrors,
-                                  error: _vm.$v.email.$anyError,
-                                  outlined: "",
-                                  square: "",
-                                  "bg-color": "white",
-                                  "bottom-slots": "",
-                                  dense: "",
-                                  type: "email",
-                                  id: "email",
-                                  name: "email"
-                                },
-                                model: {
-                                  value: _vm.$v.email.$model,
-                                  callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.$v.email,
-                                      "$model",
-                                      typeof $$v === "string" ? $$v.trim() : $$v
-                                    )
-                                  },
-                                  expression: "$v.email.$model"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "q-btn",
-                          {
-                            staticClass: "q-mt-lg forgotbtn",
-                            attrs: { flat: "", type: "submit" }
-                          },
-                          [
-                            _c("div", { staticClass: "signuptxt" }, [
-                              _vm._v("Reset Password")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "q-mt-lg forgotpassword" }, [
-                          _c("a", { attrs: { href: _vm.login } }, [
-                            _vm._v("Sign In")
-                          ])
-                        ])
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  $event.stopPropagation()
+                  return _vm.onSubmit($event)
+                }
+              }
+            },
+            [
+              _c("label", { staticClass: "input-label" }, [
+                _vm._v("Email Address")
+              ]),
+              _vm._v(" "),
+              _c("q-input", {
                 staticClass:
-                  "col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6",
-                class: [
-                  _vm.windowWidth < 600 ? "streamylink-cell" : "streamylink"
-                ]
-              },
-              [
-                _c(
-                  "q-card-section",
-                  {
-                    staticClass: "q-pa-lg row justify-center",
-                    class: [_vm.windowWidth < 600 ? "" : "btnemails"]
-                  },
-                  [
-                    _c(
-                      "q-btn",
-                      {
-                        staticClass:
-                          "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btnemail",
-                        attrs: {
-                          "no-caps": "",
-                          flat: "",
-                          type: "a",
-                          href: _vm.register
-                        }
-                      },
-                      [_c("div", [_vm._v("Sign up with email")])]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "q-btn",
-                      {
-                        staticClass:
-                          "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btninstagram",
-                        attrs: {
-                          "no-caps": "",
-                          flat: "",
-                          type: "a",
-                          href: _vm.instagram
-                        }
-                      },
-                      [_c("div", [_vm._v("Sign up with Instagram")])]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "q-btn",
-                      {
-                        staticClass:
-                          "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btngoogle",
-                        attrs: { "no-caps": "", flat: "", type: "a", href: "#" }
-                      },
-                      [_c("div", [_vm._v("Sign up with Google")])]
+                  "col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input",
+                attrs: {
+                  outlined: "",
+                  square: "",
+                  "bottom-slots": "",
+                  type: "email",
+                  id: "email",
+                  name: "email",
+                  color: "dark",
+                  "error-message": _vm.emailErrors,
+                  error: _vm.$v.email.$anyError
+                },
+                model: {
+                  value: _vm.$v.email.$model,
+                  callback: function($$v) {
+                    _vm.$set(
+                      _vm.$v.email,
+                      "$model",
+                      typeof $$v === "string" ? $$v.trim() : $$v
                     )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ])
-        ]
+                  },
+                  expression: "$v.email.$model"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "row justify-center" },
+                [
+                  _c(
+                    "q-btn",
+                    {
+                      staticClass: "btn-reset",
+                      attrs: { flat: "", type: "submit" }
+                    },
+                    [_c("div", { staticClass: "txt-reset" }, [_vm._v("Reset")])]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "q-mt-lg row justify-center already-sign-up" },
+            [
+              _vm._v("Need help?  "),
+              _c("a", { staticClass: "link-login", attrs: { href: "#" } }, [
+                _vm._v("Contact Us")
+              ])
+            ]
+          )
+        ],
+        1
       )
     ],
     1
@@ -61393,303 +61112,263 @@ var render = function() {
     "div",
     [
       _c(
-        "q-card-section",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.windowWidth < 600,
-              expression: "windowWidth<600"
-            }
-          ],
-          staticClass: "q-ma-none q-pa-none"
-        },
+        "div",
+        { staticClass: "top-nav" },
         [
-          _c("img", {
-            staticClass: "logo-cell",
-            attrs: { src: "assets/images/icons/streamy-logo.svg", alt: "logo" }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "logotext-cell" }, [_vm._v("LINKSTREAM")])
-        ]
+          _c(
+            "q-card-section",
+            { staticClass: "q-ma-none q-pa-none logo-linkstream" },
+            [
+              _c("img", {
+                staticClass: "streamy-icon",
+                attrs: {
+                  src: "assets/images/icons/streamy-logo.svg",
+                  alt: "logo"
+                }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "linkstream" }, [_vm._v("LINKSTREAM")])
+            ]
+          )
+        ],
+        1
       ),
       _vm._v(" "),
       _c(
-        "q-card",
+        "div",
+        { staticClass: "container" },
+        [
+          _c(
+            "q-card-section",
+            { staticClass: "row justify-center social-sign-up-options" },
+            [
+              _c(
+                "q-btn",
+                {
+                  staticClass:
+                    "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 rectangle",
+                  attrs: {
+                    align: "left",
+                    "no-caps": "",
+                    flat: "",
+                    type: "a",
+                    href: _vm.instagram
+                  }
+                },
+                [
+                  _c("q-icon", {
+                    staticClass: "q-mr-xl icon-instagram",
+                    attrs: {
+                      left: "",
+                      name: "img:assets/images/icons/icon-instagram.svg"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "social-btn-txt" }, [
+                    _vm._v("Sign in with Instagram")
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "q-btn",
+                {
+                  staticClass:
+                    "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sign-up-with-google",
+                  attrs: {
+                    align: "left",
+                    "no-caps": "",
+                    flat: "",
+                    type: "a",
+                    href: "#"
+                  }
+                },
+                [
+                  _c("q-icon", {
+                    staticClass: "q-mr-xl icon-google",
+                    attrs: {
+                      left: "",
+                      name: "img:assets/images/icons/icon-google.svg"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "social-btn-txt q-ml-md" }, [
+                    _vm._v("Sign in with Google")
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sign-in-with-email",
+                  attrs: { align: "center" }
+                },
+                [_vm._v("Or sign in with your email")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "q-card-section",
         {
-          staticClass: "self-center",
-          class: [_vm.windowWidth < 600 ? "my-card-cell" : "my-card"],
-          attrs: { square: "", flat: "", bordered: "" }
+          staticClass:
+            "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 card-form"
         },
         [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              {
-                staticClass: "col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+          _c(
+            "q-form",
+            {
+              staticClass: "user-form",
+              attrs: {
+                autocorrect: "off",
+                autocapitalize: "off",
+                autocomplete: "off",
+                spellcheck: "false"
               },
-              [
-                _c(
-                  "div",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.windowWidth >= 600,
-                        expression: "windowWidth>=600"
-                      }
-                    ]
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  $event.stopPropagation()
+                  return _vm.onSubmit($event)
+                }
+              }
+            },
+            [
+              _c("label", { staticClass: "input-label" }, [
+                _vm._v("Email Address")
+              ]),
+              _vm._v(" "),
+              _c("q-input", {
+                staticClass:
+                  "col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input",
+                attrs: {
+                  outlined: "",
+                  square: "",
+                  "bottom-slots": "",
+                  type: "email",
+                  id: "email",
+                  name: "email",
+                  color: "dark",
+                  "error-message": _vm.emailErrors,
+                  error: _vm.$v.email.$anyError
+                },
+                model: {
+                  value: _vm.$v.email.$model,
+                  callback: function($$v) {
+                    _vm.$set(
+                      _vm.$v.email,
+                      "$model",
+                      typeof $$v === "string" ? $$v.trim() : $$v
+                    )
                   },
-                  [
-                    _c(
-                      "q-card-section",
-                      { staticClass: "q-pa-md row justify-center" },
-                      [
-                        _c("img", {
-                          staticClass: "logo",
+                  expression: "$v.email.$model"
+                }
+              }),
+              _vm._v(" "),
+              _c("label", { staticClass: "input-label" }, [_vm._v("Password")]),
+              _vm._v(" "),
+              _c("q-input", {
+                staticClass:
+                  "col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input",
+                attrs: {
+                  outlined: "",
+                  square: "",
+                  "bg-color": "white",
+                  type: "password",
+                  id: "password",
+                  name: "password",
+                  color: "dark",
+                  type: _vm.isPwd ? "password" : "text",
+                  "error-message": _vm.passwordErrors,
+                  error: _vm.$v.password.$anyError
+                },
+                scopedSlots: _vm._u([
+                  {
+                    key: "append",
+                    fn: function() {
+                      return [
+                        _c("q-icon", {
+                          staticClass: "cursor-pointer",
                           attrs: {
-                            src: "assets/images/icons/streamy-logo.svg",
-                            alt: "logo"
+                            name: _vm.isPwd ? "visibility_off" : "visibility"
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.isPwd = !_vm.isPwd
+                            }
                           }
                         })
                       ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "q-card-section",
-                      { staticClass: "q-ma-none q-pa-none row justify-center" },
-                      [
-                        _c("div", { staticClass: "logotext" }, [
-                          _vm._v("LINKSTREAM")
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("q-card-section", { staticClass: "col q-pa-none q-mb-md" }, [
-                  _c(
-                    "div",
-                    {
-                      class: [
-                        _vm.windowWidth < 600 ? "signintxt-cell" : "signintxt"
-                      ]
                     },
-                    [_vm._v("Sign In")]
-                  )
+                    proxy: true
+                  }
                 ]),
-                _vm._v(" "),
-                _c(
-                  "q-card-section",
-                  {
-                    staticClass:
-                      "q-pa-none col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6"
-                  },
-                  [
-                    _c(
-                      "q-form",
-                      {
-                        attrs: {
-                          autocorrect: "off",
-                          autocapitalize: "off",
-                          autocomplete: "off",
-                          spellcheck: "false"
-                        },
-                        on: {
-                          submit: function($event) {
-                            $event.preventDefault()
-                            $event.stopPropagation()
-                            return _vm.onSubmit($event)
-                          }
-                        }
-                      },
-                      [
-                        _c("div", { staticClass: "q-mt-md" }, [
-                          _c("label", { staticClass: "form" }, [
-                            _vm._v("Email address")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "q-mt-xs row justify-center" },
-                            [
-                              _c("q-input", {
-                                staticClass:
-                                  "q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput",
-                                attrs: {
-                                  "error-message": _vm.emailErrors,
-                                  error: _vm.$v.email.$anyError,
-                                  outlined: "",
-                                  square: "",
-                                  "bg-color": "white",
-                                  "bottom-slots": "",
-                                  dense: "",
-                                  type: "email",
-                                  id: "email",
-                                  name: "email"
-                                },
-                                on: {
-                                  input: function($event) {
-                                    return _vm.$v.email.$touch()
-                                  }
-                                },
-                                model: {
-                                  value: _vm.$v.email.$model,
-                                  callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.$v.email,
-                                      "$model",
-                                      typeof $$v === "string" ? $$v.trim() : $$v
-                                    )
-                                  },
-                                  expression: "$v.email.$model"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "q-mt-md" }, [
-                          _c("label", { staticClass: "form" }, [
-                            _vm._v("Password")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "q-mt-xs row justify-center" },
-                            [
-                              _c("q-input", {
-                                staticClass:
-                                  "q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput",
-                                attrs: {
-                                  "error-message": _vm.passwordErrors,
-                                  error: _vm.$v.password.$anyError,
-                                  outlined: "",
-                                  square: "",
-                                  "bg-color": "white",
-                                  dense: "",
-                                  type: "password",
-                                  id: "password",
-                                  name: "password"
-                                },
-                                on: {
-                                  input: function($event) {
-                                    return _vm.$v.password.$touch()
-                                  }
-                                },
-                                model: {
-                                  value: _vm.$v.password.$model,
-                                  callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.$v.password,
-                                      "$model",
-                                      typeof $$v === "string" ? $$v.trim() : $$v
-                                    )
-                                  },
-                                  expression: "$v.password.$model"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "q-btn",
-                          {
-                            staticClass: "q-mt-lg signinbtn",
-                            attrs: { flat: "", type: "submit" }
-                          },
-                          [
-                            _c("div", { staticClass: "signuptxt" }, [
-                              _vm._v("Sign in")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "q-mt-lg forgotpassword" }, [
-                          _c("a", { attrs: { href: _vm.forgot } }, [
-                            _vm._v("Forgot Password?")
-                          ])
-                        ])
-                      ],
-                      1
+                model: {
+                  value: _vm.$v.password.$model,
+                  callback: function($$v) {
+                    _vm.$set(
+                      _vm.$v.password,
+                      "$model",
+                      typeof $$v === "string" ? $$v.trim() : $$v
                     )
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6",
-                class: [
-                  _vm.windowWidth < 600 ? "streamylink-cell" : "streamylink"
-                ]
-              },
-              [
-                _c(
-                  "q-card-section",
-                  {
-                    staticClass: "q-pa-lg row justify-center",
-                    class: [_vm.windowWidth < 600 ? "" : "btnemails"]
                   },
-                  [
-                    _c(
-                      "q-btn",
-                      {
-                        staticClass:
-                          "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btnemail",
-                        attrs: {
-                          "no-caps": "",
-                          flat: "",
-                          type: "a",
-                          href: _vm.register
-                        }
-                      },
-                      [_c("div", [_vm._v("Sign up with email")])]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "q-btn",
-                      {
-                        staticClass:
-                          "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btninstagram",
-                        attrs: {
-                          "no-caps": "",
-                          flat: "",
-                          type: "a",
-                          href: _vm.instagram
-                        }
-                      },
-                      [_c("div", [_vm._v("Sign up with Instagram")])]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "q-btn",
-                      {
-                        staticClass:
-                          "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btngoogle",
-                        attrs: { "no-caps": "", flat: "", type: "a", href: "#" }
-                      },
-                      [_c("div", [_vm._v("Sign up with Google")])]
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ])
-        ]
+                  expression: "$v.password.$model"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "row justify-center" },
+                [
+                  _c(
+                    "q-btn",
+                    {
+                      staticClass: "btn-sign-in",
+                      attrs: { flat: "", type: "submit" }
+                    },
+                    [
+                      _c("div", { staticClass: "txt-sign-in" }, [
+                        _vm._v("Sign in")
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "q-btn",
+            {
+              staticClass: "row justify-center",
+              attrs: {
+                flat: "",
+                type: "a",
+                href: _vm.forgot,
+                "no-caps": "",
+                unelevated: "",
+                dense: "",
+                color: "white"
+              }
+            },
+            [
+              _c("div", { staticClass: "forgot-password" }, [
+                _vm._v("Forgot Password?")
+              ])
+            ]
+          )
+        ],
+        1
       )
     ],
     1
@@ -61721,423 +61400,335 @@ var render = function() {
     "div",
     [
       _c(
-        "q-card-section",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.windowWidth < 600,
-              expression: "windowWidth<600"
-            }
-          ],
-          staticClass: "q-ma-none q-pa-none"
-        },
+        "div",
+        { staticClass: "top-nav" },
         [
-          _c("img", {
-            staticClass: "logo-cell",
-            attrs: { src: "assets/images/icons/streamy-logo.svg", alt: "logo" }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "logotext-cell" }, [_vm._v("LINKSTREAM")])
-        ]
+          _c(
+            "q-card-section",
+            { staticClass: "q-ma-none q-pa-none logo-linkstream" },
+            [
+              _c("img", {
+                staticClass: "streamy-icon",
+                attrs: {
+                  src: "assets/images/icons/streamy-logo.svg",
+                  alt: "logo"
+                }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "linkstream" }, [_vm._v("LINKSTREAM")])
+            ]
+          )
+        ],
+        1
       ),
       _vm._v(" "),
       _c(
-        "q-card",
+        "div",
+        { staticClass: "container" },
+        [
+          _c(
+            "q-card-section",
+            { staticClass: "row justify-center social-sign-up-options" },
+            [
+              _c(
+                "q-btn",
+                {
+                  staticClass:
+                    "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 rectangle",
+                  attrs: {
+                    align: "left",
+                    "no-caps": "",
+                    flat: "",
+                    type: "a",
+                    href: _vm.instagram
+                  }
+                },
+                [
+                  _c("q-icon", {
+                    staticClass: "q-mr-xl icon-instagram",
+                    attrs: {
+                      left: "",
+                      name: "img:assets/images/icons/icon-instagram.svg"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "social-btn-txt" }, [
+                    _vm._v("Sign up with Instagram")
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "q-btn",
+                {
+                  staticClass:
+                    "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sign-up-with-google",
+                  attrs: {
+                    align: "left",
+                    "no-caps": "",
+                    flat: "",
+                    type: "a",
+                    href: "#"
+                  }
+                },
+                [
+                  _c("q-icon", {
+                    staticClass: "q-mr-xl icon-google",
+                    attrs: {
+                      left: "",
+                      name: "img:assets/images/icons/icon-google.svg"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "social-btn-txt q-ml-md" }, [
+                    _vm._v("Sign up with Google")
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sign-in-with-email",
+                  attrs: { align: "center" }
+                },
+                [_vm._v("Or sign up with your email")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "q-card-section",
         {
-          staticClass: "self-center",
-          class: [_vm.windowWidth < 600 ? "my-card-cell" : "my-card"],
-          attrs: { square: "", flat: "", bordered: "" }
+          staticClass:
+            "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 card-form"
         },
         [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              {
+          _c(
+            "q-form",
+            {
+              staticClass: "user-form",
+              attrs: {
+                autocorrect: "off",
+                autocapitalize: "off",
+                autocomplete: "off",
+                spellcheck: "false"
+              }
+            },
+            [
+              _c("label", { staticClass: "input-label" }, [_vm._v("Username")]),
+              _vm._v(" "),
+              _c("q-input", {
                 staticClass:
-                  "col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6",
-                class: [
-                  _vm.windowWidth < 600 ? "streamylink-cell" : "streamylink"
-                ]
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.windowWidth >= 600,
-                        expression: "windowWidth>=600"
+                  "col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input",
+                attrs: {
+                  outlined: "",
+                  square: "",
+                  "bottom-slots": "",
+                  type: "email",
+                  id: "email",
+                  name: "email",
+                  color: "dark",
+                  "error-message": _vm.usernameErrors,
+                  error: _vm.$v.username.$anyError,
+                  loading: _vm.loadingUsername
+                },
+                on: {
+                  blur: function(evt) {
+                    return _vm.onChangedUsername(evt.target.value)
+                  }
+                },
+                model: {
+                  value: _vm.$v.username.$model,
+                  callback: function($$v) {
+                    _vm.$set(
+                      _vm.$v.username,
+                      "$model",
+                      typeof $$v === "string" ? $$v.trim() : $$v
+                    )
+                  },
+                  expression: "$v.username.$model"
+                }
+              }),
+              _vm._v(" "),
+              _c("label", { staticClass: "input-label" }, [_vm._v("Email")]),
+              _vm._v(" "),
+              _c("q-input", {
+                staticClass:
+                  "col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input",
+                attrs: {
+                  outlined: "",
+                  square: "",
+                  "bottom-slots": "",
+                  type: "email",
+                  id: "email",
+                  name: "email",
+                  color: "dark",
+                  "error-message": _vm.emailErrors,
+                  error: _vm.$v.email.$anyError,
+                  loading: _vm.loadingEmail
+                },
+                on: {
+                  blur: function(evt) {
+                    return _vm.onChangedEmail(evt.target.value)
+                  }
+                },
+                model: {
+                  value: _vm.$v.email.$model,
+                  callback: function($$v) {
+                    _vm.$set(
+                      _vm.$v.email,
+                      "$model",
+                      typeof $$v === "string" ? $$v.trim() : $$v
+                    )
+                  },
+                  expression: "$v.email.$model"
+                }
+              }),
+              _vm._v(" "),
+              _c("label", { staticClass: "input-label" }, [_vm._v("Password")]),
+              _vm._v(" "),
+              _c(
+                "q-input",
+                {
+                  staticClass:
+                    "col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input",
+                  attrs: {
+                    outlined: "",
+                    square: "",
+                    "bg-color": "white",
+                    type: "password",
+                    id: "password",
+                    name: "password",
+                    color: "dark",
+                    "error-message": _vm.passwordErrors,
+                    error: _vm.$v.password.$anyError
+                  },
+                  model: {
+                    value: _vm.$v.password.$model,
+                    callback: function($$v) {
+                      _vm.$set(
+                        _vm.$v.password,
+                        "$model",
+                        typeof $$v === "string" ? $$v.trim() : $$v
+                      )
+                    },
+                    expression: "$v.password.$model"
+                  }
+                },
+                [
+                  _c(
+                    "q-tooltip",
+                    {
+                      attrs: {
+                        "max-width": "250px",
+                        "content-style": "font-size: 12px"
                       }
+                    },
+                    [
+                      _vm._v(
+                        "Must contain upper and lower case letters, numbers and special characters (@#$%&) "
+                      )
                     ]
-                  },
-                  [
-                    _c(
-                      "q-card-section",
-                      { staticClass: "q-pa-md row justify-center" },
-                      [
-                        _c("img", {
-                          staticClass: "logo",
-                          attrs: {
-                            src: "assets/images/icons/streamy-logo.svg",
-                            alt: "logo"
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "q-card-section",
-                      { staticClass: "q-ma-none q-pa-none row justify-center" },
-                      [
-                        _c("div", { staticClass: "logotext" }, [
-                          _vm._v("LINKSTREAM")
-                        ])
-                      ]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6"
-                  },
-                  [
-                    _c(
-                      "q-card-section",
-                      { staticClass: "q-pa-lg row justify-center" },
-                      [
-                        _c(
-                          "q-btn",
-                          {
-                            staticClass:
-                              "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btnemail",
-                            attrs: {
-                              "no-caps": "",
-                              flat: "",
-                              type: "a",
-                              href: _vm.register
-                            }
-                          },
-                          [_c("div", [_vm._v("Sign up with email")])]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "q-btn",
-                          {
-                            staticClass:
-                              "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btninstagram",
-                            attrs: {
-                              "no-caps": "",
-                              flat: "",
-                              type: "a",
-                              href: _vm.instagram
-                            }
-                          },
-                          [_c("div", [_vm._v("Sign up with Instagram")])]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "q-btn",
-                          {
-                            staticClass:
-                              "col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btngoogle",
-                            attrs: {
-                              "no-caps": "",
-                              flat: "",
-                              type: "a",
-                              href: "#"
-                            }
-                          },
-                          [_c("div", [_vm._v("Sign up with Google")])]
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("label", { staticClass: "input-label" }, [
+                _vm._v("Retype Password")
+              ]),
+              _vm._v(" "),
+              _c("q-input", {
                 staticClass:
-                  "col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 signin"
-              },
-              [
-                _c("q-card-section", { staticClass: "q-pa-none q-mb-md" }, [
-                  _c("div", { staticClass: "signup" }, [_vm._v("Sign Up")])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "q-card-section",
-                  {
-                    staticClass:
-                      "q-pa-none col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6"
-                  },
-                  [
-                    _c(
-                      "q-form",
-                      {
-                        staticClass: "q-mb-none",
-                        attrs: {
-                          autocorrect: "off",
-                          autocapitalize: "off",
-                          autocomplete: "off",
-                          spellcheck: "false"
-                        },
-                        on: {
-                          submit: function($event) {
-                            $event.preventDefault()
-                            $event.stopPropagation()
-                            return _vm.onSubmit($event)
-                          }
-                        }
-                      },
-                      [
-                        _c("div", [
-                          _c("label", { staticClass: "form" }, [
-                            _vm._v("Username")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "row justify-center" },
-                            [
-                              _c("q-input", {
-                                staticClass:
-                                  "q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput",
-                                attrs: {
-                                  "error-message": _vm.usernameErrors,
-                                  error: _vm.$v.username.$anyError,
-                                  outlined: "",
-                                  square: "",
-                                  "bg-color": "white",
-                                  "bottom-slots": "",
-                                  dense: "",
-                                  id: "username",
-                                  name: "username",
-                                  loading: _vm.loadingUsername
-                                },
-                                on: {
-                                  input: function($event) {
-                                    return _vm.$v.username.$touch()
-                                  },
-                                  blur: function(evt) {
-                                    return _vm.onChangedUsername(
-                                      evt.target.value
-                                    )
-                                  }
-                                },
-                                model: {
-                                  value: _vm.$v.username.$model,
-                                  callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.$v.username,
-                                      "$model",
-                                      typeof $$v === "string" ? $$v.trim() : $$v
-                                    )
-                                  },
-                                  expression: "$v.username.$model"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "q-mt-sm" }, [
-                          _c("label", { staticClass: "form" }, [
-                            _vm._v("Email")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "q-mt-xs row justify-center" },
-                            [
-                              _c("q-input", {
-                                staticClass:
-                                  "q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput",
-                                attrs: {
-                                  "error-message": _vm.emailErrors,
-                                  error: _vm.$v.email.$anyError,
-                                  outlined: "",
-                                  square: "",
-                                  "bg-color": "white",
-                                  dense: "",
-                                  type: "email",
-                                  id: "email",
-                                  name: "email",
-                                  loading: _vm.loadingEmail
-                                },
-                                on: {
-                                  input: function($event) {
-                                    return _vm.$v.email.$touch()
-                                  },
-                                  blur: function(evt) {
-                                    return _vm.onChangedEmail(evt.target.value)
-                                  }
-                                },
-                                model: {
-                                  value: _vm.$v.email.$model,
-                                  callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.$v.email,
-                                      "$model",
-                                      typeof $$v === "string" ? $$v.trim() : $$v
-                                    )
-                                  },
-                                  expression: "$v.email.$model"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "q-mt-sm" }, [
-                          _c("label", { staticClass: "form" }, [
-                            _vm._v("Password")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "q-mt-xs row justify-center" },
-                            [
-                              _c(
-                                "q-input",
-                                {
-                                  staticClass:
-                                    "q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput",
-                                  attrs: {
-                                    "error-message": _vm.passwordErrors,
-                                    error: _vm.$v.password.$anyError,
-                                    outlined: "",
-                                    square: "",
-                                    "bg-color": "white",
-                                    dense: "",
-                                    type: "password",
-                                    id: "password",
-                                    name: "password"
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.$v.password.$touch()
-                                    }
-                                  },
-                                  model: {
-                                    value: _vm.$v.password.$model,
-                                    callback: function($$v) {
-                                      _vm.$set(
-                                        _vm.$v.password,
-                                        "$model",
-                                        typeof $$v === "string"
-                                          ? $$v.trim()
-                                          : $$v
-                                      )
-                                    },
-                                    expression: "$v.password.$model"
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "q-tooltip",
-                                    {
-                                      attrs: {
-                                        "max-width": "250px",
-                                        "content-style": "font-size: 12px"
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "Must contain upper and lower case letters, numbers and special characters (@#$%&) "
-                                      )
-                                    ]
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "q-mt-sm" }, [
-                          _c("label", { staticClass: "form" }, [
-                            _vm._v("Retype Password")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "q-mt-xs row justify-center" },
-                            [
-                              _c("q-input", {
-                                staticClass:
-                                  "q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput",
-                                attrs: {
-                                  "error-message": _vm.repasswordErrors,
-                                  error: _vm.$v.repassword.$anyError,
-                                  outlined: "",
-                                  square: "",
-                                  "bg-color": "white",
-                                  dense: "",
-                                  type: "password",
-                                  id: "repassword",
-                                  name: "repassword"
-                                },
-                                on: {
-                                  input: function($event) {
-                                    return _vm.$v.repassword.$touch()
-                                  }
-                                },
-                                model: {
-                                  value: _vm.$v.repassword.$model,
-                                  callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.$v.repassword,
-                                      "$model",
-                                      typeof $$v === "string" ? $$v.trim() : $$v
-                                    )
-                                  },
-                                  expression: "$v.repassword.$model"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "q-btn",
-                          {
-                            staticClass: "q-mt-lg signupbtn",
-                            attrs: { flat: "", type: "submit" }
-                          },
-                          [
-                            _c("div", { staticClass: "signuptxt" }, [
-                              _vm._v("Sign up")
-                            ])
-                          ]
-                        )
-                      ],
-                      1
+                  "col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input",
+                attrs: {
+                  outlined: "",
+                  square: "",
+                  "bg-color": "white",
+                  type: "password",
+                  id: "repassword",
+                  name: "repassword",
+                  color: "dark",
+                  "error-message": _vm.repasswordErrors,
+                  error: _vm.$v.repassword.$anyError
+                },
+                model: {
+                  value: _vm.$v.repassword.$model,
+                  callback: function($$v) {
+                    _vm.$set(
+                      _vm.$v.repassword,
+                      "$model",
+                      typeof $$v === "string" ? $$v.trim() : $$v
                     )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ])
-        ]
+                  },
+                  expression: "$v.repassword.$model"
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "row justify-center sign-up-terms" }, [
+                _vm._v("By clicking Sign Up below, you agree to our "),
+                _c("a", { staticClass: "link-login", attrs: { href: "#" } }, [
+                  _vm._v("Terms of Use")
+                ]),
+                _vm._v("  and "),
+                _c("a", { staticClass: "link-login", attrs: { href: "#" } }, [
+                  _vm._v(" Privacy Policy")
+                ]),
+                _vm._v(".")
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "row justify-center" },
+                [
+                  _c(
+                    "q-btn",
+                    {
+                      staticClass: "btn-sign-in",
+                      attrs: { flat: "", type: "submit" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          $event.stopPropagation()
+                          return _vm.onSubmit($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "txt-sign-in" }, [
+                        _vm._v("Sign up")
+                      ])
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "q-mt-lg row justify-center already-sign-up" },
+                [
+                  _vm._v("Already have an account?  "),
+                  _c(
+                    "a",
+                    { staticClass: "link-login", attrs: { href: "login" } },
+                    [_vm._v("Sign in")]
+                  )
+                ]
+              )
+            ],
+            1
+          )
+        ],
+        1
       )
     ],
     1
@@ -76283,7 +75874,7 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! H:\Trabajo\Streamy\link.stream\assets\js\app\app.js */"./js/app/app.js");
+module.exports = __webpack_require__(/*! E:\Trabajo\CodeIgnite\Desastre GIT 1_Feb\link.stream\assets\js\app\app.js */"./js/app/app.js");
 
 
 /***/ })

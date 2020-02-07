@@ -1,79 +1,52 @@
 <template>
-  <div>
-    <q-card-section class="q-ma-none q-pa-none" v-show="windowWidth<600">
-      <img src="assets/images/icons/streamy-logo.svg" alt="logo" class="logo-cell">
-      <span class="logotext-cell">LINKSTREAM</span>
-    </q-card-section>
-    <q-card class="self-center" :class="[ windowWidth<600 ? 'my-card-cell' : 'my-card' ]" square flat bordered>
-      <div class="row">
-        <div class="col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" :class="[windowWidth<600 ? 'streamylink-cell' : 'streamylink']">          
-          <div v-show="windowWidth>=600">
-            <q-card-section class="q-pa-md row justify-center">
-              <img src="assets/images/icons/streamy-logo.svg" alt="logo" class="logo" >
-            </q-card-section>
-            <q-card-section class="q-ma-none q-pa-none row justify-center">
-              <div class="logotext">LINKSTREAM</div>
-            </q-card-section>
-          </div>
-          <div class="col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-            <q-card-section class="q-pa-lg row justify-center">
-              <q-btn class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btnemail" no-caps flat type="a" :href="register">
-                <div>Sign up with email</div>
-              </q-btn>
-              <q-btn class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btninstagram" no-caps flat type="a" :href="instagram">
-                <div>Sign up with Instagram</div>
-              </q-btn>
-              <q-btn class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-ma-xs btngoogle" no-caps flat type="a" href="#">
-                <div>Sign up with Google</div>
-              </q-btn>
-            </q-card-section>
-          </div>  
+    <div>
+        <div class="top-nav">
+            <q-card-section class="q-ma-none q-pa-none logo-linkstream">            
+                <img :src="'assets/images/icons/streamy-logo.svg'" alt="logo" class="streamy-icon">
+                <span class="linkstream">LINKSTREAM</span>
+            </q-card-section>            
         </div>
-        <div class="col col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 signin">
-          <q-card-section class="q-pa-none q-mb-md">
-            <div class="signup">Sign Up</div>
-          </q-card-section>
-          <q-card-section class="q-pa-none col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-            <q-form class="q-mb-none" @submit.prevent.stop="onSubmit" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
-              <div>
-                <label class="form">Username</label>
-                <div class="row justify-center">
-                  <q-input class="q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput" v-model.trim="$v.username.$model" :error-message="usernameErrors" :error="$v.username.$anyError" @input="$v.username.$touch()" 
-                    outlined square bg-color="white" bottom-slots dense @blur="evt => onChangedUsername(evt.target.value)" id="username" name="username" :loading="loadingUsername" />
-                </div>
+        <div class="container">
+            <q-card-section class="row justify-center social-sign-up-options">                      
+                <q-btn align="left" class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 rectangle" no-caps flat type="a" :href="instagram">
+                    <q-icon left class="q-mr-xl icon-instagram" name="img:assets/images/icons/icon-instagram.svg" />
+                    <div class="social-btn-txt">Sign up with Instagram</div>
+                </q-btn>
+                <q-btn align="left" class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sign-up-with-google" no-caps flat type="a" href="#">
+                    <q-icon left class="q-mr-xl icon-google" name="img:assets/images/icons/icon-google.svg" /> 
+                    <div class="social-btn-txt q-ml-md">Sign up with Google</div>
+                </q-btn>  
+                <div align="center" class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sign-in-with-email">Or sign up with your email</div>   
+            </q-card-section>                      
+        </div>
+        <q-card-section class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 card-form">
+            <q-form autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false" class="user-form">    
+              <label class="input-label">Username</label>  
+              <q-input class="col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input" outlined square bottom-slots  type="email" id="email" name="email"
+              color="dark" v-model.trim="$v.username.$model" :error-message="usernameErrors" :error="$v.username.$anyError" 
+              @blur="evt => onChangedUsername(evt.target.value)" :loading="loadingUsername"/> 
+              <label class="input-label">Email</label>  
+              <q-input class="col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input" outlined square bottom-slots  type="email" id="email" name="email"
+              color="dark" v-model.trim="$v.email.$model" :error-message="emailErrors" :error="$v.email.$anyError"  
+              @blur="evt => onChangedEmail(evt.target.value)" :loading="loadingEmail"/>     
+              <label class="input-label">Password</label>
+              <q-input class="col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input" outlined square bg-color="white" type="password" id="password" name="password"
+              color="dark" v-model.trim="$v.password.$model" :error-message="passwordErrors" :error="$v.password.$anyError">
+                <q-tooltip max-width="250px" content-style="font-size: 12px">Must contain upper and lower case letters, numbers and special characters (@#$%&) </q-tooltip>
+              </q-input>
+              <label class="input-label">Retype Password</label>
+              <q-input class="col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input" outlined square bg-color="white" type="password" id="repassword" name="repassword"
+              color="dark" v-model.trim="$v.repassword.$model" :error-message="repasswordErrors" :error="$v.repassword.$anyError"/>              
+              <div class="row justify-center sign-up-terms">By clicking Sign Up below, you agree to our <a href="#" class="link-login">Terms of Use</a> &nbsp;and&nbsp;<a href="#" class="link-login"> Privacy Policy</a>.</div>
+              <div class="row justify-center">
+                <q-btn class="btn-sign-in" flat type="submit" @click.prevent.stop="onSubmit">
+                  <div class="txt-sign-in">Sign up</div>
+                </q-btn>                
               </div>
-              <div class="q-mt-sm">
-                <label class="form">Email</label>
-                <div class="q-mt-xs row justify-center">
-                  <q-input class="q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput" v-model.trim="$v.email.$model" :error-message="emailErrors" :error="$v.email.$anyError" @input="$v.email.$touch()" 
-                  outlined square bg-color="white" dense @blur="evt => onChangedEmail(evt.target.value)" type="email" id="email" name="email" :loading="loadingEmail" />
-                </div>
-              </div>
-              <div class="q-mt-sm">
-                <label class="form">Password</label>
-                <div class="q-mt-xs row justify-center">
-                  <q-input class="q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput" v-model.trim="$v.password.$model" :error-message="passwordErrors" :error="$v.password.$anyError" @input="$v.password.$touch()" 
-                    outlined square bg-color="white" dense type="password" id="password" name="password">
-                    <q-tooltip max-width="250px" content-style="font-size: 12px">Must contain upper and lower case letters, numbers and special characters (@#$%&) </q-tooltip>
-                    </q-input>
-                </div>
-              </div>
-              <div class="q-mt-sm">
-                <label class="form">Retype Password</label>
-                <div class="q-mt-xs row justify-center">
-                  <q-input class="q-ma-none q-pb-sm col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 forminput" v-model.trim="$v.repassword.$model" :error-message="repasswordErrors" :error="$v.repassword.$anyError" @input="$v.repassword.$touch()" 
-                    outlined square bg-color="white" dense type="password" id="repassword" name="repassword" />
-                </div>
-              </div>
-              <q-btn class="q-mt-lg signupbtn" flat type="submit">
-                <div class="signuptxt">Sign up</div>
-              </q-btn>
+              <div class="q-mt-lg row justify-center already-sign-up">Already have an account?&nbsp; <a href="login" class="link-login">Sign in</a></div>
             </q-form>
-          </q-card-section>
-        </div>
-      </div>
-    </q-card>
-  </div>  
+        </q-card-section>  
+    </div>
 </template>
 <script>
 import axios from "../../../../assets/node_modules/axios";
@@ -94,14 +67,14 @@ export default {
       repassword: "",
       bdUsername: "",
       bdEmail: "",
+      login: this.baseurl + 'login',
       index: this.baseurl + "index",
       register: this.baseurl + "register",
       instagram: this.baseurl + "instagram_register",
+      forgot: this.baseurl + 'forgot',
       loading: false,
       loadingUsername: false,
-      loadingEmail: false,
-      windowWidth: 0,
-      windowHeight: 0
+      loadingEmail: false
     };
   },
   validations: {    
@@ -154,28 +127,7 @@ export default {
       if (!this.$v.repassword.repassword) return "The password does not match";
     }
   },
-  mounted() {
-    this.$nextTick(function() {
-      window.addEventListener('resize', this.getWindowWidth);
-      window.addEventListener('resize', this.getWindowHeight);
-      this.getWindowWidth();
-      this.getWindowHeight()
-    })
-  },
-  methods: {
-    getWindowWidth(event) {
-      this.windowWidth = document.documentElement.clientWidth;
-      (this.windowWidth >= 600) 
-        ? document.getElementById('loginContainer').className = 'vertical-center' 
-        : document.getElementById('loginContainer').className = '' 
-    },
-    getWindowHeight(event) {
-      this.windowHeight = document.documentElement.clientHeight
-    },
-    beforeDestroy() {
-      window.removeEventListener('resize', this.getWindowWidth);
-      window.removeEventListener('resize', this.getWindowHeight)
-    },
+  methods: {    
     onChangedUsername(value) {      
       if (value.length > 5) {
         this.loadingUsername = true;
@@ -229,7 +181,6 @@ export default {
       this.$v.email.$touch();
       this.$v.username.$touch();
       if (!this.$v.$anyError) {
-        console.log('ssss')
         this.loading = true;
         let formData = new FormData();
         formData.append('username', this.username);
@@ -252,12 +203,11 @@ export default {
           .catch(function(error) {
             console.log(error);
             this.loading = false;
-          });          
+          })         
       }
     }
-  },
-  
-};
+  }
+}
 </script> 
 <style>
 </style>

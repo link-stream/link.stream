@@ -190,7 +190,7 @@ and open the template in the editor.
     font-size: 14px;	
     font-weight: 900;	
     letter-spacing: 2px;	
-    line-height: 18px;
+    line-height: 18px;    
     display:inline-block;
     vertical-align:middle;
     margin-left: 10px;
@@ -213,7 +213,7 @@ and open the template in the editor.
   .rectangle {	
     height: 50px !important;	
     width: 300px !important;	
-    border-radius: 25px;
+    border-radius: 25px;	
     margin-bottom: 10px;
     background: linear-gradient(135deg, #A624D2 0%, #CE5353 47.8%, #FFB02D 100%);
   }
@@ -221,7 +221,7 @@ and open the template in the editor.
   .sign-up-with-google {	
     height: 50px !important;	
     width: 300px !important;	
-    border-radius: 25px;
+    border-radius: 25px;	
     background-color: #D44C4C;
   }
 
@@ -233,7 +233,7 @@ and open the template in the editor.
     font-weight: 600;	
     line-height: 18px;	
     text-align: center;
-  }
+  }  
 
   .icon-instagram {	
     height: 18px;	
@@ -253,20 +253,20 @@ and open the template in the editor.
     font-size: 16px;	
     font-weight: bold;	
     letter-spacing: 0.12px;	
-    line-height: 24px;
+    line-height: 24px;   
     margin-top: 20px; 
   }
 
   .card-form {
     margin-top: 20px;
-    padding: 0;
-  }
+    padding: 0;    
+  }  
 
   .input-label {	    
     color: #000000;	
     font-family: Montserrat;	
     font-size: 14px;	
-    letter-spacing: 0.11px;	
+    letter-spacing: 0.11px;
     line-height: 24px;
   }
 
@@ -279,7 +279,7 @@ and open the template in the editor.
 
   .form-input {	
     height: 42px;	
-    wmax-width: 350px;	
+    max-width: 350px;	
     background-color: #FFFFFF;  
     padding: 0;
     margin-top: 10px;
@@ -311,7 +311,6 @@ and open the template in the editor.
     font-weight: 500;	
     letter-spacing: 0.11px;	
     line-height: 24px;
-    margin-top: 100px;
   }
 
   .sign-up-terms {	
@@ -340,6 +339,11 @@ and open the template in the editor.
     line-height: 18px;	
     text-align: center;
     margin-bottom: 20px;
+  }  
+
+  .down-container {
+    height: 100px;
+    margin-top: 100px;
   }
 
   .txt-login-big {	
@@ -371,7 +375,7 @@ and open the template in the editor.
   .btn-reset {	
     height: 50px;	
     width: 170px;	
-    border-radius: 25px;
+    border-radius: 25px;	
     background-color: #DC2EA6;
     margin-top: 35px;
   }
@@ -386,7 +390,7 @@ and open the template in the editor.
     line-height: 18px;	
     text-align: center;
   }
-
+  
   .txt-confirm-email {
     padding-left: 60px;
     padding-right: 60px;
@@ -403,6 +407,21 @@ and open the template in the editor.
     line-height: 18px;	
     text-align: center;
     margin-top: 30px;
+  }
+
+/*endregion*/
+
+/*region Responsive*/
+
+  @media (max-width: 38em) {
+    .input-label {
+      padding-left: 15px;
+    }
+
+    .form-input {   
+      padding-right: 15px;
+      padding-left: 15px;      
+    }
   }
 
 /*endregion*/

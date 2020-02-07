@@ -37,9 +37,9 @@
               <label class="input-label">Retype Password</label>
               <q-input class="col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input" outlined square bg-color="white" type="password" id="repassword" name="repassword"
               color="dark" v-model.trim="$v.repassword.$model" :error-message="repasswordErrors" :error="$v.repassword.$anyError"/>              
-              <div class="row justify-center sign-up-terms">By clicking Sign Up below, you agree to our <a href="#" class="link-login">Terms of Use</a> &nbsp;and&nbsp;<a href="#" class="link-login"> Privacy Policy</a>.</div>
+              <div class="row justify-center sign-up-terms">By clicking Sign Up below, you agree to our <a href="legal" class="link-login">Terms of Use</a> &nbsp;and&nbsp;<a href="legal" class="link-login"> Privacy Policy</a>.</div>
               <div class="row justify-center">
-                <q-btn class="btn-sign-in" flat type="submit" @click.prevent.stop="onSubmit">
+                <q-btn class="btn-sign-in" type="submit" flat @click.prevent.stop="onSubmit">
                   <div class="txt-sign-in">Sign up</div>
                 </q-btn>                
               </div>
@@ -61,17 +61,18 @@ export default {
   name: "sign_up",
   data() {
     return {
-      username: "",
-      email: "",
-      password: "",
-      repassword: "",
-      bdUsername: "",
-      bdEmail: "",
+      username: '',
+      email: '',
+      password: '',
+      repassword: '',
+      bdUsername: '',
+      bdEmail: '',
       login: this.baseurl + 'login',
       index: this.baseurl + "index",
       register: this.baseurl + "register",
       instagram: this.baseurl + "instagram_register",
       forgot: this.baseurl + 'forgot',
+      legal: this.baseurl + 'legal',
       loading: false,
       loadingUsername: false,
       loadingEmail: false
@@ -127,6 +128,9 @@ export default {
       if (!this.$v.repassword.repassword) return "The password does not match";
     }
   },
+  mounted () {
+    document.title = 'LinkStream - Sign Up'
+  },
   methods: {    
     onChangedUsername(value) {      
       if (value.length > 5) {
@@ -180,7 +184,7 @@ export default {
       this.$v.$touch();
       this.$v.email.$touch();
       this.$v.username.$touch();
-      if (!this.$v.$anyError) {
+      if (!this.$v.$invalid) {
         this.loading = true;
         let formData = new FormData();
         formData.append('username', this.username);

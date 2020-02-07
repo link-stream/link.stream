@@ -20,31 +20,34 @@
             </q-card-section>                      
         </div>
         <q-card-section class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 card-form">
-            <q-form @submit.prevent.stop="onSubmit" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false" class="user-form">    
-              <label class="input-label">Email Address</label>  
-              <q-input class="col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input" outlined square bottom-slots  type="email" id="email" name="email"
-              color="dark" v-model.trim="$v.email.$model" :error-message="emailErrors" :error="$v.email.$anyError" />     
-              <label class="input-label" >Password</label>
-              <q-input class="col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input" outlined square bg-color="white" type="password" id="password" name="password"
-              color="dark" :type="isPwd ? 'password' : 'text'" v-model.trim="$v.password.$model" :error-message="passwordErrors" :error="$v.password.$anyError">
-                <template v-slot:append>
-                  <q-icon
-                    :name="isPwd ? 'visibility_off' : 'visibility'"
-                    class="cursor-pointer"
-                    @click="isPwd = !isPwd"
-                  />
-                </template>
-              </q-input>
-              <div class="row justify-center">
-                <q-btn class="btn-sign-in" flat type="submit">
-                  <div class="txt-sign-in">Sign in</div>
-                </q-btn>                
-              </div>
-            </q-form>
-            <q-btn class="row justify-center" flat type="a" :href="forgot" no-caps unelevated dense color="white">
-              <div class="forgot-password">Forgot Password?</div>
-            </q-btn>
+          <q-form @submit.prevent.stop="onSubmit" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false" class="user-form">    
+            <label class="input-label">Email Address</label>  
+            <q-input class="col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input" outlined square bottom-slots  type="email" id="email" name="email"
+            color="dark" v-model.trim="$v.email.$model" :error-message="emailErrors" :error="$v.email.$anyError" />     
+            <label class="input-label" >Password</label>
+            <q-input class="col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input" outlined square bg-color="white" type="password" id="password" name="password"
+            color="dark" :type="isPwd ? 'password' : 'text'" v-model.trim="$v.password.$model" :error-message="passwordErrors" :error="$v.password.$anyError">
+              <template v-slot:append>
+                <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+                />
+              </template>
+            </q-input>
+            <div class="row justify-center">
+              <q-btn class="btn-sign-in" flat type="submit">
+                <div class="txt-sign-in">Sign in</div>
+              </q-btn>                
+            </div>
+          </q-form>            
         </q-card-section>  
+        <div class="down-container">
+          <q-btn class="row items-center" flat type="a" :href="forgot" no-caps unelevated dense color="white">
+            <div class="forgot-password">Forgot Password?</div>
+          </q-btn>
+          <div class="q-mt-md row justify-center already-sign-up">Don't have an account?&nbsp; <a href="register" class="link-login">Sign up</a></div>
+        </div>  
     </div>
 </template>
 <script>
@@ -57,9 +60,9 @@ export default {
       default: ""
     }
   },
-  name: 'sign_in',
+  name: 'sign_in',  
   data() {
-    return {      
+    return {     
       email: '',
       password: '',
       cardClasses: 'self-center my-card midlle',
@@ -90,6 +93,9 @@ export default {
       if (!this.$v.password.required) return '* Required';
       if (!this.$v.password.minLength) return 'The password must have at least 8 characters';
     }
+  },
+  mounted () {
+    document.title = 'LinkStream - Sign In'
   },
   methods: {    
     onSubmit () {

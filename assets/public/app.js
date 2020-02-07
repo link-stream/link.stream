@@ -3044,9 +3044,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "tracks",
+  props: ['data_config'],
   data: function data() {
     return {
-      icon_track: "img:assets/images/icons/icon-cloud-upload.svg",
+      http_assets: '',
+      icon_track: '',
       no_step: 1,
       subtitle: '',
       show_upload_track: true,
@@ -3060,7 +3062,7 @@ __webpack_require__.r(__webpack_exports__);
       show_add_coverArt: false,
       show_publish: false,
       text_upload_cover: 'Drag image here or',
-      icon_coverArt: "img:assets/images/icons/ic-outline-add-a-photo.svg",
+      icon_coverArt: '',
       show_upload_photo: true,
       urlPhoto: '',
       image: null,
@@ -3093,6 +3095,12 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    this.http_assets = JSON.parse(this.data_config);
+    console.log('test', this.http_assets);
+    this.icon_track = "img:".concat(this.http_assets.HTTP_ASSETS, "/images/icons/icon-cloud-upload.svg");
+    this.icon_coverArt = "img:".concat(this.http_assets.HTTP_ASSETS, "/images/icons/ic-outline-add-a-photo.svg");
+    console.log(this.icon_track);
+    document.title = 'LinkStream - Add Track';
     this.subtitle = this.slides[this.no_step - 1].text;
     this.show_add_track = this.slides[this.no_step - 1].visible;
   },
@@ -62560,7 +62568,11 @@ var render = function() {
                     [
                       _c("q-input", {
                         staticClass: "component_publish",
-                        attrs: { outlined: "", placeholder: "Enter name" },
+                        attrs: {
+                          outlined: "",
+                          placeholder: "Enter name",
+                          color: "dark"
+                        },
                         model: {
                           value: _vm.publish_name,
                           callback: function($$v) {
@@ -62585,7 +62597,11 @@ var render = function() {
                     [
                       _c("q-input", {
                         staticClass: "component_publish",
-                        attrs: { outlined: "", placeholder: "$0.00" },
+                        attrs: {
+                          outlined: "",
+                          placeholder: "$0.00",
+                          color: "dark"
+                        },
                         model: {
                           value: _vm.publish_price,
                           callback: function($$v) {
@@ -62610,7 +62626,11 @@ var render = function() {
                     [
                       _c("q-select", {
                         staticClass: "component_publish",
-                        attrs: { outlined: "", options: _vm.options_type },
+                        attrs: {
+                          outlined: "",
+                          options: _vm.options_type,
+                          color: "dark"
+                        },
                         model: {
                           value: _vm.publish_type,
                           callback: function($$v) {
@@ -62635,7 +62655,11 @@ var render = function() {
                     [
                       _c("q-select", {
                         staticClass: "component_publish",
-                        attrs: { outlined: "", options: _vm.options_genre },
+                        attrs: {
+                          outlined: "",
+                          options: _vm.options_genre,
+                          color: "dark"
+                        },
                         model: {
                           value: _vm.publish_genre,
                           callback: function($$v) {
@@ -62660,7 +62684,11 @@ var render = function() {
                     [
                       _c("q-select", {
                         staticClass: "component_publish",
-                        attrs: { outlined: "", options: _vm.options_priority },
+                        attrs: {
+                          outlined: "",
+                          options: _vm.options_priority,
+                          color: "dark"
+                        },
                         model: {
                           value: _vm.publish_priority,
                           callback: function($$v) {
@@ -62687,7 +62715,8 @@ var render = function() {
                         staticClass: "component_publish",
                         attrs: {
                           outlined: "",
-                          options: _vm.options_visibility
+                          options: _vm.options_visibility,
+                          color: "dark"
                         },
                         model: {
                           value: _vm.publish_visibility,
@@ -62712,7 +62741,7 @@ var render = function() {
                     { staticClass: "row q-mt-sm q-mb-lg" },
                     [
                       _c("q-radio", {
-                        attrs: { val: "yes", label: "Yes" },
+                        attrs: { val: "yes", label: "Yes", color: "pink" },
                         model: {
                           value: _vm.publish_explicit,
                           callback: function($$v) {
@@ -62723,7 +62752,7 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("q-radio", {
-                        attrs: { val: "no", label: "No" },
+                        attrs: { val: "no", label: "No", color: "pink" },
                         model: {
                           value: _vm.publish_explicit,
                           callback: function($$v) {
@@ -76904,7 +76933,7 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! H:\Trabajo\Streamy\link.stream\assets\js\app\app.js */"./js/app/app.js");
+module.exports = __webpack_require__(/*! D:\Mio\link.stream\assets\js\app\app.js */"./js/app/app.js");
 
 
 /***/ })

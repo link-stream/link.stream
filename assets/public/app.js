@@ -293,17 +293,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../application/views/app/partials/test.vue":
-/*!**************************************************!*\
-  !*** ../application/views/app/partials/test.vue ***!
-  \**************************************************/
+/***/ "../application/views/app/partials/tracks.vue":
+/*!****************************************************!*\
+  !*** ../application/views/app/partials/tracks.vue ***!
+  \****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _test_vue_vue_type_template_id_ef76637a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./test.vue?vue&type=template&id=ef76637a& */ "../application/views/app/partials/test.vue?vue&type=template&id=ef76637a&");
-/* harmony import */ var _test_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./test.vue?vue&type=script&lang=js& */ "../application/views/app/partials/test.vue?vue&type=script&lang=js&");
+/* harmony import */ var _tracks_vue_vue_type_template_id_af1b960e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tracks.vue?vue&type=template&id=af1b960e& */ "../application/views/app/partials/tracks.vue?vue&type=template&id=af1b960e&");
+/* harmony import */ var _tracks_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tracks.vue?vue&type=script&lang=js& */ "../application/views/app/partials/tracks.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _assets_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../assets/node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -313,9 +313,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_assets_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _test_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _test_vue_vue_type_template_id_ef76637a___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _test_vue_vue_type_template_id_ef76637a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _tracks_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _tracks_vue_vue_type_template_id_af1b960e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _tracks_vue_vue_type_template_id_af1b960e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -325,38 +325,38 @@ var component = Object(_assets_node_modules_vue_loader_lib_runtime_componentNorm
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "application/views/app/partials/test.vue"
+component.options.__file = "application/views/app/partials/tracks.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "../application/views/app/partials/test.vue?vue&type=script&lang=js&":
-/*!***************************************************************************!*\
-  !*** ../application/views/app/partials/test.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************/
+/***/ "../application/views/app/partials/tracks.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ../application/views/app/partials/tracks.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _assets_node_modules_babel_loader_lib_index_js_ref_4_0_assets_node_modules_vue_loader_lib_index_js_vue_loader_options_test_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../assets/node_modules/babel-loader/lib??ref--4-0!../../../../assets/node_modules/vue-loader/lib??vue-loader-options!./test.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!../application/views/app/partials/test.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_assets_node_modules_babel_loader_lib_index_js_ref_4_0_assets_node_modules_vue_loader_lib_index_js_vue_loader_options_test_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _assets_node_modules_babel_loader_lib_index_js_ref_4_0_assets_node_modules_vue_loader_lib_index_js_vue_loader_options_tracks_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../assets/node_modules/babel-loader/lib??ref--4-0!../../../../assets/node_modules/vue-loader/lib??vue-loader-options!./tracks.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!../application/views/app/partials/tracks.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_assets_node_modules_babel_loader_lib_index_js_ref_4_0_assets_node_modules_vue_loader_lib_index_js_vue_loader_options_tracks_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "../application/views/app/partials/test.vue?vue&type=template&id=ef76637a&":
-/*!*********************************************************************************!*\
-  !*** ../application/views/app/partials/test.vue?vue&type=template&id=ef76637a& ***!
-  \*********************************************************************************/
+/***/ "../application/views/app/partials/tracks.vue?vue&type=template&id=af1b960e&":
+/*!***********************************************************************************!*\
+  !*** ../application/views/app/partials/tracks.vue?vue&type=template&id=af1b960e& ***!
+  \***********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _assets_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_assets_node_modules_vue_loader_lib_index_js_vue_loader_options_test_vue_vue_type_template_id_ef76637a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../assets/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../assets/node_modules/vue-loader/lib??vue-loader-options!./test.vue?vue&type=template&id=ef76637a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!../application/views/app/partials/test.vue?vue&type=template&id=ef76637a&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _assets_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_assets_node_modules_vue_loader_lib_index_js_vue_loader_options_test_vue_vue_type_template_id_ef76637a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _assets_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_assets_node_modules_vue_loader_lib_index_js_vue_loader_options_tracks_vue_vue_type_template_id_af1b960e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../assets/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../assets/node_modules/vue-loader/lib??vue-loader-options!./tracks.vue?vue&type=template&id=af1b960e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!../application/views/app/partials/tracks.vue?vue&type=template&id=af1b960e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _assets_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_assets_node_modules_vue_loader_lib_index_js_vue_loader_options_tracks_vue_vue_type_template_id_af1b960e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _assets_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_assets_node_modules_vue_loader_lib_index_js_vue_loader_options_test_vue_vue_type_template_id_ef76637a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _assets_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_assets_node_modules_vue_loader_lib_index_js_vue_loader_options_tracks_vue_vue_type_template_id_af1b960e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -424,7 +424,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _application_views_app_access_sign_in__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../application/views/app/access/sign-in */ "../application/views/app/access/sign-in.vue");
 /* harmony import */ var _application_views_app_access_sign_up__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../application/views/app/access/sign-up */ "../application/views/app/access/sign-up.vue");
 /* harmony import */ var _application_views_app_access_forgot_pass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../application/views/app/access/forgot-pass */ "../application/views/app/access/forgot-pass.vue");
-/* harmony import */ var _application_views_app_partials_test__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../application/views/app/partials/test */ "../application/views/app/partials/test.vue");
+/* harmony import */ var _application_views_app_partials_tracks__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../application/views/app/partials/tracks */ "../application/views/app/partials/tracks.vue");
 
 
 __webpack_require__(/*! ../../../assets/css/streamy.css */ "./css/streamy.css");
@@ -436,6 +436,7 @@ __webpack_require__(/*! ../../../assets/css/streamy.css */ "./css/streamy.css");
 
 
 
+ //import dashboard from "../../../application/views/app/partials/dashboard";
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(quasar__WEBPACK_IMPORTED_MODULE_1__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuelidate__WEBPACK_IMPORTED_MODULE_3___default.a);
@@ -449,7 +450,8 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
     sign_in: _application_views_app_access_sign_in__WEBPACK_IMPORTED_MODULE_5__["default"],
     sign_up: _application_views_app_access_sign_up__WEBPACK_IMPORTED_MODULE_6__["default"],
     forgot_password: _application_views_app_access_forgot_pass__WEBPACK_IMPORTED_MODULE_7__["default"],
-    test: _application_views_app_partials_test__WEBPACK_IMPORTED_MODULE_8__["default"]
+    tracks: _application_views_app_partials_tracks__WEBPACK_IMPORTED_MODULE_8__["default"] //dashboard
+
   },
   Quasar: quasar__WEBPACK_IMPORTED_MODULE_1__["default"],
   data: function data() {
@@ -2981,25 +2983,326 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!../application/views/app/partials/test.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!../application/views/app/partials/test.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!../application/views/app/partials/tracks.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!../application/views/app/partials/tracks.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _assets_node_modules_axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../assets/node_modules/axios */ "./node_modules/axios/index.js");
+/* harmony import */ var _assets_node_modules_axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_assets_node_modules_axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../assets/node_modules/vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var _assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_assets_node_modules_vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "test",
+  name: "tracks",
   data: function data() {
-    return {};
+    return {
+      icon_track: "img:assets/images/icons/icon-cloud-upload.svg",
+      no_step: 1,
+      subtitle: '',
+      show_upload_track: true,
+      text_upload: 'Drag and drop here or',
+      browse: 'browse',
+      title_track: '',
+      icon_player: 'play_arrow',
+      remove: 'Remove',
+      upload_track: [],
+      show_add_track: false,
+      show_add_coverArt: false,
+      show_publish: false,
+      text_upload_cover: 'Drag image here or',
+      icon_coverArt: "img:assets/images/icons/ic-outline-add-a-photo.svg",
+      show_upload_photo: true,
+      urlPhoto: '',
+      image: null,
+      upload_photo: [],
+      suggestion_photo: true,
+      publish_name: '',
+      publish_price: '',
+      publish_type: 'Select Track Type',
+      publish_genre: 'Select Genre',
+      publish_priority: 'Select Priority',
+      publish_visibility: 'Public',
+      publish_explicit: 'yes',
+      text_btn_next: 'Next',
+      show: false,
+      standard: 1,
+      options_type: ['Select Track Type'],
+      options_genre: ['Select Genre'],
+      options_priority: ['Select Priority'],
+      options_visibility: ['Public'],
+      slides: [{
+        text: 'Upload audio file',
+        visible: true
+      }, {
+        text: 'Add cover art',
+        visible: true
+      }, {
+        text: 'Publish your content',
+        visible: true
+      }]
+    };
   },
-  mounted: function mounted() {},
-  methods: {},
+  mounted: function mounted() {
+    this.subtitle = this.slides[this.no_step - 1].text;
+    this.show_add_track = this.slides[this.no_step - 1].visible;
+  },
+  watch: {
+    no_step: function no_step() {
+      this.text_btn_next = this.no_step === 3 ? 'Publish' : 'Next'; //this.subtitle = this.list_subtitle[this.no_step - 1]
+    },
+    upload_track: function upload_track() {
+      if (this.upload_track.length !== 0) {
+        this.title_track = this.upload_track.name;
+        this.show_upload_track = false;
+      }
+
+      console.log(this.upload_track);
+      console.log(this.upload_track.name);
+    },
+    upload_photo: function upload_photo() {
+      if (this.upload_photo.length !== 0) {
+        this.suggestion_photo = false;
+        this.load_photo(event); //this.show_upload_track = false
+      }
+
+      console.log(this.upload_photo); //console.log(this.upload_track.name)
+    }
+  },
+  methods: {
+    change_icon_player: function change_icon_player() {
+      this.icon_player = this.icon_player !== 'pause' ? 'pause' : 'play_arrow';
+    },
+    nextStep: function nextStep() {
+      if (this.no_step < 3) {
+        this.no_step++;
+        this.subtitle = this.slides[this.no_step - 1].text;
+
+        switch (this.no_step) {
+          case 1:
+            {
+              this.show_add_track = this.slides[this.no_step - 1].visible;
+              this.show_add_coverArt = false;
+              this.show_publish = false;
+            }
+            break;
+
+          case 2:
+            {
+              this.show_add_coverArt = this.slides[this.no_step - 1].visible;
+              this.show_add_track = false;
+              this.show_publish = false;
+            }
+            break;
+
+          case 3:
+            {
+              this.show_publish = this.slides[this.no_step - 1].visible;
+              this.show_add_track = false;
+              this.show_add_coverArt = true;
+            }
+            break;
+        }
+      }
+    },
+    backStep: function backStep() {
+      if (this.no_step > 1) {
+        this.no_step--;
+        this.subtitle = this.slides[this.no_step - 1].text;
+
+        switch (this.no_step) {
+          case 1:
+            {
+              this.show_add_track = this.slides[this.no_step - 1].visible;
+              this.show_add_coverArt = false;
+              this.show_publish = false;
+            }
+            break;
+
+          case 2:
+            {
+              this.show_add_coverArt = this.slides[this.no_step - 1].visible;
+              this.show_add_track = false;
+              this.show_publish = false;
+            }
+            break;
+
+          case 3:
+            {
+              this.show_publish = this.slides[this.no_step - 1].visible;
+              this.show_add_track = false;
+              this.show_add_coverArt = true;
+            }
+            break;
+        }
+      }
+    },
+    remove_track: function remove_track() {
+      this.upload_track = [];
+      this.show_upload_track = true;
+    },
+    remove_photo: function remove_photo() {
+      this.upload_photo = [];
+      this.show_upload_photo = true;
+    },
+    add_foto: function add_foto() {
+      this.$refs.fileInput.click();
+    },
+    load_photo: function load_photo(event) {
+      var _this = this;
+
+      var files = event.target.files;
+      var filename = files[0].name;
+
+      if (filename.lastIndexOf('.') <= 0) {
+        console.log('por favor.....');
+      }
+
+      var fileReader = new FileReader();
+      fileReader.addEventListener('load', function () {
+        _this.urlPhoto = fileReader.result;
+        console.log('urlPhoto', _this.urlPhoto);
+      });
+      fileReader.readAsDataURL(files[0]);
+      this.image = files[0];
+      this.show_upload_photo = false;
+      console.log('image', this.image);
+    }
+  },
   created: function created() {}
 });
 
@@ -3018,7 +3321,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, "/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\r\n/* \r\n    Created on : Dec 8, 2019, 8:27:55 AM\r\n    Author     : paolo\r\n*/\r\n.streamy_logo {\r\n  width: 60px;\r\n  height: 60px;\r\n}\r\n\r\n.menu_icon {\r\n  width: 20px;\r\n  height: 20px;\r\n}\r\n\r\n@font-face {\r\n  font-family: customfont;\r\n  src: url(" + escape(__webpack_require__(/*! ./fonts/typeface-montserrat/files/montserrat-latin-400.woff */ "./css/fonts/typeface-montserrat/files/montserrat-latin-400.woff")) + ");\r\n}\r\n\r\n.font-menu {\r\n  font-family: 'customfont';\r\n  color: #9d9d9d;\r\n  font-weight: 600;\r\n  font-size: 14px;\r\n  letter-spacing: 0.11px;\r\n  line-height: 18px;\r\n  text-align: center;\r\n}\r\n\r\n.font-submenu {\r\n  font-family: 'customfont';\r\n  color: #ffffff;\r\n  font-size: 12px;\r\n  font-weight: 600;\r\n  letter-spacing: 0.09px;\r\n  line-height: 32px;\r\n  text-align: left;\r\n}\r\n\r\n.my-menu-link {\r\n  border-left: 6px solid #fdd311;\r\n}\r\n\r\n/*region Sign-in/Sign-up*/\r\n  .common-body {\r\n    background-color: rgb(0,0,0); \r\n    display: grid;\r\n    height: 100vh;       \r\n  }\r\n\r\n  .horizontal-center {\r\n    position: relative;\r\n  }\r\n\r\n  .vertical-center {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    margin: -251px 0 0 -339px;   \r\n  }\r\n\r\n  .my-card {    \r\n    height: 503px;\t\r\n    width: 678px;     \r\n    background-color: #FFFFFF;\r\n    border-color: #F5F5F5;    \r\n  }\r\n\r\n  .my-card-cell {   \r\n    padding: 0;\r\n    /*width: 100%;     */\r\n    background-color: #FFFFFF;\r\n    border-color: #F5F5F5; \r\n    margin: 0 auto;   \r\n  }\r\n\r\n  .logo-cell {\r\n    margin-left: 30%;\r\n    margin-top: 24px;\r\n    margin-bottom: 24px;\r\n    padding: 0;\r\n    height: 32.28px;\t\r\n    width: 28.79px;\r\n    display:inline-block;\r\n    vertical-align:middle;\r\n  }\r\n\r\n  .streamylink {\r\n    background-color: #F5F5F5;\r\n    height: 503px;\t\r\n  }\r\n\r\n  .streamylink-cell {\r\n    background-color: #F5F5F5;\r\n    height: 188px;\t\r\n  }\r\n\r\n  .signin {\r\n    background-color: #FFFFFF;\r\n    height: 503px;\t\r\n  }\r\n\r\n  .logo {\r\n    width: 52px;\r\n    height: 52px;\r\n    margin-top: 20px;\r\n  }\r\n\r\n  .logotext {     \r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 16px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 0.12px;\t\r\n    line-height: 24px;    \r\n  }\r\n\r\n  .logotext-cell {     \r\n    height: 18px;\t\r\n    width: 109px;\t\r\n    color: #FFFFFF;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    font-weight: 900;\t\r\n    letter-spacing: 1px;\t\r\n    line-height: 18px;\r\n    display:inline-block;\r\n    vertical-align:middle;\r\n    margin-top: 24px;\r\n    margin-left: 10px;\r\n    margin-bottom: 24px;\r\n  }\r\n\r\n  .btnemail {\r\n    box-sizing: border-box;\t\r\n    height: 37px;\t\r\n    width: 272px;\t\r\n    border: 2px solid #915EC6;\t\r\n    border-radius: 25px;\r\n    color: #915EC6 !important;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 13px;\t\r\n    font-weight: 500;\t\r\n    line-height: 16px;\r\n  }\r\n\r\n  .btninstagram {\r\n    box-sizing: border-box;\t\r\n    height: 37px;\t\r\n    width: 272px;\t\r\n    border: 2px solid #3897F1;\t\r\n    border-radius: 25px;\r\n    color: #3898EF !important;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 13px;\t\r\n    font-weight: 500;\t\r\n    line-height: 16px;\t\r\n    text-align: center;\r\n  }\r\n\r\n  .btngoogle {\r\n    box-sizing: border-box;\t\r\n    height: 37px;\t\r\n    width: 272px;\t\r\n    border: 2px solid #F1736C;\t\r\n    border-radius: 25px;\r\n    color: #F1736C !important;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 13px;\t\r\n    font-weight: 500;\t\r\n    line-height: 16px;\t\r\n    text-align: center;\r\n  }\r\n\r\n  .signintxt {\t\r\n    margin-top: 30px;\r\n    margin-left: 30px;\r\n    height: 24px;\t\r\n    width: 150px;\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 16px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 0.12px;\t\r\n    line-height: 24px;\r\n  }\r\n\r\n  .signintxt-cell {\t\r\n    margin-top: 30px;\r\n    margin-left: 20px;\r\n    height: 24px;\t\r\n    width: 59px;\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 16px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 0.12px;\t\r\n    line-height: 24px;\r\n  }\r\n\r\n  .form {\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    letter-spacing: 0.11px;\t\r\n    line-height: 24px;\r\n    margin-left: 30px;\r\n  }\r\n\r\n  .form-cell {\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    letter-spacing: 0.11px;\t\r\n    line-height: 24px;\r\n    margin-left: 20px;\r\n  }\r\n\r\n  .rectangle-17-copy {\t\r\n    box-sizing: border-box;\t\r\n    height: 42px;\t\r\n    width: 280px;\t\r\n    border: 1px solid #D7D7D7;\t\r\n    background-color: #FFFFFF;\r\n  }\r\n\r\n  .forminput {\t\r\n    width: 280px;\r\n  }\r\n\r\n  .signup {\t\r\n    margin-top: 40px;\r\n    margin-left: 30px;\r\n    height: 24px;\t\r\n    width: 67px;\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 16px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 0.12px;\t\r\n    line-height: 24px;\r\n  }\r\n\r\n  .signupbtn {\r\n    height: 50px;\t\r\n    width: 156px;\r\n    margin-left: 30px;\r\n    border-radius: 25px;\r\n    background-color: #DC2EA6;\r\n  }\r\n\r\n  .signupbtn-cell {\r\n    height: 50px;\t\r\n    width: 156px;\r\n    margin-left: 20px;\r\n    border-radius: 25px;\r\n    background-color: #DC2EA6;\r\n  }\r\n\r\n  .forgotbtn {\r\n    height: 50px;\t\r\n    width: 250px;\r\n    margin-left: 30px;\r\n    border-radius: 25px;\r\n    text-justify: auto;\r\n    background-color: #DC2EA6;\r\n  }\r\n\r\n  .signuptxt {\t\r\n    height: 18px;\t\r\n    width: 200px;\t\r\n    color: #FFFFFF;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 2px;\t\r\n    line-height: 18px;\t\r\n    text-align: center;\r\n  }\r\n\r\n  .btnemails {\r\n    margin-top: 175px;\r\n  }\r\n\r\n  .forgotpassword {\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    letter-spacing: 0.11px;\t\r\n    line-height: 24px;\r\n    margin-left: 25px;        \r\n  }\r\n\r\n  .forgotpassword-cell {\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    letter-spacing: 0.11px;\t\r\n    line-height: 24px;\r\n    margin-left: 20px;\r\n    margin-bottom: 30px;        \r\n  }\r\n\r\n  a:link {\r\n    color: #000000;\t\r\n  }  \r\n\r\n/*endregion*/\r\n\r\n\r\n\r\n\r\n\r\n", ""]);
+exports.push([module.i, "/*\r\nTo change this license header, choose License Headers in Project Properties.\r\nTo change this template file, choose Tools | Templates\r\nand open the template in the editor.\r\n*/\r\n/* \r\n    Created on : Dec 8, 2019, 8:27:55 AM\r\n    Author     : paolo\r\n*/\r\n.streamy_logo {\r\n  width: 60px;\r\n  height: 60px;\r\n}\r\n\r\n.menu_icon {\r\n  width: 20px;\r\n  height: 20px;\r\n}\r\n\r\n@font-face {\r\n  font-family: customfont;\r\n  src: url(" + escape(__webpack_require__(/*! ./fonts/typeface-montserrat/files/montserrat-latin-400.woff */ "./css/fonts/typeface-montserrat/files/montserrat-latin-400.woff")) + ");\r\n}\r\n\r\n/*region Menu*/\r\n.menu_icon {\r\n  width: 20px;\r\n  height: 20px;\r\n}\r\n\r\n.font-menu {\r\n  font-family: Montserrat;\r\n  color: #9d9d9d;\r\n  font-weight: 600;\r\n  font-size: 14px;\r\n  letter-spacing: 0.11px;\r\n  line-height: 18px;\r\n  text-align: center;\r\n}\r\n\r\n.font-submenu {\r\n  font-family: Montserrat;\r\n  color: #ffffff;\r\n  font-size: 12px;\r\n  font-weight: 600;\r\n  letter-spacing: 0.09px;\r\n  line-height: 32px;  \r\n  text-align: left;\r\n}\r\n\r\n.my-menu-link {\r\n  border-left: 6px solid #fdd311;\r\n}\r\n/*endregion*/\r\n/*region Track-Links*/\r\n.upload_file_track {\r\n  height: 247px;\t\r\n  width: 567px;\r\n  border-style: dashed;\r\n  border-width: 1px;\r\n  border-color: #d7d7d7;\r\n}\r\n.upload_file_photo {\r\n  width: 220px;\r\n  height: 220px;\r\n  border-style: dashed;\r\n  border-width: 1px;\r\n  border-color: #d7d7d7;\r\n}\r\n.steps_track_link {\r\n  color: #9d9d9d;\r\n  font-family: Montserrat;\r\n  font-size: 11px;\r\n  font-weight: bold;\r\n  letter-spacing: 1px;\r\n  line-height: 24px;\r\n}\r\n.icon_track_link{\r\n  align-content: center; \r\n}\r\n.title_track_link {  \r\n  color: #000000;\t\r\n  font-family: Montserrat;\r\n  font-size: 30px;\t\r\n  font-weight: 800;\t\r\n  line-height: 34px;\r\n}\r\n.subtitle_track_link {\r\n  color: #000000;\r\n  font-family: Montserrat;\r\n  font-size: 16px;\r\n  font-weight: bold;\r\n  letter-spacing: 0.12px;\r\n  line-height: 24px;\r\n  text-align: center;\r\n}\r\n.subtitle_icon_track_link {\r\n  color: #000000;\r\n  font-family: Montserrat;\t\r\n  font-size: 13px;\t\r\n  font-weight: 500;\t\r\n  letter-spacing: 0.1px;\t\r\n  line-height: 18px;\t\r\n  text-align: center; \t\r\n}\r\n.subtitle2_icon_track_link {  \r\n  color: #DC2EA6;\t\r\n  font-family: Montserrat;\t\r\n  font-size: 13px;\t\r\n  font-weight: 500;\t\r\n  letter-spacing: 0.1px;\t\r\n  line-height: 18px;\t\r\n  text-align: center; \r\n  margin-left: 4px;\t\t\t\r\n}\r\n.next_btn_track_link {\r\n  height: 50px;\r\n  width: 133px;\r\n  border-radius: 25px;\r\n  background-color: #dc2ea6;\r\n  font-weight: 500;\r\n}\r\n.next_text_track_link {\r\n  color: #ffffff;\r\n  font-family: Montserrat;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n  letter-spacing: 2px;\r\n  line-height: 18px;\r\n  text-align: center;\r\n}\r\n.back_btn_track_link {\r\n  box-sizing: border-box;\r\n  height: 51px;\r\n  width: 134px;\r\n  border: 1px solid #9d9d9d;\r\n  border-radius: 25px;\r\n}\r\n.back_text_track_link {\r\n  color: #9d9d9d;\r\n  font-family: Montserrat;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n  letter-spacing: 2px;\r\n  line-height: 18px;\r\n  text-align: center;\r\n}\r\n.player{\r\n  width: 240px; \r\n  height: 45px;\r\n  background-color: #000000;\r\n  border-radius: 8px;  \r\n}\r\n.coverArt{\r\n  /*width: 280px;\r\n  height: 150px;*/\r\n  width: 240px; \r\n  height: 140px;\r\n}\r\n.time_player{\r\n  font-family: Montserrat;  \r\n  color: #ffffff;\r\n  font-size: 12px;\r\n  font-weight: bold;\r\n}\r\n\r\n.label_publish{\r\n color: #000000;\r\n font-family: Montserrat;\t\r\n font-size: 14px;\t\r\n letter-spacing: 0.11px;\t\r\n line-height: 24px;\r\n font-weight: 500;\r\n}\r\n.component_publish{\r\n  height: 42px;\t\r\n  width: 400px;\r\n  color: #DC2EA6;\r\n}\r\n.color_line_player{\r\n  color: #DC2EA6;\r\n}\r\n.suggest_dimension{\r\n  color: #7D7D7D;\t\r\n  font-family: Montserrat;\t\r\n  font-size: 12px;\t\r\n  letter-spacing: 0.09px;\t\r\n  line-height: 19px;\r\n}\r\n.suggest_dimension_remove{\r\n  color: #DC2EA6;\t\r\n  font-family: Montserrat;\t\r\n  font-size: 13px;\t\r\n  letter-spacing: 0.1px;\t\r\n  line-height: 25.07px;\r\n  text-decoration: none;\r\n}\r\n\r\n\r\n/*endregion*/\r\n\r\n/*region Sign-in/Sign-up*/\r\n  .common-body {\r\n    background-color: rgb(0,0,0); \r\n    display: grid;\r\n    height: 100vh;       \r\n  }\r\n\r\n  .horizontal-center {\r\n    position: relative;\r\n  }\r\n\r\n  .vertical-center {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    margin: -251px 0 0 -339px;   \r\n  }\r\n\r\n  .my-card {    \r\n    height: 503px;\t\r\n    width: 678px;     \r\n    background-color: #FFFFFF;\r\n    border-color: #F5F5F5;    \r\n  }\r\n\r\n  .my-card-cell {   \r\n    padding: 0;\r\n    /*width: 100%;     */\r\n    background-color: #FFFFFF;\r\n    border-color: #F5F5F5; \r\n    margin: 0 auto;   \r\n  }\r\n\r\n  .logo-cell {\r\n    margin-left: 30%;\r\n    margin-top: 24px;\r\n    margin-bottom: 24px;\r\n    padding: 0;\r\n    height: 32.28px;\t\r\n    width: 28.79px;\r\n    display:inline-block;\r\n    vertical-align:middle;\r\n  }\r\n\r\n  .streamylink {\r\n    background-color: #F5F5F5;\r\n    height: 503px;\t\r\n  }\r\n\r\n  .streamylink-cell {\r\n    background-color: #F5F5F5;\r\n    height: 188px;\t\r\n  }\r\n\r\n  .signin {\r\n    background-color: #FFFFFF;\r\n    height: 503px;\t\r\n  }\r\n\r\n  .logo {\r\n    width: 52px;\r\n    height: 52px;\r\n    margin-top: 20px;\r\n  }\r\n\r\n  .logotext {     \r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 16px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 0.12px;\t\r\n    line-height: 24px;    \r\n  }\r\n\r\n  .logotext-cell {     \r\n    height: 18px;\t\r\n    width: 109px;\t\r\n    color: #FFFFFF;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    font-weight: 900;\t\r\n    letter-spacing: 1px;\t\r\n    line-height: 18px;\r\n    display:inline-block;\r\n    vertical-align:middle;\r\n    margin-top: 24px;\r\n    margin-left: 10px;\r\n    margin-bottom: 24px;\r\n  }\r\n\r\n  .btnemail {\r\n    box-sizing: border-box;\t\r\n    height: 37px;\t\r\n    width: 272px;\t\r\n    border: 2px solid #915EC6;\t\r\n    border-radius: 25px;\r\n    color: #915EC6 !important;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 13px;\t\r\n    font-weight: 500;\t\r\n    line-height: 16px;\r\n  }\r\n\r\n  .btninstagram {\r\n    box-sizing: border-box;\t\r\n    height: 37px;\t\r\n    width: 272px;\t\r\n    border: 2px solid #3897F1;\t\r\n    border-radius: 25px;\r\n    color: #3898EF !important;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 13px;\t\r\n    font-weight: 500;\t\r\n    line-height: 16px;\t\r\n    text-align: center;\r\n  }\r\n\r\n  .btngoogle {\r\n    box-sizing: border-box;\t\r\n    height: 37px;\t\r\n    width: 272px;\t\r\n    border: 2px solid #F1736C;\t\r\n    border-radius: 25px;\r\n    color: #F1736C !important;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 13px;\t\r\n    font-weight: 500;\t\r\n    line-height: 16px;\t\r\n    text-align: center;\r\n  }\r\n\r\n  .signintxt {\t\r\n    margin-top: 30px;\r\n    margin-left: 30px;\r\n    height: 24px;\t\r\n    width: 150px;\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 16px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 0.12px;\t\r\n    line-height: 24px;\r\n  }\r\n\r\n  .signintxt-cell {\t\r\n    margin-top: 30px;\r\n    margin-left: 20px;\r\n    height: 24px;\t\r\n    width: 59px;\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 16px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 0.12px;\t\r\n    line-height: 24px;\r\n  }\r\n\r\n  .form {\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    letter-spacing: 0.11px;\t\r\n    line-height: 24px;\r\n    margin-left: 30px;\r\n  }\r\n\r\n  .form-cell {\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    letter-spacing: 0.11px;\t\r\n    line-height: 24px;\r\n    margin-left: 20px;\r\n  }\r\n\r\n  .rectangle-17-copy {\t\r\n    box-sizing: border-box;\t\r\n    height: 42px;\t\r\n    width: 280px;\t\r\n    border: 1px solid #D7D7D7;\t\r\n    background-color: #FFFFFF;\r\n  }\r\n\r\n  .forminput {\t\r\n    width: 280px;\r\n  }\r\n\r\n  .signup {\t\r\n    margin-top: 40px;\r\n    margin-left: 30px;\r\n    height: 24px;\t\r\n    width: 67px;\t\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 16px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 0.12px;\t\r\n    line-height: 24px;\r\n  }\r\n\r\n  .signupbtn {\r\n    height: 50px;\t\r\n    width: 156px;\r\n    margin-left: 30px;\r\n    border-radius: 25px;\r\n    background-color: #DC2EA6;\r\n  }\r\n\r\n  .signupbtn-cell {\r\n    height: 50px;\t\r\n    width: 156px;\r\n    margin-left: 20px;\r\n    border-radius: 25px;\r\n    background-color: #DC2EA6;\r\n  }\r\n\r\n  .forgotbtn {\r\n    height: 50px;\t\r\n    width: 250px;\r\n    margin-left: 30px;\r\n    border-radius: 25px;\r\n    text-justify: auto;\r\n    background-color: #DC2EA6;\r\n  }\r\n\r\n  .signuptxt {\t\r\n    height: 18px;\t\r\n    width: 200px;\t\r\n    color: #FFFFFF;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    font-weight: bold;\t\r\n    letter-spacing: 2px;\t\r\n    line-height: 18px;\t\r\n    text-align: center;\r\n  }\r\n\r\n  .btnemails {\r\n    margin-top: 175px;\r\n  }\r\n\r\n  .forgotpassword {\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    letter-spacing: 0.11px;\t\r\n    line-height: 24px;\r\n    margin-left: 25px;        \r\n  }\r\n\r\n  .forgotpassword-cell {\r\n    color: #000000;\t\r\n    font-family: Montserrat;\t\r\n    font-size: 14px;\t\r\n    letter-spacing: 0.11px;\t\r\n    line-height: 24px;\r\n    margin-left: 20px;\r\n    margin-bottom: 30px;        \r\n  }\r\n\r\n  a:link {\r\n    color: #000000;\t\r\n  }  \r\n\r\n/*endregion*/\r\n\r\n\r\n\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -61988,10 +62291,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!../application/views/app/partials/test.vue?vue&type=template&id=ef76637a&":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!../application/views/app/partials/test.vue?vue&type=template&id=ef76637a& ***!
-  \***************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!../application/views/app/partials/tracks.vue?vue&type=template&id=af1b960e&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!../application/views/app/partials/tracks.vue?vue&type=template&id=af1b960e& ***!
+  \*****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -62003,7 +62306,680 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("span", [_vm._v("Test")])
+  return _c(
+    "q-card",
+    {
+      staticClass: "q-ml-xl self-center midlle",
+      attrs: { suare: "", flat: "" }
+    },
+    [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col " },
+          [
+            _c("q-card-section", { staticClass: "q-mt-md q-pb-none row" }, [
+              _c("span", { staticClass: "steps_track_link" }, [
+                _vm._v("STEP " + _vm._s(_vm.no_step) + "/3")
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "q-card-section",
+              { staticClass: "row title_track_link q-pt-xs q-pb-none" },
+              [
+                _c("span", { staticClass: "title_track_link" }, [
+                  _vm._v("Add a track")
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "q-card-section",
+              { staticClass: "q-mb-md row subtitle_track_link" },
+              [_c("span", [_vm._v(_vm._s(_vm.subtitle))])]
+            ),
+            _vm._v(" "),
+            _c(
+              "q-card-section",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.show_add_track,
+                    expression: "show_add_track"
+                  }
+                ],
+                staticClass: "q-pa-none row "
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.show_upload_track,
+                        expression: "show_upload_track"
+                      }
+                    ],
+                    staticClass: "upload_file_track self-center justify-center"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "col q-mt-xs self-center justify-center icon_track_link"
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "row self-center justify-center q-mt-xl"
+                          },
+                          [
+                            _c("q-icon", {
+                              staticClass:
+                                "row  justify-center self-center icon_track_link",
+                              attrs: { name: _vm.icon_track, size: "59px" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "row self-center justify-center q-mt-md"
+                          },
+                          [
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "subtitle_icon_track_link row justify-center self-center"
+                              },
+                              [_vm._v(_vm._s(_vm.text_upload))]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "subtitle2_icon_track_link row justify-center self-center"
+                              },
+                              [_vm._v(_vm._s(_vm.browse))]
+                            )
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("q-file", {
+                      attrs: { borderless: "" },
+                      model: {
+                        value: _vm.upload_track,
+                        callback: function($$v) {
+                          _vm.upload_track = $$v
+                        },
+                        expression: "upload_track"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.show_upload_track,
+                        expression: "!show_upload_track"
+                      }
+                    ],
+                    staticClass: "upload_file_track self-center justify-center"
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "col q-mt-xs self-center justify-center" },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "row self-center justify-center q-mt-xl q-pt-md"
+                          },
+                          [
+                            _c(
+                              "q-card",
+                              { staticClass: "player self-center midlle" },
+                              [
+                                _c(
+                                  "q-card-section",
+                                  {
+                                    staticClass:
+                                      "row items-center no-wrap q-py-none q-px-none  q-mx-xs self-center justify-center"
+                                  },
+                                  [
+                                    _c("q-btn", {
+                                      attrs: {
+                                        flat: "",
+                                        color: "white",
+                                        round: "",
+                                        icon: _vm.icon_player,
+                                        size: "md"
+                                      },
+                                      on: { click: _vm.change_icon_player }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("q-slider", {
+                                      staticClass: "q-mx-sm color_line_player ",
+                                      attrs: { dark: "", dense: "" },
+                                      model: {
+                                        value: _vm.standard,
+                                        callback: function($$v) {
+                                          _vm.standard = $$v
+                                        },
+                                        expression: "standard"
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "span",
+                                      { staticClass: "time_player q-mr-md" },
+                                      [_vm._v("2:00")]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "row self-center justify-center q-mt-md"
+                          },
+                          [
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "subtitle_icon_track_link row justify-center self-center"
+                              },
+                              [_vm._v(_vm._s(_vm.title_track))]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "subtitle2_icon_track_link row justify-center self-center",
+                                attrs: { href: "#" },
+                                on: { click: _vm.remove_track }
+                              },
+                              [_vm._v(_vm._s(_vm.remove))]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "q-card-section",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.show_add_coverArt,
+                    expression: "show_add_coverArt"
+                  }
+                ],
+                staticClass: "q-pa-none row"
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.show_upload_photo,
+                        expression: "show_upload_photo"
+                      }
+                    ],
+                    staticClass: "upload_file_photo self-center justify-center"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "col q-mt-none self-center justify-center icon_track_link"
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "row self-center justify-center q-mt-xl"
+                          },
+                          [
+                            _c("q-icon", {
+                              staticClass:
+                                "row  justify-center self-center icon_track_link",
+                              attrs: { name: _vm.icon_coverArt, size: "59px" },
+                              on: { click: _vm.add_foto }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "row self-center justify-center" },
+                          [
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "subtitle_icon_track_link row justify-center self-center"
+                              },
+                              [_vm._v(_vm._s(_vm.text_upload_cover))]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "subtitle2_icon_track_link row justify-center self-center q-ml-xsm"
+                              },
+                              [_vm._v(_vm._s(_vm.browse))]
+                            )
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("q-file", {
+                      ref: "fileInput",
+                      attrs: { borderless: "" },
+                      on: { change: _vm.load_photo },
+                      model: {
+                        value: _vm.upload_photo,
+                        callback: function($$v) {
+                          _vm.upload_photo = $$v
+                        },
+                        expression: "upload_photo"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.show_upload_photo,
+                        expression: "!show_upload_photo"
+                      }
+                    ],
+                    staticClass: "col"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "upload_file_photo self-center justify-center q-py-none row"
+                      },
+                      [
+                        _c("q-img", {
+                          staticClass: "q-py-none",
+                          staticStyle: {
+                            height: "220px",
+                            "max-width": "220px"
+                          },
+                          attrs: { id: "imgElem", src: _vm.urlPhoto }
+                        })
+                      ],
+                      1
+                    )
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "q-card-section",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.show_add_coverArt,
+                    expression: "show_add_coverArt"
+                  }
+                ],
+                staticClass: "q-pl-none q-pt-none"
+              },
+              [
+                _c("div", { staticClass: "col q-pl-none q-mt-xs" }, [
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.suggestion_photo,
+                          expression: "suggestion_photo"
+                        }
+                      ],
+                      staticClass: "suggest_dimension "
+                    },
+                    [_vm._v("Suggested Dimensions: 1000x1000")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.suggestion_photo,
+                          expression: "!suggestion_photo"
+                        }
+                      ],
+                      staticClass: "suggest_dimension_remove",
+                      attrs: { href: "#" },
+                      on: { click: _vm.remove_photo }
+                    },
+                    [_vm._v(_vm._s(_vm.remove))]
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "q-card-section",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.show_publish,
+                    expression: "show_publish"
+                  }
+                ],
+                staticClass: "q-pa-none row "
+              },
+              [
+                _c("div", { staticClass: "col" }, [
+                  _c("div", { staticClass: "row q-mt-md " }, [
+                    _c("span", { staticClass: "label_publish" }, [
+                      _vm._v("Track Name")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "row q-mt-sm q-mb-lg component_publish" },
+                    [
+                      _c("q-input", {
+                        staticClass: "component_publish",
+                        attrs: { outlined: "", placeholder: "Enter name" },
+                        model: {
+                          value: _vm.publish_name,
+                          callback: function($$v) {
+                            _vm.publish_name = $$v
+                          },
+                          expression: "publish_name"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row q-mt-md " }, [
+                    _c("span", { staticClass: "label_publish" }, [
+                      _vm._v("Track Price")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "row q-mt-sm q-mb-lg" },
+                    [
+                      _c("q-input", {
+                        staticClass: "component_publish",
+                        attrs: { outlined: "", placeholder: "$0.00" },
+                        model: {
+                          value: _vm.publish_price,
+                          callback: function($$v) {
+                            _vm.publish_price = $$v
+                          },
+                          expression: "publish_price"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row q-mt-md " }, [
+                    _c("span", { staticClass: "label_publish" }, [
+                      _vm._v("Track Type")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "row q-mt-sm q-mb-lg" },
+                    [
+                      _c("q-select", {
+                        staticClass: "component_publish",
+                        attrs: { outlined: "", options: _vm.options_type },
+                        model: {
+                          value: _vm.publish_type,
+                          callback: function($$v) {
+                            _vm.publish_type = $$v
+                          },
+                          expression: "publish_type"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row q-mt-md " }, [
+                    _c("span", { staticClass: "label_publish" }, [
+                      _vm._v("Track Genre")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "row q-mt-sm q-mb-lg" },
+                    [
+                      _c("q-select", {
+                        staticClass: "component_publish",
+                        attrs: { outlined: "", options: _vm.options_genre },
+                        model: {
+                          value: _vm.publish_genre,
+                          callback: function($$v) {
+                            _vm.publish_genre = $$v
+                          },
+                          expression: "publish_genre"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row q-mt-md " }, [
+                    _c("span", { staticClass: "label_publish" }, [
+                      _vm._v("Track Priority")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "row q-mt-sm q-mb-lg" },
+                    [
+                      _c("q-select", {
+                        staticClass: "component_publish",
+                        attrs: { outlined: "", options: _vm.options_priority },
+                        model: {
+                          value: _vm.publish_priority,
+                          callback: function($$v) {
+                            _vm.publish_priority = $$v
+                          },
+                          expression: "publish_priority"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row q-mt-md " }, [
+                    _c("span", { staticClass: "label_publish" }, [
+                      _vm._v("Track Visibility")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "row q-mt-sm q-mb-lg" },
+                    [
+                      _c("q-select", {
+                        staticClass: "component_publish",
+                        attrs: {
+                          outlined: "",
+                          options: _vm.options_visibility
+                        },
+                        model: {
+                          value: _vm.publish_visibility,
+                          callback: function($$v) {
+                            _vm.publish_visibility = $$v
+                          },
+                          expression: "publish_visibility"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row q-mt-md " }, [
+                    _c("span", { staticClass: "label_publish" }, [
+                      _vm._v("Explicit Content?")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "row q-mt-sm q-mb-lg" },
+                    [
+                      _c("q-radio", {
+                        attrs: { val: "yes", label: "Yes" },
+                        model: {
+                          value: _vm.publish_explicit,
+                          callback: function($$v) {
+                            _vm.publish_explicit = $$v
+                          },
+                          expression: "publish_explicit"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("q-radio", {
+                        attrs: { val: "no", label: "No" },
+                        model: {
+                          value: _vm.publish_explicit,
+                          callback: function($$v) {
+                            _vm.publish_explicit = $$v
+                          },
+                          expression: "publish_explicit"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "q-card-section",
+              { staticClass: "row q-pt-none q-pl-none" },
+              [
+                _c(
+                  "q-btn",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.no_step !== 1,
+                        expression: "no_step !== 1"
+                      }
+                    ],
+                    staticClass: "q-mt-lg q-mr-md back_btn_track_link",
+                    attrs: { flat: "" },
+                    on: { click: _vm.backStep }
+                  },
+                  [
+                    _c("div", { staticClass: "back_text_track_link" }, [
+                      _vm._v("Back")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "q-btn",
+                  {
+                    staticClass: "q-mt-lg next_btn_track_link",
+                    attrs: { flat: "" },
+                    on: { click: _vm.nextStep }
+                  },
+                  [
+                    _c("div", { staticClass: "next_text_track_link" }, [
+                      _vm._v(_vm._s(_vm.text_btn_next))
+                    ])
+                  ]
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

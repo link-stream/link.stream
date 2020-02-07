@@ -22,8 +22,14 @@ and open the template in the editor.
   src: url(./fonts/typeface-montserrat/files/montserrat-latin-400.woff);
 }
 
+/*region Menu*/
+.menu_icon {
+  width: 20px;
+  height: 20px;
+}
+
 .font-menu {
-  font-family: 'customfont';
+  font-family: Montserrat;
   color: #9d9d9d;
   font-weight: 600;
   font-size: 14px;
@@ -33,18 +39,165 @@ and open the template in the editor.
 }
 
 .font-submenu {
-  font-family: 'customfont';
+  font-family: Montserrat;
   color: #ffffff;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.09px;
-  line-height: 32px;
+  line-height: 32px;  
   text-align: left;
 }
 
 .my-menu-link {
   border-left: 6px solid #fdd311;
 }
+/*endregion*/
+/*region Track-Links*/
+.upload_file_track {
+  height: 247px;	
+  width: 567px;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #d7d7d7;
+}
+.upload_file_photo {
+  width: 220px;
+  height: 220px;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #d7d7d7;
+}
+.steps_track_link {
+  color: #9d9d9d;
+  font-family: Montserrat;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  line-height: 24px;
+}
+.icon_track_link{
+  align-content: center; 
+}
+.title_track_link {  
+  color: #000000;	
+  font-family: Montserrat;
+  font-size: 30px;	
+  font-weight: 800;	
+  line-height: 34px;
+}
+.subtitle_track_link {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.12px;
+  line-height: 24px;
+  text-align: center;
+}
+.subtitle_icon_track_link {
+  color: #000000;
+  font-family: Montserrat;	
+  font-size: 13px;	
+  font-weight: 500;	
+  letter-spacing: 0.1px;	
+  line-height: 18px;	
+  text-align: center; 	
+}
+.subtitle2_icon_track_link {  
+  color: #DC2EA6;	
+  font-family: Montserrat;	
+  font-size: 13px;	
+  font-weight: 500;	
+  letter-spacing: 0.1px;	
+  line-height: 18px;	
+  text-align: center; 
+  margin-left: 4px;			
+}
+.next_btn_track_link {
+  height: 50px;
+  width: 133px;
+  border-radius: 25px;
+  background-color: #dc2ea6;
+  font-weight: 500;
+}
+.next_text_track_link {
+  color: #ffffff;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  line-height: 18px;
+  text-align: center;
+}
+.back_btn_track_link {
+  box-sizing: border-box;
+  height: 51px;
+  width: 134px;
+  border: 1px solid #9d9d9d;
+  border-radius: 25px;
+}
+.back_text_track_link {
+  color: #9d9d9d;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  line-height: 18px;
+  text-align: center;
+}
+.player{
+  width: 240px; 
+  height: 45px;
+  background-color: #000000;
+  border-radius: 8px;  
+}
+.coverArt{
+  /*width: 280px;
+  height: 150px;*/
+  width: 240px; 
+  height: 140px;
+}
+.time_player{
+  font-family: Montserrat;  
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.label_publish{
+ color: #000000;
+ font-family: Montserrat;	
+ font-size: 14px;	
+ letter-spacing: 0.11px;	
+ line-height: 24px;
+ font-weight: 500;
+}
+.component_publish{
+  height: 42px;	
+  width: 400px;
+  color: #DC2EA6;
+}
+.color_line_player{
+  color: #DC2EA6;
+}
+.suggest_dimension{
+  color: #7D7D7D;	
+  font-family: Montserrat;	
+  font-size: 12px;	
+  letter-spacing: 0.09px;	
+  line-height: 19px;
+}
+.suggest_dimension_remove{
+  color: #DC2EA6;	
+  font-family: Montserrat;	
+  font-size: 13px;	
+  letter-spacing: 0.1px;	
+  line-height: 25.07px;
+  text-decoration: none;
+}
+
+
+/*endregion*/
 
 /*region Sign-in/Sign-up*/
   .common-body {

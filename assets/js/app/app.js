@@ -9,14 +9,15 @@ import { mixin as clickaway } from "vue-clickaway";
 import sign_in from "../../../application/views/app/access/sign-in";
 import sign_up from "../../../application/views/app/access/sign-up";
 import forgot_password from "../../../application/views/app/access/forgot-pass";
-import test from "../../../application/views/app/partials/test";
-
+import tracks from "../../../application/views/app/partials/tracks";
+//import dashboard from "../../../application/views/app/partials/dashboard";
 
 Vue.use(Quasar);
 Vue.use(Vuelidate);
 
 window._ = require("lodash");
 Vue.prototype.$http = axios;
+
 
 let app = new Vue({
   el: "#q-app",
@@ -26,8 +27,8 @@ let app = new Vue({
     sign_in,
     sign_up,
     forgot_password,
-    test,
-
+    tracks,
+    //dashboard
   },
   Quasar,
   data: function() {

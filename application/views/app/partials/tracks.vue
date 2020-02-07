@@ -74,44 +74,44 @@
               <span class="label_publish">Track Name</span>              
             </div> 
             <div class="row q-mt-sm q-mb-lg component_publish">              
-              <q-input outlined v-model="publish_name" placeholder="Enter name" class="component_publish"/>
+              <q-input outlined v-model="publish_name" placeholder="Enter name" class="component_publish" color="dark"/>
             </div> 
             <div class="row q-mt-md ">
               <span class="label_publish">Track Price</span>              
             </div> 
             <div class="row q-mt-sm q-mb-lg">
-              <q-input outlined v-model="publish_price" placeholder="$0.00" class="component_publish"/>
+              <q-input outlined v-model="publish_price" placeholder="$0.00" class="component_publish" color="dark"/>
             </div> 
             <div class="row q-mt-md ">
               <span class="label_publish">Track Type</span>              
             </div> 
             <div class="row q-mt-sm q-mb-lg">
-              <q-select outlined v-model="publish_type" :options="options_type"  class="component_publish" />
+              <q-select outlined v-model="publish_type" :options="options_type"  class="component_publish" color="dark"/>
             </div> 
             <div class="row q-mt-md ">
               <span class="label_publish">Track Genre</span>              
             </div> 
             <div class="row q-mt-sm q-mb-lg">
-              <q-select outlined v-model="publish_genre" :options="options_genre"  class="component_publish" />
+              <q-select outlined v-model="publish_genre" :options="options_genre"  class="component_publish" color="dark"/>
             </div> 
             <div class="row q-mt-md ">
               <span class="label_publish">Track Priority</span>              
             </div>  
             <div class="row q-mt-sm q-mb-lg">
-              <q-select outlined v-model="publish_priority" :options="options_priority"  class="component_publish"/>
+              <q-select outlined v-model="publish_priority" :options="options_priority"  class="component_publish" color="dark"/>
             </div> 
             <div class="row q-mt-md ">
               <span class="label_publish">Track Visibility</span>              
             </div>  
             <div class="row q-mt-sm q-mb-lg">
-              <q-select outlined v-model="publish_visibility" :options="options_visibility"  class="component_publish" />
+              <q-select outlined v-model="publish_visibility" :options="options_visibility"  class="component_publish" color="dark"/>
             </div> 
             <div class="row q-mt-md ">
               <span class="label_publish">Explicit Content?</span>              
             </div>  
             <div class="row q-mt-sm q-mb-lg">
-              <q-radio v-model="publish_explicit" val="yes" label="Yes" />
-              <q-radio v-model="publish_explicit" val="no" label="No" /> 
+              <q-radio v-model="publish_explicit" val="yes" label="Yes" color="pink" />
+              <q-radio v-model="publish_explicit" val="no" label="No" color="pink" /> 
             </div>   
           </div>        
         </q-card-section>
@@ -133,9 +133,11 @@ import { required, email, minLength } from '../../../../assets/node_modules/vuel
 
 export default {
   name: "tracks",
+  props: ['data_config'], 
   data () {
     return {
-      icon_track: "img:assets/images/icons/icon-cloud-upload.svg",
+      http_assets: '',
+      icon_track: '',      
       no_step: 1,
       subtitle: '',
       show_upload_track: true,
@@ -149,7 +151,7 @@ export default {
       show_add_coverArt: false,
       show_publish: false,
       text_upload_cover: 'Drag image here or',
-      icon_coverArt: "img:assets/images/icons/ic-outline-add-a-photo.svg",
+      icon_coverArt: '',      
       show_upload_photo: true,
       urlPhoto: '',      
       image: null,
@@ -186,7 +188,13 @@ export default {
 
     }
   },
-  mounted () {    
+  mounted () {  
+    this.http_assets = JSON.parse(this.data_config)
+    console.log('test',this.http_assets) 
+    this.icon_track =  `img:${this.http_assets.HTTP_ASSETS}/images/icons/icon-cloud-upload.svg`
+    this.icon_coverArt =  `img:${this.http_assets.HTTP_ASSETS}/images/icons/ic-outline-add-a-photo.svg`
+    console.log(this.icon_track)
+    document.title = 'LinkStream - Add Track'
     this.subtitle = this.slides[this.no_step - 1].text
     this.show_add_track = this.slides[this.no_step - 1].visible
   },

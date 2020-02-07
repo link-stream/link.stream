@@ -20,7 +20,7 @@
                 </q-page-container>
             </q-layout>            
         </div>
-        <script src="assets/public/app.js"></script>
+        <script src="<?= HTTP_ASSETS ?>public/app.js"></script>
     </body>
 </html>
 

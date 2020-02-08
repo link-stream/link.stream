@@ -9,6 +9,7 @@ import { mixin as clickaway } from "vue-clickaway";
 import sign_in from "../../../application/views/app/access/sign-in";
 import sign_up from "../../../application/views/app/access/sign-up";
 import forgot_password from "../../../application/views/app/access/forgot-pass";
+import confirm_email from "../../../application/views/app/access/confirm-email";
 import tracks from "../../../application/views/app/partials/tracks";
 //import dashboard from "../../../application/views/app/partials/dashboard";
 
@@ -26,6 +27,7 @@ let app = new Vue({
     sign_in,
     sign_up,
     forgot_password,
+    confirm_email,
     tracks,
     //dashboard
   },

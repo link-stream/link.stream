@@ -12,7 +12,7 @@
                     <q-icon left class="q-mr-xl icon-instagram" :name="icon_instagram" />
                     <div class="social-btn-txt">Sign up with Instagram</div>
                 </q-btn>
-                <q-btn align="left" class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sign-up-with-google" no-caps flat type="a" href="#">
+                <q-btn align="left" class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sign-up-with-google" no-caps flat type="a" id="customBtn">
                     <q-icon left class="q-mr-xl icon-google" :name="icon_google" /> 
                     <div class="social-btn-txt q-ml-md">Sign up with Google</div>
                 </q-btn>  

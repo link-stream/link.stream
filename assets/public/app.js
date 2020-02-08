@@ -456,12 +456,12 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
       selectedMenu: "Dashboard",
       submenuList: [],
       menuList: [{
-        icon: "img:assets/images/icons/tachometer-alt.svg",
+        icon: "img:".concat(httpAssets, "images/icons/tachometer-alt.svg"),
         label: "Dashboard",
         linkTo: "#",
         submenu: []
       }, {
-        icon: "img:assets/images/icons/icon-user-circle.svg",
+        icon: "img:".concat(httpAssets, "images/icons/icon-user-circle.svg"),
         label: "My Profile",
         linkTo: "#",
         submenu: [{
@@ -472,7 +472,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
           label: "View Profile"
         }]
       }, {
-        icon: "img:assets/images/icons/icon-tracks.svg",
+        icon: "img:".concat(httpAssets, "images/icons/icon-tracks.svg"),
         label: "My Tracks",
         linkTo: "#",
         submenu: [{
@@ -496,7 +496,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
         ]
       },*/
       {
-        icon: "img:assets/images/icons/icon-link.svg",
+        icon: "img:".concat(httpAssets, "images/icons/icon-link.svg"),
         label: "My Links",
         linkTo: "#",
         submenu: [{
@@ -507,7 +507,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
           label: "Manage Links"
         }]
       }, {
-        icon: "img:assets/images/icons/chart-bar.svg",
+        icon: "img:".concat(httpAssets, "images/icons/chart-bar.svg"),
         label: "Analytics",
         linkTo: "#",
         submenu: [{
@@ -518,7 +518,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
           label: "Revenue"
         }]
       }, {
-        icon: "img:assets/images/icons/icon-settings.svg",
+        icon: "img:".concat(httpAssets, "images/icons/icon-settings.svg"),
         label: "Account Settings",
         linkTo: "#",
         submenu: [{
@@ -536,7 +536,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
         submenu: []
       },*/
       {
-        icon: "img:assets/images/icons/icon-upgrade.svg",
+        icon: "img:".concat(httpAssets, "images/icons/icon-upgrade.svg"),
         label: "Upgrade",
         linkTo: "#",
         submenu: []
@@ -562,7 +562,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   },
   watch: {
     left: function left() {
-      this.left === false ? this.menuState = "assets/images/icons/bars.svg" : this.menuState = "assets/images/icons/icon-close-sharp.svg";
+      this.left === false ? this.menuState = "".concat(httpAssets, "images/icons/bars.svg") : this.menuState = "".concat(httpAssets, "images/icons/icon-close-sharp.svg");
     },
     submenu: function submenu() {
       this.submenu ? this.dynamicWidth = 256 : this.dynamicWidth = 128;

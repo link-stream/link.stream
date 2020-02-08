@@ -41,16 +41,16 @@ let app = new Vue({
       menuState: "",
       submenu: false,
       selectedMenu: "Dashboard",
-      submenuList: [],      
+      submenuList: [],     
       menuList: [
-        {
-          icon: "img:assets/images/icons/tachometer-alt.svg",
+        {          
+          icon: `img:${httpAssets}images/icons/tachometer-alt.svg`,
           label: "Dashboard",
           linkTo: "#",
           submenu: []
         },
-        {
-          icon: "img:assets/images/icons/icon-user-circle.svg",
+        {          
+          icon: `img:${httpAssets}images/icons/icon-user-circle.svg`,
           label: "My Profile",
           linkTo: "#",
           submenu: [
@@ -58,8 +58,8 @@ let app = new Vue({
             { linkTo: "#", label: "View Profile" }
           ]
         },
-        {
-          icon: "img:assets/images/icons/icon-tracks.svg",
+        {          
+          icon: `img:${httpAssets}images/icons/icon-tracks.svg`,
           label: "My Tracks",
           linkTo: "#",
           submenu: [
@@ -77,8 +77,8 @@ let app = new Vue({
             { linkTo: "#", label: "Manage Content" }
           ]
         },*/
-        {
-          icon: "img:assets/images/icons/icon-link.svg",
+        {          
+          icon: `img:${httpAssets}images/icons/icon-link.svg`,
           label: "My Links",
           linkTo: "#",
           submenu: [
@@ -86,8 +86,8 @@ let app = new Vue({
             { linkTo: "#", label: "Manage Links" }
           ]
         },
-        {
-          icon: "img:assets/images/icons/chart-bar.svg",
+        {          
+          icon: `img:${httpAssets}images/icons/chart-bar.svg`,
           label: "Analytics",
           linkTo: "#",
           submenu: [
@@ -95,8 +95,8 @@ let app = new Vue({
             { linkTo: "#", label: "Revenue" }
           ]
         },
-        {
-          icon: "img:assets/images/icons/icon-settings.svg",
+        {          
+          icon: `img:${httpAssets}images/icons/icon-settings.svg`,
           label: "Account Settings",
           linkTo: "#",
           submenu: [
@@ -110,8 +110,8 @@ let app = new Vue({
           linkTo: "#",
           submenu: []
         },*/
-        {
-          icon: "img:assets/images/icons/icon-upgrade.svg",
+        {          
+          icon: `img:${httpAssets}images/icons/icon-upgrade.svg`,
           label: "Upgrade",
           linkTo: "#",
           submenu: []
@@ -139,10 +139,10 @@ let app = new Vue({
     this.submenu = false;
   },
   watch: {
-    left() {
+    left() {      
       this.left === false
-        ? (this.menuState = "assets/images/icons/bars.svg")
-        : (this.menuState = "assets/images/icons/icon-close-sharp.svg");
+        ? (this.menuState = `${httpAssets}images/icons/bars.svg`)
+        : (this.menuState = `${httpAssets}images/icons/icon-close-sharp.svg`);
     },
     submenu() {
       this.submenu ? (this.dynamicWidth = 256) : (this.dynamicWidth = 128);

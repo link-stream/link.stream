@@ -2763,13 +2763,9 @@ __webpack_require__.r(__webpack_exports__);
         var formData = new FormData();
         formData.append('email', this.email);
         formData.append('password', this.password);
-        var sign_in = {};
-        formData.forEach(function (value, key) {
-          sign_in[key] = value;
-        });
         _assets_node_modules_axios__WEBPACK_IMPORTED_MODULE_0___default()({
           method: 'post',
-          url: this.baseurl + 'app/login_js',
+          url: urlBase + 'app/login_js',
           data: formData,
           config: {
             headers: {
@@ -3023,7 +3019,7 @@ __webpack_require__.r(__webpack_exports__);
         formData.append('repassword', this.repassword);
         _assets_node_modules_axios__WEBPACK_IMPORTED_MODULE_0___default()({
           method: 'post',
-          url: this.baseurl + "app/register_js",
+          url: urlBase + "app/register_js",
           data: formData,
           config: {
             headers: {

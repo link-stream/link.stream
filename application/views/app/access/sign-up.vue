@@ -199,7 +199,7 @@ export default {
         formData.append('repassword', this.repassword);
         axios({
           method: 'post',
-          url: this.baseurl + "app/register_js",
+          url: urlBase + "app/register_js",
           data: formData,
           config: { headers: {'Content-Type': 'multipart/form-data' }}
         })

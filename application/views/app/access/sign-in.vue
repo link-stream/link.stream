@@ -104,13 +104,9 @@ export default {
         let formData = new FormData();
         formData.append('email', this.email);
         formData.append('password', this.password);
-        let sign_in = {};
-        formData.forEach(function(value, key){
-            sign_in[key] = value;
-        });
         axios({
           method: 'post',
-          url: this.baseurl + 'app/login_js',
+          url: urlBase + 'app/login_js',
           data: formData,
           config: { headers: {'Content-Type': 'multipart/form-data' }}
         })

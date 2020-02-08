@@ -10,7 +10,7 @@
             <q-card-section class="row justify-center social-sign-up-options">                      
               <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 txt-login-big">Confirm Email Address</div>                                
               <div class="row justify-center enter-email txt-confirm-email">Please check your inbox to confirm your email address and complete sign up.</div>  
-              <a href="#" class="row justify-center resend-confirmation link-login">Resend confirmation email</a>
+              <a href="#" class="row justify-center resend-confirmation link-resend">Resend confirmation email</a>
             </q-card-section>                      
         </div> 
     </div>

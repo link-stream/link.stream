@@ -329,6 +329,11 @@ and open the template in the editor.
     text-decoration: none;
   }
 
+  .link-resend {
+    color: #DC2EA6;
+    text-decoration: none;
+  }
+
   .already-sign-up {	
     height: 18px;    
     color: #000000;	
@@ -421,6 +426,14 @@ and open the template in the editor.
     .form-input {   
       padding-right: 15px;
       padding-left: 15px;      
+    }
+
+    .link-resend {
+      margin-top: 90px;
+    }
+
+    .txt-confirm-email {
+      margin-top: 25px;
     }
   }
 

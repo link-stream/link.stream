@@ -63,12 +63,12 @@ class App extends CI_Controller {
             $this->general_library->update_cookie(serialize(array('user' => $encrypted_user)));
 
 
-//            $data['title'] = 'Streamy';
-//            $data['page'] = 'Dashboard';
-//            $data['body_content'] = 'dashboard';
-//            $this->load->view($this->loc_path . 'layouts/layout', $data);
+            $data['title'] = 'Streamy';
+            $data['page'] = 'Dashboard';
+            $data['body_content'] = 'dashboard';
+            $this->load->view($this->loc_path . 'layouts/layout', $data);
 
-            $this->load->view($this->loc_path . 'dashboard', $data);
+            //$this->load->view($this->loc_path . 'dashboard', $data);
         } else {
             redirect($this->loc_url . '/login', 'location', 302);
         }
@@ -165,10 +165,9 @@ class App extends CI_Controller {
                 $data['msg'] = 'Fields can not be empty';
             }
         }
-        $this->load->view($this->loc_path . 'signin', $data);
-//        $baseUrl = base_url();
-//        $data['body_content'] = "<sign_in baseurl={$baseUrl}></sign_in>";
-//        $this->load->view($this->loc_path . 'layouts/common', $data);
+//        $this->load->view($this->loc_path . 'signin', $data);
+        $data['body_content'] = "<sign_in></sign_in>";
+        $this->load->view($this->loc_path . 'layouts/common', $data);
     }
 
     public function login_js() {
@@ -250,11 +249,11 @@ class App extends CI_Controller {
                 $data['msg'] = 'Fields can not be empty';
             }
         }
-        $this->load->view($this->loc_path . 'signup', $data);
+        //$this->load->view($this->loc_path . 'signup', $data);
         //$data['body_content'] = '<sign_up></sign_up>';
-//        $baseUrl = base_url();
-//        $data['body_content'] = "<sign_up baseurl={$baseUrl}></sign_up>";
-//        $this->load->view($this->loc_path . 'layouts/common', $data);
+        $baseUrl = base_url();
+        $data['body_content'] = "<sign_up></sign_up>";
+        $this->load->view($this->loc_path . 'layouts/common', $data);
     }
 
     public function register_js() {
@@ -311,8 +310,10 @@ class App extends CI_Controller {
         $user_e = $this->general_library->urlsafe_b64encode($user);
         $url = base_url() . 'app/email_confirm/' . $email_e . '/' . $id_e . '/' . $user_e;
         $body = $this->load->view('email/email_register', array('user' => $user, 'email' => $email, 'url' => $url), true);
-        $this->general_library->send_ses($email, $email, 'LinkStream', 'noreply@link.stream', "Register on LinksStream", $body);
-        echo 'Please Check your email and confirm your email address';
+        //$this->general_library->send_ses($email, $email, 'LinkStream', 'noreply@link.stream', "Register on LinksStream", $body);
+        //echo 'Please Check your email and confirm your email address';
+        $data['body_content'] = "<confirm_email></confirm_email>";
+        $this->load->view($this->loc_path . 'layouts/common', $data);
     }
 
     public function email_confirm($email_e, $id_e, $user_e) {
@@ -1494,9 +1495,13 @@ class App extends CI_Controller {
             $data['placeholder_url'] = '';
             $data['type_url'] = '';
             $data['genres'] = $this->Streamy_model->fetch_genres();
-            $this->load->view($this->loc_path . 'content/stream', $data);
-//            $data['body_content'] = '<test></test>';
-//            $this->load->view($this->loc_path . 'layouts/layout', $data);
+            //$this->load->view($this->loc_path . 'content/stream', $data);
+            //$data_config = json_encode(array('HTTP_ASSETS' => HTTP_ASSETS, 'base_url' => base_url()));
+            $data['title'] = 'Tracks';
+            $data['body_content'] = "<tracks></tracks>";
+            //$data['body_content'] = "<tracks data_config={$data_config}></tracks>";
+            //$data['body_content'] = '<tracks ></tracks>';
+            $this->load->view($this->loc_path . 'layouts/layout', $data);
         } else {
             redirect($this->loc_url . '/login', 'location', 302);
         }
@@ -1984,6 +1989,11 @@ class App extends CI_Controller {
             $content = $this->Streamy_model->fetch_streamy_by_id($id);
             echo json_encode(array('status' => 'Success', 'content' => $content));
         }
+    }
+
+    public function fetch_genres_js() {
+        $genres = $this->Streamy_model->fetch_genres();
+        echo json_encode(array('status' => 'Success', 'genres' => $genres));
     }
 
     //END NEW FUNCTIONS 02/2020

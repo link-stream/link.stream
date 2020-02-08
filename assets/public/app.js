@@ -62020,13 +62020,19 @@ var render = function() {
                 _vm._v("By clicking Sign Up below, you agree to our "),
                 _c(
                   "a",
-                  { staticClass: "link-login", attrs: { href: "legal" } },
+                  {
+                    staticClass: "link-login",
+                    attrs: { href: "legal", target: "_blank" }
+                  },
                   [_vm._v("Terms of Use")]
                 ),
                 _vm._v("  and "),
                 _c(
                   "a",
-                  { staticClass: "link-login", attrs: { href: "legal" } },
+                  {
+                    staticClass: "link-login",
+                    attrs: { href: "legal", target: "_blank" }
+                  },
                   [_vm._v(" Privacy Policy")]
                 ),
                 _vm._v(".")

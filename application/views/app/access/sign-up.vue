@@ -37,7 +37,7 @@
               <label class="input-label">Retype Password</label>
               <q-input class="col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 form-input" outlined square bg-color="white" type="password" id="repassword" name="repassword"
               color="dark" v-model.trim="$v.repassword.$model" :error-message="repasswordErrors" :error="$v.repassword.$anyError"/>              
-              <div class="row justify-center sign-up-terms">By clicking Sign Up below, you agree to our <a href="legal" class="link-login">Terms of Use</a> &nbsp;and&nbsp;<a href="legal" class="link-login"> Privacy Policy</a>.</div>
+              <div class="row justify-center sign-up-terms">By clicking Sign Up below, you agree to our <a href="legal" target="_blank" class="link-login">Terms of Use</a> &nbsp;and&nbsp;<a href="legal" target="_blank" class="link-login"> Privacy Policy</a>.</div>
               <div class="row justify-center">
                 <q-btn class="btn-sign-in" type="submit" flat @click.prevent.stop="onSubmit">
                   <div class="txt-sign-in">Sign up</div>

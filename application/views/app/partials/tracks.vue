@@ -106,13 +106,28 @@
             <div class="row q-mt-sm q-mb-lg">
               <q-select outlined v-model="publish_visibility" :options="options_visibility"  class="component_publish" color="dark"/>
             </div> 
+            <div class="row q-mt-md " v-show="publish_visibility === 'Scheduled'">
+              <span class="label_publish">Date</span>              
+            </div>  
+            <div class="row q-mt-md q-mb-lg" v-show="publish_visibility === 'Scheduled'">              
+              <q-input outlined v-model="date" mask="date" :rules="['date']" class="component_publish" color="dark">
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy ref="qDateProxy" >
+                      <q-date v-model="date" @input="() => $refs.qDateProxy.hide()" minimal/>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div> 
             <div class="row q-mt-md ">
               <span class="label_publish">Explicit Content?</span>              
             </div>  
             <div class="row q-mt-sm q-mb-lg">
               <q-radio v-model="publish_explicit" val="yes" label="Yes" color="pink" />
               <q-radio v-model="publish_explicit" val="no" label="No" color="pink" /> 
-            </div>   
+            </div> 
+              
           </div>        
         </q-card-section>
         <q-card-section class="row q-pt-none q-pl-none">
@@ -167,10 +182,11 @@ export default {
       text_btn_next: 'Next',
       show: false,
       standard: 1,
-      options_type: ['Select Track Type'],
+      options_type: ['Song', 'Beat','Select Track Type'],
       options_genre: ['Select Genre'],
-      options_priority: ['Select Priority'],
-      options_visibility: ['Public'],
+      options_priority: ['Spotlight', 'Normal','Select Priority'],
+      options_visibility: ['Public', 'Private', 'Scheduled'],
+      date: new Date(),
       slides: [
         {
           text: 'Upload audio file',
@@ -197,6 +213,7 @@ export default {
     document.title = 'LinkStream - Add Track'
     this.subtitle = this.slides[this.no_step - 1].text
     this.show_add_track = this.slides[this.no_step - 1].visible
+    console.log(this.date)
   },
   watch: {
      no_step (){

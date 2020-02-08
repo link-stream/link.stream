@@ -156,8 +156,39 @@ and open the template in the editor.
   font-family: Montserrat;  
   color: #ffffff;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: bold;  
 }
+.suggest_dimension{
+  color: #7D7D7D;	
+  font-family: Montserrat;	
+  font-size: 12px;	
+  letter-spacing: 0.09px;	
+  line-height: 19px;
+}
+.suggest_dimension_remove{
+  color: #DC2EA6;	
+  font-family: Montserrat;	
+  font-size: 13px;	
+  letter-spacing: 0.1px;	
+  line-height: 25.07px;
+  text-decoration: none;
+}
+.label_publish{
+  color: #000000;
+  font-family: Montserrat;	
+  font-size: 14px;	
+  letter-spacing: 0.11px;	
+  line-height: 24px;
+  font-weight: 500;
+ }
+ .component_publish{
+   height: 42px;	
+   width: 400px;
+   color: #DC2EA6;
+ }
+ .color_line_player{
+   color: #DC2EA6;
+ }
 
 /*region Login New Design*/
   .top-nav {

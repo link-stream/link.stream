@@ -14,9 +14,9 @@
         <link href="<?= HTTP_ASSETS ?>css/streamy.css" rel="stylesheet">
         <link href="<?= HTTP_ASSETS ?>node_modules/quasar/dist/quasar.min.css" rel="stylesheet" >        
         <link href="<?= HTTP_ASSETS ?>node_modules/roboto-fontface/css/roboto/roboto-fontface.css" rel="stylesheet" >   
-        <link href="<?= HTTP_ASSETS ?>node_modules/material-design-icons/iconfont/material-icons.css" rel="stylesheet" >           
-    </head>
-    <body class="text-left">
+        <link href="<?= HTTP_ASSETS ?>node_modules/material-design-icons/iconfont/material-icons.css" rel="stylesheet" >   
+    </head>    
+    <body class="text-left"> 
         <div id="q-app">
             <template>
                 <q-layout view="hHh LpR fFf">
@@ -109,11 +109,11 @@
                 </q-layout>
             </template>      
         </div>
-        <script src="<?= HTTP_ASSETS ?>public/app.js"></script>        
-        <script> var urlBase = "<?= base_url(); ?>";</script>     
     </body>
 </html>
-
+<script> var urlBase = "<?= base_url(); ?>";</script>
+<script> var httpAssets = "<?= HTTP_ASSETS ?>";</script>
+<script src="<?= HTTP_ASSETS ?>public/app.js"></script>
 <style lang="sass">
     .my-menu-link{ 
         border-left: 6px solid #FDD311;

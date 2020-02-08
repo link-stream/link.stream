@@ -2,7 +2,7 @@
     <div>
         <div class="top-nav">
             <q-card-section class="q-ma-none q-pa-none logo-linkstream">            
-                <img :src="'assets/images/icons/streamy-logo.svg'" alt="logo" class="streamy-icon">
+                <img :src="icon_logo" alt="logo" class="streamy-icon">
                 <span class="linkstream">LINKSTREAM</span>
             </q-card-section>            
         </div>
@@ -28,11 +28,12 @@ export default {
   data() {
     return {
       email: "",
-      login: this.baseurl + "login",
-      forgot: this.baseurl + "forgot",      
-      index: this.baseurl + "index",
-      register: this.baseurl + "register",
-      instagram: this.baseurl + "instagram_register"
+      login: urlBase+'login',
+      index: urlBase+'index',
+      forgot: urlBase+'forgot',
+      register: urlBase+'register',
+      instagram: urlBase+'instagram_register',
+      icon_logo: '', 
     };
   },
   validations: {
@@ -47,6 +48,10 @@ export default {
       if (!this.$v.email.required) return "* Required";
       if (!this.$v.email.email) return "You must enter a valid email address";
     }
+  },
+  mounted () {
+    document.title = 'LinkStream - Confirm Email';
+    this.icon_logo =  `${httpAssets}images/icons/streamy-logo.svg`;
   },
   methods: {    
     onSubmit() {

@@ -2462,11 +2462,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       email: "",
-      login: this.baseurl + "login",
-      forgot: this.baseurl + "forgot",
-      index: this.baseurl + "index",
-      register: this.baseurl + "register",
-      instagram: this.baseurl + "instagram_register"
+      login: urlBase + 'login',
+      icon_logo: ''
     };
   },
   validations: {
@@ -2482,6 +2479,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   mounted: function mounted() {
     document.title = 'LinkStream - Forgot Password';
+    this.icon_logo = "".concat(httpAssets, "images/icons/streamy-logo.svg");
   },
   methods: {
     onSubmit: function onSubmit() {
@@ -2562,12 +2560,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    baseurl: {
-      type: String,
-      "default": ""
-    }
-  },
   name: 'sign_in',
   data: function data() {
     return {
@@ -2575,11 +2567,14 @@ __webpack_require__.r(__webpack_exports__);
       password: '',
       cardClasses: 'self-center my-card midlle',
       signinClass: 'signintxt',
-      login: this.baseurl + 'login',
-      forgot: this.baseurl + 'forgot',
-      register: this.baseurl + 'register',
-      instagram: this.baseurl + 'instagram_register',
-      isPwd: true
+      isPwd: true,
+      login: urlBase + 'login',
+      forgot: urlBase + 'forgot',
+      register: urlBase + 'register',
+      instagram: urlBase + 'instagram_register',
+      icon_logo: '',
+      icon_instagram: '',
+      icon_google: ''
     };
   },
   validations: {
@@ -2604,6 +2599,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     document.title = 'LinkStream - Sign In';
+    this.icon_logo = "".concat(httpAssets, "images/icons/streamy-logo.svg");
+    this.icon_instagram = "img:".concat(httpAssets, "images/icons/icon-instagram.svg");
+    this.icon_google = "img:".concat(httpAssets, "images/icons/icon-google.svg");
   },
   methods: {
     onSubmit: function onSubmit() {
@@ -2727,12 +2725,15 @@ __webpack_require__.r(__webpack_exports__);
       repassword: '',
       bdUsername: '',
       bdEmail: '',
-      login: this.baseurl + 'login',
-      index: this.baseurl + "index",
-      register: this.baseurl + "register",
-      instagram: this.baseurl + "instagram_register",
-      forgot: this.baseurl + 'forgot',
-      legal: this.baseurl + 'legal',
+      login: urlBase + 'login',
+      index: urlBase + 'index',
+      forgot: urlBase + 'forgot',
+      legal: urlBase + 'legal',
+      register: urlBase + 'register',
+      instagram: urlBase + 'instagram_register',
+      icon_logo: '',
+      icon_instagram: '',
+      icon_google: '',
       loading: false,
       loadingUsername: false,
       loadingEmail: false
@@ -2793,7 +2794,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    document.title = 'LinkStream - Sign Up';
+    document.title = 'LinkStream - Sign Up', this.icon_logo = "".concat(httpAssets, "images/icons/streamy-logo.svg");
+    this.icon_instagram = "img:".concat(httpAssets, "images/icons/icon-instagram.svg");
+    this.icon_google = "img:".concat(httpAssets, "images/icons/icon-google.svg");
   },
   methods: {
     onChangedUsername: function onChangedUsername(value) {
@@ -61282,10 +61285,7 @@ var render = function() {
             [
               _c("img", {
                 staticClass: "streamy-icon",
-                attrs: {
-                  src: "assets/images/icons/streamy-logo.svg",
-                  alt: "logo"
-                }
+                attrs: { src: _vm.icon_logo, alt: "logo" }
               }),
               _vm._v(" "),
               _c("span", { staticClass: "linkstream" }, [_vm._v("LINKSTREAM")])
@@ -61457,10 +61457,7 @@ var render = function() {
             [
               _c("img", {
                 staticClass: "streamy-icon",
-                attrs: {
-                  src: "assets/images/icons/streamy-logo.svg",
-                  alt: "logo"
-                }
+                attrs: { src: _vm.icon_logo, alt: "logo" }
               }),
               _vm._v(" "),
               _c("span", { staticClass: "linkstream" }, [_vm._v("LINKSTREAM")])
@@ -61494,10 +61491,7 @@ var render = function() {
                 [
                   _c("q-icon", {
                     staticClass: "q-mr-xl icon-instagram",
-                    attrs: {
-                      left: "",
-                      name: "img:assets/images/icons/icon-instagram.svg"
-                    }
+                    attrs: { left: "", name: _vm.icon_instagram }
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "social-btn-txt" }, [
@@ -61523,10 +61517,7 @@ var render = function() {
                 [
                   _c("q-icon", {
                     staticClass: "q-mr-xl icon-google",
-                    attrs: {
-                      left: "",
-                      name: "img:assets/images/icons/icon-google.svg"
-                    }
+                    attrs: { left: "", name: _vm.icon_google }
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "social-btn-txt q-ml-md" }, [
@@ -61770,10 +61761,7 @@ var render = function() {
             [
               _c("img", {
                 staticClass: "streamy-icon",
-                attrs: {
-                  src: "assets/images/icons/streamy-logo.svg",
-                  alt: "logo"
-                }
+                attrs: { src: _vm.icon_logo, alt: "logo" }
               }),
               _vm._v(" "),
               _c("span", { staticClass: "linkstream" }, [_vm._v("LINKSTREAM")])
@@ -61807,10 +61795,7 @@ var render = function() {
                 [
                   _c("q-icon", {
                     staticClass: "q-mr-xl icon-instagram",
-                    attrs: {
-                      left: "",
-                      name: "img:assets/images/icons/icon-instagram.svg"
-                    }
+                    attrs: { left: "", name: _vm.icon_instagram }
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "social-btn-txt" }, [
@@ -61836,10 +61821,7 @@ var render = function() {
                 [
                   _c("q-icon", {
                     staticClass: "q-mr-xl icon-google",
-                    attrs: {
-                      left: "",
-                      name: "img:assets/images/icons/icon-google.svg"
-                    }
+                    attrs: { left: "", name: _vm.icon_google }
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "social-btn-txt q-ml-md" }, [
@@ -76933,7 +76915,7 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Mio\link.stream\assets\js\app\app.js */"./js/app/app.js");
+module.exports = __webpack_require__(/*! E:\Trabajo\CodeIgnite\Desastre GIT 1_Feb\link.stream\assets\js\app\app.js */"./js/app/app.js");
 
 
 /***/ })

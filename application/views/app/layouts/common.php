@@ -19,9 +19,11 @@
                     <?= $body_content ?>    
                 </q-page-container>
             </q-layout>            
-        </div>
-        <script src="<?= HTTP_ASSETS ?>public/app.js"></script>
+        </div>        
     </body>
 </html>
+<script> var urlBase = "<?= base_url(); ?>";</script>
+<script> var httpAssets = "<?= HTTP_ASSETS ?>";</script>
+<script src="<?= HTTP_ASSETS ?>public/app.js"></script>
 
 

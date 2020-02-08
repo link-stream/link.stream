@@ -18,7 +18,6 @@ Vue.use(Vuelidate);
 window._ = require("lodash");
 Vue.prototype.$http = axios;
 
-
 let app = new Vue({
   el: "#q-app",
   mixins: [clickaway],
@@ -42,7 +41,7 @@ let app = new Vue({
       menuState: "",
       submenu: false,
       selectedMenu: "Dashboard",
-      submenuList: [],
+      submenuList: [],      
       menuList: [
         {
           icon: "img:assets/images/icons/tachometer-alt.svg",

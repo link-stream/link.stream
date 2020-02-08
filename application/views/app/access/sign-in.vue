@@ -2,18 +2,18 @@
     <div>
         <div class="top-nav">
             <q-card-section class="q-ma-none q-pa-none logo-linkstream">            
-                <img :src="'assets/images/icons/streamy-logo.svg'" alt="logo" class="streamy-icon">
+                <img :src="icon_logo" alt="logo" class="streamy-icon">
                 <span class="linkstream">LINKSTREAM</span>
             </q-card-section>            
         </div>
         <div class="container">
             <q-card-section class="row justify-center social-sign-up-options">                      
                 <q-btn align="left" class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 rectangle" no-caps flat type="a" :href="instagram">
-                    <q-icon left class="q-mr-xl icon-instagram" name="img:assets/images/icons/icon-instagram.svg" />
+                    <q-icon left class="q-mr-xl icon-instagram" :name="icon_instagram" />
                     <div class="social-btn-txt">Sign in with Instagram</div>
                 </q-btn>
                 <q-btn align="left" class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sign-up-with-google" no-caps flat type="a" href="#">
-                    <q-icon left class="q-mr-xl icon-google" name="img:assets/images/icons/icon-google.svg" /> 
+                    <q-icon left class="q-mr-xl icon-google" :name="icon_google" /> 
                     <div class="social-btn-txt q-ml-md">Sign in with Google</div>
                 </q-btn>  
                 <div align="center" class="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sign-in-with-email">Or sign in with your email</div>   
@@ -54,24 +54,21 @@
 import axios from "../../../../assets/node_modules/axios";
 import { required, email, minLength } from "../../../../assets/node_modules/vuelidate/lib/validators";
 export default {
-  props: {
-    baseurl: {
-      type: String,
-      default: ""
-    }
-  },
   name: 'sign_in',  
   data() {
     return {     
       email: '',
       password: '',
       cardClasses: 'self-center my-card midlle',
-      signinClass: 'signintxt',
-      login: this.baseurl + 'login',
-      forgot: this.baseurl + 'forgot',
-      register: this.baseurl + 'register',
-      instagram: this.baseurl + 'instagram_register', 
-      isPwd: true     
+      signinClass: 'signintxt',   
+      isPwd: true,
+      login: urlBase+'login',
+      forgot: urlBase+'forgot',
+      register: urlBase+'register',
+      instagram: urlBase+'instagram_register', 
+      icon_logo: '', 
+      icon_instagram: '',
+      icon_google: ''
     };
   },
   validations: {
@@ -95,7 +92,10 @@ export default {
     }
   },
   mounted () {
-    document.title = 'LinkStream - Sign In'
+    document.title = 'LinkStream - Sign In';
+    this.icon_logo =  `${httpAssets}images/icons/streamy-logo.svg`;
+    this.icon_instagram =  `img:${httpAssets}images/icons/icon-instagram.svg`;
+    this.icon_google =  `img:${httpAssets}images/icons/icon-google.svg`
   },
   methods: {    
     onSubmit () {

@@ -5,16 +5,21 @@ import Quasar from "quasar";
 import axios from "axios";
 import Vuelidate from "vuelidate";
 import { mixin as clickaway } from "vue-clickaway";
+import VueFileAgent from "vue-file-agent";
+import VueFileAgentStyles from "vue-file-agent/dist/vue-file-agent.css";
 
 import sign_in from "../../../application/views/app/access/sign-in";
 import sign_up from "../../../application/views/app/access/sign-up";
 import forgot_password from "../../../application/views/app/access/forgot-pass";
 import confirm_email from "../../../application/views/app/access/confirm-email";
 import tracks from "../../../application/views/app/partials/tracks";
+import links from "../../../application/views/app/partials/links";
+import videos from "../../../application/views/app/partials/videos";
 //import dashboard from "../../../application/views/app/partials/dashboard";
 
 Vue.use(Quasar);
 Vue.use(Vuelidate);
+Vue.use(VueFileAgent);
 
 window._ = require("lodash");
 Vue.prototype.$http = axios;
@@ -29,6 +34,8 @@ let app = new Vue({
     forgot_password,
     confirm_email,
     tracks,
+    links,
+    videos,
     //dashboard
   },
   Quasar,
@@ -53,7 +60,7 @@ let app = new Vue({
         },
         {          
           icon: `img:${httpAssets}images/icons/icon-user-circle.svg`,
-          label: "My Profile",
+          label: "Profile",
           linkTo: "#",
           submenu: [
             { linkTo: "#", label: "Edit Profile" },
@@ -62,7 +69,7 @@ let app = new Vue({
         },
         {          
           icon: `img:${httpAssets}images/icons/icon-tracks.svg`,
-          label: "My Tracks",
+          label: "Tracks",
           linkTo: "#",
           submenu: [
             { linkTo: "/link.stream/app/stream", label: "Add Track" },
@@ -81,11 +88,20 @@ let app = new Vue({
         },*/
         {          
           icon: `img:${httpAssets}images/icons/icon-link.svg`,
-          label: "My Links",
+          label: "Links",
           linkTo: "#",
           submenu: [
-            { linkTo: "#", label: "Add Link" },
+            { linkTo: "/link.stream/app/linkstream", label: "Add Link" },
             { linkTo: "#", label: "Manage Links" }
+          ]
+        },
+        {          
+          icon: `img:${httpAssets}images/icons/play.svg`,
+          label: "Videos",
+          linkTo: "#",
+          submenu: [
+            { linkTo: "#", label: "Add Video" },
+            { linkTo: "#", label: "Manage Videos" }
           ]
         },
         {          
@@ -98,8 +114,8 @@ let app = new Vue({
           ]
         },
         {          
-          icon: `img:${httpAssets}images/icons/icon-settings.svg`,
-          label: "Account Settings",
+          icon: `img:${httpAssets}images/icons/icon-account.svg`,
+          label: "Account",
           linkTo: "#",
           submenu: [
             { linkTo: "#", label: "Settings" },

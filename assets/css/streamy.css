@@ -50,17 +50,12 @@ and open the template in the editor.
 /*region Track-Links*/
 .upload_file_track {
   height: 247px;	
-  width: 567px;
-  border-style: dashed;
-  border-width: 1px;
-  border-color: #d7d7d7;
+  width: 567px; 
+ 
 }
 .upload_file_photo {
   width: 220px;
-  height: 220px;
-  border-style: dashed;
-  border-width: 1px;
-  border-color: #d7d7d7;
+  height: 220px;  
 }
 .steps_track_link {
   color: #9d9d9d;
@@ -106,7 +101,8 @@ and open the template in the editor.
   letter-spacing: 0.1px;	
   line-height: 18px;	
   text-align: center; 
-  margin-left: 4px;			
+  margin-left: 4px;	
+  text-decoration: none;		
 }
 .next_btn_track_link {
   height: 50px;

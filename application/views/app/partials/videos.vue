@@ -7,7 +7,7 @@
           <span class="steps_track_link">STEP {{no_step}}/3</span>
         </q-card-section>
         <q-card-section class="row title_track_link q-pt-xs q-pb-none">
-          <span class="title_track_link">Add a track</span>
+          <span class="title_track_link">Add a video</span>
         </q-card-section>
         <q-card-section class="q-mb-md row subtitle_track_link">
           <span>{{subtitle}}</span>
@@ -20,9 +20,9 @@
                 :deletable="false"
                 :meta="false"
                 :compact="true"
-                :accept="'audio/*'"                
+                :accept="'video/*'"                
                 :errorText="{
-                  type: 'Please select a track',
+                  type: 'Please select a video',
                 }"
                 v-model="fileTrack"
                 @select="onSelectTrack($event)">  
@@ -211,7 +211,7 @@ import axios from '../../../../assets/node_modules/axios';
 import { required, email, minLength } from '../../../../assets/node_modules/vuelidate/lib/validators';
 
 export default {
-  name: "tracks",  
+  name: "videos",  
   data () {
     return {  
       fileTrack: null,    
@@ -254,7 +254,7 @@ export default {
       date: new Date(),
       slides: [
         {
-          text: 'Upload audio file',
+          text: 'Upload video file',
           visible: true,          
         },
         {

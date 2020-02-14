@@ -1,0 +1,32 @@
+// Put your variables here
+
+// Color
+$body-bg: white;
+$text-color: #333333;
+$border-color: #e7e7e7;
+$loading-color: #44589b;
+
+// Font
+$font-base-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+$font-size-base: 1rem;
+$font-size-xxs: 0.6rem;
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-md: 1rem;
+$font-size-lg: 1.25rem;
+$font-size-xl: 1.65rem;
+$font-size-xxl: 2rem;
+
+$font-weight-lighter: lighter;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-semi-bold: 500;
+$font-weight-bold: 700;
+$font-weight-bolder: bolder;
+
+$font-weight-base: $font-weight-normal;
+$font-base-color: $text-color;
+
+// Wrap
+$wrap-bg: #f2f6f7;

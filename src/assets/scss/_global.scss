@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: $font-base-family;
+  font-size: $font-size-base;
+  line-height: 1.428571429;
+  color: $font-base-color;
+  background-color: $body-bg;
+}
+
+.wrap {
+  background: $wrap-bg;
+}

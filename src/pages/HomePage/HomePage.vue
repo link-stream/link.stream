@@ -1,84 +1,48 @@
 <template>
-    <div class="home-page">
-        <loading-indicator :loading="!orders"></loading-indicator>
-        <template v-if="!!orders">
-            <div class="wrap py-4">
-                <div class="container">
-                    <!-- Filter -->
-                    <div class="row">
-                        <div class="col-12">
-                            <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Filter by worker name..."
-                                v-model="searchKey"
-                            />
-                        </div>
-                    </div>
-                    <!-- Sorter -->
-                    <div class="row">
-                        <div class="col-12 text-center py-4">
-                            <switcher
-                                v-model="orderByDesc"
-                                textDisabled="Earlist first"
-                                textEnabled="Latest first"
-                            ></switcher>
-                        </div>
-                    </div>
-                    <!-- Orders -->
-                    <div class="row">
-                        <template v-for="(order, index) in sortedOrders">
-                            <div class="col-md-6 col-sm-12 d-flex" :key="`work-order-${index}`">
-                                <work-order-card :order="order"></work-order-card>
-                            </div>
-                        </template>
-                    </div>
-                </div>
-            </div>
-        </template>
+    <div id="home-page" class="my-md-5">
+        <b-container fluid>
+            <b-row class="text-center text-white">
+                <b-col cols="12" class="my-3">
+                    <b-img src="@/assets/img/logo/logo-lg.png" class="logo" alt="LinkStream"></b-img>
+                </b-col>
+                <b-col cols="12" class="my-3">
+                    <h2 class="text-uppercase">
+                        <p class="font-weight-lighter">Your streams come true</p>
+                        Spring 2020
+                    </h2>
+                </b-col>
+                <b-col cols="12" class="my-5 pt-4">
+                    <a href="https://www.instagram.com/_linkstream" target="_blank" class="text-white">
+                        <font-awesome-icon :icon="['fab', 'instagram']" class="mr-1" />
+                        Join the fam on Instgram!
+                    </a>
+                </b-col>
+                <b-col cols="12">
+                    <label>©2020 LinkStream LLC. All Rights Reserved.</label>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { orderBy } from 'lodash'
-import { LoadingIndicator } from '~/components/Loading'
-import { Switcher } from '~/components/Switcher'
-import { WorkOrderCard } from '~/components/Card'
-
 export default {
     name: 'HomePage',
-    components: {
-        LoadingIndicator,
-        Switcher,
-        WorkOrderCard,
-    },
-    data() {
-        return {
-            searchKey: '',
-            orderByDesc: false,
-        }
-    },
-    computed: {
-        ...mapGetters({ orders: 'workers/orders', getWorker: 'workers/worker' }),
-        sortedOrders() {
-            const { orders, getWorker, searchKey, orderByDesc } = this
-
-            // filter orders by worker name
-            let filtered = []
-            if (searchKey != '')
-                filtered = orders.filter(order => {
-                    const worker = getWorker(order.workerId)
-                    return worker.name.toLowerCase().indexOf(searchKey.toLowerCase()) > -1
-                })
-            else filtered = orders
-
-            // reorder orders by deadline
-            return orderBy(filtered, ['deadline'], [orderByDesc ? 'desc' : 'asc'])
-        },
-    },
-    created() {
-        this.$store.dispatch('workers/loadWokOrders')
-    },
 }
 </script>
+
+<style lang="scss" scoped>
+#home-page {
+    font-family: $font-landing-family;
+    font-weight: $font-weight-normal;
+
+    .logo {
+        max-width: 100%;
+        width: 360px;
+    }
+    h2 {
+        font-family: $font-base-family;
+        letter-spacing: 0.25 * $spacer;
+    }
+}
+</style>

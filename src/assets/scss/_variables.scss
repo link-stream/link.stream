@@ -1,3 +1,5 @@
+@import 'bootstrapSettings';
+
 // Put your variables here
 
 // Color
@@ -7,7 +9,8 @@ $border-color: #e7e7e7;
 $loading-color: #44589b;
 
 // Font
-$font-base-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-base-family: "Montserrat", Helvetica, Arial, sans-serif;
+$font-landing-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
 
 $font-size-base: 1rem;
 $font-size-xxs: 0.6rem;

@@ -8,7 +8,7 @@ export default async function(endpoint, params = {}, method = 'GET') {
     // call API
     const res = await axios({
         method,
-        url: endpoint,
+        url: process.env.API_URL + endpoint,
         data: params,
         headers,
     })

@@ -22,13 +22,5 @@ export default {
     right: 0;
     bottom: 0;
     background: $black;
-
-    .logo {
-        width: 360px;
-    }
-
-    h2 {
-        letter-spacing: 0.15 * $spacer;
-    }
 }
 </style>

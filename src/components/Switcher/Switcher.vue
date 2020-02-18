@@ -48,10 +48,10 @@ export default {
             const { color, value, typeBold, disabled } = this
             return {
                 switcher: true,
-                ['switcher--unchecked']: !value,
-                ['switcher--disabled']: disabled,
-                ['switcher--bold']: typeBold,
-                ['switcher--bold--unchecked']: typeBold && !value,
+                'switcher--unchecked': !value,
+                'switcher--disabled': disabled,
+                'switcher--bold': typeBold,
+                'switcher--bold--unchecked': typeBold && !value,
                 [`switcher-color--${color}`]: color,
             }
         },

@@ -3,11 +3,11 @@
         <b-container fluid>
             <b-row class="text-center text-white">
                 <b-col cols="12" class="my-3">
-                    <b-img src="@/assets/img/logo/logo-lg.png" class="logo" alt="LinkStream"></b-img>
+                    <b-img src="@/assets/img/logo/logo-v-lg.png" class="logo" alt="LinkStream"></b-img>
                 </b-col>
                 <b-col cols="12" class="my-3">
-                    <h2 class="text-uppercase">
-                        <p class="font-weight-lighter">Your streams come true</p>
+                    <h2 class="text-uppercase font-weight-bold">
+                        <p class="font-weight-light">Your streams come true</p>
                         Spring 2020
                     </h2>
                 </b-col>
@@ -33,8 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 #home-page {
-    font-family: $font-landing-family;
-    font-weight: $font-weight-normal;
+    font-family: $font-source-family;
 
     .logo {
         max-width: 100%;

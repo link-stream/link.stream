@@ -5,7 +5,7 @@
                 <b-col lg="6" offset-lg="3">
                     <b-row class="text-white">
                         <b-col cols="12" class="my-3 text-center">
-                            <b-img src="@/assets/img/logo/logo-lg.png" class="logo" alt="LinkStream"></b-img>
+                            <b-img src="@/assets/img/logo/logo-v-lg.png" class="logo" alt="LinkStream"></b-img>
                         </b-col>
                         <b-col cols="12" class="my-3">
                             <h2>PRIVACY POLICY</h2>
@@ -347,8 +347,7 @@ export default {
 
 <style lang="scss" scoped>
 #legal-page {
-    font-family: $font-landing-family;
-    font-weight: $font-weight-normal;
+    font-family: $font-source-family;
 
     .logo {
         max-width: 100%;
@@ -356,7 +355,7 @@ export default {
     }
     h2 {
         font-family: $font-base-family;
-        font-weight: $font-weight-lighter;
+        font-weight: $font-weight-light;
         letter-spacing: 0.25 * $spacer;
         text-transform: uppercase;
         margin-bottom: 2 * $spacer;

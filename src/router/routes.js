@@ -1,8 +1,16 @@
 // pages
+import { Login } from '~/pages/Auth'
 import { HomePage } from '~/pages/HomePage'
 import { Legal } from '~/pages/Other'
 
 const routes = [
+    // Pre Auth routs
+    {
+        path: '/login',
+        name: 'login',
+        component: Login,
+        meta: { requiresGuest: true, layout: 'preauth' },
+    },
     // Main pages
     {
         path: '/',

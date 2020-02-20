@@ -1,8 +1,8 @@
-// Groopdealz brand
+// LinkStrean brand
 // TODO update this for new colors
-$groopdealz-1: #539ccd;
-$groopdealz-2: #4f9bcf;
-$groopdealz-3: #939598;
+$linkstream-1: #dc2ea6;
+$linkstream-2: #4f9bcf;
+$linkstream-3: #939598;
 
 $white: #fff;
 $gray-100: #f8f9fa;
@@ -27,7 +27,7 @@ $green: #28a745;
 $teal: #20c997;
 $cyan: #17a2b8;
 
-$primary: $groopdealz-1;
+$primary: $linkstream-1;
 $secondary: $gray-600;
 $success: $green;
 $info: $cyan;
@@ -40,13 +40,13 @@ $dark: $gray-800;
 $spacer: 1rem;
 
 // Link
-$link-color: $groopdealz-1;
-$link-hover-color: $groopdealz-1;
+$link-color: $linkstream-1;
+$link-hover-color: $linkstream-1;
 
 // Navbar
-$navbar-light-color: $groopdealz-3;
-$navbar-light-hover-color: $groopdealz-1;
-$navbar-light-active-color: $groopdealz-1;
+$navbar-light-color: $linkstream-3;
+$navbar-light-hover-color: $linkstream-1;
+$navbar-light-active-color: $linkstream-1;
 $navbar-nav-link-padding-x: 0.65rem;
 $navbar-padding-y: 0;
 $nav-link-padding-x: 1rem;
@@ -62,7 +62,7 @@ $container-max-widths: (
 // Dropdown
 $dropdown-item-padding-x: 0.75rem;
 $dropdown-item-padding-y: 0.75rem;
-$dropdown-link-hover-color: $groopdealz-1;
+$dropdown-link-hover-color: $linkstream-1;
 
 // Fonts
 $font-family-sans-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -72,6 +72,7 @@ $input-border-radius: 0;
 
 // Button
 $input-btn-line-height: 2;
+$input-btn-padding-y: 0.45rem;
 $btn-border-radius: 0;
 
 // Form validation

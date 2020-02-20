@@ -1,2 +1,2 @@
-import 'bootstrap'
+import 'typeface-montserrat'
 import './custom'

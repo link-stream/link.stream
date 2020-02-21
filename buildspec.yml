@@ -17,10 +17,12 @@ phases:
       - echo Build completed on `date`
       - echo $CODEBUILD_SRC_DIR 
       - ls 
-      - cd dist; zip -r ../package.zip *
+      - find . -type d -not -name dist -exec rm -R {} \;
+      - mv dist/* .
       - ls 
       - ls ../
 artifacts:
   files:
-    - 'dist/**/*'
+    - '**/*'
+    
   

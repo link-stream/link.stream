@@ -16,7 +16,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - cd dist; zip -r ../package.zip *
-      - rm -- ^package.zip
+      - rm -rf !(package.zip)
 artifacts:
   files:
     - package.zip    

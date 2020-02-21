@@ -14,12 +14,12 @@ phases:
       - echo Compiling the Node.js code
   post_build:
     commands:
-      - echo Build completed on `date`
-      - echo $CODEBUILD_SRC_DIR 
-      - cd dist; zip -r ../package.zip *
-#      - rm -rf !(package.zip)
-      - ls 
+#      - echo Build completed on `date`
+#      - echo $CODEBUILD_SRC_DIR 
+#      - ls 
+#      - cd dist; zip -r ../package.zip *
+#      - ls 
 artifacts:
   files:
-    - package.zip    
-    
+    - *    
+  base-directory: dist

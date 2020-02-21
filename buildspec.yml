@@ -15,7 +15,9 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
+      - setopt extendedglob
       - cd dist; zip -r ../package.zip *
+      - rm -- ^package.zip
 artifacts:
   files:
     - package.zip    

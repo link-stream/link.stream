@@ -17,7 +17,7 @@ phases:
       - echo Build completed on `date`
       - echo $CODEBUILD_SRC_DIR 
       - ls 
-      - find $CODEBUILD_SRC_DIR -type d -not -name dist -exec rm -rf {} \;
+      - find ${CODEBUILD_SRC_DIR} -type d -not -name dist -exec rm -rf {} \;
       - mv dist/* .
       - ls 
       - ls ../

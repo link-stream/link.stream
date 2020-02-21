@@ -1,26 +1,42 @@
 <template>
-    <div id="login-page" class="my-4">
+    <div id="signup-page" class="my-4">
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-2">
                     <b-button pill class="btn-round instagram">
                         <font-awesome-icon :icon="['fab', 'instagram']" size="lg" />
-                        <span class="m-0">Sign in with Instagram</span>
+                        <span class="m-0">Sign up with Instagram</span>
                         <span></span>
                     </b-button>
                 </b-col>
                 <b-col cols="12" class="my-2">
                     <b-button pill class="btn-round google">
                         <font-awesome-icon :icon="['fab', 'google']" size="1x" />
-                        <span class="m-0">Sign in with Google</span>
+                        <span class="m-0">Sign up with Google</span>
                         <span></span>
                     </b-button>
                 </b-col>
                 <b-col cols="12" class="mt-4">
-                    <label class="text-black fs-1 font-weight-bold">Or sign in with your email</label>
+                    <label class="text-black fs-1 font-weight-bold">Or sign up with your email</label>
                 </b-col>
                 <b-col cols="12" class="my-3">
-                    <b-form @submit.stop.prevent="onSubmit" @reset="resetForm" :novalidate="true" id="login-form">
+                    <b-form @submit.stop.prevent="onSubmit" @reset="resetForm" :novalidate="true" id="signup-form">
+                        <b-form-group label="Username" label-for="input_username" class="mb-4">
+                            <b-form-input
+                                id="input_username"
+                                name="input_username"
+                                type="text"
+                                v-model="form.name"
+                                v-validate="{ required: true, min: 5 }"
+                                :state="validateState('input_username')"
+                                aria-describedby="username-live-feedback"
+                                data-vv-as="username"
+                                autocomplete="username"
+                            ></b-form-input>
+                            <b-form-invalid-feedback id="username-live-feedback">
+                                {{ veeErrors.first('input_username') }}
+                            </b-form-invalid-feedback>
+                        </b-form-group>
                         <b-form-group label="Email Address" label-for="input_email" class="mb-4">
                             <b-form-input
                                 id="input_email"
@@ -31,7 +47,6 @@
                                 :state="validateState('input_email')"
                                 aria-describedby="email-live-feedback"
                                 data-vv-as="email"
-                                autocomplete="username"
                             ></b-form-input>
                             <b-form-invalid-feedback id="email-live-feedback">
                                 {{ veeErrors.first('input_email') }}
@@ -43,26 +58,44 @@
                                 name="input_password"
                                 type="password"
                                 v-model="form.password"
-                                v-validate="{ required: true }"
+                                v-validate="{ required: true, min: 8 }"
                                 :state="validateState('input_password')"
                                 aria-describedby="password-live-feedback"
                                 data-vv-as="password"
-                                autocomplete="current-password"
+                                autocomplete="new-password"
+                                ref="password"
                             ></b-form-input>
                             <b-form-invalid-feedback id="password-live-feedback">
                                 {{ veeErrors.first('input_password') }}
                             </b-form-invalid-feedback>
                         </b-form-group>
-                        <b-button pill type="submit" class="btn-round pink text-uppercase d-block mt-5">
-                            Sign In
+                        <b-form-group label="Retype Password" label-for="input_password_confirm" class="mb-4">
+                            <b-form-input
+                                id="input_password_confirm"
+                                name="input_password_confirm"
+                                type="password"
+                                v-validate="{ required: true, min: 8, confirmed: 'password' }"
+                                :state="validateState('input_password_confirm')"
+                                aria-describedby="password-confirm-live-feedback"
+                                data-vv-as="password"
+                                autocomplete="new-password"
+                            ></b-form-input>
+                            <b-form-invalid-feedback id="password-confirm-live-feedback">
+                                {{ veeErrors.first('input_password_confirm') }}
+                            </b-form-invalid-feedback>
+                        </b-form-group>
+                        <b-form-group class="fs--2 text-center text-gray mb-2 px-md-5">
+                            By clicking Sign Up below, you agree to our
+                            <b-link to="/legal">Terms of Use</b-link>
+                            and <b-link to="/legal">Privacy Policy</b-link>.
+                        </b-form-group>
+                        <b-button pill type="submit" class="btn-round pink text-uppercase d-block mt-4">
+                            Sign Up
                         </b-button>
                     </b-form>
                 </b-col>
-                <b-col cols="12" class="my-3">
-                    <b-link to="/">Forgot Password?</b-link>
-                </b-col>
                 <b-col cols="12" class="fs--1 my-4">
-                    Don't have an account? <b-link to="/signup">Sigin up</b-link>
+                    Already have an account? <b-link to="/login">Sigin in</b-link>
                 </b-col>
             </b-row>
         </b-container>
@@ -71,10 +104,11 @@
 
 <script>
 export default {
-    name: 'Login',
+    name: 'Signup',
     data() {
         return {
             form: {
+                name: null,
                 email: null,
                 password: null,
             },
@@ -89,6 +123,7 @@ export default {
         },
         resetForm() {
             this.form = {
+                name: null,
                 email: null,
                 password: null,
             }
@@ -111,8 +146,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#login-page {
-    #login-form .form-group {
+#signup-page {
+    #signup-form .form-group {
         width: 350px;
         max-width: 100%;
         margin: 0 auto;

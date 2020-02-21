@@ -21,4 +21,5 @@ phases:
 #      - ls 
 artifacts:
   files:
-    - dist/*
+    - index.html
+  base-directory: dist    

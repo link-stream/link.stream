@@ -7,11 +7,11 @@ phases:
   pre_build:
     commands:
       - echo Installing dependencies...
-      - npm install
   build:
     commands:
       - echo Build started on `date`
       - echo Compiling the Node.js code
+      - npm install 
   post_build:
     commands:
 #      - echo Build completed on `date`
@@ -22,4 +22,10 @@ phases:
 artifacts:
   files:
     - index.html
-  base-directory: dist    
+    - favicon.png
+    - app/**/*
+    - assets/**/*
+    - fonts/*
+    - scripts/*
+    - styles/*
+  base-directory: dist

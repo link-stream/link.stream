@@ -22,12 +22,5 @@ phases:
       - ls ../
 artifacts:
   files:
-    - index.html
-    - favicon.png
-    - app/**/*
-    - assets/**/*
-    - fonts/*
-    - scripts/*
-    - styles/*
-    - package.zip
-  base-directory: dist
+    - 'dist/**/*'
+  

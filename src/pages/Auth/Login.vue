@@ -17,7 +17,7 @@
                     </b-button>
                 </b-col>
                 <b-col cols="12" class="mt-4">
-                    <label class="text-black font-weight-bold">Or sign in with your email</label>
+                    <label class="text-black fs-1 font-weight-bold">Or sign in with your email</label>
                 </b-col>
                 <b-col cols="12" class="my-3">
                     <b-form @submit.stop.prevent="onSubmit" @reset="resetForm" :novalidate="true" id="login-form">
@@ -59,9 +59,7 @@
                 <b-col cols="12" class="my-3">
                     <b-link to="/">Forgot Password?</b-link>
                 </b-col>
-                <b-col cols="12" class="my-4">
-                    Don't have an account? <b-link to="/">Sigin up</b-link>
-                </b-col>
+                <b-col cols="12" class="fs--1 my-4">Don't have an account? <b-link to="/">Sigin up</b-link></b-col>
             </b-row>
         </b-container>
     </div>

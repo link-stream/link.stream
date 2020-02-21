@@ -14,11 +14,11 @@ phases:
       - npm install 
   post_build:
     commands:
-#      - echo Build completed on `date`
-#      - echo $CODEBUILD_SRC_DIR 
-#      - ls 
-#      - cd dist; zip -r ../package.zip *
-#      - ls 
+      - echo Build completed on `date`
+      - echo $CODEBUILD_SRC_DIR 
+      - ls 
+      - cd dist; zip -r ../package.zip *
+      - ls 
 artifacts:
   files:
     - index.html
@@ -28,4 +28,5 @@ artifacts:
     - fonts/*
     - scripts/*
     - styles/*
+    - package.zip
   base-directory: dist

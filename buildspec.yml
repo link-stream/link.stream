@@ -19,6 +19,7 @@ phases:
       - ls 
       - cd dist; zip -r ../package.zip *
       - ls 
+      - ls ../
 artifacts:
   files:
     - index.html

@@ -86,8 +86,8 @@
                         </b-form-group>
                         <b-form-group class="fs--2 text-center text-gray mb-2 px-md-5">
                             By clicking Sign Up below, you agree to our
-                            <b-link to="/legal">Terms of Use</b-link>
-                            and <b-link to="/legal">Privacy Policy</b-link>.
+                            <b-link to="/legal" target="_blank">Terms of Use</b-link>
+                            and <b-link to="/legal" target="_blank">Privacy Policy</b-link>.
                         </b-form-group>
                         <b-button pill type="submit" class="btn-round pink text-uppercase d-block mt-4">
                             Sign Up
@@ -144,20 +144,4 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-#signup-page {
-    #signup-form .form-group {
-        width: 350px;
-        max-width: 100%;
-        margin: 0 auto;
-        color: $black;
-        text-align: left;
-    }
-
-    .btn-round {
-        width: 300px;
-        max-width: 100%;
-    }
-}
 </style>

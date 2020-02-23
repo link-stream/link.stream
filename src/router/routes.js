@@ -1,5 +1,5 @@
 // pages
-import { Login, Signup } from '~/pages/Auth'
+import { Login, Signup, RegisterConfirm } from '~/pages/Auth'
 import { HomePage } from '~/pages/HomePage'
 import { Legal } from '~/pages/Other'
 
@@ -15,6 +15,12 @@ const routes = [
         path: '/signup',
         name: 'signup',
         component: Signup,
+        meta: { requiresGuest: true, layout: 'preauth' },
+    },
+    {
+        path: '/register-confirm',
+        name: 'regiser-confirm',
+        component: RegisterConfirm,
         meta: { requiresGuest: true, layout: 'preauth' },
     },
     // Main pages

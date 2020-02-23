@@ -37,11 +37,11 @@
                                 {{ veeErrors.first('input_email') }}
                             </b-form-invalid-feedback>
                         </b-form-group>
-                        <b-form-group label="Password" label-for="input_password" class="mb-4">
+                        <b-form-group label="Password" label-for="input_password" class="mb-4 password-form-group">
                             <b-form-input
                                 id="input_password"
                                 name="input_password"
-                                type="password"
+                                :type="showPwd ? 'text' : 'password'"
                                 v-model="form.password"
                                 v-validate="{ required: true }"
                                 :state="validateState('input_password')"
@@ -49,6 +49,9 @@
                                 data-vv-as="password"
                                 autocomplete="current-password"
                             ></b-form-input>
+                            <b-button class="btn btn-show-pwd" variant="transparent" @click="showPwd = !showPwd">
+                                <b-icon font-scale="1.5" :icon="showPwd ? 'eye' : 'eye-slash'"/>
+                            </b-button>
                             <b-form-invalid-feedback id="password-live-feedback">
                                 {{ veeErrors.first('input_password') }}
                             </b-form-invalid-feedback>
@@ -78,6 +81,7 @@ export default {
                 email: null,
                 password: null,
             },
+            showPwd: false,
         }
     },
     methods: {
@@ -111,18 +115,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#login-page {
-    #login-form .form-group {
-        width: 350px;
-        max-width: 100%;
-        margin: 0 auto;
-        color: $black;
-        text-align: left;
-    }
-
-    .btn-round {
-        width: 300px;
-        max-width: 100%;
+#login-form {
+    .password-form-group {
+        .form-control {
+            + .btn-show-pwd {
+                position: absolute;
+                right: 0;
+                top: 0;
+                height: $input-height;
+                display: flex;
+                background: none;
+                border: none;
+                box-shadow: none;
+            }
+            &.is-invalid + .btn-show-pwd {
+                right: $input-height-inner-half;
+            }
+        }
     }
 }
 </style>

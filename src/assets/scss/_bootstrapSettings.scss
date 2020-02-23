@@ -76,7 +76,7 @@ $input-btn-padding-y: 0.45rem;
 $btn-border-radius: 0;
 
 // Form validation
-$enable-validation-icons: false;
+$form-feedback-icon-valid: none;
 
 // Mixins
 @import '~bootstrap/scss/functions';

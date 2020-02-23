@@ -27,4 +27,20 @@ export default {
         height: 34px;
     }
 }
+/deep/ .form-group {
+    width: 350px;
+    max-width: 100%;
+    margin: 0 auto;
+    color: $black;
+    text-align: left;
+
+    > div {
+        position: relative;
+    }
+}
+
+/deep/ .btn-round {
+    width: 300px;
+    max-width: 100%;
+}
 </style>

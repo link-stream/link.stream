@@ -1,0 +1,66 @@
+* {
+  box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: $font-base-family;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  line-height: 1.428571429;
+  color: $font-base-color;
+  background-color: $body-bg;
+}
+
+.wrap {
+  background: $wrap-bg;
+}
+
+.text-black {
+  color: $black;
+}
+
+.btn-round {
+  display: flex;
+  height: 50px;
+  margin: auto;
+  padding: 0 1.25 * $spacer;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: $font-weight-semi-bold;
+  border: 0;
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  &.pink {
+    background-color: $linkstream-1;
+    &:not(:disabled):not(.disabled):active {
+      background-color: $linkstream-1;
+    }
+  }
+
+  &.instagram {
+    background: linear-gradient(135deg, #a624d2 0%, #ce5353 47.8%, #ffb02d 100%);
+    &:not(:disabled):not(.disabled):active {
+      background: linear-gradient(135deg, #a624d2 0%, #ce5353 47.8%, #ffb02d 100%);
+    }
+  }
+
+  &.google {
+    background-color: #d44c4c;
+    &:not(:disabled):not(.disabled):active {
+      background-color: #d44c4c;
+    }
+  }
+}

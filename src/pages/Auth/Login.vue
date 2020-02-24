@@ -50,7 +50,7 @@
                                 autocomplete="current-password"
                             ></b-form-input>
                             <b-button class="btn btn-show-pwd" variant="transparent" @click="showPwd = !showPwd">
-                                <b-icon font-scale="1.5" :icon="showPwd ? 'eye' : 'eye-slash'"/>
+                                <b-icon font-scale="1.5" :icon="showPwd ? 'eye' : 'eye-slash'" />
                             </b-button>
                             <b-form-invalid-feedback id="password-live-feedback">
                                 {{ veeErrors.first('input_password') }}
@@ -62,7 +62,7 @@
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="my-3">
-                    <b-link to="/">Forgot Password?</b-link>
+                    <b-link to="/forgot">Forgot Password?</b-link>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-4">
                     Don't have an account? <b-link to="/signup">Sigin up</b-link>

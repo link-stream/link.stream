@@ -1,5 +1,5 @@
 // pages
-import { Login, Signup, RegisterConfirm } from '~/pages/Auth'
+import { Login, Signup, RegisterConfirm, PasswordReset } from '~/pages/Auth'
 import { HomePage } from '~/pages/HomePage'
 import { Legal } from '~/pages/Other'
 
@@ -21,6 +21,12 @@ const routes = [
         path: '/register-confirm',
         name: 'regiser-confirm',
         component: RegisterConfirm,
+        meta: { requiresGuest: true, layout: 'preauth' },
+    },
+    {
+        path: '/forgot',
+        name: 'password-reset',
+        component: PasswordReset,
         meta: { requiresGuest: true, layout: 'preauth' },
     },
     // Main pages

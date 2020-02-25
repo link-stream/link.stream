@@ -91,6 +91,7 @@
     "url-loader": "^0.5.8",
     "vee-validate": "^2.2.0",
     "vue-extend-layout": "^2.0.6",
+    "vue-google-login": "^2.0.3",
     "vue-jest": "^1.0.2",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",

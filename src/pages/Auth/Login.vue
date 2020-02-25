@@ -3,18 +3,22 @@
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-2">
-                    <b-button pill class="btn-round instagram">
+                    <b-button pill class="btn-round instagram" @click="authenticateInstagram">
                         <font-awesome-icon :icon="['fab', 'instagram']" size="lg" />
                         <span class="m-0">Sign in with Instagram</span>
                         <span></span>
                     </b-button>
                 </b-col>
                 <b-col cols="12" class="my-2">
-                    <b-button pill class="btn-round google">
+                    <GoogleLogin
+                        class="btn btn-round google btn-secondary rounded-pill"
+                        :params="google"
+                        :onSuccess="onGoogleSuccess"
+                    >
                         <font-awesome-icon :icon="['fab', 'google']" size="1x" />
                         <span class="m-0">Sign in with Google</span>
                         <span></span>
-                    </b-button>
+                    </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
                     <label class="text-black fs-1 font-weight-bold">Or sign in with your email</label>
@@ -73,8 +77,11 @@
 </template>
 
 <script>
+import { authentication } from '~/mixins'
+
 export default {
     name: 'Login',
+    mixins: [authentication],
     data() {
         return {
             form: {

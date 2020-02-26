@@ -1,7 +1,7 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  API_URL:  '"https://api.link.stream/v1/"',
+  API_URL:  '"https://api-dev.link.stream/v1/"',
   SOCIAL: {
     GOOGLE_CLIENT_ID: '"508620332071-blu7sd9t3osgc56sg1hnq9m8mu9a6tda.apps.googleusercontent.com"',
     INSTAGRAM_CLIENT_ID: '"697592760647122"',

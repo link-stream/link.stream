@@ -14,7 +14,7 @@
                 <b-col cols="12" class="my-5 pt-4">
                     <a href="https://www.instagram.com/_linkstream" target="_blank" class="text-white">
                         <font-awesome-icon :icon="['fab', 'instagram']" class="mr-1" />
-                        Join the fam on Instgram!
+                        Join the fam on Instagram!
                     </a>
                 </b-col>
                 <b-col cols="12">

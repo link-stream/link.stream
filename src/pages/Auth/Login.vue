@@ -3,18 +3,30 @@
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-2">
-                    <b-button pill class="btn-round instagram">
+                    <b-button
+                        pill
+                        class="btn-round instagram"
+                        @click="authenticateInstagram"
+                        :disabled="loading.instagram"
+                    >
                         <font-awesome-icon :icon="['fab', 'instagram']" size="lg" />
                         <span class="m-0">Sign in with Instagram</span>
-                        <span></span>
+                        <b-spinner class="btn-spinner" v-if="loading.instagram"></b-spinner>
+                        <span v-else></span>
                     </b-button>
                 </b-col>
                 <b-col cols="12" class="my-2">
-                    <b-button pill class="btn-round google">
+                    <GoogleLogin
+                        class="btn btn-round google btn-secondary rounded-pill"
+                        :params="google"
+                        :onSuccess="onGoogleSuccess"
+                        :disabled="loading.google"
+                    >
                         <font-awesome-icon :icon="['fab', 'google']" size="1x" />
                         <span class="m-0">Sign in with Google</span>
-                        <span></span>
-                    </b-button>
+                        <b-spinner class="btn-spinner" v-if="loading.google"></b-spinner>
+                        <span v-else></span>
+                    </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
                     <label class="text-black fs-1 font-weight-bold">Or sign in with your email</label>
@@ -50,19 +62,27 @@
                                 autocomplete="current-password"
                             ></b-form-input>
                             <b-button class="btn btn-show-pwd" variant="transparent" @click="showPwd = !showPwd">
-                                <b-icon font-scale="1.5" :icon="showPwd ? 'eye' : 'eye-slash'"/>
+                                <b-icon font-scale="1.5" :icon="showPwd ? 'eye' : 'eye-slash'" />
                             </b-button>
                             <b-form-invalid-feedback id="password-live-feedback">
                                 {{ veeErrors.first('input_password') }}
                             </b-form-invalid-feedback>
                         </b-form-group>
-                        <b-button pill type="submit" class="btn-round pink text-uppercase d-block mt-5">
-                            Sign In
+                        <b-button
+                            pill
+                            type="submit"
+                            class="btn-round pink text-uppercase mt-5"
+                            :disabled="loading.signin"
+                        >
+                            <span></span>
+                            <span class="m-0">Sign In</span>
+                            <b-spinner class="btn-spinner" v-if="loading.signin"></b-spinner>
+                            <span v-else></span>
                         </b-button>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="my-3">
-                    <b-link to="/">Forgot Password?</b-link>
+                    <b-link to="/forgot">Forgot Password?</b-link>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-4">
                     Don't have an account? <b-link to="/signup">Sigin up</b-link>
@@ -73,8 +93,12 @@
 </template>
 
 <script>
+import { call } from '~/services'
+import { authentication } from '~/mixins'
+
 export default {
     name: 'Login',
+    mixins: [authentication],
     data() {
         return {
             form: {
@@ -82,6 +106,9 @@ export default {
                 password: null,
             },
             showPwd: false,
+            loading: {
+                signin: false,
+            },
         }
     },
     methods: {
@@ -101,13 +128,23 @@ export default {
                 this.$validator.reset()
             })
         },
-        onSubmit() {
-            this.$validator.validateAll().then(result => {
+        async onSubmit() {
+            this.$validator.validateAll().then(async result => {
                 if (!result) {
                     return
                 }
-
-                alert('Form submitted!')
+                this.loading.signin = true
+                try {
+                    const params = { ...this.form }
+                    const { status, data } = await call('/users/login', params, 'POST')
+                    if (status === 'success') {
+                        console.log(data)
+                        this.$toast.success('Success')
+                    }
+                } catch (e) {
+                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
+                }
+                this.loading.signin = false
             })
         },
     },

@@ -14,12 +14,17 @@ export default {
                 client_id: process.env.SOCIAL.INSTAGRAM_CLIENT_ID,
                 redirect_uri: window.location.href,
             },
+            loading: {
+                google: false,
+                instagram: false,
+            },
         }
     },
     methods: {
         async onGoogleSuccess(googleUser) {
             const { id_token: platform_token } = googleUser.getAuthResponse()
             if (platform_token) {
+                this.loading.google = true
                 try {
                     const { status, data } = await call('/users/google', { platform_token }, 'POST')
                     if (status === 'success') {
@@ -29,12 +34,14 @@ export default {
                 } catch (e) {
                     this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
                 }
+                this.loading.google = false
             }
         },
         async onInstagramSuccess(instagramUser) {
             const { code } = instagramUser
             const { redirect_uri: redirect_url } = this.instagram
             if (code && redirect_url) {
+                this.loading.instagram = true
                 try {
                     const { status, data } = await call('/users/instagram', { code, redirect_url }, 'POST')
                     if (status === 'success') {
@@ -44,6 +51,7 @@ export default {
                 } catch (e) {
                     this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
                 }
+                this.loading.instagram = false
             }
         },
         authenticateInstagram() {

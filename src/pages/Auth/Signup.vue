@@ -3,18 +3,22 @@
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-2">
-                    <b-button pill class="btn-round instagram">
+                    <b-button pill class="btn-round instagram" @click="authenticateInstagram">
                         <font-awesome-icon :icon="['fab', 'instagram']" size="lg" />
                         <span class="m-0">Sign up with Instagram</span>
                         <span></span>
                     </b-button>
                 </b-col>
                 <b-col cols="12" class="my-2">
-                    <b-button pill class="btn-round google">
+                    <GoogleLogin
+                        class="btn btn-round google btn-secondary rounded-pill"
+                        :params="google"
+                        :onSuccess="onGoogleSuccess"
+                    >
                         <font-awesome-icon :icon="['fab', 'google']" size="1x" />
                         <span class="m-0">Sign up with Google</span>
                         <span></span>
-                    </b-button>
+                    </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
                     <label class="text-black fs-1 font-weight-bold">Or sign up with your email</label>
@@ -74,6 +78,7 @@
                                 id="input_password_confirm"
                                 name="input_password_confirm"
                                 type="password"
+                                v-model="form.repassword"
                                 v-validate="{ required: true, min: 8, confirmed: 'password' }"
                                 :state="validateState('input_password_confirm')"
                                 aria-describedby="password-confirm-live-feedback"
@@ -103,14 +108,19 @@
 </template>
 
 <script>
+import { call } from '~/services'
+import { authentication } from '~/mixins'
+
 export default {
     name: 'Signup',
+    mixins: [authentication],
     data() {
         return {
             form: {
                 name: null,
                 email: null,
                 password: null,
+                repassword: null,
             },
         }
     },
@@ -126,19 +136,28 @@ export default {
                 name: null,
                 email: null,
                 password: null,
+                repassword: null,
             }
 
             this.$nextTick(() => {
                 this.$validator.reset()
             })
         },
-        onSubmit() {
-            this.$validator.validateAll().then(result => {
+        async onSubmit() {
+            this.$validator.validateAll().then(async result => {
                 if (!result) {
                     return
                 }
-
-                alert('Form submitted!')
+                const params = {
+                    user_name: this.form.name,
+                    email: this.form.email,
+                    password: this.form.password,
+                }
+                const { status, data } = await call('/users/registration', params, 'POST')
+                if (status === 'success') {
+                    console.log(data)
+                    this.$toast.success('Success')
+                }
             })
         },
     },

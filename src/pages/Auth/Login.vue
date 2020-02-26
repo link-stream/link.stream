@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import { call } from '~/services'
 import { authentication } from '~/mixins'
 
 export default {
@@ -108,13 +109,17 @@ export default {
                 this.$validator.reset()
             })
         },
-        onSubmit() {
-            this.$validator.validateAll().then(result => {
+        async onSubmit() {
+            this.$validator.validateAll().then(async result => {
                 if (!result) {
                     return
                 }
-
-                alert('Form submitted!')
+                const params = { ...this.form }
+                const { status, data } = await call('/users/login', params, 'POST')
+                if (status === 'success') {
+                    console.log(data)
+                    this.$toast.success('Success')
+                }
             })
         },
     },

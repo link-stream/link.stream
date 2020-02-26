@@ -1,4 +1,5 @@
 import GoogleLogin from 'vue-google-login'
+import { call } from '~/services'
 
 export default {
     components: {
@@ -7,22 +8,35 @@ export default {
     data() {
         return {
             google: {
-                client_id: '508620332071-blu7sd9t3osgc56sg1hnq9m8mu9a6tda.apps.googleusercontent.com',
+                client_id: process.env.SOCIAL.GOOGLE_CLIENT_ID,
             },
             instagram: {
-                client_id: '697592760647122',
+                client_id: process.env.SOCIAL.INSTAGRAM_CLIENT_ID,
                 redirect_uri: window.location.href,
             },
         }
     },
     methods: {
-        onGoogleSuccess(googleUser) {
-            console.log(googleUser)
-            // This only gets the user information: id, name, imageUrl and email
-            console.log(googleUser.getBasicProfile())
+        async onGoogleSuccess(googleUser) {
+            const { id_token: platform_token } = googleUser.getAuthResponse()
+            if (platform_token) {
+                const { status, data } = await call('/users/google', { platform_token }, 'POST')
+                if (status === 'success') {
+                    console.log(data)
+                    this.$toast.success('Success')
+                }
+            }
         },
-        onInstagramSuccess(instagramUser) {
-            console.log(instagramUser)
+        async onInstagramSuccess(instagramUser) {
+            const { code } = instagramUser
+            const { redirect_uri: redirect_url } = this.instagram
+            if (code && redirect_url) {
+                const { status, data } = await call('/users/instagram', { code, redirect_url }, 'POST')
+                if (status === 'success') {
+                    console.log(data)
+                    this.$toast.success('Success')
+                }
+            }
         },
         authenticateInstagram() {
             const _this = this
@@ -34,11 +48,7 @@ export default {
                 popupTop = (window.screen.height - popupHeight) / 2
             // Url needs to point to instagram_auth.php
             const popup = window.open(
-                'https://instagram.com/oauth/authorize/?app_id=' +
-                    client_id +
-                    '&redirect_uri=' +
-                    redirect_uri +
-                    '&scope=user_profile,user_media&response_type=code',
+                `https://instagram.com/oauth/authorize/?app_id=${client_id}&redirect_uri=${redirect_uri}&scope=user_profile,user_media&response_type=code`,
                 '',
                 'width=' + popupWidth + ',height=' + popupHeight + ',left=' + popupLeft + ',top=' + popupTop + ''
             )

@@ -20,10 +20,14 @@ export default {
         async onGoogleSuccess(googleUser) {
             const { id_token: platform_token } = googleUser.getAuthResponse()
             if (platform_token) {
-                const { status, data } = await call('/users/google', { platform_token }, 'POST')
-                if (status === 'success') {
-                    console.log(data)
-                    this.$toast.success('Success')
+                try {
+                    const { status, data } = await call('/users/google', { platform_token }, 'POST')
+                    if (status === 'success') {
+                        console.log(data)
+                        this.$toast.success('Success')
+                    }
+                } catch (e) {
+                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
                 }
             }
         },
@@ -31,10 +35,14 @@ export default {
             const { code } = instagramUser
             const { redirect_uri: redirect_url } = this.instagram
             if (code && redirect_url) {
-                const { status, data } = await call('/users/instagram', { code, redirect_url }, 'POST')
-                if (status === 'success') {
-                    console.log(data)
-                    this.$toast.success('Success')
+                try {
+                    const { status, data } = await call('/users/instagram', { code, redirect_url }, 'POST')
+                    if (status === 'success') {
+                        console.log(data)
+                        this.$toast.success('Success')
+                    }
+                } catch (e) {
+                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
                 }
             }
         },

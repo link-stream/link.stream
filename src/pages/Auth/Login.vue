@@ -114,11 +114,15 @@ export default {
                 if (!result) {
                     return
                 }
-                const params = { ...this.form }
-                const { status, data } = await call('/users/login', params, 'POST')
-                if (status === 'success') {
-                    console.log(data)
-                    this.$toast.success('Success')
+                try {
+                    const params = { ...this.form }
+                    const { status, data } = await call('/users/login', params, 'POST')
+                    if (status === 'success') {
+                        console.log(data)
+                        this.$toast.success('Success')
+                    }
+                } catch (e) {
+                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
                 }
             })
         },

@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import axios from '~/plugins/axios'
 
 export default async function(endpoint, params = {}, method = 'GET') {
@@ -15,22 +14,16 @@ export default async function(endpoint, params = {}, method = 'GET') {
     })
 
     // call API
-    try {
-        const res = await axios({
-            method,
-            url: endpoint,
-            data,
-            headers,
-            auth,
-        })
-        const json = res.data
-        if (res.status > 400 || (json && (json.errorType > 400 || json.errorMessage))) {
-            throw json.message || json.errorMessage || res.statusText
-        }
-        return json
-    } catch (e) {
-        const error = e.response.data.error || e.response.message || e.message
-        Vue.$toast.error(error)
-        throw error
+    const res = await axios({
+        method,
+        url: endpoint,
+        data,
+        headers,
+        auth,
+    })
+    const json = res.data
+    if (res.status >= 400 || (json && (json.errorType >= 400 || json.errorMessage))) {
+        throw json.message || json.errorMessage || res.statusText
     }
+    return json
 }

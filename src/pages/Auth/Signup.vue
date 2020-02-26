@@ -148,15 +148,19 @@ export default {
                 if (!result) {
                     return
                 }
-                const params = {
-                    user_name: this.form.name,
-                    email: this.form.email,
-                    password: this.form.password,
-                }
-                const { status, data } = await call('/users/registration', params, 'POST')
-                if (status === 'success') {
-                    console.log(data)
-                    this.$toast.success('Success')
+                try {
+                    const params = {
+                        user_name: this.form.name,
+                        email: this.form.email,
+                        password: this.form.password,
+                    }
+                    const { status, data } = await call('/users/registration', params, 'POST')
+                    if (status === 'success') {
+                        console.log(data)
+                        this.$toast.success('Success')
+                    }
+                } catch (e) {
+                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
                 }
             })
         },

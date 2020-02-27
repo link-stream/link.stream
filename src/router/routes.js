@@ -19,7 +19,7 @@ const routes = [
     },
     {
         path: '/register-confirm',
-        name: 'regiser-confirm',
+        name: 'register-confirm',
         component: RegisterConfirm,
         meta: { requiresGuest: true, layout: 'preauth' },
     },

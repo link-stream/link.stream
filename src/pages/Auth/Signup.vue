@@ -206,7 +206,6 @@ export default {
         },
         async onSubmit() {
             this.$validator.validateAll().then(async result => {
-                console.log('result = ', result)
                 if (!result) {
                     return
                 }
@@ -217,10 +216,11 @@ export default {
                         email: this.form.email,
                         password: this.form.password,
                     }
-                    const { status, data } = await call('/users/registration', params, 'POST')
+                    const { status, error = null } = await call('/users/registration', params, 'POST')
                     if (status === 'success') {
-                        console.log(data)
-                        this.$toast.success('Success')
+                        this.$router.push({ name: 'register-confirm' })
+                    } else {
+                        this.$toast.error(error)
                     }
                 } catch (e) {
                     this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')

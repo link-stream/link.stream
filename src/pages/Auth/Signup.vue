@@ -39,12 +39,17 @@
                                 name="input_username"
                                 type="text"
                                 v-model="form.name"
-                                v-validate="{ required: true, min: 5 }"
+                                v-validate="{ required: true, min: 5, uniqueUsername: true }"
                                 :state="validateState('input_username')"
                                 aria-describedby="username-live-feedback"
                                 data-vv-as="username"
-                                autocomplete="username"
-                            ></b-form-input>
+                                data-vv-delay="200"
+                                autocomplete="off"
+                            >
+                            </b-form-input>
+                            <b-button class="btn btn-input-spinner" variant="transparent" v-if="validating.username">
+                                <b-spinner></b-spinner>
+                            </b-button>
                             <b-form-invalid-feedback id="username-live-feedback">
                                 {{ veeErrors.first('input_username') }}
                             </b-form-invalid-feedback>
@@ -55,11 +60,16 @@
                                 name="input_email"
                                 type="email"
                                 v-model="form.email"
-                                v-validate="{ required: true, email: true }"
+                                v-validate="{ required: true, email: true, uniqueEmail: true }"
                                 :state="validateState('input_email')"
                                 aria-describedby="email-live-feedback"
                                 data-vv-as="email"
+                                data-vv-delay="200"
+                                autocomplete="off"
                             ></b-form-input>
+                            <b-button class="btn btn-input-spinner" variant="transparent" v-if="validating.email">
+                                <b-spinner></b-spinner>
+                            </b-button>
                             <b-form-invalid-feedback id="email-live-feedback">
                                 {{ veeErrors.first('input_email') }}
                             </b-form-invalid-feedback>
@@ -124,6 +134,7 @@
 </template>
 
 <script>
+import { Validator } from 'vee-validate'
 import { call } from '~/services'
 import { authentication } from '~/mixins'
 
@@ -141,7 +152,22 @@ export default {
             loading: {
                 signup: false,
             },
+            validating: {
+                username: false,
+                email: false,
+            },
         }
+    },
+    mounted() {
+        // Username and email availability validations
+        Validator.extend('uniqueUsername', {
+            validate: value => this.availabilityValidator('username', value),
+            getMessage: (field, params, data) => data.message,
+        })
+        Validator.extend('uniqueEmail', {
+            validate: value => this.availabilityValidator('email', value),
+            getMessage: (field, params, data) => data.message,
+        })
     },
     methods: {
         validateState(ref) {
@@ -162,8 +188,25 @@ export default {
                 this.$validator.reset()
             })
         },
+        async availabilityValidator(field, value) {
+            this.validating[field] = true
+            try {
+                this.validating[field] = false
+                const res = await call(`/users/availability/${field}/${value}`, {}, 'GET', false)
+                if (res.error) {
+                    return { data: { message: res.error } }
+                }
+                return { valid: true }
+            } catch (e) {
+                this.validating[field] = false
+                if (e.response.data.error) {
+                    return { data: { message: e.response.data.error } }
+                }
+            }
+        },
         async onSubmit() {
             this.$validator.validateAll().then(async result => {
+                console.log('result = ', result)
                 if (!result) {
                     return
                 }
@@ -188,3 +231,29 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped>
+#signup-form {
+    .form-control {
+        + .btn-input-spinner {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: $input-height;
+            display: flex;
+            background: none;
+            border: none;
+            box-shadow: none;
+
+            .spinner-border {
+                width: 1.2 * $font-size-base;
+                height: 1.2 * $font-size-base;
+                border-width: 2px;
+            }
+        }
+        &.is-invalid + .btn-input-spinner {
+            right: $input-height-inner-half;
+        }
+    }
+}
+</style>

@@ -1,6 +1,6 @@
 import axios from '~/plugins/axios'
 
-export default async function(endpoint, params = {}, method = 'GET') {
+export default async function(endpoint, params = {}, method = 'GET', showProgress = true) {
     const headers = {
         'X-API-KEY': process.env.SERVER_AUTH.X_API_KEY,
     }
@@ -20,6 +20,7 @@ export default async function(endpoint, params = {}, method = 'GET') {
         data,
         headers,
         auth,
+        showProgress,
     })
     const json = res.data
     if (res.status >= 400 || (json && (json.errorType >= 400 || json.errorMessage))) {

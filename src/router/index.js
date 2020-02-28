@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '~/store'
 import routes from './routes'
 
 Vue.use(Router)
@@ -16,6 +17,27 @@ router.beforeResolve((to, from, next) => {
         router.app.$Progress.start()
     }
     next()
+})
+
+router.beforeEach(async (to, from, next) => {
+    // middleware for access controlled pages
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!store.getters.user) {
+            // redirect to login if attempting to access authed page
+            next({ name: 'login' })
+        } else {
+            next()
+        }
+    } else if (to.matched.some(record => record.meta.requiresGuest)) {
+        if (store.getters.user) {
+            // redirect home if attempting to access guest-only page
+            next({ name: 'home' })
+        } else {
+            next()
+        }
+    } else {
+        next()
+    }
 })
 
 router.afterEach((to, from) => {

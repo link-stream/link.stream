@@ -1,5 +1,5 @@
 // pages
-import { Login, Signup, RegisterConfirm, PasswordReset } from '~/pages/Auth'
+import { Login, Signup, RegisterConfirm, EmailConfirm, PasswordReset } from '~/pages/Auth'
 import { HomePage } from '~/pages/HomePage'
 import { Legal } from '~/pages/Other'
 
@@ -22,6 +22,12 @@ const routes = [
         name: 'register-confirm',
         component: RegisterConfirm,
         meta: { requiresGuest: true, layout: 'preauth' },
+    },
+    {
+        path: '/email-confirm/:param1/:param2',
+        name: 'email-confirm',
+        component: EmailConfirm,
+        meta: { requiresGuest: true },
     },
     {
         path: '/forgot',

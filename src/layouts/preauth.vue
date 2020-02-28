@@ -43,5 +43,11 @@ export default {
 /deep/ .btn-round {
     width: 300px;
     max-width: 100%;
+    line-height: 1.2;
+
+    > span,
+    > svg {
+        min-width: $spinner-width;
+    }
 }
 </style>

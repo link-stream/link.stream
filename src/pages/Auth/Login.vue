@@ -128,7 +128,7 @@ export default {
                 this.$validator.reset()
             })
         },
-        async onSubmit() {
+        onSubmit() {
             this.$validator.validateAll().then(async result => {
                 if (!result) {
                     return

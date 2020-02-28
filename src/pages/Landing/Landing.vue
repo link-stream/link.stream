@@ -1,5 +1,5 @@
 <template>
-    <div id="home-page" class="my-md-5">
+    <div id="landing-page" class="my-md-5">
         <b-container fluid>
             <b-row class="text-center text-white">
                 <b-col cols="12" class="my-3">
@@ -27,12 +27,12 @@
 
 <script>
 export default {
-    name: 'HomePage',
+    name: 'Landing',
 }
 </script>
 
 <style lang="scss" scoped>
-#home-page {
+#landing-page {
     font-family: $font-source-family;
 
     .logo {

@@ -3,18 +3,18 @@ import router from '~/router'
 import * as types from '../mutationTypes'
 import { isEmpty } from 'lodash'
 
-const SIGNUP_USER = 'signupUserInfo'
+const PENDING_USER = 'pendingUserInfo'
 const USER_INFO = 'userInfo'
 
 // state
 const initialState = () => ({
     user: null,
-    registeredUser: null,
+    pendingUser: null,
 })
 
 export const state = {
     user: Cookies.getJSON(USER_INFO),
-    signupUser: Cookies.getJSON(SIGNUP_USER),
+    pendingUser: Cookies.getJSON(PENDING_USER),
 }
 
 // mutations
@@ -26,13 +26,13 @@ export const mutations = {
             state[key] = s[key]
         })
         // clear cookies
-        Cookies.remove(SIGNUP_USER)
+        Cookies.remove(PENDING_USER)
         Cookies.remove(USER_INFO)
     },
 
     [types.SIGNUP](state, data) {
-        state.signupUser = data.user
-        Cookies.set(SIGNUP_USER, data.user)
+        state.pendingUser = data.user
+        Cookies.set(PENDING_USER, data.user)
     },
 
     [types.LOGIN](state, data) {
@@ -62,6 +62,7 @@ export const actions = {
     login({ commit }, payload) {
         const { user } = payload
         if (!isEmpty(user)) {
+            commit(types.RESET)
             commit(types.LOGIN, payload)
             router.push({ name: 'home' })
         }
@@ -76,6 +77,6 @@ export const actions = {
 
 // getters
 export const getters = {
-    signupUser: state => state.signupUser,
+    pendingUser: state => state.pendingUser,
     user: state => state.user,
 }

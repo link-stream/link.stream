@@ -21,14 +21,14 @@ export default {
     name: 'RegisterConfirm',
     mounted() {
         // redirect to signup page when there is no information of signup user
-        if (!this.$store.getters.signupUser) {
+        if (!this.$store.getters.pendingUser) {
             this.$router.push({ name: 'signup' })
         }
     },
     methods: {
         async resendConfirationEmail() {
             try {
-                const { id: user_id } = this.$store.getters.signupUser
+                const { id: user_id } = this.$store.getters.pendingUser
                 const { status, error = null } = await call('/users/resend_email_confirm', { user_id }, 'POST')
                 if (status === 'success') {
                     this.$toast.success('We have sent confirmation email successfully.')

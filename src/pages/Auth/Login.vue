@@ -136,10 +136,11 @@ export default {
                 this.loading.signin = true
                 try {
                     const params = { ...this.form }
-                    const { status, data } = await call('/users/login', params, 'POST')
+                    const { status, data, error = null } = await call('/users/login', params, 'POST')
                     if (status === 'success') {
-                        console.log(data)
-                        this.$toast.success('Success')
+                        this.$store.dispatch('login', { user: data })
+                    } else {
+                        this.$toast.error(error)
                     }
                 } catch (e) {
                     this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')

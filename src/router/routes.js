@@ -1,7 +1,7 @@
 // pages
 import { Login, Signup, RegisterConfirm, EmailConfirm, PasswordReset } from '~/pages/Auth'
-import { HomePage } from '~/pages/HomePage'
-import { Legal } from '~/pages/Other'
+import { Landing } from '~/pages/Landing'
+import { Legal } from '~/pages/Others'
 
 const routes = [
     // Pre Auth routs
@@ -38,8 +38,8 @@ const routes = [
     // Main pages
     {
         path: '/',
-        name: 'home',
-        component: HomePage,
+        name: 'landing',
+        component: Landing,
         meta: { requiresGuest: true, layout: 'landing' },
     },
     // Other pages

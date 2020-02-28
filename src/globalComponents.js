@@ -20,7 +20,9 @@ Vue.use(VueProgressBar, {
 // Install VueToast
 Vue.use(Toast, {
     // registration props here
-    position: 'bottom-center',
+    position: 'top-right',
+    hideProgressBar: true,
+    hideCloseButton: false,
 })
 // Install VeeValidate
 Vue.use(VeeValidate, {

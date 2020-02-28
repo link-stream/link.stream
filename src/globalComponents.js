@@ -3,10 +3,11 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import Toast from 'vue-toastification'
 import VeeValidate from 'vee-validate'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
@@ -30,5 +31,5 @@ Vue.use(VeeValidate, {
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 // Install Fontawesome
-library.add(faUserSecret, fab)
+library.add(fas, fab, far)
 Vue.component('font-awesome-icon', FontAwesomeIcon)

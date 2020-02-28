@@ -3,29 +3,24 @@
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-2">
-                    <b-button
-                        pill
-                        class="btn-round instagram"
-                        @click="authenticateInstagram"
-                        :disabled="loading.instagram"
+                    <MultiStateButton
+                        instagram
+                        :loading="status.loading.instagram"
+                        :error="status.error.instagram"
+                        @onClick="authenticateInstagram"
                     >
                         <font-awesome-icon :icon="['fab', 'instagram']" size="lg" />
                         <span class="m-0">Sign up with Instagram</span>
-                        <b-spinner class="btn-spinner" v-if="loading.instagram"></b-spinner>
-                        <span v-else></span>
-                    </b-button>
+                        <span></span>
+                    </MultiStateButton>
                 </b-col>
                 <b-col cols="12" class="my-2">
-                    <GoogleLogin
-                        class="btn btn-round google btn-secondary rounded-pill"
-                        :params="google"
-                        :onSuccess="onGoogleSuccess"
-                        :disabled="loading.google"
-                    >
-                        <font-awesome-icon :icon="['fab', 'google']" size="1x" />
-                        <span class="m-0">Sign up with Google</span>
-                        <b-spinner class="btn-spinner" v-if="loading.google"></b-spinner>
-                        <span v-else></span>
+                    <GoogleLogin class="btn-transparent col px-0" :params="google" :onSuccess="onGoogleSuccess">
+                        <MultiStateButton google :loading="status.loading.google" :error="status.error.google">
+                            <font-awesome-icon :icon="['fab', 'google']" size="1x" />
+                            <span class="m-0">Sign up with Google</span>
+                            <span></span>
+                        </MultiStateButton>
                     </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
@@ -112,17 +107,16 @@
                             <b-link to="/legal" target="_blank">Terms of Use</b-link>
                             and <b-link to="/legal" target="_blank">Privacy Policy</b-link>.
                         </b-form-group>
-                        <b-button
-                            pill
+                        <MultiStateButton
                             type="submit"
-                            class="btn-round pink text-uppercase mt-4"
-                            :disabled="loading.signup"
+                            class="pink text-uppercase mt-5"
+                            :loading="status.loading.signup"
+                            :error="status.error.signup"
                         >
                             <span></span>
                             <span class="m-0">Sign Up</span>
-                            <b-spinner class="btn-spinner" v-if="loading.signup"></b-spinner>
-                            <span v-else></span>
-                        </b-button>
+                            <span></span>
+                        </MultiStateButton>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-4">
@@ -135,12 +129,17 @@
 
 <script>
 import { Validator } from 'vee-validate'
+import { setStatusChange } from '~/utils'
 import { call } from '~/services'
 import { authentication } from '~/mixins'
+import { MultiStateButton } from '~/components/Button'
 
 export default {
     name: 'Signup',
     mixins: [authentication],
+    components: {
+        MultiStateButton,
+    },
     data() {
         return {
             form: {
@@ -149,8 +148,13 @@ export default {
                 password: null,
                 repassword: null,
             },
-            loading: {
-                signup: false,
+            status: {
+                loading: {
+                    signup: false,
+                },
+                error: {
+                    signup: null,
+                },
             },
             validating: {
                 username: false,
@@ -209,7 +213,7 @@ export default {
                 if (!result) {
                     return
                 }
-                this.loading.signup = true
+                this.status.loading.signup = true
                 try {
                     const params = {
                         user_name: this.form.name,
@@ -218,14 +222,17 @@ export default {
                     }
                     const { status, data, error = null } = await call('/users/registration', params, 'POST')
                     if (status === 'success') {
+                        setStatusChange(this, 'status.error.signup', false)
                         this.$store.dispatch('signup', { user: data })
                     } else {
+                        setStatusChange(this, 'status.error.signup')
                         this.$toast.error(error)
                     }
                 } catch (e) {
+                    setStatusChange(this, 'status.error.signup')
                     this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
                 }
-                this.loading.signup = false
+                this.status.loading.signup = false
             })
         },
     },

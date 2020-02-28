@@ -31,17 +31,16 @@
                                 {{ veeErrors.first('input_email') }}
                             </b-form-invalid-feedback>
                         </b-form-group>
-                        <b-button
-                            pill
+                        <MultiStateButton
                             type="submit"
-                            class="btn-round pink text-uppercase mt-5"
-                            :disabled="loading.reset"
+                            class="pink text-uppercase mt-5"
+                            :loading="status.loading.reset"
+                            :error="status.error.reset"
                         >
                             <span></span>
-                            <span class="m-0 flex-fill">Reset</span>
-                            <b-spinner class="btn-spinner" v-if="loading.reset"></b-spinner>
-                            <span v-else></span>
-                        </b-button>
+                            <span class="m-0">Reset</span>
+                            <span></span>
+                        </MultiStateButton>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-2"> Need help? <b-link to="/" class="ml-2">Contact Us</b-link> </b-col>
@@ -54,17 +53,27 @@
 </template>
 
 <script>
+import { setStatusChange } from '~/utils'
 import { call } from '~/services'
+import { MultiStateButton } from '~/components/Button'
 
 export default {
     name: 'PasswordReset',
+    components: {
+        MultiStateButton,
+    },
     data() {
         return {
             form: {
                 email: null,
             },
-            loading: {
-                reset: false,
+            status: {
+                loading: {
+                    reset: false,
+                },
+                error: {
+                    reset: null,
+                },
             },
         }
     },
@@ -89,19 +98,24 @@ export default {
                 if (!result) {
                     return
                 }
-                this.loading.reset = true
+                this.status.loading.reset = true
                 try {
                     const params = { ...this.form }
                     const { status, error = null } = await call('/users/forgot_password', params, 'POST')
                     if (status === 'success') {
+                        setStatusChange(this, 'status.error.reset', false, () => {
+                            this.resetForm()
+                        })
                         this.$toast.success('We have emailed password resent link successfully.')
                     } else {
+                        setStatusChange(this, 'status.error.reset')
                         this.$toast.error(error)
                     }
                 } catch (e) {
+                    setStatusChange(this, 'status.error.reset')
                     this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
                 }
-                this.loading.reset = false
+                this.status.loading.reset = false
             })
         },
     },

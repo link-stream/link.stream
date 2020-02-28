@@ -1,4 +1,5 @@
 import GoogleLogin from 'vue-google-login'
+import { setStatusChange } from '~/utils'
 import { call } from '~/services'
 
 export default {
@@ -14,9 +15,15 @@ export default {
                 client_id: process.env.SOCIAL.INSTAGRAM_CLIENT_ID,
                 redirect_uri: window.location.href,
             },
-            loading: {
-                google: false,
-                instagram: false,
+            status: {
+                loading: {
+                    google: false,
+                    instagram: false,
+                },
+                error: {
+                    google: null,
+                    instagram: null,
+                },
             },
         }
     },
@@ -24,34 +31,48 @@ export default {
         async onGoogleSuccess(googleUser) {
             const { id_token: platform_token } = googleUser.getAuthResponse()
             if (platform_token) {
-                this.loading.google = true
+                this.status.loading.google = true
                 try {
-                    const { status, data } = await call('/users/google', { platform_token }, 'POST')
+                    const { status, data, error = null } = await call('/users/google', { platform_token }, 'POST')
                     if (status === 'success') {
                         console.log(data)
+                        setStatusChange(this, 'status.error.google', false)
                         this.$toast.success('Success')
+                    } else {
+                        setStatusChange(this, 'status.error.google')
+                        this.$toast.error(error)
                     }
                 } catch (e) {
+                    setStatusChange(this, 'status.error.google')
                     this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
                 }
-                this.loading.google = false
+                this.status.loading.google = false
             }
         },
         async onInstagramSuccess(instagramUser) {
             const { code } = instagramUser
             const { redirect_uri: redirect_url } = this.instagram
             if (code && redirect_url) {
-                this.loading.instagram = true
+                this.status.loading.instagram = true
                 try {
-                    const { status, data } = await call('/users/instagram', { code, redirect_url }, 'POST')
+                    const { status, data, error = null } = await call(
+                        '/users/instagram',
+                        { code, redirect_url },
+                        'POST'
+                    )
                     if (status === 'success') {
                         console.log(data)
+                        setStatusChange(this, 'status.error.instagram', false)
                         this.$toast.success('Success')
+                    } else {
+                        setStatusChange(this, 'status.error.instagram')
+                        this.$toast.error(error)
                     }
                 } catch (e) {
+                    setStatusChange(this, 'status.error.instagram')
                     this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
                 }
-                this.loading.instagram = false
+                this.status.loading.instagram = false
             }
         },
         authenticateInstagram() {

@@ -1,3 +1,4 @@
+import { set } from 'lodash'
 /**
  * Deep copy the given object considering circular structure.
  * This function caches all nested objects and its copies.
@@ -32,4 +33,25 @@ export function deepCopy(obj, cache = []) {
     })
 
     return copy
+}
+
+/**
+ * Change the status of target object for duration.
+ * This function is useful to change status in animations.
+ *
+ * @param {<Object>} obj
+ * @param {<String>} target
+ * @param {<Boolean>} value
+ * @param {<Function>} callback
+ * @param {<Number>} duration
+ * @return
+ */
+export function setStatusChange(obj, target, value = true, callback = null, duration = 3000) {
+    set(obj, target, value)
+    setTimeout(() => {
+        if (callback) {
+            callback()
+        }
+        set(obj, target, null)
+    }, duration)
 }

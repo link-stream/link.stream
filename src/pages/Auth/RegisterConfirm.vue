@@ -15,11 +15,29 @@
 </template>
 
 <script>
+import { call } from '~/services'
+
 export default {
     name: 'RegisterConfirm',
+    mounted() {
+        // redirect to signup page when there is no information of signup user
+        if (!this.$store.getters.signupUser) {
+            this.$router.push({ name: 'signup' })
+        }
+    },
     methods: {
-        resendConfirationEmail() {
-            // TODO:: resend confiration email here
+        async resendConfirationEmail() {
+            try {
+                const { id: user_id } = this.$store.getters.signupUser
+                const { status, error = null } = await call('/users/resend_email_confirm', { user_id }, 'POST')
+                if (status === 'success') {
+                    this.$toast.success('We have sent confirmation email successfully.')
+                } else {
+                    this.$toast.error(error)
+                }
+            } catch (e) {
+                this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
+            }
         },
     },
 }

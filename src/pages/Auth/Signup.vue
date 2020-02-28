@@ -216,9 +216,9 @@ export default {
                         email: this.form.email,
                         password: this.form.password,
                     }
-                    const { status, error = null } = await call('/users/registration', params, 'POST')
+                    const { status, data, error = null } = await call('/users/registration', params, 'POST')
                     if (status === 'success') {
-                        this.$router.push({ name: 'register-confirm' })
+                        this.$store.dispatch('signup', { user: data })
                     } else {
                         this.$toast.error(error)
                     }

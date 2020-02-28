@@ -13,7 +13,7 @@ const modules = requireContext
     .keys()
     .map(file => [file.replace(/(^.\/)|(\.js$)/g, ''), requireContext(file)])
     .reduce((modules, [name, module]) => {
-        modules[name] = { ...module, namespaced: true }
+        modules[name] = { ...module }
         return modules
     }, {})
 

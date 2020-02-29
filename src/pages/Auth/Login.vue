@@ -28,7 +28,7 @@
                 </b-col>
                 <b-col cols="12" class="my-3">
                     <b-form @submit.stop.prevent="onSubmit" @reset="resetForm" :novalidate="true" id="login-form">
-                        <b-form-group label="Email Address" label-for="input_email" class="mb-4">
+                        <b-form-group label="Email Address" label-for="input_email" class="mb-4 error-l-110">
                             <b-form-input
                                 id="input_email"
                                 name="input_email"
@@ -44,7 +44,11 @@
                                 {{ veeErrors.first('input_email') }}
                             </b-form-invalid-feedback>
                         </b-form-group>
-                        <b-form-group label="Password" label-for="input_password" class="mb-4 password-form-group">
+                        <b-form-group
+                            label="Password"
+                            label-for="input_password"
+                            class="mb-4 password-form-group error-l-75"
+                        >
                             <b-form-input
                                 id="input_password"
                                 name="input_password"
@@ -165,16 +169,13 @@ export default {
         .form-control {
             + .btn-show-pwd {
                 position: absolute;
+                top: 2 * $spacer;
                 right: 0;
-                top: 0;
                 height: $input-height;
                 display: flex;
                 background: none;
                 border: none;
                 box-shadow: none;
-            }
-            &.is-invalid + .btn-show-pwd {
-                right: $input-height-inner-half;
             }
         }
     }

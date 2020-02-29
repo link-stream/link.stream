@@ -15,7 +15,7 @@
                         :novalidate="true"
                         id="password-reset-form"
                     >
-                        <b-form-group label="Email Address" label-for="input_email" class="mb-4">
+                        <b-form-group label="Email Address" label-for="input_email" class="error-l-110 mb-4">
                             <b-form-input
                                 id="input_email"
                                 name="input_email"
@@ -130,7 +130,7 @@ export default {
         line-height: 2;
     }
 
-    .btn-round {
+    .btn-multiple-state {
         width: 170px;
         max-width: 100%;
     }

@@ -1,0 +1,72 @@
+/***************************************
+  			Form
+****************************************/
+.form-group {
+	position: relative;
+
+	> label {
+		height: 2 * $spacer;
+		margin: 0;
+	}
+	
+	.form-control {
+		&:focus {
+			border-color: $input-border-color;
+			box-shadow: none;
+		}
+		&.is-valid,
+		&.is-invalid {
+			border-color: $input-border-color;
+		}
+	}
+
+	.invalid-feedback {
+		$triangle-size: 5px;
+		position: absolute;
+		top: $spacer;
+		left: 50%;
+		width: unset !important;
+		margin-top: -0.5 * $spacer;
+		padding: 0.5 * $spacer $spacer;
+		font-size: 0.76 * $font-size-base;
+		color: $text-color;
+		text-align: center;
+		background: $body-bg;
+		border: 1px solid $form-feedback-invalid-color;
+		border-radius: $border-radius;
+		transform: translateX(0) translateY(-50%);
+		@include depth(1);
+
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0.75 * $spacer;
+			left: -$triangle-size;
+			width: $triangle-size;
+			margin-left: 0;
+			border-top: solid $triangle-size transparent;
+			border-bottom: solid $triangle-size transparent;
+			border-right: solid $triangle-size $form-feedback-invalid-color;
+		}
+		
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0.75 * $spacer;
+			left: calc(1px - #{$triangle-size});
+			width:$triangle-size;
+			margin-left: 0;
+			border-top: solid $triangle-size transparent;
+			border-bottom: solid $triangle-size transparent;
+			border-right: solid $triangle-size $body-bg;
+		}
+	}
+
+	@for $i from 0 through 200 {
+		&.error-l-#{$i} .invalid-feedback {
+			left: #{$i}px;
+		}
+	}
+}
+
+

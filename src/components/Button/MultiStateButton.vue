@@ -3,7 +3,7 @@
         pill
         :type="type"
         :class="{
-            'btn-round btn-multiple-state': true,
+            'btn-multiple-state': true,
             instagram,
             google,
             'show-spinner': loading,
@@ -71,12 +71,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.btn-round {
+.btn-multiple-state {
+    position: relative;
     height: 50px;
     margin: auto;
     padding: 0 1.25 * $spacer;
     font-weight: $font-weight-semi-bold;
     border: 0;
+    transition: opacity 500ms;
 
     &:focus {
         box-shadow: none;
@@ -102,11 +104,6 @@ export default {
             background-color: #d44c4c;
         }
     }
-}
-
-.btn-multiple-state {
-    position: relative;
-    transition: opacity 500ms;
 
     .spinner,
     .icon {

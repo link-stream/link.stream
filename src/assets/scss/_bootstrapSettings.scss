@@ -68,6 +68,8 @@ $dropdown-link-hover-color: $linkstream-1;
 $font-family-sans-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 // Input
+$input-box-shadow: none;
+$input-focus-box-shadow: none;
 $input-border-radius: 0;
 
 // Button
@@ -77,6 +79,7 @@ $btn-border-radius: 0;
 
 // Form validation
 $form-feedback-icon-valid: none;
+$form-feedback-icon-invalid: none;
 
 // Mixins
 @import '~bootstrap/scss/functions';

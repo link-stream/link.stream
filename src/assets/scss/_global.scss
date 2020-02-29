@@ -36,39 +36,6 @@ body {
   background: none;
   border: none;
 }
-
-.btn-round {
-  height: 50px;
-  margin: auto;
-  padding: 0 1.25 * $spacer;
-  font-weight: $font-weight-semi-bold;
-  border: 0;
-
-  &:focus {
-    box-shadow: none;
-  }
-
-  &.pink {
-    background-color: $linkstream-1;
-    &:not(:disabled):not(.disabled):active {
-      background-color: $linkstream-1;
-    }
-  }
-
-  &.instagram {
-    background: linear-gradient(135deg, #a624d2 0%, #ce5353 47.8%, #ffb02d 100%);
-    &:not(:disabled):not(.disabled):active {
-      background: linear-gradient(135deg, #a624d2 0%, #ce5353 47.8%, #ffb02d 100%);
-    }
-  }
-
-  &.google {
-    background-color: #d44c4c;
-    &:not(:disabled):not(.disabled):active {
-      background-color: #d44c4c;
-    }
-  }
-}
 /***************************************
   Spinner
 ****************************************/

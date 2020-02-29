@@ -34,13 +34,9 @@ export default {
     margin: 0 auto;
     color: $black;
     text-align: left;
-
-    > div {
-        position: relative;
-    }
 }
 
-/deep/ .btn-round {
+/deep/ .btn-multiple-state {
     width: 300px;
     max-width: 100%;
     line-height: 1.2;

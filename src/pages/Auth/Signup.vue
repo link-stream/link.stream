@@ -28,7 +28,7 @@
                 </b-col>
                 <b-col cols="12" class="my-3">
                     <b-form @submit.stop.prevent="onSubmit" @reset="resetForm" :novalidate="true" id="signup-form">
-                        <b-form-group label="Username" label-for="input_username" class="mb-4">
+                        <b-form-group label="Username" label-for="input_username" class="error-l-80 mb-4">
                             <b-form-input
                                 id="input_username"
                                 name="input_username"
@@ -42,14 +42,14 @@
                                 autocomplete="off"
                             >
                             </b-form-input>
-                            <b-button class="btn btn-input-spinner" variant="transparent" v-if="validating.username">
+                            <b-button class="btn btn-input-spinner" v-if="validating.username">
                                 <b-spinner></b-spinner>
                             </b-button>
                             <b-form-invalid-feedback id="username-live-feedback">
                                 {{ veeErrors.first('input_username') }}
                             </b-form-invalid-feedback>
                         </b-form-group>
-                        <b-form-group label="Email Address" label-for="input_email" class="mb-4">
+                        <b-form-group label="Email Address" label-for="input_email" class="error-l-110 mb-4">
                             <b-form-input
                                 id="input_email"
                                 name="input_email"
@@ -62,14 +62,14 @@
                                 data-vv-delay="200"
                                 autocomplete="off"
                             ></b-form-input>
-                            <b-button class="btn btn-input-spinner" variant="transparent" v-if="validating.email">
+                            <b-button class="btn btn-input-spinner" v-if="validating.email">
                                 <b-spinner></b-spinner>
                             </b-button>
                             <b-form-invalid-feedback id="email-live-feedback">
                                 {{ veeErrors.first('input_email') }}
                             </b-form-invalid-feedback>
                         </b-form-group>
-                        <b-form-group label="Password" label-for="input_password" class="mb-4">
+                        <b-form-group label="Password" label-for="input_password" class="error-l-75 mb-4">
                             <b-form-input
                                 id="input_password"
                                 name="input_password"
@@ -86,7 +86,11 @@
                                 {{ veeErrors.first('input_password') }}
                             </b-form-invalid-feedback>
                         </b-form-group>
-                        <b-form-group label="Retype Password" label-for="input_password_confirm" class="mb-4">
+                        <b-form-group
+                            label="Retype Password"
+                            label-for="input_password_confirm"
+                            class="error-l-130 mb-4"
+                        >
                             <b-form-input
                                 id="input_password_confirm"
                                 name="input_password_confirm"
@@ -244,8 +248,8 @@ export default {
     .form-control {
         + .btn-input-spinner {
             position: absolute;
+            top: 2 * $spacer;
             right: 0;
-            top: 0;
             height: $input-height;
             display: flex;
             background: none;

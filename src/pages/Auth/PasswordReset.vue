@@ -130,7 +130,7 @@ export default {
                         {
                             param_1: param1,
                             param_2: param2,
-                            password,
+                            new_password: password,
                         },
                         'POST'
                     )

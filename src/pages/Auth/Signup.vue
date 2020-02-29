@@ -227,7 +227,9 @@ export default {
                     const { status, data, error = null } = await call('/users/registration', params, 'POST')
                     if (status === 'success') {
                         setStatusChange(this, 'status.error.signup', false)
-                        this.$store.dispatch('signup', { user: data })
+                        setTimeout(() => {
+                            this.$store.dispatch('signup', { user: data })
+                        }, 1500)
                     } else {
                         setStatusChange(this, 'status.error.signup')
                         this.$toast.error(error)

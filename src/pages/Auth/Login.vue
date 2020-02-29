@@ -147,7 +147,9 @@ export default {
                     const { status, data, error = null } = await call('/users/login', params, 'POST')
                     if (status === 'success') {
                         setStatusChange(this, 'status.error.signin', false)
-                        this.$store.dispatch('login', { user: data })
+                        setTimeout(() => {
+                            this.$store.dispatch('login', { user: data })
+                        }, 1500)
                     } else {
                         setStatusChange(this, 'status.error.signin')
                         this.$toast.error(error)

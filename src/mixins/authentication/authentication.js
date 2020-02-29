@@ -35,9 +35,10 @@ export default {
                 try {
                     const { status, data, error = null } = await call('/users/google', { platform_token }, 'POST')
                     if (status === 'success') {
-                        console.log(data)
                         setStatusChange(this, 'status.error.google', false)
-                        this.$toast.success('Success')
+                        setTimeout(() => {
+                            this.$store.dispatch('login', { user: data })
+                        }, 1500)
                     } else {
                         setStatusChange(this, 'status.error.google')
                         this.$toast.error(error)
@@ -61,9 +62,10 @@ export default {
                         'POST'
                     )
                     if (status === 'success') {
-                        console.log(data)
                         setStatusChange(this, 'status.error.instagram', false)
-                        this.$toast.success('Success')
+                        setTimeout(() => {
+                            this.$store.dispatch('login', { user: data })
+                        }, 1500)
                     } else {
                         setStatusChange(this, 'status.error.instagram')
                         this.$toast.error(error)

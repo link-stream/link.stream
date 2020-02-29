@@ -1,11 +1,11 @@
 <template>
-    <div id="password-reset-page" class="my-4">
+    <div id="forgot-password-page" class="my-4">
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="mt-5">
-                    <h2 class="text-black font-weight-bolder">Reset Password</h2>
+                    <h2 class="text-black font-weight-bolder">Forgot Password?</h2>
                     <p class="fs-1 mx-auto my-4">
-                        Enter the your new password below.
+                        Enter the email address you used at sign up and we’ll send you password reset instructions.
                     </p>
                 </b-col>
                 <b-col cols="12" class="my-3">
@@ -13,43 +13,22 @@
                         @submit.stop.prevent="onSubmit"
                         @reset="resetForm"
                         :novalidate="true"
-                        id="password-reset-form"
+                        id="forgot-password-form"
                     >
-                        <b-form-group label="Password" label-for="input_password" class="error-l-75 mb-4">
+                        <b-form-group label="Email Address" label-for="input_email" class="error-l-110 mb-4">
                             <b-form-input
-                                id="input_password"
-                                name="input_password"
-                                type="password"
-                                v-model="form.password"
-                                v-validate="{ required: true, min: 8 }"
-                                :state="validateState('input_password')"
-                                aria-describedby="password-live-feedback"
-                                data-vv-as="password"
-                                autocomplete="new-password"
-                                ref="password"
+                                id="input_email"
+                                name="input_email"
+                                type="email"
+                                v-model="form.email"
+                                v-validate="{ required: true, email: true }"
+                                :state="validateState('input_email')"
+                                aria-describedby="email-live-feedback"
+                                data-vv-as="email"
+                                autocomplete="username"
                             ></b-form-input>
-                            <b-form-invalid-feedback id="password-live-feedback">
-                                {{ veeErrors.first('input_password') }}
-                            </b-form-invalid-feedback>
-                        </b-form-group>
-                        <b-form-group
-                            label="Retype Password"
-                            label-for="input_password_confirm"
-                            class="error-l-130 mb-4"
-                        >
-                            <b-form-input
-                                id="input_password_confirm"
-                                name="input_password_confirm"
-                                type="password"
-                                v-model="form.repassword"
-                                v-validate="{ required: true, min: 8, confirmed: 'password' }"
-                                :state="validateState('input_password_confirm')"
-                                aria-describedby="password-confirm-live-feedback"
-                                data-vv-as="password"
-                                autocomplete="new-password"
-                            ></b-form-input>
-                            <b-form-invalid-feedback id="password-confirm-live-feedback">
-                                {{ veeErrors.first('input_password_confirm') }}
+                            <b-form-invalid-feedback id="email-live-feedback">
+                                {{ veeErrors.first('input_email') }}
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <MultiStateButton
@@ -79,15 +58,14 @@ import { call } from '~/services'
 import { MultiStateButton } from '~/components/Button'
 
 export default {
-    name: 'PasswordReset',
+    name: 'ForgotPassword',
     components: {
         MultiStateButton,
     },
     data() {
         return {
             form: {
-                password: null,
-                repassword: null,
+                email: null,
             },
             status: {
                 loading: {
@@ -108,8 +86,7 @@ export default {
         },
         resetForm() {
             this.form = {
-                password: null,
-                repassword: null,
+                email: null,
             }
 
             this.$nextTick(() => {
@@ -123,27 +100,13 @@ export default {
                 }
                 this.status.loading.reset = true
                 try {
-                    const { password } = this.form
-                    const { param1, param2 } = this.$route.params
-                    const { status, error = null } = await call(
-                        '/users/password_reset',
-                        {
-                            param_1: param1,
-                            param_2: param2,
-                            password,
-                        },
-                        'POST'
-                    )
+                    const params = { ...this.form }
+                    const { status, error = null } = await call('/users/forgot_password', params, 'POST')
                     if (status === 'success') {
                         setStatusChange(this, 'status.error.reset', false, () => {
                             this.resetForm()
                         })
-                        this.$toast.success(
-                            'Yout password has been changed successfully. User your new password to login.'
-                        )
-                        setTimeout(() => {
-                            this.$router.push({ name: 'login' })
-                        }, 1500)
+                        this.$toast.success('We have emailed password resent link successfully.')
                     } else {
                         setStatusChange(this, 'status.error.reset')
                         this.$toast.error(error)
@@ -160,7 +123,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#password-reset-page {
+#forgot-password-page {
     p {
         width: 380px;
         max-width: 100%;

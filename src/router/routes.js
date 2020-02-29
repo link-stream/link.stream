@@ -1,5 +1,5 @@
 // pages
-import { Login, Logout, Signup, RegisterConfirm, EmailConfirm, PasswordReset } from '~/pages/Auth'
+import { Login, Logout, Signup, RegisterConfirm, EmailConfirm, ForgotPassword, PasswordReset } from '~/pages/Auth'
 import { Landing } from '~/pages/Landing'
 import { NotFound } from '~/pages/Error'
 import { Legal } from '~/pages/Others'
@@ -39,7 +39,13 @@ const routes = [
     },
     {
         path: '/forgot',
-        name: 'password-reset',
+        name: 'forgot-password',
+        component: ForgotPassword,
+        meta: { requiresGuest: true, layout: 'preauth' },
+    },
+    {
+        path: '/reset-password/:param1/:param2',
+        name: 'reset-password',
         component: PasswordReset,
         meta: { requiresGuest: true, layout: 'preauth' },
     },

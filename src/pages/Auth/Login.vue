@@ -5,6 +5,7 @@
                 <b-col cols="12" class="my-2">
                     <MultiStateButton
                         instagram
+                        class="btn-auth"
                         :loading="status.loading.instagram"
                         :error="status.error.instagram"
                         @onClick="authenticateInstagram"
@@ -15,7 +16,11 @@
                     </MultiStateButton>
                 </b-col>
                 <b-col cols="12" class="my-2">
-                    <GoogleLogin class="btn-transparent col px-0" :params="google" :onSuccess="onGoogleSuccess">
+                    <GoogleLogin
+                        class="btn-auth btn-transparent col px-0"
+                        :params="google"
+                        :onSuccess="onGoogleSuccess"
+                    >
                         <MultiStateButton google :loading="status.loading.google" :error="status.error.google">
                             <font-awesome-icon :icon="['fab', 'google']" size="1x" />
                             <span class="m-0">Sign in with Google</span>
@@ -69,7 +74,7 @@
                         </b-form-group>
                         <MultiStateButton
                             type="submit"
-                            class="pink text-uppercase mt-5"
+                            class="pink btn-auth text-uppercase mt-5"
                             :loading="status.loading.signin"
                             :error="status.error.signin"
                         >

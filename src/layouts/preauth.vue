@@ -36,6 +36,7 @@ export default {
     text-align: left;
 }
 
+/deep/ .btn-auth,
 /deep/ .btn-multiple-state {
     width: 300px;
     max-width: 100%;

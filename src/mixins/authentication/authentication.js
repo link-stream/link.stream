@@ -104,7 +104,7 @@ export default {
                 } catch (evt) {
                     // Permission denied
                 }
-            }, 500)
+            }, 100)
         },
     },
 }

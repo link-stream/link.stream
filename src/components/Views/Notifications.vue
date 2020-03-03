@@ -1,0 +1,81 @@
+<template>
+    <div class="position-relative d-inline-block notifications">
+        <b-dropdown
+            variant="link"
+            size="sm"
+            right
+            toggle-class="text-decoration-none"
+            menu-class="position-absolute notifications-menu px-3 py-0"
+            no-caret
+        >
+            <template slot="button-content">
+                <font-awesome-icon :icon="['fas', 'bell']" class="text-white" size="2x" />
+                <b-badge pill variant="danger count">3</b-badge>
+            </template>
+            <vue-perfect-scrollbar :settings="{ suppressScrollX: true, wheelPropagation: false }">
+                <div
+                    class="d-flex flex-row p-2"
+                    :class="{ 'border-top': index > 0 }"
+                    v-for="(notification, index) in notifications"
+                    :key="index"
+                >
+                    <b-img
+                        :src="require(`@/assets/img/profile/${notification.img}`)"
+                        :alt="notification.title"
+                        rounded="circle"
+                        class="avatar"
+                    />
+                    <div class="pl-3 pr-2">
+                        {{ notification.title }}
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <MultiStateButton class="pink">
+                            Follow
+                        </MultiStateButton>
+                    </div>
+                </div>
+            </vue-perfect-scrollbar>
+        </b-dropdown>
+    </div>
+</template>
+
+<script>
+import { MultiStateButton } from '~/components/Button'
+import notifications from '~/data/notifications'
+
+export default {
+    name: 'Notifications',
+    components: {
+        MultiStateButton,
+    },
+    data() {
+        return {
+            notifications,
+        }
+    },
+}
+</script>
+
+<style lang="scss" scoped>
+.badge.count {
+    position: absolute;
+    left: 50%;
+    border: 2px solid black;
+}
+.notifications-menu {
+    width: 300px;
+    height: 250px;
+    font-size: $font-size-sm !important;
+
+    .ps-container {
+        height: 100%;
+    }
+
+    .btn {
+        height: inherit !important;
+        padding: 0 $spacer !important;
+        font-size: 0.75 * $font-size-base !important;
+        font-weight: normal !important;
+    }
+}
+</style>

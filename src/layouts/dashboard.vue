@@ -1,10 +1,6 @@
 <template>
     <div id="app">
-        <b-navbar toggleable="lg" type="dark" variant="dark">
-            <b-navbar-brand to="/" class="m-auto">
-                <b-img src="@/assets/img/logo/logo-h-lg.png" class="logo" alt="LinkStream"></b-img>
-            </b-navbar-brand>
-        </b-navbar>
+        <TopNavbar />
         <transition name="page" mode="out-in">
             <router-view :key="$route.fullPath"></router-view>
         </transition>
@@ -13,19 +9,14 @@
 </template>
 
 <script>
+import { TopNavbar } from '~/components/Views'
+
 export default {
     name: 'Dashboard',
+    components: {
+        TopNavbar,
+    },
 }
 </script>
 
 <style src="~/assets/scss/main.scss" lang="scss"></style>
-<style lang="scss" scoped>
-.navbar {
-    height: 80px;
-    background-color: $black !important;
-
-    .navbar-brand .logo {
-        height: 34px;
-    }
-}
-</style>

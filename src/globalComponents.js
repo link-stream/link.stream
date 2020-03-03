@@ -2,6 +2,8 @@ import Vue from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import Toast from 'vue-toastification'
+import vuePerfectScrollbar from 'vue-perfect-scrollbar'
+import { Plugin } from 'vue-fragment'
 import VeeValidate from 'vee-validate'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -24,6 +26,10 @@ Vue.use(Toast, {
     hideProgressBar: true,
     hideCloseButton: false,
 })
+// Installl Perfect Scrollbar
+Vue.component('vue-perfect-scrollbar', vuePerfectScrollbar)
+// Install Vue Fragment
+Vue.use(Plugin)
 // Install VeeValidate
 Vue.use(VeeValidate, {
     inject: true,

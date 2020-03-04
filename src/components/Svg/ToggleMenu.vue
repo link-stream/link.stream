@@ -1,7 +1,7 @@
 <template>
     <fragment>
         <svg
-            v-if="!closed"
+            v-if="isHidden"
             width="18px"
             height="16px"
             viewBox="0 0 18 16"
@@ -15,16 +15,16 @@
                     id="path-1"
                 ></path>
             </defs>
-            <g id="Navigation-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <g id="Desktop-Nav---Account-Dropdown" transform="translate(-71.000000, -32.000000)">
-                    <g id="Top-Nav">
-                        <g id="Left-Items" transform="translate(20.000000, 23.000000)">
-                            <g id="icon-menu" transform="translate(51.000000, 9.000000)">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g transform="translate(-71.000000, -32.000000)">
+                    <g>
+                        <g transform="translate(20.000000, 23.000000)">
+                            <g transform="translate(51.000000, 9.000000)">
                                 <mask id="mask-2" fill="white">
                                     <use xlink:href="#path-1"></use>
                                 </mask>
-                                <use id="Mask" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
-                                <g id="Color-Color/Purple" mask="url(#mask-2)" fill="#FFFFFF">
+                                <use fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
+                                <g mask="url(#mask-2)" fill="#FFFFFF">
                                     <g transform="translate(-1.000000, -2.000000)" id="Purple">
                                         <rect x="0" y="0" width="20" height="20"></rect>
                                     </g>
@@ -73,7 +73,7 @@
 export default {
     name: 'ToogleMenu',
     props: {
-        closed: {
+        isHidden: {
             type: Boolean,
             default: false,
         },

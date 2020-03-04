@@ -1,3 +1,5 @@
 export const constants = {
-    API_URL: '', // Endpoint URL
+    // menu
+    subHiddenBreakpoint: 1440,
+    menuHiddenBreakpoint: 768,
 }

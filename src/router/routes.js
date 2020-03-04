@@ -68,6 +68,22 @@ const routes = [
         name: 'home',
         component: Home,
         meta: { requiresAuth: true, layout: 'dashboard' },
+        children: [
+            {
+                path: 'dashboard',
+                component: Home,
+            },
+            {
+                path: 'profile/edit',
+                component: Home,
+                meta: { requiresAuth: true, layout: 'dashboard' },
+            },
+            {
+                path: 'profile/view',
+                component: Home,
+                meta: { requiresAuth: true, layout: 'dashboard' },
+            },
+        ],
     },
     // 404 catcher
     { path: '/404', alias: '*', name: '404', component: NotFound, meta: { layout: 'error' } },

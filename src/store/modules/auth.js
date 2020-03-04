@@ -64,7 +64,7 @@ export const actions = {
         if (!isEmpty(user)) {
             commit(types.RESET)
             commit(types.LOGIN, payload)
-            router.push({ name: 'home' })
+            router.push({ name: 'dashboard' })
         }
     },
 

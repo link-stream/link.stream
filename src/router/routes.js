@@ -3,7 +3,7 @@ import { Login, Logout, Signup, RegisterConfirm, EmailConfirm, ForgotPassword, P
 import { Landing } from '~/pages/Landing'
 import { NotFound } from '~/pages/Error'
 import { Legal } from '~/pages/Others'
-import { Home } from '~/pages/Dashboard'
+import { Dashboard, ProfileEdit } from '~/pages/Dashboard'
 
 const routes = [
     // Pre Auth routs
@@ -65,25 +65,16 @@ const routes = [
     },
     {
         path: '/app',
-        name: 'home',
-        component: Home,
+        name: 'dashboard',
+        alias: '/app/dashboard',
+        component: Dashboard,
         meta: { requiresAuth: true, layout: 'dashboard' },
-        children: [
-            {
-                path: 'dashboard',
-                component: Home,
-            },
-            {
-                path: 'profile/edit',
-                component: Home,
-                meta: { requiresAuth: true, layout: 'dashboard' },
-            },
-            {
-                path: 'profile/view',
-                component: Home,
-                meta: { requiresAuth: true, layout: 'dashboard' },
-            },
-        ],
+    },
+    {
+        path: '/app/profile/edit',
+        name: 'profile-edit',
+        component: ProfileEdit,
+        meta: { requiresAuth: true, layout: 'dashboard' },
     },
     // 404 catcher
     { path: '/404', alias: '*', name: '404', component: NotFound, meta: { layout: 'error' } },

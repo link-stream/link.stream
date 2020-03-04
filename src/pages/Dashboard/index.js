@@ -1,1 +1,4 @@
-export { default as Home } from './Home'
+// Dashboard
+export { default as Dashboard } from './Dashboard'
+// Profile
+export { default as ProfileEdit } from './ProfileEdit'

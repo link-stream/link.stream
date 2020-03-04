@@ -226,15 +226,13 @@ export default {
 
             if (windowWidth < appConstants.menuHiddenBreakpoint) {
                 nextClasses.push('menu-mobile')
-            } else if (windowWidth < appConstants.subHiddenBreakpoint) {
-                nextClasses = nextClasses.filter(x => x !== 'menu-mobile')
-                if (nextClasses.includes('menu-default') && !nextClasses.includes('menu-sub-hidden')) {
-                    nextClasses.push('menu-sub-hidden')
-                }
             } else {
                 nextClasses = nextClasses.filter(x => x !== 'menu-mobile')
                 if (nextClasses.includes('menu-default') && nextClasses.includes('menu-sub-hidden')) {
                     nextClasses = nextClasses.filter(x => x !== 'menu-sub-hidden')
+                }
+                if (nextClasses.includes('menu-default') && !nextClasses.includes('menu-sub-hidden')) {
+                    nextClasses.push('menu-sub-hidden')
                 }
             }
             return nextClasses

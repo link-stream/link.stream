@@ -1,5 +1,5 @@
 // state
-const defaultMenuType = 'menu-default' // 'menu-default', 'menu-sub-hidden', 'menu-hidden'
+const defaultMenuType = 'menu-default menu-sub-hidden' // 'menu-default', 'menu-sub-hidden', 'menu-hidden'
 export const state = {
     menuType: defaultMenuType,
     clickCount: 0,

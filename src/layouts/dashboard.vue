@@ -3,11 +3,9 @@
         <TopNavbar />
         <Sidebar />
         <main>
-            <div class="container-fluid">
-                <transition name="page" mode="out-in">
-                    <router-view :key="$route.fullPath"></router-view>
-                </transition>
-            </div>
+            <transition name="page" mode="out-in">
+                <router-view :key="$route.fullPath"></router-view>
+            </transition>
         </main>
         <vue-progress-bar></vue-progress-bar>
     </div>
@@ -30,3 +28,9 @@ export default {
 </script>
 
 <style src="~/assets/scss/main.scss" lang="scss"></style>
+<style lang="scss" scoped>
+/deep/ h2.page-title {
+    font-weight: bolder;
+    color: $black;
+}
+</style>

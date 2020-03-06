@@ -15,11 +15,6 @@ main {
     &.main-hidden {
         margin-left: $main-margin;
     }
-  
-    .container-fluid {
-        padding-left: 0;
-        padding-right: 0;
-    }
 }
 
 .menu-mobile main {

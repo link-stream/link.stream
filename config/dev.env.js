@@ -14,4 +14,12 @@ module.exports = merge(prodEnv, {
     USER_NAME: '"linkstream"',
     PASSWORD: '"LinkStream@2020"',
   },
+  AWS: {
+    ACCESS_KEY_ID: '"AKIAXBDC73PH3KDCPMFN"',
+    ACCESS_SECRET_KEY: '"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"',
+    REGION: '"us-east-2"',
+    BUCKET: '"files.link.stream"',
+    DIR: '"Dev"',
+    S3_URL: '""',
+  },
 })

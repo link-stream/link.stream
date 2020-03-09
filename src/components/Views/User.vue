@@ -10,7 +10,7 @@
         >
             <template slot="button-content">
                 <span>
-                    <b-img :alt="user.first_name" :src="avatar" rounded="circle" class="avatar" />
+                    <b-img :alt="user.display_name" :src="avatar" rounded="circle" class="avatar" />
                 </span>
             </template>
             <b-dropdown-item>Account</b-dropdown-item>
@@ -29,10 +29,7 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'User',
     computed: {
-        ...mapGetters(['user']),
-        avatar() {
-            return this.user.image || require('@/assets/img/profile/profile-pic-l.jpg')
-        },
+        ...mapGetters(['user', 'avatar']),
     },
     methods: {
         async logout() {

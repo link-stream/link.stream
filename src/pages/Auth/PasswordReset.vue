@@ -139,7 +139,7 @@ export default {
                             this.resetForm()
                         })
                         this.$toast.success(
-                            'Yout password has been changed successfully. User your new password to login.'
+                            'Your password has been changed successfully. User your new password to login.'
                         )
                         setTimeout(() => {
                             this.$router.push({ name: 'login' })

@@ -1,12 +1,12 @@
 <template>
     <div id="app-container" :class="getMenuType">
-        <TopNavbar />
-        <Sidebar />
         <main>
             <transition name="page" mode="out-in">
                 <router-view :key="$route.fullPath"></router-view>
             </transition>
         </main>
+        <TopNavbar />
+        <Sidebar />
         <vue-progress-bar></vue-progress-bar>
     </div>
 </template>

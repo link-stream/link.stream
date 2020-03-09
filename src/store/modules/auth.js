@@ -47,6 +47,11 @@ export const mutations = {
     [types.UPDATE_PASSWORD](state, res) {
         // nothing to do
     },
+
+    [types.UPDATE_PROFILE](state, data) {
+        state.user = data.user
+        Cookies.set(USER_INFO, data.user)
+    },
 }
 
 // actions
@@ -73,10 +78,26 @@ export const actions = {
         // reset all of state dat
         commit(types.RESET)
     },
+
+    updateProfile({ commit }, payload) {
+        const { user } = payload
+        if (!isEmpty(user)) {
+            commit(types.UPDATE_PROFILE, payload)
+        }
+    },
 }
 
 // getters
 export const getters = {
     pendingUser: state => state.pendingUser,
     user: state => state.user,
+    avatar: state => {
+        if (isEmpty(state.user.image)) return require('@/assets/img/profile/no-profile-photo.png')
+        return `//${process.env.AWS.BUCKET}.s3-${process.env.AWS.REGION}.amazonaws.com/${process.env.AWS.DIR}/Profile/${state.user.image}`
+    },
+    profileBanner: state => {
+        if (state.user.banner)
+            return `//${process.env.AWS.BUCKET}.s3-${process.env.AWS.REGION}.amazonaws.com/${process.env.AWS.DIR}/Profile/${state.user.banner}`
+        return null
+    },
 }

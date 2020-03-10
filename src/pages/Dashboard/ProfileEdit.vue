@@ -392,7 +392,6 @@ export default {
                     const params = { display_name, first_name, last_name, url, city, country, bio }
                     if (banner) params.banner = banner
                     if (avatar) params.image = avatar
-                    console.log(params)
                     const { status, data, error = null } = await call(`/users/${this.user.id}`, params, 'PUT')
                     if (status === 'success') {
                         setStatusChange(this, 'status.error.update', false, () => {

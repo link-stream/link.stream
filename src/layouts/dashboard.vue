@@ -13,6 +13,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { call } from '~/services'
 import { TopNavbar, Sidebar } from '~/components/Views'
 
 export default {
@@ -22,7 +23,14 @@ export default {
         Sidebar,
     },
     computed: {
-        ...mapGetters(['getMenuType']),
+        ...mapGetters(['user', 'getMenuType']),
+    },
+    async created() {
+        // fetch user data
+        const { status, data } = await call(`/users/${this.user.id}`)
+        if (status === 'success') {
+            this.$store.dispatch('updateProfile', { user: data })
+        }
     },
 }
 </script>

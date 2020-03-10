@@ -93,12 +93,12 @@ export const getters = {
     user: state => state.user,
     avatar: state => {
         if (state.user.image)
-            return `//${process.env.AWS.BUCKET}.s3-${process.env.AWS.REGION}.amazonaws.com/${process.env.AWS.DIR}/Profile/${state.user.image}`
+            return `http://${process.env.AWS.BUCKET}.s3-${process.env.AWS.REGION}.amazonaws.com/${process.env.AWS.DIR}/Profile/${state.user.image}`
         return null
     },
     profileBanner: state => {
         if (state.user.banner)
-            return `//${process.env.AWS.BUCKET}.s3-${process.env.AWS.REGION}.amazonaws.com/${process.env.AWS.DIR}/Profile/${state.user.banner}`
+            return `http://${process.env.AWS.BUCKET}.s3-${process.env.AWS.REGION}.amazonaws.com/${process.env.AWS.DIR}/Profile/${state.user.banner}`
         return null
     },
 }

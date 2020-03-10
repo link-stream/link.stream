@@ -165,7 +165,7 @@
                         </b-col>
                     </b-row>
                 </b-col>
-                <b-col cols="12">
+                <b-col cols="12" class="mb-5">
                     <MultiStateButton
                         type="submit"
                         class="pink px-5 text-uppercase mt-5"
@@ -494,10 +494,28 @@ export default {
     @include media-breakpoint-down(sm) {
         padding: 0;
 
+        .banner-container .banner button {
+            right: 0;
+            bottom: 0;
+        }
+
         .avatar-container {
-            margin: -70px auto 0;
+            margin-top: -70px;
             width: 146px;
             height: 146px;
+        }
+    }
+
+    @include media-breakpoint-down(xs) {
+        .avatar-container {
+            margin: -50px auto 0;
+            width: 106px;
+            height: 106px;
+
+            button {
+                right: 0;
+                bottom: 0;
+            }
         }
     }
 }

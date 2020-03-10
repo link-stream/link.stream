@@ -27,7 +27,7 @@ export default {
     },
     async created() {
         // fetch user data
-        const { status, data } = await call(`/users/${this.user.id}`)
+        const { status, data } = await call(`/users/${this.user.id}`, null, 'GET', false)
         if (status === 'success') {
             this.$store.dispatch('updateProfile', { user: data })
         }

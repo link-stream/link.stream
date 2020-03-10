@@ -92,13 +92,14 @@ export const getters = {
     pendingUser: state => state.pendingUser,
     user: state => state.user,
     avatar: state => {
+        // https://s3.us-east-2.amazonaws.com/files.link.stream/Dev/Profile/avatar_73_1583829696221.jpeg
         if (state.user.image)
-            return `http://${process.env.AWS.BUCKET}.s3-${process.env.AWS.REGION}.amazonaws.com/${process.env.AWS.DIR}/Profile/${state.user.image}`
+            return `//s3.${process.env.AWS.REGION}.amazonaws.com/${process.env.AWS.BUCKET}/${process.env.AWS.DIR}/Profile/${state.user.image}`
         return null
     },
     profileBanner: state => {
         if (state.user.banner)
-            return `http://${process.env.AWS.BUCKET}.s3-${process.env.AWS.REGION}.amazonaws.com/${process.env.AWS.DIR}/Profile/${state.user.banner}`
+            return `//s3.${process.env.AWS.REGION}.amazonaws.com/${process.env.AWS.BUCKET}/${process.env.AWS.DIR}/Profile/${state.user.banner}`
         return null
     },
 }

@@ -9,11 +9,12 @@
                     <div class="profile-images-container">
                         <div class="banner-container" ref="banner-container">
                             <DokaOverlay
-                                utils="crop"
+                                utils="crop,resize"
                                 class="banner"
                                 :crop="banner.crop"
                                 :src="banner.src"
                                 :enabled="banner.enabled"
+                                :size="banner.size"
                                 @confirm="handleDokaConfirmBanner"
                                 @cancel="handleDokaCancelBanner"
                             >
@@ -49,11 +50,12 @@
                     </div>
                     <DokaModal
                         v-if="avatar.enabled"
-                        utils="crop,filter,color"
+                        utils="crop,filter,color,resize"
                         cropAspectRatio="1"
                         :src="avatar.src"
                         :outputData="true"
                         :cropMask="mask"
+                        :size="avatar.size"
                         @confirm="handleDokaConfirmAvatar"
                         @cancel="handleDokaCancelAvatar"
                     />
@@ -222,6 +224,10 @@ export default {
                 crop: {
                     aspectRatio: appConstants.profileBannerAspectRatio,
                 },
+                size: {
+                    width: 1024,
+                    height: 260,
+                },
             },
             avatar: {
                 enabled: false,
@@ -230,6 +236,10 @@ export default {
                 src: null,
                 crop: {
                     aspectRatio: 1,
+                },
+                size: {
+                    width: 150,
+                    height: 150,
                 },
             },
             form: {

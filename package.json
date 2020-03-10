@@ -19,6 +19,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "base64-blob": "^1.4.1",
     "npm": "^6.9.0",
     "vue": "^2.6.11",
     "vue-resize-directive": "^1.2.0",

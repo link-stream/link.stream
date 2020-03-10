@@ -186,7 +186,7 @@
 import { mapGetters } from 'vuex'
 import resize from 'vue-resize-directive'
 import { DokaModal, DokaOverlay, toURL } from 'vue-doka'
-import S3Client from '~/plugins/aws_s3'
+import { blobToBase64 } from 'base64-blob'
 import { setStatusChange } from '~/utils'
 import { call } from '~/services'
 import { appConstants } from '~/constants'
@@ -285,17 +285,20 @@ export default {
                 enabled: true,
             }
         },
-        handleDokaConfirmBanner(output) {
-            this.banner = {
-                ...this.banner,
-                srcPrev: null,
-                image: toURL(output.file),
-                crop: output.data.crop,
-                enabled: false,
-            }
-            this.form = {
-                ...this.form,
-                banner: output.file,
+        async handleDokaConfirmBanner(output) {
+            const base64 = await blobToBase64(output.file)
+            if (base64) {
+                this.banner = {
+                    ...this.banner,
+                    srcPrev: null,
+                    image: toURL(output.file),
+                    crop: output.data.crop,
+                    enabled: false,
+                }
+                this.form = {
+                    ...this.form,
+                    banner: base64,
+                }
             }
         },
         handleDokaCancelBanner() {
@@ -316,17 +319,20 @@ export default {
                 enabled: true,
             }
         },
-        handleDokaConfirmAvatar(output) {
-            this.avatar = {
-                ...this.avatar,
-                srcPrev: null,
-                image: toURL(output.file),
-                crop: output.data.crop,
-                enabled: false,
-            }
-            this.form = {
-                ...this.form,
-                avatar: output.file,
+        async handleDokaConfirmAvatar(output) {
+            const base64 = await blobToBase64(output.file)
+            if (base64) {
+                this.avatar = {
+                    ...this.avatar,
+                    srcPrev: null,
+                    image: toURL(output.file),
+                    crop: output.data.crop,
+                    enabled: false,
+                }
+                this.form = {
+                    ...this.form,
+                    avatar: base64,
+                }
             }
         },
         handleDokaCancelAvatar() {
@@ -362,28 +368,28 @@ export default {
                     return
                 }
                 this.status.loading.update = true
-                let banner = null
-                if (this.form.banner) {
-                    // upload banner to s3
-                    S3Client.config.dirName = process.env.AWS.DIR + '/Profile'
-                    const banner_file = await S3Client.uploadFile(
-                        this.form.banner,
-                        `banner_${this.user.id}_${new Date().getTime()}`
-                    )
-                    banner = banner_file.location.substring(banner_file.location.lastIndexOf('/') + 1)
-                }
-                let avatar = null
-                if (this.form.avatar) {
-                    // upload avatar to s3
-                    S3Client.config.dirName = process.env.AWS.DIR + '/Profile'
-                    const avatar_file = await S3Client.uploadFile(
-                        this.form.avatar,
-                        `avatar_${this.user.id}_${new Date().getTime()}`
-                    )
-                    avatar = avatar_file.location.substring(avatar_file.location.lastIndexOf('/') + 1)
-                }
+                // let banner = null
+                // if (this.form.banner) {
+                //     // upload banner to s3
+                //     S3Client.config.dirName = process.env.AWS.DIR + '/Profile'
+                //     const banner_file = await S3Client.uploadFile(
+                //         this.form.banner,
+                //         `banner_${this.user.id}_${new Date().getTime()}`
+                //     )
+                //     banner = banner_file.location.substring(banner_file.location.lastIndexOf('/') + 1)
+                // }
+                // let avatar = null
+                // if (this.form.avatar) {
+                //     // upload avatar to s3
+                //     S3Client.config.dirName = process.env.AWS.DIR + '/Profile'
+                //     const avatar_file = await S3Client.uploadFile(
+                //         this.form.avatar,
+                //         `avatar_${this.user.id}_${new Date().getTime()}`
+                //     )
+                //     avatar = avatar_file.location.substring(avatar_file.location.lastIndexOf('/') + 1)
+                // }
                 try {
-                    const { display_name, first_name, last_name, url, city, country, bio } = this.form
+                    const { banner, avatar, display_name, first_name, last_name, url, city, country, bio } = this.form
                     const params = { display_name, first_name, last_name, url, city, country, bio }
                     if (banner) params.banner = banner
                     if (avatar) params.image = avatar

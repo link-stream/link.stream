@@ -39,7 +39,8 @@
                                     accept="image/*"
                                     @change="handleFileChangeAvatar"
                                 />
-                                <img :src="avatar.image" />
+                                <img v-if="avatar.image" :src="avatar.image" />
+                                <vue-letter-avatar v-else :name="user.display_name" size="150" :rounded="true" />
                             </div>
                             <b-button v-if="!avatar.enabled" @click="$refs['avatar'].click()">
                                 <font-awesome-icon :icon="['fas', 'camera']" size="lg" />
@@ -456,7 +457,7 @@ export default {
             left: 0;
             bottom: 0;
             right: 0;
-            background: $gray-600;
+            background: $white;
             overflow: hidden;
             border: 3px solid $white;
             @include border-radius(9999em);

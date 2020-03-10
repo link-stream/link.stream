@@ -92,8 +92,9 @@ export const getters = {
     pendingUser: state => state.pendingUser,
     user: state => state.user,
     avatar: state => {
-        if (isEmpty(state.user.image)) return require('@/assets/img/profile/no-profile-photo.png')
-        return `//${process.env.AWS.BUCKET}.s3-${process.env.AWS.REGION}.amazonaws.com/${process.env.AWS.DIR}/Profile/${state.user.image}`
+        if (state.user.image)
+            return `//${process.env.AWS.BUCKET}.s3-${process.env.AWS.REGION}.amazonaws.com/${process.env.AWS.DIR}/Profile/${state.user.image}`
+        return null
     },
     profileBanner: state => {
         if (state.user.banner)

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
+import VueLetterAvatar from 'vue-letter-avatar'
 import Toast from 'vue-toastification'
 import vuePerfectScrollbar from 'vue-perfect-scrollbar'
 import { Plugin } from 'vue-fragment'
@@ -19,6 +20,8 @@ Vue.use(VueProgressBar, {
     failedColor: 'red',
     height: '2px',
 })
+// Install Vue Letter Avatar
+Vue.use(VueLetterAvatar)
 // Install VueToast
 Vue.use(Toast, {
     // registration props here

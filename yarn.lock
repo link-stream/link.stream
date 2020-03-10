@@ -10770,6 +10770,11 @@ vue-jest@^1.0.2:
     tsconfig "^7.0.0"
     vue-template-es2015-compiler "^1.5.3"
 
+vue-letter-avatar@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/vue-letter-avatar/-/vue-letter-avatar-0.1.6.tgz#c990420352d52b1828b2c0daba01438885a815b8"
+  integrity sha512-SXpa42vBK6o04ux9iHLBu38jIlQN0R7Qk3v0eKm58drXQWamUACLs6gxHBZ4kpVIhWWC+dQik5tmeDhgKuKURg==
+
 vue-loader@^13.3.0:
   version "13.7.3"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-13.7.3.tgz#e07440f78230a639d00ada4da7b96d0e9d62037f"

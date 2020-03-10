@@ -81,6 +81,9 @@ $btn-border-radius: 0;
 $form-feedback-icon-valid: none;
 $form-feedback-icon-invalid: none;
 
+// Text
+$text-muted: $gray-600;
+
 // Mixins
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';

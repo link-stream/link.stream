@@ -38,7 +38,7 @@ export default {
 <style src="~/assets/scss/main.scss" lang="scss"></style>
 <style lang="scss" scoped>
 /deep/ h2.page-title {
-    font-weight: bolder;
+    font-weight: 800;
     color: $black;
 }
 </style>

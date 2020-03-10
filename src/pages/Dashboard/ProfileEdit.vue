@@ -1,52 +1,50 @@
 <template>
-    <b-container fluid class="p-sm-2">
+    <b-container fluid class="p-sm-5">
         <b-form @submit.stop.prevent="onSubmit" @reset="resetForm" :novalidate="true">
             <b-row>
-                <b-col cols="12">
+                <b-col cols="12 d-none d-sm-block">
                     <h2 class="page-title">Edit your profile</h2>
                 </b-col>
-                <b-col cols="12" class="my-3">
-                    <div class="profile-images-container">
-                        <div class="banner-container" ref="banner-container">
-                            <DokaOverlay
-                                utils="crop,resize"
-                                class="banner"
-                                :crop="banner.crop"
-                                :src="banner.src"
-                                :enabled="banner.enabled"
-                                :size="banner.size"
-                                @confirm="handleDokaConfirmBanner"
-                                @cancel="handleDokaCancelBanner"
-                            >
-                                <b-button v-if="!banner.enabled" @click="$refs['banner'].click()">
-                                    <font-awesome-icon :icon="['fas', 'camera']" size="lg" />
-                                </b-button>
-                                <input
-                                    ref="banner"
-                                    v-if="!banner.enabled"
-                                    type="file"
-                                    accept="image/*"
-                                    @change="handleFileChangeBanner"
-                                />
-                                <img :src="banner.image" />
-                            </DokaOverlay>
-                        </div>
-                        <div class="avatar-container">
-                            <div class="avatar-box">
-                                <input
-                                    ref="avatar"
-                                    v-if="!avatar.enabled"
-                                    type="file"
-                                    accept="image/*"
-                                    @change="handleFileChangeAvatar"
-                                />
-                                <img v-if="avatar.image" :src="avatar.image" />
-                                <vue-letter-avatar v-else :name="user.display_name" size="150" :rounded="true" />
-                            </div>
-                            <b-button v-if="!avatar.enabled" @click="$refs['avatar'].click()">
+                <b-col cols="12" class="profile-images-container mt-sm-4">
+                    <div class="banner-container" ref="banner-container" v-resize="onResize">
+                        <DokaOverlay
+                            utils="crop,resize"
+                            class="banner"
+                            :crop="banner.crop"
+                            :src="banner.src"
+                            :enabled="banner.enabled"
+                            :size="banner.size"
+                            @confirm="handleDokaConfirmBanner"
+                            @cancel="handleDokaCancelBanner"
+                        >
+                            <b-button v-if="!banner.enabled" @click="$refs['banner'].click()">
                                 <font-awesome-icon :icon="['fas', 'camera']" size="lg" />
                             </b-button>
+                            <input
+                                ref="banner"
+                                v-if="!banner.enabled"
+                                type="file"
+                                accept="image/*"
+                                @change="handleFileChangeBanner"
+                            />
+                            <img :src="banner.image" />
+                        </DokaOverlay>
+                    </div>
+                    <div class="avatar-container">
+                        <div class="avatar-box">
+                            <input
+                                ref="avatar"
+                                v-if="!avatar.enabled"
+                                type="file"
+                                accept="image/*"
+                                @change="handleFileChangeAvatar"
+                            />
+                            <img v-if="avatar.image" :src="avatar.image" />
+                            <vue-letter-avatar v-else :name="user.display_name" size="150" :rounded="true" />
                         </div>
+                        <b-button v-if="!avatar.enabled" @click="$refs['avatar'].click()">
+                            <font-awesome-icon :icon="['fas', 'camera']" size="lg" />
+                        </b-button>
                     </div>
                     <DokaModal
                         v-if="avatar.enabled"
@@ -60,7 +58,7 @@
                         @cancel="handleDokaCancelAvatar"
                     />
                 </b-col>
-                <b-col cols="12" class="profile_edit_elements">
+                <b-col cols="12" class="mt-4 profile_edit_elements">
                     <b-row>
                         <b-col cols="12">
                             <b-form-group class="mb-4 error-l-110">
@@ -186,6 +184,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import resize from 'vue-resize-directive'
 import { DokaModal, DokaOverlay, toURL } from 'vue-doka'
 import S3Client from '~/plugins/aws_s3'
 import { setStatusChange } from '~/utils'
@@ -195,6 +194,9 @@ import { MultiStateButton } from '~/components/Button'
 
 export default {
     name: 'ProfileEdit',
+    directives: {
+        resize,
+    },
     components: {
         DokaModal,
         DokaOverlay,
@@ -267,16 +269,9 @@ export default {
     computed: {
         ...mapGetters(['user']),
     },
-    mounted() {
-        window.addEventListener('resize', this.handleWindowResize)
-        this.handleWindowResize()
-    },
     methods: {
         // Resize
-        handleWindowResize(event) {
-            if (event && !event.isTrusted) {
-                return
-            }
+        onResize() {
             this.$refs['banner-container'].style.height =
                 appConstants.profileBannerAspectRatio * this.$refs['banner-container'].clientWidth + 'px'
         },
@@ -493,6 +488,16 @@ export default {
             border: none;
             box-shadow: none !important;
             @include border-radius(9999em);
+        }
+    }
+
+    @include media-breakpoint-down(sm) {
+        padding: 0;
+
+        .avatar-container {
+            margin: -70px auto 0;
+            width: 146px;
+            height: 146px;
         }
     }
 }

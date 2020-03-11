@@ -17,9 +17,6 @@
                             @confirm="handleDokaConfirmBanner"
                             @cancel="handleDokaCancelBanner"
                         >
-                            <b-button v-if="!banner.enabled" @click="$refs['banner'].click()">
-                                <font-awesome-icon :icon="['fas', 'camera']" size="lg" />
-                            </b-button>
                             <input
                                 ref="banner"
                                 v-if="!banner.enabled"
@@ -29,6 +26,9 @@
                             />
                             <img :src="banner.image" />
                         </DokaOverlay>
+                        <b-button v-if="!banner.enabled" @click="$refs['banner'].click()">
+                            <font-awesome-icon :icon="['fas', 'camera']" size="lg" />
+                        </b-button>
                     </div>
                     <div class="avatar-container">
                         <div class="avatar-box">
@@ -368,26 +368,6 @@ export default {
                     return
                 }
                 this.status.loading.update = true
-                // let banner = null
-                // if (this.form.banner) {
-                //     // upload banner to s3
-                //     S3Client.config.dirName = process.env.AWS.DIR + '/Profile'
-                //     const banner_file = await S3Client.uploadFile(
-                //         this.form.banner,
-                //         `banner_${this.user.id}_${new Date().getTime()}`
-                //     )
-                //     banner = banner_file.location.substring(banner_file.location.lastIndexOf('/') + 1)
-                // }
-                // let avatar = null
-                // if (this.form.avatar) {
-                //     // upload avatar to s3
-                //     S3Client.config.dirName = process.env.AWS.DIR + '/Profile'
-                //     const avatar_file = await S3Client.uploadFile(
-                //         this.form.avatar,
-                //         `avatar_${this.user.id}_${new Date().getTime()}`
-                //     )
-                //     avatar = avatar_file.location.substring(avatar_file.location.lastIndexOf('/') + 1)
-                // }
                 try {
                     const { banner, avatar, display_name, first_name, last_name, url, city, country, bio } = this.form
                     const params = { display_name, first_name, last_name, url, city, country, bio }
@@ -406,8 +386,7 @@ export default {
                     }
                 } catch (e) {
                     setStatusChange(this, 'status.error.update')
-                    console.log(e)
-                    // this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
+                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
                 }
 
                 this.status.loading.update = false
@@ -433,24 +412,21 @@ export default {
             bottom: 0;
             right: 0;
 
-            button {
-                position: absolute;
-                bottom: 0.5 * $spacer;
-                right: 0.5 * $spacer;
-                color: $white;
-                background: transparent;
-                border: none;
-                box-shadow: none !important;
-                z-index: 2;
-
-                &:hover {
-                    color: $linkstream-1;
-                }
-            }
-
             input[type='file'] {
                 display: none;
             }
+        }
+
+        button {
+            position: absolute;
+            bottom: 0.5 * $spacer;
+            right: 0.5 * $spacer;
+            height: 36px;
+            width: 36px;
+            padding: 0;
+            border: none;
+            box-shadow: none !important;
+            @include border-radius(9999em);
         }
     }
 
@@ -486,8 +462,8 @@ export default {
             position: absolute;
             bottom: 10px;
             right: 10px;
-            height: 40px;
-            width: 40px;
+            height: 36px;
+            width: 36px;
             padding: 0;
             color: $text-color;
             background: $gray-400;
@@ -499,11 +475,6 @@ export default {
 
     @include media-breakpoint-down(sm) {
         padding: 0;
-
-        .banner-container .banner button {
-            right: 0;
-            bottom: 0;
-        }
 
         .avatar-container {
             margin-top: -70px;

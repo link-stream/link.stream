@@ -47,7 +47,7 @@
                                 autocomplete="off"
                             >
                             </b-form-input>
-                            <b-button class="btn btn-input-spinner" v-if="validating.username">
+                            <b-button variant="transparent" class="btn btn-input-spinner" v-if="validating.username">
                                 <b-spinner></b-spinner>
                             </b-button>
                             <b-form-invalid-feedback id="username-live-feedback">
@@ -67,7 +67,7 @@
                                 data-vv-delay="200"
                                 autocomplete="off"
                             ></b-form-input>
-                            <b-button class="btn btn-input-spinner" v-if="validating.email">
+                            <b-button variant="transparent" class="btn btn-input-spinner" v-if="validating.email">
                                 <b-spinner></b-spinner>
                             </b-button>
                             <b-form-invalid-feedback id="email-live-feedback">
@@ -204,8 +204,8 @@ export default {
         async availabilityValidator(field, value) {
             this.validating[field] = true
             try {
-                this.validating[field] = false
                 const res = await call(`/users/availability/${field}/${value}`, {}, 'GET', false)
+                this.validating[field] = false
                 if (res.error) {
                     return { data: { message: res.error } }
                 }
@@ -249,29 +249,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-#signup-form {
-    .form-control {
-        + .btn-input-spinner {
-            position: absolute;
-            top: 2 * $spacer;
-            right: 0;
-            height: $input-height;
-            display: flex;
-            background: none;
-            border: none;
-            box-shadow: none;
-
-            .spinner-border {
-                width: 1.2 * $font-size-base;
-                height: 1.2 * $font-size-base;
-                border-width: 2px;
-            }
-        }
-        &.is-invalid + .btn-input-spinner {
-            right: $input-height-inner-half;
-        }
-    }
-}
-</style>

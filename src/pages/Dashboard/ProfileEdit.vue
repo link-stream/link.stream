@@ -93,11 +93,14 @@
                                         type="text"
                                         class="d-inline-block w-50 small px-2"
                                         v-model="form.url"
-                                        v-validate="{ required: true, min: 8 }"
+                                        v-validate="{ required: true, min: 8, uniqueUrl: true }"
                                         :state="validateState('url')"
                                         aria-describedby="url-live-feedback"
                                         data-vv-as="url"
                                     ></b-form-input>
+                                    <b-button variant="transparent" class="btn btn-input-spinner" v-if="validating.url">
+                                        <b-spinner></b-spinner>
+                                    </b-button>
                                     <b-form-invalid-feedback id="url-live-feedback">
                                         {{ veeErrors.first('url') }}
                                     </b-form-invalid-feedback>
@@ -185,6 +188,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import resize from 'vue-resize-directive'
+import { Validator } from 'vee-validate'
 import { DokaModal, DokaOverlay, toURL } from 'vue-doka'
 import { blobToBase64 } from 'base64-blob'
 import csc from 'country-state-city'
@@ -265,6 +269,9 @@ export default {
                     update: null,
                 },
             },
+            validating: {
+                url: false,
+            },
         }
     },
     computed: {
@@ -277,6 +284,28 @@ export default {
                 }
             })
         },
+    },
+    mounted() {
+        // URL availability validations
+        Validator.extend('uniqueUrl', {
+            validate: async value => {
+                this.validating.url = true
+                try {
+                    this.validating.url = false
+                    const res = await call(`/users/availability/url/${value}`, {}, 'GET', false)
+                    if (res.error) {
+                        return { data: { message: res.error } }
+                    }
+                    return { valid: true }
+                } catch (e) {
+                    this.validating.url = false
+                    if (e.response.data.error) {
+                        return { data: { message: e.response.data.error } }
+                    }
+                }
+            },
+            getMessage: (field, params, data) => data.message,
+        })
     },
     methods: {
         // Resize

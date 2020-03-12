@@ -43,6 +43,31 @@ body {
   border: none;
 }
 /***************************************
+  Form
+****************************************/
+.form-control {
+  + .btn-input-spinner {
+      position: absolute;
+      top: 2 * $spacer;
+      right: 0;
+      height: $input-height;
+      display: flex;
+      color: $linkstream-1;
+      background: none;
+      border: none;
+      box-shadow: none;
+
+      .spinner-border {
+          width: 1.2 * $font-size-base;
+          height: 1.2 * $font-size-base;
+          border-width: 2px;
+      }
+  }
+  &.is-invalid + .btn-input-spinner {
+      right: $input-height-inner-half;
+  }
+}
+/***************************************
   Spinner
 ****************************************/
 .spinner-border {

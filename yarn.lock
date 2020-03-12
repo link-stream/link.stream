@@ -2509,6 +2509,11 @@ cosmiconfig@^5.0.0:
     js-yaml "^3.13.1"
     parse-json "^4.0.0"
 
+country-state-city@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/country-state-city/-/country-state-city-1.0.4.tgz#22a394ef20575a15524c8e7f059589130d7a5e67"
+  integrity sha512-tDnjTFMbTD+UuTS0wGQBedu4IWl8yVpm4yfvs2n8WsAmKAfSsy75EEdXwhCiRuI/hXstlu11GtN6nYe4ugM4SA==
+
 create-ecdh@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/create-ecdh/-/create-ecdh-4.0.3.tgz#c9111b6f33045c4697f144787f9254cdc77c45ff"
@@ -10844,6 +10849,11 @@ vue-router@^3.0.1:
   version "3.1.6"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.1.6.tgz#45f5a3a3843e31702c061dd829393554e4328f89"
   integrity sha512-GYhn2ynaZlysZMkFE5oCHRUTqE8BWs/a9YbKpNLi0i7xD6KG1EzDqpHQmv1F5gXjr8kL5iIVS8EOtRaVUEXTqA==
+
+vue-select@^3.8.1:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/vue-select/-/vue-select-3.8.1.tgz#f6949c37d02e99685ec9e64731fe6f60a8489764"
+  integrity sha512-+DzJ6O7KSm8Ja+KlQW3KbncHi4LixSpFkHZQ0wm1JMElFIOrkMEMPnxgLOgT3k7hhYudXpJksZufTcGGjyKl5g==
 
 vue-style-loader@^3.0.0, vue-style-loader@^3.0.1:
   version "3.1.2"

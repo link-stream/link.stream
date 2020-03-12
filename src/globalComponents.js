@@ -4,6 +4,7 @@ import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'
 import Toast from 'vue-toastification'
 import vuePerfectScrollbar from 'vue-perfect-scrollbar'
+import vSelect from 'vue-select'
 import { Plugin } from 'vue-fragment'
 import VeeValidate from 'vee-validate'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -31,6 +32,8 @@ Vue.use(Toast, {
 })
 // Installl Perfect Scrollbar
 Vue.component('vue-perfect-scrollbar', vuePerfectScrollbar)
+// Install Vue Select
+Vue.component('v-select', vSelect)
 // Install Vue Fragment
 Vue.use(Plugin)
 // Install VeeValidate

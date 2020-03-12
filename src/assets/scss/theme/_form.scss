@@ -29,11 +29,11 @@
 		margin-top: -0.5 * $spacer;
 		padding: 0.5 * $spacer $spacer;
 		font-size: 0.76 * $font-size-base;
-		color: $text-color;
+		color: $input-color;
 		text-align: center;
 		background: $body-bg;
 		border: 1px solid $form-feedback-invalid-color;
-		border-radius: $border-radius;
+		border-radius: $input-border-radius;
 		transform: translateX(0) translateY(-50%);
 		@include depth(1);
 
@@ -114,10 +114,10 @@
 	
 		a,
 		a:focus {
-			color: $border-color;
+			color: $input-border-color;
 			span,
 			small {
-				color: $border-color;
+				color: $input-border-color;
 				text-align: center;
 			}
 		}
@@ -134,7 +134,7 @@
 		span {
 			display: block;
 			font-weight: 700;
-			color: $border-color;
+			color: $input-border-color;
 		}
 	
 		&.step-doing {
@@ -197,10 +197,10 @@
 		a:active,
 		a:hover {
 			cursor: default;
-			color: $border-color;
+			color: $input-border-color;
 			span,
 			small {
-				color: $border-color;
+				color: $input-border-color;
 			}
 		}
 
@@ -223,5 +223,83 @@
 		span {
 			display: none;
 		}
+	}
+}
+
+
+/*********** Vue Select ************/
+.v-select {
+	color: $input-color;
+	
+	.vs__dropdown-toggle {
+		height: $input-height;
+		padding: 0;
+		border-radius: $input-border-radius;
+		border: 1px solid $input-border-color;
+	
+		.vs__selected-options {
+			padding: $input-padding-y $input-padding-x;
+			font-weight: $input-font-weight;
+			line-height: $input-line-height;
+
+			.vs__selected {
+				position: initial !important;
+				padding: 0;
+			}
+		}		
+	
+		.vs__actions {
+			padding: 0 10px 0 3px;
+
+			.vs__clear {
+				display: none;
+			}
+		}
+	}
+  
+	.vs__dropdown-menu {
+		padding-bottom: 0;
+		padding-top: 0;
+		background: $body-bg;
+		box-shadow: initial !important;
+		border-radius: initial !important;
+		overflow: auto !important;
+		
+		.vs__dropdown-option {
+			padding: 8px 12px !important;
+			color: $input-color !important;
+			background: $body-bg !important;
+			transition: initial;
+		
+			&.vs__dropdown-option--highlight {
+				color: $white !important;
+				background: rgba($linkstream-1, 0.6) !important;
+			}
+			&.vs__dropdown-option--selected {
+				display: none;
+			}
+			.vs__no-options {
+				padding: 5px !important;
+			}
+		}
+	}
+		
+	.vs__open-indicator {
+		width: 6px;
+		height: 6px;
+		border-style: solid;
+		border-color: $input-border-color;
+		border-width: 2px 2px 0 0;  
+		vertical-align: text-top;
+		transform: rotate(133deg);
+		path {
+			display: none;
+		}
+	}
+	&.vs--open .vs__open-indicator {
+	  transform: rotate(315deg);
+	}
+	&.vs--loading .vs__open-indicator {
+	  opacity: 0;
 	}
 }

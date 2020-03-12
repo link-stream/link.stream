@@ -144,12 +144,12 @@
                         </b-col>
                         <b-col sm="6">
                             <b-form-group label="Country" label-for="country" class="mb-4">
-                                <b-form-input
-                                    id="country"
-                                    name="country"
-                                    type="text"
+                                <v-select
                                     v-model="form.country"
-                                ></b-form-input>
+                                    :options="allCountries"
+                                    :reduce="country => country.code"
+                                    label="country"
+                                />
                             </b-form-group>
                         </b-col>
                         <b-col cols="12">
@@ -187,6 +187,7 @@ import { mapGetters } from 'vuex'
 import resize from 'vue-resize-directive'
 import { DokaModal, DokaOverlay, toURL } from 'vue-doka'
 import { blobToBase64 } from 'base64-blob'
+import csc from 'country-state-city'
 import { setStatusChange } from '~/utils'
 import { call } from '~/services'
 import { appConstants } from '~/constants'
@@ -268,6 +269,14 @@ export default {
     },
     computed: {
         ...mapGetters(['user']),
+        allCountries() {
+            return csc.getAllCountries().map(obj => {
+                return {
+                    code: obj.sortname,
+                    country: obj.name,
+                }
+            })
+        },
     },
     methods: {
         // Resize

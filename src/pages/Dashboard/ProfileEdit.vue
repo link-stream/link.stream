@@ -292,7 +292,7 @@ export default {
                 this.validating.url = true
                 try {
                     this.validating.url = false
-                    const res = await call(`/users/availability/url/${value}`, {}, 'GET', false)
+                    const res = await call(`/users/availability/url/${value}/${this.user.id}`, {}, 'GET', false)
                     if (res.error) {
                         return { data: { message: res.error } }
                     }

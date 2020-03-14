@@ -41,4 +41,11 @@ export default {
     font-weight: 800;
     color: $black;
 }
+/deep/ h6.step {
+    font-size: 0.775 * $font-size-base;
+    font-weight: 600;
+    color: $gray-500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 </style>

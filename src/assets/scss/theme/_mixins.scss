@@ -51,12 +51,10 @@
 @mixin clearfix() {
   &::after {
     display: block;
-    content: "";
+    content: '';
     clear: both;
   }
 }
-
-
 
 //Responsive Breakpoints
 
@@ -66,17 +64,14 @@ $breakpoints: (
   sm: 768px,
   md: 992px,
   lg: 1200px,
-  xl: 1440px
+  xl: 1440px,
 );
 
 @mixin respond-below($breakpoint) {
   // If the breakpoint exists in the map.
   @if map-has-key($breakpoints, $breakpoint) {
     // Get the breakpoint value.
-    $breakpoint-value: map-get(
-      $breakpoints,
-      $breakpoint
-    ); // Write the media query.
+    $breakpoint-value: map-get($breakpoints, $breakpoint); // Write the media query.
     @media (max-width: ($breakpoint-value - 1)) {
       @content;
     }
@@ -87,15 +82,11 @@ $breakpoints: (
   }
 }
 
-
 @mixin respond-above($breakpoint) {
   // If the breakpoint exists in the map.
   @if map-has-key($breakpoints, $breakpoint) {
     // Get the breakpoint value.
-    $breakpoint-value: map-get(
-      $breakpoints,
-      $breakpoint
-    ); // Write the media query.
+    $breakpoint-value: map-get($breakpoints, $breakpoint); // Write the media query.
     @media (min-width: ($breakpoint-value - 1)) {
       @content;
     }
@@ -106,13 +97,11 @@ $breakpoints: (
   }
 }
 
-
 @function encodecolor($string) {
-	@if type-of($string) == 'color' {
-        $hex: str-slice(ie-hex-str($string), 4);
-        $string:unquote("#{$hex}");
-    }
-    $string: '%23' + $string;
-	@return $string;
+  @if type-of($string) == 'color' {
+    $hex: str-slice(ie-hex-str($string), 4);
+    $string: unquote('#{$hex}');
+  }
+  $string: '%23' + $string;
+  @return $string;
 }
-

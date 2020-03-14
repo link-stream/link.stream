@@ -2,7 +2,7 @@
     <b-container fluid class="p-sm-5">
         <b-form @submit.stop.prevent="onSubmit" @reset="resetForm" :novalidate="true">
             <b-row>
-                <b-col cols="12 d-none d-sm-block">
+                <b-col cols="12" class="d-none d-sm-block">
                     <h2 class="page-title">Edit your profile</h2>
                 </b-col>
                 <b-col cols="12" class="profile-images-container mt-sm-4">
@@ -171,7 +171,7 @@
                 <b-col cols="12" class="mb-5">
                     <MultiStateButton
                         type="submit"
-                        class="pink px-5 text-uppercase mt-5"
+                        class="px-5 text-uppercase mt-5"
                         :loading="status.loading.update"
                         :error="status.error.update"
                     >

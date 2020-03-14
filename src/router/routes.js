@@ -3,7 +3,7 @@ import { Login, Logout, Signup, RegisterConfirm, EmailConfirm, ForgotPassword, P
 import { Landing } from '~/pages/Landing'
 import { NotFound } from '~/pages/Error'
 import { Legal } from '~/pages/Others'
-import { Dashboard, ProfileEdit } from '~/pages/Dashboard'
+import { Dashboard, ProfileEdit, AddVideo } from '~/pages/Dashboard'
 
 const routes = [
     // Pre Auth routs
@@ -74,6 +74,12 @@ const routes = [
         path: '/app/profile/edit',
         name: 'profile-edit',
         component: ProfileEdit,
+        meta: { requiresAuth: true, layout: 'dashboard' },
+    },
+    {
+        path: '/app/videos/add',
+        name: 'video-add',
+        component: AddVideo,
         meta: { requiresAuth: true, layout: 'dashboard' },
     },
     // 404 catcher

@@ -21,10 +21,12 @@
   "dependencies": {
     "base64-blob": "^1.4.1",
     "npm": "^6.9.0",
+    "v-calendar": "^1.0.1",
     "vue": "^2.6.11",
     "vue-resize-directive": "^1.2.0",
     "vue-router": "^3.0.1",
     "vue-select": "^3.8.1",
+    "vue-youtube": "^1.4.0",
     "vuex": "^3.1.0"
   },
   "devDependencies": {

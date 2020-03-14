@@ -5,6 +5,8 @@ import VueLetterAvatar from 'vue-letter-avatar'
 import Toast from 'vue-toastification'
 import vuePerfectScrollbar from 'vue-perfect-scrollbar'
 import vSelect from 'vue-select'
+import VueYoutube from 'vue-youtube'
+import VCalendar from 'v-calendar'
 import { Plugin } from 'vue-fragment'
 import VeeValidate from 'vee-validate'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -34,6 +36,22 @@ Vue.use(Toast, {
 Vue.component('vue-perfect-scrollbar', vuePerfectScrollbar)
 // Install Vue Select
 Vue.component('v-select', vSelect)
+// Install Vue Youtube
+Vue.use(VueYoutube)
+// Install Vue Calendar
+Vue.use(VCalendar, {
+    firstDayOfWeek: 2, // ...other defaults,
+    formats: {
+        title: 'MMM YY',
+        weekdays: 'WW',
+        navMonths: 'MMMM',
+        input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'],
+        dayPopover: 'L',
+    },
+    datePickerShowDayPopover: false,
+    popoverExpanded: true,
+    popoverDirection: 'bottom',
+})
 // Install Vue Fragment
 Vue.use(Plugin)
 // Install VeeValidate

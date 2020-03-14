@@ -1,6 +1,7 @@
 <template>
     <b-button
         pill
+        :variant="variant"
         :type="type"
         :class="{
             'btn-multiple-state': true,
@@ -41,6 +42,10 @@ export default {
             type: String,
             default: 'button',
         },
+        variant: {
+            type: String,
+            default: 'primary',
+        },
         instagram: {
             type: Boolean,
             default: false,
@@ -77,18 +82,10 @@ export default {
     margin: auto;
     padding: 0 1.25 * $spacer;
     font-weight: $font-weight-semi-bold;
-    border: 0;
     transition: opacity 500ms;
 
     &:focus {
         box-shadow: none;
-    }
-
-    &.pink {
-        background-color: $linkstream-1;
-        &:not(:disabled):not(.disabled):active {
-            background-color: $linkstream-1;
-        }
     }
 
     &.instagram {

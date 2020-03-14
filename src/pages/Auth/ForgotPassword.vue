@@ -33,7 +33,7 @@
                         </b-form-group>
                         <MultiStateButton
                             type="submit"
-                            class="pink text-uppercase mt-5"
+                            class="text-uppercase mt-5"
                             :loading="status.loading.reset"
                             :error="status.error.reset"
                         >

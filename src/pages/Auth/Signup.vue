@@ -118,7 +118,7 @@
                         </b-form-group>
                         <MultiStateButton
                             type="submit"
-                            class="pink btn-auth text-uppercase mt-5"
+                            class="btn-auth text-uppercase mt-5"
                             :loading="status.loading.signup"
                             :error="status.error.signup"
                         >

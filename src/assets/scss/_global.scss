@@ -42,29 +42,34 @@ body {
   background: none;
   border: none;
 }
+.btn-action {
+  font-weight: $font-weight-semi-bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
 /***************************************
   Form
 ****************************************/
 .form-control {
   + .btn-input-spinner {
-      position: absolute;
-      top: 2 * $spacer;
-      right: 0;
-      height: $input-height;
-      display: flex;
-      color: $linkstream-1;
-      background: none;
-      border: none;
-      box-shadow: none;
+    position: absolute;
+    top: 2 * $spacer;
+    right: 0;
+    height: $input-height;
+    display: flex;
+    color: $linkstream-1;
+    background: none;
+    border: none;
+    box-shadow: none;
 
-      .spinner-border {
-          width: 1.2 * $font-size-base;
-          height: 1.2 * $font-size-base;
-          border-width: 2px;
-      }
+    .spinner-border {
+      width: 1.2 * $font-size-base;
+      height: 1.2 * $font-size-base;
+      border-width: 2px;
+    }
   }
   &.is-invalid + .btn-input-spinner {
-      right: $input-height-inner-half;
+    right: $input-height-inner-half;
   }
 }
 /***************************************
@@ -110,12 +115,15 @@ body {
   left: 0 !important;
 }
 
-.ps__rail-y, .ps__thumb-y {
+.ps__rail-y,
+.ps__thumb-y {
   width: 5px !important;
   right: 0 !important;
 }
 
-.ps__rail-y.ps--clicking .ps__thumb-y, .ps__rail-y:focus>.ps__thumb-y, .ps__rail-y:hover>.ps__thumb-y {
+.ps__rail-y.ps--clicking .ps__thumb-y,
+.ps__rail-y:focus > .ps__thumb-y,
+.ps__rail-y:hover > .ps__thumb-y {
   width: 5px !important;
 }
 

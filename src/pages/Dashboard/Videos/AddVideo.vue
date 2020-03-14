@@ -1,5 +1,5 @@
 <template>
-    <b-container fluid class="p-sm-5">
+    <b-container fluid class="p-4 p-sm-5">
         <b-form @submit.stop.prevent="onSubmit" @reset="resetForm" :novalidate="true">
             <b-row>
                 <b-col cols="12" class="mb-3">

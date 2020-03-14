@@ -1,5 +1,5 @@
 <template>
-    <div class="position-relative d-inline-block user">
+    <div class="position-relative d-inline-block user" v-if="user">
         <b-dropdown
             class="dropdown-menu-right"
             right
@@ -14,7 +14,7 @@
                     <vue-letter-avatar v-else :name="user.display_name" size="40" :rounded="true" />
                 </span>
             </template>
-            <b-dropdown-item>Account</b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'profile-edit' }">Account</b-dropdown-item>
             <b-dropdown-item>Features</b-dropdown-item>
             <b-dropdown-item>History</b-dropdown-item>
             <b-dropdown-item>Support</b-dropdown-item>

@@ -3,4 +3,6 @@ export const constants = {
     menuHiddenBreakpoint: 768,
     // banner
     profileBannerAspectRatio: 0.254364,
+    // video
+    videosPerPage: 20,
 }

@@ -1,1 +1,1 @@
-export { default as WorkOrderCard } from './WorkOrderCard'
+export { default as VideoCard } from './VideoCard'

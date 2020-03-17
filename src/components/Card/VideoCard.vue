@@ -96,7 +96,7 @@ export default {
 <style lang="scss">
 .video-card {
     display: flex;
-    flex-direction: row;
+    flex-direction: row !important;
     align-items: center;
     max-width: 672px;
     margin: $spacer 0;

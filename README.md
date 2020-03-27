@@ -19,12 +19,8 @@ npm install
 Step 2: Start
 
 ```
-npm run dev
+npm run serve
 ```
-
-## Authors
-
-* **Kysen Jackman** 
 
 ## License
 

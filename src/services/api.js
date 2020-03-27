@@ -3,12 +3,12 @@ import axios from '~/plugins/axios'
 
 export default async function(endpoint, params = {}, method = 'GET', showProgress = true) {
     const headers = {
-        'X-API-KEY': process.env.SERVER_AUTH.X_API_KEY,
+        'X-API-KEY': process.env.VUE_APP_API_KEY,
         'Content-Type': 'application/x-www-form-urlencoded',
     }
     const auth = {
-        username: process.env.SERVER_AUTH.USER_NAME,
-        password: process.env.SERVER_AUTH.PASSWORD,
+        username: process.env.VUE_APP_API_USER,
+        password: process.env.VUE_APP_API_PASS,
     }
 
     // call API

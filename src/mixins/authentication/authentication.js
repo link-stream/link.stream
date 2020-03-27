@@ -9,10 +9,10 @@ export default {
     data() {
         return {
             google: {
-                client_id: process.env.SOCIAL.GOOGLE_CLIENT_ID,
+                client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
             },
             instagram: {
-                client_id: process.env.SOCIAL.INSTAGRAM_CLIENT_ID,
+                client_id: process.env.VUE_APP_INSTAGRAM_CLIENT_ID,
                 redirect_uri: window.location.href,
             },
             status: {

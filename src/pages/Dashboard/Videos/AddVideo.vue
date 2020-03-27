@@ -264,7 +264,7 @@ export default {
         })
     },
     watch: {
-        step(val) {
+        step() {
             this.$refs.youtube.player.stopVideo()
         },
     },

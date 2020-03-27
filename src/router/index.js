@@ -40,7 +40,7 @@ router.beforeEach(async (to, from, next) => {
     }
 })
 
-router.afterEach((to, from) => {
+router.afterEach(() => {
     // Complete the animation of the route progress bar.
     router.app.$Progress.finish()
 })

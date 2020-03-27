@@ -2,7 +2,7 @@ import axios from 'axios'
 import app from '~/main' // import the instance
 
 const instance = axios.create({
-    baseURL: process.env.API_URL,
+    baseURL: process.env.VUE_APP_API_URL,
 })
 
 instance.interceptors.request.use(

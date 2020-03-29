@@ -88,7 +88,7 @@
                     <b-link to="/forgot">Forgot Password?</b-link>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-4">
-                    Don't have an account? <b-link to="/signup">Sigin up</b-link>
+                    Don't have an account? <b-link to="/signup">Sign up</b-link>
                 </b-col>
             </b-row>
         </b-container>

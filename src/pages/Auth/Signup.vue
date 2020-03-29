@@ -129,7 +129,7 @@
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-4">
-                    Already have an account? <b-link to="/login">Sigin in</b-link>
+                    Already have an account? <b-link to="/login">Sign in</b-link>
                 </b-col>
             </b-row>
         </b-container>

@@ -66,7 +66,7 @@
                 </b-col>
                 <b-col cols="12" class="fs--1 my-2"> Need help? <b-link to="/" class="ml-2">Contact Us</b-link> </b-col>
                 <b-col cols="12" class="fs--1 my-2">
-                    Already have an account? <b-link to="/login">Sigin in</b-link>
+                    Already have an account? <b-link to="/login">Sign in</b-link>
                 </b-col>
             </b-row>
         </b-container>

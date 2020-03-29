@@ -192,7 +192,7 @@ import { setStatusChange } from '~/utils'
 import { MultiStateButton } from '~/components/Button'
 
 export default {
-    name: 'AddVideo',
+    name: 'VideoAdd',
     directives: {
         resize,
     },

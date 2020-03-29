@@ -2,9 +2,28 @@ import { Login, Logout, Signup, RegisterConfirm, EmailConfirm, ForgotPassword, P
 import { Landing } from '~/pages/Landing'
 import { NotFound } from '~/pages/Error'
 import { Legal } from '~/pages/Others'
-import { Dashboard, ProfileEdit, Videos, AddVideo } from '~/pages/Dashboard'
+import {
+    UserAccountDashboard,
+    UserAccountProfileEdit,
+    UserAccountVideos,
+    UserAccountVideosAdd,
+} from '~/pages/UserAccount'
 
 const routes = [
+    // Public pages
+    {
+        path: '/',
+        name: 'landing',
+        component: Landing,
+        meta: { layout: 'landing' },
+    },
+    {
+        path: '/legal',
+        name: 'legal',
+        component: Legal,
+        meta: { layout: 'landing' },
+    },
+
     // User auth pages
     {
         path: '/login',
@@ -49,47 +68,33 @@ const routes = [
         meta: { requiresGuest: true, layout: 'userAuth' },
     },
 
-    // Landing pages
-    {
-        path: '/legal',
-        name: 'legal',
-        component: Legal,
-        meta: { layout: 'landing' },
-    },
-    {
-        path: '/',
-        name: 'landing',
-        component: Landing,
-        meta: { layout: 'landing' },
-    },
-
     // User account pages
     {
         path: '/app',
         name: 'userAccountDashboard',
         alias: '/app/dashboard',
-        component: Dashboard,
+        component: UserAccountDashboard,
         meta: { requiresAuth: true, layout: 'userAccount' },
     },
     {
         path: '/app/profile/edit',
         name: 'userAccountProfileEdit',
-        component: ProfileEdit,
+        component: UserAccountProfileEdit,
         meta: { requiresAuth: true, layout: 'userAccount' },
     },
     {
         path: '/app/videos/manage',
         name: 'userAccountVideos',
-        component: Videos,
+        component: UserAccountVideos,
         meta: { requiresAuth: true, layout: 'userAccount' },
     },
     {
         path: '/app/videos/add',
         name: 'userAccountVideosAdd',
-        component: AddVideo,
+        component: UserAccountVideosAdd,
         meta: { requiresAuth: true, layout: 'userAccount' },
     },
-    
+
     // 404 catcher
     { path: '/404', alias: '*', name: '404', component: NotFound, meta: { layout: 'error' } },
 ]

@@ -31,7 +31,7 @@ router.beforeEach(async (to, from, next) => {
     } else if (to.matched.some(record => record.meta.requiresGuest)) {
         if (store.getters.user) {
             // redirect home if attempting to access guest-only page
-            next({ name: 'dashboard' })
+            next({ name: 'userAccountDashboard' })
         } else {
             next()
         }

@@ -17,7 +17,7 @@ import { call } from '~/services'
 import { TopNavbar, Sidebar } from '~/components/Views'
 
 export default {
-    name: 'Dashboard',
+    name: 'UserAccount',
     components: {
         TopNavbar,
         Sidebar,

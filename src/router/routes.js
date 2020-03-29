@@ -66,28 +66,28 @@ const routes = [
     // User account pages
     {
         path: '/app',
-        name: 'dashboard',
+        name: 'userAccountDashboard',
         alias: '/app/dashboard',
         component: Dashboard,
-        meta: { requiresAuth: true, layout: 'dashboard' },
+        meta: { requiresAuth: true, layout: 'userAccount' },
     },
     {
         path: '/app/profile/edit',
-        name: 'profile-edit',
+        name: 'userAccountProfileEdit',
         component: ProfileEdit,
-        meta: { requiresAuth: true, layout: 'dashboard' },
+        meta: { requiresAuth: true, layout: 'userAccount' },
     },
     {
         path: '/app/videos/manage',
-        name: 'videos',
+        name: 'userAccountVideos',
         component: Videos,
-        meta: { requiresAuth: true, layout: 'dashboard' },
+        meta: { requiresAuth: true, layout: 'userAccount' },
     },
     {
         path: '/app/videos/add',
-        name: 'video-add',
+        name: 'userAccountVideosAdd',
         component: AddVideo,
-        meta: { requiresAuth: true, layout: 'dashboard' },
+        meta: { requiresAuth: true, layout: 'userAccount' },
     },
     
     // 404 catcher

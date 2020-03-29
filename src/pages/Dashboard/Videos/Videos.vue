@@ -6,7 +6,7 @@
                 <label class="text-black">Add, remove, edit & order videos anyway you'd like</label>
             </b-col>
             <b-col cols="12" class="my-4">
-                <MultiStateButton class="btn-action px-5" @onClick="$router.push({ name: 'video-add' })">
+                <MultiStateButton class="btn-action px-5" @onClick="$router.push({ name: 'userAccountVideosAdd' })">
                     Add New Video
                 </MultiStateButton>
             </b-col>

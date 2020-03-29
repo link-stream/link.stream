@@ -40,11 +40,11 @@ export const mutations = {
         Cookies.set(USER_INFO, data.user)
     },
 
-    [types.LOGOUT](state) {
+    [types.LOGOUT]() {
         // nothing to do
     },
 
-    [types.UPDATE_PASSWORD](state, res) {
+    [types.UPDATE_PASSWORD]() {
         // nothing to do
     },
 
@@ -60,7 +60,7 @@ export const actions = {
         const { user } = payload
         if (!isEmpty(user)) {
             commit(types.SIGNUP, payload)
-            router.push({ name: 'register-confirm' })
+            router.push({ name: 'signupConfirm' })
         }
     },
 

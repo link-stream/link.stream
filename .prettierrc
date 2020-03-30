@@ -5,7 +5,7 @@
   "trailingComma": "es5",
   "overrides": [
     {
-      "files": "*.{vue,js,jsx}",
+      "files": "*.{vue,js,jsx,scss}",
       "options": {
         "tabWidth": 4
       }

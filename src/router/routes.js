@@ -15,13 +15,13 @@ const routes = [
         path: '/',
         name: 'landing',
         component: Landing,
-        meta: { layout: 'landing' },
+        meta: { layout: 'Landing' },
     },
     {
         path: '/legal',
         name: 'legal',
         component: Legal,
-        meta: { layout: 'landing' },
+        meta: { layout: 'Landing' },
     },
 
     // User auth pages
@@ -29,7 +29,7 @@ const routes = [
         path: '/login',
         name: 'login',
         component: Login,
-        meta: { requiresGuest: true, layout: 'userAuth' },
+        meta: { requiresGuest: true, layout: 'UserAuth' },
     },
     {
         path: '/logout',
@@ -41,13 +41,13 @@ const routes = [
         path: '/signup',
         name: 'signup',
         component: Signup,
-        meta: { requiresGuest: true, layout: 'userAuth' },
+        meta: { requiresGuest: true, layout: 'UserAuth' },
     },
     {
         path: '/register-confirm',
         name: 'signupConfirm',
         component: RegisterConfirm,
-        meta: { requiresGuest: true, layout: 'userAuth' },
+        meta: { requiresGuest: true, layout: 'UserAuth' },
     },
     {
         path: '/email-confirm/:param1/:param2',
@@ -59,13 +59,13 @@ const routes = [
         path: '/forgot',
         name: 'passwordForgot',
         component: ForgotPassword,
-        meta: { requiresGuest: true, layout: 'userAuth' },
+        meta: { requiresGuest: true, layout: 'UserAuth' },
     },
     {
         path: '/reset-password/:param1/:param2',
         name: 'passwordReset',
         component: PasswordReset,
-        meta: { requiresGuest: true, layout: 'userAuth' },
+        meta: { requiresGuest: true, layout: 'UserAuth' },
     },
 
     // User account pages
@@ -74,25 +74,25 @@ const routes = [
         name: 'userAccountDashboard',
         alias: '/app/dashboard',
         component: UserAccountDashboard,
-        meta: { requiresAuth: true, layout: 'userAccount' },
+        meta: { requiresAuth: true, layout: 'UserAccount' },
     },
     {
         path: '/app/profile/edit',
         name: 'userAccountProfileEdit',
         component: UserAccountProfileEdit,
-        meta: { requiresAuth: true, layout: 'userAccount' },
+        meta: { requiresAuth: true, layout: 'UserAccount' },
     },
     {
         path: '/app/videos/manage',
         name: 'userAccountVideos',
         component: UserAccountVideos,
-        meta: { requiresAuth: true, layout: 'userAccount' },
+        meta: { requiresAuth: true, layout: 'UserAccount' },
     },
     {
         path: '/app/videos/add',
         name: 'userAccountVideosAdd',
         component: UserAccountVideosAdd,
-        meta: { requiresAuth: true, layout: 'userAccount' },
+        meta: { requiresAuth: true, layout: 'UserAccount' },
     },
 
     // 404 catcher

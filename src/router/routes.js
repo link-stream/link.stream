@@ -1,4 +1,4 @@
-import { Login, Logout, Signup, RegisterConfirm, EmailConfirm, ForgotPassword, PasswordReset } from '~/pages/Auth'
+import { Login, Logout, Signup, SignupConfirm, EmailConfirm, PasswordForgot, PasswordReset } from '~/pages/Auth'
 import { Landing } from '~/pages/Landing'
 import { NotFound } from '~/pages/Error'
 import { Legal } from '~/pages/Others'
@@ -46,7 +46,7 @@ const routes = [
     {
         path: '/register-confirm',
         name: 'signupConfirm',
-        component: RegisterConfirm,
+        component: SignupConfirm,
         meta: { requiresGuest: true, layout: 'UserAuth' },
     },
     {
@@ -58,7 +58,7 @@ const routes = [
     {
         path: '/forgot',
         name: 'passwordForgot',
-        component: ForgotPassword,
+        component: PasswordForgot,
         meta: { requiresGuest: true, layout: 'UserAuth' },
     },
     {

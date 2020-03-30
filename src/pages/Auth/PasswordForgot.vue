@@ -58,7 +58,7 @@ import { call } from '~/services'
 import { MultiStateButton } from '~/components/Button'
 
 export default {
-    name: 'ForgotPassword',
+    name: 'PasswordForgot',
     components: {
         MultiStateButton,
     },

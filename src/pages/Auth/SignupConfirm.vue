@@ -18,7 +18,7 @@
 import { call } from '~/services'
 
 export default {
-    name: 'RegisterConfirm',
+    name: 'SignupConfirm',
     mounted() {
         // redirect to signup page when there is no information of signup user
         if (!this.$store.getters.pendingUser) {

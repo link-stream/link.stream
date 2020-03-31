@@ -96,7 +96,7 @@ const routes = [
     },
 
     // 404 catcher
-    { path: '/404', alias: '*', name: '404', component: NotFound, meta: { layout: 'error' } },
+    { path: '/404', alias: '*', name: '404', component: NotFound, meta: { layout: 'Error' } },
 ]
 
 export default routes

@@ -1,68 +1,64 @@
 <template>
     <div class="sidebar" @click.stop="() => {}">
         <div class="main-menu">
-            <vue-perfect-scrollbar class="scroll" :settings="{ suppressScrollX: true, wheelPropagation: false }">
-                <ul class="list-unstyled">
-                    <li
-                        v-for="item in menuItems"
-                        :class="{
-                            active:
-                                (selectedParentMenu === item.id && viewingParentMenu === '') ||
-                                viewingParentMenu === item.id,
-                        }"
-                        :key="`parent_${item.id}`"
-                        :data-flag="item.id"
-                    >
-                        <a v-if="item.newWindow" :href="item.to" rel="noopener noreferrer" target="_blank">
-                            <font-awesome-icon :icon="item.icon" size="lg" />
-                            {{ item.label }}
-                        </a>
-                        <a
-                            v-else-if="item.subs && item.subs.length > 0"
-                            @click.prevent="openSubMenu($event, item)"
-                            :href="`#${item.to}`"
-                        >
-                            <font-awesome-icon :icon="item.icon" size="lg" />
-                            {{ item.label }}
-                        </a>
-                        <router-link v-else @click.native="changeSelectedParentHasNoSubmenu(item.id)" :to="item.to">
-                            <font-awesome-icon :icon="item.icon" size="lg" />
-                            {{ item.label }}
-                        </router-link>
-                    </li>
-                </ul>
-            </vue-perfect-scrollbar>
-        </div>
-
-        <div class="sub-menu">
-            <vue-perfect-scrollbar class="scroll" :settings="{ suppressScrollX: true, wheelPropagation: false }">
-                <ul
-                    v-for="(item, itemIndex) in menuItems"
+            <ul class="list-unstyled">
+                <li
+                    v-for="item in menuItems"
                     :class="{
-                        'list-unstyled': true,
-                        'd-block':
+                        active:
                             (selectedParentMenu === item.id && viewingParentMenu === '') ||
                             viewingParentMenu === item.id,
                     }"
-                    :data-parent="item.id"
-                    :key="`sub_${item.id}`"
+                    :key="`parent_${item.id}`"
+                    :data-flag="item.id"
                 >
-                    <li
-                        v-for="(sub, subIndex) in item.subs"
-                        :class="{
-                            active: $route.path.indexOf(sub.to) > -1,
-                        }"
-                        :key="`menu_${itemIndex}_${subIndex}`"
+                    <a v-if="item.newWindow" :href="item.to" rel="noopener noreferrer" target="_blank">
+                        <font-awesome-icon :icon="item.icon" size="lg" />
+                        {{ item.label }}
+                    </a>
+                    <a
+                        v-else-if="item.subs && item.subs.length > 0"
+                        @click.prevent="openSubMenu($event, item)"
+                        :href="`#${item.to}`"
                     >
-                        <a v-if="sub.newWindow" :href="sub.to" rel="noopener noreferrer" target="_blank">
-                            <span>{{ sub.label }}</span>
-                        </a>
-                        <router-link v-else :to="sub.to">
-                            <span>{{ sub.label }}</span>
-                        </router-link>
-                    </li>
-                </ul>
-            </vue-perfect-scrollbar>
+                        <font-awesome-icon :icon="item.icon" size="lg" />
+                        {{ item.label }}
+                    </a>
+                    <router-link v-else @click.native="changeSelectedParentHasNoSubmenu(item.id)" :to="item.to">
+                        <font-awesome-icon :icon="item.icon" size="lg" />
+                        {{ item.label }}
+                    </router-link>
+                </li>
+            </ul>
+        </div>
+
+        <div class="sub-menu">
+            <ul
+                v-for="(item, itemIndex) in menuItems"
+                :class="{
+                    'list-unstyled': true,
+                    'd-block':
+                        (selectedParentMenu === item.id && viewingParentMenu === '') ||
+                        viewingParentMenu === item.id,
+                }"
+                :data-parent="item.id"
+                :key="`sub_${item.id}`"
+            >
+                <li
+                    v-for="(sub, subIndex) in item.subs"
+                    :class="{
+                        active: $route.path.indexOf(sub.to) > -1,
+                    }"
+                    :key="`menu_${itemIndex}_${subIndex}`"
+                >
+                    <a v-if="sub.newWindow" :href="sub.to" rel="noopener noreferrer" target="_blank">
+                        <span>{{ sub.label }}</span>
+                    </a>
+                    <router-link v-else :to="sub.to">
+                        <span>{{ sub.label }}</span>
+                    </router-link>
+                </li>
+            </ul>
         </div>
     </div>
 </template>

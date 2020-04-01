@@ -59,8 +59,11 @@ export function setStatusChange(obj, target, value = true, callback = null, dura
 /**
  * Generate HTML image src attribute from a base64 encoded image.
  * @param {string} base64 
- * @return {string}
+ * @return {string|null}
  */
 export function imgBase64ToSrc(base64) {
-    return `data:image/jpeg;base64,${base64}`
+    if (base64) {
+        return `data:image/jpeg;base64,${base64}`
+    }
+    return null
 }

@@ -92,18 +92,12 @@ export const actions = {
 export const getters = {
     pendingUser: state => state.pendingUser,
     user: state => state.user,
-    userAvatar: state => {
-        const { data_image } = state.user || {}
-        if (data_image) {
-            return imgBase64ToSrc(data_image)
-        }
-        return null
+    userAvatar: (state, getters) => {
+        const { data_image } = getters.user || {}
+        return imgBase64ToSrc(data_image)
     },
-    userProfileBanner: state => {
-        const { data_banner } = state.user || {}
-        if (data_banner) {
-            return imgBase64ToSrc(data_banner)
-        }
-        return null
+    userProfileBanner: (state, getters) => {
+        const { data_banner } = getters.user || {}
+        return imgBase64ToSrc(data_banner)
     },
 }

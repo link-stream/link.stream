@@ -1,5 +1,5 @@
 <template>
-    <div class="top-navbar-user position-relative d-inline-block" v-if="user">
+    <div class="topnav__user-menu position-relative d-inline-block" v-if="user">
         <b-dropdown
             class="dropdown-menu-right"
             right
@@ -28,7 +28,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-    name: 'User',
+    name: 'TopNavbarUserMenu',
     computed: {
         ...mapGetters(['user', 'avatar']),
     },

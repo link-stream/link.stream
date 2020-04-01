@@ -1,8 +1,8 @@
-.layout-user-account {
-    @import './user-account/sidebar';
-    @import './user-account/top-navbar';
-    @import './user-account/top-navbar-notifications';
+@import '~@/assets/scss/components/user-account/top-navbar';
+@import '~@/assets/scss/components/user-account/top-navbar-notif';
+@import '~@/assets/scss/components/user-account/sidebar';
 
+.layout-user-account {
     .avatar {
         width: 40px;
         height: 40px;
@@ -22,7 +22,7 @@
     }
 }
 
-.layout-user-account-content {
+.layout-user-account__content {
     margin-left: $sub-menu-width + $main-menu-width + $main-margin;
     margin-top: $navbar-height + $main-margin;
     margin-right: $main-margin;

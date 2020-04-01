@@ -1,5 +1,5 @@
 <template>
-    <div class="top-navbar-notifications position-relative d-inline-block">
+    <div class="topnav__notif position-relative d-inline-block">
         <b-dropdown
             variant="link"
             size="sm"
@@ -44,7 +44,7 @@ import { MultiStateButton } from '~/components/Button'
 import notifications from '~/data/notifications'
 
 export default {
-    name: 'Notifications',
+    name: 'TopNavbarNotif',
     components: {
         MultiStateButton,
     },

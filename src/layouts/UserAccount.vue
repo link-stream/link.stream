@@ -1,7 +1,7 @@
 <template>
     <div class="layout-user-account">
         <div :class="getMenuType">
-            <main class="layout-user-account-content">
+            <main class="layout-user-account__content">
                 <transition name="page" mode="out-in">
                     <router-view :key="$route.fullPath"></router-view>
                 </transition>
@@ -16,8 +16,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import { call } from '~/services'
-import TopNavbar from './partials/UserAccount/TopNavbar'
-import Sidebar from './partials/UserAccount/Sidebar'
+import TopNavbar from '~/components/UserAccount/TopNavbar'
+import Sidebar from '~/components/UserAccount/Sidebar'
 
 export default {
     name: 'UserAccount',

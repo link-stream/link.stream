@@ -9,7 +9,7 @@
             </a>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
-            <TopNavbarNotif/>
+            <TopNavbarNotifications/>
         </b-navbar-nav>
         <b-navbar-nav>
             <TopNavbarUserMenu/>
@@ -22,14 +22,14 @@ import { mapGetters, mapMutations } from 'vuex'
 import { appConstants } from '~/constants'
 import { Logo1, ToggleMenu } from '~/components/Svg'
 import TopNavbarUserMenu from './TopNavbarUserMenu'
-import TopNavbarNotif from './TopNavbarNotif'
+import TopNavbarNotifications from './TopNavbarNotifications'
 
 export default {
     name: 'TopNavbar',
     components: {
         Logo1,
         ToggleMenu,
-        TopNavbarNotif,
+        TopNavbarNotifications,
         TopNavbarUserMenu,
     },
     computed: {

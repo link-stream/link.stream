@@ -16,8 +16,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import { call } from '~/services'
-import TopNavbar from '~/components/UserAccount/TopNavbar'
-import Sidebar from '~/components/UserAccount/Sidebar'
+import TopNavbar from '~/components/UserAccount/TopNavbar/TopNavbar'
+import Sidebar from '~/components/UserAccount/Sidebar/Sidebar'
 
 export default {
     name: 'UserAccount',

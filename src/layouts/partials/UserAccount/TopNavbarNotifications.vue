@@ -1,5 +1,5 @@
 <template>
-    <div class="position-relative d-inline-block notifications">
+    <div class="top-navbar-notifications position-relative d-inline-block">
         <b-dropdown
             variant="link"
             size="sm"
@@ -55,27 +55,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.badge.count {
-    position: absolute;
-    left: 50%;
-    border: 2px solid black;
-}
-.notifications-menu {
-    width: 300px;
-    height: 250px;
-    font-size: $font-size-sm !important;
-
-    .ps-container {
-        height: 100%;
-    }
-
-    .btn {
-        height: inherit !important;
-        padding: 0 $spacer !important;
-        font-size: 0.75 * $font-size-base !important;
-        font-weight: normal !important;
-    }
-}
-</style>

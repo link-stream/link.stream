@@ -1,0 +1,19 @@
+.page-legal {
+    font-family: $font-source-family;
+    .logo {
+        max-width: 100%;
+        width: 180px;
+    }
+
+    h2 {
+        font-family: $font-base-family;
+        font-weight: $font-weight-light;
+        letter-spacing: 0.25 * $spacer;
+        text-transform: uppercase;
+        margin-bottom: 2 * $spacer;
+    }
+
+    p {
+        text-align: justify;
+    }
+}

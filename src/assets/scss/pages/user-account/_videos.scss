@@ -1,0 +1,7 @@
+.page-user-account-videos {
+    @import '~@/assets/scss/components/video-card';
+
+    .smooth-dnd-draggable-wrapper {
+        overflow: inherit !important;
+    }
+}

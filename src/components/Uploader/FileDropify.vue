@@ -106,12 +106,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.file-dropify {
-    height: 247px;
-    width: 567px;
-    border: 2px dashed #d7d7d7;
-    border-radius: 5px;
-}
-</style>

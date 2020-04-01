@@ -1,0 +1,39 @@
+.layout-user-account {
+    @import './user-account/sidebar';
+    @import './user-account/top-navbar';
+    @import './user-account/top-navbar-notifications';
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .page-title {
+        font-weight: 800;
+        color: $black;
+    }
+
+    h6.step {
+        font-size: 0.775 * $font-size-base;
+        font-weight: 600;
+        color: $gray-500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+}
+
+.layout-user-account-content {
+    margin-left: $sub-menu-width + $main-menu-width + $main-margin;
+    margin-top: $navbar-height + $main-margin;
+    margin-right: $main-margin;
+    margin-bottom: $main-margin;
+    transition: margin-left $menu-collapse-time;
+
+    &.sub-hidden {
+        margin-left: $main-menu-width + $main-margin;
+    }
+
+    &.main-hidden {
+        margin-left: $main-margin;
+    }
+}

@@ -7,6 +7,7 @@ import store from '~/store'
 import '~/globalComponents'
 import '~/plugins'
 import '~/filters'
+import '~/assets/scss/app.scss'
 
 Vue.config.productionTip = false
 

@@ -1,5 +1,5 @@
 <template>
-    <div id="password-reset-page" class="my-4">
+    <div class="page-auth-password-reset my-4">
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="mt-5">
@@ -158,18 +158,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-#password-reset-page {
-    p {
-        width: 380px;
-        max-width: 100%;
-        line-height: 2;
-    }
-
-    .btn-multiple-state {
-        width: 170px;
-        max-width: 100%;
-    }
-}
-</style>

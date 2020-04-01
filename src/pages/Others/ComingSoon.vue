@@ -1,5 +1,5 @@
 <template>
-    <div id="landing-page" class="my-md-5">
+    <div class="page-coming-soon my-md-5">
         <b-container fluid>
             <b-row class="text-center text-white">
                 <b-col cols="12" class="my-3">
@@ -27,21 +27,6 @@
 
 <script>
 export default {
-    name: 'Landing',
+    name: 'ComingSoon'
 }
 </script>
-
-<style lang="scss" scoped>
-#landing-page {
-    font-family: $font-source-family;
-
-    .logo {
-        max-width: 100%;
-        width: 360px;
-    }
-    h2 {
-        font-family: $font-base-family;
-        letter-spacing: 0.25 * $spacer;
-    }
-}
-</style>

@@ -2,21 +2,18 @@
 
 const path = require('path')
 
-function resolve(dir) {
-    return path.join(__dirname, '/', dir)
-}
-
 module.exports = {
+    lintOnSave: false,
     configureWebpack: {
         resolve: {
             extensions: ['.js', '.vue', '.json'],
             alias: {
-                'vue$': 'vue/dist/vue.esm.js',
-                '@': resolve('src'),
-                '~': resolve('src'),
-                'jquery': 'jquery/dist/jquery.slim.js',
-            }
-        }
+                vue$: 'vue/dist/vue.esm.js',
+                '~': path.resolve('src'),
+                '@': path.resolve('src'),
+                jquery: 'jquery/dist/jquery.slim.js',
+            },
+        },
     },
     chainWebpack: config => {
         config.module
@@ -25,6 +22,8 @@ module.exports = {
             .loader('vue-loader')
             .tap(options => {
                 options.transformAssetUrls = {
+                    video: ['src', 'poster'],
+                    source: 'src',
                     img: 'src',
                     image: 'xlink:href',
                     'b-avatar': 'src',
@@ -34,7 +33,7 @@ module.exports = {
                     'b-card-img': 'src',
                     'b-card-img-lazy': ['src', 'blank-src'],
                     'b-carousel-slide': 'img-src',
-                    'b-embed': 'src'
+                    'b-embed': 'src',
                 }
                 return options
             })
@@ -53,11 +52,11 @@ module.exports = {
     css: {
         loaderOptions: {
             sass: {
-                prependData: `
-                    @import "~@/assets/scss/variables.scss";
-                    @import "~@/assets/scss/mixins.scss";
-                `
-            }
-        }
-    }
+                // prependData: `
+                //     @import "~@/assets/scss/variables";
+                //     @import "~@/assets/scss/mixins";
+                // `,
+            },
+        },
+    },
 }

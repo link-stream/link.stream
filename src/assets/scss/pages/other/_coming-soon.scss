@@ -1,0 +1,13 @@
+.page-coming-soon {
+    font-family: $font-source-family;
+
+    .logo {
+        max-width: 100%;
+        width: 360px;
+    }
+
+    h2 {
+        font-family: $font-base-family;
+        letter-spacing: 0.25 * $spacer;
+    }
+}

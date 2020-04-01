@@ -1,5 +1,5 @@
 <template>
-    <b-container fluid class="p-4 p-sm-5">
+    <b-container fluid class="page-user-account-videos p-4 p-sm-5">
         <b-row>
             <b-col cols="12">
                 <h2 class="page-title">Your Videos</h2>
@@ -71,9 +71,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.smooth-dnd-draggable-wrapper {
-    overflow: inherit !important;
-}
-</style>

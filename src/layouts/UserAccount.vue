@@ -1,20 +1,23 @@
 <template>
-    <div id="app-container" :class="getMenuType">
-        <main>
-            <transition name="page" mode="out-in">
-                <router-view :key="$route.fullPath"></router-view>
-            </transition>
-        </main>
-        <TopNavbar />
-        <Sidebar />
-        <vue-progress-bar></vue-progress-bar>
+    <div class="layout-user-account">
+        <div :class="getMenuType">
+            <main class="layout-user-account-content">
+                <transition name="page" mode="out-in">
+                    <router-view :key="$route.fullPath"></router-view>
+                </transition>
+            </main>
+            <TopNavbar/>
+            <Sidebar/>
+            <vue-progress-bar></vue-progress-bar>
+        </div>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { call } from '~/services'
-import { TopNavbar, Sidebar } from '~/components/Views'
+import TopNavbar from './partials/UserAccount/TopNavbar'
+import Sidebar from './partials/UserAccount/Sidebar'
 
 export default {
     name: 'UserAccount',
@@ -34,18 +37,3 @@ export default {
     },
 }
 </script>
-
-<style src="~/assets/scss/main.scss" lang="scss"></style>
-<style lang="scss" scoped>
-/deep/ h2.page-title {
-    font-weight: 800;
-    color: $black;
-}
-/deep/ h6.step {
-    font-size: 0.775 * $font-size-base;
-    font-weight: 600;
-    color: $gray-500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-</style>

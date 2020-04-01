@@ -1,0 +1,24 @@
+.layout-auth {
+    .navbar {
+        height: 80px;
+        background-color: $black !important;
+        .navbar-brand .logo {
+            height: 34px;
+        }
+    }
+
+    .form-group {
+        width: 350px;
+        max-width: 100%;
+        margin: 0 auto;
+        color: $black;
+        text-align: left;
+    }
+
+    .btn-auth,
+    .btn-multiple-state {
+        width: 300px;
+        max-width: 100%;
+        line-height: 1.2;
+    }
+}

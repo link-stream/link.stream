@@ -1,0 +1,19 @@
+.page-user-account-videos-add {
+    .video_add_elements {
+        &.step-1 {
+            max-width: 500px;
+        }
+
+        &.step-2 {
+            max-width: 400px;
+        }
+
+        .youtube-container {
+            max-width: 100%;
+
+            @include media-breakpoint-down(xs) {
+                max-width: 100%;
+            }
+        }
+    }
+}

@@ -1,0 +1,334 @@
+.form-control {
+    + .btn-input-spinner {
+        position: absolute;
+        top: 2 * $spacer;
+        right: 0;
+        height: $input-height;
+        display: flex;
+        color: $linkstream-1;
+        background: none;
+        border: none;
+        box-shadow: none;
+
+        .spinner-border {
+            width: 1.2 * $font-size-base;
+            height: 1.2 * $font-size-base;
+            border-width: 2px;
+        }
+    }
+    &.is-invalid + .btn-input-spinner {
+        right: $input-height-inner-half;
+    }
+}
+
+.form-group {
+    position: relative;
+
+    > label {
+        height: 2 * $spacer;
+        margin: 0;
+    }
+
+    .form-control {
+        &:focus {
+            border-color: $input-border-color;
+            box-shadow: none;
+        }
+        &.is-valid,
+        &.is-invalid {
+            border-color: $input-border-color;
+        }
+    }
+
+    .invalid-feedback {
+        $triangle-size: 5px;
+        position: absolute;
+        top: $spacer;
+        left: 50%;
+        width: unset !important;
+        margin-top: -0.5 * $spacer;
+        padding: 0.5 * $spacer $spacer;
+        font-size: 0.76 * $font-size-base;
+        color: $input-color;
+        text-align: center;
+        background: $body-bg;
+        border: 1px solid $form-feedback-invalid-color;
+        border-radius: $input-border-radius;
+        transform: translateX(0) translateY(-50%);
+        @include depth(1);
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0.75 * $spacer;
+            left: -$triangle-size;
+            width: $triangle-size;
+            margin-left: 0;
+            border-top: solid $triangle-size transparent;
+            border-bottom: solid $triangle-size transparent;
+            border-right: solid $triangle-size $form-feedback-invalid-color;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0.75 * $spacer;
+            left: calc(1px - #{$triangle-size});
+            width: $triangle-size;
+            margin-left: 0;
+            border-top: solid $triangle-size transparent;
+            border-bottom: solid $triangle-size transparent;
+            border-right: solid $triangle-size $body-bg;
+        }
+    }
+
+    @for $i from 0 through 200 {
+        &.error-l-#{$i} .invalid-feedback {
+            left: #{$i}px;
+        }
+    }
+}
+
+/*********** Wizard ************/
+.wizard-basic-step {
+    min-height: 85px;
+}
+
+.wizard-buttons {
+    display: flex;
+
+    .disabled {
+        opacity: 0.5;
+    }
+}
+
+.wizard {
+    margin-top: -2rem;
+
+    ul.nav {
+        display: flex;
+        list-style: none;
+        flex-wrap: wrap;
+        padding-left: initial;
+        padding: initial;
+        background: initial;
+        position: relative;
+        border: initial;
+        margin-bottom: 1.5rem;
+
+        &:before {
+            content: ' ';
+            position: absolute;
+            bottom: 1px;
+            width: 100%;
+            height: 1px;
+            z-index: 0;
+            background: $gray-200;
+        }
+    }
+
+    &-default ul.nav li {
+        position: relative;
+        padding: 0.5rem 1rem;
+        text-align: center;
+
+        a,
+        a:focus {
+            color: $input-border-color;
+            span,
+            small {
+                color: $input-border-color;
+                text-align: center;
+            }
+        }
+
+        a:active,
+        a:hover {
+            color: $linkstream-1;
+            span,
+            small {
+                color: $linkstream-1;
+            }
+        }
+
+        span {
+            display: block;
+            font-weight: 700;
+            color: $input-border-color;
+        }
+
+        &.step-doing {
+            a {
+                color: $linkstream-1;
+                span,
+                small {
+                    color: $linkstream-1;
+                }
+            }
+        }
+
+        a:before {
+            content: ' ';
+            position: absolute;
+            margin-top: 10px;
+            display: block;
+            border-radius: 50%;
+            color: initial;
+            background: $gray-200;
+            border: none;
+            width: 18px;
+            height: 18px;
+            text-decoration: none;
+            z-index: 1;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -6px;
+        }
+
+        &.step-doing a:after,
+        &.step-done a:after {
+            content: ' ';
+            position: absolute;
+            margin-top: 10px;
+            display: block;
+            border-radius: 50%;
+            color: initial;
+            background: $linkstream-1;
+            border: none;
+            width: 10px;
+            height: 10px;
+            text-decoration: none;
+            z-index: 2;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -2px;
+        }
+
+        &.step-done a:after {
+            background: initial;
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='"+encodecolor(
+                    $linkstream-1
+                )+"' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
+        }
+    }
+
+    &.disabled {
+        a,
+        a:active,
+        a:hover {
+            cursor: default;
+            color: $input-border-color;
+            span,
+            small {
+                color: $input-border-color;
+            }
+        }
+
+        .step-doing {
+            a {
+                color: $linkstream-1 !important;
+                span,
+                small {
+                    color: $linkstream-1 !important;
+                }
+            }
+        }
+    }
+}
+
+@include respond-below(sm) {
+    .wizard-default ul.nav li {
+        small,
+        span {
+            display: none;
+        }
+    }
+}
+
+/*********** Vue Select ************/
+.v-select {
+    color: $input-color;
+
+    .vs__dropdown-toggle {
+        height: $input-height;
+        padding: 0;
+        border-radius: $input-border-radius;
+        border: 1px solid $input-border-color;
+
+        .vs__selected-options {
+            padding: $input-padding-y $input-padding-x;
+            font-weight: $input-font-weight;
+            line-height: $input-line-height;
+
+            .vs__selected {
+                position: initial !important;
+                margin: 0;
+                padding: 0;
+            }
+
+            .vs__search {
+                margin: 0;
+                padding: 0;
+
+                &::placeholder {
+                    color: $input-placeholder-color;
+                }
+            }
+        }
+
+        .vs__actions {
+            padding: 0 10px 0 3px;
+
+            .vs__clear {
+                display: none;
+            }
+        }
+    }
+
+    .vs__dropdown-menu {
+        padding-bottom: 0;
+        padding-top: 0;
+        max-height: 250px;
+        background: $body-bg;
+        box-shadow: initial !important;
+        border-radius: initial !important;
+        overflow: auto !important;
+
+        .vs__dropdown-option {
+            padding: 8px 12px !important;
+            color: $input-color !important;
+            background: $body-bg !important;
+            transition: initial;
+
+            &.vs__dropdown-option--highlight {
+                color: $white !important;
+                background: rgba($linkstream-1, 0.6) !important;
+            }
+            &.vs__dropdown-option--selected {
+                display: none;
+            }
+            .vs__no-options {
+                padding: 5px !important;
+            }
+        }
+    }
+
+    .vs__open-indicator {
+        width: 6px;
+        height: 6px;
+        border-style: solid;
+        border-color: $input-border-color;
+        border-width: 2px 2px 0 0;
+        vertical-align: text-top;
+        transform: rotate(133deg);
+        path {
+            display: none;
+        }
+    }
+    &.vs--open .vs__open-indicator {
+        transform: rotate(315deg);
+    }
+    &.vs--loading .vs__open-indicator {
+        opacity: 0;
+    }
+}

@@ -1,5 +1,5 @@
 <template>
-    <div id="legal-page" class="my-md-5">
+    <div class="page-legal my-md-5">
         <b-container fluid>
             <b-row>
                 <b-col lg="6" offset-lg="3">
@@ -341,27 +341,6 @@
 
 <script>
 export default {
-    name: 'Legal',
+    name: 'Legal'
 }
 </script>
-
-<style lang="scss" scoped>
-#legal-page {
-    font-family: $font-source-family;
-
-    .logo {
-        max-width: 100%;
-        width: 180px;
-    }
-    h2 {
-        font-family: $font-base-family;
-        font-weight: $font-weight-light;
-        letter-spacing: 0.25 * $spacer;
-        text-transform: uppercase;
-        margin-bottom: 2 * $spacer;
-    }
-    p {
-        text-align: justify;
-    }
-}
-</style>

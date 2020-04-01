@@ -5,7 +5,7 @@
                 :class="{ 'nav-item': true, 'step-doing': tab.isActive, 'step-done': tab.isDone }"
                 v-for="(tab, tabIndex) in tabs"
                 v-bind:key="tab.name"
-                v-if="tab.type != 'done'"
+                v-show="tab.type != 'done'"
             >
                 <a
                     :class="{

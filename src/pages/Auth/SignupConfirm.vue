@@ -1,5 +1,5 @@
 <template>
-    <div id="register-conform-page" class="my-4">
+    <div class="page-auth-signup-confirm my-4">
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-5">
@@ -42,13 +42,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-#register-conform-page {
-    p {
-        width: 350px;
-        max-width: 100%;
-        line-height: 2;
-    }
-}
-</style>

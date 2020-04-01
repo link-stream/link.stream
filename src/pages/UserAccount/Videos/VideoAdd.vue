@@ -1,5 +1,5 @@
 <template>
-    <b-container fluid class="p-4 p-sm-5">
+    <b-container fluid class="page-user-account-videos-add p-4 p-sm-5">
         <b-form @submit.stop.prevent="onSubmit" @reset="resetForm" :novalidate="true">
             <b-row>
                 <b-col cols="12" class="mb-3">
@@ -363,23 +363,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.video_add_elements {
-    &.step-1 {
-        max-width: 500px;
-    }
-
-    &.step-2 {
-        max-width: 400px;
-    }
-
-    .youtube-container {
-        max-width: 100%;
-
-        @include media-breakpoint-down(xs) {
-            max-width: 100%;
-        }
-    }
-}
-</style>

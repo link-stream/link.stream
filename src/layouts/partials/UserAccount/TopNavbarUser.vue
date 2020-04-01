@@ -1,5 +1,5 @@
 <template>
-    <div class="position-relative d-inline-block user" v-if="user">
+    <div class="top-navbar-user position-relative d-inline-block" v-if="user">
         <b-dropdown
             class="dropdown-menu-right"
             right

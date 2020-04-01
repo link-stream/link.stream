@@ -1,0 +1,12 @@
+.page-auth-login {
+    .btn-show-pwd {
+        position: absolute;
+        top: 2 * $spacer;
+        right: 0;
+        height: $input-height;
+        display: flex;
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
+}

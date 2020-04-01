@@ -23,12 +23,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.loading-indicator {
-    .spinner-border {
-        color: $loading-color;
-        animation-duration: 0.65s;
-    }
-}
-</style>

@@ -45,9 +45,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss">
-.modal-header {
-    border: none !important;
-}
-</style>

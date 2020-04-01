@@ -1,7 +1,14 @@
-import { Login, Logout, Signup, SignupConfirm, EmailConfirm, PasswordForgot, PasswordReset } from '~/pages/Auth'
-import { Landing } from '~/pages/Landing'
 import { NotFound } from '~/pages/Error'
-import { Legal } from '~/pages/Others'
+import { Legal, ComingSoon } from '~/pages/Others'
+import { 
+    Login,
+    Logout,
+    Signup,
+    SignupConfirm,
+    EmailConfirm,
+    PasswordForgot,
+    PasswordReset 
+} from '~/pages/Auth'
 import {
     UserAccountDashboard,
     UserAccountProfileEdit,
@@ -10,11 +17,11 @@ import {
 } from '~/pages/UserAccount'
 
 const routes = [
-    // Public pages
+    // Misc pages
     {
         path: '/',
-        name: 'landing',
-        component: Landing,
+        name: 'home',
+        component: ComingSoon,
         meta: { layout: 'Landing' },
     },
     {
@@ -29,7 +36,7 @@ const routes = [
         path: '/login',
         name: 'login',
         component: Login,
-        meta: { requiresGuest: true, layout: 'UserAuth' },
+        meta: { requiresGuest: true, layout: 'Auth' },
     },
     {
         path: '/logout',
@@ -41,13 +48,13 @@ const routes = [
         path: '/signup',
         name: 'signup',
         component: Signup,
-        meta: { requiresGuest: true, layout: 'UserAuth' },
+        meta: { requiresGuest: true, layout: 'Auth' },
     },
     {
         path: '/register-confirm',
         name: 'signupConfirm',
         component: SignupConfirm,
-        meta: { requiresGuest: true, layout: 'UserAuth' },
+        meta: { requiresGuest: true, layout: 'Auth' },
     },
     {
         path: '/email-confirm/:param1/:param2',
@@ -59,13 +66,13 @@ const routes = [
         path: '/forgot',
         name: 'passwordForgot',
         component: PasswordForgot,
-        meta: { requiresGuest: true, layout: 'UserAuth' },
+        meta: { requiresGuest: true, layout: 'Auth' },
     },
     {
         path: '/reset-password/:param1/:param2',
         name: 'passwordReset',
         component: PasswordReset,
-        meta: { requiresGuest: true, layout: 'UserAuth' },
+        meta: { requiresGuest: true, layout: 'Auth' },
     },
 
     // User account pages

@@ -1,0 +1,15 @@
+// Font sizes
+@each $breakpoint in map_keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+        @each $index, $value in $font-sizes {
+            .fs#{$infix}-#{$index} {
+                font-size: $value;
+            }
+        }
+    }
+}
+
+.text-black {
+    color: $black;
+}

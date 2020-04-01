@@ -1,5 +1,5 @@
 <template>
-    <div id="login-page" class="my-4">
+    <div class="page-auth-login my-4">
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-2">
@@ -169,22 +169,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-#login-form {
-    .password-form-group {
-        .form-control {
-            + .btn-show-pwd {
-                position: absolute;
-                top: 2 * $spacer;
-                right: 0;
-                height: $input-height;
-                display: flex;
-                background: none;
-                border: none;
-                box-shadow: none;
-            }
-        }
-    }
-}
-</style>

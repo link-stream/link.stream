@@ -1,4 +1,23 @@
 .page-user-account-profile-edit {
+    .banner .doka--root {
+        &[data-style-viewport*='x-comfortable'] {
+            .doka--menu {
+                top: 0;
+            }
+            .doka--button-action-cancel {
+                background-color: #2b2b2b !important;
+            }
+        }
+        &[data-style-viewport*='x-cramped'] {
+            .doka--menu {
+                bottom: -14px;
+            }
+            .doka--toolbar {
+                top: -12px;
+            }
+        }
+    }
+
     .profile-images-container {
         .banner-container {
             position: relative;

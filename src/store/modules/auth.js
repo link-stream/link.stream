@@ -2,6 +2,7 @@ import Cookies from 'js-cookie'
 import router from '~/router'
 import * as types from '../mutationTypes'
 import { isEmpty } from 'lodash'
+import { imgBase64ToSrc } from '~/utils'
 
 const PENDING_USER = 'pendingUserInfo'
 const USER_INFO = 'userInfo'
@@ -91,15 +92,18 @@ export const actions = {
 export const getters = {
     pendingUser: state => state.pendingUser,
     user: state => state.user,
-    avatar: state => {
-        // https://s3.us-east-2.amazonaws.com/files.link.stream/Dev/Profile/avatar_73_1583829696221.jpeg
-        if (state.user.image)
-            return `//s3.${process.env.VUE_APP_GOOGLE_AWS_REGION}.amazonaws.com/${process.env.VUE_APP_GOOGLE_AWS_BUCKET}/${process.env.VUE_APP_GOOGLE_AWS_DIR}/Profile/${state.user.image}`
+    userAvatar: state => {
+        const { data_image } = state.user || {}
+        if (data_image) {
+            return imgBase64ToSrc(data_image)
+        }
         return null
     },
-    profileBanner: state => {
-        if (state.user.banner)
-            return `//s3.${process.env.VUE_APP_GOOGLE_AWS_REGION}.amazonaws.com/${process.env.VUE_APP_GOOGLE_AWS_BUCKET}/${process.env.VUE_APP_GOOGLE_AWS_DIR}/Profile/${state.user.banner}`
+    userProfileBanner: state => {
+        const { data_banner } = state.user || {}
+        if (data_banner) {
+            return imgBase64ToSrc(data_banner)
+        }
         return null
     },
 }

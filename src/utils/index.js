@@ -55,3 +55,12 @@ export function setStatusChange(obj, target, value = true, callback = null, dura
         set(obj, target, null)
     }, duration)
 }
+
+/**
+ * Generate HTML image src attribute from a base64 encoded image.
+ * @param {string} base64 
+ * @return {string}
+ */
+export function imgBase64ToSrc(base64) {
+    return `data:image/jpeg;base64,${base64}`
+}

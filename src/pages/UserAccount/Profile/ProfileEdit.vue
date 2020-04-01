@@ -225,7 +225,7 @@ export default {
             },
             banner: {
                 enabled: false,
-                image: this.$store.getters.profileBanner,
+                image: null,
                 srcPrev: null,
                 src: null,
                 crop: {
@@ -238,7 +238,7 @@ export default {
             },
             avatar: {
                 enabled: false,
-                image: this.$store.getters.avatar,
+                image: null,
                 srcPrev: null,
                 src: null,
                 crop: {
@@ -275,7 +275,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['user']),
+        ...mapGetters(['user', 'userAvatar', 'userProfileBanner']),
         allCountries() {
             return csc.getAllCountries().map(obj => {
                 return {
@@ -284,6 +284,20 @@ export default {
                 }
             })
         },
+    },
+    watch: {
+        userAvatar: {
+            immediate: true,
+            handler(value) {
+                this.avatar.image = value
+            }
+        },
+        userProfileBanner: {
+            immediate: true,
+            handler(value) {
+                this.banner.image = value
+            }
+        }
     },
     mounted() {
         // URL availability validations
@@ -434,3 +448,4 @@ export default {
     },
 }
 </script>
+

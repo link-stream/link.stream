@@ -10,7 +10,7 @@
         >
             <template slot="button-content">
                 <span>
-                    <b-img v-if="avatar" :alt="user.display_name" :src="avatar" rounded="circle" class="avatar" />
+                    <b-img v-if="userAvatar" :alt="user.display_name" :src="userAvatar" rounded="circle" class="avatar" />
                     <vue-letter-avatar v-else :name="user.display_name" size="40" :rounded="true" />
                 </span>
             </template>
@@ -30,7 +30,7 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'TopNavbarUserMenu',
     computed: {
-        ...mapGetters(['user', 'avatar']),
+        ...mapGetters(['user', 'userAvatar']),
     },
     methods: {
         async logout() {

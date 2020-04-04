@@ -187,7 +187,7 @@
 import { mapGetters } from 'vuex'
 import { Validator } from 'vee-validate'
 import resize from 'vue-resize-directive'
-import { call } from '~/services'
+import { lsApi } from '~/services/lsApi'
 import { setStatusChange } from '~/utils'
 import { MultiStateButton } from '~/components/Button'
 
@@ -232,18 +232,15 @@ export default {
         ...mapGetters(['user']),
     },
     async created() {
-        // fetch genre
-        const genres = await call('/audios/genre', {}, 'GET', false)
+        const genres = await lsApi.audios.getGenres()
         if (genres.status === 'success') {
-            this.genres = [...genres.data]
+            this.genres = [ ...genres.data ]
         }
-        // fetch related tracks
-        const tracks = await call(`/audios/related_track/${this.user.id}`, {}, 'GET', false)
+        const tracks = await lsApi.audios.getRelatedTracksByUserId(this.user.id)
         if (tracks.status === 'success') {
-            this.related_tracks = [...tracks.data]
+            this.related_tracks = [ ...tracks.data ]
         }
-        // fetch visibilities
-        const visibilities = await call(`/audios/visibility/${this.user.id}`, {}, 'GET', false)
+        const visibilities = await lsApi.audios.getVisibilityByUserId(this.user.id)
         if (visibilities.status === 'success') {
             this.visibilities = Object.keys(visibilities.data).map(key => {
                 return {
@@ -305,42 +302,36 @@ export default {
                     return
                 }
                 this.status.loading.addVideo = true
-                try {
-                    const {
-                        youtube,
-                        video_name,
-                        genre,
-                        related_track,
-                        visibility,
-                        schedule_date,
-                        explicit_content,
-                    } = this.form
-                    const params = {
-                        user_id: this.user.id,
-                        url: youtube,
-                        title: video_name,
-                        genre_id: genre,
-                        related_track,
-                        public: visibility,
-                        explicit_content,
-                    }
-                    if (visibility === 3) params.publish_at = schedule_date
-                    const { status, error = null } = await call(`/videos`, params, 'POST')
-                    if (status === 'success') {
-                        setStatusChange(this, 'status.error.addVideo', false, () => {
-                            this.resetForm()
-                        })
-                        // TODO:: should store videos to vuex
-                        this.$toast.success('The video has been created successfully.')
-                    } else {
-                        setStatusChange(this, 'status.error.addVideo')
-                        this.$toast.error(error)
-                    }
-                } catch (e) {
-                    setStatusChange(this, 'status.error.addVideo')
-                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
+                const {
+                    youtube,
+                    video_name,
+                    genre,
+                    related_track,
+                    visibility,
+                    schedule_date,
+                    explicit_content,
+                } = this.form
+                const params = {
+                    user_id: this.user.id,
+                    url: youtube,
+                    title: video_name,
+                    genre_id: genre,
+                    related_track,
+                    public: visibility,
+                    explicit_content,
                 }
-
+                if (visibility === 3) params.publish_at = schedule_date
+                const { status, error  } = await lsApi.videos.createVideo(params)
+                if (status === 'success') {
+                    setStatusChange(this, 'status.error.addVideo', false, () => {
+                        this.resetForm()
+                    })
+                    // TODO:: should store videos to vuex
+                    this.$toast.success('The video has been created successfully.')
+                } else {
+                    setStatusChange(this, 'status.error.addVideo')
+                    this.$toast.error(error)
+                }
                 this.status.loading.addVideo = false
             })
         },

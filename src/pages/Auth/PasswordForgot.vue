@@ -54,7 +54,7 @@
 
 <script>
 import { setStatusChange } from '~/utils'
-import { call } from '~/services'
+import { lsApi } from '~/services/lsApi'
 import { MultiStateButton } from '~/components/Button'
 
 export default {
@@ -99,21 +99,16 @@ export default {
                     return
                 }
                 this.status.loading.reset = true
-                try {
-                    const params = { ...this.form }
-                    const { status, error = null } = await call('/users/forgot_password', params, 'POST')
-                    if (status === 'success') {
-                        setStatusChange(this, 'status.error.reset', false, () => {
-                            this.resetForm()
-                        })
-                        this.$toast.success('We have emailed password resent link successfully.')
-                    } else {
-                        setStatusChange(this, 'status.error.reset')
-                        this.$toast.error(error)
-                    }
-                } catch (e) {
+                const { email } = { ...this.form }
+                const { status, error } = await lsApi.users.forgotPassword({ email })
+                if (status === 'success') {
+                    setStatusChange(this, 'status.error.reset', false, () => {
+                        this.resetForm()
+                    })
+                    this.$toast.success('We have emailed password resent link successfully.')
+                } else {
                     setStatusChange(this, 'status.error.reset')
-                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
+                    this.$toast.error(error)
                 }
                 this.status.loading.reset = false
             })

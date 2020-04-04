@@ -97,7 +97,7 @@
 
 <script>
 import { setStatusChange } from '~/utils'
-import { call } from '~/services'
+import { lsApi } from '~/services/lsApi'
 import { authentication } from '~/mixins'
 import { MultiStateButton } from '~/components/Button'
 
@@ -147,21 +147,16 @@ export default {
                     return
                 }
                 this.status.loading.signin = true
-                try {
-                    const params = { ...this.form }
-                    const { status, data, error = null } = await call('/users/login', params, 'POST')
-                    if (status === 'success') {
-                        setStatusChange(this, 'status.error.signin', false)
-                        setTimeout(() => {
-                            this.$store.dispatch('login', { user: data })
-                        }, 1500)
-                    } else {
-                        setStatusChange(this, 'status.error.signin')
-                        this.$toast.error(error)
-                    }
-                } catch (e) {
+                const { email, password } = { ...this.form }
+                const { status, data, error } = await lsApi.users.login({ email, password })
+                if (status === 'success') {
+                    setStatusChange(this, 'status.error.signin', false)
+                    setTimeout(() => {
+                        this.$store.dispatch('login', { user: data })
+                    }, 1500)
+                } else {
                     setStatusChange(this, 'status.error.signin')
-                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
+                    this.$toast.error(error)
                 }
                 this.status.loading.signin = false
             })

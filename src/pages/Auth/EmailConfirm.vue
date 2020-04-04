@@ -1,27 +1,16 @@
 <script>
-import { call } from '~/services'
+import { lsApi } from '~/services/lsApi'
 
 export default {
     name: 'EmailConfirm',
     methods: {
         async emailConfirm() {
-            try {
-                const { param1, param2 } = this.$route.params
-                const { status, error = null } = await call(
-                    '/users/email_confirm',
-                    {
-                        param_1: param1,
-                        param_2: param2,
-                    },
-                    'POST'
-                )
-                if (status === 'success') {
-                    this.$toast.success('Thank you for your confirmation. Please login to LinkStream.')
-                } else {
-                    this.$toast.error(error)
-                }
-            } catch (e) {
-                this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
+            const { param1: param_1, param2: param_2 } = this.$route.params
+            const { status, error } = await lsApi.users.emailConfirm({ param_1, param_2 })
+            if (status === 'success') {
+                this.$toast.success('Thank you for your confirmation. Please login to LinkStream.')
+            } else {
+                this.$toast.error(error)
             }
             this.$router.push({ name: 'login' })
         },

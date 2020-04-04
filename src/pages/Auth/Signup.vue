@@ -139,7 +139,7 @@
 <script>
 import { Validator } from 'vee-validate'
 import { setStatusChange } from '~/utils'
-import { call } from '~/services'
+import { lsApi } from '~/services/lsApi'
 import { authentication } from '~/mixins'
 import { MultiStateButton } from '~/components/Button'
 
@@ -203,19 +203,12 @@ export default {
         },
         async availabilityValidator(field, value) {
             this.validating[field] = true
-            try {
-                const res = await call(`/users/availability/${field}/${value}`, {}, 'GET', false)
-                this.validating[field] = false
-                if (res.error) {
-                    return { data: { message: res.error } }
-                }
-                return { valid: true }
-            } catch (e) {
-                this.validating[field] = false
-                if (e.response.data.error) {
-                    return { data: { message: e.response.data.error } }
-                }
+            const { status, error } = await lsApi.users.availability({ type: field, value })
+            this.validating[field] = false
+            if (status !== 'success') {
+                return { data: { message: error } }
             }
+            return { valid: true }
         },
         onSubmit() {
             this.$validator.validateAll().then(async result => {
@@ -223,25 +216,20 @@ export default {
                     return
                 }
                 this.status.loading.signup = true
-                try {
-                    const params = {
-                        user_name: this.form.name,
-                        email: this.form.email,
-                        password: this.form.password,
-                    }
-                    const { status, data, error = null } = await call('/users/registration', params, 'POST')
-                    if (status === 'success') {
-                        setStatusChange(this, 'status.error.signup', false)
-                        setTimeout(() => {
-                            this.$store.dispatch('signup', { user: data })
-                        }, 1500)
-                    } else {
-                        setStatusChange(this, 'status.error.signup')
-                        this.$toast.error(error)
-                    }
-                } catch (e) {
+                const params = {
+                    user_name: this.form.name,
+                    email: this.form.email,
+                    password: this.form.password,
+                }
+                const { status, data, error } = await lsApi.users.registration(params)
+                if (status === 'success') {
+                    setStatusChange(this, 'status.error.signup', false)
+                    setTimeout(() => {
+                        this.$store.dispatch('signup', { user: data })
+                    }, 1500)
+                } else {
                     setStatusChange(this, 'status.error.signup')
-                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
+                    this.$toast.error(error)
                 }
                 this.status.loading.signup = false
             })

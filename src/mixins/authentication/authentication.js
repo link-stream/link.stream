@@ -1,6 +1,6 @@
 import GoogleLogin from 'vue-google-login'
 import { setStatusChange } from '~/utils'
-import { call } from '~/services'
+import { lsApi } from '~/services/lsApi'
 
 export default {
     components: {
@@ -32,20 +32,15 @@ export default {
             const { id_token: platform_token } = googleUser.getAuthResponse()
             if (platform_token) {
                 this.status.loading.google = true
-                try {
-                    const { status, data, error = null } = await call('/users/google', { platform_token }, 'POST')
-                    if (status === 'success') {
-                        setStatusChange(this, 'status.error.google', false)
-                        setTimeout(() => {
-                            this.$store.dispatch('login', { user: data })
-                        }, 1500)
-                    } else {
-                        setStatusChange(this, 'status.error.google')
-                        this.$toast.error(error)
-                    }
-                } catch (e) {
+                const { status, data, error } = await lsApi.users.google({ platform_token })
+                if (status === 'success') {
+                    setStatusChange(this, 'status.error.google', false)
+                    setTimeout(() => {
+                        this.$store.dispatch('login', { user: data })
+                    }, 1500)
+                } else {
                     setStatusChange(this, 'status.error.google')
-                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
+                    this.$toast.error(error)
                 }
                 this.status.loading.google = false
             }
@@ -55,24 +50,15 @@ export default {
             const { redirect_uri: redirect_url } = this.instagram
             if (code && redirect_url) {
                 this.status.loading.instagram = true
-                try {
-                    const { status, data, error = null } = await call(
-                        '/users/instagram',
-                        { code, redirect_url },
-                        'POST'
-                    )
-                    if (status === 'success') {
-                        setStatusChange(this, 'status.error.instagram', false)
-                        setTimeout(() => {
-                            this.$store.dispatch('login', { user: data })
-                        }, 1500)
-                    } else {
-                        setStatusChange(this, 'status.error.instagram')
-                        this.$toast.error(error)
-                    }
-                } catch (e) {
+                const { status, data, error } = await lsApi.users.instagram({ code, redirect_url })
+                if (status === 'success') {
+                    setStatusChange(this, 'status.error.instagram', false)
+                    setTimeout(() => {
+                        this.$store.dispatch('login', { user: data })
+                    }, 1500)
+                } else {
                     setStatusChange(this, 'status.error.instagram')
-                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
+                    this.$toast.error(error)
                 }
                 this.status.loading.instagram = false
             }

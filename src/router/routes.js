@@ -60,7 +60,7 @@ const routes = [
         path: '/email-confirm/:param1/:param2',
         name: 'emailConfirm',
         component: EmailConfirm,
-        meta: { requiresGuest: true },
+        meta: { requiresGuest: true, layout: 'Default' },
     },
     {
         path: '/forgot',

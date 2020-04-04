@@ -25,7 +25,7 @@
 import { mapGetters } from 'vuex'
 import { sortBy } from 'lodash'
 import { Container, Draggable } from 'vue-smooth-dnd'
-import { call } from '~/services'
+import { lsApi } from '~/services/lsApi'
 import { appConstants } from '~/constants'
 import { VideoCard } from '~/components/Card'
 import { MultiStateButton } from '~/components/Button'
@@ -45,12 +45,10 @@ export default {
         },
     },
     async created() {
-        // fetch videos
-        const { status, data } = await call(
-            `/videos/${this.user.id}`,
+        const { status, data } = await lsApi.videos.getVideosByUserId(
+            this.user.id, 
             { page: 1, page_size: appConstants.videosPerPage },
-            'GET',
-            false
+            { showProgress: false }
         )
         if (status === 'success') {
             this.$store.dispatch('loadVideos', { videos: data })
@@ -66,7 +64,7 @@ export default {
                 return { id: video.id, sort: (index + 1).toString() }
             })
             this.$store.dispatch('sortVideos', { sorts })
-            await call('/videos/sort_videos', { list: JSON.stringify(sorts) }, 'POST')
+            await lsApi.videos.sortVideos({ list: JSON.stringify(sorts) })
         },
     },
 }

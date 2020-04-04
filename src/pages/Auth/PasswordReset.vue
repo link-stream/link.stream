@@ -75,7 +75,7 @@
 
 <script>
 import { setStatusChange } from '~/utils'
-import { call } from '~/services'
+import { lsApi } from '~/services/lsApi'
 import { MultiStateButton } from '~/components/Button'
 
 export default {
@@ -122,35 +122,22 @@ export default {
                     return
                 }
                 this.status.loading.reset = true
-                try {
-                    const { password } = this.form
-                    const { param1, param2 } = this.$route.params
-                    const { status, error = null } = await call(
-                        '/users/password_reset',
-                        {
-                            param_1: param1,
-                            param_2: param2,
-                            new_password: password,
-                        },
-                        'POST'
+                const { password: new_password } = this.form
+                const { param1: param_1, param2: param_2 } = this.$route.params
+                const { status, error } = await lsApi.users.passwordReset({ param_1, param_2, new_password })
+                if (status === 'success') {
+                    setStatusChange(this, 'status.error.reset', false, () => {
+                        this.resetForm()
+                    })
+                    this.$toast.success(
+                        'Your password has been changed successfully. User your new password to login.'
                     )
-                    if (status === 'success') {
-                        setStatusChange(this, 'status.error.reset', false, () => {
-                            this.resetForm()
-                        })
-                        this.$toast.success(
-                            'Your password has been changed successfully. User your new password to login.'
-                        )
-                        setTimeout(() => {
-                            this.$router.push({ name: 'login' })
-                        }, 1500)
-                    } else {
-                        setStatusChange(this, 'status.error.reset')
-                        this.$toast.error(error)
-                    }
-                } catch (e) {
+                    setTimeout(() => {
+                        this.$router.push({ name: 'login' })
+                    }, 1500)
+                } else {
                     setStatusChange(this, 'status.error.reset')
-                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
+                    this.$toast.error(error)
                 }
                 this.status.loading.reset = false
             })

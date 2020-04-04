@@ -193,7 +193,7 @@ import { DokaModal, DokaOverlay, toURL } from 'vue-doka'
 import { blobToBase64 } from 'base64-blob'
 import csc from 'country-state-city'
 import { setStatusChange } from '~/utils'
-import { call } from '~/services'
+import { lsApi } from '~/services/lsApi'
 import { appConstants } from '~/constants'
 import { MultiStateButton } from '~/components/Button'
 
@@ -304,19 +304,12 @@ export default {
         Validator.extend('uniqueUrl', {
             validate: async value => {
                 this.validating.url = true
-                try {
-                    this.validating.url = false
-                    const res = await call(`/users/availability/url/${value}/${this.user.id}`, {}, 'GET', false)
-                    if (res.error) {
-                        return { data: { message: res.error } }
-                    }
-                    return { valid: true }
-                } catch (e) {
-                    this.validating.url = false
-                    if (e.response.data.error) {
-                        return { data: { message: e.response.data.error } }
-                    }
+                const { status, error } = await lsApi.users.availability({ type: 'url', value, user_id: this.user.id })
+                if (status !== 'success') {
+                    return { data: { message: error } }
                 }
+                this.validating.url = false
+                return { valid: true }
             },
             getMessage: (field, params, data) => data.message,
         })
@@ -420,27 +413,21 @@ export default {
                     return
                 }
                 this.status.loading.update = true
-                try {
-                    const { banner, avatar, display_name, first_name, last_name, url, city, country, bio } = this.form
-                    const params = { display_name, first_name, last_name, url, city, country, bio }
-                    if (banner) params.banner = banner
-                    if (avatar) params.image = avatar
-                    const { status, data, error = null } = await call(`/users/${this.user.id}`, params, 'PUT')
-                    if (status === 'success') {
-                        setStatusChange(this, 'status.error.update', false, () => {
-                            this.resetForm()
-                        })
-                        this.$store.dispatch('updateProfile', { user: data })
-                        this.$toast.success('Your profile has been updated successfully.')
-                    } else {
-                        setStatusChange(this, 'status.error.update')
-                        this.$toast.error(error)
-                    }
-                } catch (e) {
+                const { banner, avatar, display_name, first_name, last_name, url, city, country, bio } = this.form
+                const params = { display_name, first_name, last_name, url, city, country, bio }
+                if (banner) params.banner = banner
+                if (avatar) params.image = avatar
+                const { status, data, error } = await lsApi.users.updateUser(this.user.id, params)
+                if (status === 'success') {
+                    setStatusChange(this, 'status.error.update', false, () => {
+                        this.resetForm()
+                    })
+                    this.$store.dispatch('updateProfile', { user: data })
+                    this.$toast.success('Your profile has been updated successfully.')
+                } else {
                     setStatusChange(this, 'status.error.update')
-                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
+                    this.$toast.error(error)
                 }
-
                 this.status.loading.update = false
             })
         },

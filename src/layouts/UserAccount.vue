@@ -15,7 +15,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { call } from '~/services'
+import { lsApi } from '~/services/lsApi'
 import TopNavbar from '~/components/UserAccount/TopNavbar/TopNavbar'
 import Sidebar from '~/components/UserAccount/Sidebar/Sidebar'
 
@@ -29,8 +29,7 @@ export default {
         ...mapGetters(['user', 'getMenuType']),
     },
     async created() {
-        // fetch user data
-        const { status, data } = await call(`/users/${this.user.id}`, null, 'GET', false)
+        const { status, data } = await lsApi.users.getUserById(this.user.id)
         if (status === 'success') {
             this.$store.dispatch('updateProfile', { user: data })
         }

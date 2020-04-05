@@ -1,6 +1,6 @@
 <template>
     <b-container fluid class="page-user-account-videos-add p-4 p-sm-5">
-        <b-form @submit.stop.prevent="onSubmit" @reset="resetForm" :novalidate="true">
+        <b-form @submit.stop.prevent="handleSubmit" @reset="resetForm" class="form-wiz" :novalidate="true">
             <b-row>
                 <b-col cols="12" class="mb-3">
                     <h6 class="step">Step {{ step }} / 2</h6>
@@ -8,28 +8,25 @@
                 <b-col cols="12">
                     <h2 class="page-title">Add a video</h2>
                 </b-col>
-                <b-col cols="12" class="mt-2 video_add_elements" :class="`step-${step}`">
+                <b-col cols="12" class="mt-2" :class="`step-${step}`">
                     <b-row v-show="step === 1">
                         <b-col cols="12" class="mt-3">
                             <b-form-group class="mb-4 error-l-150">
                                 <slot name="label">
                                     <label for="youtube">
-                                        Youtube Video URL
+                                        YouTube Video URL
                                     </label>
                                 </slot>
                                 <b-form-input
                                     id="youtube"
-                                    name="youtube"
                                     type="text"
-                                    v-model="form.youtube"
+                                    v-model="$v.form.youtube.$model"
                                     placeholder="https://youtu.be/vwm_N2PCUz8"
-                                    v-validate="{ required: true, validYoutube: true }"
-                                    :state="validateState('youtube')"
-                                    aria-describedby="youtube-live-feedback"
-                                    data-vv-as="youtube url"
+                                    :state="!$v.form.youtube.$error"
                                 ></b-form-input>
-                                <b-form-invalid-feedback id="youtube-live-feedback">
-                                    {{ veeErrors.first('youtube') }}
+                                <b-form-invalid-feedback>
+                                    <div v-if="!$v.form.youtube.required">The YouTube URL is required</div>
+                                    <div v-else-if="!$v.form.youtube.validUrl">Invalid YouTube URL</div>
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
@@ -44,13 +41,13 @@
                             <b-form-group class="mb-4">
                                 <slot name="label">
                                     <label class="text-black font-weight-bold">
-                                        Preview & publish your content
+                                        Preview &amp; publish your content
                                     </label>
                                 </slot>
                                 <div
                                     class="youtube-container"
-                                    v-resize="onResizeYoutubeContainer"
-                                    ref="youtubue-container"
+                                    v-resize="handleResizeYoutubeContainer"
+                                    ref="youtube-container"
                                 >
                                     <youtube
                                         :video-id="$youtube.getIdFromUrl(form.youtube)"
@@ -64,50 +61,44 @@
                         <b-col cols="12">
                             <b-form-group class="mb-4 error-l-95">
                                 <slot name="label">
-                                    <label for="video_name">
+                                    <label for="videoName">
                                         Video Name
                                     </label>
                                 </slot>
                                 <b-form-input
-                                    id="video_name"
-                                    name="video_name"
+                                    id="videoName"
                                     type="text"
-                                    v-model="form.video_name"
-                                    v-validate="{ required: true, min: 10 }"
-                                    :state="validateState('video_name')"
-                                    aria-describedby="video-name-live-feedback"
-                                    data-vv-as="video name"
+                                    v-model="$v.form.videoName.$model"
+                                    :state="!$v.form.videoName.$error"
                                 ></b-form-input>
-                                <b-form-invalid-feedback id="video-name-live-feedback">
-                                    {{ veeErrors.first('video_name') }}
+                                <b-form-invalid-feedback>
+                                    <div v-if="!$v.form.videoName.required">The video name is required</div>
+                                    <div v-else-if="!$v.form.videoName.minLength">The video name must be at least {{ $v.form.videoName.$params.minLength.min }} characters</div>
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
                         <b-col cols="12">
                             <b-form-group label="Genre" label-for="genre" class="mb-4 error-l-50">
                                 <v-select
-                                    name="genre"
-                                    v-model="form.genre"
+                                    id="genre"
+                                    v-model="$v.form.genre.$model"
+                                    :class="{ 'is-invalid': $v.form.genre.$error }"
                                     placeholder="Select Genre"
                                     :options="genres"
                                     :reduce="genre => genre.id"
                                     label="genre"
-                                    v-validate="{ required: true }"
-                                    :class="{ 'is-invalid': isInvalidClass('genre') }"
-                                    aria-describedby="genre-live-feedback"
-                                    data-vv-as="genre"
                                 />
-                                <b-form-invalid-feedback id="genre-live-feedback">
-                                    {{ veeErrors.first('genre') }}
+                                <b-form-invalid-feedback>
+                                    <div v-if="!$v.form.genre.required">The genre is required</div>
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
                         <b-col cols="12">
-                            <b-form-group label="Related Track" label-for="related_track" class="mb-4">
+                            <b-form-group label="Related Track" label-for="relatedTrack" class="mb-4">
                                 <v-select
-                                    v-model="form.related_track"
+                                    v-model="form.relatedTrack"
                                     placeholder="Select Related Track"
-                                    :options="related_tracks"
+                                    :options="relatedTracks"
                                     :reduce="track => track.id"
                                     label="title"
                                 />
@@ -116,44 +107,65 @@
                         <b-col cols="12">
                             <b-form-group label="Visibility" label-for="visibility" class="mb-4 error-l-65">
                                 <v-select
-                                    name="visibility"
-                                    v-model="form.visibility"
+                                    v-model="$v.form.visibility.$model"
                                     placeholder="Select Visibility"
                                     :options="visibilities"
                                     :reduce="visibility => visibility.id"
+                                    :class="{ 'is-invalid': $v.form.visibility.$error }"
                                     label="title"
-                                    v-validate="{ required: true }"
-                                    :class="{ 'is-invalid': isInvalidClass('visibility') }"
-                                    aria-describedby="visibility-live-feedback"
-                                    data-vv-as="visibility"
                                 />
-                                <b-form-invalid-feedback id="visibility-live-feedback">
-                                    {{ veeErrors.first('visibility') }}
+                                <b-form-invalid-feedback>
+                                    <div v-if="!$v.form.visibility.required">The visibility is required</div>
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
-                        <b-col cols="12" v-if="form.visibility === 3">
-                            <b-form-group label="Publish at" label-for="schedule_date" class="mb-4 error-l-80">
+                        <b-col cols="12" v-if="isVisibilityScheduled">
+                            <b-form-group label="Publish at" label-for="pubDate" class="mb-4 error-l-80">
                                 <v-date-picker
-                                    name="schedule_date"
                                     mode="single"
                                     color="pink"
-                                    v-model="form.schedule_date"
+                                    v-model="$v.form.pubDate.$model"
+                                    :class="{ 'is-invalid': $v.form.pubDate.$error }"
                                     :input-props="{ class: 'form-control', placeholder: 'Date' }"
                                     :popover="{ visibility: 'click' }"
-                                    v-validate="{ required: true }"
-                                    :class="{ 'is-invalid': isInvalidClass('schedule_date') }"
-                                    aria-describedby="schedule-date-live-feedback"
-                                    data-vv-as="date"
                                 ></v-date-picker>
-                                <b-form-invalid-feedback id="schedule-date-live-feedback">
-                                    {{ veeErrors.first('schedule_date') }}
+                                <b-form-invalid-feedback>
+                                    <div v-if="!$v.form.pubDate.required">The date is required</div>
+                                </b-form-invalid-feedback>
+                            </b-form-group>
+                        </b-col>
+                        <b-col cols="12" v-if="isVisibilityScheduled">
+                            <b-form-group label="Timezone" label-for="pubTz" class="mb-4 error-l-80">
+                                <v-select
+                                    placeholder="Select Timezone"
+                                    v-model="$v.form.pubTz.$model"
+                                    :class="{ 'is-invalid': $v.form.pubTz.$error }"
+                                    label="zone"
+                                    :options="timezones"
+                                    :reduce="timezone => timezone.id"
+                                />
+                                <b-form-invalid-feedback>
+                                    <div v-if="!$v.form.pubTz.required">The timezone is required</div>
+                                </b-form-invalid-feedback>
+                            </b-form-group>
+                        </b-col>
+                        <b-col cols="12" v-if="isVisibilityScheduled">
+                            <b-form-group label="Time" label-for="pubTime" class="mb-4 error-l-80">
+                                <v-select
+                                    v-model="$v.form.pubTime.$model"
+                                    :class="{ 'is-invalid': $v.form.pubTime.$error }"
+                                    label="std"
+                                    :options="times"
+                                    :reduce="time => time.mil"
+                                />
+                                <b-form-invalid-feedback>
+                                    <div v-if="!$v.form.pubTime.required">The time is required</div>
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
                         <b-col cols="12">
                             <b-form-group label="Explicit Content?" class="mb-4">
-                                <b-form-radio-group v-model="form.explicit_content">
+                                <b-form-radio-group v-model="form.explicitContent">
                                     <b-form-radio :value="false">No</b-form-radio>
                                     <b-form-radio :value="true">Yes</b-form-radio>
                                 </b-form-radio-group>
@@ -190,6 +202,10 @@ import resize from 'vue-resize-directive'
 import { lsApi } from '~/services/lsApi'
 import { setStatusChange } from '~/utils'
 import { MultiStateButton } from '~/components/Button'
+import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
+import { helpers } from 'vuelidate/lib/validators'
+
+const VISIBILITY_SCHEDULED = 3
 
 export default {
     name: 'VideoAdd',
@@ -207,16 +223,20 @@ export default {
                 height: 0,
             },
             genres: [],
-            related_tracks: [],
+            relatedTracks: [],
             visibilities: [],
+            timezones: [],
+            times: [],
             form: {
                 youtube: null,
-                video_name: null,
+                videoName: null,
                 genre: null,
-                related_track: null,
+                relatedTrack: null,
                 visibility: null,
-                schedule_date: null,
-                explicit_content: false,
+                pubDate: null,
+                pubTz: null,
+                pubTime: null,
+                explicitContent: false,
             },
             status: {
                 loading: {
@@ -228,19 +248,69 @@ export default {
             },
         }
     },
+    validations: {
+        form: {
+            youtube: {
+                required,
+                validUrl(value) {
+                    return !helpers.req(value) || !!this.$youtube.getIdFromUrl(value)
+                }
+            },
+            videoName: {
+                required,
+                minLength: minLength(10)
+            },
+            genre: {
+                required,
+            },
+            visibility: {
+                required,
+            },
+            pubDate: {
+                required: requiredIf(function(value) {
+                    return this.isVisibilityScheduled
+                })
+            },
+            pubTz: {
+                required: requiredIf(function() {
+                    return this.isVisibilityScheduled
+                })
+            },
+            pubTime: {
+                required: requiredIf(function() {
+                    return this.isVisibilityScheduled
+                })
+            }
+        }
+    },
     computed: {
         ...mapGetters(['user']),
+        isVisibilityScheduled() {
+            return this.form.visibility === VISIBILITY_SCHEDULED
+        }
+    },
+    watch: {
+        step() {
+            this.$refs.youtube.player.stopVideo()
+        },
+        'form.visibility': function() {
+            this.$v.form.pubDate.$reset()
+            this.$v.form.pubTz.$reset()
+            this.$v.form.pubTime.$reset()
+        }
     },
     async created() {
         const genres = await lsApi.audios.getGenres()
         if (genres.status === 'success') {
             this.genres = [ ...genres.data ]
         }
+
         const tracks = await lsApi.audios.getRelatedTracksByUserId(this.user.id)
         if (tracks.status === 'success') {
-            this.related_tracks = [ ...tracks.data ]
+            this.relatedTracks = [ ...tracks.data ]
         }
-        const visibilities = await lsApi.audios.getVisibilityByUserId(this.user.id)
+
+        const visibilities = await lsApi.common.getVisibilityByUserId(this.user.id)
         if (visibilities.status === 'success') {
             this.visibilities = Object.keys(visibilities.data).map(key => {
                 return {
@@ -249,107 +319,95 @@ export default {
                 }
             })
         }
-    },
-    mounted() {
-        // Youtube validation
-        Validator.extend('validYoutube', {
-            validate: async value => {
-                if (this.$youtube.getIdFromUrl(value)) return { valid: true }
-                return { data: { message: 'Invalid youtube url!' } }
-            },
-            getMessage: (field, params, data) => data.message,
-        })
-    },
-    watch: {
-        step() {
-            this.$refs.youtube.player.stopVideo()
-        },
+
+        const timezones = await lsApi.common.getTimezones()
+        if (timezones.status === 'success') {
+            this.timezones = [ ...timezones.data ]
+        }
+
+        const times = await lsApi.common.getTimes()
+        this.times = times
     },
     methods: {
-        // Resize
-        onResizeYoutubeContainer() {
-            this.player.width = this.$refs['youtubue-container'].clientWidth + 'px'
-            this.player.height = this.$refs['youtubue-container'].clientWidth * 0.5625 + 'px'
-        },
-        // Form
-        validateState(ref) {
-            if (this.veeFields[ref] && (this.veeFields[ref].dirty || this.veeFields[ref].validated)) {
-                return !this.veeErrors.has(ref)
-            }
-            return null
-        },
-        isInvalidClass(ref) {
-            if (this.veeFields[ref] && (this.veeFields[ref].dirty || this.veeFields[ref].validated)) {
-                return this.veeErrors.has(ref)
-            }
-            return false
-        },
         goToStep(step) {
-            if (step == 2) {
-                this.$validator.validate('youtube').then(async result => {
-                    if (!result) {
-                        return
-                    }
-                    this.step = step
-                })
+            if (step === 2) {
+                this.$v.form.youtube.$touch()
+                if (this.$v.form.youtube.$invalid) {
+                    return
+                }
+                this.step = step
             } else {
                 this.step = step
             }
-        },
-        async onSubmit() {
-            this.$validator.validateAll().then(async result => {
-                if (!result) {
-                    return
-                }
-                this.status.loading.addVideo = true
-                const {
-                    youtube,
-                    video_name,
-                    genre,
-                    related_track,
-                    visibility,
-                    schedule_date,
-                    explicit_content,
-                } = this.form
-                const params = {
-                    user_id: this.user.id,
-                    url: youtube,
-                    title: video_name,
-                    genre_id: genre,
-                    related_track,
-                    public: visibility,
-                    explicit_content,
-                }
-                if (visibility === 3) params.publish_at = schedule_date
-                const { status, error  } = await lsApi.videos.createVideo(params)
-                if (status === 'success') {
-                    setStatusChange(this, 'status.error.addVideo', false, () => {
-                        this.resetForm()
-                    })
-                    // TODO:: should store videos to vuex
-                    this.$toast.success('The video has been created successfully.')
-                } else {
-                    setStatusChange(this, 'status.error.addVideo')
-                    this.$toast.error(error)
-                }
-                this.status.loading.addVideo = false
-            })
         },
         resetForm() {
             this.step = 1
             this.form = {
                 youtube: null,
-                video_name: null,
+                videoName: null,
                 genre: null,
-                related_track: null,
+                relatedTrack: null,
                 visibility: null,
-                schedule_date: null,
-                explicit_content: false,
+                pubDate: null,
+                pubTz: this.timezones[0],
+                pubTime: this.times[0],
+                explicitContent: false,
+            }
+            this.$v.form.$reset()
+        },
+        handleResizeYoutubeContainer() {
+            this.player.width = this.$refs['youtube-container'].clientWidth + 'px'
+            this.player.height = this.$refs['youtube-container'].clientWidth * 0.5625 + 'px'
+        },
+        async handleSubmit() {
+            this.$v.form.$touch()
+
+            if (this.$v.form.$invalid) {
+                return
             }
 
-            this.$nextTick(() => {
-                this.$validator.reset()
-            })
+            this.status.loading.addVideo = true
+
+            const {
+                youtube,
+                videoName,
+                genre,
+                relatedTrack,
+                visibility,
+                pubDate,
+                pubTz,
+                pubTime,
+                explicitContent,
+            } = this.form
+
+            const params = {
+                user_id: this.user.id,
+                url: youtube,
+                title: videoName,
+                genre_id: genre,
+                related_track: relatedTrack,
+                public: visibility,
+                explicit_content: explicitContent
+            }
+
+            if (this.isVisibilityScheduled) {
+                params.publish_at = pubDate
+                params.timezone = pubTz
+                params.time = pubTime 
+            }
+
+            const { status, error } = await lsApi.videos.createVideo(params)
+
+            if (status === 'success') {
+                setStatusChange(this, 'status.error.addVideo', false, () => {
+                    this.resetForm()
+                })
+                this.$toast.success('The video has been created successfully.')
+            } else {
+                setStatusChange(this, 'status.error.addVideo')
+                this.$toast.error(error)
+            }
+            this.status.loading.addVideo = false
         },
     },
 }

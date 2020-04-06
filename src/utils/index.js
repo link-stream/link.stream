@@ -61,7 +61,7 @@ export function setStatusChange(obj, target, value = true, callback = null, dura
  * @param {string} base64 
  * @return {string|null}
  */
-export function imgBase64ToSrc(base64) {
+export function base64ImgToSrc(base64) {
     if (base64) {
         return `data:image/jpeg;base64,${base64}`
     }

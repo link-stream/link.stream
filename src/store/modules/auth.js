@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 import router from '~/router'
 import * as types from '../mutationTypes'
 import { isEmpty } from 'lodash'
-import { imgBase64ToSrc } from '~/utils'
+import { base64ImgToSrc } from '~/utils'
 
 const PENDING_USER = 'pendingUserInfo'
 const USER_INFO = 'userInfo'
@@ -94,10 +94,10 @@ export const getters = {
     user: state => state.user,
     userAvatar: (state, getters) => {
         const { data_image } = getters.user || {}
-        return imgBase64ToSrc(data_image)
+        return base64ImgToSrc(data_image)
     },
     userProfileBanner: (state, getters) => {
         const { data_banner } = getters.user || {}
-        return imgBase64ToSrc(data_banner)
+        return base64ImgToSrc(data_banner)
     },
 }

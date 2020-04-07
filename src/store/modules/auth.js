@@ -90,7 +90,7 @@ export const actions = {
 }
 
 export const getters = {
-    token: state => user.token,
+    token: state => state.token,
     pendingUser: state => state.pendingUser,
     user: state => state.user,
     isLoggedIn: state => (state.user ? true : false),

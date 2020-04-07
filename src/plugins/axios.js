@@ -7,9 +7,9 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
     config => {
-        const { token: authToken } = app.$store.getters
-        if (authToken) {
-            config.headers.Token = authToken
+        const { token } = app.$store.getters
+        if (token) {
+            config.headers['Token'] = token
         }
 
         if (config.showProgress) {

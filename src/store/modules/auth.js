@@ -9,12 +9,16 @@ const USER_INFO = 'userInfo'
 
 // state
 const initialState = () => ({
+    token: null,
     user: null,
     pendingUser: null,
 })
 
+const user = Cookies.getJSON(USER_INFO)
+
 export const state = {
-    user: Cookies.getJSON(USER_INFO),
+    token: user ? user.token : null,
+    user: user || null,
     pendingUser: Cookies.getJSON(PENDING_USER),
 }
 
@@ -37,8 +41,10 @@ export const mutations = {
     },
 
     [types.LOGIN](state, data) {
-        state.user = data.user
-        Cookies.set(USER_INFO, data.user)
+        const { user } = data.user
+        state.user = user
+        state.token = user.token
+        Cookies.set(USER_INFO, user)
     },
 
     [types.LOGOUT]() {

@@ -4,64 +4,59 @@ import * as types from '../mutationTypes'
 import { isEmpty } from 'lodash'
 import { base64ImgToSrc } from '~/utils'
 
-const PENDING_USER = 'pendingUserInfo'
-const USER_INFO = 'userInfo'
+const COOKIE_PENDING_USER = 'pendingUserInfo'
+const COOKIE_USER_INFO = 'userInfo'
 
-// state
 const initialState = () => ({
     token: null,
     user: null,
     pendingUser: null,
 })
 
-const user = Cookies.getJSON(USER_INFO)
+const user = Cookies.getJSON(COOKIE_USER_INFO)
 
 export const state = {
     token: user ? user.token : null,
     user: user || null,
-    pendingUser: Cookies.getJSON(PENDING_USER),
+    pendingUser: Cookies.getJSON(COOKIE_PENDING_USER),
 }
 
-// mutations
 export const mutations = {
     [types.RESET](state) {
-        // acquire initial state
         const s = initialState()
         Object.keys(s).forEach(key => {
             state[key] = s[key]
         })
-        // clear cookies
-        Cookies.remove(PENDING_USER)
-        Cookies.remove(USER_INFO)
+        Cookies.remove(COOKIE_PENDING_USER)
+        Cookies.remove(COOKIE_USER_INFO)
     },
 
     [types.SIGNUP](state, data) {
         state.pendingUser = data.user
-        Cookies.set(PENDING_USER, data.user)
+        Cookies.set(COOKIE_PENDING_USER, data.user)
     },
 
     [types.LOGIN](state, data) {
-        const { user } = data.user
+        const { user } = data
         state.user = user
         state.token = user.token
-        Cookies.set(USER_INFO, user)
+        Cookies.set(COOKIE_USER_INFO, user)
     },
 
     [types.LOGOUT]() {
-        // nothing to do
+        // TODO
     },
 
     [types.UPDATE_PASSWORD]() {
-        // nothing to do
+        // TODO
     },
 
     [types.UPDATE_PROFILE](state, data) {
         state.user = data.user
-        Cookies.set(USER_INFO, data.user)
+        Cookies.set(COOKIE_USER_INFO, data.user)
     },
 }
 
-// actions
 export const actions = {
     signup({ commit }, payload) {
         const { user } = payload
@@ -71,18 +66,18 @@ export const actions = {
         }
     },
 
-    login({ commit }, payload) {
+    login({ commit, dispatch }, payload) {
         const { user } = payload
         if (!isEmpty(user)) {
             commit(types.RESET)
             commit(types.LOGIN, payload)
+            dispatch('me/loadAccountSettings')
             router.push({ name: 'userAccountDashboard' })
         }
     },
 
     async logout({ commit }) {
         commit(types.LOGOUT)
-        // reset all of state dat
         commit(types.RESET)
     },
 
@@ -94,10 +89,11 @@ export const actions = {
     },
 }
 
-// getters
 export const getters = {
+    token: state => user.token,
     pendingUser: state => state.pendingUser,
     user: state => state.user,
+    isLoggedIn: state => (state.user ? true : false),
     userAvatar: (state, getters) => {
         const { data_image } = getters.user || {}
         return base64ImgToSrc(data_image)

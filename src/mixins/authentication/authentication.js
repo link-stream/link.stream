@@ -32,7 +32,9 @@ export default {
             const { id_token: platform_token } = googleUser.getAuthResponse()
             if (platform_token) {
                 this.status.loading.google = true
-                const { status, data, error } = await lsApi.users.google({ platform_token })
+                const { status, data, error } = await lsApi.users.google({
+                    platform_token,
+                })
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.google', false)
                     setTimeout(() => {
@@ -50,7 +52,10 @@ export default {
             const { redirect_uri: redirect_url } = this.instagram
             if (code && redirect_url) {
                 this.status.loading.instagram = true
-                const { status, data, error } = await lsApi.users.instagram({ code, redirect_url })
+                const { status, data, error } = await lsApi.users.instagram({
+                    code,
+                    redirect_url,
+                })
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.instagram', false)
                     setTimeout(() => {
@@ -75,7 +80,15 @@ export default {
             const popup = window.open(
                 `https://instagram.com/oauth/authorize/?app_id=${client_id}&redirect_uri=${redirect_uri}&scope=user_profile,user_media&response_type=code`,
                 '',
-                'width=' + popupWidth + ',height=' + popupHeight + ',left=' + popupLeft + ',top=' + popupTop + ''
+                'width=' +
+                    popupWidth +
+                    ',height=' +
+                    popupHeight +
+                    ',left=' +
+                    popupLeft +
+                    ',top=' +
+                    popupTop +
+                    ''
             )
             const interval = setInterval(function() {
                 try {

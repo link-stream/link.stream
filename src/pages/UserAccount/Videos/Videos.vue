@@ -6,14 +6,15 @@
                 <label class="text-black">Add, remove, edit &amp; order videos anyway you'd like</label>
             </b-col>
             <b-col cols="12" class="my-4">
-                <MultiStateButton class="btn-action px-5" @onClick="$router.push({ name: 'userAccountVideosAdd' })">
-                    Add New Video
-                </MultiStateButton>
+                <MultiStateButton
+                    class="btn-action px-5"
+                    @onClick="$router.push({ name: 'userAccountVideosAdd' })"
+                >Add New Video</MultiStateButton>
             </b-col>
             <b-col cols="12">
                 <Container @drop="onDrop" drag-handle-selector=".dragable-selector">
                     <Draggable v-for="video in sortedVideos" :key="`video-${video.id}`">
-                        <VideoCard :video="video"></VideoCard>
+                        <VideoEditCard :video="video" />
                     </Draggable>
                 </Container>
             </b-col>
@@ -27,7 +28,7 @@ import { sortBy } from 'lodash'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import { lsApi } from '~/services/lsApi'
 import { appConstants } from '~/constants'
-import { VideoCard } from '~/components/Card'
+import VideoEditCard from '~/components/UserAccount/Videos/VideoEditCard'
 import { MultiStateButton } from '~/components/Button'
 
 export default {
@@ -35,7 +36,7 @@ export default {
     components: {
         Container,
         Draggable,
-        VideoCard,
+        VideoEditCard,
         MultiStateButton,
     },
     computed: {
@@ -46,7 +47,7 @@ export default {
     },
     async created() {
         const { status, data } = await lsApi.videos.getVideosByUserId(
-            this.user.id, 
+            this.user.id,
             { page: 1, page_size: appConstants.videosPerPage },
             { showProgress: false }
         )
@@ -57,9 +58,17 @@ export default {
     methods: {
         async onDrop(dropResult) {
             const { removedIndex, addedIndex } = dropResult
-            const moved = this.sortedVideos.find((video, index) => index === removedIndex)
-            const remaining = this.sortedVideos.filter((video, index) => index !== removedIndex)
-            const reordered = [...remaining.slice(0, addedIndex), moved, ...remaining.slice(addedIndex)]
+            const moved = this.sortedVideos.find(
+                (video, index) => index === removedIndex
+            )
+            const remaining = this.sortedVideos.filter(
+                (video, index) => index !== removedIndex
+            )
+            const reordered = [
+                ...remaining.slice(0, addedIndex),
+                moved,
+                ...remaining.slice(addedIndex),
+            ]
             const sorts = reordered.map((video, index) => {
                 return { id: video.id, sort: (index + 1).toString() }
             })

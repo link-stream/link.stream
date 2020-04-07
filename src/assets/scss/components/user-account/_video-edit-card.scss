@@ -1,0 +1,95 @@
+.editable-card-video {
+    max-width: 672px;
+    @include border-radius(4px);
+    background-color: $white;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.22);
+    margin: $spacer 0;
+    padding: $spacer;
+
+    .editable-edit {
+        padding: $spacer;
+
+        .edit-header {
+            display: flex;
+            flex-direction: row-reverse;
+            margin-bottom: $spacer;
+        }
+
+        .edit-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            box-sizing: border-box;
+            border-top: 1px solid #d7d7d7;
+            padding-top: $spacer;
+        }
+
+        .edit-save-btn {
+            font-size: 11.2px;
+        }
+
+        @include media-breakpoint-up(sm) {
+            .form {
+                max-width: 400px;
+            }
+        }
+    }
+
+    .editable-view {
+        display: flex;
+        align-items: center;
+
+        .view-body {
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+            padding: 0 $spacer;
+        }
+
+        .view-reorder {
+            cursor: move;
+            width: 24px;
+            height: 24px;
+        }
+
+        .view-img {
+            height: 107px;
+            width: 190px;
+        }
+
+        .view-title {
+            color: #333333;
+            font-family: Montserrat;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 0;
+            line-height: 16px;
+            margin: 0;
+            padding: $spacer 0 0 0;
+        }
+
+        .view-actions {
+            align-self: flex-start;
+        }
+
+        @include media-breakpoint-up(sm) {
+            .view-body {
+                flex-direction: row;
+            }
+
+            .view-img {
+                height: 69px;
+                width: 122px;
+            }
+
+            .view-title {
+                align-self: center;
+                padding: 0 0 0 $spacer;
+            }
+
+            .view-actions {
+                align-self: center;
+            }
+        }
+    }
+}

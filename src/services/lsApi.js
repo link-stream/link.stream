@@ -1,6 +1,5 @@
 import qs from 'qs'
 import axios from '~/plugins/axios'
-import store from '~/store'
 
 const METHOD_GET = 'GET'
 const METHOD_POST = 'POST'
@@ -16,12 +15,6 @@ const call = async function({
     const headers = {
         'X-API-KEY': process.env.VUE_APP_API_KEY,
         'Content-Type': 'application/x-www-form-urlencoded',
-    }
-
-    // Auth token
-    const { token } = store.state
-    if (token) {
-        headers['Token'] = token
     }
 
     const auth = {
@@ -123,7 +116,7 @@ export const lsApi = {
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
         },
-        async getRelatedTracksByUserId(user_id) {
+        async getTracksByUser(user_id) {
             const endpoint = '/audios/related_track/' + user_id
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
@@ -147,7 +140,7 @@ export const lsApi = {
         },
     },
     common: {
-        async getVisibilityByUserId(user_id) {
+        async getVisibilitiesByUser(user_id) {
             const endpoint = '/common/visibility/' + user_id
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
@@ -157,7 +150,7 @@ export const lsApi = {
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
         },
-        async getTimes() {
+        getTimes() {
             return [
                 { mil: '0', std: '12:00 AM' },
                 { mil: '15', std: '12:15 AM' },

@@ -6,8 +6,8 @@
                     <router-view :key="$route.fullPath"></router-view>
                 </transition>
             </main>
-            <TopNavbar/>
-            <Sidebar/>
+            <TopNavbar />
+            <Sidebar />
             <vue-progress-bar></vue-progress-bar>
         </div>
     </div>

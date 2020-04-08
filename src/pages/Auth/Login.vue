@@ -10,7 +10,10 @@
                         :error="status.error.instagram"
                         @onClick="authenticateInstagram"
                     >
-                        <font-awesome-icon :icon="['fab', 'instagram']" size="lg" />
+                        <font-awesome-icon
+                            :icon="['fab', 'instagram']"
+                            size="lg"
+                        />
                         <span class="m-0">Sign in with Instagram</span>
                         <span></span>
                     </MultiStateButton>
@@ -21,19 +24,37 @@
                         :params="google"
                         :onSuccess="onGoogleSuccess"
                     >
-                        <MultiStateButton google :loading="status.loading.google" :error="status.error.google">
-                            <font-awesome-icon :icon="['fab', 'google']" size="1x" />
+                        <MultiStateButton
+                            google
+                            :loading="status.loading.google"
+                            :error="status.error.google"
+                        >
+                            <font-awesome-icon
+                                :icon="['fab', 'google']"
+                                size="1x"
+                            />
                             <span class="m-0">Sign in with Google</span>
                             <span></span>
                         </MultiStateButton>
                     </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
-                    <label class="text-black fs-1 font-weight-bold">Or sign in with your email</label>
+                    <label class="text-black fs-1 font-weight-bold"
+                        >Or sign in with your email</label
+                    >
                 </b-col>
                 <b-col cols="12" class="my-3">
-                    <b-form @submit.stop.prevent="onSubmit" @reset="resetForm" :novalidate="true" id="login-form">
-                        <b-form-group label="Email Address" label-for="input_email" class="mb-4 error-l-110">
+                    <b-form
+                        @submit.stop.prevent="onSubmit"
+                        @reset="resetForm"
+                        :novalidate="true"
+                        id="login-form"
+                    >
+                        <b-form-group
+                            label="Email Address"
+                            label-for="input_email"
+                            class="mb-4 error-l-110"
+                        >
                             <b-form-input
                                 id="input_email"
                                 name="input_email"
@@ -65,10 +86,19 @@
                                 data-vv-as="password"
                                 autocomplete="current-password"
                             ></b-form-input>
-                            <b-button class="btn btn-show-pwd" variant="transparent" @click="showPwd = !showPwd">
-                                <b-icon font-scale="1.5" :icon="showPwd ? 'eye' : 'eye-slash'" />
+                            <b-button
+                                class="btn btn-show-pwd"
+                                variant="transparent"
+                                @click="showPwd = !showPwd"
+                            >
+                                <b-icon
+                                    font-scale="1.5"
+                                    :icon="showPwd ? 'eye' : 'eye-slash'"
+                                />
                             </b-button>
-                            <b-form-invalid-feedback id="password-live-feedback">
+                            <b-form-invalid-feedback
+                                id="password-live-feedback"
+                            >
                                 {{ veeErrors.first('input_password') }}
                             </b-form-invalid-feedback>
                         </b-form-group>
@@ -126,7 +156,10 @@ export default {
     },
     methods: {
         validateState(ref) {
-            if (this.veeFields[ref] && (this.veeFields[ref].dirty || this.veeFields[ref].validated)) {
+            if (
+                this.veeFields[ref] &&
+                (this.veeFields[ref].dirty || this.veeFields[ref].validated)
+            ) {
                 return !this.veeErrors.has(ref)
             }
             return null
@@ -148,11 +181,14 @@ export default {
                 }
                 this.status.loading.signin = true
                 const { email, password } = { ...this.form }
-                const { status, data, error } = await lsApi.users.login({ email, password })
+                const { status, data, error } = await lsApi.users.login({
+                    email,
+                    password,
+                })
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.signin', false)
                     setTimeout(() => {
-                        this.$store.dispatch('login', { user: data })
+                        this.$store.dispatch('auth/login', { user: data })
                     }, 1500)
                 } else {
                     setStatusChange(this, 'status.error.signin')

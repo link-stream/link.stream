@@ -1,5 +1,8 @@
 <template>
-    <div class="user-account-topnav__user-menu position-relative d-inline-block" v-if="user">
+    <div
+        class="user-account-topnav__user-menu position-relative d-inline-block"
+        v-if="user"
+    >
         <b-dropdown
             class="dropdown-menu-right"
             right
@@ -10,11 +13,24 @@
         >
             <template slot="button-content">
                 <span>
-                    <b-img v-if="userAvatar" :alt="user.display_name" :src="userAvatar" rounded="circle" class="avatar" />
-                    <vue-letter-avatar v-else :name="user.display_name" size="40" :rounded="true" />
+                    <b-img
+                        v-if="avatar"
+                        :alt="user.display_name"
+                        :src="avatar"
+                        rounded="circle"
+                        class="avatar"
+                    />
+                    <vue-letter-avatar
+                        v-else
+                        :name="user.display_name"
+                        size="40"
+                        :rounded="true"
+                    />
                 </span>
             </template>
-            <b-dropdown-item :to="{ name: 'userAccountProfileEdit' }">Account</b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'userAccountProfileEdit' }"
+                >Account</b-dropdown-item
+            >
             <b-dropdown-item>Features</b-dropdown-item>
             <b-dropdown-item>History</b-dropdown-item>
             <b-dropdown-item>Support</b-dropdown-item>
@@ -30,11 +46,14 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'TopNavbarUserMenu',
     computed: {
-        ...mapGetters(['user', 'userAvatar']),
+        ...mapGetters({
+            user: 'me/user',
+            avatar: 'me/avatar',
+        }),
     },
     methods: {
         async logout() {
-            await this.$store.dispatch('logout')
+            await this.$store.dispatch('auth/logout')
             this.$router.push({ name: 'login' })
         },
     },

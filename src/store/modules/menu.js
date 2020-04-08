@@ -1,27 +1,41 @@
-// state
-const defaultMenuType = 'menu-default menu-sub-hidden' // 'menu-default', 'menu-sub-hidden', 'menu-hidden'
-export const state = {
+// 'menu-default', 'menu-sub-hidden', 'menu-hidden'
+const defaultMenuType = 'menu-default menu-sub-hidden'
+
+const state = {
     menuType: defaultMenuType,
     clickCount: 0,
     selectedMenuHasSubItems: false,
 }
 
-// mutations
-export const mutations = {
+const mutations = {
     changeSideMenuStatus(state, payload) {
         let { classNames, step: clickIndex, selectedMenuHasSubItems } = payload
-        const currentClasses = classNames ? classNames.split(' ').filter(x => x !== '') : ''
+        const currentClasses = classNames
+            ? classNames.split(' ').filter(x => x !== '')
+            : ''
         let nextClasses = ''
         if (!selectedMenuHasSubItems) {
-            if (currentClasses.includes('menu-default') && clickIndex % 4 === 3) clickIndex = 1
+            if (currentClasses.includes('menu-default') && clickIndex % 4 === 3)
+                clickIndex = 1
 
-            if (currentClasses.includes('menu-sub-hidden') && clickIndex % 4 === 2) clickIndex = 0
+            if (
+                currentClasses.includes('menu-sub-hidden') &&
+                clickIndex % 4 === 2
+            )
+                clickIndex = 0
 
-            if (currentClasses.includes('menu-hidden') && (clickIndex % 4 === 2 || clickIndex % 4 === 3)) clickIndex = 0
+            if (
+                currentClasses.includes('menu-hidden') &&
+                (clickIndex % 4 === 2 || clickIndex % 4 === 3)
+            )
+                clickIndex = 0
         }
 
         if (clickIndex % 4 === 0) {
-            if (currentClasses.includes('menu-default') && currentClasses.includes('menu-sub-hidden')) {
+            if (
+                currentClasses.includes('menu-default') &&
+                currentClasses.includes('menu-sub-hidden')
+            ) {
                 nextClasses = 'menu-default menu-sub-hidden'
             } else if (currentClasses.includes('menu-default')) {
                 nextClasses = 'menu-default'
@@ -32,8 +46,12 @@ export const mutations = {
             }
             clickIndex = 0
         } else if (clickIndex % 4 === 1) {
-            if (currentClasses.includes('menu-default') && currentClasses.includes('menu-sub-hidden')) {
-                nextClasses = 'menu-default menu-sub-hidden main-hidden sub-hidden'
+            if (
+                currentClasses.includes('menu-default') &&
+                currentClasses.includes('menu-sub-hidden')
+            ) {
+                nextClasses =
+                    'menu-default menu-sub-hidden main-hidden sub-hidden'
             } else if (currentClasses.includes('menu-default')) {
                 nextClasses = 'menu-default sub-hidden'
             } else if (currentClasses.includes('menu-sub-hidden')) {
@@ -42,17 +60,24 @@ export const mutations = {
                 nextClasses = 'menu-hidden main-show-temporary'
             }
         } else if (clickIndex % 4 === 2) {
-            if (currentClasses.includes('menu-default') && currentClasses.includes('menu-sub-hidden')) {
+            if (
+                currentClasses.includes('menu-default') &&
+                currentClasses.includes('menu-sub-hidden')
+            ) {
                 nextClasses = 'menu-default menu-sub-hidden sub-hidden'
             } else if (currentClasses.includes('menu-default')) {
                 nextClasses = 'menu-default main-hidden sub-hidden'
             } else if (currentClasses.includes('menu-sub-hidden')) {
                 nextClasses = 'menu-sub-hidden sub-hidden'
             } else if (currentClasses.includes('menu-hidden')) {
-                nextClasses = 'menu-hidden main-show-temporary sub-show-temporary'
+                nextClasses =
+                    'menu-hidden main-show-temporary sub-show-temporary'
             }
         } else if (clickIndex % 4 === 3) {
-            if (currentClasses.includes('menu-default') && currentClasses.includes('menu-sub-hidden')) {
+            if (
+                currentClasses.includes('menu-default') &&
+                currentClasses.includes('menu-sub-hidden')
+            ) {
                 nextClasses = 'menu-default menu-sub-hidden sub-show-temporary'
             } else if (currentClasses.includes('menu-default')) {
                 nextClasses = 'menu-default sub-hidden'
@@ -76,16 +101,23 @@ export const mutations = {
     addMenuClassname(state, payload) {
         const { classname, currentClasses } = payload
 
-        const nextClasses = !currentClasses.indexOf(classname) > -1 ? currentClasses + ' ' + classname : currentClasses
+        const nextClasses =
+            !currentClasses.indexOf(classname) > -1
+                ? currentClasses + ' ' + classname
+                : currentClasses
         state.menuType = nextClasses
     },
     changeSideMenuForMobile(state, strCurrentClasses) {
         const currentClasses = strCurrentClasses
-            ? strCurrentClasses.split(' ').filter(x => x !== '' && x !== 'sub-show-temporary')
+            ? strCurrentClasses
+                  .split(' ')
+                  .filter(x => x !== '' && x !== 'sub-show-temporary')
             : ''
         let nextClasses = ''
         if (currentClasses.includes('main-show-temporary')) {
-            nextClasses = currentClasses.filter(x => x !== 'main-show-temporary').join(' ')
+            nextClasses = currentClasses
+                .filter(x => x !== 'main-show-temporary')
+                .join(' ')
         } else {
             nextClasses = currentClasses.join(' ') + ' main-show-temporary'
         }
@@ -95,11 +127,9 @@ export const mutations = {
     },
 }
 
-// actions
-export const actions = {}
+const actions = {}
 
-// getters
-export const getters = {
+const getters = {
     getMenuType(state) {
         return state.menuType
     },
@@ -109,4 +139,12 @@ export const getters = {
     getMenuClickCount(state) {
         return state.clickCount % 4
     },
+}
+
+export default {
+    namespaced: false,
+    state,
+    mutations,
+    actions,
+    getters,
 }

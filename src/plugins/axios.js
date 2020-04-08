@@ -7,7 +7,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
     config => {
-        const { token } = app.$store.getters
+        const token = app.$store.getters['auth/token']
         if (token) {
             config.headers['Token'] = token
         }

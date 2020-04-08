@@ -38,7 +38,7 @@ export default {
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.google', false)
                     setTimeout(() => {
-                        this.$store.dispatch('login', { user: data })
+                        this.$store.dispatch('auth/login', { user: data })
                     }, 1500)
                 } else {
                     setStatusChange(this, 'status.error.google')
@@ -59,7 +59,7 @@ export default {
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.instagram', false)
                     setTimeout(() => {
-                        this.$store.dispatch('login', { user: data })
+                        this.$store.dispatch('auth/login', { user: data })
                     }, 1500)
                 } else {
                     setStatusChange(this, 'status.error.instagram')

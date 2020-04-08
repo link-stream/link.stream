@@ -1,4 +1,4 @@
-import { commonTypes } from '../mutationTypes'
+import { types } from '../mutationTypes'
 import { lsApi } from '~/services/lsApi'
 
 const initialState = () => ({
@@ -7,42 +7,49 @@ const initialState = () => ({
     genres: [],
 })
 
-export const namespaced = true
-export const state = initialState()
+const state = initialState()
 
-export const mutations = {
-    [commonTypes.LOAD_TIMEZONES](state, timezones) {
-        state.timezones = timezones
+const mutations = {
+    [types.LOAD_TIMEZONES](state, data) {
+        state.timezones = data
     },
 
-    [commonTypes.LOAD_TIMES](state, times) {
-        state.times = times
+    [types.LOAD_TIMES](state, data) {
+        state.times = data
     },
 
-    [commonTypes.LOAD_GENRES](state, genres) {
-        state.genres = genres
+    [types.LOAD_GENRES](state, data) {
+        state.genres = data
     },
 }
 
-export const actions = {
+const actions = {
     async loadTimezones({ commit }) {
         const { status, data } = await lsApi.common.getTimezones()
-        status === 'success' && commit(commonTypes.LOAD_TIMEZONES, data)
+        status === 'success' && commit(types.LOAD_TIMEZONES, data)
     },
 
     async loadGenres({ commit }) {
         const { status, data } = await lsApi.audios.getGenres()
-        status === 'success' && commit(commonTypes.LOAD_GENRES, data)
+        status === 'success' && commit(types.LOAD_GENRES, data)
     },
 
     loadTimes({ commit }) {
         const times = lsApi.common.getTimes()
-        commit(commonTypes.LOAD_TIMES, times)
+        commit(types.LOAD_TIMES, times)
     },
 }
 
-export const getters = {
-    timezones: state => [...state.timezones],
-    times: state => [...state.times],
-    genres: state => [...state.genres],
+const getters = {
+    timezones: state => state.timezones,
+    times: state => state.times,
+    genres: state => state.genres,
+}
+
+export default {
+    namespaced: true,
+    state,
+    mutations,
+    actions,
+    getters,
 }

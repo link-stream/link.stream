@@ -55,12 +55,12 @@ const call = async function({
 
 export const lsApi = {
     users: {
-        async getUserById(user_id) {
-            const endpoint = '/users/' + user_id
+        async getUser(userId) {
+            const endpoint = '/users/' + userId
             return await call({ endpoint, showProgress: false })
         },
-        async updateUser(user_id, params) {
-            const endpoint = '/users/' + user_id
+        async updateUser(userId, params) {
+            const endpoint = '/users/' + userId
             const method = METHOD_PUT
             return await call({ endpoint, params, method })
         },
@@ -99,8 +99,8 @@ export const lsApi = {
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
-        async availability({ type, value, user_id = '' }) {
-            const endpoint = `/users/availability/${type}/${value}/${user_id}`
+        async availability({ type, value, userId = '' }) {
+            const endpoint = `/users/availability/${type}/${value}/${userId}`
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
         },
@@ -116,8 +116,8 @@ export const lsApi = {
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
         },
-        async getTracksByUser(user_id) {
-            const endpoint = '/audios/related_track/' + user_id
+        async getTracksByUser(userId) {
+            const endpoint = '/audios/related_track/' + userId
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
         },
@@ -129,19 +129,19 @@ export const lsApi = {
             return await call({ endpoint, params, method })
         },
         async sortVideos(params) {
-            const endpoint = '/videos/sort_videos'
+            const endpoint = '/videos/sort_videos/'
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
-        async getVideosByUserId(user_id, params) {
-            const endpoint = '/videos/' + user_id
+        async getVideosByUser(userId, params) {
+            const endpoint = '/videos/' + userId
             const method = METHOD_GET
             return await call({ endpoint, params, method, showProgress: false })
         },
     },
     common: {
-        async getVisibilitiesByUser(user_id) {
-            const endpoint = '/common/visibility/' + user_id
+        async getVisibilitiesByUser(userId) {
+            const endpoint = '/common/visibility/' + userId
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
         },

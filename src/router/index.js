@@ -22,14 +22,14 @@ router.beforeResolve((to, from, next) => {
 router.beforeEach(async (to, from, next) => {
     // middleware for access controlled pages
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (!store.getters.user) {
+        if (!store.getters['auth/user']) {
             // redirect to login if attempting to access authed page
             next({ name: 'login' })
         } else {
             next()
         }
     } else if (to.matched.some(record => record.meta.requiresGuest)) {
-        if (store.getters.user) {
+        if (store.getters['auth/user']) {
             // redirect home if attempting to access guest-only page
             next({ name: 'userAccountDashboard' })
         } else {

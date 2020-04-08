@@ -26,13 +26,7 @@ export default {
         Sidebar,
     },
     computed: {
-        ...mapGetters(['user', 'getMenuType']),
-    },
-    async created() {
-        const { status, data } = await lsApi.users.getUserById(this.user.id)
-        if (status === 'success') {
-            this.$store.dispatch('updateProfile', { user: data })
-        }
+        ...mapGetters(['getMenuType']),
     },
 }
 </script>

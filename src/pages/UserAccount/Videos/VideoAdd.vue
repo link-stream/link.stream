@@ -18,7 +18,9 @@
                         <b-col cols="12" class="mt-3">
                             <b-form-group class="mb-4 error-l-150">
                                 <slot name="label">
-                                    <label for="youtubeUrl">YouTube Video URL</label>
+                                    <label for="youtubeUrl"
+                                        >YouTube Video URL</label
+                                    >
                                 </slot>
                                 <b-form-input
                                     id="youtubeUrl"
@@ -28,26 +30,33 @@
                                     :state="!$v.form.youtubeUrl.$error"
                                 ></b-form-input>
                                 <b-form-invalid-feedback>
-                                    <div
-                                        v-if="!$v.form.youtubeUrl.required"
-                                    >The YouTube URL is required</div>
+                                    <div v-if="!$v.form.youtubeUrl.required">
+                                        The YouTube URL is required
+                                    </div>
                                     <div
                                         v-else-if="!$v.form.youtubeUrl.validUrl"
-                                    >Invalid YouTube URL</div>
+                                    >
+                                        Invalid YouTube URL
+                                    </div>
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
                         <b-col cols="12" class="my-4">
-                            <MultiStateButton class="btn-action px-5" @onClick="goToStep(2)">Next</MultiStateButton>
+                            <MultiStateButton
+                                class="btn-action px-5"
+                                @onClick="goToStep(2)"
+                                >Next</MultiStateButton
+                            >
                         </b-col>
                     </b-row>
                     <b-row v-show="step === 2">
                         <b-col cols="12">
                             <b-form-group class="mb-4">
                                 <slot name="label">
-                                    <label
-                                        class="text-black font-weight-bold"
-                                    >Preview &amp; publish your content</label>
+                                    <label class="text-black font-weight-bold"
+                                        >Preview &amp; publish your
+                                        content</label
+                                    >
                                 </slot>
                                 <div
                                     class="youtube-container"
@@ -55,7 +64,9 @@
                                     ref="youtube-container"
                                 >
                                     <youtube
-                                        :video-id="$youtube.getIdFromUrl(form.youtube)"
+                                        :video-id="
+                                            $youtube.getIdFromUrl(form.youtube)
+                                        "
                                         :width="player.width"
                                         :height="player.height"
                                         ref="youtube"
@@ -75,26 +86,40 @@
                                     :state="!$v.form.title.$error"
                                 ></b-form-input>
                                 <b-form-invalid-feedback>
-                                    <div v-if="!$v.form.title.required">The video name is required</div>
-                                    <div
-                                        v-else-if="!$v.form.title.minLength"
-                                    >The video name must be at least {{ $v.form.title.$params.minLength.min }} characters</div>
+                                    <div v-if="!$v.form.title.required">
+                                        The video name is required
+                                    </div>
+                                    <div v-else-if="!$v.form.title.minLength">
+                                        The video name must be at least
+                                        {{
+                                            $v.form.title.$params.minLength.min
+                                        }}
+                                        characters
+                                    </div>
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
                         <b-col cols="12">
-                            <b-form-group label="Genre" label-for="genre" class="mb-4 error-l-50">
+                            <b-form-group
+                                label="Genre"
+                                label-for="genre"
+                                class="mb-4 error-l-50"
+                            >
                                 <v-select
                                     id="genre"
                                     v-model="$v.form.genre.$model"
-                                    :class="{ 'is-invalid': $v.form.genre.$error }"
+                                    :class="{
+                                        'is-invalid': $v.form.genre.$error,
+                                    }"
                                     placeholder="Select Genre"
                                     :options="genres"
                                     :reduce="genre => genre.id"
                                     label="genre"
                                 />
                                 <b-form-invalid-feedback>
-                                    <div v-if="!$v.form.genre.required">The genre is required</div>
+                                    <div v-if="!$v.form.genre.required">
+                                        The genre is required
+                                    </div>
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
@@ -124,13 +149,15 @@
                                     placeholder="Select Visibility"
                                     :options="visibilities"
                                     :reduce="visibility => visibility.id"
-                                    :class="{ 'is-invalid': $v.form.visibility.$error }"
+                                    :class="{
+                                        'is-invalid': $v.form.visibility.$error,
+                                    }"
                                     label="title"
                                 />
                                 <b-form-invalid-feedback>
-                                    <div
-                                        v-if="!$v.form.visibility.required"
-                                    >The visibility is required</div>
+                                    <div v-if="!$v.form.visibility.required">
+                                        The visibility is required
+                                    </div>
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
@@ -144,12 +171,19 @@
                                     mode="single"
                                     color="pink"
                                     v-model="$v.form.pubDate.$model"
-                                    :class="{ 'is-invalid': $v.form.pubDate.$error }"
-                                    :input-props="{ class: 'form-control', placeholder: 'Date' }"
+                                    :class="{
+                                        'is-invalid': $v.form.pubDate.$error,
+                                    }"
+                                    :input-props="{
+                                        class: 'form-control',
+                                        placeholder: 'Date',
+                                    }"
                                     :popover="{ visibility: 'click' }"
                                 ></v-date-picker>
                                 <b-form-invalid-feedback>
-                                    <div v-if="!$v.form.pubDate.required">The date is required</div>
+                                    <div v-if="!$v.form.pubDate.required">
+                                        The date is required
+                                    </div>
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
@@ -162,37 +196,55 @@
                                 <v-select
                                     placeholder="Select Timezone"
                                     v-model="$v.form.pubTimezone.$model"
-                                    :class="{ 'is-invalid': $v.form.pubTimezone.$error }"
+                                    :class="{
+                                        'is-invalid':
+                                            $v.form.pubTimezone.$error,
+                                    }"
                                     label="zone"
                                     :options="timezones"
                                     :reduce="timezone => timezone.id"
                                 />
                                 <b-form-invalid-feedback>
-                                    <div
-                                        v-if="!$v.form.pubTimezone.required"
-                                    >The timezone is required</div>
+                                    <div v-if="!$v.form.pubTimezone.required">
+                                        The timezone is required
+                                    </div>
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
                         <b-col cols="12" v-if="isVisibilityScheduled">
-                            <b-form-group label="Time" label-for="pubTime" class="mb-4 error-l-80">
+                            <b-form-group
+                                label="Time"
+                                label-for="pubTime"
+                                class="mb-4 error-l-80"
+                            >
                                 <v-select
                                     v-model="$v.form.pubTime.$model"
-                                    :class="{ 'is-invalid': $v.form.pubTime.$error }"
+                                    :class="{
+                                        'is-invalid': $v.form.pubTime.$error,
+                                    }"
                                     label="std"
                                     :options="times"
                                     :reduce="time => time.mil"
                                 />
                                 <b-form-invalid-feedback>
-                                    <div v-if="!$v.form.pubTime.required">The time is required</div>
+                                    <div v-if="!$v.form.pubTime.required">
+                                        The time is required
+                                    </div>
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
                         <b-col cols="12">
-                            <b-form-group label="Explicit Content?" class="mb-4">
+                            <b-form-group
+                                label="Explicit Content?"
+                                class="mb-4"
+                            >
                                 <b-form-radio-group v-model="form.explicit">
-                                    <b-form-radio :value="false">No</b-form-radio>
-                                    <b-form-radio :value="true">Yes</b-form-radio>
+                                    <b-form-radio :value="false"
+                                        >No</b-form-radio
+                                    >
+                                    <b-form-radio :value="true"
+                                        >Yes</b-form-radio
+                                    >
                                 </b-form-radio-group>
                             </b-form-group>
                         </b-col>
@@ -201,7 +253,8 @@
                                 variant="outline-secondary"
                                 class="btn-action px-5"
                                 @onClick="goToStep(1)"
-                            >Back</MultiStateButton>
+                                >Back</MultiStateButton
+                            >
                             <MultiStateButton
                                 type="submit"
                                 class="btn-action px-5"
@@ -265,7 +318,7 @@ export default {
     },
     computed: {
         ...mapGetters({
-            user: 'user',
+            user: 'me/user',
         }),
     },
     watch: {

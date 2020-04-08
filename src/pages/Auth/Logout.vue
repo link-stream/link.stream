@@ -3,7 +3,7 @@ export default {
     name: 'logout',
     methods: {
         async logout() {
-            await this.$store.dispatch('logout')
+            await this.$store.dispatch('auth/logout')
             this.$router.push({ name: 'login' })
         },
     },

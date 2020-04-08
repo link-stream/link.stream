@@ -3,17 +3,27 @@
         <b-row>
             <b-col cols="12">
                 <h2 class="page-title">Your Videos</h2>
-                <label class="text-black">Add, remove, edit &amp; order videos anyway you'd like</label>
+                <label class="text-black"
+                    >Add, remove, edit &amp; order videos anyway you'd
+                    like</label
+                >
             </b-col>
             <b-col cols="12" class="my-4">
                 <MultiStateButton
                     class="btn-action px-5"
                     @onClick="$router.push({ name: 'userAccountVideosAdd' })"
-                >Add New Video</MultiStateButton>
+                    >Add New Video</MultiStateButton
+                >
             </b-col>
             <b-col cols="12">
-                <Container @drop="onDrop" drag-handle-selector=".dragable-selector">
-                    <Draggable v-for="video in sortedVideos" :key="`video-${video.id}`">
+                <Container
+                    @drop="onDrop"
+                    drag-handle-selector=".dragable-selector"
+                >
+                    <Draggable
+                        v-for="video in sortedVideos"
+                        :key="`video-${video.id}`"
+                    >
                         <VideoEditCard :video="video" />
                     </Draggable>
                 </Container>
@@ -40,19 +50,22 @@ export default {
         MultiStateButton,
     },
     computed: {
-        ...mapGetters(['user', 'videos']),
+        ...mapGetters({
+            user: 'me/user',
+            videos: 'me/videos',
+        }),
         sortedVideos() {
             return sortBy(this.videos, ['sort'])
         },
     },
     async created() {
-        const { status, data } = await lsApi.videos.getVideosByUserId(
+        const { status, data } = await lsApi.videos.getVideosByUser(
             this.user.id,
             { page: 1, page_size: appConstants.videosPerPage },
             { showProgress: false }
         )
         if (status === 'success') {
-            this.$store.dispatch('loadVideos', { videos: data })
+            this.$store.dispatch('me/updateVideos', { videos: data })
         }
     },
     methods: {
@@ -72,7 +85,7 @@ export default {
             const sorts = reordered.map((video, index) => {
                 return { id: video.id, sort: (index + 1).toString() }
             })
-            this.$store.dispatch('sortVideos', { sorts })
+            this.$store.dispatch('me/sortVideos', { sorts })
             await lsApi.videos.sortVideos({ list: JSON.stringify(sorts) })
         },
     },

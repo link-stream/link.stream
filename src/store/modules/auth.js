@@ -1,105 +1,89 @@
-import Cookies from 'js-cookie'
 import router from '~/router'
-import * as types from '../mutationTypes'
+import { types, authTypes } from '../mutationTypes'
 import { isEmpty } from 'lodash'
-import { base64ImgToSrc } from '~/utils'
-
-const COOKIE_PENDING_USER = 'pendingUserInfo'
-const COOKIE_USER_INFO = 'userInfo'
+import {
+    authCookie,
+    pendingUserCookie,
+    destroySessionStorage,
+} from '~/utils/auth'
 
 const initialState = () => ({
-    token: null,
     user: null,
     pendingUser: null,
 })
 
-const user = Cookies.getJSON(COOKIE_USER_INFO)
-
-export const state = {
-    token: user ? user.token : null,
-    user: user || null,
-    pendingUser: Cookies.getJSON(COOKIE_PENDING_USER),
+const state = {
+    user: authCookie.get(),
+    pendingUser: pendingUserCookie.get(),
 }
 
-export const mutations = {
+const mutations = {
     [types.RESET](state) {
         const s = initialState()
-        Object.keys(s).forEach(key => {
+        for (let key in state) {
             state[key] = s[key]
-        })
-        Cookies.remove(COOKIE_PENDING_USER)
-        Cookies.remove(COOKIE_USER_INFO)
+        }
     },
 
-    [types.SIGNUP](state, data) {
-        state.pendingUser = data.user
-        Cookies.set(COOKIE_PENDING_USER, data.user)
+    [authTypes.SIGNUP](state, data) {
+        state.pendingUser = data
     },
 
-    [types.LOGIN](state, data) {
-        const { user } = data
-        state.user = user
-        state.token = user.token
-        Cookies.set(COOKIE_USER_INFO, user)
+    [authTypes.LOGIN](state, data) {
+        const { id, token } = data
+        state.user = { id, token }
     },
 
-    [types.LOGOUT]() {
+    [authTypes.LOGOUT]() {
         // TODO
-    },
-
-    [types.UPDATE_PASSWORD]() {
-        // TODO
-    },
-
-    [types.UPDATE_PROFILE](state, data) {
-        state.user = data.user
-        Cookies.set(COOKIE_USER_INFO, data.user)
     },
 }
 
-export const actions = {
+const actions = {
+    reset: {
+        root: true,
+        handler({ commit }) {
+            commit(types.RESET)
+        },
+    },
     signup({ commit }, payload) {
         const { user } = payload
         if (!isEmpty(user)) {
-            commit(types.SIGNUP, payload)
+            commit(authTypes.SIGNUP, user)
+            pendingUserCookie.set(user)
             router.push({ name: 'signupConfirm' })
         }
     },
 
-    login({ commit, dispatch }, payload) {
+    async login({ commit, dispatch }, payload) {
         const { user } = payload
         if (!isEmpty(user)) {
             commit(types.RESET)
-            commit(types.LOGIN, payload)
-            dispatch('me/loadAccountSettings')
+            commit(authTypes.LOGIN, user)
+            await dispatch('me/loadAccount', null, { root: true })
+            authCookie.set(user)
             router.push({ name: 'userAccountDashboard' })
         }
     },
 
-    async logout({ commit }) {
-        commit(types.LOGOUT)
-        commit(types.RESET)
-    },
-
-    updateProfile({ commit }, payload) {
-        const { user } = payload
-        if (!isEmpty(user)) {
-            commit(types.UPDATE_PROFILE, payload)
-        }
+    async logout({ commit, dispatch }) {
+        commit(authTypes.LOGOUT)
+        dispatch('reset', null, { root: true })
+        destroySessionStorage()
     },
 }
 
-export const getters = {
-    token: state => state.token,
-    pendingUser: state => state.pendingUser,
+const getters = {
     user: state => state.user,
     isLoggedIn: state => (state.user ? true : false),
-    userAvatar: (state, getters) => {
-        const { data_image } = getters.user || {}
-        return base64ImgToSrc(data_image)
-    },
-    userProfileBanner: (state, getters) => {
-        const { data_banner } = getters.user || {}
-        return base64ImgToSrc(data_banner)
-    },
+    token: (state, getters) => (getters.isLoggedIn ? state.user.token : null),
+    pendingUser: state => state.pendingUser,
+}
+
+export default {
+    namespaced: true,
+    state,
+    mutations,
+    actions,
+    getters,
 }

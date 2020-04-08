@@ -16,6 +16,9 @@ export const videoFormMixin = {
             relatedTracks: ['me/tracks'],
             visibilities: ['me/visibilities'],
         }),
+        ytVidId() {
+            return this.$youtube.getIdFromUrl(this.video.url)
+        },
     },
     watch: {
         'form.visibility': function() {

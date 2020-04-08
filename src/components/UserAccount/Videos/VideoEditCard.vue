@@ -1,28 +1,29 @@
 <template>
-    <div class="editable-card editable-card-video" v-resize="handleResize">
-        <div class="editable-view" v-show="!isEditing">
-            <i class="view-reorder dragable-selector ic ic-reorder"></i>
-            <div class="view-body">
-                <div class="view-img" ref="video-container">
-                    <youtube
-                        :video-id="$youtube.getIdFromUrl(video.url)"
-                        :width="player.width"
-                        :height="player.height"
-                    ></youtube>
+    <div class="edc edc--video">
+        <section class="edc-mode-view" v-show="!isEditing">
+            <i class="edc-reorder dragable-selector ic ic-reorder"></i>
+            <div class="edc-body">
+                <div class="edc-media">
+                    <youtube :video-id="ytVidId"></youtube>
                 </div>
-                <h2 class="view-title">{{ video.title }}</h2>
+                <h2 class="edc-title">{{ video.title }}</h2>
             </div>
-            <button type="button" class="view-actions btn btn-icon" @click="edit">
+            <button
+                type="button"
+                class="edc-actions btn btn-icon"
+                @click="edit"
+            >
                 <i class="ic ic-pen"></i>
             </button>
-        </div>
-        <div class="editable-edit" v-if="isEditing">
-            <div class="edit-header">
-                <button class="btn btn-icon" @click="closeEdit">
-                    <i class="ic ic-close"></i>
-                </button>
+        </section>
+        <section class="edc-mode-edit" v-if="isEditing">
+            <button class="edc-close btn btn-icon" @click="closeEdit">
+                <i class="ic ic-close"></i>
+            </button>
+            <div class="edc-media">
+                <img :src="ytThumbUrl" />
             </div>
-            <form class="form">
+            <form class="edc-form">
                 <div class="form-group">
                     <b-form-input
                         id="title"
@@ -31,10 +32,13 @@
                         :state="!$v.form.title.$error"
                     ></b-form-input>
                     <b-form-invalid-feedback>
-                        <div v-if="!$v.form.title.required">The video name is required</div>
-                        <div
-                            v-else-if="!$v.form.title.minLength"
-                        >The video name must be at least {{ $v.form.title.$params.minLength.min }} characters</div>
+                        <div v-if="!$v.form.title.required">
+                            The video name is required
+                        </div>
+                        <div v-else-if="!$v.form.title.minLength">
+                            The video name must be at least
+                            {{ $v.form.title.$params.minLength.min }} characters
+                        </div>
                     </b-form-invalid-feedback>
                 </div>
 
@@ -48,7 +52,9 @@
                         label="genre"
                     />
                     <b-form-invalid-feedback>
-                        <div v-if="!$v.form.genre.required">The genre is required</div>
+                        <div v-if="!$v.form.genre.required">
+                            The genre is required
+                        </div>
                     </b-form-invalid-feedback>
                 </b-form-group>
 
@@ -72,7 +78,9 @@
                         label="title"
                     />
                     <b-form-invalid-feedback>
-                        <div v-if="!$v.form.visibility.required">The visibility is required</div>
+                        <div v-if="!$v.form.visibility.required">
+                            The visibility is required
+                        </div>
                     </b-form-invalid-feedback>
                 </b-form-group>
 
@@ -82,11 +90,16 @@
                         color="pink"
                         v-model="$v.form.pubDate.$model"
                         :class="{ 'is-invalid': $v.form.pubDate.$error }"
-                        :input-props="{ class: 'form-control', placeholder: 'Date' }"
+                        :input-props="{
+                            class: 'form-control',
+                            placeholder: 'Date',
+                        }"
                         :popover="{ visibility: 'click' }"
                     ></v-date-picker>
                     <b-form-invalid-feedback>
-                        <div v-if="!$v.form.pubDate.required">The date is required</div>
+                        <div v-if="!$v.form.pubDate.required">
+                            The date is required
+                        </div>
                     </b-form-invalid-feedback>
                 </b-form-group>
 
@@ -100,7 +113,9 @@
                         :reduce="timezone => timezone.id"
                     />
                     <b-form-invalid-feedback>
-                        <div v-if="!$v.form.pubTimezone.required">The timezone is required</div>
+                        <div v-if="!$v.form.pubTimezone.required">
+                            The timezone is required
+                        </div>
                     </b-form-invalid-feedback>
                 </b-form-group>
 
@@ -113,7 +128,9 @@
                         :reduce="time => time.mil"
                     />
                     <b-form-invalid-feedback>
-                        <div v-if="!$v.form.pubTime.required">The time is required</div>
+                        <div v-if="!$v.form.pubTime.required">
+                            The time is required
+                        </div>
                     </b-form-invalid-feedback>
                 </b-form-group>
 
@@ -124,38 +141,40 @@
                     </b-form-radio-group>
                 </b-form-group>
             </form>
-            <div class="edit-footer">
-                <button type="type" class="btn btn-icon">
+            <footer class="edc-footer">
+                <button type="button" class="btn btn-icon">
                     <i class="ic ic-clock"></i>
                 </button>
-                <button type="type" class="btn btn-icon">
+                <button type="button" class="btn btn-icon">
                     <i class="ic ic-eye"></i>
                 </button>
-                <button type="type" class="btn btn-icon">
+                <button type="button" class="btn btn-icon">
                     <i class="ic ic-trash"></i>
                 </button>
-                <button
-                    type="button"
-                    class="edit-save-btn btn btn-dark btn-action rounded-pill"
-                    @click="closeEdit"
-                >Save &amp; Close</button>
-            </div>
-        </div>
+                <MultiStateButton
+                    class="edc-save"
+                    type="submit"
+                    variant="black"
+                >
+                    Save &amp; Close
+                </MultiStateButton>
+            </footer>
+        </section>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import resize from 'vue-resize-directive'
 import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
 import { videoFormMixin } from '~/mixins/user-account/videos/videoForm'
+import { MultiStateButton } from '~/components/Button'
 
 export default {
     name: 'VideoCard',
-    directives: {
-        resize,
-    },
     mixins: [videoFormMixin],
+    components: {
+        MultiStateButton,
+    },
     props: {
         video: {
             type: Object,
@@ -166,10 +185,6 @@ export default {
         const video = this.video
         return {
             isEditing: false,
-            player: {
-                width: '125px',
-                height: '70px',
-            },
             form: {
                 title: video.title,
                 genre: video.genre_id,
@@ -193,6 +208,11 @@ export default {
             relatedTracks: ['me/tracks'],
             visibilities: ['me/visibilities'],
         }),
+        ytThumbUrl() {
+            return this.ytVidId
+                ? `https://img.youtube.com/vi/${this.ytVidId}/hqdefault.jpg`
+                : ''
+        },
     },
     methods: {
         edit() {
@@ -200,11 +220,6 @@ export default {
         },
         closeEdit() {
             this.isEditing = false
-        },
-        handleResize() {
-            this.player.width = this.$refs['video-container'].clientWidth + 'px'
-            this.player.height =
-                this.$refs['video-container'].clientWidth * 0.5625 + 'px'
         },
     },
 }

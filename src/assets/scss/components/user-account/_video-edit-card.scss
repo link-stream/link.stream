@@ -1,4 +1,4 @@
-.editable-card-video {
+.edc--video {
     max-width: 672px;
     @include border-radius(4px);
     background-color: $white;
@@ -6,58 +6,11 @@
     margin: $spacer 0;
     padding: $spacer;
 
-    .editable-edit {
-        padding: $spacer;
-
-        .edit-header {
-            display: flex;
-            flex-direction: row-reverse;
-            margin-bottom: $spacer;
-        }
-
-        .edit-footer {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            box-sizing: border-box;
-            border-top: 1px solid #d7d7d7;
-            padding-top: $spacer;
-        }
-
-        .edit-save-btn {
-            font-size: 11.2px;
-        }
-
-        @include media-breakpoint-up(sm) {
-            .form {
-                max-width: 400px;
-            }
-        }
-    }
-
-    .editable-view {
+    .edc-mode-view {
         display: flex;
         align-items: center;
 
-        .view-body {
-            display: flex;
-            flex-grow: 1;
-            flex-direction: column;
-            padding: 0 $spacer;
-        }
-
-        .view-reorder {
-            cursor: move;
-            width: 24px;
-            height: 24px;
-        }
-
-        .view-img {
-            height: 107px;
-            width: 190px;
-        }
-
-        .view-title {
+        .edc-title {
             color: #333333;
             font-family: Montserrat;
             font-size: 14px;
@@ -68,27 +21,93 @@
             padding: $spacer 0 0 0;
         }
 
-        .view-actions {
+        .edc-body {
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+            padding: 0 $spacer;
+        }
+
+        .edc-media,
+        .edc-media iframe {
+            height: 106.59px;
+            width: 190px;
+        }
+
+        .edc-actions {
             align-self: flex-start;
         }
 
         @include media-breakpoint-up(sm) {
-            .view-body {
+            .edc-body {
                 flex-direction: row;
             }
 
-            .view-img {
+            .edc-media,
+            .edc-media iframe {
                 height: 69px;
                 width: 122px;
             }
 
-            .view-title {
+            .edc-title {
                 align-self: center;
                 padding: 0 0 0 $spacer;
             }
 
-            .view-actions {
+            .edc-actions {
                 align-self: center;
+            }
+        }
+    }
+
+    .edc-mode-edit {
+        position: relative;
+        padding: $spacer;
+
+        .edc-header {
+            display: flex;
+            flex-direction: row-reverse;
+            margin-bottom: $spacer;
+        }
+
+        .edc-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            box-sizing: border-box;
+            border-top: 1px solid #d7d7d7;
+            padding-top: $spacer;
+        }
+
+        .edc-media {
+            display: flex;
+            margin-bottom: $spacer;
+        }
+
+        .edc-media img {
+            height: 80px;
+            width: 142px;
+        }
+
+        .edc-save {
+            margin: 0;
+            height: 35px;
+        }
+
+        .edc-close {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+        }
+
+        @include media-breakpoint-up(sm) {
+            .edc-form {
+                max-width: 400px;
+            }
+
+            .edc-media img {
+                height: 130px;
+                width: 231px;
             }
         }
     }

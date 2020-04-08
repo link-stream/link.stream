@@ -23,3 +23,15 @@
 .btn-icon:hover {
     transform: scale(1.08);
 }
+
+.btn-black {
+    color: $white;
+    background-color: $black;
+    border-color: $black;
+}
+
+.btn-black:hover {
+    color: $white;
+    background-color: $gray-900;
+    border-color: $gray-900;
+}

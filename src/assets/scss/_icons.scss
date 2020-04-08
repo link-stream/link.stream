@@ -4,26 +4,38 @@
     background-position: center;
 }
 
+.ls-reorder {
+    background-image: url(~@/../public/static/ico/reorder.svg);
+    width: 24px;
+    height: 24px;
+}
+
+.ls-close {
+    background-image: url(~@/../public/static/ico/close.svg);
+    width: 16px;
+    height: 16px;
+}
+
 .ls-edit {
-    background-image: url(~@/../public/static/img/ico/pen.svg);
+    background-image: url(~@/../public/static/ico/pen.svg);
     width: 50px;
     height: 50px;
 }
 
 .ls-trash {
-    background-image: url(~@/../public/static/img/ico/trash.svg);
-    width: 50px;
-    height: 50px;
+    background-image: url(~@/../public/static/ico/trash.svg);
+    width: 35px;
+    height: 35px;
 }
 
 .ls-eye {
-    background-image: url(~@/../public/static/img/ico/eye.svg);
-    width: 50px;
-    height: 50px;
+    background-image: url(~@/../public/static/ico/eye.svg);
+    width: 35px;
+    height: 35px;
 }
 
 .ls-clock {
-    background-image: url(~@/../public/static/img/ico/clock.svg);
-    width: 50px;
-    height: 50px;
+    background-image: url(~@/../public/static/ico/clock.svg);
+    width: 35px;
+    height: 35px;
 }

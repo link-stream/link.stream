@@ -9,29 +9,29 @@
     letter-spacing: 2px;
 }
 
-.btn-icon {
+.btn-icono {
     padding: 0;
     border: 0;
-    font-size: 0;
+    margin: 0;
+    line-height: 0;
 }
 
-.btn-icon:focus {
-    outline: none;
+.btn-icono:focus {
+    outline: 0;
     box-shadow: none;
 }
 
-.btn-icon:hover {
+.btn-icono:hover {
     transform: scale(1.08);
+    opacity: 0.9;
 }
 
 .btn-black {
-    color: $white;
+    @extend .btn-dark;
     background-color: $black;
     border-color: $black;
 }
 
 .btn-black:hover {
-    color: $white;
-    background-color: $gray-900;
-    border-color: $gray-900;
+    background-color: $gray-800;
 }

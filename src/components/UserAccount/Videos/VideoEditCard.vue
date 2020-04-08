@@ -1,25 +1,17 @@
 <template>
     <div class="edc edc--video">
         <section class="edc-mode-view" v-show="!isEditing">
-            <i class="edc-reorder dragable-selector ic ic-reorder"></i>
+            <i class="edc-reorder dragable-selector ls ls-reorder"></i>
             <div class="edc-body">
                 <div class="edc-media">
                     <youtube :video-id="ytVidId"></youtube>
                 </div>
                 <h2 class="edc-title">{{ video.title }}</h2>
             </div>
-            <button
-                type="button"
-                class="edc-actions btn btn-icon"
-                @click="edit"
-            >
-                <i class="ic ic-pen"></i>
-            </button>
+            <ButtonIcono icon="edit" class="edc-btn-edit" @click="edit" />
         </section>
         <section class="edc-mode-edit" v-if="isEditing">
-            <button class="edc-close btn btn-icon" @click="closeEdit">
-                <i class="ic ic-close"></i>
-            </button>
+            <ButtonIcono icon="close" class="edc-close" @click="closeEdit" />
             <div class="edc-media">
                 <img :src="ytThumbUrl" />
             </div>
@@ -142,17 +134,11 @@
                 </b-form-group>
             </form>
             <footer class="edc-footer">
-                <button type="button" class="btn btn-icon">
-                    <i class="ic ic-clock"></i>
-                </button>
-                <button type="button" class="btn btn-icon">
-                    <i class="ic ic-eye"></i>
-                </button>
-                <button type="button" class="btn btn-icon">
-                    <i class="ic ic-trash"></i>
-                </button>
+                <ButtonIcono icon="clock" class="edc-btn" />
+                <ButtonIcono icon="eye" class="edc-btn" />
+                <ButtonIcono icon="trash" class="edc-btn" />
                 <MultiStateButton
-                    class="edc-save"
+                    class="edc-btn edc-btn-save btn-action"
                     type="submit"
                     variant="black"
                 >
@@ -167,13 +153,14 @@
 import { mapGetters } from 'vuex'
 import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
 import { videoFormMixin } from '~/mixins/user-account/videos/videoForm'
-import { MultiStateButton } from '~/components/Button'
+import { ButtonIcono, MultiStateButton } from '~/components/Button'
 
 export default {
     name: 'VideoCard',
     mixins: [videoFormMixin],
     components: {
         MultiStateButton,
+        ButtonIcono,
     },
     props: {
         video: {

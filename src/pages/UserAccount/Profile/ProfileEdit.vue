@@ -1,5 +1,5 @@
 <template>
-    <b-container fluid class="page-user-account-profile-edit p-sm-5">
+    <b-container fluid class="page-ua-profile-edit p-sm-5">
         <b-form
             @submit.stop.prevent="onSubmit"
             @reset="resetForm"

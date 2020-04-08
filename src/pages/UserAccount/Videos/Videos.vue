@@ -1,5 +1,5 @@
 <template>
-    <b-container fluid class="page-user-account-videos p-4 p-sm-5">
+    <b-container fluid class="page-ua-vids p-4 p-sm-5">
         <b-row>
             <b-col cols="12">
                 <h2 class="page-title">Your Videos</h2>

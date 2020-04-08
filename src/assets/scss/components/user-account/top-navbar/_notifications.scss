@@ -1,10 +1,11 @@
-.user-account-topnav__notif {
+.notifs {
     .badge.count {
         position: absolute;
         left: 50%;
         border: 2px solid black;
     }
-    .notifications-menu {
+
+    .notifs-menu {
         width: 300px;
         height: 250px;
         font-size: $font-size-sm !important;

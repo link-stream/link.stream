@@ -1,5 +1,5 @@
 <template>
-    <b-container fluid class="page-user-account-videos-add p-4 p-sm-5">
+    <b-container fluid class="page-ua-vids-add p-4 p-sm-5">
         <b-form
             @submit.stop.prevent="handleSubmit"
             @reset="resetForm"

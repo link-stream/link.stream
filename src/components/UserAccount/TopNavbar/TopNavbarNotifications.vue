@@ -1,18 +1,24 @@
 <template>
-    <div class="user-account-topnav__notif position-relative d-inline-block">
+    <div class="notifs position-relative d-inline-block">
         <b-dropdown
             variant="link"
             size="sm"
             right
             toggle-class="text-decoration-none"
-            menu-class="position-absolute notifications-menu px-3 py-0"
+            menu-class="position-absolute notifs-menu px-3 py-0"
             no-caret
         >
             <template slot="button-content">
-                <font-awesome-icon :icon="['fas', 'bell']" class="text-white" size="2x" />
+                <font-awesome-icon
+                    :icon="['fas', 'bell']"
+                    class="text-white"
+                    size="2x"
+                />
                 <b-badge pill variant="danger count">3</b-badge>
             </template>
-            <vue-perfect-scrollbar :settings="{ suppressScrollX: true, wheelPropagation: false }">
+            <vue-perfect-scrollbar
+                :settings="{ suppressScrollX: true, wheelPropagation: false }"
+            >
                 <div
                     class="d-flex flex-row p-2"
                     :class="{ 'border-top': index > 0 }"
@@ -20,7 +26,9 @@
                     :key="index"
                 >
                     <b-img
-                        :src="require(`@/assets/img/profile/${notification.img}`)"
+                        :src="
+                            require(`@/assets/img/profile/${notification.img}`)
+                        "
                         :alt="notification.title"
                         rounded="circle"
                         class="avatar"

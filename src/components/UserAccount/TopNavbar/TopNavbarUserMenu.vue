@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="user-account-topnav__user-menu position-relative d-inline-block"
-        v-if="user"
-    >
+    <div class="user-menu position-relative d-inline-block" v-if="user">
         <b-dropdown
             class="dropdown-menu-right"
             right

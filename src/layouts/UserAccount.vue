@@ -1,7 +1,7 @@
 <template>
-    <div class="layout-user-account">
+    <div class="layout-ua">
         <div :class="getMenuType">
-            <main class="layout-user-account__content">
+            <main class="layout-content">
                 <transition name="page" mode="out-in">
                     <router-view :key="$route.fullPath"></router-view>
                 </transition>

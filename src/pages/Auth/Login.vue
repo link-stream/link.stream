@@ -1,5 +1,5 @@
 <template>
-    <div class="page-auth-login my-4">
+    <div class="page-login my-4">
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-2">

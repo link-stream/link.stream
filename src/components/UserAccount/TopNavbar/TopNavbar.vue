@@ -1,5 +1,11 @@
 <template>
-    <b-navbar class="user-account-topnav" toggleable="lg" type="dark" variant="dark" fixed="top">
+    <b-navbar
+        class="ua-topnav"
+        toggleable="lg"
+        type="dark"
+        variant="dark"
+        fixed="top"
+    >
         <b-navbar-brand to="/">
             <Logo1 />
         </b-navbar-brand>
@@ -9,10 +15,10 @@
             </a>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
-            <TopNavbarNotifications/>
+            <TopNavbarNotifications />
         </b-navbar-nav>
         <b-navbar-nav>
-            <TopNavbarUserMenu/>
+            <TopNavbarUserMenu />
         </b-navbar-nav>
     </b-navbar>
 </template>
@@ -39,9 +45,15 @@ export default {
         }),
         isHidden() {
             if (window.innerWidth < appConstants.menuHiddenBreakpoint) {
-                return !(this.menuType.includes('menu-mobile') && this.menuType.includes('main-show-temporary'))
+                return !(
+                    this.menuType.includes('menu-mobile') &&
+                    this.menuType.includes('main-show-temporary')
+                )
             } else {
-                return this.menuType.includes('main-hidden') && this.menuType.includes('sub-hidden')
+                return (
+                    this.menuType.includes('main-hidden') &&
+                    this.menuType.includes('sub-hidden')
+                )
             }
         },
     },
@@ -51,7 +63,10 @@ export default {
             if (window.innerWidth < appConstants.menuHiddenBreakpoint) {
                 this.changeSideMenuForMobile(this.menuType)
             } else {
-                this.changeSideMenuStatus({ step: this.menuClickCount + 1, classNames: this.menuType })
+                this.changeSideMenuStatus({
+                    step: this.menuClickCount + 1,
+                    classNames: this.menuType,
+                })
             }
         },
     },

@@ -1,41 +1,29 @@
-.ic {
+.ls {
     display: inline-block;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.ic-reorder {
-    background-image: url(~@/assets/img/ico/reorder.svg);
-    width: 24px;
-    height: 24px;
-}
-
-.ic-close {
-    background-image: url(~@/assets/img/ico/close.svg);
-    width: 16px;
-    height: 16px;
-}
-
-.ic-pen {
-    background-image: url(~@/assets/img/ico/pen.svg);
+.ls-edit {
+    background-image: url(~@/../public/static/img/ico/pen.svg);
     width: 50px;
     height: 50px;
 }
 
-.ic-trash {
-    background-image: url(~@/assets/img/ico/trash.svg);
+.ls-trash {
+    background-image: url(~@/../public/static/img/ico/trash.svg);
     width: 50px;
     height: 50px;
 }
 
-.ic-eye {
-    background-image: url(~@/assets/img/ico/eye.svg);
+.ls-eye {
+    background-image: url(~@/../public/static/img/ico/eye.svg);
     width: 50px;
     height: 50px;
 }
 
-.ic-clock {
-    background-image: url(~@/assets/img/ico/clock.svg);
+.ls-clock {
+    background-image: url(~@/../public/static/img/ico/clock.svg);
     width: 50px;
     height: 50px;
 }

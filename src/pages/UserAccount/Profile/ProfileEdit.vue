@@ -1,20 +1,12 @@
 <template>
     <b-container fluid class="page-ua-profile-edit p-sm-5">
-        <b-form
-            @submit.stop.prevent="onSubmit"
-            @reset="resetForm"
-            :novalidate="true"
-        >
+        <b-form @submit.stop.prevent="onSubmit" @reset="resetForm" :novalidate="true">
             <b-row>
                 <b-col cols="12" class="d-none d-sm-block">
                     <h2 class="page-title">Edit your profile</h2>
                 </b-col>
                 <b-col cols="12" class="profile-images-container mt-sm-4">
-                    <div
-                        class="banner-container"
-                        ref="banner-container"
-                        v-resize="onResize"
-                    >
+                    <div class="banner-container" ref="banner-container" v-resize="onResize">
                         <DokaOverlay
                             utils="crop,resize"
                             class="banner"
@@ -34,14 +26,8 @@
                             />
                             <img :src="banner.image" />
                         </DokaOverlay>
-                        <b-button
-                            v-if="!banner.enabled"
-                            @click="$refs['banner'].click()"
-                        >
-                            <font-awesome-icon
-                                :icon="['fas', 'camera']"
-                                size="lg"
-                            />
+                        <b-button v-if="!banner.enabled" @click="$refs['banner'].click()">
+                            <font-awesome-icon :icon="['fas', 'camera']" size="lg" />
                         </b-button>
                     </div>
                     <div class="avatar-container">
@@ -61,14 +47,8 @@
                                 :rounded="true"
                             />
                         </div>
-                        <b-button
-                            v-if="!avatar.enabled"
-                            @click="$refs['avatar'].click()"
-                        >
-                            <font-awesome-icon
-                                :icon="['fas', 'camera']"
-                                size="lg"
-                            />
+                        <b-button v-if="!avatar.enabled" @click="$refs['avatar'].click()">
+                            <font-awesome-icon :icon="['fas', 'camera']" size="lg" />
                         </b-button>
                     </div>
                     <DokaModal
@@ -105,19 +85,12 @@
                                 ></b-form-input>
                                 <b-form-invalid-feedback
                                     id="display-name-live-feedback"
-                                >
-                                    {{ veeErrors.first('display_name') }}
-                                </b-form-invalid-feedback>
+                                >{{ veeErrors.first('display_name') }}</b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
                         <b-col cols="12">
-                            <b-form-group
-                                label="Profile URL"
-                                class="mb-4 error-l-100"
-                            >
-                                <label class="small text-muted"
-                                    >link.stream/</label
-                                >
+                            <b-form-group label="Profile URL" class="mb-4 error-l-100">
+                                <label class="small text-muted">link.stream/</label>
                                 <template v-if="form.editableUrl">
                                     <b-form-input
                                         id="url"
@@ -143,33 +116,23 @@
                                     </b-button>
                                     <b-form-invalid-feedback
                                         id="url-live-feedback"
-                                    >
-                                        {{ veeErrors.first('url') }}
-                                    </b-form-invalid-feedback>
+                                    >{{ veeErrors.first('url') }}</b-form-invalid-feedback>
                                 </template>
                                 <template v-else>
                                     <label class="small">{{ form.url }}</label>
                                 </template>
-                                <b-button
-                                    pill
+                                <CopyButton
                                     variant="outline-secondary"
-                                    size="sm"
-                                    class="ml-4 btn-customize-url"
+                                    class="ml-3"
                                     @click="handleCustomizeUrl"
                                 >
-                                    <template v-if="form.editableUrl"
-                                        >Done</template
-                                    >
+                                    <template v-if="form.editableUrl">Done</template>
                                     <template v-else>Customize</template>
-                                </b-button>
+                                </CopyButton>
                             </b-form-group>
                         </b-col>
                         <b-col sm="6">
-                            <b-form-group
-                                label="First name"
-                                label-for="first_name"
-                                class="mb-4"
-                            >
+                            <b-form-group label="First name" label-for="first_name" class="mb-4">
                                 <b-form-input
                                     id="first_name"
                                     name="first_name"
@@ -179,11 +142,7 @@
                             </b-form-group>
                         </b-col>
                         <b-col sm="6">
-                            <b-form-group
-                                label="Last name"
-                                label-for="last_name"
-                                class="mb-4"
-                            >
+                            <b-form-group label="Last name" label-for="last_name" class="mb-4">
                                 <b-form-input
                                     id="last_name"
                                     name="last_name"
@@ -193,25 +152,12 @@
                             </b-form-group>
                         </b-col>
                         <b-col sm="6">
-                            <b-form-group
-                                label="City"
-                                label-for="city"
-                                class="mb-4"
-                            >
-                                <b-form-input
-                                    id="city"
-                                    name="city"
-                                    type="text"
-                                    v-model="form.city"
-                                ></b-form-input>
+                            <b-form-group label="City" label-for="city" class="mb-4">
+                                <b-form-input id="city" name="city" type="text" v-model="form.city"></b-form-input>
                             </b-form-group>
                         </b-col>
                         <b-col sm="6">
-                            <b-form-group
-                                label="Country"
-                                label-for="country"
-                                class="mb-4"
-                            >
+                            <b-form-group label="Country" label-for="country" class="mb-4">
                                 <v-select
                                     v-model="form.country"
                                     :options="allCountries"
@@ -221,11 +167,7 @@
                             </b-form-group>
                         </b-col>
                         <b-col cols="12">
-                            <b-form-group
-                                label="Bio"
-                                label-for="bio"
-                                class="mb-4"
-                            >
+                            <b-form-group label="Bio" label-for="bio" class="mb-4">
                                 <b-form-textarea
                                     id="bio"
                                     name="bio"
@@ -238,16 +180,12 @@
                     </b-row>
                 </b-col>
                 <b-col cols="12" class="mb-5">
-                    <MultiStateButton
+                    <SpinnerButton
                         type="submit"
-                        class="px-5 text-uppercase mt-5"
+                        class="mt-5"
                         :loading="status.loading.update"
                         :error="status.error.update"
-                    >
-                        <span></span>
-                        <span class="m-0">Save Updates</span>
-                        <span></span>
-                    </MultiStateButton>
+                    >Save Updates</SpinnerButton>
                 </b-col>
             </b-row>
         </b-form>
@@ -264,7 +202,7 @@ import csc from 'country-state-city'
 import { setStatusChange } from '~/utils'
 import { lsApi } from '~/services/lsApi'
 import { appConstants } from '~/constants'
-import { MultiStateButton } from '~/components/Button'
+import { SpinnerButton, CopyButton } from '~/components/Button'
 
 export default {
     name: 'ProfileEdit',
@@ -274,7 +212,8 @@ export default {
     components: {
         DokaModal,
         DokaOverlay,
-        MultiStateButton,
+        SpinnerButton,
+        CopyButton,
     },
     data() {
         const user = this.$store.getters['me/user']
@@ -367,7 +306,7 @@ export default {
                 const { status, error } = await lsApi.users.availability({
                     type: 'url',
                     value,
-                    user_id: this.user.id,
+                    userId: this.user.id,
                 })
                 if (status !== 'success') {
                     return { data: { message: error } }

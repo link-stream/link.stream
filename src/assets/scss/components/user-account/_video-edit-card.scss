@@ -10,6 +10,10 @@
         display: flex;
         align-items: center;
 
+        .edc-drag {
+            cursor: move;
+        }
+
         .edc-title {
             color: #333333;
             font-family: Montserrat;
@@ -34,7 +38,7 @@
             width: 190px;
         }
 
-        .edc-btn-edit {
+        .edc-edit {
             align-self: flex-start;
         }
 
@@ -54,7 +58,7 @@
                 padding: 0 0 0 $spacer;
             }
 
-            .edc-btn-edit {
+            .edc-edit {
                 align-self: center;
             }
         }
@@ -88,12 +92,6 @@
             width: 142px;
         }
 
-        .edc-btn-save {
-            margin: 0;
-            height: 35px;
-            font-size: 0.85rem;
-        }
-
         @include media-breakpoint-up(sm) {
             .edc-form {
                 max-width: 400px;
@@ -106,7 +104,7 @@
 
             .edc-footer {
                 justify-content: flex-end;
-                .edc-btn {
+                .btn {
                     margin: 0 0.45rem;
                 }
             }

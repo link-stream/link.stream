@@ -1,6 +1,9 @@
 $linkstream-1: #dc2ea6;
 $linkstream-2: #4f9bcf;
 $linkstream-3: #939598;
+$linkstream-4: #9d9d9d;
+$linkstream-5: #f5f5f5;
+$linkstream-6: #dbdbdb;
 
 $white: #fff;
 $gray-100: #f8f9fa;
@@ -33,6 +36,22 @@ $warning: $yellow;
 $danger: $red;
 $light: $gray-200;
 $dark: $gray-800;
+
+$theme-colors: ();
+$theme-colors: map-merge(
+    (
+        'primary': $primary,
+        'secondary': $secondary,
+        'success': $success,
+        'info': $info,
+        'warning': $warning,
+        'danger': $danger,
+        'light': $light,
+        'dark': $dark,
+        'black': $black,
+    ),
+    $theme-colors
+);
 
 // Spacer
 $spacer: 1rem;
@@ -71,8 +90,10 @@ $input-focus-box-shadow: none;
 $input-border-radius: 0;
 
 // Button
-$input-btn-line-height: 2;
-$input-btn-padding-y: 0.45rem;
+//$input-btn-line-height: 2.715;
+$input-btn-padding-y: 1.725rem;
+$input-btn-padding-x: 2.15rem;
+$input-btn-font-size: 1rem;
 $btn-border-radius: 0;
 
 // Form validation
@@ -135,7 +156,7 @@ $navbar-height: 80px;
 $main-menu-width: 128px;
 $main-menu-item-height: 85px;
 $main-menu-bg: #333333;
-$main-menu-color: #9d9d9d;
+$main-menu-color: $linkstream-4;
 $main-menu-active-color: white;
 $main-menu-border-color: #555555;
 $main-menu-selector-color: #fdd311;

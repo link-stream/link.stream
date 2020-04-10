@@ -3,9 +3,7 @@
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="mt-5">
-                    <h2 class="text-black font-weight-bolder">
-                        Forgot Password?
-                    </h2>
+                    <h2 class="text-black font-weight-bolder">Forgot Password?</h2>
                     <p class="fs-1 mx-auto my-4">
                         Enter the email address you used at sign up and we’ll
                         send you password reset instructions.
@@ -34,24 +32,21 @@
                                 data-vv-as="email"
                                 autocomplete="username"
                             ></b-form-input>
-                            <b-form-invalid-feedback id="email-live-feedback">
-                                {{ veeErrors.first('input_email') }}
-                            </b-form-invalid-feedback>
+                            <b-form-invalid-feedback
+                                id="email-live-feedback"
+                            >{{ veeErrors.first('input_email') }}</b-form-invalid-feedback>
                         </b-form-group>
-                        <MultiStateButton
+                        <SpinnerButton
                             type="submit"
                             class="text-uppercase mt-5"
                             :loading="status.loading.reset"
                             :error="status.error.reset"
-                        >
-                            <span></span>
-                            <span class="m-0">Reset</span>
-                            <span></span>
-                        </MultiStateButton>
+                        >Reset</SpinnerButton>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-2">
-                    Need help? <b-link to="/" class="ml-2">Contact Us</b-link>
+                    Need help?
+                    <b-link to="/" class="ml-2">Contact Us</b-link>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-2">
                     Already have an account?
@@ -65,12 +60,12 @@
 <script>
 import { setStatusChange } from '~/utils'
 import { lsApi } from '~/services/lsApi'
-import { MultiStateButton } from '~/components/Button'
+import { SpinnerButton } from '~/components/Button'
 
 export default {
     name: 'PasswordForgot',
     components: {
-        MultiStateButton,
+        SpinnerButton,
     },
     data() {
         return {

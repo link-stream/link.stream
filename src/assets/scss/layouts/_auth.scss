@@ -15,10 +15,17 @@
         text-align: left;
     }
 
-    .btn-auth,
-    .btn-multiple-state {
-        width: 300px;
-        max-width: 100%;
-        line-height: 1.2;
+    .page-login,
+    .page-signup {
+        .btn-g-login {
+            width: 300px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .btn-auth {
+            width: 300px;
+        }
     }
 }

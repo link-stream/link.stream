@@ -1,21 +1,23 @@
 <template>
-    <button class="btn btn-icono" :type="type" @click="handleClick">
-        <i :class="`${classPrefix}${icon}`"></i>
+    <button class="btn btn-icon" :type="type" @click="handleClick">
+        <slot>
+            <Icon :name="icon" />
+        </slot>
     </button>
 </template>
 
 <script>
+import { Icon } from '~/components/Icon'
+
 export default {
-    name: 'ButtonIcono',
+    name: 'IconButton',
+    components: {
+        Icon,
+    },
     props: {
         type: {
             type: String,
             default: 'button',
-        },
-        // Class prefix e.g. fas fa-
-        classPrefix: {
-            type: String,
-            default: 'ls ls-',
         },
         icon: {
             type: String,

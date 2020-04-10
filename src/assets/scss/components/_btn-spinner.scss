@@ -1,4 +1,4 @@
-@-webkit-keyframes multi-state-button-sk-bouncedelay {
+@-webkit-keyframes btn-spinner-sk-bouncedelay {
     0%,
     80%,
     100% {
@@ -10,7 +10,7 @@
     }
 }
 
-@keyframes multi-state-button-sk-bouncedelay {
+@keyframes btn-spinner-sk-bouncedelay {
     0%,
     80%,
     100% {
@@ -24,19 +24,10 @@
     }
 }
 
-.btn-multiple-state {
-    position: relative;
-    height: 50px;
-    margin: auto;
-    padding: 0 1.25 * $spacer;
-    font-weight: $font-weight-semi-bold;
+.btn-spinner {
     transition: opacity 500ms;
 
-    &:focus {
-        box-shadow: none;
-    }
-
-    &.instagram {
+    &.is-ig {
         background: linear-gradient(
             135deg,
             #a624d2 0%,
@@ -53,15 +44,33 @@
         }
     }
 
-    &.google {
+    &.is-g {
         background-color: #d44c4c;
         &:not(:disabled):not(.disabled):active {
             background-color: #d44c4c;
         }
     }
 
+    &.is-g,
+    &.is-ig {
+        text-transform: none;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 15px;
+        height: 50px;
+        padding: 0 1.25 * $spacer;
+    }
+
+    .ig-ico,
+    .g-ico {
+        position: absolute;
+        left: 17px;
+        top: 18px;
+    }
+
     .spinner,
-    .icon {
+    .s-ico {
         position: absolute;
         left: 0;
         right: 0;
@@ -71,17 +80,14 @@
         top: 50%;
         transform: translateY(-50%);
         transition: opacity 500ms;
-        // color: $button-text-color;
     }
 
-    .icon i {
-        vertical-align: text-bottom;
+    .s-ico-succ,
+    .s-ico-fail {
         font-size: 18px;
     }
 
     .label {
-        display: flex;
-        justify-content: space-between;
         transition: opacity 500ms;
     }
 
@@ -101,7 +107,7 @@
             opacity: 0;
         }
 
-        .icon.success {
+        .s-ico-succ {
             opacity: 1;
             visibility: visible;
         }
@@ -112,7 +118,7 @@
             opacity: 0;
         }
 
-        .icon.fail {
+        .s-ico-fail {
             opacity: 1;
             visibility: visible;
         }
@@ -128,10 +134,9 @@
             background-color: white;
             border-radius: 100%;
             display: inline-block;
-            -webkit-animation: multi-state-button-sk-bouncedelay 1.2s infinite
+            -webkit-animation: btn-spinner-sk-bouncedelay 1.2s infinite
                 ease-in-out both;
-            animation: multi-state-button-sk-bouncedelay 1.2s infinite
-                ease-in-out both;
+            animation: btn-spinner-sk-bouncedelay 1.2s infinite ease-in-out both;
 
             &.bounce1 {
                 -webkit-animation-delay: -0.32s;

@@ -1,40 +1,45 @@
 .ls {
     display: inline-block;
+}
+
+.ls:before {
+    content: '';
+    display: inline-block;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.ls-reorder {
+.ls-reorder:before {
     background-image: url(~@/../public/static/ico/reorder.svg);
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 14px;
 }
 
-.ls-close {
+.ls-close:before {
     background-image: url(~@/../public/static/ico/close.svg);
     width: 16px;
     height: 16px;
 }
 
-.ls-edit {
+.ls-edit:before {
     background-image: url(~@/../public/static/ico/pen.svg);
     width: 50px;
     height: 50px;
 }
 
-.ls-trash {
+.ls-trash:before {
     background-image: url(~@/../public/static/ico/trash.svg);
     width: 35px;
     height: 35px;
 }
 
-.ls-eye {
+.ls-eye:before {
     background-image: url(~@/../public/static/ico/eye.svg);
     width: 35px;
     height: 35px;
 }
 
-.ls-clock {
+.ls-clock:before {
     background-image: url(~@/../public/static/ico/clock.svg);
     width: 35px;
     height: 35px;

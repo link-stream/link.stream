@@ -1,42 +1,35 @@
 <template>
     <b-button
         pill
-        :variant="variant"
         :type="type"
+        :variant="variant"
+        :disabled="loading"
+        @click="handleClick"
         :class="{
-            'btn-multiple-state': true,
-            instagram,
-            google,
+            'btn-spinner': true,
             'show-spinner': loading,
             'show-success': !loading && error === false,
             'show-fail': !loading && error,
+            'is-ig': instagram,
+            'is-g': google,
         }"
-        :disabled="loading"
-        @click="click"
     >
-        <span class="spinner d-inline-block">
+        <span class="spinner">
             <span class="bounce1"></span>
             <span class="bounce2"></span>
             <span class="bounce3"></span>
         </span>
-        <span class="icon success">
-            <font-awesome-icon :icon="['far', 'check-circle']" size="lg" />
-        </span>
-        <span class="icon fail">
-            <i class="simple-icon-exclamation"></i>
-            <font-awesome-icon :icon="['fas', 'exclamation-triangle']" size="lg" />
-        </span>
-        <div class="label">
+        <i class="s-ico s-ico-succ far fa-check-circle"></i>
+        <i class="s-ico s-ico-fail fas fa-exclamation-triangle"></i>
+        <span class="label">
             <slot></slot>
-        </div>
+        </span>
     </b-button>
 </template>
 
 <script>
-import { noop } from 'lodash'
-
 export default {
-    name: 'MultiStateButton',
+    name: 'SpinnerButton',
     props: {
         type: {
             type: String,
@@ -46,14 +39,6 @@ export default {
             type: String,
             default: 'primary',
         },
-        instagram: {
-            type: Boolean,
-            default: false,
-        },
-        google: {
-            type: Boolean,
-            default: false,
-        },
         loading: {
             type: Boolean,
             default: false,
@@ -62,14 +47,18 @@ export default {
             type: Boolean,
             default: null,
         },
-        onClick: {
-            type: Function,
-            default: noop,
+        instagram: {
+            type: Boolean,
+            default: false,
+        },
+        google: {
+            type: Boolean,
+            default: false,
         },
     },
     methods: {
-        click() {
-            this.$emit('onClick')
+        handleClick() {
+            this.$emit('click')
         },
     },
 }

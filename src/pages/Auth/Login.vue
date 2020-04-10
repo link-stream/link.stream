@@ -3,45 +3,34 @@
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-2">
-                    <MultiStateButton
+                    <SpinnerButton
                         instagram
                         class="btn-auth"
                         :loading="status.loading.instagram"
                         :error="status.error.instagram"
-                        @onClick="authenticateInstagram"
+                        @click="authenticateInstagram"
                     >
-                        <font-awesome-icon
-                            :icon="['fab', 'instagram']"
-                            size="lg"
-                        />
-                        <span class="m-0">Sign in with Instagram</span>
-                        <span></span>
-                    </MultiStateButton>
+                        <i class="ig-ico fab fa-instagram fa-lg"></i> Signin with Instagram
+                    </SpinnerButton>
                 </b-col>
                 <b-col cols="12" class="my-2">
                     <GoogleLogin
-                        class="btn-auth btn-transparent col px-0"
+                        class="btn-g-login col"
                         :params="google"
                         :onSuccess="onGoogleSuccess"
                     >
-                        <MultiStateButton
+                        <SpinnerButton
                             google
+                            class="btn-auth"
                             :loading="status.loading.google"
                             :error="status.error.google"
                         >
-                            <font-awesome-icon
-                                :icon="['fab', 'google']"
-                                size="1x"
-                            />
-                            <span class="m-0">Sign in with Google</span>
-                            <span></span>
-                        </MultiStateButton>
+                            <i class="g-ico fab fa-google fa-1x"></i> Signin with Google
+                        </SpinnerButton>
                     </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
-                    <label class="text-black fs-1 font-weight-bold"
-                        >Or sign in with your email</label
-                    >
+                    <label class="text-black fs-1 font-weight-bold">Or sign in with your email</label>
                 </b-col>
                 <b-col cols="12" class="my-3">
                     <b-form
@@ -66,9 +55,9 @@
                                 data-vv-as="email"
                                 autocomplete="username"
                             ></b-form-input>
-                            <b-form-invalid-feedback id="email-live-feedback">
-                                {{ veeErrors.first('input_email') }}
-                            </b-form-invalid-feedback>
+                            <b-form-invalid-feedback
+                                id="email-live-feedback"
+                            >{{ veeErrors.first('input_email') }}</b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group
                             label="Password"
@@ -91,34 +80,26 @@
                                 variant="transparent"
                                 @click="showPwd = !showPwd"
                             >
-                                <b-icon
-                                    font-scale="1.5"
-                                    :icon="showPwd ? 'eye' : 'eye-slash'"
-                                />
+                                <b-icon font-scale="1.5" :icon="showPwd ? 'eye' : 'eye-slash'" />
                             </b-button>
                             <b-form-invalid-feedback
                                 id="password-live-feedback"
-                            >
-                                {{ veeErrors.first('input_password') }}
-                            </b-form-invalid-feedback>
+                            >{{ veeErrors.first('input_password') }}</b-form-invalid-feedback>
                         </b-form-group>
-                        <MultiStateButton
+                        <SpinnerButton
                             type="submit"
-                            class="btn-auth text-uppercase mt-5"
+                            class="btn-auth mt-5"
                             :loading="status.loading.signin"
                             :error="status.error.signin"
-                        >
-                            <span></span>
-                            <span class="m-0">Sign In</span>
-                            <span></span>
-                        </MultiStateButton>
+                        >Sign In</SpinnerButton>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="my-3">
                     <b-link to="/forgot">Forgot Password?</b-link>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-4">
-                    Don't have an account? <b-link to="/signup">Sign up</b-link>
+                    Don't have an account?
+                    <b-link to="/signup">Sign up</b-link>
                 </b-col>
             </b-row>
         </b-container>
@@ -129,13 +110,13 @@
 import { setStatusChange } from '~/utils'
 import { lsApi } from '~/services/lsApi'
 import { authentication } from '~/mixins'
-import { MultiStateButton } from '~/components/Button'
+import { SpinnerButton } from '~/components/Button'
 
 export default {
     name: 'Login',
     mixins: [authentication],
     components: {
-        MultiStateButton,
+        SpinnerButton,
     },
     data() {
         return {

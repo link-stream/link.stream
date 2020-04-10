@@ -9,16 +9,10 @@
             no-caret
         >
             <template slot="button-content">
-                <font-awesome-icon
-                    :icon="['fas', 'bell']"
-                    class="text-white"
-                    size="2x"
-                />
+                <font-awesome-icon :icon="['fas', 'bell']" class="text-white" size="2x" />
                 <b-badge pill variant="danger count">3</b-badge>
             </template>
-            <vue-perfect-scrollbar
-                :settings="{ suppressScrollX: true, wheelPropagation: false }"
-            >
+            <vue-perfect-scrollbar :settings="{ suppressScrollX: true, wheelPropagation: false }">
                 <div
                     class="d-flex flex-row p-2"
                     :class="{ 'border-top': index > 0 }"
@@ -33,13 +27,9 @@
                         rounded="circle"
                         class="avatar"
                     />
-                    <div class="pl-3 pr-2">
-                        {{ notification.title }}
-                    </div>
+                    <div class="pl-3 pr-2">{{ notification.title }}</div>
                     <div class="d-flex justify-content-center">
-                        <MultiStateButton class="pink">
-                            Follow
-                        </MultiStateButton>
+                        <SpinnerButton class="pink">Follow</SpinnerButton>
                     </div>
                 </div>
             </vue-perfect-scrollbar>
@@ -48,13 +38,13 @@
 </template>
 
 <script>
-import { MultiStateButton } from '~/components/Button'
+import { SpinnerButton } from '~/components/Button'
 import notifications from '~/data/notifications'
 
 export default {
     name: 'TopNavbarNotifications',
     components: {
-        MultiStateButton,
+        SpinnerButton,
     },
     data() {
         return {

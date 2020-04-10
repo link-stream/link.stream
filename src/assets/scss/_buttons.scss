@@ -1,37 +1,67 @@
+.btn {
+    position: relative;
+    font-weight: bold;
+    letter-spacing: 0.125rem;
+    text-transform: uppercase;
+}
+
+.btn-secondary {
+    @include button-variant($linkstream-5, $linkstream-5);
+    color: $linkstream-4;
+    border-color: transparent;
+    &:hover {
+        border-color: transparent;
+    }
+}
+
+.btn-outline-secondary {
+    @include button-outline-variant($linkstream-5, $linkstream-5);
+    color: $black;
+    border-color: $linkstream-6;
+    &:hover {
+        color: $black;
+    }
+}
+
+.btn-copy {
+    color: #000000;
+    text-transform: none;
+    font-weight: normal;
+}
+
+.btn-copy.btn-sm {
+    font-size: 11px;
+    letter-spacing: 0;
+    line-height: 23px;
+    padding: 0 12px;
+}
+
 .btn-transparent {
     background: none;
     border: none;
 }
 
-.btn-action {
-    font-weight: $font-weight-semi-bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+.btn-black {
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: $gray-800;
+    }
 }
 
-.btn-icono {
-    padding: 0;
+.btn-icon {
+    padding: 0.5rem;
     border: 0;
     margin: 0;
     line-height: 0;
 }
 
-.btn-icono:focus {
+.btn-icon:focus {
     outline: 0;
     box-shadow: none;
 }
 
-.btn-icono:hover {
+.btn-icon:hover {
     transform: scale(1.08);
-    opacity: 0.9;
-}
-
-.btn-black {
-    @extend .btn-dark;
-    background-color: $black;
-    border-color: $black;
-}
-
-.btn-black:hover {
-    background-color: $gray-800;
+    opacity: 0.75;
 }

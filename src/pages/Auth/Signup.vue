@@ -3,45 +3,36 @@
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-2">
-                    <MultiStateButton
+                    <SpinnerButton
                         instagram
                         class="btn-auth"
                         :loading="status.loading.instagram"
                         :error="status.error.instagram"
-                        @onClick="authenticateInstagram"
+                        @click="authenticateInstagram"
                     >
-                        <font-awesome-icon
-                            :icon="['fab', 'instagram']"
-                            size="lg"
-                        />
-                        <span class="m-0">Sign up with Instagram</span>
-                        <span></span>
-                    </MultiStateButton>
+                        <i class="ig-ico fab fa-instagram fa-lg"></i>
+                        Sign up with Instagram
+                    </SpinnerButton>
                 </b-col>
                 <b-col cols="12" class="my-2">
                     <GoogleLogin
-                        class="btn-auth btn-transparent col px-0"
+                        class="btn-g-login col"
                         :params="google"
                         :onSuccess="onGoogleSuccess"
                     >
-                        <MultiStateButton
+                        <SpinnerButton
                             google
+                            class="btn-auth"
                             :loading="status.loading.google"
                             :error="status.error.google"
                         >
-                            <font-awesome-icon
-                                :icon="['fab', 'google']"
-                                size="1x"
-                            />
-                            <span class="m-0">Sign up with Google</span>
-                            <span></span>
-                        </MultiStateButton>
+                            <i class="g-ico fab fa-google fa-1x"></i>
+                            Sign up with Google
+                        </SpinnerButton>
                     </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
-                    <label class="text-black fs-1 font-weight-bold"
-                        >Or sign up with your email</label
-                    >
+                    <label class="text-black fs-1 font-weight-bold">Or sign up with your email</label>
                 </b-col>
                 <b-col cols="12" class="my-3">
                     <b-form
@@ -70,8 +61,7 @@
                                 data-vv-as="username"
                                 data-vv-delay="200"
                                 autocomplete="off"
-                            >
-                            </b-form-input>
+                            ></b-form-input>
                             <b-button
                                 variant="transparent"
                                 class="btn btn-input-spinner"
@@ -81,9 +71,7 @@
                             </b-button>
                             <b-form-invalid-feedback
                                 id="username-live-feedback"
-                            >
-                                {{ veeErrors.first('input_username') }}
-                            </b-form-invalid-feedback>
+                            >{{ veeErrors.first('input_username') }}</b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group
                             label="Email Address"
@@ -113,9 +101,9 @@
                             >
                                 <b-spinner></b-spinner>
                             </b-button>
-                            <b-form-invalid-feedback id="email-live-feedback">
-                                {{ veeErrors.first('input_email') }}
-                            </b-form-invalid-feedback>
+                            <b-form-invalid-feedback
+                                id="email-live-feedback"
+                            >{{ veeErrors.first('input_email') }}</b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group
                             label="Password"
@@ -136,9 +124,7 @@
                             ></b-form-input>
                             <b-form-invalid-feedback
                                 id="password-live-feedback"
-                            >
-                                {{ veeErrors.first('input_password') }}
-                            </b-form-invalid-feedback>
+                            >{{ veeErrors.first('input_password') }}</b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group
                             label="Retype Password"
@@ -162,32 +148,19 @@
                             ></b-form-input>
                             <b-form-invalid-feedback
                                 id="password-confirm-live-feedback"
-                            >
-                                {{ veeErrors.first('input_password_confirm') }}
-                            </b-form-invalid-feedback>
+                            >{{ veeErrors.first('input_password_confirm') }}</b-form-invalid-feedback>
                         </b-form-group>
-                        <b-form-group
-                            class="fs--2 text-center text-gray mb-2 px-md-5"
-                        >
+                        <b-form-group class="fs--2 text-center text-gray mb-2 px-md-5">
                             By clicking Sign Up below, you agree to our
-                            <b-link to="/legal" target="_blank"
-                                >Terms of Use</b-link
-                            >
-                            and
-                            <b-link to="/legal" target="_blank"
-                                >Privacy Policy</b-link
-                            >.
+                            <b-link to="/legal" target="_blank">Terms of Use</b-link>and
+                            <b-link to="/legal" target="_blank">Privacy Policy</b-link>.
                         </b-form-group>
-                        <MultiStateButton
+                        <SpinnerButton
                             type="submit"
-                            class="btn-auth text-uppercase mt-5"
+                            class="btn-auth mt-5"
                             :loading="status.loading.signup"
                             :error="status.error.signup"
-                        >
-                            <span></span>
-                            <span class="m-0">Sign Up</span>
-                            <span></span>
-                        </MultiStateButton>
+                        >Sign Up</SpinnerButton>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-4">
@@ -204,13 +177,13 @@ import { Validator } from 'vee-validate'
 import { setStatusChange } from '~/utils'
 import { lsApi } from '~/services/lsApi'
 import { authentication } from '~/mixins'
-import { MultiStateButton } from '~/components/Button'
+import { SpinnerButton } from '~/components/Button'
 
 export default {
     name: 'Signup',
     mixins: [authentication],
     components: {
-        MultiStateButton,
+        SpinnerButton,
     },
     data() {
         return {

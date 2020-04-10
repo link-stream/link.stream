@@ -15,6 +15,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import Vuelidate from 'vuelidate'
+import { AlertBox } from '@/components/Alert'
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
@@ -79,3 +80,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // Install Vuelidate
 Vue.use(Vuelidate)
+
+// Install AlertBox
+Vue.prototype.$alert = new Vue(AlertBox).$mount()

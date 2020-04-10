@@ -1,17 +1,17 @@
 <template>
     <div class="edc edc--video">
         <section class="edc-mode-view" v-show="!isEditing">
-            <i class="edc-reorder dragable-selector ls ls-reorder"></i>
+            <Icon name="reorder" class="edc-drag dragable-selector" />
             <div class="edc-body">
                 <div class="edc-media">
                     <youtube :video-id="ytVidId"></youtube>
                 </div>
                 <h2 class="edc-title">{{ video.title }}</h2>
             </div>
-            <ButtonIcono icon="edit" class="edc-btn-edit" @click="edit" />
+            <IconButton icon="edit" class="edc-edit" @click="edit" />
         </section>
         <section class="edc-mode-edit" v-if="isEditing">
-            <ButtonIcono icon="close" class="edc-close" @click="closeEdit" />
+            <IconButton icon="close" class="edc-close" @click="closeEdit" />
             <div class="edc-media">
                 <img :src="ytThumbUrl" />
             </div>
@@ -24,9 +24,7 @@
                         :state="!$v.form.title.$error"
                     ></b-form-input>
                     <b-form-invalid-feedback>
-                        <div v-if="!$v.form.title.required">
-                            The video name is required
-                        </div>
+                        <div v-if="!$v.form.title.required">The video name is required</div>
                         <div v-else-if="!$v.form.title.minLength">
                             The video name must be at least
                             {{ $v.form.title.$params.minLength.min }} characters
@@ -44,9 +42,7 @@
                         label="genre"
                     />
                     <b-form-invalid-feedback>
-                        <div v-if="!$v.form.genre.required">
-                            The genre is required
-                        </div>
+                        <div v-if="!$v.form.genre.required">The genre is required</div>
                     </b-form-invalid-feedback>
                 </b-form-group>
 
@@ -70,9 +66,7 @@
                         label="title"
                     />
                     <b-form-invalid-feedback>
-                        <div v-if="!$v.form.visibility.required">
-                            The visibility is required
-                        </div>
+                        <div v-if="!$v.form.visibility.required">The visibility is required</div>
                     </b-form-invalid-feedback>
                 </b-form-group>
 
@@ -89,9 +83,7 @@
                         :popover="{ visibility: 'click' }"
                     ></v-date-picker>
                     <b-form-invalid-feedback>
-                        <div v-if="!$v.form.pubDate.required">
-                            The date is required
-                        </div>
+                        <div v-if="!$v.form.pubDate.required">The date is required</div>
                     </b-form-invalid-feedback>
                 </b-form-group>
 
@@ -105,9 +97,7 @@
                         :reduce="timezone => timezone.id"
                     />
                     <b-form-invalid-feedback>
-                        <div v-if="!$v.form.pubTimezone.required">
-                            The timezone is required
-                        </div>
+                        <div v-if="!$v.form.pubTimezone.required">The timezone is required</div>
                     </b-form-invalid-feedback>
                 </b-form-group>
 
@@ -120,9 +110,7 @@
                         :reduce="time => time.mil"
                     />
                     <b-form-invalid-feedback>
-                        <div v-if="!$v.form.pubTime.required">
-                            The time is required
-                        </div>
+                        <div v-if="!$v.form.pubTime.required">The time is required</div>
                     </b-form-invalid-feedback>
                 </b-form-group>
 
@@ -134,16 +122,10 @@
                 </b-form-group>
             </form>
             <footer class="edc-footer">
-                <ButtonIcono icon="clock" class="edc-btn" />
-                <ButtonIcono icon="eye" class="edc-btn" />
-                <ButtonIcono icon="trash" class="edc-btn" />
-                <MultiStateButton
-                    class="edc-btn edc-btn-save btn-action"
-                    type="submit"
-                    variant="black"
-                >
-                    Save &amp; Close
-                </MultiStateButton>
+                <IconButton icon="clock" />
+                <IconButton icon="eye" />
+                <IconButton icon="trash" />
+                <SpinnerButton class="edc-save" type="submit" variant="black">Save &amp; Close</SpinnerButton>
             </footer>
         </section>
     </div>
@@ -153,14 +135,16 @@
 import { mapGetters } from 'vuex'
 import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
 import { videoFormMixin } from '~/mixins/user-account/videos/videoForm'
-import { ButtonIcono, MultiStateButton } from '~/components/Button'
+import { IconButton, SpinnerButton } from '~/components/Button'
+import { Icon } from '~/components/Icon'
 
 export default {
     name: 'VideoCard',
     mixins: [videoFormMixin],
     components: {
-        MultiStateButton,
-        ButtonIcono,
+        SpinnerButton,
+        IconButton,
+        Icon,
     },
     props: {
         video: {

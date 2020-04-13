@@ -1,69 +1,86 @@
 <template>
-    <b-container fluid class="page-ua-vids p-4 p-sm-5">
-        <b-row>
-            <b-col cols="12">
-                <h2 class="page-title">Your Videos</h2>
-                <label class="text-black">
-                    Add, remove, edit &amp; order videos anyway you'd
-                    like
-                </label>
-            </b-col>
-            <b-col cols="12" class="my-4">
-                <SpinnerButton @click="$router.push({ name: 'userAccountVideosAdd' })">Add New Video</SpinnerButton>
-            </b-col>
-            <b-col cols="12">
-                <Container @drop="onDrop" drag-handle-selector=".dragable-selector">
-                    <Draggable v-for="video in sortedVideos" :key="`video-${video.id}`">
-                        <VideoEditCard :video="video" />
-                    </Draggable>
-                </Container>
-            </b-col>
-        </b-row>
-    </b-container>
+    <div class="page page-ua-vids container-fluid">
+        <header class="page__header">
+            <h1 class="page__title">Your videos</h1>
+            <h4 class="page__subtitle">Add, remove, edit &amp; order videos anyway you'd like.</h4>
+        </header>
+        <nav class="page__nav">
+            <div class="nav__left">
+                <span class="preview-url">
+                    <span class="text-muted">link.stream/</span>
+                    {{ user.user_name }}/videos
+                </span>
+                <preview-pill-button
+                    :to="{ name: 'userVideos', params: { username: user.user_name }}"
+                >Preview</preview-pill-button>
+            </div>
+            <div class="nav__right">
+                <basic-button :to="{ name: 'userAccountVideoAdd' }">Add New Video</basic-button>
+            </div>
+        </nav>
+        <main class="page__body">
+            <Container @drop="handleDrop" drag-handle-selector=".vid-crd-drag-sel">
+                <Draggable v-for="video in videos" :key="`video-${video.id}`">
+                    <VideoCard :video="video" @editClick="handleEditClick" />
+                </Draggable>
+            </Container>
+        </main>
+
+        <VideoEditModal :videoToEdit="videoToEdit" />
+    </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import { sortBy } from 'lodash'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import { lsApi } from '~/services/lsApi'
+import { BasicButton, PreviewPillButton } from '~/components/Button'
+import { VideoEditModal } from '~/components/Modal/Videos'
+import { VideoCard } from '~/components/UserAccount/Videos'
 import { appConstants } from '~/constants'
-import VideoEditCard from '~/components/UserAccount/Videos/VideoEditCard'
-import { SpinnerButton } from '~/components/Button'
+import { cloneDeep } from 'lodash'
+
 export default {
     name: 'Videos',
     components: {
         Container,
         Draggable,
-        VideoEditCard,
-        SpinnerButton,
+        BasicButton,
+        PreviewPillButton,
+        VideoEditModal,
+        VideoCard,
+    },
+    data() {
+        return {
+            videoToEdit: {},
+        }
     },
     computed: {
         ...mapGetters({
             user: 'me/user',
             videos: 'me/videos',
         }),
-        sortedVideos() {
-            return sortBy(this.videos, ['sort'])
-        },
     },
-    async created() {
-        const { status, data } = await lsApi.videos.getVideosByUser(
-            this.user.id,
-            { page: 1, page_size: appConstants.videosPerPage },
-            { showProgress: false }
-        )
-        if (status === 'success') {
-            this.$store.dispatch('me/updateVideos', { videos: data })
-        }
+    created() {
+        this.$store.dispatch('me/loadVideos', {
+            userId: this.user.id,
+            params: {
+                page: 1,
+                page_size: appConstants.user.account.videosPerPage,
+            },
+        })
     },
     methods: {
-        async onDrop(dropResult) {
+        handleEditClick({ video }) {
+            this.videoToEdit = cloneDeep(video)
+            this.$bvModal.show('vidEditMdl')
+        },
+        handleDrop(dropResult) {
             const { removedIndex, addedIndex } = dropResult
-            const moved = this.sortedVideos.find(
+            const moved = this.videos.find(
                 (video, index) => index === removedIndex
             )
-            const remaining = this.sortedVideos.filter(
+            const remaining = this.videos.filter(
                 (video, index) => index !== removedIndex
             )
             const reordered = [
@@ -75,7 +92,6 @@ export default {
                 return { id: video.id, sort: (index + 1).toString() }
             })
             this.$store.dispatch('me/sortVideos', { sorts })
-            await lsApi.videos.sortVideos({ list: JSON.stringify(sorts) })
         },
     },
 }

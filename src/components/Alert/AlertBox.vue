@@ -1,11 +1,11 @@
 <template>
     <b-modal v-model="show">
-        <Button v-slot:modal-header>x</Button>
+        <basic-button v-slot:modal-header>x</basic-button>
 
         <template v-slot:default>
             <p v-html="msg"></p>
 
-            <Button v-show="cancelShow" v-html="cancelLabel" @click="handleCancelClick" />
+            <BasicButton v-show="cancelShow" v-html="cancelLabel" @click="handleCancelClick" />
             <SpinnerButton v-show="okShow" v-html="okLabel" @click="handleOkClick" />
         </template>
 
@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import { Button, SpinnerButton } from '~/components/Button'
+import { BasicButton, SpinnerButton } from '~/components/Button'
 
 export default {
     name: 'AlertBox',
     components: {
-        Button,
+        BasicButton,
         SpinnerButton,
     },
     data() {

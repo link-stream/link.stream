@@ -1,7 +1,7 @@
 <template>
     <div class="edc edc--video">
         <section class="edc-mode-view" v-show="!isEditing">
-            <Icon name="reorder" class="edc-drag dragable-selector" />
+            <Icon icon="reorder" class="edc-drag dragable-selector" />
             <div class="edc-body">
                 <div class="edc-media">
                     <youtube :video-id="ytVidId"></youtube>
@@ -125,7 +125,7 @@
                 <IconButton icon="clock" />
                 <IconButton icon="eye" />
                 <IconButton icon="trash" />
-                <SpinnerButton class="edc-save" type="submit" variant="black">Save &amp; Close</SpinnerButton>
+                <spinner-button class="edc-save" type="submit" variant="black">Save &amp; Close</spinner-button>
             </footer>
         </section>
     </div>
@@ -134,13 +134,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
-import { videoFormMixin } from '~/mixins/user-account/videos/videoForm'
+import { videoAddEditForm } from '~/mixins/videos/videoAddEditForm'
 import { IconButton, SpinnerButton } from '~/components/Button'
 import { Icon } from '~/components/Icon'
 
 export default {
     name: 'VideoCard',
-    mixins: [videoFormMixin],
+    mixins: [videoAddEditForm],
     components: {
         SpinnerButton,
         IconButton,

@@ -32,6 +32,7 @@ router.beforeEach(async (to, from, next) => {
         if (store.getters['auth/user']) {
             // redirect home if attempting to access guest-only page
             next({ name: 'userAccountDashboard' })
+            store.dispatch('me/loadAccount')
         } else {
             next()
         }

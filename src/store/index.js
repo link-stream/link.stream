@@ -20,7 +20,7 @@ export default new Vuex.Store({
     plugins: [
         createPersistedState({
             key: appConstants.vuexLocalStorage.key,
-            paths: ['me'],
+            paths: ['me', 'common'],
         }),
     ],
 })

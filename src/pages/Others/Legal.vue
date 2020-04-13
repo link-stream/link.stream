@@ -1,11 +1,15 @@
 <template>
-    <div class="page-legal my-md-5">
+    <div class="page page-legal my-md-5">
         <b-container fluid>
             <b-row>
                 <b-col lg="6" offset-lg="3">
                     <b-row class="text-white">
                         <b-col cols="12" class="my-3 text-center">
-                            <b-img src="@/assets/img/logo/logo-v-lg.png" class="logo" alt="LinkStream"></b-img>
+                            <b-img
+                                src="@/assets/img/logo/logo-v-lg.png"
+                                class="logo"
+                                alt="LinkStream"
+                            ></b-img>
                         </b-col>
                         <b-col cols="12" class="my-3">
                             <h2>PRIVACY POLICY</h2>
@@ -324,9 +328,12 @@
                             </p>
                         </b-col>
                         <b-col cols="12" class="my-5 pt-4 text-center">
-                            <a href="https://www.instagram.com/_linkstream" target="_blank" class="text-white">
-                                <font-awesome-icon :icon="['fab', 'instagram']" class="mr-1" />
-                                Join the fam on Instagram!
+                            <a
+                                href="https://www.instagram.com/_linkstream"
+                                target="_blank"
+                                class="text-white"
+                            >
+                                <font-awesome-icon :icon="['fab', 'instagram']" class="mr-1" />Join the fam on Instagram!
                             </a>
                         </b-col>
                         <b-col cols="12" class="text-center">
@@ -341,6 +348,6 @@
 
 <script>
 export default {
-    name: 'Legal'
+    name: 'Legal',
 }
 </script>

@@ -1,9 +1,9 @@
 <template>
-    <div class="page-signup my-4">
+    <div class="page page-signup my-4">
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-2">
-                    <SpinnerButton
+                    <spinner-button
                         instagram
                         class="btn-auth"
                         :loading="status.loading.instagram"
@@ -12,7 +12,7 @@
                     >
                         <i class="ig-ico fab fa-instagram fa-lg"></i>
                         Sign up with Instagram
-                    </SpinnerButton>
+                    </spinner-button>
                 </b-col>
                 <b-col cols="12" class="my-2">
                     <GoogleLogin
@@ -20,7 +20,7 @@
                         :params="google"
                         :onSuccess="onGoogleSuccess"
                     >
-                        <SpinnerButton
+                        <spinner-button
                             google
                             class="btn-auth"
                             :loading="status.loading.google"
@@ -28,7 +28,7 @@
                         >
                             <i class="g-ico fab fa-google fa-1x"></i>
                             Sign up with Google
-                        </SpinnerButton>
+                        </spinner-button>
                     </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
@@ -155,12 +155,12 @@
                             <b-link to="/legal" target="_blank">Terms of Use</b-link>and
                             <b-link to="/legal" target="_blank">Privacy Policy</b-link>.
                         </b-form-group>
-                        <SpinnerButton
+                        <spinner-button
                             type="submit"
                             class="btn-auth mt-5"
                             :loading="status.loading.signup"
                             :error="status.error.signup"
-                        >Sign Up</SpinnerButton>
+                        >Sign Up</spinner-button>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-4">

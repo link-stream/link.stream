@@ -1,19 +1,12 @@
 <template>
-    <b-button
-        class="btn-copy"
-        :size="size"
-        :type="type"
-        pill
-        :variant="variant"
-        @click="handleClick"
-    >
+    <b-button :type="type" :to="to" :size="size" pill :variant="variant" @click="handleClick">
         <slot></slot>
     </b-button>
 </template>
 
 <script>
 export default {
-    name: 'Button',
+    name: 'BasicButton',
     props: {
         type: {
             type: String,
@@ -21,16 +14,24 @@ export default {
         },
         size: {
             type: String,
-            default: 'sm',
+            default: '',
         },
         variant: {
             type: String,
             default: 'primary',
         },
+        to: {
+            type: Object,
+            default: null,
+        },
     },
     methods: {
         handleClick() {
-            this.$emit('click')
+            if (this.to) {
+                this.$router.push(this.to)
+            } else {
+                this.$emit('click')
+            }
         },
     },
 }

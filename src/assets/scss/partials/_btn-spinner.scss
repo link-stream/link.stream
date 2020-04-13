@@ -51,10 +51,10 @@
         }
     }
 
-    &.is-g,
-    &.is-ig {
+    &.is-g .label,
+    &.is-ig .label {
         text-transform: none;
-        font-size: 14px;
+        font-size: 1rem;
         font-weight: 500;
         letter-spacing: 0;
         line-height: 15px;

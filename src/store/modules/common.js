@@ -2,41 +2,41 @@ import { types } from '../mutationTypes'
 import { lsApi } from '~/services/lsApi'
 
 const initialState = () => ({
-    timezones: [],
-    times: [],
-    genres: [],
+    timezones: null,
+    times: null,
+    genres: null,
 })
 
 const state = initialState()
 
 const mutations = {
-    [types.LOAD_TIMEZONES](state, data) {
-        state.timezones = data
+    [types.SET_TIMEZONES](state, payload) {
+        state.timezones = payload
     },
 
-    [types.LOAD_TIMES](state, data) {
-        state.times = data
+    [types.SET_TIMES](state, payload) {
+        state.times = payload
     },
 
-    [types.LOAD_GENRES](state, data) {
-        state.genres = data
+    [types.SET_GENRES](state, payload) {
+        state.genres = payload
     },
 }
 
 const actions = {
     async loadTimezones({ commit }) {
         const { status, data } = await lsApi.common.getTimezones()
-        status === 'success' && commit(types.LOAD_TIMEZONES, data)
+        commit(types.SET_TIMEZONES, status === 'success' ? data : [])
     },
 
     async loadGenres({ commit }) {
         const { status, data } = await lsApi.audios.getGenres()
-        status === 'success' && commit(types.LOAD_GENRES, data)
+        commit(types.SET_GENRES, status === 'success' ? data : [])
     },
 
     loadTimes({ commit }) {
         const times = lsApi.common.getTimes()
-        commit(types.LOAD_TIMES, times)
+        commit(types.SET_TIMES, times)
     },
 }
 

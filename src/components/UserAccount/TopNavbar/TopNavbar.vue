@@ -1,11 +1,5 @@
 <template>
-    <b-navbar
-        class="ua-topnav"
-        toggleable="lg"
-        type="dark"
-        variant="dark"
-        fixed="top"
-    >
+    <b-navbar class="layout__navbar" toggleable="lg" type="dark" variant="dark" fixed="top">
         <b-navbar-brand to="/">
             <Logo1 />
         </b-navbar-brand>
@@ -44,7 +38,10 @@ export default {
             menuClickCount: 'getMenuClickCount',
         }),
         isHidden() {
-            if (window.innerWidth < appConstants.menuHiddenBreakpoint) {
+            if (
+                window.innerWidth <
+                appConstants.user.account.menuHiddenBreakpoint
+            ) {
                 return !(
                     this.menuType.includes('menu-mobile') &&
                     this.menuType.includes('main-show-temporary')
@@ -60,7 +57,10 @@ export default {
     methods: {
         ...mapMutations(['changeSideMenuStatus', 'changeSideMenuForMobile']),
         toggle() {
-            if (window.innerWidth < appConstants.menuHiddenBreakpoint) {
+            if (
+                window.innerWidth <
+                appConstants.user.account.menuHiddenBreakpoint
+            ) {
                 this.changeSideMenuForMobile(this.menuType)
             } else {
                 this.changeSideMenuStatus({

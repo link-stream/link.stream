@@ -1,9 +1,9 @@
 <template>
-    <div class="page-login my-4">
+    <div class="page page-login my-4">
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-2">
-                    <SpinnerButton
+                    <spinner-button
                         instagram
                         class="btn-auth"
                         :loading="status.loading.instagram"
@@ -11,7 +11,7 @@
                         @click="authenticateInstagram"
                     >
                         <i class="ig-ico fab fa-instagram fa-lg"></i> Signin with Instagram
-                    </SpinnerButton>
+                    </spinner-button>
                 </b-col>
                 <b-col cols="12" class="my-2">
                     <GoogleLogin
@@ -19,14 +19,14 @@
                         :params="google"
                         :onSuccess="onGoogleSuccess"
                     >
-                        <SpinnerButton
+                        <spinner-button
                             google
                             class="btn-auth"
                             :loading="status.loading.google"
                             :error="status.error.google"
                         >
                             <i class="g-ico fab fa-google fa-1x"></i> Signin with Google
-                        </SpinnerButton>
+                        </spinner-button>
                     </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
@@ -80,18 +80,18 @@
                                 variant="transparent"
                                 @click="showPwd = !showPwd"
                             >
-                                <b-icon font-scale="1.5" :icon="showPwd ? 'eye' : 'eye-slash'" />
+                                <b-icon font-scale="1" :icon="showPwd ? 'eye' : 'eye-slash'" />
                             </b-button>
                             <b-form-invalid-feedback
                                 id="password-live-feedback"
                             >{{ veeErrors.first('input_password') }}</b-form-invalid-feedback>
                         </b-form-group>
-                        <SpinnerButton
+                        <spinner-button
                             type="submit"
                             class="btn-auth mt-5"
                             :loading="status.loading.signin"
                             :error="status.error.signin"
-                        >Sign In</SpinnerButton>
+                        >Sign In</spinner-button>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="my-3">

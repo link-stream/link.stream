@@ -1,4 +1,4 @@
-.ua-sidebar {
+.layout__sidebar {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -134,66 +134,49 @@
             }
         }
     }
-}
 
-//Menu Config Main Menu Sub Menu
+    //Menu Config Main Menu Sub Menu
 
-.sub-hidden .sub-menu,
-.menu-sub-hidden .sub-menu,
-.menu-hidden .sub-menu {
-    transform: translateX(-$sub-menu-width);
-}
-
-.main-hidden .main-menu,
-.menu-hidden .main-menu {
-    transform: translateX(-$main-menu-width);
-}
-
-.main-hidden.sub-hidden .sub-menu,
-.menu-hidden .sub-menu {
-    transform: translateX(-$sub-menu-width - $main-menu-width);
-}
-
-//Mobile
-.menu-mobile {
-    .main-menu {
-        transform: translateX(-$main-menu-width);
-    }
-    .sub-menu {
-        transform: translateX(-$sub-menu-width - $main-menu-width - 50);
-    }
-}
-
-//Show Temporary
-.main-show-temporary {
-    .main-menu {
-        transform: translateX(0);
-    }
-    .sub-menu {
+    &.sub-hidden .sub-menu,
+    &.menu-sub-hidden .sub-menu,
+    &.menu-hidden .sub-menu {
         transform: translateX(-$sub-menu-width);
     }
-}
 
-.sub-show-temporary,
-.menu-mobile.sub-show-temporary {
-    .sub-menu {
-        transform: translateX(0);
+    &.main-hidden .main-menu,
+    &.menu-hidden .main-menu {
+        transform: translateX(-$main-menu-width);
     }
-}
 
-.menu-mobile main {
-    margin-left: $main-margin !important;
-    margin-right: $main-margin !important;
-    margin-top: $main-margin + $navbar-height !important;
-    margin-bottom: 0;
-}
+    &.main-hidden.sub-hidden .sub-menu,
+    &.menu-hidden .sub-menu {
+        transform: translateX(-$sub-menu-width - $main-menu-width);
+    }
 
-.sub-hidden main,
-.menu-sub-hidden main,
-.menu-hidden main {
-    margin-left: $main-menu-width + $main-margin;
-}
-.main-hidden main,
-.menu-hidden main {
-    margin-left: $main-margin;
+    //Mobile
+    &.menu-mobile {
+        .main-menu {
+            transform: translateX(-$main-menu-width);
+        }
+        .sub-menu {
+            transform: translateX(-$sub-menu-width - $main-menu-width - 50);
+        }
+    }
+
+    //Show Temporary
+    &.main-show-temporary {
+        .main-menu {
+            transform: translateX(0);
+        }
+        .sub-menu {
+            transform: translateX(-$sub-menu-width);
+        }
+    }
+
+    &.sub-show-temporary,
+    &.menu-mobile.sub-show-temporary {
+        .sub-menu {
+            transform: translateX(0);
+        }
+    }
 }

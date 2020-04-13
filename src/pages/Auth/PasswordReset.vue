@@ -1,5 +1,5 @@
 <template>
-    <div class="page-pass-reset my-4">
+    <div class="page page-pass-reset my-4">
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="mt-5">
@@ -58,12 +58,12 @@
                                 id="password-confirm-live-feedback"
                             >{{ veeErrors.first('input_password_confirm') }}</b-form-invalid-feedback>
                         </b-form-group>
-                        <SpinnerButton
+                        <spinner-button
                             type="submit"
                             class="text-uppercase mt-5"
                             :loading="status.loading.reset"
                             :error="status.error.reset"
-                        >Reset</SpinnerButton>
+                        >Reset</spinner-button>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-2">

@@ -1,0 +1,64 @@
+.modal-vid-edit {
+    @include media-breakpoint-up(sm) {
+        .modal-dialog {
+            max-width: 320px !important;
+        }
+    }
+
+    .tm-input,
+    .dt-input-wrap {
+        width: 50%;
+    }
+
+    .dt-input {
+        border-right: 0px;
+    }
+
+    .vid-wrap,
+    .vid-wrap iframe {
+        width: 201px;
+        height: 112.76px;
+        margin-bottom: 20px;
+    }
+
+    .btn-secondary {
+        &:hover,
+        &:active,
+        &:focus {
+            color: $linkstream-4 !important;
+        }
+    }
+
+    .m__content {
+        padding: 5px;
+    }
+
+    .m__header {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .m__close {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+    }
+
+    .m__title {
+        color: $black;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .m__footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+
+        .btn {
+            padding: 0;
+            width: 135px;
+            height: 40px;
+        }
+    }
+}

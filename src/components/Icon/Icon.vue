@@ -1,12 +1,12 @@
 <template>
-    <i :class="`ls ls-${name}`"></i>
+    <i :class="`ls ls-${icon}`"></i>
 </template>
 
 <script>
 export default {
     name: 'Icon',
     props: {
-        name: {
+        icon: {
             type: String,
             default: '',
             required: true,

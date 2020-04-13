@@ -1,3 +1,14 @@
+.custom-radio {
+    .custom-control-label {
+        line-height: 1.7;
+    }
+    .custom-control-label::before,
+    .custom-control-label::after {
+        width: 16px;
+        height: 16px;
+    }
+}
+
 .form-control {
     + .btn-input-spinner {
         position: absolute;

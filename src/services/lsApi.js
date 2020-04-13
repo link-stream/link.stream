@@ -25,7 +25,7 @@ const call = async function({
     let payload
 
     try {
-        const response = await axios({
+        const res = await axios({
             method,
             url: endpoint,
             data: qs.stringify(params),
@@ -33,19 +33,19 @@ const call = async function({
             auth,
             showProgress,
         })
-        payload = response.data
+        payload = res.data
     } catch (e) {
-        const response =
+        const res =
             typeof e === 'object' && typeof e.response === 'object'
                 ? e.response
                 : {}
 
-        if (typeof response.data === 'object') {
-            payload = response.data
+        if (typeof res.data === 'object') {
+            payload = res.data
         } else {
             payload = {
                 status: 'false',
-                error: response.statusText || 'Unexpected error',
+                error: res.statusText || 'Unexpected error',
             }
         }
     }
@@ -55,12 +55,12 @@ const call = async function({
 
 export const lsApi = {
     users: {
-        async getUser(userId) {
-            const endpoint = '/users/' + userId
+        async getUser(id) {
+            const endpoint = '/users/' + id
             return await call({ endpoint, showProgress: false })
         },
-        async updateUser(userId, params) {
-            const endpoint = '/users/' + userId
+        async updateUser(id, params) {
+            const endpoint = '/users/' + id
             const method = METHOD_PUT
             return await call({ endpoint, params, method })
         },
@@ -128,6 +128,11 @@ export const lsApi = {
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
+        async updateVideo(id, params) {
+            const endpoint = '/videos/' + id
+            const method = METHOD_PUT
+            return await call({ endpoint, params, method })
+        },
         async sortVideos(params) {
             const endpoint = '/videos/sort_videos/'
             const method = METHOD_POST
@@ -136,14 +141,32 @@ export const lsApi = {
         async getVideosByUser(userId, params) {
             const endpoint = '/videos/' + userId
             const method = METHOD_GET
-            return await call({ endpoint, params, method, showProgress: false })
+            return await call({
+                endpoint,
+                params,
+                method,
+                showProgress: false,
+            })
         },
     },
     common: {
         async getVisibilitiesByUser(userId) {
             const endpoint = '/common/visibility/' + userId
             const method = METHOD_GET
-            return await call({ endpoint, method, showProgress: false })
+            const res = await call({
+                endpoint,
+                method,
+                showProgress: false,
+            })
+            if (res.status === 'success') {
+                res.data = Object.keys(res.data).map(key => {
+                    return {
+                        id: key,
+                        title: res.data[key],
+                    }
+                })
+            }
+            return res
         },
         async getTimezones() {
             const endpoint = '/common/timezones'
@@ -151,104 +174,23 @@ export const lsApi = {
             return await call({ endpoint, method, showProgress: false })
         },
         getTimes() {
-            return [
-                { mil: '0', std: '12:00 AM' },
-                { mil: '15', std: '12:15 AM' },
-                { mil: '30', std: '12:30 AM' },
-                { mil: '45', std: '12:45 AM' },
-                { mil: '60', std: '1:00 AM' },
-                { mil: '75', std: '1:15 AM' },
-                { mil: '90', std: '1:30 AM' },
-                { mil: '105', std: '1:45 AM' },
-                { mil: '120', std: '2:00 AM' },
-                { mil: '135', std: '2:15 AM' },
-                { mil: '150', std: '2:30 AM' },
-                { mil: '165', std: '2:45 AM' },
-                { mil: '180', std: '3:00 AM' },
-                { mil: '195', std: '3:15 AM' },
-                { mil: '210', std: '3:30 AM' },
-                { mil: '225', std: '3:45 AM' },
-                { mil: '240', std: '4:00 AM' },
-                { mil: '255', std: '4:15 AM' },
-                { mil: '270', std: '4:30 AM' },
-                { mil: '285', std: '4:45 AM' },
-                { mil: '300', std: '5:00 AM' },
-                { mil: '315', std: '5:15 AM' },
-                { mil: '330', std: '5:30 AM' },
-                { mil: '345', std: '5:45 AM' },
-                { mil: '360', std: '6:00 AM' },
-                { mil: '375', std: '6:15 AM' },
-                { mil: '390', std: '6:30 AM' },
-                { mil: '405', std: '6:45 AM' },
-                { mil: '420', std: '7:00 AM' },
-                { mil: '435', std: '7:15 AM' },
-                { mil: '450', std: '7:30 AM' },
-                { mil: '465', std: '7:45 AM' },
-                { mil: '480', std: '8:00 AM' },
-                { mil: '495', std: '8:15 AM' },
-                { mil: '510', std: '8:30 AM' },
-                { mil: '525', std: '8:45 AM' },
-                { mil: '540', std: '9:00 AM' },
-                { mil: '555', std: '9:15 AM' },
-                { mil: '570', std: '9:30 AM' },
-                { mil: '585', std: '9:45 AM' },
-                { mil: '600', std: '10:00 AM' },
-                { mil: '615', std: '10:15 AM' },
-                { mil: '630', std: '10:30 AM' },
-                { mil: '645', std: '10:45 AM' },
-                { mil: '660', std: '11:00 AM' },
-                { mil: '675', std: '11:15 AM' },
-                { mil: '690', std: '11:30 AM' },
-                { mil: '705', std: '11:45 AM' },
-                { mil: '720', std: '12:00 PM' },
-                { mil: '735', std: '12:15 PM' },
-                { mil: '750', std: '12:30 PM' },
-                { mil: '765', std: '12:45 PM' },
-                { mil: '780', std: '1:00 PM' },
-                { mil: '795', std: '1:15 PM' },
-                { mil: '810', std: '1:30 PM' },
-                { mil: '825', std: '1:45 PM' },
-                { mil: '840', std: '2:00 PM' },
-                { mil: '855', std: '2:15 PM' },
-                { mil: '870', std: '2:30 PM' },
-                { mil: '885', std: '2:45 PM' },
-                { mil: '900', std: '3:00 PM' },
-                { mil: '915', std: '3:15 PM' },
-                { mil: '930', std: '3:30 PM' },
-                { mil: '945', std: '3:45 PM' },
-                { mil: '960', std: '4:00 PM' },
-                { mil: '975', std: '4:15 PM' },
-                { mil: '990', std: '4:30 PM' },
-                { mil: '1005', std: '4:45 PM' },
-                { mil: '1020', std: '5:00 PM' },
-                { mil: '1035', std: '5:15 PM' },
-                { mil: '1050', std: '5:30 PM' },
-                { mil: '1065', std: '5:45 PM' },
-                { mil: '1080', std: '6:00 PM' },
-                { mil: '1095', std: '6:15 PM' },
-                { mil: '1110', std: '6:30 PM' },
-                { mil: '1125', std: '6:45 PM' },
-                { mil: '1140', std: '7:00 PM' },
-                { mil: '1155', std: '7:15 PM' },
-                { mil: '1170', std: '7:30 PM' },
-                { mil: '1185', std: '7:45 PM' },
-                { mil: '1200', std: '8:00 PM' },
-                { mil: '1215', std: '8:15 PM' },
-                { mil: '1230', std: '8:30 PM' },
-                { mil: '1245', std: '8:45 PM' },
-                { mil: '1260', std: '9:00 PM' },
-                { mil: '1275', std: '9:15 PM' },
-                { mil: '1290', std: '9:30 PM' },
-                { mil: '1305', std: '9:45 PM' },
-                { mil: '1320', std: '10:00 PM' },
-                { mil: '1335', std: '10:15 PM' },
-                { mil: '1350', std: '10:30 PM' },
-                { mil: '1365', std: '10:45 PM' },
-                { mil: '1380', std: '11:00 PM' },
-                { mil: '1395', std: '11:15 PM' },
-                { mil: '1410', std: '11:30 PM' },
-                { mil: '1425', std: '11:45 PM' },
-            ]
+            const times = []
+            for (let h = 0; h < 24; h++) {
+                for (let m = 0; m < 60; m += 15) {
+                    const h24 = h < 10 ? `0${h}` : h
+                    const m24 = m < 10 ? `0${m}` : m
+                    const h12 = h24 % 12 || 12
+                    const m12 = m24 || '00'
+                    const amPm = h > 11 ? 'PM' : 'AM'
+                    const t24 = `${h24}:${m24}`
+                    const t12 = `${h12}:${m12} ${amPm}`
+                    times.push({
+                        id: t24,
+                        title: t12,
+                    })
+                }
+            }
+            return times
         },
     },
 }

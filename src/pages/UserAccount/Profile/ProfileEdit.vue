@@ -1,5 +1,5 @@
 <template>
-    <b-container fluid class="page-ua-profile-edit p-sm-5">
+    <b-container fluid class="page page-ua-profile-edit p-sm-5">
         <b-form @submit.stop.prevent="onSubmit" @reset="resetForm" :novalidate="true">
             <b-row>
                 <b-col cols="12" class="d-none d-sm-block">
@@ -121,14 +121,10 @@
                                 <template v-else>
                                     <label class="small">{{ form.url }}</label>
                                 </template>
-                                <CopyButton
-                                    variant="outline-secondary"
-                                    class="ml-3"
-                                    @click="handleCustomizeUrl"
-                                >
+                                <preview-pill-button class="ml-3" @click="handleCustomizeUrl">
                                     <template v-if="form.editableUrl">Done</template>
                                     <template v-else>Customize</template>
-                                </CopyButton>
+                                </preview-pill-button>
                             </b-form-group>
                         </b-col>
                         <b-col sm="6">
@@ -180,12 +176,12 @@
                     </b-row>
                 </b-col>
                 <b-col cols="12" class="mb-5">
-                    <SpinnerButton
+                    <spinner-button
                         type="submit"
                         class="mt-5"
                         :loading="status.loading.update"
                         :error="status.error.update"
-                    >Save Updates</SpinnerButton>
+                    >Save Updates</spinner-button>
                 </b-col>
             </b-row>
         </b-form>
@@ -202,7 +198,7 @@ import csc from 'country-state-city'
 import { setStatusChange } from '~/utils'
 import { lsApi } from '~/services/lsApi'
 import { appConstants } from '~/constants'
-import { SpinnerButton, CopyButton } from '~/components/Button'
+import { SpinnerButton, PreviewPillButton } from '~/components/Button'
 
 export default {
     name: 'ProfileEdit',
@@ -213,7 +209,7 @@ export default {
         DokaModal,
         DokaOverlay,
         SpinnerButton,
-        CopyButton,
+        PreviewPillButton,
     },
     data() {
         const user = this.$store.getters['me/user']
@@ -240,7 +236,7 @@ export default {
                 srcPrev: null,
                 src: null,
                 crop: {
-                    aspectRatio: appConstants.profileBannerAspectRatio,
+                    aspectRatio: appConstants.user.profileBannerAspectRatio,
                 },
                 size: {
                     width: 1024,
@@ -321,7 +317,7 @@ export default {
         // Resize
         onResize() {
             this.$refs['banner-container'].style.height =
-                appConstants.profileBannerAspectRatio *
+                appConstants.user.profileBannerAspectRatio *
                     this.$refs['banner-container'].clientWidth +
                 'px'
         },

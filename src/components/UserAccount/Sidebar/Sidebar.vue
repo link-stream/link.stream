@@ -1,5 +1,5 @@
 <template>
-    <div class="ua-sidebar" @click.stop="() => {}">
+    <div class="layout__sidebar" @click.stop="() => {}">
         <div class="main-menu">
             <ul class="list-unstyled">
                 <li
@@ -264,7 +264,7 @@ export default {
             let nextClasses = classes.split(' ').filter(x => x !== '')
             const windowWidth = window.innerWidth
 
-            if (windowWidth < appConstants.menuHiddenBreakpoint) {
+            if (windowWidth < appConstants.user.account.menuHiddenBreakpoint) {
                 nextClasses.push('menu-mobile')
             } else {
                 nextClasses = nextClasses.filter(x => x !== 'menu-mobile')

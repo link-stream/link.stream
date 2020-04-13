@@ -1,15 +1,13 @@
 <template>
-    <div class="layout-ua">
-        <div :class="getMenuType">
-            <main class="layout-content">
-                <transition name="page" mode="out-in">
-                    <router-view :key="$route.fullPath"></router-view>
-                </transition>
-            </main>
-            <TopNavbar />
-            <Sidebar />
-            <vue-progress-bar></vue-progress-bar>
-        </div>
+    <div class="layout layout-ua" :class="getMenuType">
+        <main class="layout__content">
+            <transition name="page" mode="out-in">
+                <router-view :key="$route.fullPath"></router-view>
+            </transition>
+        </main>
+        <TopNavbar />
+        <Sidebar :class="getMenuType" />
+        <vue-progress-bar></vue-progress-bar>
     </div>
 </template>
 

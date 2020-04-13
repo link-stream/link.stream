@@ -12,6 +12,9 @@
     &:hover {
         border-color: transparent;
     }
+    &:active {
+        color: $linkstream-4 !important;
+    }
 }
 
 .btn-outline-secondary {

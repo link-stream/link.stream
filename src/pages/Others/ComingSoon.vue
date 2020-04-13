@@ -1,5 +1,5 @@
 <template>
-    <div class="page-coming-soon my-md-5">
+    <div class="page page-coming-soon my-md-5">
         <b-container fluid>
             <b-row class="text-center text-white">
                 <b-col cols="12" class="my-3">
@@ -7,14 +7,16 @@
                 </b-col>
                 <b-col cols="12" class="my-3">
                     <h2 class="text-uppercase font-weight-bold">
-                        <p class="font-weight-light">Your streams come true</p>
-                        Spring 2020
+                        <p class="font-weight-light">Your streams come true</p>Spring 2020
                     </h2>
                 </b-col>
                 <b-col cols="12" class="my-5 pt-4">
-                    <a href="https://www.instagram.com/_linkstream" target="_blank" class="text-white">
-                        <font-awesome-icon :icon="['fab', 'instagram']" class="mr-1" />
-                        Join the fam on Instagram!
+                    <a
+                        href="https://www.instagram.com/_linkstream"
+                        target="_blank"
+                        class="text-white"
+                    >
+                        <font-awesome-icon :icon="['fab', 'instagram']" class="mr-1" />Join the fam on Instagram!
                     </a>
                 </b-col>
                 <b-col cols="12">
@@ -27,6 +29,6 @@
 
 <script>
 export default {
-    name: 'ComingSoon'
+    name: 'ComingSoon',
 }
 </script>

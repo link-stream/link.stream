@@ -15,6 +15,13 @@
         text-align: left;
     }
 
+    .btn {
+        position: relative;
+        font-weight: 600;
+        letter-spacing: 0.125rem;
+        padding: 10px 31px;
+    }
+
     .page-login,
     .page-signup {
         .btn-g-login {

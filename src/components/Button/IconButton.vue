@@ -1,7 +1,7 @@
 <template>
     <button class="btn btn-icon" :type="type" @click="handleClick">
         <slot>
-            <Icon :name="icon" />
+            <Icon :icon="icon" />
         </slot>
     </button>
 </template>

@@ -2,8 +2,10 @@ import router from '~/router'
 import { types, authTypes } from '../mutationTypes'
 import { isEmpty } from 'lodash'
 import {
-    authCookie,
-    pendingUserCookie,
+    getAuthCookie,
+    setAuthCookie,
+    getPendingUserCookie,
+    setPendingUserCookie,
     destroySessionStorage,
 } from '~/utils/auth'
 
@@ -13,8 +15,8 @@ const initialState = () => ({
 })
 
 const state = {
-    user: authCookie.get(),
-    pendingUser: pendingUserCookie.get(),
+    user: getAuthCookie(),
+    pendingUser: getPendingUserCookie(),
 }
 
 const mutations = {
@@ -25,12 +27,12 @@ const mutations = {
         }
     },
 
-    [authTypes.SIGNUP](state, data) {
-        state.pendingUser = data
+    [authTypes.SIGNUP](state, payload) {
+        state.pendingUser = payload
     },
 
-    [authTypes.LOGIN](state, data) {
-        const { id, token } = data
+    [authTypes.LOGIN](state, payload) {
+        const { id, token } = payload
         state.user = { id, token }
     },
 
@@ -50,7 +52,7 @@ const actions = {
         const { user } = payload
         if (!isEmpty(user)) {
             commit(authTypes.SIGNUP, user)
-            pendingUserCookie.set(user)
+            setPendingUserCookie(user)
             router.push({ name: 'signupConfirm' })
         }
     },
@@ -61,7 +63,7 @@ const actions = {
             commit(types.RESET)
             commit(authTypes.LOGIN, user)
             await dispatch('me/loadAccount', null, { root: true })
-            authCookie.set(user)
+            setAuthCookie(user)
             router.push({ name: 'userAccountDashboard' })
         }
     },

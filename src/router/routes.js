@@ -1,13 +1,13 @@
 import { NotFound } from '~/pages/Error'
 import { Legal, ComingSoon } from '~/pages/Others'
-import { 
+import {
     Login,
     Logout,
     Signup,
     SignupConfirm,
     EmailConfirm,
     PasswordForgot,
-    PasswordReset 
+    PasswordReset,
 } from '~/pages/Auth'
 import {
     UserAccountDashboard,
@@ -97,13 +97,19 @@ const routes = [
     },
     {
         path: '/app/videos/add',
-        name: 'userAccountVideosAdd',
+        name: 'userAccountVideoAdd',
         component: UserAccountVideosAdd,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
 
     // 404 catcher
-    { path: '/404', alias: '*', name: '404', component: NotFound, meta: { layout: 'Error' } },
+    {
+        path: '/404',
+        alias: '*',
+        name: '404',
+        component: NotFound,
+        meta: { layout: 'Error' },
+    },
 ]
 
 export default routes

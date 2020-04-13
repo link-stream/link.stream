@@ -1,0 +1,107 @@
+.page-ua-vids-add {
+    .youtube-container {
+        max-width: 100%;
+        @include media-breakpoint-down(xs) {
+            max-width: 100%;
+        }
+    }
+
+    .form-wizard {
+        .tm-input,
+        .dt-input-wrap {
+            width: 50%;
+        }
+
+        .dt-input {
+            border-right: 0px;
+        }
+
+        .w__step-count {
+            color: $linkstream-4;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .w__header {
+            margin-bottom: 20px;
+        }
+
+        .w__title {
+            color: $black;
+            font-size: 30px;
+            font-weight: 800;
+            line-height: 34px;
+        }
+
+        .w__subtitle {
+            color: $black;
+            font-size: 14px;
+            line-height: 24px;
+            font-weight: normal;
+        }
+
+        .w__body {
+            margin-bottom: 29px;
+            max-width: 500px;
+        }
+
+        .w__footer {
+            display: flex;
+            flex-direction: column;
+            flex-direction: column-reverse;
+        }
+
+        .w__submit,
+        .w__back {
+            display: none;
+        }
+
+        .w__submit {
+            margin-bottom: 10px;
+        }
+
+        &.is-last-step {
+            .w__submit,
+            .w__back {
+                display: block;
+            }
+
+            .w__next {
+                display: none;
+            }
+
+            .w__footer {
+                border-top: 1px solid $linkstream-7;
+                margin-top: 29px;
+                padding-top: 29px;
+            }
+        }
+
+        .vid-wrap,
+        .vid-wrap iframe {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        @include media-breakpoint-up(sm) {
+            .w__footer {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .w__submit {
+                margin-bottom: 0;
+            }
+
+            .vid-wrap,
+            .vid-wrap iframe {
+                width: 330px;
+                height: 186px;
+            }
+        }
+    }
+}

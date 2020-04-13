@@ -2,15 +2,16 @@
  * Logged In User Module
  */
 
+import Vue from 'vue'
 import { types, meTypes } from '../mutationTypes'
 import { lsApi } from '~/services/lsApi'
 import { base64ImgToSrc } from '~/utils'
 
 const initialState = () => ({
     user: null,
-    visibilities: [],
-    tracks: [],
-    videos: [],
+    visibilities: null,
+    tracks: null,
+    videos: null,
 })
 
 const state = initialState()
@@ -23,24 +24,33 @@ const mutations = {
         }
     },
 
-    [meTypes.LOAD_VISIBILITIES](state, data) {
-        state.visibilities = data
+    [meTypes.SET_VISIBILITIES](state, payload) {
+        state.visibilities = payload
     },
 
-    [meTypes.LOAD_TRACKS](state, data) {
-        state.tracks = data
+    [meTypes.SET_TRACKS](state, payload) {
+        state.tracks = payload
     },
 
-    [meTypes.LOAD_PROFILE](state, data) {
-        state.user = data
+    [meTypes.SET_PROFILE](state, payload) {
+        state.user = payload
     },
 
-    [meTypes.UPDATE_PROFILE](state, data) {
-        state.user = data
+    [meTypes.UPDATE_PROFILE](state, payload) {
+        state.user = payload
     },
 
-    [meTypes.UPDATE_VIDEOS](state, data) {
-        state.videos = data
+    [meTypes.SET_VIDEOS](state, payload) {
+        state.videos = payload
+    },
+
+    [meTypes.ADD_VIDEO](state, payload) {
+        state.videos.push(payload)
+    },
+
+    [meTypes.UPDATE_VIDEO](state, payload) {
+        const index = state.videos.map(v => v.id).indexOf(payload.id)
+        index > -1 && Vue.set(state.videos, index, payload)
     },
 
     [meTypes.SORT_VIDEOS](state, sorts) {
@@ -57,7 +67,8 @@ const actions = {
             commit(types.RESET)
         },
     },
-    async loadAccount({ dispatch }) {
+
+    loadAccount({ dispatch }) {
         const loadProfile = dispatch('loadProfile')
         const loadVisibilities = dispatch('loadVisibilities')
         const loadTracks = dispatch('loadTracks')
@@ -79,7 +90,7 @@ const actions = {
     async loadProfile({ commit, rootGetters }) {
         const authUser = rootGetters['auth/user']
         const { status, data } = await lsApi.users.getUser(authUser.id)
-        status === 'success' && commit(meTypes.LOAD_PROFILE, data)
+        status === 'success' && commit(meTypes.SET_PROFILE, data)
     },
 
     async loadVisibilities({ commit, rootGetters }) {
@@ -87,36 +98,49 @@ const actions = {
         const { status, data } = await lsApi.common.getVisibilitiesByUser(
             authUser.id
         )
-        if (status !== 'success') {
-            return
-        }
-        const visibilities = Object.keys(data).map(key => {
-            return {
-                id: parseInt(key),
-                title: data[key],
-            }
-        })
-        commit(meTypes.LOAD_VISIBILITIES, visibilities)
+        commit(meTypes.SET_VISIBILITIES, status === 'success' ? data : [])
     },
 
     async loadTracks({ commit, rootGetters }) {
         const authUser = rootGetters['auth/user']
         const { status, data } = await lsApi.audios.getTracksByUser(authUser.id)
-        status === 'success' && commit(meTypes.LOAD_TRACKS, data)
+        commit(meTypes.SET_TRACKS, status === 'success' ? data : [])
+    },
+
+    async loadVideos({ commit }, payload) {
+        const { userId, params } = payload
+        const { status, data } = await lsApi.videos.getVideosByUser(
+            userId,
+            params
+        )
+        commit(meTypes.SET_VIDEOS, status === 'success' ? data : [])
+    },
+
+    async createVideo({ commit }, payload) {
+        const res = await lsApi.videos.createVideo(payload.params)
+        if (res.status === 'success') {
+            commit(meTypes.ADD_VIDEO, res.data)
+        }
+        return res
+    },
+
+    async updateVideo({ commit }, payload) {
+        const res = await lsApi.videos.updateVideo(payload.id, payload.params)
+        if (res.status === 'success') {
+            commit(meTypes.UPDATE_VIDEO, res.data)
+        }
+        return res
+    },
+
+    sortVideos({ commit }, payload) {
+        const { sorts } = payload
+        commit(meTypes.SORT_VIDEOS, sorts)
+        lsApi.videos.sortVideos({ list: JSON.stringify(sorts) })
     },
 
     updateProfile({ commit }, payload) {
         const { user } = payload
         commit(meTypes.UPDATE_PROFILE, user)
-    },
-
-    updateVideos({ commit }, payload) {
-        const { videos } = payload
-        commit('UPDATE_VIDEOS', videos)
-    },
-
-    sortVideos({ commit }, payload) {
-        commit(meTypes.SORT_VIDEOS, payload.sorts)
     },
 }
 

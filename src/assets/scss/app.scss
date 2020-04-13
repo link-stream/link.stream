@@ -11,21 +11,24 @@
 @import 'mixins';
 @import 'utilities';
 
-// Partials - Global
-@import 'root';
+// Base
+@import 'reset';
 @import 'buttons';
 @import 'form';
 @import 'icons';
 @import 'vendor/perfect-scrollbar';
 @import 'vendor/vue-toastification';
 
-// Components - Global
-@import 'components/btn-spinner';
+// Partials - Global
+@import 'partials/btn-spinner';
+
+// Modals
+@import 'modals/video-edit-modal';
 
 // Layouts
 @import 'layouts/error';
 @import 'layouts/landing';
-@import 'layouts/user-account';
+@import 'layouts/user-account/layout';
 @import 'layouts/auth';
 
 // Module - Auth
@@ -36,7 +39,7 @@
 
 // Module - User Account
 @import 'pages/user-account/profile-edit';
-@import 'pages/user-account/videos-add';
+@import 'pages/user-account/video-add';
 @import 'pages/user-account/videos';
 
 // Module - Other

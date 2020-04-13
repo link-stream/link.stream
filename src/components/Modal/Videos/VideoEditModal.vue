@@ -177,8 +177,8 @@ export default {
                 genre: genre_id,
                 relatedtrack: related_track,
                 visibility,
-                date: moment(date).format('L'),
-                time: time !== '00:00:00' ? time : '',
+                date: new Date(date + ' 00:00:00'),
+                time,
                 scheduled,
             }
         },

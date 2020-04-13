@@ -81,21 +81,6 @@
                     </b-form-group>
 
                     <template v-if="form.scheduled">
-                        <b-form-group label="Time Zone" label-for="vidTzInput">
-                            <v-select
-                                v-model="$v.form.timezone.$model"
-                                id="vidTzInput"
-                                placeholder="Select Timezone"
-                                :class="{ 'is-invalid': $v.form.timezone.$error }"
-                                label="zone"
-                                :options="timezones"
-                                :reduce="timezone => timezone.id"
-                            />
-                            <b-form-invalid-feedback>
-                                <template v-if="!$v.form.timezone.required">The timezone is required</template>
-                            </b-form-invalid-feedback>
-                        </b-form-group>
-
                         <b-form-group label="Publish Date">
                             <b-input-group>
                                 <v-date-picker
@@ -126,12 +111,12 @@
                             <b-form-invalid-feedback
                                 :state="$v.form.date.$error || $v.form.time.$error ? false : true"
                             >A time and date is required</b-form-invalid-feedback>
-                            <basic-button
-                                variant="link"
-                                @click="toggleScheduled"
-                            >{{ form.scheduled ? 'Clear scheduling ' : 'Schedule this video'}}</basic-button>
                         </b-form-group>
                     </template>
+                    <basic-button
+                        variant="link"
+                        @click="toggleScheduled"
+                    >{{ form.scheduled ? 'Clear scheduling ' : 'Schedule this video'}}</basic-button>
                 </div>
             </main>
 

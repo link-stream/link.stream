@@ -84,21 +84,6 @@
                 </b-form-group>
 
                 <template v-if="form.scheduled">
-                    <b-form-group label="Time Zone" label-for="vidTzInput">
-                        <v-select
-                            v-model="$v.form.timezone.$model"
-                            id="vidTzInput"
-                            placeholder="Select Timezone"
-                            :class="{ 'is-invalid': $v.form.timezone.$error }"
-                            label="zone"
-                            :options="timezones"
-                            :reduce="timezone => timezone.id"
-                        />
-                        <b-form-invalid-feedback>
-                            <template v-if="!$v.form.timezone.required">The timezone is required</template>
-                        </b-form-invalid-feedback>
-                    </b-form-group>
-
                     <b-form-group label="Publish Date">
                         <b-input-group>
                             <v-date-picker
@@ -182,7 +167,6 @@ export default {
                 public: visibility,
                 date,
                 time,
-                timezone,
                 scheduled,
             } = video
 
@@ -193,7 +177,6 @@ export default {
                 genre: genre_id,
                 relatedtrack: related_track,
                 visibility,
-                timezone,
                 date: moment(date).format('L'),
                 time: time !== '00:00:00' ? time : '',
                 scheduled,

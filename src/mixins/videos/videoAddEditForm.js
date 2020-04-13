@@ -6,7 +6,6 @@ import { helpers } from 'vuelidate/lib/validators'
 export const videoAddEditForm = {
     created() {
         this.$store.dispatch('common/loadTimes')
-        this.$store.dispatch('common/loadTimezones')
         this.$store.dispatch('common/loadGenres')
         this.$store.dispatch('me/loadTracks')
         this.$store.dispatch('me/loadVisibilities')
@@ -20,7 +19,6 @@ export const videoAddEditForm = {
                 genre: null,
                 relatedtrack: null,
                 visibility: appConstants.user.visibilities.private,
-                timezone: null,
                 date: null,
                 time: null,
                 scheduled: null,
@@ -35,7 +33,6 @@ export const videoAddEditForm = {
             user: ['me/user'],
             relatedtracks: ['me/tracks'],
             visibilities: ['me/visibilities'],
-            timezones: ['common/timezones'],
             times: ['common/times'],
             genres: ['common/genres'],
         }),
@@ -64,11 +61,6 @@ export const videoAddEditForm = {
             visibility: {
                 required,
             },
-            timezone: {
-                required: requiredIf(function() {
-                    return this.form.scheduled
-                }),
-            },
             date: {
                 required: requiredIf(function() {
                     return this.form.scheduled
@@ -83,10 +75,8 @@ export const videoAddEditForm = {
     },
     methods: {
         toggleScheduled() {
-            this.$v.form.timezone.$reset()
             this.$v.form.date.$reset()
             this.$v.form.time.$reset()
-            this.form.timezone = ''
             this.form.date = ''
             this.form.time = ''
             this.form.scheduled = !this.form.scheduled
@@ -113,7 +103,6 @@ export const videoAddEditForm = {
                 genre,
                 relatedtrack,
                 visibility,
-                timezone,
                 date,
                 time,
             } = this.form
@@ -125,7 +114,6 @@ export const videoAddEditForm = {
                 genre_id: genre,
                 related_track: relatedtrack,
                 public: visibility,
-                timezone,
                 time,
                 date,
                 scheduled: this.form.scheduled ? 1 : 0,

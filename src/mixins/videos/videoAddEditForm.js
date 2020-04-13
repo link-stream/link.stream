@@ -59,7 +59,7 @@ export const videoAddEditForm = {
                 minLength: minLength(10),
             },
             genre: {
-                required: false, // TODO make true
+                required: true,
             },
             visibility: {
                 required,

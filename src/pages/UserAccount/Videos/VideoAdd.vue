@@ -122,7 +122,12 @@
 
             <footer class="w__footer">
                 <basic-button class="w__next" @click="goToStep(2)">Next</basic-button>
-                <basic-button class="w__back" variant="secondary" @click="goToStep(1)">Back</basic-button>
+                <basic-button
+                    class="w__back"
+                    variant="secondary"
+                    :disabled="isSaving"
+                    @click="goToStep(1)"
+                >Back</basic-button>
                 <spinner-button class="w__submit" :loading="isSaving" @click="save">Add Video</spinner-button>
             </footer>
         </div>

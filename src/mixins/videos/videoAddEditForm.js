@@ -77,8 +77,8 @@ export const videoAddEditForm = {
         toggleScheduled() {
             this.$v.form.date.$reset()
             this.$v.form.time.$reset()
-            this.form.date = ''
-            this.form.time = ''
+            this.form.date = null
+            this.form.time = null
             this.form.scheduled = !this.form.scheduled
         },
         resetForm() {
@@ -105,6 +105,7 @@ export const videoAddEditForm = {
                 visibility,
                 date,
                 time,
+                scheduled,
             } = this.form
 
             const params = {
@@ -114,9 +115,12 @@ export const videoAddEditForm = {
                 genre_id: genre,
                 related_track: relatedtrack,
                 public: visibility,
-                time,
-                date,
-                scheduled: this.form.scheduled ? 1 : 0,
+                scheduled: scheduled ? 1 : 0,
+            }
+
+            if (scheduled) {
+                params.date = date
+                params.time = time
             }
 
             const { status, error, message } = this.isEditMode

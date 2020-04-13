@@ -45,7 +45,7 @@ const mutations = {
     },
 
     [meTypes.ADD_VIDEO](state, payload) {
-        state.videos.push(payload)
+        state.videos.unshift(payload)
     },
 
     [meTypes.UPDATE_VIDEO](state, payload) {

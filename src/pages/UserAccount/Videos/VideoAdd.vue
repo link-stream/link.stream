@@ -79,44 +79,6 @@
                             >{{ v.title }}</b-form-radio>
                         </b-form-radio-group>
                     </b-form-group>
-
-                    <template v-if="form.scheduled">
-                        <b-form-group label="Publish Date">
-                            <b-input-group>
-                                <v-date-picker
-                                    v-model="$v.form.date.$model"
-                                    class="dt-input-wrap"
-                                    mode="single"
-                                    color="pink"
-                                    :min-date="new Date()"
-                                    :class="{
-                                        'is-invalid': $v.form.date.$error,
-                                    }"
-                                    :input-props="{
-                                        class: 'form-control dt-input',
-                                        placeholder: 'Select Date',
-                                    }"
-                                    :popover="{ visibility: 'click' }"
-                                ></v-date-picker>
-                                <v-select
-                                    v-model="$v.form.time.$model"
-                                    placeholder="Select Time"
-                                    class="tm-input"
-                                    :class="{ 'is-invalid': $v.form.time.$error }"
-                                    label="title"
-                                    :options="times"
-                                    :reduce="time => time.id"
-                                />
-                            </b-input-group>
-                            <b-form-invalid-feedback
-                                :state="$v.form.date.$error || $v.form.time.$error ? false : true"
-                            >A time and date is required</b-form-invalid-feedback>
-                        </b-form-group>
-                    </template>
-                    <basic-button
-                        variant="link"
-                        @click="toggleScheduled"
-                    >{{ form.scheduled ? 'Clear scheduling ' : 'Schedule this video'}}</basic-button>
                 </div>
             </main>
 

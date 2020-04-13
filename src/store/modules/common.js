@@ -30,7 +30,7 @@ const actions = {
     },
 
     async loadGenres({ commit }) {
-        const { status, data } = await lsApi.audios.getGenres()
+        const { status, data } = await lsApi.common.getGenres()
         commit(types.SET_GENRES, status === 'success' ? data : [])
     },
 

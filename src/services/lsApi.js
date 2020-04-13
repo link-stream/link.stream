@@ -111,11 +111,6 @@ export const lsApi = {
         },
     },
     audios: {
-        async getGenres() {
-            const endpoint = '/audios/genre'
-            const method = METHOD_GET
-            return await call({ endpoint, method, showProgress: false })
-        },
         async getTracksByUser(userId) {
             const endpoint = '/audios/related_track/' + userId
             const method = METHOD_GET
@@ -150,6 +145,11 @@ export const lsApi = {
         },
     },
     common: {
+        async getGenres() {
+            const endpoint = '/common/genres'
+            const method = METHOD_GET
+            return await call({ endpoint, method, showProgress: false })
+        },
         async getVisibilitiesByUser(userId) {
             const endpoint = '/common/visibility/' + userId
             const method = METHOD_GET

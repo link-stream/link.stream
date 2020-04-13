@@ -149,9 +149,6 @@ export default {
     data() {
         return {
             step: 1, // [1, 2]
-            form: {
-                url: 'https://www.youtube.com/watch?v=XTbxKAjt4UQ',
-            },
         }
     },
     mixins: [videoAddEditForm],

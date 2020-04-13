@@ -5,7 +5,7 @@
             <h4 class="page__subtitle">Add, remove, edit &amp; order videos anyway you'd like.</h4>
         </header>
         <nav class="page__nav">
-            <div class="nav__left">
+            <div class="nav__left" v-if="user">
                 <span class="preview-url">
                     <span class="text-muted">link.stream/</span>
                     {{ user.user_name }}/videos
@@ -26,19 +26,17 @@
             </Container>
         </main>
 
-        <VideoEditModal :videoToEdit="videoToEdit" />
+        <VideoEditModal :videoToEdit="videoToEdit" @hidden="handleEditModalHidden" />
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { Container, Draggable } from 'vue-smooth-dnd'
-import { lsApi } from '~/services/lsApi'
-import { BasicButton, PreviewPillButton } from '~/components/Button'
+import { PreviewPillButton, BasicButton } from '~/components/Button'
 import { VideoEditModal } from '~/components/Modal/Videos'
 import { VideoCard } from '~/components/UserAccount/Videos'
 import { appConstants } from '~/constants'
-import { cloneDeep } from 'lodash'
 
 export default {
     name: 'Videos',
@@ -52,44 +50,47 @@ export default {
     },
     data() {
         return {
+            videos: [],
             videoToEdit: {},
         }
     },
     computed: {
         ...mapGetters({
             user: 'me/user',
-            videos: 'me/videos',
         }),
     },
-    created() {
-        this.$store.dispatch('me/loadVideos', {
+    async created() {
+        const { status, data } = await this.$store.dispatch('me/loadVideos', {
             userId: this.user.id,
             params: {
                 page: 1,
                 page_size: appConstants.user.account.videosPerPage,
             },
         })
+        if (status === 'success') {
+            this.videos = data
+        }
     },
     methods: {
         handleEditClick({ video }) {
-            this.videoToEdit = cloneDeep(video)
+            this.videoToEdit = video
             this.$bvModal.show('vidEditMdl')
+        },
+        handleEditModalHidden() {
+            this.videoToEdit = {}
         },
         handleDrop(dropResult) {
             const { removedIndex, addedIndex } = dropResult
-            const moved = this.videos.find(
-                (video, index) => index === removedIndex
-            )
-            const remaining = this.videos.filter(
-                (video, index) => index !== removedIndex
-            )
-            const reordered = [
-                ...remaining.slice(0, addedIndex),
-                moved,
-                ...remaining.slice(addedIndex),
-            ]
-            const sorts = reordered.map((video, index) => {
-                return { id: video.id, sort: (index + 1).toString() }
+            const videos = [...this.videos]
+            const movedVideo = videos[removedIndex]
+            videos.splice(removedIndex, 1)
+            videos[addedIndex] = movedVideo
+            this.videos = videos
+            const sorts = videos.map((v, idx) => {
+                return {
+                    id: v.id,
+                    sort: (idx + 1).toString(),
+                }
             })
             this.$store.dispatch('me/sortVideos', { sorts })
         },

@@ -155,10 +155,9 @@ export default {
     },
     watch: {
         videoToEdit(video) {
-            if (!video) {
+            if (!video.id) {
                 return
             }
-
             const {
                 title,
                 url,
@@ -188,6 +187,7 @@ export default {
             this.$bvModal.hide('vidEditMdl')
         },
         handleHidden() {
+            this.$emit('hidden')
             this.resetForm()
         },
     },

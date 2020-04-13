@@ -54,9 +54,11 @@ const mutations = {
     },
 
     [meTypes.SORT_VIDEOS](state, sorts) {
-        state.videos.forEach(video => {
-            video.sort = sorts.find(obj => obj.id === video.id).sort
-        })
+        const lookupMap = {}
+        state.videos.forEach(v => (lookupMap[v.id] = v))
+        const sortedVideos = []
+        sorts.forEach(sort => sortedVideos.push(lookupMap[sort.id]))
+        state.videos = sortedVideos
     },
 }
 
@@ -109,11 +111,10 @@ const actions = {
 
     async loadVideos({ commit }, payload) {
         const { userId, params } = payload
-        const { status, data } = await lsApi.videos.getVideosByUser(
-            userId,
-            params
-        )
+        const res = await lsApi.videos.getVideosByUser(userId, params)
+        const { status, data } = res
         commit(meTypes.SET_VIDEOS, status === 'success' ? data : [])
+        return res
     },
 
     async createVideo({ commit }, payload) {
@@ -132,10 +133,13 @@ const actions = {
         return res
     },
 
-    sortVideos({ commit }, payload) {
+    sortVideos({ state, commit }, payload) {
         const { sorts } = payload
         commit(meTypes.SORT_VIDEOS, sorts)
-        lsApi.videos.sortVideos({ list: JSON.stringify(sorts) })
+        lsApi.videos.sortVideos({
+            user_id: state.user.id,
+            list: JSON.stringify(sorts),
+        })
     },
 
     updateProfile({ commit }, payload) {

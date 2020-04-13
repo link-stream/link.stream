@@ -182,7 +182,7 @@ export const lsApi = {
                     const h12 = h24 % 12 || 12
                     const m12 = m24 || '00'
                     const amPm = h > 11 ? 'PM' : 'AM'
-                    const t24 = `${h24}:${m24}`
+                    const t24 = `${h24}:${m24}:00`
                     const t12 = `${h12}:${m12} ${amPm}`
                     times.push({
                         id: t24,

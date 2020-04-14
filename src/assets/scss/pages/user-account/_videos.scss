@@ -1,5 +1,5 @@
 .page-ua-vids {
-    @import '~@/assets/scss/partials/video-card';
+    @import '~@/assets/scss/partials/user-account/video-card';
 
     .preview-url {
         color: $black;
@@ -12,21 +12,5 @@
 
     .smooth-dnd-draggable-wrapper {
         overflow: visible !important;
-    }
-
-    .page__nav {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        .nav__left {
-            flex-grow: 1;
-            margin-bottom: 15px;
-        }
-    }
-
-    @include media-breakpoint-up(sm) {
-        .page__nav {
-            flex-direction: row;
-        }
     }
 }

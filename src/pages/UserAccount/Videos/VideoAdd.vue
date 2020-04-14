@@ -1,14 +1,14 @@
 <template>
     <b-container fluid class="page page-ua-vids-add">
-        <div class="form-wizard" :class="{ 'is-last-step': step === 2 }">
-            <h6 class="w__step-count">Step {{ step }} / 2</h6>
+        <div class="formwiz" :class="{ 'is-last-step': step === 2 }">
+            <h6 class="fwz__stepcnt">Step {{ step }} / 2</h6>
 
-            <header class="w__header">
-                <h1 class="w__title">{{ step === 1 ? 'Add a video' : 'Review video info' }}</h1>
-                <h4 class="w__subtitle">{{ step === 2 ? 'Preview and publish your content' : '' }}</h4>
+            <header class="fwz__header">
+                <h1 class="fwz__title">{{ step === 1 ? 'Add a video' : 'Review video info' }}</h1>
+                <h4 class="fwz__subtitle">{{ step === 2 ? 'Preview and publish your content' : '' }}</h4>
             </header>
 
-            <main class="w__body" :novalidate="true">
+            <main class="fwz__body" :novalidate="true">
                 <div v-show="step === 1">
                     <b-form-group label="YouTube Video URL" label-for="vidUrlInput">
                         <b-form-input
@@ -82,15 +82,15 @@
                 </div>
             </main>
 
-            <footer class="w__footer">
-                <basic-button class="w__next" @click="goToStep(2)">Next</basic-button>
+            <footer class="fwz__footer">
+                <basic-button class="fwz__next" @click="goToStep(2)">Next</basic-button>
                 <basic-button
-                    class="w__back"
+                    class="fwz__back"
                     variant="secondary"
                     :disabled="isSaving"
                     @click="goToStep(1)"
                 >Back</basic-button>
-                <spinner-button class="w__submit" :loading="isSaving" @click="save">Add Video</spinner-button>
+                <spinner-button class="fwz__submit" :loading="isSaving" @click="save">Add Video</spinner-button>
             </footer>
         </div>
     </b-container>

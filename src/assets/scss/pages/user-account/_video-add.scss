@@ -1,83 +1,77 @@
 .page-ua-vids-add {
-    .youtube-container {
-        max-width: 100%;
-        @include media-breakpoint-down(xs) {
-            max-width: 100%;
-        }
-    }
-
-    .form-wizard {
-        .tm-input,
-        .dt-input-wrap {
-            width: 50%;
-        }
-
-        .dt-input {
-            border-right: 0px;
-        }
-
-        .w__step-count {
+    .formwiz {
+        .fwz__stepcnt {
             color: $linkstream-4;
             font-size: 11px;
             font-weight: bold;
             letter-spacing: 1px;
             text-transform: uppercase;
             margin-bottom: 1rem;
+            font-weight: 600;
         }
 
-        .w__header {
+        .fwz__header {
             margin-bottom: 20px;
         }
 
-        .w__title {
+        .fwz__title {
             color: $black;
             font-size: 30px;
             font-weight: 800;
             line-height: 34px;
         }
 
-        .w__subtitle {
+        .fwz__subtitle {
             color: $black;
             font-size: 14px;
             line-height: 24px;
             font-weight: normal;
         }
 
-        .w__body {
+        .fwz__body {
             margin-bottom: 29px;
             max-width: 500px;
         }
 
-        .w__footer {
+        .fwz__footer {
             display: flex;
             flex-direction: column;
             flex-direction: column-reverse;
         }
 
-        .w__submit,
-        .w__back {
+        .fwz__submit,
+        .fwz__back {
             display: none;
         }
 
-        .w__submit {
+        .fwz__submit {
             margin-bottom: 10px;
         }
 
         &.is-last-step {
-            .w__submit,
-            .w__back {
+            .fwz__submit,
+            .fwz__back {
                 display: block;
             }
 
-            .w__next {
+            .fwz__next {
                 display: none;
             }
 
-            .w__footer {
+            .fwz__footer {
                 border-top: 1px solid $linkstream-7;
                 margin-top: 29px;
                 padding-top: 29px;
             }
+        }
+
+        .pubtm-input,
+        .pubdt-input-wrap {
+            width: 50%;
+        }
+
+        .pubdt-input {
+            border-right: 0px;
         }
 
         .vid-wrap,
@@ -88,12 +82,12 @@
         }
 
         @include media-breakpoint-up(sm) {
-            .w__footer {
+            .fwz__footer {
                 flex-direction: row;
                 justify-content: space-between;
             }
 
-            .w__submit {
+            .fwz__submit {
                 margin-bottom: 0;
             }
 

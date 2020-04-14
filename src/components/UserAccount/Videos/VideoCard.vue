@@ -1,17 +1,17 @@
 <template>
     <div class="vid-crd">
-        <div class="c__flex">
-            <Icon icon="reorder" class="c__reorder vid-crd-drag-sel" />
-            <div class="c__body">
-                <img class="c__img" :src="thumbUrl" :alt="video.title" />
-                <div class="c__info">
-                    <h2 class="c__title">{{ video.title }}</h2>
-                    <small class="c__private" v-if="isPrivate">Private</small>
+        <div class="crd__flex">
+            <Icon icon="reorder" class="crd__reorder vid-crd-drag-sel" />
+            <div class="crd__body">
+                <img class="crd__img" :src="thumbUrl" :alt="video.title" />
+                <div class="crd__info">
+                    <h2 class="crd__title">{{ video.title }}</h2>
+                    <small class="crd__priv" v-if="isPrivate">Private</small>
                 </div>
             </div>
         </div>
-        <div class="c__actions">
-            <span class="c__hover-actions">
+        <div class="crd__act">
+            <span class="crd__hov">
                 <IconButton icon="trash" @click="remove" />
             </span>
             <IconButton icon="edit-2" @click="edit" />

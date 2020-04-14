@@ -1,16 +1,44 @@
 .modal-vid-edit {
-    @include media-breakpoint-up(sm) {
-        .modal-dialog {
-            max-width: 320px !important;
+    // Reset bs style
+    .modal-body {
+        padding: 1.2rem;
+    }
+
+    .mdl__header {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .mdl__close {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+    }
+
+    .mdl__title {
+        color: $black;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .mdl__footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+
+        .btn {
+            padding: 0;
+            width: 135px;
+            height: 40px;
         }
     }
 
-    .tm-input,
-    .dt-input-wrap {
+    .pubtm-input,
+    .pubdt-input-wrap {
         width: 50%;
     }
 
-    .dt-input {
+    .pubdt-input {
         border-right: 0px;
     }
 
@@ -21,36 +49,9 @@
         margin-bottom: 20px;
     }
 
-    .m__content {
-        padding: 5px;
-    }
-
-    .m__header {
-        position: relative;
-        margin-bottom: 20px;
-    }
-
-    .m__close {
-        position: absolute;
-        top: -10px;
-        right: -10px;
-    }
-
-    .m__title {
-        color: $black;
-        font-size: 18px;
-        font-weight: bold;
-    }
-
-    .m__footer {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-
-        .btn {
-            padding: 0;
-            width: 135px;
-            height: 40px;
+    @include media-breakpoint-up(sm) {
+        .modal-dialog {
+            max-width: 320px !important;
         }
     }
 }

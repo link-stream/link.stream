@@ -1,24 +1,24 @@
 <template>
     <b-modal modal-class="alertbox" v-model="show" hide-header hide-footer>
-        <div class="a__content">
-            <IconButton class="a__close" icon="close-2" @click="close" />
+        <div class="alrt__content">
+            <IconButton class="alrt__close" icon="close-2" @click="close" />
             <template v-if="opts.title && opts.message">
-                <h2 class="a__title" v-if="opts.title" v-html="opts.title"></h2>
-                <p class="a__msg" v-show="opts.message" v-html="opts.message"></p>
+                <h2 class="alrt__title" v-if="opts.title" v-html="opts.title"></h2>
+                <p class="alrt__msg" v-show="opts.message" v-html="opts.message"></p>
             </template>
             <template v-else>
-                <h2 class="a__title" v-html="opts.title || opts.message"></h2>
+                <h2 class="alrt__title" v-html="opts.title || opts.message"></h2>
             </template>
-            <footer class="a__actions">
+            <footer class="alrt__act">
                 <basic-button
-                    class="a__cancel"
+                    class="alrt__cancl"
                     variant="secondary"
                     :disabled="loading"
                     v-show="opts.cancelShow"
                     @click="handleCancelClick"
                 >{{ opts.cancelText }}</basic-button>
                 <spinner-button
-                    class="a__ok"
+                    class="alrt__ok"
                     :loading="loading"
                     v-show="opts.okShow"
                     @click="handleOkClick"

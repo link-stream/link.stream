@@ -114,8 +114,8 @@ const actions = {
         })
     },
 
-    async loadVideos({ commit }, { userId, params }) {
-        const res = await lsApi.videos.getVideosByUser(userId, params)
+    async loadVideos({ state, commit }, { params }) {
+        const res = await lsApi.videos.getVideosByUser(state.user.id, params)
         commit({
             type: meTypes.SET_VIDEOS,
             videos: res.status === 'success' ? res.data : [],

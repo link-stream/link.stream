@@ -20,7 +20,7 @@
         </nav>
         <main class="page__body">
             <Container @drop="handleDrop" drag-handle-selector=".vid-crd-drag-sel">
-                <Draggable v-for="video in videos" :key="`video-${video.id}`">
+                <Draggable v-for="video in localVideos" :key="`video-${video.id}`">
                     <VideoCard
                         :video="video"
                         @edit="handleEditVideoClick"
@@ -54,26 +54,28 @@ export default {
     },
     data() {
         return {
-            videos: [],
+            localVideos: [],
             videoToEdit: {},
         }
     },
     computed: {
         ...mapGetters({
             user: 'me/user',
+            videos: 'me/videos',
         }),
     },
     async created() {
-        const { status, data } = await this.$store.dispatch('me/loadVideos', {
-            userId: this.user.id,
+        this.$store.dispatch('me/loadVideos', {
             params: {
                 page: 1,
                 page_size: appConstants.user.account.videosPerPage,
             },
         })
-        if (status === 'success') {
-            this.videos = data
-        }
+    },
+    watch: {
+        videos() {
+            this.localVideos = this.videos
+        },
     },
     methods: {
         handleEditVideoClick({ video }) {
@@ -105,13 +107,13 @@ export default {
         },
         handleDrop(dropResult) {
             const { removedIndex, addedIndex } = dropResult
-            const videos = [...this.videos]
+            const videos = [...this.localVideos]
             const movedVideo = videos[removedIndex]
             // Remove from original position
             videos.splice(removedIndex, 1)
             // Insert at new position
             videos.splice(addedIndex, 0, movedVideo)
-            this.videos = videos
+            this.localVideos = videos
             const sorts = videos.map((v, idx) => {
                 return {
                     id: v.id,

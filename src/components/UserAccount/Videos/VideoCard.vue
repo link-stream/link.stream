@@ -51,26 +51,10 @@ export default {
     },
     methods: {
         edit() {
-            this.$emit('editClick', { video: this.video })
+            this.$emit('edit', { video: this.video })
         },
         remove() {
-            this.$alert.alert({
-                title: 'Delete video?',
-                message: 'This video and its data will be permanently deleted.',
-                okText: 'Confirm',
-                cancelText: 'Cancel',
-                onOk: async ({ close }) => {
-                    close()
-                    const {
-                        status,
-                        message,
-                        error,
-                    } = await this.$store.dispatch('me/deleteVideo', {
-                        id: this.video.id,
-                    })
-                    this.$toast.success(status === 'success' ? message : error)
-                },
-            })
+            this.$emit('remove', { video: this.video })
         },
     },
 }

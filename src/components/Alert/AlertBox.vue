@@ -10,21 +10,19 @@
                 <h2 class="a__title" v-html="opts.title || opts.message"></h2>
             </template>
             <footer class="a__actions">
-                <BasicButton
+                <basic-button
                     class="a__cancel"
                     variant="secondary"
                     :disabled="loading"
                     v-show="opts.cancelShow"
-                    v-html="opts.cancelText"
                     @click="handleCancelClick"
-                />
-                <SpinnerButton
+                >{{ opts.cancelText }}</basic-button>
+                <spinner-button
                     class="a__ok"
                     :loading="loading"
                     v-show="opts.okShow"
-                    v-html="opts.okText"
                     @click="handleOkClick"
-                />
+                >{{ opts.okText }}</spinner-button>
             </footer>
         </div>
     </b-modal>
@@ -73,22 +71,23 @@ export default {
     },
     methods: {
         alert(opts) {
-            this.aloading = false
             for (let key in defaultOpts) {
                 this.opts[key] = opts[key] || defaultOpts[key]
             }
+            this.loading = false
             this.show = true
         },
         close() {
             this.show = false
+            this.loading = false
         },
         handleOkClick() {
             typeof this.opts.onOk === 'function' &&
-                this.opts.onOk.call(this, { close: this.close })
+                this.opts.onOk.call(this, this)
         },
         handleCancelClick() {
             typeof this.opts.onCancel === 'function' &&
-                this.opts.onCancel.call(this, { close: this.close })
+                this.opts.onCancel.call(this, this)
         },
     },
 }

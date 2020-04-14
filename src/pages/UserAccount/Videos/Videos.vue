@@ -21,7 +21,11 @@
         <main class="page__body">
             <Container @drop="handleDrop" drag-handle-selector=".vid-crd-drag-sel">
                 <Draggable v-for="video in videos" :key="`video-${video.id}`">
-                    <VideoCard :video="video" @editClick="handleEditClick" />
+                    <VideoCard
+                        :video="video"
+                        @edit="handleEditVideoClick"
+                        @remove="handleRemoveVideoClick"
+                    />
                 </Draggable>
             </Container>
         </main>
@@ -72,9 +76,29 @@ export default {
         }
     },
     methods: {
-        handleEditClick({ video }) {
+        handleEditVideoClick({ video }) {
             this.videoToEdit = video
             this.$bvModal.show('vidEditMdl')
+        },
+        handleRemoveVideoClick({ video }) {
+            this.$alert.alert({
+                title: 'Delete video?',
+                message: 'This video and its data will be permanently deleted.',
+                okText: 'Confirm',
+                cancelText: 'Cancel',
+                onOk: async alert => {
+                    alert.loading = true
+                    const {
+                        status,
+                        message,
+                        error,
+                    } = await this.$store.dispatch('me/deleteVideo', {
+                        id: video.id,
+                    })
+                    this.$toast.success(status === 'success' ? message : error)
+                    alert.close()
+                },
+            })
         },
         handleEditModalHidden() {
             this.videoToEdit = {}

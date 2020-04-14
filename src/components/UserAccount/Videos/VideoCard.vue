@@ -3,7 +3,10 @@
         <div class="crd__flex">
             <Icon icon="reorder" class="crd__reorder vid-crd-drag-sel" />
             <div class="crd__body">
-                <img class="crd__img" :src="thumbUrl" :alt="video.title" />
+                <div class="crd__media">
+                    <div class="crd__lock"></div>
+                    <img class="crd__img" :src="thumbUrl" :alt="video.title" />
+                </div>
                 <div class="crd__info">
                     <h2 class="crd__title">{{ video.title }}</h2>
                     <small class="crd__priv" v-if="isPrivate">Private</small>

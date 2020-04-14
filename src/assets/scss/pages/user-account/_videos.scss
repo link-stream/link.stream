@@ -6,8 +6,14 @@
         font-size: 12px;
         font-weight: 600;
         line-height: 1rem;
-        margin-right: 0.5rem;
+        margin-right: 0.3rem;
         letter-spacing: 0.5px;
+        .txtlight {
+            color: $linkstream-4;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0;
+        }
     }
 
     .smooth-dnd-draggable-wrapper {

@@ -5,16 +5,15 @@
             <h4 class="page__subtitle">Add, remove, edit &amp; order videos anyway you'd like.</h4>
         </header>
         <nav class="page__nav">
-            <div class="nav__left" v-if="user">
+            <div class="page__nav__left" v-if="user">
                 <span class="preview-url">
-                    <span class="text-muted">link.stream/</span>
-                    {{ user.user_name }}/videos
+                    <span class="txtlight">link.stream/</span>{{ user.user_name }}/videos
                 </span>
                 <preview-pill-button
                     :to="{ name: 'userVideos', params: { username: user.user_name }}"
                 >Preview</preview-pill-button>
             </div>
-            <div class="nav__right">
+            <div class="page__nav__right">
                 <basic-button :to="{ name: 'userAccountVideoAdd' }">Add New Video</basic-button>
             </div>
         </nav>

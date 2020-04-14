@@ -23,6 +23,17 @@
         padding-left: $spacer;
     }
 
+    .crd__media {
+        position: relative;
+    }
+
+    .crd__lock {
+        position: absolute;
+        background-image: url(~@/../public/static/img/lock-overlay-thumb.svg);
+        width: 124px;
+        height: 70px;
+    }
+
     .crd__img {
         width: 190px;
         height: 106px;

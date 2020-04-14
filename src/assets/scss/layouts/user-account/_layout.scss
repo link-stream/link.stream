@@ -24,10 +24,6 @@
         margin-bottom: 0;
     }
 
-    .page__header {
-        margin-bottom: 1.5rem;
-    }
-
     .page__title {
         font-weight: 800;
         color: $black;
@@ -49,10 +45,12 @@
         flex-direction: column;
         align-items: stretch;
         margin-bottom: 2rem;
-        .nav__left {
-            flex-grow: 1;
-            margin-bottom: 15px;
-        }
+    }
+
+    .page__nav__left {
+        flex-grow: 1;
+        margin-bottom: 15px;
+        align-self: flex-end;
     }
 
     @include media-breakpoint-up(sm) {
@@ -68,13 +66,12 @@
     }
 
     @include media-breakpoint-up(sm) {
-        .page__nav {
-            .nav__left {
-                margin-bottom: 0;
-            }
-            .nav__right {
-                align-content: flex-end;
-            }
+        .page__nav__left {
+            margin-bottom: 0;
+        }
+
+        .page__nav__right {
+            align-content: flex-end;
         }
     }
 }

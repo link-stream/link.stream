@@ -3,7 +3,8 @@
 const path = require('path')
 
 module.exports = {
-    lintOnSave: false,
+    lintOnSave: true,
+    filenameHashing: true,
     configureWebpack: {
         resolve: {
             extensions: ['.js', '.vue', '.json'],

@@ -1,73 +1,94 @@
 <template>
-    <b-modal v-model="show">
-        <basic-button v-slot:modal-header>x</basic-button>
-
-        <template v-slot:default>
-            <p v-html="msg"></p>
-
-            <BasicButton v-show="cancelShow" v-html="cancelLabel" @click="handleCancelClick" />
-            <SpinnerButton v-show="okShow" v-html="okLabel" @click="handleOkClick" />
-        </template>
-
-        <template v-slot:modal-footer></template>
+    <b-modal modal-class="alertbox" v-model="show" hide-header hide-footer>
+        <div class="a__content">
+            <IconButton class="a__close" icon="close-2" @click="close" />
+            <template v-if="opts.title && opts.message">
+                <h2 class="a__title" v-if="opts.title" v-html="opts.title"></h2>
+                <p class="a__msg" v-show="opts.message" v-html="opts.message"></p>
+            </template>
+            <template v-else>
+                <h2 class="a__title" v-html="opts.title || opts.message"></h2>
+            </template>
+            <footer class="a__actions">
+                <BasicButton
+                    class="a__cancel"
+                    variant="secondary"
+                    :disabled="loading"
+                    v-show="opts.cancelShow"
+                    v-html="opts.cancelText"
+                    @click="handleCancelClick"
+                />
+                <SpinnerButton
+                    class="a__ok"
+                    :loading="loading"
+                    v-show="opts.okShow"
+                    v-html="opts.okText"
+                    @click="handleOkClick"
+                />
+            </footer>
+        </div>
     </b-modal>
 </template>
 
 <script>
-import { BasicButton, SpinnerButton } from '~/components/Button'
+import { BasicButton, SpinnerButton, IconButton } from '~/components/Button'
+
+const defaultOpts = {
+    title: null,
+    message: null,
+    okShow: true,
+    okText: 'OK',
+    cancelShow: true,
+    cancelText: 'Cancel',
+    onOk: function() {
+        this.close()
+    },
+    onCancel: function() {
+        this.close()
+    },
+}
 
 export default {
     name: 'AlertBox',
     components: {
         BasicButton,
         SpinnerButton,
+        IconButton,
     },
     data() {
         return {
             show: false,
-            msg: null,
-            okShow: null,
-            okLabel: null,
-            okClick: null,
-            cancelShow: null,
-            cancelLabel: null,
-            cancelClick: null,
-            defaults: {
-                okShow: true,
-                okLabel: 'OK',
-                okClick: () => {
-                    this.close()
-                },
-                cancelShow: true,
-                cancelLabel: 'Cancel',
-                cancelClick: () => {
-                    this.close()
-                },
+            loading: false,
+            opts: {
+                title: null,
+                message: null,
+                okShow: null,
+                okText: null,
+                cancelShow: null,
+                cancelText: null,
+                onOk: null,
+                onCancel: null,
             },
         }
     },
     methods: {
-        ok(msg, opts) {
-            this.open(msg, { ...opts, cancelShow: false })
-        },
-        okCancel(msg, opts) {
-            this.open(msg, opts)
-        },
-        open(msg, opts) {
-            Object.keys(this.defaults).forEach(key => {
-                this[key] = opts[key] || this.defaults[key]
-            })
+        alert(opts) {
+            this.aloading = false
+            for (let key in defaultOpts) {
+                this.opts[key] = opts[key] || defaultOpts[key]
+            }
             this.show = true
         },
         close() {
             this.show = false
         },
         handleOkClick() {
-            typeof this.okClick === 'function' && this.okClick.call(null, this)
+            typeof this.opts.onOk === 'function' &&
+                this.opts.onOk.call(this, { close: this.close })
         },
         handleCancelClick() {
-            typeof this.cancelClick === 'function' &&
-                this.cancelClick.call(null, this)
+            typeof this.opts.onCancel === 'function' &&
+                this.opts.onCancel.call(this, { close: this.close })
         },
     },
 }

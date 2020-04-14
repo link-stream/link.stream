@@ -6,17 +6,6 @@
     padding: 10px 51px;
 }
 
-.btn-secondary {
-    color: $linkstream-4;
-    border-color: transparent;
-    &:hover {
-        border-color: transparent;
-    }
-    &:active {
-        color: $linkstream-4 !important;
-    }
-}
-
 .btn-outline-secondary {
     color: $black;
     border-color: $linkstream-6;

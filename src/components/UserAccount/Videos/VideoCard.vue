@@ -12,7 +12,7 @@
         </div>
         <div class="c__actions">
             <span class="c__hover-actions">
-                <IconButton icon="trash" />
+                <IconButton icon="trash" @click="remove" />
             </span>
             <IconButton icon="edit-2" @click="edit" />
         </div>
@@ -52,6 +52,25 @@ export default {
     methods: {
         edit() {
             this.$emit('editClick', { video: this.video })
+        },
+        remove() {
+            this.$alert.alert({
+                title: 'Delete video?',
+                message: 'This video and its data will be permanently deleted.',
+                okText: 'Confirm',
+                cancelText: 'Cancel',
+                onOk: async ({ close }) => {
+                    close()
+                    const {
+                        status,
+                        message,
+                        error,
+                    } = await this.$store.dispatch('me/removeVideo', {
+                        id: this.video.id,
+                    })
+                    this.$toast.success(status === 'success' ? message : error)
+                },
+            })
         },
     },
 }

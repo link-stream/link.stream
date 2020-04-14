@@ -1,0 +1,44 @@
+.alertbox {
+    text-align: center;
+
+    .modal-dialog {
+        width: 320px !important;
+        height: 154px !important;
+    }
+
+    .a__content {
+        padding: 10px;
+    }
+
+    .a__close {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+
+    .a__title {
+        color: $black;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 0;
+    }
+
+    .a__msg {
+        margin-top: 15px;
+        color: #666666;
+        font-size: 13px;
+    }
+
+    .a__actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .a__ok,
+    .a__cancel {
+        width: 130px;
+        height: 40px;
+        padding: 0;
+    }
+}

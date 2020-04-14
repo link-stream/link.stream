@@ -53,6 +53,11 @@ const mutations = {
         index > -1 && Vue.set(state.videos, index, payload)
     },
 
+    [meTypes.REMOVE_VIDEO](state, payload) {
+        const index = state.videos.map(v => v.id).indexOf(payload.id)
+        Vue.delete(state.videos, index)
+    },
+
     [meTypes.SORT_VIDEOS](state, sorts) {
         const lookupMap = {}
         state.videos.forEach(v => (lookupMap[v.id] = v))
@@ -119,17 +124,21 @@ const actions = {
 
     async createVideo({ commit }, payload) {
         const res = await lsApi.videos.createVideo(payload.params)
-        if (res.status === 'success') {
-            commit(meTypes.ADD_VIDEO, res.data)
-        }
+        res.status === 'success' && commit(meTypes.ADD_VIDEO, res.data)
         return res
     },
 
     async updateVideo({ commit }, payload) {
         const res = await lsApi.videos.updateVideo(payload.id, payload.params)
-        if (res.status === 'success') {
-            commit(meTypes.UPDATE_VIDEO, res.data)
-        }
+        res.status === 'success' && commit(meTypes.UPDATE_VIDEO, res.data)
+        return res
+    },
+
+    async removeVideo({ state, commit }, { id }) {
+        const res = await lsApi.videos.deleteVideo(id, {
+            user_id: state.user.id,
+        })
+        res.status === 'success' && commit(meTypes.REMOVE_VIDEO, { id })
         return res
     },
 

@@ -23,4 +23,5 @@ export const meTypes = {
     SORT_VIDEOS: 'SORT_VIDEOS',
     ADD_VIDEO: 'ADD_VIDEO',
     UPDATE_VIDEO: 'UPDATE_VIDEO',
+    REMOVE_VIDEO: 'REMOVE_VIDEO',
 }

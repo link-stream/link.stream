@@ -83,8 +83,10 @@ export default {
             const { removedIndex, addedIndex } = dropResult
             const videos = [...this.videos]
             const movedVideo = videos[removedIndex]
+            // Remove from original position
             videos.splice(removedIndex, 1)
-            videos[addedIndex] = movedVideo
+            // Insert at new position
+            videos.splice(addedIndex, 0, movedVideo)
             this.videos = videos
             const sorts = videos.map((v, idx) => {
                 return {

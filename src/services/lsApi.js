@@ -128,6 +128,11 @@ export const lsApi = {
             const method = METHOD_PUT
             return await call({ endpoint, params, method })
         },
+        async deleteVideo(id, params) {
+            const endpoint = '/videos/' + id
+            const method = METHOD_DELETE
+            return await call({ endpoint, params, method })
+        },
         async sortVideos(params) {
             const endpoint = '/videos/sort_videos/'
             const method = METHOD_POST

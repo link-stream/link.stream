@@ -2,7 +2,6 @@
  * Logged In User Module
  */
 
-import Vue from 'vue'
 import { types, meTypes } from '../mutationTypes'
 import { lsApi } from '~/services/lsApi'
 import { base64ImgToSrc } from '~/utils'
@@ -45,21 +44,22 @@ const mutations = {
     },
 
     [meTypes.UPDATE_VIDEO](state, { video }) {
-        const index = state.videos.map(v => v.id).indexOf(video.id)
-        index > -1 && Vue.set(state.videos, index, video)
+        const { videos } = state
+        const index = videos.map(v => v.id).indexOf(video.id)
+        index > -1 && videos.splice(index, 1, video)
     },
 
     [meTypes.DELETE_VIDEO](state, { id }) {
-        const index = state.videos.map(v => v.id).indexOf(id)
-        Vue.delete(state.videos, index)
+        const { videos } = state
+        const index = videos.map(v => v.id).indexOf(id)
+        videos.splice(index, 1)
     },
 
-    [meTypes.SORT_VIDEOS](state, { sorts }) {
-        const videosMap = {}
-        state.videos.forEach(v => (videosMap[v.id] = v))
-        const sortedVideos = []
-        sorts.forEach(sort => sortedVideos.push(videosMap[sort.id]))
-        state.videos = sortedVideos
+    [meTypes.REORDER_VIDEO](state, { oldIndex, newIndex }) {
+        const { videos } = state
+        const video = videos[oldIndex]
+        videos.splice(oldIndex, 1)
+        videos.splice(newIndex, 0, video)
     },
 }
 
@@ -145,8 +145,8 @@ const actions = {
         return res
     },
 
-    sortVideos({ state, commit }, { sorts }) {
-        commit(meTypes.SORT_VIDEOS, { sorts })
+    reorderVideo({ state, commit }, { oldIndex, newIndex, sorts }) {
+        commit(meTypes.REORDER_VIDEO, { oldIndex, newIndex })
         lsApi.videos.sortVideos({
             user_id: state.user.id,
             list: JSON.stringify(sorts),

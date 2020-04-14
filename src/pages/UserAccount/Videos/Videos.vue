@@ -74,7 +74,7 @@ export default {
     },
     watch: {
         videos() {
-            this.localVideos = this.videos
+            this.localVideos = [...this.videos]
         },
     },
     methods: {
@@ -106,21 +106,21 @@ export default {
             this.videoToEdit = {}
         },
         handleDrop(dropResult) {
-            const { removedIndex, addedIndex } = dropResult
-            const videos = [...this.localVideos]
-            const movedVideo = videos[removedIndex]
-            // Remove from original position
-            videos.splice(removedIndex, 1)
-            // Insert at new position
-            videos.splice(addedIndex, 0, movedVideo)
-            this.localVideos = videos
-            const sorts = videos.map((v, idx) => {
+            const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
+            const video = this.localVideos[oldIndex]
+            this.localVideos.splice(oldIndex, 1)
+            this.localVideos.splice(newIndex, 0, video)
+            const sorts = this.localVideos.map((v, idx) => {
                 return {
                     id: v.id,
                     sort: (idx + 1).toString(),
                 }
             })
-            this.$store.dispatch('me/sortVideos', { sorts })
+            this.$store.dispatch('me/reorderVideo', {
+                oldIndex,
+                newIndex,
+                sorts,
+            })
         },
     },
 }

@@ -65,7 +65,7 @@ export default {
                         status,
                         message,
                         error,
-                    } = await this.$store.dispatch('me/removeVideo', {
+                    } = await this.$store.dispatch('me/deleteVideo', {
                         id: this.video.id,
                     })
                     this.$toast.success(status === 'success' ? message : error)

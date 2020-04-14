@@ -10,33 +10,39 @@ const initialState = () => ({
 const state = initialState()
 
 const mutations = {
-    [types.SET_TIMEZONES](state, payload) {
-        state.timezones = payload
+    [types.SET_TIMEZONES](state, { timezones }) {
+        state.timezones = timezones
     },
 
-    [types.SET_TIMES](state, payload) {
-        state.times = payload
+    [types.SET_TIMES](state, { times }) {
+        state.times = times
     },
 
-    [types.SET_GENRES](state, payload) {
-        state.genres = payload
+    [types.SET_GENRES](state, { genres }) {
+        state.genres = genres
     },
 }
 
 const actions = {
     async loadTimezones({ commit }) {
         const { status, data } = await lsApi.common.getTimezones()
-        commit(types.SET_TIMEZONES, status === 'success' ? data : [])
+        commit({
+            type: types.SET_TIMEZONES,
+            timezones: status === 'success' ? data : [],
+        })
     },
 
     async loadGenres({ commit }) {
         const { status, data } = await lsApi.common.getGenres()
-        commit(types.SET_GENRES, status === 'success' ? data : [])
+        commit({
+            type: types.SET_GENRES,
+            genres: status === 'success' ? data : [],
+        })
     },
 
     loadTimes({ commit }) {
         const times = lsApi.common.getTimes()
-        commit(types.SET_TIMES, times)
+        commit(types.SET_TIMES, { times })
     },
 }
 

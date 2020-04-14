@@ -27,13 +27,15 @@ const mutations = {
         }
     },
 
-    [authTypes.SIGNUP](state, payload) {
-        state.pendingUser = payload
+    [authTypes.SIGNUP](state, { user }) {
+        state.pendingUser = user
+        setPendingUserCookie(user)
     },
 
-    [authTypes.LOGIN](state, payload) {
-        const { id, token } = payload
+    [authTypes.LOGIN](state, { user }) {
+        const { id, token } = user
         state.user = { id, token }
+        setAuthCookie(state.user)
     },
 
     [authTypes.LOGOUT]() {
@@ -48,22 +50,18 @@ const actions = {
             commit(types.RESET)
         },
     },
-    signup({ commit }, payload) {
-        const { user } = payload
+    signup({ commit }, { user }) {
         if (!isEmpty(user)) {
-            commit(authTypes.SIGNUP, user)
-            setPendingUserCookie(user)
+            commit(authTypes.SIGNUP, { user })
             router.push({ name: 'signupConfirm' })
         }
     },
 
-    async login({ commit, dispatch }, payload) {
-        const { user } = payload
+    async login({ commit, dispatch }, { user }) {
         if (!isEmpty(user)) {
             commit(types.RESET)
-            commit(authTypes.LOGIN, user)
+            commit(authTypes.LOGIN, { user })
             await dispatch('me/loadAccount', null, { root: true })
-            setAuthCookie(user)
             router.push({ name: 'userAccountDashboard' })
         }
     },

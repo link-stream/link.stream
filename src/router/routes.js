@@ -14,10 +14,13 @@ import {
     UserAccountProfileEdit,
     UserAccountVideos,
     UserAccountVideosAdd,
+    UserAccountLinks,
 } from '~/pages/UserAccount'
 
 const routes = [
-    // Misc pages
+    /**
+     * Misc pages
+     */
     {
         path: '/',
         name: 'home',
@@ -31,7 +34,9 @@ const routes = [
         meta: { layout: 'Landing' },
     },
 
-    // User auth pages
+    /**
+     * Auth
+     */
     {
         path: '/login',
         name: 'login',
@@ -75,7 +80,9 @@ const routes = [
         meta: { requiresGuest: true, layout: 'Auth' },
     },
 
-    // User account pages
+    /**
+     * User Account
+     */
     {
         path: '/app',
         name: 'userAccountDashboard',
@@ -101,8 +108,16 @@ const routes = [
         component: UserAccountVideosAdd,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
+    {
+        path: '/app/links/manage',
+        name: 'userAccountLinks',
+        component: UserAccountLinks,
+        meta: { requiresAuth: true, layout: 'UserAccount' },
+    },
 
-    // 404 catcher
+    /**
+     * 404 catcher
+     */
     {
         path: '/404',
         alias: '*',

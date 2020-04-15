@@ -5,9 +5,10 @@
             <h4 class="page__subtitle">Add, remove, edit &amp; order videos anyway you'd like.</h4>
         </header>
         <nav class="page__nav">
-            <div class="page__nav__left" v-if="user">
+            <div class="page__nav__left">
                 <span class="preview-url">
-                    <span class="txtlight">link.stream/</span>{{ user.user_name }}/videos
+                    <span class="preview-url__light">link.stream/</span>
+                    {{ user.user_name }}/videos
                 </span>
                 <preview-pill-button
                     :to="{ name: 'userVideos', params: { username: user.user_name }}"

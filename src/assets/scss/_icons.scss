@@ -1,57 +1,57 @@
-.ls {
+.ls-ico {
     display: inline-block;
 }
 
-.ls:before {
+.ls-ico:before {
     content: '';
     display: inline-block;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.ls-reorder:before {
+.ls-ico-reorder:before {
     background-image: url(~@/../public/static/ico/reorder.svg);
     width: 18px;
     height: 14px;
 }
 
-.ls-close:before {
+.ls-ico-close:before {
     background-image: url(~@/../public/static/ico/close.svg);
     width: 16px;
     height: 16px;
 }
 
-.ls-close-2:before {
+.ls-ico-close-2:before {
     background-image: url(~@/../public/static/ico/close-2.svg);
     width: 17px;
     height: 17px;
 }
 
-.ls-edit:before {
+.ls-ico-edit:before {
     background-image: url(~@/../public/static/ico/edit.svg);
     width: 50px;
     height: 50px;
 }
 
-.ls-edit-2:before {
+.ls-ico-edit-2:before {
     background-image: url(~@/../public/static/ico/edit-2.svg);
     width: 50px;
     height: 50px;
 }
 
-.ls-trash:before {
+.ls-ico-trash:before {
     background-image: url(~@/../public/static/ico/trash.svg);
     width: 35px;
     height: 35px;
 }
 
-.ls-eye:before {
+.ls-ico-eye:before {
     background-image: url(~@/../public/static/ico/eye.svg);
     width: 35px;
     height: 35px;
 }
 
-.ls-clock:before {
+.ls-ico-clock:before {
     background-image: url(~@/../public/static/ico/clock.svg);
     width: 35px;
     height: 35px;

@@ -4,13 +4,20 @@
             <h6 class="fwz__stepcnt">Step {{ step }} / 2</h6>
 
             <header class="fwz__header">
-                <h1 class="fwz__title">{{ step === 1 ? 'Add a video' : 'Review video info' }}</h1>
-                <h4 class="fwz__subtitle">{{ step === 2 ? 'Preview and publish your content' : '' }}</h4>
+                <h1 class="fwz__title">
+                    {{ step === 1 ? 'Add a video' : 'Review video info' }}
+                </h1>
+                <h4 class="fwz__subtitle">
+                    {{ step === 2 ? 'Preview and publish your content' : '' }}
+                </h4>
             </header>
 
             <main class="fwz__body" :novalidate="true">
                 <div v-show="step === 1">
-                    <b-form-group label="YouTube Video URL" label-for="vidUrlInput">
+                    <b-form-group
+                        label="YouTube Video URL"
+                        label-for="vidUrlInput"
+                    >
                         <b-form-input
                             v-model="$v.form.url.$model"
                             id="vidUrlInput"
@@ -18,8 +25,12 @@
                             :state="!$v.form.url.$error"
                         ></b-form-input>
                         <b-form-invalid-feedback>
-                            <template v-if="!$v.form.url.required">The YouTube URL is required</template>
-                            <template v-else-if="!$v.form.url.valid">Invalid YouTube URL</template>
+                            <template v-if="!$v.form.url.required"
+                                >The YouTube URL is required</template
+                            >
+                            <template v-else-if="!$v.form.url.valid"
+                                >Invalid YouTube URL</template
+                            >
                         </b-form-invalid-feedback>
                     </b-form-group>
                 </div>
@@ -36,16 +47,19 @@
                             :state="!$v.form.title.$error"
                         ></b-form-input>
                         <b-form-invalid-feedback>
-                            <template v-if="!$v.form.title.required">The video name is required</template>
+                            <template v-if="!$v.form.title.required"
+                                >The video name is required</template
+                            >
                             <template v-else-if="!$v.form.title.minLength">
                                 The video name must be at least
-                                {{ $v.form.title.$params.minLength.min }} characters
+                                {{ $v.form.title.$params.minLength.min }}
+                                characters
                             </template>
                         </b-form-invalid-feedback>
                     </b-form-group>
 
                     <b-form-group label="Genre" label-for="vidGenreInput">
-                        <v-select
+                        <SelectBox
                             v-model="$v.form.genre.$model"
                             id="vidGenreInput"
                             placeholder="Select Genre"
@@ -55,12 +69,17 @@
                             label="genre"
                         />
                         <b-form-invalid-feedback>
-                            <template v-if="!$v.form.genre.required">The genre is required</template>
+                            <template v-if="!$v.form.genre.required"
+                                >The genre is required</template
+                            >
                         </b-form-invalid-feedback>
                     </b-form-group>
 
-                    <b-form-group label="Related Track" label-for="vidTrackInput">
-                        <v-select
+                    <b-form-group
+                        label="Related Track"
+                        label-for="vidTrackInput"
+                    >
+                        <SelectBox
                             v-model="form.relatedtrack"
                             id="vidTrackInput"
                             placeholder="Select Related Track"
@@ -76,21 +95,30 @@
                                 :value="v.id"
                                 v-for="v in visibilities"
                                 :key="v.id"
-                            >{{ v.title }}</b-form-radio>
+                                >{{ v.title }}</b-form-radio
+                            >
                         </b-form-radio-group>
                     </b-form-group>
                 </div>
             </main>
 
             <footer class="fwz__footer">
-                <basic-button class="fwz__next" @click="goToStep(2)">Next</basic-button>
+                <basic-button class="fwz__next" @click="goToStep(2)"
+                    >Next</basic-button
+                >
                 <basic-button
                     class="fwz__back"
                     variant="secondary"
                     :disabled="isSaving"
                     @click="goToStep(1)"
-                >Back</basic-button>
-                <spinner-button class="fwz__submit" :loading="isSaving" @click="save">Add Video</spinner-button>
+                    >Back</basic-button
+                >
+                <spinner-button
+                    class="fwz__submit"
+                    :loading="isSaving"
+                    @click="save"
+                    >Add Video</spinner-button
+                >
             </footer>
         </div>
     </b-container>
@@ -102,6 +130,7 @@ import resize from 'vue-resize-directive'
 import { lsApi } from '~/services/lsApi'
 import { setStatusChange } from '~/utils'
 import { SpinnerButton, BasicButton } from '~/components/Button'
+import { SelectBox } from '~/components/Select'
 import { videoAddEditForm } from '~/mixins/videos/videoAddEditForm'
 
 export default {
@@ -112,6 +141,7 @@ export default {
     components: {
         SpinnerButton,
         BasicButton,
+        SelectBox,
     },
     data() {
         return {

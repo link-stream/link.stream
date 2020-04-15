@@ -2,6 +2,7 @@ import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
 import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
 import { helpers } from 'vuelidate/lib/validators'
+import moment from 'moment'
 
 export const videoAddEditForm = {
     created() {
@@ -119,7 +120,7 @@ export const videoAddEditForm = {
             }
 
             if (scheduled) {
-                params.date = date
+                params.date = moment(date).format('YYYY-MM-DD')
                 params.time = time
             }
 

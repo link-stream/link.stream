@@ -9,6 +9,31 @@
     }
 }
 
+.ls-select {
+    cursor: pointer;
+    background-image: url(~@/../public/static/ico/select-arrow.svg);
+    background-repeat: no-repeat;
+    background-position: 97% center;
+    &.is-time {
+        background-image: url(~@/../public/static/ico/select-time.svg);
+        background-position: 93% center;
+    }
+}
+
+.ls-datepicker {
+    .vc-bg-blue-600 {
+        background-color: $linkstream-1;
+    }
+
+    .ls-datepicker__input {
+        cursor: default;
+        background-color: $white;
+        background-image: url(~@/../public/static/ico/select-date.svg);
+        background-repeat: no-repeat;
+        background-position: 93% center;
+    }
+}
+
 .form-control {
     + .btn-input-spinner {
         position: absolute;
@@ -265,6 +290,7 @@
         padding: 0;
         border-radius: $input-border-radius;
         border: 1px solid $input-border-color;
+        cursor: default;
 
         .vs__selected-options {
             padding: $input-padding-y $input-padding-x;
@@ -280,7 +306,7 @@
             .vs__search {
                 margin: 0;
                 padding: 0;
-
+                cursor: default;
                 &::placeholder {
                     color: $input-placeholder-color;
                 }

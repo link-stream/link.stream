@@ -125,10 +125,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import resize from 'vue-resize-directive'
-import { api } from '~/services/api'
-import { setStatusChange } from '~/utils'
 import { SpinnerButton, BasicButton } from '~/components/Button'
 import { SelectBox } from '~/components/Select'
 import { videoAddEditForm } from '~/mixins/videos/videoAddEditForm'

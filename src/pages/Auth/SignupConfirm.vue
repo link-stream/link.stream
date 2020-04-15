@@ -3,15 +3,16 @@
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-5">
-                    <h2 class="text-black font-weight-bolder">Confirm Email Address</h2>
+                    <h2 class="text-black font-weight-bolder"
+                        >Confirm Email Address</h2
+                    >
                     <p class="fs-1 mx-auto my-4">
                         Please check your inbox to confirm your email address
                         and complete signup.
                     </p>
-                    <b-button
-                        variant="link"
-                        @click="resendConfirationEmail"
-                    >Resend confirmation email</b-button>
+                    <b-button variant="link" @click="resendConfirationEmail"
+                        >Resend confirmation email</b-button
+                    >
                 </b-col>
             </b-row>
         </b-container>
@@ -19,7 +20,7 @@
 </template>
 
 <script>
-import { lsApi } from '~/services/lsApi'
+import { api } from '~/services/api'
 
 export default {
     name: 'SignupConfirm',
@@ -32,7 +33,7 @@ export default {
     methods: {
         async resendConfirationEmail() {
             const { id: user_id } = this.$store.getters.pendingUser
-            const { status, error } = await lsApi.users.resendEmailConfirm({
+            const { status, error } = await api.users.resendEmailConfirm({
                 user_id,
             })
             if (status === 'success') {

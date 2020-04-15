@@ -1,12 +1,20 @@
 <template>
     <b-container fluid class="page page-ua-profile-edit p-sm-5">
-        <b-form @submit.stop.prevent="onSubmit" @reset="resetForm" :novalidate="true">
+        <b-form
+            @submit.stop.prevent="onSubmit"
+            @reset="resetForm"
+            :novalidate="true"
+        >
             <b-row>
                 <b-col cols="12" class="d-none d-sm-block">
                     <h2 class="page-title">Edit your profile</h2>
                 </b-col>
                 <b-col cols="12" class="profile-images-container mt-sm-4">
-                    <div class="banner-container" ref="banner-container" v-resize="onResize">
+                    <div
+                        class="banner-container"
+                        ref="banner-container"
+                        v-resize="onResize"
+                    >
                         <DokaOverlay
                             utils="crop,resize"
                             class="banner"
@@ -26,8 +34,14 @@
                             />
                             <img :src="banner.image" />
                         </DokaOverlay>
-                        <b-button v-if="!banner.enabled" @click="$refs['banner'].click()">
-                            <font-awesome-icon :icon="['fas', 'camera']" size="lg" />
+                        <b-button
+                            v-if="!banner.enabled"
+                            @click="$refs['banner'].click()"
+                        >
+                            <font-awesome-icon
+                                :icon="['fas', 'camera']"
+                                size="lg"
+                            />
                         </b-button>
                     </div>
                     <div class="avatar-container">
@@ -47,8 +61,14 @@
                                 :rounded="true"
                             />
                         </div>
-                        <b-button v-if="!avatar.enabled" @click="$refs['avatar'].click()">
-                            <font-awesome-icon :icon="['fas', 'camera']" size="lg" />
+                        <b-button
+                            v-if="!avatar.enabled"
+                            @click="$refs['avatar'].click()"
+                        >
+                            <font-awesome-icon
+                                :icon="['fas', 'camera']"
+                                size="lg"
+                            />
                         </b-button>
                     </div>
                     <DokaModal
@@ -85,12 +105,20 @@
                                 ></b-form-input>
                                 <b-form-invalid-feedback
                                     id="display-name-live-feedback"
-                                >{{ veeErrors.first('display_name') }}</b-form-invalid-feedback>
+                                    >{{
+                                        veeErrors.first('display_name')
+                                    }}</b-form-invalid-feedback
+                                >
                             </b-form-group>
                         </b-col>
                         <b-col cols="12">
-                            <b-form-group label="Profile URL" class="mb-4 error-l-100">
-                                <label class="small text-muted">link.stream/</label>
+                            <b-form-group
+                                label="Profile URL"
+                                class="mb-4 error-l-100"
+                            >
+                                <label class="small text-muted"
+                                    >link.stream/</label
+                                >
                                 <template v-if="form.editableUrl">
                                     <b-form-input
                                         id="url"
@@ -116,19 +144,31 @@
                                     </b-button>
                                     <b-form-invalid-feedback
                                         id="url-live-feedback"
-                                    >{{ veeErrors.first('url') }}</b-form-invalid-feedback>
+                                        >{{
+                                            veeErrors.first('url')
+                                        }}</b-form-invalid-feedback
+                                    >
                                 </template>
                                 <template v-else>
                                     <label class="small">{{ form.url }}</label>
                                 </template>
-                                <preview-pill-button class="ml-3" @click="handleCustomizeUrl">
-                                    <template v-if="form.editableUrl">Done</template>
+                                <preview-pill-button
+                                    class="ml-3"
+                                    @click="handleCustomizeUrl"
+                                >
+                                    <template v-if="form.editableUrl"
+                                        >Done</template
+                                    >
                                     <template v-else>Customize</template>
                                 </preview-pill-button>
                             </b-form-group>
                         </b-col>
                         <b-col sm="6">
-                            <b-form-group label="First name" label-for="first_name" class="mb-4">
+                            <b-form-group
+                                label="First name"
+                                label-for="first_name"
+                                class="mb-4"
+                            >
                                 <b-form-input
                                     id="first_name"
                                     name="first_name"
@@ -138,7 +178,11 @@
                             </b-form-group>
                         </b-col>
                         <b-col sm="6">
-                            <b-form-group label="Last name" label-for="last_name" class="mb-4">
+                            <b-form-group
+                                label="Last name"
+                                label-for="last_name"
+                                class="mb-4"
+                            >
                                 <b-form-input
                                     id="last_name"
                                     name="last_name"
@@ -148,12 +192,25 @@
                             </b-form-group>
                         </b-col>
                         <b-col sm="6">
-                            <b-form-group label="City" label-for="city" class="mb-4">
-                                <b-form-input id="city" name="city" type="text" v-model="form.city"></b-form-input>
+                            <b-form-group
+                                label="City"
+                                label-for="city"
+                                class="mb-4"
+                            >
+                                <b-form-input
+                                    id="city"
+                                    name="city"
+                                    type="text"
+                                    v-model="form.city"
+                                ></b-form-input>
                             </b-form-group>
                         </b-col>
                         <b-col sm="6">
-                            <b-form-group label="Country" label-for="country" class="mb-4">
+                            <b-form-group
+                                label="Country"
+                                label-for="country"
+                                class="mb-4"
+                            >
                                 <v-select
                                     v-model="form.country"
                                     :options="allCountries"
@@ -163,7 +220,11 @@
                             </b-form-group>
                         </b-col>
                         <b-col cols="12">
-                            <b-form-group label="Bio" label-for="bio" class="mb-4">
+                            <b-form-group
+                                label="Bio"
+                                label-for="bio"
+                                class="mb-4"
+                            >
                                 <b-form-textarea
                                     id="bio"
                                     name="bio"
@@ -181,7 +242,8 @@
                         class="mt-5"
                         :loading="status.loading.update"
                         :error="status.error.update"
-                    >Save Updates</spinner-button>
+                        >Save Updates</spinner-button
+                    >
                 </b-col>
             </b-row>
         </b-form>
@@ -196,7 +258,7 @@ import { DokaModal, DokaOverlay, toURL } from 'vue-doka'
 import { blobToBase64 } from 'base64-blob'
 import csc from 'country-state-city'
 import { setStatusChange } from '~/utils'
-import { lsApi } from '~/services/lsApi'
+import { api } from '~/services/api'
 import { appConstants } from '~/constants'
 import { SpinnerButton, PreviewPillButton } from '~/components/Button'
 
@@ -299,7 +361,7 @@ export default {
         Validator.extend('uniqueUrl', {
             validate: async value => {
                 this.validating.url = true
-                const { status, error } = await lsApi.users.availability({
+                const { status, error } = await api.users.availability({
                     type: 'url',
                     value,
                     userId: this.user.id,
@@ -439,7 +501,7 @@ export default {
                 }
                 if (banner) params.banner = banner
                 if (avatar) params.image = avatar
-                const { status, data, error } = await lsApi.users.updateUser(
+                const { status, data, error } = await api.users.updateUser(
                     this.user.id,
                     params
                 )

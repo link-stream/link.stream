@@ -127,7 +127,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import resize from 'vue-resize-directive'
-import { lsApi } from '~/services/lsApi'
+import { api } from '~/services/api'
 import { setStatusChange } from '~/utils'
 import { SpinnerButton, BasicButton } from '~/components/Button'
 import { SelectBox } from '~/components/Select'

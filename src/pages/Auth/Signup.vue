@@ -32,7 +32,9 @@
                     </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
-                    <label class="text-black fs-1 font-weight-bold">Or sign up with your email</label>
+                    <label class="text-black fs-1 font-weight-bold"
+                        >Or sign up with your email</label
+                    >
                 </b-col>
                 <b-col cols="12" class="my-3">
                     <b-form
@@ -71,7 +73,10 @@
                             </b-button>
                             <b-form-invalid-feedback
                                 id="username-live-feedback"
-                            >{{ veeErrors.first('input_username') }}</b-form-invalid-feedback>
+                                >{{
+                                    veeErrors.first('input_username')
+                                }}</b-form-invalid-feedback
+                            >
                         </b-form-group>
                         <b-form-group
                             label="Email Address"
@@ -101,9 +106,9 @@
                             >
                                 <b-spinner></b-spinner>
                             </b-button>
-                            <b-form-invalid-feedback
-                                id="email-live-feedback"
-                            >{{ veeErrors.first('input_email') }}</b-form-invalid-feedback>
+                            <b-form-invalid-feedback id="email-live-feedback">{{
+                                veeErrors.first('input_email')
+                            }}</b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group
                             label="Password"
@@ -124,7 +129,10 @@
                             ></b-form-input>
                             <b-form-invalid-feedback
                                 id="password-live-feedback"
-                            >{{ veeErrors.first('input_password') }}</b-form-invalid-feedback>
+                                >{{
+                                    veeErrors.first('input_password')
+                                }}</b-form-invalid-feedback
+                            >
                         </b-form-group>
                         <b-form-group
                             label="Retype Password"
@@ -148,19 +156,29 @@
                             ></b-form-input>
                             <b-form-invalid-feedback
                                 id="password-confirm-live-feedback"
-                            >{{ veeErrors.first('input_password_confirm') }}</b-form-invalid-feedback>
+                                >{{
+                                    veeErrors.first('input_password_confirm')
+                                }}</b-form-invalid-feedback
+                            >
                         </b-form-group>
-                        <b-form-group class="fs--2 text-center text-gray mb-2 px-md-5">
+                        <b-form-group
+                            class="fs--2 text-center text-gray mb-2 px-md-5"
+                        >
                             By clicking Sign Up below, you agree to our
-                            <b-link to="/legal" target="_blank">Terms of Use</b-link>and
-                            <b-link to="/legal" target="_blank">Privacy Policy</b-link>.
+                            <b-link to="/legal" target="_blank"
+                                >Terms of Use</b-link
+                            >and
+                            <b-link to="/legal" target="_blank"
+                                >Privacy Policy</b-link
+                            >.
                         </b-form-group>
                         <spinner-button
                             type="submit"
                             class="btn-auth mt-5"
                             :loading="status.loading.signup"
                             :error="status.error.signup"
-                        >Sign Up</spinner-button>
+                            >Sign Up</spinner-button
+                        >
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-4">
@@ -175,7 +193,7 @@
 <script>
 import { Validator } from 'vee-validate'
 import { setStatusChange } from '~/utils'
-import { lsApi } from '~/services/lsApi'
+import { api } from '~/services/api'
 import { authentication } from '~/mixins'
 import { SpinnerButton } from '~/components/Button'
 
@@ -242,7 +260,7 @@ export default {
         },
         async availabilityValidator(field, value) {
             this.validating[field] = true
-            const { status, error } = await lsApi.users.availability({
+            const { status, error } = await api.users.availability({
                 type: field,
                 value,
             })
@@ -263,7 +281,7 @@ export default {
                     email: this.form.email,
                     password: this.form.password,
                 }
-                const { status, data, error } = await lsApi.users.registration(
+                const { status, data, error } = await api.users.registration(
                     params
                 )
                 if (status === 'success') {

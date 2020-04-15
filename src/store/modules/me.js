@@ -3,7 +3,7 @@
  */
 
 import { types, meTypes } from '../mutationTypes'
-import { lsApi } from '~/services/lsApi'
+import { api } from '~/services/api'
 import { base64ImgToSrc } from '~/utils'
 
 const initialState = () => ({
@@ -92,13 +92,13 @@ const actions = {
 
     async loadProfile({ commit, rootGetters }) {
         const authUser = rootGetters['auth/user']
-        const { status, data } = await lsApi.users.getUser(authUser.id)
+        const { status, data } = await api.users.getUser(authUser.id)
         status === 'success' && commit(meTypes.SET_USER, { user: data })
     },
 
     async loadVisibilities({ commit, rootGetters }) {
         const authUser = rootGetters['auth/user']
-        const res = await lsApi.common.getVisibilitiesByUser(authUser.id)
+        const res = await api.common.getVisibilitiesByUser(authUser.id)
         commit({
             type: meTypes.SET_VISIBILITIES,
             visibilities: res.status === 'success' ? res.data : [],
@@ -107,7 +107,7 @@ const actions = {
 
     async loadTracks({ commit, rootGetters }) {
         const authUser = rootGetters['auth/user']
-        const { status, data } = await lsApi.audios.getTracksByUser(authUser.id)
+        const { status, data } = await api.audios.getTracksByUser(authUser.id)
         commit({
             type: meTypes.SET_TRACKS,
             tracks: status === 'success' ? data : [],
@@ -115,7 +115,7 @@ const actions = {
     },
 
     async loadVideos({ state, commit }, { params }) {
-        const res = await lsApi.videos.getVideosByUser(state.user.id, params)
+        const res = await api.videos.getVideosByUser(state.user.id, params)
         commit({
             type: meTypes.SET_VIDEOS,
             videos: res.status === 'success' ? res.data : [],
@@ -124,21 +124,21 @@ const actions = {
     },
 
     async createVideo({ commit }, { params }) {
-        const res = await lsApi.videos.createVideo(params)
+        const res = await api.videos.createVideo(params)
         res.status === 'success' &&
             commit(meTypes.ADD_VIDEO, { video: res.data })
         return res
     },
 
     async updateVideo({ commit }, { id, params }) {
-        const res = await lsApi.videos.updateVideo(id, params)
+        const res = await api.videos.updateVideo(id, params)
         res.status === 'success' &&
             commit(meTypes.UPDATE_VIDEO, { video: res.data })
         return res
     },
 
     async deleteVideo({ state, commit }, { id }) {
-        const res = await lsApi.videos.deleteVideo(id, {
+        const res = await api.videos.deleteVideo(id, {
             user_id: state.user.id,
         })
         res.status === 'success' && commit(meTypes.DELETE_VIDEO, { id })
@@ -147,7 +147,7 @@ const actions = {
 
     reorderVideo({ state, commit }, { oldIndex, newIndex, sorts }) {
         commit(meTypes.REORDER_VIDEO, { oldIndex, newIndex })
-        lsApi.videos.sortVideos({
+        api.videos.sortVideos({
             user_id: state.user.id,
             list: JSON.stringify(sorts),
         })

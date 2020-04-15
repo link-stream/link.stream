@@ -53,7 +53,7 @@ const call = async function({
     return payload
 }
 
-export const lsApi = {
+export const api = {
     users: {
         async getUser(id) {
             const endpoint = '/users/' + id

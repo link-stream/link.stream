@@ -1,14 +1,19 @@
 <script>
-import { lsApi } from '~/services/lsApi'
+import { api } from '~/services/api'
 
 export default {
     name: 'EmailConfirm',
     methods: {
         async emailConfirm() {
             const { param1: param_1, param2: param_2 } = this.$route.params
-            const { status, error } = await lsApi.users.emailConfirm({ param_1, param_2 })
+            const { status, error } = await api.users.emailConfirm({
+                param_1,
+                param_2,
+            })
             if (status === 'success') {
-                this.$toast.success('Thank you for your confirmation. Please login to LinkStream.')
+                this.$toast.success(
+                    'Thank you for your confirmation. Please login to LinkStream.'
+                )
             } else {
                 this.$toast.error(error)
             }

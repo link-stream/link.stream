@@ -3,8 +3,12 @@
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="mt-5">
-                    <h2 class="text-black font-weight-bolder">Reset Password</h2>
-                    <p class="fs-1 mx-auto my-4">Enter the your new password below.</p>
+                    <h2 class="text-black font-weight-bolder"
+                        >Reset Password</h2
+                    >
+                    <p class="fs-1 mx-auto my-4"
+                        >Enter the your new password below.</p
+                    >
                 </b-col>
                 <b-col cols="12" class="my-3">
                     <b-form
@@ -32,7 +36,10 @@
                             ></b-form-input>
                             <b-form-invalid-feedback
                                 id="password-live-feedback"
-                            >{{ veeErrors.first('input_password') }}</b-form-invalid-feedback>
+                                >{{
+                                    veeErrors.first('input_password')
+                                }}</b-form-invalid-feedback
+                            >
                         </b-form-group>
                         <b-form-group
                             label="Retype Password"
@@ -56,14 +63,18 @@
                             ></b-form-input>
                             <b-form-invalid-feedback
                                 id="password-confirm-live-feedback"
-                            >{{ veeErrors.first('input_password_confirm') }}</b-form-invalid-feedback>
+                                >{{
+                                    veeErrors.first('input_password_confirm')
+                                }}</b-form-invalid-feedback
+                            >
                         </b-form-group>
                         <spinner-button
                             type="submit"
                             class="text-uppercase mt-5"
                             :loading="status.loading.reset"
                             :error="status.error.reset"
-                        >Reset</spinner-button>
+                            >Reset</spinner-button
+                        >
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-2">
@@ -81,7 +92,7 @@
 
 <script>
 import { setStatusChange } from '~/utils'
-import { lsApi } from '~/services/lsApi'
+import { api } from '~/services/api'
 import { SpinnerButton } from '~/components/Button'
 
 export default {
@@ -133,7 +144,7 @@ export default {
                 this.status.loading.reset = true
                 const { password: new_password } = this.form
                 const { param1: param_1, param2: param_2 } = this.$route.params
-                const { status, error } = await lsApi.users.passwordReset({
+                const { status, error } = await api.users.passwordReset({
                     param_1,
                     param_2,
                     new_password,

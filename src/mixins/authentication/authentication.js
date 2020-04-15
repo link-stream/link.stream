@@ -1,6 +1,6 @@
 import GoogleLogin from 'vue-google-login'
 import { setStatusChange } from '~/utils'
-import { lsApi } from '~/services/lsApi'
+import { api } from '~/services/api'
 
 export default {
     components: {
@@ -32,7 +32,7 @@ export default {
             const { id_token: platform_token } = googleUser.getAuthResponse()
             if (platform_token) {
                 this.status.loading.google = true
-                const { status, data, error } = await lsApi.users.google({
+                const { status, data, error } = await api.users.google({
                     platform_token,
                 })
                 if (status === 'success') {
@@ -52,7 +52,7 @@ export default {
             const { redirect_uri: redirect_url } = this.instagram
             if (code && redirect_url) {
                 this.status.loading.instagram = true
-                const { status, data, error } = await lsApi.users.instagram({
+                const { status, data, error } = await api.users.instagram({
                     code,
                     redirect_url,
                 })

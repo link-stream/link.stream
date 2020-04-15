@@ -1,5 +1,5 @@
 import { types } from '../mutationTypes'
-import { lsApi } from '~/services/lsApi'
+import { api } from '~/services/api'
 
 const initialState = () => ({
     timezones: null,
@@ -25,7 +25,7 @@ const mutations = {
 
 const actions = {
     async loadTimezones({ commit }) {
-        const { status, data } = await lsApi.common.getTimezones()
+        const { status, data } = await api.common.getTimezones()
         commit({
             type: types.SET_TIMEZONES,
             timezones: status === 'success' ? data : [],
@@ -33,7 +33,7 @@ const actions = {
     },
 
     async loadGenres({ commit }) {
-        const { status, data } = await lsApi.common.getGenres()
+        const { status, data } = await api.common.getGenres()
         commit({
             type: types.SET_GENRES,
             genres: status === 'success' ? data : [],
@@ -41,7 +41,7 @@ const actions = {
     },
 
     loadTimes({ commit }) {
-        const times = lsApi.common.getTimes()
+        const times = api.common.getTimes()
         commit(types.SET_TIMES, { times })
     },
 }

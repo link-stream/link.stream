@@ -13,7 +13,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { lsApi } from '~/services/lsApi'
+import { api } from '~/services/api'
 import TopNavbar from '~/components/UserAccount/TopNavbar/TopNavbar'
 import Sidebar from '~/components/UserAccount/Sidebar/Sidebar'
 

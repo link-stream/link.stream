@@ -10,7 +10,8 @@
                         :error="status.error.instagram"
                         @click="authenticateInstagram"
                     >
-                        <i class="ig-ico fab fa-instagram fa-lg"></i> Signin with Instagram
+                        <i class="ig-ico fab fa-instagram fa-lg"></i> Signin
+                        with Instagram
                     </spinner-button>
                 </b-col>
                 <b-col cols="12" class="my-2">
@@ -25,12 +26,15 @@
                             :loading="status.loading.google"
                             :error="status.error.google"
                         >
-                            <i class="g-ico fab fa-google fa-1x"></i> Signin with Google
+                            <i class="g-ico fab fa-google fa-1x"></i> Signin
+                            with Google
                         </spinner-button>
                     </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
-                    <label class="text-black fs-1 font-weight-bold">Or sign in with your email</label>
+                    <label class="text-black fs-1 font-weight-bold"
+                        >Or sign in with your email</label
+                    >
                 </b-col>
                 <b-col cols="12" class="my-3">
                     <b-form
@@ -55,9 +59,9 @@
                                 data-vv-as="email"
                                 autocomplete="username"
                             ></b-form-input>
-                            <b-form-invalid-feedback
-                                id="email-live-feedback"
-                            >{{ veeErrors.first('input_email') }}</b-form-invalid-feedback>
+                            <b-form-invalid-feedback id="email-live-feedback">{{
+                                veeErrors.first('input_email')
+                            }}</b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group
                             label="Password"
@@ -80,18 +84,25 @@
                                 variant="transparent"
                                 @click="showPwd = !showPwd"
                             >
-                                <b-icon font-scale="1" :icon="showPwd ? 'eye' : 'eye-slash'" />
+                                <b-icon
+                                    font-scale="1"
+                                    :icon="showPwd ? 'eye' : 'eye-slash'"
+                                />
                             </b-button>
                             <b-form-invalid-feedback
                                 id="password-live-feedback"
-                            >{{ veeErrors.first('input_password') }}</b-form-invalid-feedback>
+                                >{{
+                                    veeErrors.first('input_password')
+                                }}</b-form-invalid-feedback
+                            >
                         </b-form-group>
                         <spinner-button
                             type="submit"
                             class="btn-auth mt-5"
                             :loading="status.loading.signin"
                             :error="status.error.signin"
-                        >Sign In</spinner-button>
+                            >Sign In</spinner-button
+                        >
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="my-3">
@@ -108,7 +119,7 @@
 
 <script>
 import { setStatusChange } from '~/utils'
-import { lsApi } from '~/services/lsApi'
+import { api } from '~/services/api'
 import { authentication } from '~/mixins'
 import { SpinnerButton } from '~/components/Button'
 
@@ -162,7 +173,7 @@ export default {
                 }
                 this.status.loading.signin = true
                 const { email, password } = { ...this.form }
-                const { status, data, error } = await lsApi.users.login({
+                const { status, data, error } = await api.users.login({
                     email,
                     password,
                 })

@@ -1,19 +1,22 @@
 .alertbox {
     text-align: center;
 
-    // Reset bs style
+    // Reset bs styles
     .modal-dialog {
         width: 320px !important;
         height: 154px !important;
-    }
-
-    // Reset bs style
-    .modal-body {
-        padding: 1rem;
+        margin: 0 auto;
+        top: 100px;
+        .modal-content {
+            border-color: transparent;
+        }
+        .modal-body {
+            padding: 1rem;
+        }
     }
 
     .alrt__content {
-        padding: 10px;
+        padding: 5px;
     }
 
     .alrt__close {

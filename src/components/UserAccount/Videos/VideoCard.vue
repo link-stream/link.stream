@@ -4,7 +4,7 @@
             <Icon icon="reorder" class="crd__reorder vid-crd-drag-sel" />
             <div class="crd__body">
                 <div class="crd__media">
-                    <div class="crd__lock"></div>
+                    <div class="crd__lock" v-if="isPrivate"></div>
                     <img class="crd__img" :src="thumbUrl" :alt="video.title" />
                 </div>
                 <div class="crd__info">

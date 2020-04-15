@@ -13,7 +13,7 @@
 
     .crd__reorder {
         cursor: move;
-        top: -10px;
+        top: -15px;
         position: relative;
     }
 
@@ -25,19 +25,20 @@
 
     .crd__media {
         position: relative;
+        margin-bottom: 0.6rem;
     }
 
     .crd__lock {
         position: absolute;
         background-image: url(~@/../public/static/img/lock-overlay-thumb.svg);
-        width: 124px;
-        height: 70px;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
+    .crd__lock,
     .crd__img {
         width: 190px;
-        height: 106px;
-        padding-bottom: $spacer;
+        height: 107px;
     }
 
     .crd__title {
@@ -62,15 +63,22 @@
         position: absolute;
         top: 0;
         right: 0;
+        .btn-icon {
+            padding: 0;
+        }
     }
 
     .crd__hov {
-        display: none;
+        display: inline-block;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 1s;
     }
 
     &:hover {
         .crd__hov {
-            display: inline-block;
+            visibility: visible;
+            opacity: 1;
         }
     }
 
@@ -89,12 +97,19 @@
             position: absolute;
             top: 15px;
             right: 0;
+            .btn-icon {
+                padding: 0.5rem;
+            }
         }
 
+        .crd__media {
+            margin-bottom: 0;
+        }
+
+        .crd__lock,
         .crd__img {
             width: 123px;
             height: 69px;
-            padding-bottom: 0;
         }
 
         .crd__info {

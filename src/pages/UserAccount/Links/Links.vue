@@ -1,5 +1,5 @@
 <template>
-    <div class="page page-ua-links container-fluid">
+    <div class="page page-ua-links">
         <header class="page__header">
             <h1 class="page__title">Your links</h1>
             <h4 class="page__subtitle">Add, remove, edit &amp; order links anyway you'd like.</h4>

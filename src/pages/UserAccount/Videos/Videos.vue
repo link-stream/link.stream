@@ -1,5 +1,5 @@
 <template>
-    <div class="page page-ua-vids container-fluid">
+    <div class="page page-ua-vids">
         <header class="page__header">
             <h1 class="page__title">Your videos</h1>
             <h4 class="page__subtitle">Add, remove, edit &amp; order videos anyway you'd like.</h4>

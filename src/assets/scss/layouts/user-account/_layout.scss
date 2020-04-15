@@ -24,21 +24,26 @@
         margin-bottom: 0;
     }
 
-    .page {
-        .preview-url {
-            color: $black;
+    .preview-url {
+        color: $black;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1rem;
+        margin-right: 0.3rem;
+        letter-spacing: 0.5px;
+        .preview-url__light {
+            color: $linkstream-4;
             font-size: 12px;
             font-weight: 600;
-            line-height: 1rem;
-            margin-right: 0.3rem;
-            letter-spacing: 0.5px;
-            .preview-url__light {
-                color: $linkstream-4;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: 0;
-            }
+            letter-spacing: 0;
         }
+    }
+
+    .page {
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
     }
 
     .page__header {

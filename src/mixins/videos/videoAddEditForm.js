@@ -2,6 +2,7 @@ import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
 import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
 import { helpers } from 'vuelidate/lib/validators'
+
 import moment from 'moment'
 
 export const videoAddEditForm = {

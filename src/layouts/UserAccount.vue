@@ -13,7 +13,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { api } from '~/services/api'
 import TopNavbar from '~/components/UserAccount/TopNavbar/TopNavbar'
 import Sidebar from '~/components/UserAccount/Sidebar/Sidebar'
 

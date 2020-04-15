@@ -141,14 +141,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
 import { videoAddEditForm } from '~/mixins/videos/videoAddEditForm'
 import { IconButton, SpinnerButton, BasicButton } from '~/components/Button'
 import { SelectBox } from '~/components/Select'
 import { DatePicker } from '~/components/Picker'
-import { getYtVideoThumbUrl } from '~/utils'
-import moment from 'moment'
 
 export default {
     name: 'VideoEditModal',

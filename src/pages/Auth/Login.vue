@@ -70,6 +70,7 @@
                         >
                             <b-form-input
                                 id="input_password"
+                                class="pwd-input"
                                 name="input_password"
                                 :type="showPwd ? 'text' : 'password'"
                                 v-model="form.password"
@@ -80,7 +81,7 @@
                                 autocomplete="current-password"
                             ></b-form-input>
                             <b-button
-                                class="btn btn-show-pwd"
+                                class="btn show-pwd-btn"
                                 variant="transparent"
                                 @click="showPwd = !showPwd"
                             >

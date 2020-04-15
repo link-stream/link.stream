@@ -1,5 +1,9 @@
 .page-login {
-    .btn-show-pwd {
+    .pwd-input {
+        padding-right: 2.7rem;
+    }
+
+    .show-pwd-btn {
         position: absolute;
         top: 2 * $spacer;
         right: -20px;

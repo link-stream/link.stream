@@ -53,7 +53,7 @@
         max-width: 500px;
     }
 
-    .fwz__nav {
+    .fwz__pager {
         display: flex;
         flex-direction: column;
         flex-direction: column-reverse;
@@ -78,22 +78,15 @@
             display: none;
         }
 
-        .fwz__nav {
+        .fwz__pager {
             border-top: 1px solid $linkstream-7;
             margin-top: 29px;
             padding-top: 29px;
         }
     }
 
-    .sched-input {
-        width: 50%;
-        .ls-datepicker__input {
-            border-right: 0;
-        }
-    }
-
     @include media-breakpoint-up(sm) {
-        .fwz__nav {
+        .fwz__pager {
             flex-direction: row;
             justify-content: space-between;
         }

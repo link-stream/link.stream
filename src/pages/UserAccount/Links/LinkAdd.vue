@@ -52,7 +52,7 @@
                 </b-form-group>
             </main>
 
-            <footer class="fwz__nav">
+            <footer class="fwz__pager">
                 <basic-button
                     class="fwz__prev"
                     variant="secondary"

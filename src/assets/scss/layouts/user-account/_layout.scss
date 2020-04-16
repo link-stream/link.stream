@@ -2,26 +2,30 @@
     @import 'navbar';
     @import 'sidebar';
     @import 'buttons';
+    @import '~@/assets/scss/partials/form-wizard';
 
     .layout__content {
         margin-left: $main-menu-width + $main-margin;
-        margin-right: $main-menu-width + $main-margin;
+        margin-right: $main-margin;
         margin-top: $navbar-height + $main-margin;
         margin-bottom: $main-margin;
         transition: margin-left $menu-collapse-time;
+        transition: margin-right $menu-collapse-time;
     }
 
-    &.sub-show-temporary {
+    // All menus hidden
+    &.menu-sub-hidden.main-hidden.sub-hidden {
         .layout__content {
-            margin-left: $main-menu-width + $sub-menu-width + $main-margin;
+            margin-right: $main-menu-width + $main-margin;
         }
     }
 
+    // Mobile device
     &.menu-mobile .layout__content {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        margin-top: $main-margin + $navbar-height !important;
-        margin-bottom: 0;
+        margin-left: $main-margin-mobile-x !important;
+        margin-right: $main-margin-mobile-x !important;
+        margin-top: $main-margin-mobile-y + $navbar-height !important;
+        margin-bottom: $main-margin-mobile-y;
     }
 
     .preview-url {
@@ -37,13 +41,6 @@
             font-weight: 600;
             letter-spacing: 0;
         }
-    }
-
-    .page {
-        padding-right: 15px;
-        padding-left: 15px;
-        margin-right: auto;
-        margin-left: auto;
     }
 
     .page__header {
@@ -82,12 +79,6 @@
     @include media-breakpoint-up(sm) {
         .page__nav {
             flex-direction: row;
-        }
-    }
-
-    @include media-breakpoint-between(md, md) {
-        .layout__content {
-            margin-right: $main-margin;
         }
     }
 

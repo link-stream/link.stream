@@ -8,9 +8,10 @@ import { base64ImgToSrc } from '~/utils'
 
 const initialState = () => ({
     user: null,
-    visibilities: null,
-    tracks: null,
-    videos: null,
+    visibilities: [],
+    tracks: [],
+    videos: [],
+    links: [],
 })
 
 const state = initialState()
@@ -23,6 +24,10 @@ const mutations = {
         }
     },
 
+    /**
+     * General
+     */
+
     [meTypes.SET_VISIBILITIES](state, { visibilities }) {
         state.visibilities = visibilities
     },
@@ -34,6 +39,10 @@ const mutations = {
     [meTypes.SET_USER](state, { user }) {
         state.user = user
     },
+
+    /**
+     * Videos
+     */
 
     [meTypes.SET_VIDEOS](state, { videos }) {
         state.videos = videos
@@ -61,6 +70,14 @@ const mutations = {
         videos.splice(oldIndex, 1)
         videos.splice(newIndex, 0, video)
     },
+
+    /**
+     * Links
+     */
+
+    [meTypes.ADD_LINK](state, { link }) {
+        state.links.push(link)
+    },
 }
 
 const actions = {
@@ -69,6 +86,19 @@ const actions = {
         handler({ commit }) {
             commit(types.RESET)
         },
+    },
+
+    /**
+     * Misc
+     */
+
+    async loadVisibilities({ commit, rootGetters }) {
+        const authUser = rootGetters['auth/user']
+        const res = await api.common.getVisibilitiesByUser(authUser.id)
+        commit({
+            type: meTypes.SET_VISIBILITIES,
+            visibilities: res.status === 'success' ? res.data : [],
+        })
     },
 
     loadAccount({ dispatch }) {
@@ -90,20 +120,23 @@ const actions = {
         ])
     },
 
+    /**
+     * Profile
+     */
+
+    updateProfile({ commit }, { user }) {
+        commit(meTypes.SET_USER, { user })
+    },
+
     async loadProfile({ commit, rootGetters }) {
         const authUser = rootGetters['auth/user']
         const { status, data } = await api.users.getUser(authUser.id)
         status === 'success' && commit(meTypes.SET_USER, { user: data })
     },
 
-    async loadVisibilities({ commit, rootGetters }) {
-        const authUser = rootGetters['auth/user']
-        const res = await api.common.getVisibilitiesByUser(authUser.id)
-        commit({
-            type: meTypes.SET_VISIBILITIES,
-            visibilities: res.status === 'success' ? res.data : [],
-        })
-    },
+    /**
+     * Tracks
+     */
 
     async loadTracks({ commit, rootGetters }) {
         const authUser = rootGetters['auth/user']
@@ -113,6 +146,10 @@ const actions = {
             tracks: status === 'success' ? data : [],
         })
     },
+
+    /**
+     * Videos
+     */
 
     async loadVideos({ state, commit }, { params }) {
         const res = await api.videos.getVideosByUser(state.user.id, params)
@@ -153,8 +190,14 @@ const actions = {
         })
     },
 
-    updateProfile({ commit }, { user }) {
-        commit(meTypes.SET_USER, { user })
+    /**
+     * Links
+     */
+
+    async createLink({ commit }, { params }) {
+        const res = await api.links.createLink(params)
+        res.status === 'success' && commit(meTypes.ADD_LINK, { link: res.data })
+        return res
     },
 }
 

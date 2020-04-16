@@ -11,12 +11,21 @@
 
 .ls-select {
     cursor: pointer;
-    background-image: url(~@/../public/static/ico/select-arrow.svg);
-    background-repeat: no-repeat;
-    background-position: 97% center;
+
+    .ls-select__icon {
+        position: relative;
+        top: 3px;
+        right: 1px;
+    }
+
     &.is-time {
-        background-image: url(~@/../public/static/ico/select-time.svg);
-        background-position: 93% center;
+        .ls-select__icon {
+            top: 2px;
+        }
+    }
+
+    .vs__dropdown-toggle .vs__actions {
+        padding: 10px !important;
     }
 }
 
@@ -52,7 +61,7 @@
             border-width: 2px;
         }
     }
-    &.is-invalid + .btn-input-spinner {
+    &.xis-invalid + .btn-input-spinner {
         right: $input-height-inner-half;
     }
 }
@@ -71,12 +80,12 @@
             box-shadow: none;
         }
         &.is-valid,
-        &.is-invalid {
+        &.xis-invalid {
             border-color: $input-border-color;
         }
     }
 
-    .invalid-feedback {
+    .xinvalid-feedback {
         $triangle-size: 5px;
         position: absolute;
         top: $spacer;
@@ -119,7 +128,7 @@
     }
 
     @for $i from 0 through 200 {
-        &.error-l-#{$i} .invalid-feedback {
+        &.error-l-#{$i} .xinvalid-feedback {
             left: #{$i}px;
         }
     }

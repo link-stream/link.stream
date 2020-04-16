@@ -1,58 +1,76 @@
-.ls-ico {
+.ls-ic {
     display: inline-block;
 }
 
-.ls-ico:before {
+.ls-ic:before {
     content: '';
     display: inline-block;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.ls-ico-reorder:before {
+.ls-ic-reorder:before {
     background-image: url(~@/../public/static/ico/reorder.svg);
     width: 18px;
     height: 14px;
 }
 
-.ls-ico-close:before {
+.ls-ic-close:before {
     background-image: url(~@/../public/static/ico/close.svg);
     width: 16px;
     height: 16px;
 }
 
-.ls-ico-close-2:before {
+.ls-ic-close-2:before {
     background-image: url(~@/../public/static/ico/close-2.svg);
     width: 17px;
     height: 17px;
 }
 
-.ls-ico-edit:before {
+.ls-ic-edit:before {
     background-image: url(~@/../public/static/ico/edit.svg);
     width: 50px;
     height: 50px;
 }
 
-.ls-ico-edit-2:before {
+.ls-ic-edit-2:before {
     background-image: url(~@/../public/static/ico/edit-2.svg);
     width: 50px;
     height: 50px;
 }
 
-.ls-ico-trash:before {
+.ls-ic-trash:before {
     background-image: url(~@/../public/static/ico/trash.svg);
     width: 35px;
     height: 35px;
 }
 
-.ls-ico-eye:before {
+.ls-ic-eye:before {
     background-image: url(~@/../public/static/ico/eye.svg);
     width: 35px;
     height: 35px;
 }
 
-.ls-ico-clock:before {
+.ls-ic-clock:before {
     background-image: url(~@/../public/static/ico/clock.svg);
     width: 35px;
     height: 35px;
+}
+
+.ls-ic-back:before {
+    background-image: url(~@/../public/static/ico/back.svg);
+    width: 17px;
+    height: 17px;
+}
+
+.ls-ic-select-arrow:before {
+    background-image: url(~@/../public/static/ico/select-arrow.svg);
+    width: 1em;
+    height: 1em;
+}
+
+.ls-ic-select-time:before {
+    background-image: url(~@/../public/static/ico/select-time.svg);
+    width: 21px;
+    height: 21px;
 }

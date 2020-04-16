@@ -2,9 +2,9 @@ import { types } from '../mutationTypes'
 import { api } from '~/services/api'
 
 const initialState = () => ({
-    timezones: null,
-    times: null,
-    genres: null,
+    timezones: [],
+    times: [],
+    genres: [],
 })
 
 const state = initialState()

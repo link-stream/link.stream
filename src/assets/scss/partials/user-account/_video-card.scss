@@ -42,7 +42,7 @@
     }
 
     .crd__title {
-        color: #333333;
+        color: $linkstream-9;
         font-size: 14px;
         font-weight: bold;
         letter-spacing: 0;
@@ -61,8 +61,8 @@
 
     .crd__act {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 5px;
+        right: 5px;
         .btn-icon {
             padding: 0;
         }

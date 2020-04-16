@@ -1,99 +1,16 @@
 .page-ua-vids-add {
-    .formwiz {
-        .fwz__stepcnt {
-            color: $linkstream-4;
-            font-size: 11px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
+    .vid-wrap,
+    .vid-wrap iframe {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
 
-        .fwz__header {
-            margin-bottom: 20px;
-        }
-
-        .fwz__title {
-            color: $black;
-            font-size: 30px;
-            font-weight: 800;
-            line-height: 34px;
-        }
-
-        .fwz__subtitle {
-            color: $black;
-            font-size: 14px;
-            line-height: 24px;
-            font-weight: normal;
-        }
-
-        .fwz__body {
-            margin-bottom: 29px;
-            max-width: 500px;
-        }
-
-        .fwz__footer {
-            display: flex;
-            flex-direction: column;
-            flex-direction: column-reverse;
-        }
-
-        .fwz__submit,
-        .fwz__back {
-            display: none;
-        }
-
-        .fwz__submit {
-            margin-bottom: 10px;
-        }
-
-        &.is-last-step {
-            .fwz__submit,
-            .fwz__back {
-                display: block;
-            }
-
-            .fwz__next {
-                display: none;
-            }
-
-            .fwz__footer {
-                border-top: 1px solid $linkstream-7;
-                margin-top: 29px;
-                padding-top: 29px;
-            }
-        }
-
-        .sched-input {
-            width: 50%;
-            .ls-datepicker__input {
-                border-right: 0;
-            }
-        }
-
+    @include media-breakpoint-up(sm) {
         .vid-wrap,
         .vid-wrap iframe {
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        @include media-breakpoint-up(sm) {
-            .fwz__footer {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-
-            .fwz__submit {
-                margin-bottom: 0;
-            }
-
-            .vid-wrap,
-            .vid-wrap iframe {
-                width: 330px;
-                height: 186px;
-            }
+            width: 330px;
+            height: 186px;
         }
     }
 }

@@ -1,7 +1,7 @@
 <template>
-    <b-container fluid class="page page-ua-vids-add">
-        <div class="formwiz" :class="{ 'is-last-step': step === 2 }">
-            <h6 class="fwz__stepcnt">Step {{ step }} / 2</h6>
+    <b-container class="page page-ua-vids-add">
+        <div class="form-wiz" :class="{ 'is-final-step': step === 2 }">
+            <h6 class="fwz__cnt">Step {{ step }} / 2</h6>
 
             <header class="fwz__header">
                 <h1 class="fwz__title">
@@ -12,15 +12,15 @@
                 </h4>
             </header>
 
-            <main class="fwz__body" :novalidate="true">
+            <main class="fwz__body">
                 <div v-show="step === 1">
                     <b-form-group
                         label="YouTube Video URL"
-                        label-for="vidUrlInput"
+                        label-for="urlInput"
                     >
                         <b-form-input
                             v-model="$v.form.url.$model"
-                            id="vidUrlInput"
+                            id="urlInput"
                             placeholder="https://youtu.be/vwm_N2PCUz8"
                             :state="!$v.form.url.$error"
                         ></b-form-input>
@@ -40,9 +40,9 @@
                         <youtube :video-id="ytVidId"></youtube>
                     </div>
 
-                    <b-form-group label="Video Title" label-for="vidTitleInput">
+                    <b-form-group label="Video Title" label-for="titleInput">
                         <b-form-input
-                            id="vidTitleInput"
+                            id="titleInput"
                             v-model="$v.form.title.$model"
                             :state="!$v.form.title.$error"
                         ></b-form-input>
@@ -58,10 +58,10 @@
                         </b-form-invalid-feedback>
                     </b-form-group>
 
-                    <b-form-group label="Genre" label-for="vidGenreInput">
+                    <b-form-group label="Genre" label-for="genreInput">
                         <SelectBox
                             v-model="$v.form.genre.$model"
-                            id="vidGenreInput"
+                            id="genreInput"
                             placeholder="Select Genre"
                             :class="{ 'is-invalid': $v.form.genre.$error }"
                             :options="genres"
@@ -75,13 +75,10 @@
                         </b-form-invalid-feedback>
                     </b-form-group>
 
-                    <b-form-group
-                        label="Related Track"
-                        label-for="vidTrackInput"
-                    >
+                    <b-form-group label="Related Track" label-for="trackInput">
                         <SelectBox
                             v-model="form.relatedtrack"
-                            id="vidTrackInput"
+                            id="trackInput"
                             placeholder="Select Related Track"
                             :options="relatedtracks"
                             :reduce="track => track.id"
@@ -102,12 +99,12 @@
                 </div>
             </main>
 
-            <footer class="fwz__footer">
+            <footer class="fwz__nav">
                 <basic-button class="fwz__next" @click="goToStep(2)"
                     >Next</basic-button
                 >
                 <basic-button
-                    class="fwz__back"
+                    class="fwz__prev"
                     variant="secondary"
                     :disabled="isSaving"
                     @click="goToStep(1)"

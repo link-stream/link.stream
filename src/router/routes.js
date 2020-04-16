@@ -15,6 +15,7 @@ import {
     UserAccountVideos,
     UserAccountVideosAdd,
     UserAccountLinks,
+    UserAccountLinksAdd,
 } from '~/pages/UserAccount'
 
 const routes = [
@@ -104,7 +105,7 @@ const routes = [
     },
     {
         path: '/app/videos/add',
-        name: 'userAccountVideoAdd',
+        name: 'userAccountVideosAdd',
         component: UserAccountVideosAdd,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
@@ -112,6 +113,12 @@ const routes = [
         path: '/app/links/manage',
         name: 'userAccountLinks',
         component: UserAccountLinks,
+        meta: { requiresAuth: true, layout: 'UserAccount' },
+    },
+    {
+        path: '/app/links/add',
+        name: 'userAccountLinksAdd',
+        component: UserAccountLinksAdd,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
 

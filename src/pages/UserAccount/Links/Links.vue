@@ -35,7 +35,7 @@ import { mapGetters } from 'vuex'
 import { BasicButton, PreviewPillButton } from '~/components/Button'
 
 export default {
-    name: 'UserAccountLinks',
+    name: 'Links',
     components: {
         BasicButton,
         PreviewPillButton,

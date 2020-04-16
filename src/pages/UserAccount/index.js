@@ -7,3 +7,4 @@ export { default as UserAccountVideos } from './Videos/Videos'
 export { default as UserAccountVideosAdd } from './Videos/VideoAdd'
 // Links
 export { default as UserAccountLinks } from './Links/Links'
+export { default as UserAccountLinksAdd } from './Links/LinkAdd'

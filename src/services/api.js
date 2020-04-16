@@ -149,6 +149,18 @@ export const api = {
             })
         },
     },
+    links: {
+        async createLink(params) {
+            const endpoint = '/links'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+                showProgress: false,
+            })
+        },
+    },
     common: {
         async getGenres() {
             const endpoint = '/common/genres'

@@ -5,6 +5,8 @@ $linkstream-4: #9d9d9d;
 $linkstream-5: #f5f5f5;
 $linkstream-6: #dbdbdb;
 $linkstream-7: #d7d7d7;
+$linkstream-8: #666666;
+$linkstream-9: #333333;
 
 $white: #fff;
 $gray-100: #f8f9fa;
@@ -148,6 +150,8 @@ $vt-toast-min-height: 40px;
 
 // Main
 $main-margin: 40px;
+$main-margin-mobile-x: 20px;
+$main-margin-mobile-y: 30px;
 
 // Menu
 $navbar-height: 80px;
@@ -161,7 +165,7 @@ $main-menu-border-color: #555555;
 $main-menu-selector-color: #fdd311;
 
 $sub-menu-width: 160px;
-$sub-menu-bg: #191919;
+$sub-menu-bg: rgba(0, 0, 0, 0.9);
 $sub-menu-color: #cccccc;
 $sub-menu-active-color: white;
 

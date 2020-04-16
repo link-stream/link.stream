@@ -83,13 +83,6 @@ export const videoAddEditForm = {
             this.form.time = null
             this.form.scheduled = !this.form.scheduled
         },
-        resetForm() {
-            this.isSaving = false
-            this.$v.form.$reset()
-            Object.keys(this.form).forEach(key => {
-                this.form[key] = null
-            })
-        },
         async save() {
             this.$v.form.$touch()
 

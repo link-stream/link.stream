@@ -10,14 +10,22 @@
         @input="updateValue"
     >
         <template v-slot:open-indicator>
-            <span></span>
+            <Icon
+                class="ls-select__icon"
+                :icon="isTime ? 'select-time' : 'select-arrow'"
+            />
         </template>
     </v-select>
 </template>
 
 <script>
+import { Icon } from '~/components/Icon'
+
 export default {
     name: 'SelectBox',
+    components: {
+        Icon,
+    },
     props: {
         label: {
             type: String,

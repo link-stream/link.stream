@@ -167,6 +167,7 @@ export default {
             if (!video.id) {
                 return
             }
+
             const {
                 title,
                 url,
@@ -197,7 +198,6 @@ export default {
         },
         handleHidden() {
             this.$emit('hidden')
-            this.resetForm()
         },
     },
 }

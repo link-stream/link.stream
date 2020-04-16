@@ -1,0 +1,105 @@
+.form-wiz {
+    .fwz__cnt {
+        color: $linkstream-4;
+        font-size: 11px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .fwz__topnav {
+        margin-bottom: 20px;
+    }
+
+    .fwz__back {
+        color: $linkstream-4;
+        font-size: 11px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        i {
+            position: relative;
+            top: 5px;
+            left: 5px;
+        }
+        &:hover {
+            color: $gray-900;
+        }
+    }
+
+    .fwz__header {
+        margin-bottom: 20px;
+    }
+
+    .fwz__title {
+        color: $black;
+        font-size: 30px;
+        font-weight: 800;
+        line-height: 34px;
+    }
+
+    .fwz__subtitle {
+        color: $black;
+        font-size: 14px;
+        line-height: 24px;
+        font-weight: normal;
+    }
+
+    .fwz__body {
+        margin-bottom: 29px;
+        max-width: 500px;
+    }
+
+    .fwz__nav {
+        display: flex;
+        flex-direction: column;
+        flex-direction: column-reverse;
+    }
+
+    .fwz__submit,
+    .fwz__prev {
+        display: none;
+    }
+
+    .fwz__submit {
+        margin-bottom: 10px;
+    }
+
+    &.is-final-step {
+        .fwz__submit,
+        .fwz__prev {
+            display: block;
+        }
+
+        .fwz__next {
+            display: none;
+        }
+
+        .fwz__nav {
+            border-top: 1px solid $linkstream-7;
+            margin-top: 29px;
+            padding-top: 29px;
+        }
+    }
+
+    .sched-input {
+        width: 50%;
+        .ls-datepicker__input {
+            border-right: 0;
+        }
+    }
+
+    @include media-breakpoint-up(sm) {
+        .fwz__nav {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .fwz__submit {
+            margin-bottom: 0;
+        }
+    }
+}

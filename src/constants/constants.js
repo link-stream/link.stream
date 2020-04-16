@@ -19,7 +19,7 @@ export const constants = {
         },
         account: {
             videosPerPage: 20,
-            menuHiddenBreakpoint: 768,
+            menuHiddenBreakpoint: 992,
         },
     },
 }

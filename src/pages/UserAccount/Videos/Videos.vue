@@ -21,7 +21,7 @@
                 >
             </div>
             <div class="page__nav__right">
-                <basic-button :to="{ name: 'userAccountVideoAdd' }"
+                <basic-button :to="{ name: 'userAccountVideosAdd' }"
                     >Add New Video</basic-button
                 >
             </div>

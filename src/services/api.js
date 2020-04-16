@@ -128,10 +128,10 @@ export const api = {
             const method = METHOD_PUT
             return await call({ endpoint, params, method })
         },
-        async deleteVideo(id, params) {
+        async deleteVideo(id) {
             const endpoint = '/videos/' + id
             const method = METHOD_DELETE
-            return await call({ endpoint, params, method })
+            return await call({ endpoint, method })
         },
         async sortVideos(params) {
             const endpoint = '/videos/sort_videos/'

@@ -184,10 +184,8 @@ const actions = {
         return res
     },
 
-    async deleteVideo({ state, commit }, { video }) {
-        const res = await api.videos.deleteVideo(video.id, {
-            user_id: state.user.id,
-        })
+    async deleteVideo({ commit }, { video }) {
+        const res = await api.videos.deleteVideo(video.id)
         res.status === 'success' && commit(meTypes.DELETE_VIDEO, { video })
         return res
     },

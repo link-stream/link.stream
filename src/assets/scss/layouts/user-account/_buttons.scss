@@ -54,7 +54,10 @@
 
 .btn-icon:hover {
     transform: scale(1.08);
-    opacity: 0.75;
+}
+
+.btn-icon:active {
+    transform: scale(0.9);
 }
 
 .btn-link {

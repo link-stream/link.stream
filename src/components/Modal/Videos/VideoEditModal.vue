@@ -1,6 +1,6 @@
 <template>
     <b-modal
-        id="vidEditMdl"
+        id="videoEditModal"
         modal-class="modal modal-vid-edit"
         @hidden="handleHidden"
         hide-header
@@ -194,7 +194,7 @@ export default {
     },
     methods: {
         closeModal() {
-            this.$bvModal.hide('vidEditMdl')
+            this.$bvModal.hide('videoEditModal')
         },
         handleHidden() {
             this.$emit('hidden')

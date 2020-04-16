@@ -150,12 +150,30 @@ export const api = {
         },
     },
     links: {
+        async getLinksByUser(userId) {
+            const endpoint = '/links/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+                showProgress: false,
+            })
+        },
         async createLink(params) {
             const endpoint = '/links'
             const method = METHOD_POST
             return await call({
                 endpoint,
                 params,
+                method,
+                showProgress: false,
+            })
+        },
+        async deleteLink(id) {
+            const endpoint = '/links/' + id
+            const method = METHOD_DELETE
+            return await call({
+                endpoint,
                 method,
                 showProgress: false,
             })

@@ -27,5 +27,7 @@ export const meTypes = {
     REORDER_VIDEO: 'REORDER_VIDEO',
 
     // Links
+    SET_LINKS: 'SET_LINKS',
     ADD_LINK: 'ADD_LINK',
+    DELETE_LINK: 'DELETE_LINK',
 }

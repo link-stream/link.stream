@@ -26,7 +26,19 @@
                 >
             </div>
         </nav>
-        <main class="page__body"></main>
+        <main class="page__body">
+            <ul>
+                <li v-for="l in links" :key="l.id">
+                    <h2>{{ l.title }}</h2>
+                    <p>URL: {{ l.url }}</p>
+                    <p>
+                        <basic-button @click="deleteLink(l)"
+                            >Delete</basic-button
+                        >
+                    </p>
+                </li>
+            </ul>
+        </main>
     </div>
 </template>
 
@@ -43,7 +55,16 @@ export default {
     computed: {
         ...mapGetters({
             user: 'me/user',
+            links: 'me/links',
         }),
+    },
+    created() {
+        this.$store.dispatch('me/loadLinks')
+    },
+    methods: {
+        deleteLink(link) {
+            this.$store.dispatch('me/deleteLink', { link })
+        },
     },
 }
 </script>

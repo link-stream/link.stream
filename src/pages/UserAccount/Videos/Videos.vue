@@ -37,8 +37,8 @@
                 >
                     <VideoCard
                         :video="video"
-                        @edit="handleEditVideoClick"
-                        @remove="handleRemoveVideoClick"
+                        @editVideo="editVideo"
+                        @deleteVideo="deleteVideo"
                     />
                 </Draggable>
             </Container>
@@ -95,11 +95,11 @@ export default {
         },
     },
     methods: {
-        handleEditVideoClick({ video }) {
+        editVideo({ video }) {
             this.videoToEdit = video
-            this.$bvModal.show('vidEditMdl')
+            this.$bvModal.show('videoEditModal')
         },
-        handleRemoveVideoClick({ video }) {
+        deleteVideo({ video }) {
             this.$alert.alert({
                 title: 'Delete video?',
                 message: 'This video and its data will be permanently deleted.',
@@ -112,7 +112,7 @@ export default {
                         message,
                         error,
                     } = await this.$store.dispatch('me/deleteVideo', {
-                        id: video.id,
+                        video,
                     })
                     this.$toast.success(status === 'success' ? message : error)
                     alert.close()

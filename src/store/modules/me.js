@@ -58,9 +58,9 @@ const mutations = {
         index > -1 && videos.splice(index, 1, video)
     },
 
-    [meTypes.DELETE_VIDEO](state, { id }) {
+    [meTypes.DELETE_VIDEO](state, { video }) {
         const { videos } = state
-        const index = videos.map(v => v.id).indexOf(id)
+        const index = videos.map(v => v.id).indexOf(video.id)
         videos.splice(index, 1)
     },
 
@@ -75,8 +75,18 @@ const mutations = {
      * Links
      */
 
+    [meTypes.SET_LINKS](state, { links }) {
+        state.links = links
+    },
+
     [meTypes.ADD_LINK](state, { link }) {
         state.links.push(link)
+    },
+
+    [meTypes.DELETE_LINK](state, { link }) {
+        const { links } = state
+        const index = links.map(l => l.id).indexOf(link.id)
+        links.splice(index, 1)
     },
 }
 
@@ -174,11 +184,11 @@ const actions = {
         return res
     },
 
-    async deleteVideo({ state, commit }, { id }) {
-        const res = await api.videos.deleteVideo(id, {
+    async deleteVideo({ state, commit }, { video }) {
+        const res = await api.videos.deleteVideo(video.id, {
             user_id: state.user.id,
         })
-        res.status === 'success' && commit(meTypes.DELETE_VIDEO, { id })
+        res.status === 'success' && commit(meTypes.DELETE_VIDEO, { video })
         return res
     },
 
@@ -194,9 +204,22 @@ const actions = {
      * Links
      */
 
+    async loadLinks({ state, commit }) {
+        const res = await api.links.getLinksByUser(state.user.id)
+        res.status === 'success' &&
+            commit(meTypes.SET_LINKS, { links: res.data })
+        return res
+    },
+
     async createLink({ commit }, { params }) {
         const res = await api.links.createLink(params)
         res.status === 'success' && commit(meTypes.ADD_LINK, { link: res.data })
+        return res
+    },
+
+    async deleteLink({ commit }, { link }) {
+        const res = await api.links.deleteLink(link.id)
+        res.status === 'success' && commit(meTypes.DELETE_LINK, { link })
         return res
     },
 }
@@ -206,6 +229,7 @@ const getters = {
     visibilities: state => state.visibilities,
     tracks: state => state.tracks,
     videos: state => state.videos,
+    links: state => state.links,
     avatar: state => {
         const { user } = state
         if (user) {

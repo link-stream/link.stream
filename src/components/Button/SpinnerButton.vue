@@ -3,6 +3,7 @@
         pill
         :type="type"
         :variant="variant"
+        :size="size"
         :disabled="loading"
         @click="handleClick"
         :class="{
@@ -38,6 +39,10 @@ export default {
         variant: {
             type: String,
             default: 'primary',
+        },
+        size: {
+            type: String,
+            default: '',
         },
         loading: {
             type: Boolean,

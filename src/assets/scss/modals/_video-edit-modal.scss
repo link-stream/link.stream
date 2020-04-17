@@ -33,10 +33,20 @@
         }
     }
 
-    .sched-input {
-        width: 50%;
+    .pub-input-group {
+        .ls-select,
+        .ls-datepicker {
+            width: 50%;
+        }
+
         .ls-datepicker__input {
-            border-right: 0;
+            border-right-width: 0px;
+        }
+
+        &.is-invalid-date-only {
+            .ls-datepicker__input {
+                border-right-width: 1px;
+            }
         }
     }
 

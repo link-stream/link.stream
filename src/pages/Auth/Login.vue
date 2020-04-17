@@ -5,7 +5,7 @@
                 <b-col cols="12" class="my-2">
                     <spinner-button
                         instagram
-                        class="btn-auth"
+                        class="auth-btn"
                         :loading="status.loading.instagram"
                         :error="status.error.instagram"
                         @click="authenticateInstagram"
@@ -16,13 +16,13 @@
                 </b-col>
                 <b-col cols="12" class="my-2">
                     <GoogleLogin
-                        class="btn-g-login col"
+                        class="g-login-btn-wrap col"
                         :params="google"
                         :onSuccess="onGoogleSuccess"
                     >
                         <spinner-button
                             google
-                            class="btn-auth"
+                            class="auth-btn"
                             :loading="status.loading.google"
                             :error="status.error.google"
                         >
@@ -32,9 +32,7 @@
                     </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
-                    <label class="text-black fs-1 font-weight-bold"
-                        >Or sign in with your email</label
-                    >
+                    <label class="text-black fs-1 font-weight-bold">Or sign in with your email</label>
                 </b-col>
                 <b-col cols="12" class="my-3">
                     <b-form
@@ -59,14 +57,16 @@
                                 data-vv-as="email"
                                 autocomplete="username"
                             ></b-form-input>
-                            <b-form-invalid-feedback id="email-live-feedback">{{
+                            <b-form-invalid-feedback id="email-live-feedback">
+                                {{
                                 veeErrors.first('input_email')
-                            }}</b-form-invalid-feedback>
+                                }}
+                            </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group
                             label="Password"
                             label-for="input_password"
-                            class="mb-4 password-form-group error-l-75"
+                            class="mb-4 pwd-form-group error-l-75"
                         >
                             <b-form-input
                                 id="input_password"
@@ -81,29 +81,24 @@
                                 autocomplete="current-password"
                             ></b-form-input>
                             <b-button
-                                class="btn show-pwd-btn"
+                                class="show-pwd-btn"
                                 variant="transparent"
                                 @click="showPwd = !showPwd"
                             >
-                                <b-icon
-                                    font-scale="1"
-                                    :icon="showPwd ? 'eye' : 'eye-slash'"
-                                />
+                                <b-icon font-scale="1" :icon="showPwd ? 'eye' : 'eye-slash'" />
                             </b-button>
-                            <b-form-invalid-feedback
-                                id="password-live-feedback"
-                                >{{
-                                    veeErrors.first('input_password')
-                                }}</b-form-invalid-feedback
-                            >
+                            <b-form-invalid-feedback id="password-live-feedback">
+                                {{
+                                veeErrors.first('input_password')
+                                }}
+                            </b-form-invalid-feedback>
                         </b-form-group>
                         <spinner-button
                             type="submit"
-                            class="btn-auth mt-5"
+                            class="auth-btn mt-5"
                             :loading="status.loading.signin"
                             :error="status.error.signin"
-                            >Sign In</spinner-button
-                        >
+                        >Sign In</spinner-button>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="my-3">

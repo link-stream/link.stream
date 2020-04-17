@@ -1,7 +1,7 @@
 <template>
     <v-select
         class="ls-select"
-        :class="{ 'is-time': isTime }"
+        :class="{ 'is-time': isTime, 'is-invalid': !state }"
         :label="label"
         :value="localValue"
         :placeholder="placeholder"
@@ -10,10 +10,7 @@
         @input="updateValue"
     >
         <template v-slot:open-indicator>
-            <Icon
-                class="ls-select__icon"
-                :icon="isTime ? 'select-time' : 'select-arrow'"
-            />
+            <Icon class="ls-select__icon" :icon="isTime ? 'select-time' : 'select-arrow'" />
         </template>
     </v-select>
 </template>
@@ -50,6 +47,10 @@ export default {
         isTime: {
             type: Boolean,
             default: false,
+        },
+        state: {
+            type: Boolean,
+            default: true,
         },
     },
     data() {

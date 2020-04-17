@@ -5,7 +5,7 @@
                 <b-col cols="12" class="my-2">
                     <spinner-button
                         instagram
-                        class="btn-auth"
+                        class="auth-btn"
                         :loading="status.loading.instagram"
                         :error="status.error.instagram"
                         @click="authenticateInstagram"
@@ -16,13 +16,13 @@
                 </b-col>
                 <b-col cols="12" class="my-2">
                     <GoogleLogin
-                        class="btn-g-login col"
+                        class="g-login-btn-wrap col"
                         :params="google"
                         :onSuccess="onGoogleSuccess"
                     >
                         <spinner-button
                             google
-                            class="btn-auth"
+                            class="auth-btn"
                             :loading="status.loading.google"
                             :error="status.error.google"
                         >
@@ -32,9 +32,7 @@
                     </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
-                    <label class="text-black fs-1 font-weight-bold"
-                        >Or sign up with your email</label
-                    >
+                    <label class="text-black fs-1 font-weight-bold">Or sign up with your email</label>
                 </b-col>
                 <b-col cols="12" class="my-3">
                     <b-form
@@ -71,12 +69,11 @@
                             >
                                 <b-spinner></b-spinner>
                             </b-button>
-                            <b-form-invalid-feedback
-                                id="username-live-feedback"
-                                >{{
-                                    veeErrors.first('input_username')
-                                }}</b-form-invalid-feedback
-                            >
+                            <b-form-invalid-feedback id="username-live-feedback">
+                                {{
+                                veeErrors.first('input_username')
+                                }}
+                            </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group
                             label="Email Address"
@@ -106,9 +103,11 @@
                             >
                                 <b-spinner></b-spinner>
                             </b-button>
-                            <b-form-invalid-feedback id="email-live-feedback">{{
+                            <b-form-invalid-feedback id="email-live-feedback">
+                                {{
                                 veeErrors.first('input_email')
-                            }}</b-form-invalid-feedback>
+                                }}
+                            </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group
                             label="Password"
@@ -127,12 +126,11 @@
                                 autocomplete="new-password"
                                 ref="password"
                             ></b-form-input>
-                            <b-form-invalid-feedback
-                                id="password-live-feedback"
-                                >{{
-                                    veeErrors.first('input_password')
-                                }}</b-form-invalid-feedback
-                            >
+                            <b-form-invalid-feedback id="password-live-feedback">
+                                {{
+                                veeErrors.first('input_password')
+                                }}
+                            </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group
                             label="Retype Password"
@@ -154,31 +152,23 @@
                                 data-vv-as="password"
                                 autocomplete="new-password"
                             ></b-form-input>
-                            <b-form-invalid-feedback
-                                id="password-confirm-live-feedback"
-                                >{{
-                                    veeErrors.first('input_password_confirm')
-                                }}</b-form-invalid-feedback
-                            >
+                            <b-form-invalid-feedback id="password-confirm-live-feedback">
+                                {{
+                                veeErrors.first('input_password_confirm')
+                                }}
+                            </b-form-invalid-feedback>
                         </b-form-group>
-                        <b-form-group
-                            class="fs--2 text-center text-gray mb-2 px-md-5"
-                        >
+                        <b-form-group class="fs--2 text-center text-gray mb-2 px-md-5">
                             By clicking Sign Up below, you agree to our
-                            <b-link to="/legal" target="_blank"
-                                >Terms of Use</b-link
-                            >and
-                            <b-link to="/legal" target="_blank"
-                                >Privacy Policy</b-link
-                            >.
+                            <b-link to="/legal" target="_blank">Terms of Use</b-link>&nbsp;and&nbsp;
+                            <b-link to="/legal" target="_blank">Privacy Policy</b-link>.
                         </b-form-group>
                         <spinner-button
                             type="submit"
-                            class="btn-auth mt-5"
+                            class="auth-btn mt-5"
                             :loading="status.loading.signup"
                             :error="status.error.signup"
-                            >Sign Up</spinner-button
-                        >
+                        >Sign Up</spinner-button>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-4">

@@ -1,12 +1,14 @@
-$linkstream-1: #dc2ea6;
-$linkstream-2: #4f9bcf;
-$linkstream-3: #939598;
-$linkstream-4: #9d9d9d;
-$linkstream-5: #f5f5f5;
-$linkstream-6: #dbdbdb;
-$linkstream-7: #d7d7d7;
-$linkstream-8: #666666;
-$linkstream-9: #333333;
+$linkstream-10: #dc2ea6;
+$linkstream-20: #fdd311;
+$linkstream-30: #d7d7d7;
+$linkstream-40: #7d7d7d;
+$linkstream-60: #939598;
+$linkstream-70: #9d9d9d;
+$linkstream-80: #f5f5f5;
+$linkstream-90: #dbdbdb;
+$linkstream-100: #666666;
+$linkstream-110: #333333;
+$linkstream-120: #e02020;
 
 $white: #fff;
 $gray-100: #f8f9fa;
@@ -31,12 +33,12 @@ $green: #28a745;
 $teal: #20c997;
 $cyan: #17a2b8;
 
-$primary: $linkstream-1;
-$secondary: $linkstream-5;
+$primary: $linkstream-10;
+$secondary: $linkstream-80;
 $success: $green;
 $info: $cyan;
 $warning: $yellow;
-$danger: $red;
+$danger: $linkstream-120;
 $light: $gray-200;
 $dark: $gray-800;
 
@@ -51,6 +53,7 @@ $theme-colors: map-merge(
         'danger': $danger,
         'light': $light,
         'dark': $dark,
+        'black': $black,
     ),
     $theme-colors
 );
@@ -59,13 +62,13 @@ $theme-colors: map-merge(
 $spacer: 1rem;
 
 // Link
-$link-color: $linkstream-1;
-$link-hover-color: $linkstream-1;
+$link-color: $linkstream-10;
+$link-hover-color: $linkstream-10;
 
 // Navbar
-$navbar-light-color: $linkstream-3;
-$navbar-light-hover-color: $linkstream-1;
-$navbar-light-active-color: $linkstream-1;
+$navbar-light-color: $linkstream-60;
+$navbar-light-hover-color: $linkstream-10;
+$navbar-light-active-color: $linkstream-10;
 $navbar-nav-link-padding-x: 0.65rem;
 $navbar-padding-y: 0;
 $nav-link-padding-x: 1rem;
@@ -81,7 +84,7 @@ $container-max-widths: (
 // Dropdown
 $dropdown-item-padding-x: 0.75rem;
 $dropdown-item-padding-y: 0.75rem;
-$dropdown-link-hover-color: $linkstream-1;
+$dropdown-link-hover-color: $linkstream-10;
 
 // Fonts
 $font-family-sans-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -90,6 +93,9 @@ $font-family-sans-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $input-box-shadow: none;
 $input-focus-box-shadow: none;
 $input-border-radius: 0;
+$input-border-color: $linkstream-30;
+$input-color: $black;
+$custom-radio-indicator-icon-checked: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='-4 -4 8 8'><circle r='3' fill='#{$primary}'/></svg>");
 
 // Button
 $input-btn-line-height: 2;
@@ -102,12 +108,12 @@ $form-feedback-icon-invalid: none;
 $enable-validation-icons: false;
 
 // Text
-$text-muted: $linkstream-4;
+$text-muted: $linkstream-70;
 
 // Color
 $body-bg: white;
-$border-color: #dbdbdb;
-$text-color: #333333;
+$border-color: $linkstream-90;
+$text-color: $linkstream-110;
 $loading-color: #44589b;
 
 // Font
@@ -158,8 +164,8 @@ $navbar-height: 80px;
 
 $main-menu-width: 128px;
 $main-menu-item-height: 85px;
-$main-menu-bg: #333333;
-$main-menu-color: $linkstream-4;
+$main-menu-bg: $linkstream-110;
+$main-menu-color: $linkstream-70;
 $main-menu-active-color: white;
 $main-menu-border-color: #555555;
 $main-menu-selector-color: #fdd311;

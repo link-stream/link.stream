@@ -5,3 +5,8 @@
     }
     @return $raised;
 }
+
+@function px2rem($size) {
+    $remSize: $size / 14; // 14 is the root font size set in _base.scss
+    @return #{$remSize}rem;
+}

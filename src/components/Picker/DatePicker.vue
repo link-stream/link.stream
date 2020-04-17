@@ -7,9 +7,9 @@
             :popover="{ visibility: 'click' }"
             @input="updateValue"
             :input-props="{
-                class: 'ls-datepicker__input form-control',
+                class: `ls-datepicker__input form-control ${ !state ? 'is-invalid' : '' }`,
                 placeholder: placeholder,
-                readonly,
+                readonly: true
             }"
         ></v-date-picker>
     </div>
@@ -26,6 +26,10 @@ export default {
         value: {
             type: Date,
             default: null,
+        },
+        state: {
+            type: Boolean,
+            default: true,
         },
     },
     data() {

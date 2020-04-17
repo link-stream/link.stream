@@ -15,7 +15,7 @@
         }
 
         .edc-title {
-            color: #333333;
+            color: $linkstream-110;
             font-family: Montserrat;
             font-size: 14px;
             font-weight: bold;
@@ -78,7 +78,7 @@
             display: flex;
             justify-content: space-between;
             box-sizing: border-box;
-            border-top: 1px solid #d7d7d7;
+            border-top: 1px solid $linkstream-30;
             padding-top: $spacer;
         }
 

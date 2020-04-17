@@ -1,34 +1,58 @@
 .btn {
     position: relative;
-    font-weight: 600;
-    letter-spacing: 0.125rem;
     text-transform: uppercase;
-    padding: 10px 51px;
+    line-height: 0;
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-size: px2rem(13);
+    padding: 24px 45px;
+}
+
+.btn,
+.btn.lg {
+    padding: 24px 45px;
+}
+
+.btn.btn-sm {
+    font-size: px2rem(11);
+    padding: 19px 38px;
+}
+
+.btn.btn-xs {
+    font-size: px2rem(11);
+    letter-spacing: 1.5px;
+    padding: 16px 32px;
 }
 
 .btn-secondary {
-    color: $linkstream-4;
-    border-color: transparent;
+    color: $linkstream-40;
+    border-color: $secondary;
     &:hover {
-        border-color: transparent;
+        border-color: $secondary;
     }
     &:hover,
     &:focus,
     &:active {
-        color: $linkstream-4 !important;
+        color: $linkstream-40 !important;
     }
 }
 
-.btn-outline-secondary {
-    color: $black;
-    border-color: $linkstream-6;
+.btn-tertiary {
+    @extend .btn-black;
     &:hover {
-        color: $black;
+        @extend .btn-black:hover;
+        background-color: $gray-900;
+    }
+    &:focus {
+        @extend .btn-black:focus;
+    }
+    &:active {
+        @extend .btn-black:active;
     }
 }
 
 .btn-preview-pill {
-    font-size: 11px;
+    font-size: px2rem(11);
     letter-spacing: 0;
     line-height: 23px;
     padding: 0 12px;
@@ -37,10 +61,10 @@
     text-transform: none;
     font-weight: normal;
     box-sizing: border-box;
-    border: 1px solid $linkstream-6;
+    border: 1px solid $linkstream-90;
     border-radius: 13.5px;
     &:hover {
-        background-color: $linkstream-5;
+        background-color: $linkstream-80;
     }
     &:focus {
         outline: none;
@@ -76,7 +100,6 @@
 
 .btn-link {
     text-transform: none;
-    font-size: 1rem;
     font-weight: normal;
     letter-spacing: 0;
     text-decoration: underline;
@@ -85,5 +108,5 @@
 }
 
 .btn-link:hover {
-    color: $linkstream-3;
+    color: $linkstream-60;
 }

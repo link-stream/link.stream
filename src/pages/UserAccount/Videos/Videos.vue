@@ -2,52 +2,34 @@
     <div class="page page-ua-vids">
         <header class="page__header">
             <h1 class="page__title">Your videos</h1>
-            <h4 class="page__subtitle"
-                >Add, remove, edit &amp; order videos anyway you'd like.</h4
-            >
+            <h4 class="page__subtitle">Add, remove, edit &amp; order videos anyway you'd like.</h4>
         </header>
         <nav class="page__nav">
             <div class="page__nav__left">
-                <span class="preview-url">
-                    <span class="preview-url__light">link.stream/</span
-                    >{{ user.user_name }}/videos
+                <span class="permalink">
+                    <span class="permalink__light">link.stream/</span>
+                    {{ user.user_name }}/videos
                 </span>
                 <preview-pill-button
                     :to="{
                         name: 'userVideos',
                         params: { username: user.user_name },
                     }"
-                    >Preview</preview-pill-button
-                >
+                >Preview</preview-pill-button>
             </div>
             <div class="page__nav__right">
-                <basic-button :to="{ name: 'userAccountVideosAdd' }"
-                    >Add New Video</basic-button
-                >
+                <basic-button :to="{ name: 'userAccountVideosAdd' }">Add New Video</basic-button>
             </div>
         </nav>
         <main class="page__body">
-            <Container
-                @drop="handleDrop"
-                drag-handle-selector=".vid-crd-drag-sel"
-            >
-                <Draggable
-                    v-for="video in localVideos"
-                    :key="`video-${video.id}`"
-                >
-                    <VideoCard
-                        :video="video"
-                        @editVideo="editVideo"
-                        @deleteVideo="deleteVideo"
-                    />
+            <Container @drop="handleDrop" drag-handle-selector=".vid-crd-drag-sel">
+                <Draggable v-for="video in localVideos" :key="`video-${video.id}`">
+                    <VideoCard :video="video" @editVideo="editVideo" @deleteVideo="deleteVideo" />
                 </Draggable>
             </Container>
         </main>
 
-        <VideoEditModal
-            :videoToEdit="videoToEdit"
-            @hidden="handleEditModalHidden"
-        />
+        <VideoEditModal :videoToEdit="videoToEdit" @hidden="handleEditModalHidden" />
     </div>
 </template>
 

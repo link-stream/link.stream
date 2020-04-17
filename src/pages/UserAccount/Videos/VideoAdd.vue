@@ -36,9 +36,9 @@
                             :state="!$v.form.title.$error"
                         ></b-form-input>
                         <b-form-invalid-feedback>
-                            <template v-if="!$v.form.title.required">The video name is required</template>
+                            <template v-if="!$v.form.title.required">The title is required</template>
                             <template v-else-if="!$v.form.title.minLength">
-                                The video name must be at least
+                                The title must be at least
                                 {{ $v.form.title.$params.minLength.min }}
                                 characters
                             </template>

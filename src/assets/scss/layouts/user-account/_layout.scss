@@ -27,15 +27,15 @@
         margin-bottom: $main-margin-mobile-y;
     }
 
-    .preview-url {
+    .permalink {
         color: $black;
         font-size: 12px;
         font-weight: 600;
         line-height: 1rem;
         margin-right: 0.3rem;
         letter-spacing: 0.5px;
-        .preview-url__light {
-            color: $linkstream-4;
+        .permalink__light {
+            color: $linkstream-70;
             font-size: 12px;
             font-weight: 600;
             letter-spacing: 0;

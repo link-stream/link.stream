@@ -18,61 +18,53 @@
                 <youtube :video-id="ytVidId"></youtube>
             </div>
 
-            <b-form-group label="YouTube Video URL" label-for="vidUrlInput">
+            <b-form-group label="YouTube Video URL" label-for="urlInput">
                 <b-form-input
                     v-model="$v.form.url.$model"
-                    id="vidUrlInput"
+                    id="urlInput"
                     placeholder="https://youtu.be/vwm_N2PCUz8"
                     :state="!$v.form.url.$error"
                 ></b-form-input>
                 <b-form-invalid-feedback>
-                    <template v-if="!$v.form.url.required"
-                        >The YouTube URL is required</template
-                    >
-                    <template v-else-if="!$v.form.url.valid"
-                        >Invalid YouTube URL</template
-                    >
+                    <template v-if="!$v.form.url.required">The YouTube URL is required</template>
+                    <template v-else-if="!$v.form.url.valid">Invalid YouTube URL</template>
                 </b-form-invalid-feedback>
             </b-form-group>
 
-            <b-form-group label="Video Title" label-for="vidTitleInput">
+            <b-form-group label="Video Title" label-for="titleInput">
                 <b-form-input
-                    id="vidTitleInput"
+                    id="titleInput"
                     v-model="$v.form.title.$model"
                     :state="!$v.form.title.$error"
                 ></b-form-input>
                 <b-form-invalid-feedback>
-                    <template v-if="!$v.form.title.required"
-                        >The video name is required</template
-                    >
+                    <template v-if="!$v.form.title.required">The title is required</template>
                     <template v-else-if="!$v.form.title.minLength">
-                        The video name must be at least
+                        The title must be at least
                         {{ $v.form.title.$params.minLength.min }} characters
                     </template>
                 </b-form-invalid-feedback>
             </b-form-group>
 
-            <b-form-group label="Primary Genre" label-for="vidGenreInput">
+            <b-form-group label="Primary Genre" label-for="genreInput">
                 <SelectBox
                     v-model="$v.form.genre.$model"
-                    id="vidGenreInput"
+                    id="genreInput"
                     placeholder="Select Genre"
-                    :class="{ 'is-invalid': $v.form.genre.$error }"
+                    :state="!$v.form.genre.$error"
                     :options="genres"
                     :reduce="genre => genre.id"
                     label="genre"
                 />
                 <b-form-invalid-feedback>
-                    <template v-if="!$v.form.genre.required"
-                        >The genre is required</template
-                    >
+                    <template v-if="!$v.form.genre.required">The genre is required</template>
                 </b-form-invalid-feedback>
             </b-form-group>
 
-            <b-form-group label="Related Track" label-for="vidTrackInput">
+            <b-form-group label="Related Track" label-for="trackInput">
                 <SelectBox
                     v-model="form.relatedtrack"
-                    id="vidTrackInput"
+                    id="trackInput"
                     placeholder="Select Related Track"
                     :options="relatedtracks"
                     :reduce="track => track.id"
@@ -82,27 +74,22 @@
 
             <b-form-group label="Visibility">
                 <b-form-radio-group v-model="form.visibility">
-                    <b-form-radio
-                        :value="v.id"
-                        v-for="v in visibilities"
-                        :key="v.id"
-                        >{{ v.title }}</b-form-radio
-                    >
+                    <b-form-radio :value="v.id" v-for="v in visibilities" :key="v.id">{{ v.title }}</b-form-radio>
                 </b-form-radio-group>
             </b-form-group>
 
             <template v-if="form.scheduled">
                 <b-form-group label="Publish Date">
-                    <b-input-group>
-                        <DatePicker
-                            v-model="$v.form.date.$model"
-                            class="sched-input"
-                        />
+                    <b-input-group
+                        class="pub-input-group"
+                        :class="{'is-invalid-date-only': $v.form.date.$error && !$v.form.time.$error}"
+                    >
+                        <DatePicker v-model="$v.form.date.$model" :state="!$v.form.date.$error" />
                         <SelectBox
                             v-model="$v.form.time.$model"
                             placeholder="Select Time"
-                            class="sched-input"
                             label="title"
+                            :state="!$v.form.time.$error"
                             :options="times"
                             :reduce="time => time.id"
                             is-time
@@ -114,28 +101,20 @@
                                 ? false
                                 : true
                         "
-                        >A time and date is required</b-form-invalid-feedback
-                    >
+                    >Date and time required</b-form-invalid-feedback>
                 </b-form-group>
             </template>
 
             <basic-button variant="link" @click="toggleScheduled">
                 {{
-                    form.scheduled ? 'Clear scheduling ' : 'Schedule this video'
+                form.scheduled ? 'Clear scheduling ' : 'Schedule this video'
                 }}
             </basic-button>
         </b-form>
 
         <footer class="mdl__footer">
-            <basic-button
-                variant="secondary"
-                :disabled="isSaving"
-                @click="closeModal"
-                >Cancel</basic-button
-            >
-            <spinner-button :loading="isSaving" @click="save"
-                >Save</spinner-button
-            >
+            <basic-button variant="secondary" :disabled="isSaving" @click="closeModal">Cancel</basic-button>
+            <spinner-button :loading="isSaving" @click="save">Save</spinner-button>
         </footer>
     </b-modal>
 </template>
@@ -184,7 +163,7 @@ export default {
                 title,
                 url,
                 genre: genre_id,
-                relatedtrack: related_track,
+                relatedtrack: related_track != '0' ? related_track : '', // TODO move check to backend
                 visibility,
                 date: new Date(date + ' 00:00:00'),
                 time,

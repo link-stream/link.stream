@@ -19,9 +19,10 @@
 @import 'vendor/perfect-scrollbar';
 @import 'vendor/vue-toastification';
 
-// Partials - Global
-@import 'partials/btn-spinner';
-@import 'partials/alert-box';
+// Components
+@import 'components/btn-spinner';
+@import 'components/alert-box';
+@import 'components/drop-foto';
 
 // Modals
 @import 'modals/video-edit-modal';

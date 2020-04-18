@@ -1,7 +1,7 @@
 <template>
     <b-modal modal-class="alertbox" v-model="show" hide-header hide-footer>
         <div class="alrt__content">
-            <IconButton class="alrt__close" icon="close-2" @click="close" />
+            <IconButton class="alrt__close" icon="alert-close" @click="close" />
             <template v-if="opts.title && opts.message">
                 <h2 class="alrt__title" v-if="opts.title" v-html="opts.title"></h2>
                 <p class="alrt__msg" v-show="opts.message" v-html="opts.message"></p>
@@ -13,14 +13,16 @@
                 <basic-button
                     class="alrt__cancl"
                     variant="secondary"
+                    size="sm"
                     :disabled="loading"
-                    v-show="opts.cancelShow"
+                    v-if="opts.cancelShow"
                     @click="handleCancelClick"
                 >{{ opts.cancelText }}</basic-button>
                 <spinner-button
                     class="alrt__ok"
+                    size="sm"
                     :loading="loading"
-                    v-show="opts.okShow"
+                    v-if="opts.okShow"
                     @click="handleOkClick"
                 >{{ opts.okText }}</spinner-button>
             </footer>
@@ -70,9 +72,17 @@ export default {
         }
     },
     methods: {
+        error(message, { title = 'Aw snap!', okText = 'OK' } = {}) {
+            this.alert({
+                title,
+                message,
+                okText,
+                cancelShow: false,
+            })
+        },
         alert(opts) {
             for (let key in defaultOpts) {
-                this.opts[key] = opts[key] || defaultOpts[key]
+                this.opts[key] = key in opts ? opts[key] : defaultOpts[key]
             }
             this.loading = false
             this.show = true

@@ -10,7 +10,7 @@
     >
         <header class="mdl__header">
             <h2 class="mdl__title">Edit video info</h2>
-            <IconButton icon="close-2" class="mdl__close" @click="closeModal" />
+            <IconButton icon="modal-close" class="mdl__close" @click="closeModal" />
         </header>
 
         <b-form class="mdl__body" :novalidate="true">
@@ -81,19 +81,11 @@
             <template v-if="form.scheduled">
                 <b-form-group label="Publish Date">
                     <b-input-group
-                        class="pub-input-group"
-                        :class="{'is-invalid-date-only': $v.form.date.$error && !$v.form.time.$error}"
+                        class="datetime-input-group"
+                        :class="{ 'is-invalid': $v.form.date.$error || $v.form.time.$error }"
                     >
-                        <DatePicker v-model="$v.form.date.$model" :state="!$v.form.date.$error" />
-                        <SelectBox
-                            v-model="$v.form.time.$model"
-                            placeholder="Select Time"
-                            label="title"
-                            :state="!$v.form.time.$error"
-                            :options="times"
-                            :reduce="time => time.id"
-                            is-time
-                        />
+                        <DatePicker v-model="$v.form.date.$model" />
+                        <TimePicker v-model="$v.form.time.$model" />
                     </b-input-group>
                     <b-form-invalid-feedback
                         :state="
@@ -101,7 +93,7 @@
                                 ? false
                                 : true
                         "
-                    >Date and time required</b-form-invalid-feedback>
+                    >The date and time are required</b-form-invalid-feedback>
                 </b-form-group>
             </template>
 
@@ -123,7 +115,7 @@
 import { videoAddEditForm } from '~/mixins/videos/videoAddEditForm'
 import { IconButton, SpinnerButton, BasicButton } from '~/components/Button'
 import { SelectBox } from '~/components/Select'
-import { DatePicker } from '~/components/Picker'
+import { DatePicker, TimePicker } from '~/components/Picker'
 
 export default {
     name: 'VideoEditModal',
@@ -134,6 +126,7 @@ export default {
         BasicButton,
         SelectBox,
         DatePicker,
+        TimePicker,
     },
     props: {
         videoToEdit: {

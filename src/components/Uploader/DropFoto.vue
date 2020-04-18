@@ -7,8 +7,8 @@
             ref="fileinput"
             @change="handleFileInputChange"
         />
-        <section class="dropfoto__preview" v-if="isPreview">
-            <div class="dropfoto__imgwrap">
+        <section v-if="isPreview">
+            <div class="dropfoto__preview">
                 <img class="dropfoto__img" :src="image.src" alt />
                 <IconButton class="dropfoto__removebtn" icon="drop-foto-remove" @click="reset" />
                 <IconButton class="dropfoto__addbtn" icon="drop-foto-add" @click="openFileDialog" />
@@ -27,9 +27,9 @@
         >
             <div>
                 <Icon icon="drop-foto-add-lg" />
-                <div class="dropfoto__dropmsg">
+                <div class="dropfoto__droptxt">
                     Drag thumbnail image here or
-                    <basic-button variant="link">browse</basic-button>
+                    <span class="text-primary-underline">browse</span>
                 </div>
             </div>
         </section>
@@ -45,20 +45,22 @@
 </template>
 
 <script>
-import { DokaModal, toURL } from 'vue-doka'
+import { Doka, DokaModal, toURL } from 'vue-doka'
 import { IconButton, BasicButton } from '~/components/Button'
 import { Icon } from '~/components/Icon'
+import { blobToBase64 } from 'base64-blob'
 
 export default {
     name: 'DropFoto',
     components: { DokaModal, BasicButton, Icon, IconButton },
     data() {
         return {
-            isDraggingOver: false,
             allowedTypes: 'image/*',
+            isDraggingOver: false,
             image: {
                 file: null,
                 src: null,
+                base64: null,
             },
             tmp: {
                 file: null,
@@ -68,13 +70,13 @@ export default {
     },
     computed: {
         isInitial() {
-            return !this.image.file && !this.image.src
+            return !this.image.file
         },
         isEdit() {
-            return this.tmp.file && this.tmp.src
+            return this.tmp.file
         },
         isPreview() {
-            return this.image.file && this.image.src
+            return this.image.file
         },
     },
     methods: {
@@ -82,6 +84,7 @@ export default {
             this.image = {
                 file: null,
                 src: null,
+                base64: null,
             }
             this.tmp = {
                 file: null,
@@ -119,27 +122,45 @@ export default {
             e.stopPropagation()
             if (this.isInitial) {
                 const file = e.dataTransfer.files[0]
-                this.tmp.file = file
-                this.tmp.src = toURL(file)
                 this.isDraggingOver = false
+                this.tmp = {
+                    file,
+                    src: toURL(file),
+                }
             }
         },
         handleFileInputChange(e) {
             const file = e.target.files[0]
-            this.tmp.file = file
-            this.tmp.src = toURL(file)
+            this.tmp = {
+                file,
+                src: toURL(file),
+            }
         },
-        handleDokaConfirm(output) {
+        async handleDokaConfirm(output) {
             const file = output.file
-            this.image.file = file
-            this.image.src = toURL(file)
-            this.tmp.file = null
-            this.tmp.src = null
+            const base64 = await blobToBase64(file)
+            if (base64) {
+                this.image = {
+                    file,
+                    src: toURL(file),
+                    base64,
+                }
+            } else {
+                this.$toast.error(
+                    'Aw snap! Something went wrong, please try again.'
+                )
+            }
+            this.tmp = {
+                file: null,
+                src: null,
+            }
             this.$emit('change', { image: this.image })
         },
         handleDokaCancel() {
-            this.tmp.file = null
-            this.tmp.src = null
+            this.tmp = {
+                file: null,
+                src: null,
+            }
         },
     },
 }

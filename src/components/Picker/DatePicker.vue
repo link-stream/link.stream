@@ -1,18 +1,18 @@
 <template>
-    <div class="ls-datepicker">
-        <v-date-picker
-            v-model="localValue"
-            mode="single"
-            :min-date="new Date()"
-            :popover="{ visibility: 'click' }"
-            @input="updateValue"
-            :input-props="{
-                class: `ls-datepicker__input form-control ${ !state ? 'is-invalid' : '' }`,
-                placeholder: placeholder,
+    <v-date-picker
+        v-model="localValue"
+        mode="single"
+        class="ls-datepicker"
+        :class="{ 'is-invalid': !state }"
+        :min-date="new Date()"
+        :popover="{ visibility: 'click' }"
+        @input="updateValue"
+        :input-props="{
+                class: 'ls-datepicker__input form-control',
+                placeholder,
                 readonly: true
             }"
-        ></v-date-picker>
-    </div>
+    ></v-date-picker>
 </template>
 
 <script>

@@ -1,6 +1,7 @@
 .dropfoto {
     height: 215px;
     width: 215px;
+
     .dropfoto__dropbox {
         display: flex;
         flex-direction: column;
@@ -13,24 +14,32 @@
         padding-right: 30px;
         border: 2px dashed $linkstream-30;
         background-color: $white;
-        &.is-highlight {
-            border-color: #000;
+        &.is-highlight,
+        &:hover {
+            border-color: $linkstream-20;
         }
     }
 
-    .dropfoto__dropmsg {
+    .dropfoto__droptxt {
         font-size: px2rem(13);
         letter-spacing: 0;
         margin-top: 10px;
     }
 
-    .dropfoto__imgwrap {
+    .dropfoto__preview {
         position: relative;
+        margin-bottom: 7px;
     }
 
     .dropfoto__img {
         max-width: 100%;
         max-height: 100%;
+    }
+
+    .dropfoto__addbtn {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
     }
 
     .dropfoto__removebtn {
@@ -40,14 +49,6 @@
     }
 
     .dropfoto__removelink {
-        display: block;
         font-size: px2rem(12);
-        margin-top: 7px;
-    }
-
-    .dropfoto__addbtn {
-        position: absolute;
-        right: 0px;
-        bottom: 0px;
     }
 }

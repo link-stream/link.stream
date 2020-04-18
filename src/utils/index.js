@@ -33,8 +33,8 @@ export function setStatusChange(
  * @return {string|null}
  */
 export function base64ImgToSrc(base64) {
-    if (base64) {
-        return `data:image/jpeg;base64,${base64}`
+    if (typeof base64 === 'string' && base64) {
+        return 'data:image/jpeg;base64,' + base64
     }
     return null
 }

@@ -15,16 +15,22 @@
     height: 14px;
 }
 
-.ls-ic-close:before {
-    background-image: url(~@/../public/static/ico/close.svg);
+.ls-ic-card-close:before {
+    background-image: url(~@/../public/static/ico/card-close.svg);
     width: 16px;
     height: 16px;
 }
 
-.ls-ic-close-2:before {
-    background-image: url(~@/../public/static/ico/close-2.svg);
+.ls-ic-modal-close:before {
+    background-image: url(~@/../public/static/ico/modal-close.svg);
     width: 17px;
     height: 17px;
+}
+
+.ls-ic-alert-close:before {
+    background-image: url(~@/../public/static/ico/alert-close.svg);
+    width: 13px;
+    height: 13px;
 }
 
 .ls-ic-edit:before {

@@ -26,8 +26,12 @@
                 <li v-for="l in links" :key="l.id">
                     <h2>{{ l.title }}</h2>
                     <p>URL: {{ l.url }}</p>
+                    <p></p>
                     <p>
                         <basic-button @click="deleteLink(l)">Delete</basic-button>
+                    </p>
+                    <p>
+                        <img :src="l.data_image" alt />
                     </p>
                 </li>
             </ul>

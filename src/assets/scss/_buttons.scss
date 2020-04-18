@@ -45,9 +45,11 @@
     }
     &:focus {
         @extend .btn-black:focus;
+        background-color: $gray-900;
     }
     &:active {
         @extend .btn-black:active;
+        background-color: $gray-900 !important;
     }
 }
 

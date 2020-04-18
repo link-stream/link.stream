@@ -48,20 +48,35 @@
         font-weight: normal;
     }
 
-    .fwz__body {
-        margin-bottom: 29px;
-        max-width: 500px;
+    .fwz__step {
+        .form-group {
+            max-width: 500px;
+        }
+    }
+
+    .fwz__step.is-flex {
+        display: flex;
+        flex-direction: column;
+        main {
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
     }
 
     .fwz__pager {
         display: flex;
         flex-direction: column;
         flex-direction: column-reverse;
+        margin-top: 29px;
     }
 
     .fwz__submit,
     .fwz__prev {
         display: none;
+    }
+
+    .fwz__prev {
+        color: $linkstream-70;
     }
 
     .fwz__submit {
@@ -80,8 +95,7 @@
 
         .fwz__pager {
             border-top: 1px solid $linkstream-30;
-            margin-top: 29px;
-            padding-top: 29px;
+            padding-top: 20px;
         }
     }
 
@@ -93,6 +107,12 @@
 
         .fwz__submit {
             margin-bottom: 0;
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        .fwz__step.is-flex {
+            flex-direction: row;
         }
     }
 }

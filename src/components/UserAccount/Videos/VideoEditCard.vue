@@ -11,7 +11,7 @@
             <IconButton icon="edit" class="edc-edit" @click="edit" />
         </section>
         <section class="edc-mode-edit" v-if="isEditing">
-            <IconButton icon="close" class="edc-close" @click="closeEdit" />
+            <IconButton icon="card-close" class="edc-close" @click="closeEdit" />
             <div class="edc-media">
                 <img :src="ytThumbUrl" />
             </div>

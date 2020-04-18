@@ -21,16 +21,27 @@
         <div class="mb-4"></div>
 
         <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" class="custom-control-input" checked />
-            <label class="custom-control-label">Option 1</label>
+            <input
+                type="radio"
+                id="customRadioInline1"
+                name="customRadioInline1"
+                class="custom-control-input"
+                checked
+            />
+            <label class="custom-control-label" for="customRadioInline1">Option 1</label>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" class="custom-control-input" />
-            <label class="custom-control-label">Option 2</label>
+            <input
+                type="radio"
+                id="customRadioInline2"
+                name="customRadioInline1"
+                class="custom-control-input"
+            />
+            <label class="custom-control-label" for="customRadioInline2">Option 2</label>
         </div>
-        <br />
-        <br />
-        <br />
+
+        <div class="mb-4"></div>
+
         <DropFoto />
     </div>
 </template>

@@ -1,7 +1,7 @@
 .form-wiz {
     .fwz__cnt {
         color: $linkstream-70;
-        font-size: 11px;
+        font-size: px2rem(11);
         font-weight: bold;
         letter-spacing: 1px;
         text-transform: uppercase;
@@ -15,7 +15,7 @@
 
     .fwz__back {
         color: $linkstream-70;
-        font-size: 11px;
+        font-size: px2rem(11);
         font-weight: bold;
         letter-spacing: 2px;
         text-transform: uppercase;
@@ -26,7 +26,7 @@
             left: 5px;
         }
         &:hover {
-            color: $gray-900;
+            color: $primary;
         }
     }
 
@@ -36,30 +36,25 @@
 
     .fwz__title {
         color: $black;
-        font-size: 30px;
+        font-size: px2rem(30);
         font-weight: 800;
         line-height: 34px;
     }
 
     .fwz__subtitle {
         color: $black;
-        font-size: 14px;
         line-height: 24px;
         font-weight: normal;
     }
 
     .fwz__step {
-        .form-group {
-            max-width: 500px;
-        }
-    }
-
-    .fwz__step.is-flex {
         display: flex;
         flex-direction: column;
         main {
-            flex-grow: 1;
-            margin-bottom: 20px;
+            max-width: 500px;
+        }
+        aside {
+            margin-top: 20px;
         }
     }
 
@@ -67,7 +62,6 @@
         display: flex;
         flex-direction: column;
         flex-direction: column-reverse;
-        margin-top: 29px;
     }
 
     .fwz__submit,
@@ -96,6 +90,7 @@
         .fwz__pager {
             border-top: 1px solid $linkstream-30;
             padding-top: 20px;
+            margin-top: 29px;
         }
     }
 
@@ -111,8 +106,12 @@
     }
 
     @include media-breakpoint-up(md) {
-        .fwz__step.is-flex {
+        .fwz__step {
             flex-direction: row;
+            justify-content: space-between;
+            main {
+                flex-grow: 1;
+            }
         }
     }
 }

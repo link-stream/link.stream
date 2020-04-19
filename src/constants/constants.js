@@ -11,6 +11,11 @@ export const constants = {
             name: 'pendingUser',
         },
     },
+    links: {
+        image: {
+            aspectRatio: 1,
+        },
+    },
     user: {
         profileBannerAspectRatio: 0.254364,
         visibilities: {

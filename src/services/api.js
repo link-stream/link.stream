@@ -1,6 +1,5 @@
 import qs from 'qs'
 import axios from '~/plugins/axios'
-import { base64ImgToSrc } from '~/utils'
 
 const METHOD_GET = 'GET'
 const METHOD_POST = 'POST'
@@ -154,17 +153,11 @@ export const api = {
         async getLinksByUser(userId) {
             const endpoint = '/links/' + userId
             const method = METHOD_GET
-            const res = await call({
+            return await call({
                 endpoint,
                 method,
                 showProgress: false,
             })
-            if (res.status === 'success' && Array.isArray(res.data)) {
-                res.data.forEach(link => {
-                    link.data_image = base64ImgToSrc(link.data_image)
-                })
-            }
-            return res
         },
         async createLink(params) {
             const endpoint = '/links'

@@ -11,23 +11,16 @@
             <template slot="button-content">
                 <span>
                     <b-img
-                        v-if="avatar"
+                        v-if="user"
                         :alt="user.display_name"
-                        :src="avatar"
+                        :src="user.photo"
                         rounded="circle"
                         class="avatar"
                     />
-                    <vue-letter-avatar
-                        v-else
-                        :name="user.display_name"
-                        size="40"
-                        :rounded="true"
-                    />
+                    <vue-letter-avatar v-else :name="user.display_name" size="40" :rounded="true" />
                 </span>
             </template>
-            <b-dropdown-item :to="{ name: 'userAccountProfileEdit' }"
-                >Account</b-dropdown-item
-            >
+            <b-dropdown-item :to="{ name: 'userAccountProfileEdit' }">Account</b-dropdown-item>
             <b-dropdown-item>Features</b-dropdown-item>
             <b-dropdown-item>History</b-dropdown-item>
             <b-dropdown-item>Support</b-dropdown-item>
@@ -45,7 +38,6 @@ export default {
     computed: {
         ...mapGetters({
             user: 'me/user',
-            avatar: 'me/avatar',
         }),
     },
     methods: {

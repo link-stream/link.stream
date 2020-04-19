@@ -144,6 +144,9 @@
     }
 
     &.is-invalid {
-        border-bottom: 1px solid $form-feedback-invalid-color;
+        .ls-datepicker__input,
+        .ls-select .vs__dropdown-toggle {
+            border-bottom-color: $form-feedback-invalid-color;
+        }
     }
 }

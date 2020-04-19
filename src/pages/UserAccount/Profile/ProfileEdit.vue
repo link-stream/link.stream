@@ -219,8 +219,7 @@ export default {
     },
     data() {
         const user = this.$store.getters['me/user']
-        const avatarImg = this.$store.getters['me/avatar']
-        const bannerImg = this.$store.getters['me/profileBanner']
+
         return {
             mask: (root, setInnerHTML) => {
                 // https://pqina.nl/doka/docs/patterns/api/doka-instance/#setting-the-crop-mask
@@ -238,7 +237,7 @@ export default {
             },
             banner: {
                 enabled: false,
-                image: bannerImg,
+                image: user.banner,
                 srcPrev: null,
                 src: null,
                 crop: {
@@ -251,7 +250,7 @@ export default {
             },
             avatar: {
                 enabled: false,
-                image: avatarImg,
+                image: user.photo,
                 srcPrev: null,
                 src: null,
                 crop: {

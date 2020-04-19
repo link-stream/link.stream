@@ -26,7 +26,7 @@
                     :state="!$v.form.url.$error"
                 ></b-form-input>
                 <b-form-invalid-feedback>
-                    <template v-if="!$v.form.url.required">The YouTube URL is required</template>
+                    <template v-if="!$v.form.url.required">Enter a YouTube URL</template>
                     <template v-else-if="!$v.form.url.valid">Invalid YouTube URL</template>
                 </b-form-invalid-feedback>
             </b-form-group>
@@ -38,7 +38,7 @@
                     :state="!$v.form.title.$error"
                 ></b-form-input>
                 <b-form-invalid-feedback>
-                    <template v-if="!$v.form.title.required">The title is required</template>
+                    <template v-if="!$v.form.title.required">Enter a title</template>
                     <template v-else-if="!$v.form.title.minLength">
                         The title must be at least
                         {{ $v.form.title.$params.minLength.min }} characters
@@ -57,7 +57,7 @@
                     label="genre"
                 />
                 <b-form-invalid-feedback>
-                    <template v-if="!$v.form.genre.required">The genre is required</template>
+                    <template v-if="!$v.form.genre.required">Select a genre</template>
                 </b-form-invalid-feedback>
             </b-form-group>
 
@@ -93,7 +93,7 @@
                                 ? false
                                 : true
                         "
-                    >The date and time are required</b-form-invalid-feedback>
+                    >Select a date and time</b-form-invalid-feedback>
                 </b-form-group>
             </template>
 

@@ -223,24 +223,21 @@ const actions = {
 }
 
 const getters = {
-    user: state => state.user,
+    user: state => {
+        const user = state.user
+        return {
+            ...user,
+            photo: base64ImgToSrc(user.data_image),
+            banner: base64ImgToSrc(user.data_banner),
+        }
+    },
     visibilities: state => state.visibilities,
     tracks: state => state.tracks,
     videos: state => state.videos,
-    links: state => state.links,
-    avatar: state => {
-        const { user } = state
-        if (user) {
-            return base64ImgToSrc(user.data_image)
-        }
-        return null
-    },
-    profileBanner: state => {
-        const { user } = state
-        if (user) {
-            return base64ImgToSrc(user.data_banner)
-        }
-        return null
+    links: state => {
+        return state.links.map(link => {
+            return { ...link, image: base64ImgToSrc(link.data_image) }
+        })
     },
 }
 

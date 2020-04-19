@@ -12,7 +12,7 @@
                 <h1 class="fwz__title">Add a link</h1>
             </header>
 
-            <div class="fwz__step is-flex">
+            <section class="fwz__step">
                 <main>
                     <b-form-group label="Copy &amp; Paste Your Link URL" label-for="urlInput">
                         <b-form-input
@@ -21,10 +21,7 @@
                             placeholder="e.g. https://myblog.blogspot.com"
                             id="urlInput"
                         />
-                        <b-form-invalid-feedback>
-                            <template v-if="!$v.form.url.required">The URL is required</template>
-                            <template v-else>A valid URL is required</template>
-                        </b-form-invalid-feedback>
+                        <b-form-invalid-feedback>Enter a valid URL</b-form-invalid-feedback>
                     </b-form-group>
 
                     <b-form-group label="Link Title" label-for="titleInput">
@@ -34,7 +31,7 @@
                             placeholder="e.g. My Blog"
                             :state="!$v.form.title.$error"
                         />
-                        <b-form-invalid-feedback>The tile is required</b-form-invalid-feedback>
+                        <b-form-invalid-feedback>Enter a title</b-form-invalid-feedback>
                     </b-form-group>
 
                     <b-form-group label="Link Visibility">
@@ -58,7 +55,7 @@
                                 ? false
                                 : true
                             "
-                        >The date and time are required</b-form-invalid-feedback>
+                        >Select a date and time</b-form-invalid-feedback>
                     </b-form-group>
 
                     <basic-button variant="link" @click="toggleScheduled">
@@ -70,7 +67,7 @@
                 <aside>
                     <DropFoto @change="handleImageChange" />
                 </aside>
-            </div>
+            </section>
 
             <footer class="fwz__pager">
                 <basic-button

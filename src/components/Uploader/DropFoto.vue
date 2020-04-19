@@ -10,8 +10,8 @@
         <section v-if="isPreview">
             <div class="dropfoto__preview">
                 <img class="dropfoto__img" :src="image.src" alt />
-                <IconButton class="dropfoto__removebtn" icon="drop-foto-remove" @click="reset" />
-                <IconButton class="dropfoto__addbtn" icon="drop-foto-add" @click="openFileDialog" />
+                <IconButton class="dropfoto__removebtn" icon="dropfoto-remove" @click="reset" />
+                <IconButton class="dropfoto__addbtn" icon="dropfoto-add" @click="openFileDialog" />
             </div>
             <basic-button class="dropfoto__removelink" variant="link" @click="reset">Remove artwork</basic-button>
         </section>
@@ -26,7 +26,7 @@
             @click="openFileDialog"
         >
             <div>
-                <Icon icon="drop-foto-add-lg" />
+                <Icon icon="dropfoto-add-lg" />
                 <div class="dropfoto__droptxt">
                     Drag thumbnail image here or
                     <span class="text-primary-underline">browse</span>
@@ -35,9 +35,9 @@
         </section>
 
         <DokaModal
-            crop-aspect-ratio="1"
-            :src="tmp.src"
             v-if="isEdit"
+            :src="tmp.src"
+            :crop-aspect-ratio="aspectRatio"
             @confirm="handleDokaConfirm"
             @cancel="handleDokaCancel"
         />
@@ -53,9 +53,18 @@ import { blobToBase64 } from 'base64-blob'
 export default {
     name: 'DropFoto',
     components: { DokaModal, BasicButton, Icon, IconButton },
+    props: {
+        aspectRatio: {
+            type: String,
+            default: '1',
+        },
+        allowedTypes: {
+            type: String,
+            default: 'image/*',
+        },
+    },
     data() {
         return {
-            allowedTypes: 'image/*',
             isDraggingOver: false,
             image: {
                 file: null,

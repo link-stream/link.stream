@@ -62,13 +62,17 @@ export default {
             type: String,
             default: 'image/*',
         },
+        src: {
+            type: String,
+            default: null,
+        },
     },
     data() {
         return {
             isDraggingOver: false,
             image: {
                 file: null,
-                src: null,
+                src: this.src,
                 base64: null,
             },
             tmp: {
@@ -79,13 +83,13 @@ export default {
     },
     computed: {
         isInitial() {
-            return !this.image.file
+            return !this.image.src
         },
         isEdit() {
             return this.tmp.file
         },
         isPreview() {
-            return this.image.file
+            return this.image.src
         },
     },
     methods: {

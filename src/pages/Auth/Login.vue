@@ -81,7 +81,7 @@
                                 autocomplete="current-password"
                             ></b-form-input>
                             <b-button
-                                class="show-pwd-btn"
+                                class="toggle-pwd-btn"
                                 variant="transparent"
                                 @click="showPwd = !showPwd"
                             >

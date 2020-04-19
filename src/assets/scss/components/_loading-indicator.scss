@@ -1,6 +1,10 @@
 .loading-indicator {
+    text-align: center;
+    margin-top: 100px;
     .spinner-border {
         color: $loading-color;
         animation-duration: 0.65s;
+        width: 3rem;
+        height: 3rem;
     }
 }

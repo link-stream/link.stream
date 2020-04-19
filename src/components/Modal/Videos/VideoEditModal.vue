@@ -1,7 +1,7 @@
 <template>
     <b-modal
         id="videoEditModal"
-        modal-class="modal modal-vid-edit"
+        modal-class="mdl mdl-vid-edit"
         @hidden="handleHidden"
         hide-header
         hide-footer
@@ -14,10 +14,7 @@
         </header>
 
         <b-form class="mdl__body" :novalidate="true">
-            <div class="vid-wrap">
-                <youtube :video-id="ytVidId"></youtube>
-            </div>
-
+            <youtube class="vid-wrap" :video-id="ytVidId"></youtube>
             <b-form-group label="YouTube Video URL" label-for="urlInput">
                 <b-form-input
                     v-model="$v.form.url.$model"
@@ -105,26 +102,22 @@
         </b-form>
 
         <footer class="mdl__footer">
-            <basic-button variant="secondary" :disabled="isSaving" @click="closeModal">Cancel</basic-button>
-            <spinner-button :loading="isSaving" @click="save">Save</spinner-button>
+            <basic-button variant="secondary" :disabled="saving" @click="closeModal">Cancel</basic-button>
+            <spinner-button :loading="saving" @click="save">Save</spinner-button>
         </footer>
     </b-modal>
 </template>
 
 <script>
 import { videoAddEditForm } from '~/mixins/videos/videoAddEditForm'
-import { IconButton, SpinnerButton, BasicButton } from '~/components/Button'
-import { SelectBox } from '~/components/Select'
+import { IconButton } from '~/components/Button'
 import { DatePicker, TimePicker } from '~/components/Picker'
 
 export default {
     name: 'VideoEditModal',
     mixins: [videoAddEditForm],
     components: {
-        SpinnerButton,
         IconButton,
-        BasicButton,
-        SelectBox,
         DatePicker,
         TimePicker,
     },

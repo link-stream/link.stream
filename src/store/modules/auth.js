@@ -10,7 +10,13 @@ import {
 } from '~/utils/auth'
 
 const initialState = () => ({
+    /**
+     * @var {object}
+     */
     user: null,
+    /**
+     * @var {object}
+     */
     pendingUser: null,
 })
 

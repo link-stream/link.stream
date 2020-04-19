@@ -1,0 +1,42 @@
+.mdl {
+    // Reset bs style
+    .modal-body {
+        padding: 1.2rem;
+    }
+
+    .mdl__header {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .mdl__close {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+    }
+
+    .mdl__title {
+        color: $black;
+        font-size: px2rem(18);
+        font-weight: bold;
+    }
+
+    .mdl__footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+
+        .btn {
+            padding: 0;
+            width: 135px;
+            height: 40px;
+        }
+    }
+
+    @include media-breakpoint-up(sm) {
+        // Reset bs style
+        .modal-dialog {
+            max-width: 320px !important;
+        }
+    }
+}

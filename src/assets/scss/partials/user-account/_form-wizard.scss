@@ -25,9 +25,6 @@
             top: 5px;
             left: 5px;
         }
-        &:hover {
-            color: $primary;
-        }
     }
 
     .fwz__header {
@@ -45,12 +42,13 @@
         color: $black;
         line-height: 24px;
         font-weight: normal;
+        font-size: px2rem(14);
     }
 
     .fwz__step {
         display: flex;
         flex-direction: column;
-        main {
+        form {
             max-width: 500px;
         }
         aside {
@@ -109,7 +107,7 @@
         .fwz__step {
             flex-direction: row;
             justify-content: space-between;
-            main {
+            form {
                 flex-grow: 1;
             }
         }

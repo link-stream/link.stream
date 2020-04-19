@@ -1,11 +1,17 @@
-import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
+import { SpinnerButton, BasicButton } from '~/components/Button'
+import { SelectBox } from '~/components/Select'
 import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
 import { helpers } from 'vuelidate/lib/validators'
-
+import { appConstants } from '~/constants'
 import moment from 'moment'
 
 export const videoAddEditForm = {
+    components: {
+        SpinnerButton,
+        BasicButton,
+        SelectBox,
+    },
     created() {
         this.$store.dispatch('common/loadTimes')
         this.$store.dispatch('common/loadGenres')
@@ -14,7 +20,7 @@ export const videoAddEditForm = {
     },
     data() {
         return {
-            isSaving: false,
+            saving: false,
             form: {
                 url: null,
                 title: null,
@@ -28,7 +34,7 @@ export const videoAddEditForm = {
         }
     },
     computed: {
-        isEditMode() {
+        editing() {
             return this.videoToEdit ? true : false
         },
         ...mapGetters({
@@ -90,7 +96,7 @@ export const videoAddEditForm = {
                 return
             }
 
-            this.isSaving = true
+            this.saving = true
 
             const {
                 url,
@@ -118,7 +124,7 @@ export const videoAddEditForm = {
                 params.time = time
             }
 
-            const { status, error, message } = this.isEditMode
+            const { status, error, message } = this.editing
                 ? await this.$store.dispatch('me/updateVideo', {
                       id: this.videoToEdit.id,
                       params,
@@ -129,14 +135,14 @@ export const videoAddEditForm = {
 
             if (status === 'success') {
                 this.$toast.success(message)
-                this.isEditMode
+                this.editing
                     ? this.closeModal()
                     : this.$router.push({ name: 'userAccountVideos' })
             } else {
                 this.$toast.error(error)
             }
 
-            this.isSaving = false
+            this.saving = false
         },
     },
 }

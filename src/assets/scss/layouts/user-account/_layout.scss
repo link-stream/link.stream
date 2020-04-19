@@ -1,7 +1,10 @@
 .layout-ua {
     @import 'navbar';
     @import 'sidebar';
-    @import '~@/assets/scss/partials/form-wizard';
+
+    .smooth-dnd-draggable-wrapper {
+        overflow: visible !important;
+    }
 
     .layout__content {
         margin-top: $navbar-height + $main-margin;
@@ -23,7 +26,7 @@
     .page__title {
         font-weight: 800;
         color: $black;
-        font-size: 2rem;
+        font-size: px2rem(30);
         line-height: 34px;
         margin: 0;
         margin-bottom: $spacer * 0.5;
@@ -31,9 +34,9 @@
 
     .page__subtitle {
         color: $black;
-        font-size: 1rem;
         line-height: 18px;
         font-weight: normal;
+        font-size: px2rem(14);
     }
 
     .page__nav {

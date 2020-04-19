@@ -23,9 +23,17 @@
 @import 'components/btn-spinner';
 @import 'components/alert-box';
 @import 'components/drop-foto';
+@import 'components/loading-indicator';
 
 // Modals
+@import 'modals/base-modal';
 @import 'modals/video-edit-modal';
+
+// Partials
+@import 'partials/user-account/form-wizard';
+@import 'partials/user-account/base-card';
+@import 'partials/user-account/video-card';
+@import 'partials/user-account/link-card';
 
 // Layouts
 @import 'layouts/error';
@@ -42,7 +50,6 @@
 // Module - User Account
 @import 'pages/user-account/profile-edit';
 @import 'pages/user-account/video-add';
-@import 'pages/user-account/videos';
 
 // Module - Other
 @import 'pages/other/coming-soon';

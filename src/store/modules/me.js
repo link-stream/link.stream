@@ -7,11 +7,26 @@ import { api } from '~/services/api'
 import { base64ImgToSrc } from '~/utils'
 
 const initialState = () => ({
+    /**
+     * @var {object}
+     */
     user: null,
-    visibilities: [],
-    tracks: [],
-    videos: [],
-    links: [],
+    /**
+     * @var {array}
+     */
+    visibilities: null,
+    /**
+     * @var {array}
+     */
+    tracks: null,
+    /**
+     * @var {array}
+     */
+    videos: null,
+    /**
+     * @var {array}
+     */
+    links: null,
 })
 
 const state = initialState()
@@ -49,6 +64,9 @@ const mutations = {
     },
 
     [meTypes.ADD_VIDEO](state, { video }) {
+        if (state.videos === null) {
+            state.videos = []
+        }
         state.videos.push(video)
     },
 
@@ -80,6 +98,9 @@ const mutations = {
     },
 
     [meTypes.ADD_LINK](state, { link }) {
+        if (state.links === null) {
+            state.links = []
+        }
         state.links.push(link)
     },
 
@@ -225,18 +246,42 @@ const actions = {
 const getters = {
     user: state => {
         const user = state.user
+        if (!user) {
+            return null
+        }
         return {
             ...user,
             photo: base64ImgToSrc(user.data_image),
             banner: base64ImgToSrc(user.data_banner),
         }
     },
-    visibilities: state => state.visibilities,
-    tracks: state => state.tracks,
-    videos: state => state.videos,
+    visibilities: state => state.visibilities || [],
+    tracks: state => state.tracks || [],
+    videos: state => {
+        const videos = state.videos
+        if (!videos) {
+            return []
+        }
+        return videos.map(video => {
+            return {
+                ...video,
+                isPublic: video.public == '1',
+                isPrivate: video.public == '2',
+            }
+        })
+    },
     links: state => {
-        return state.links.map(link => {
-            return { ...link, image: base64ImgToSrc(link.data_image) }
+        const links = state.links
+        if (!links) {
+            return []
+        }
+        return links.map(link => {
+            return {
+                ...link,
+                image: base64ImgToSrc(link.data_image),
+                isPublic: link.public == '1',
+                isPrivate: link.public == '2',
+            }
         })
     },
 }

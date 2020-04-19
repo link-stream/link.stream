@@ -8,7 +8,7 @@
             <div class="page__nav__left">
                 <span class="permalink">
                     <span class="permalink__light">link.stream/</span>
-                    {{ user.user_name }}/links
+                    <span>{{ user.user_name }}/links</span>
                 </span>
                 <preview-pill-button
                     :to="{
@@ -22,19 +22,12 @@
             </div>
         </nav>
         <main class="page__body">
-            <ul>
-                <li v-for="link in links" :key="link.id">
-                    <h2>{{ link.title }}</h2>
-                    <p>URL: {{ link.url }}</p>
-                    <p></p>
-                    <p>
-                        <basic-button @click="deleteLink(l)">Delete</basic-button>
-                    </p>
-                    <p>
-                        <img :src="link.image" alt />
-                    </p>
-                </li>
-            </ul>
+            <LoadingIndicator :loading="loading" />
+            <Container v-if="!loading" @drop="handleDrop" drag-handle-selector=".lnk-crd-drag-sel">
+                <Draggable v-for="link in links" :key="link.id">
+                    <LinkCard :link="link" />
+                </Draggable>
+            </Container>
         </main>
     </div>
 </template>
@@ -42,12 +35,24 @@
 <script>
 import { mapGetters } from 'vuex'
 import { BasicButton, PreviewPillButton } from '~/components/Button'
+import { LinkCard } from '~/components/UserAccount/Links'
+import { LoadingIndicator } from '~/components/Loading'
+import { Container, Draggable } from 'vue-smooth-dnd'
 
 export default {
     name: 'Links',
     components: {
         BasicButton,
         PreviewPillButton,
+        LinkCard,
+        Container,
+        Draggable,
+        LoadingIndicator,
+    },
+    data() {
+        return {
+            loading: true,
+        }
     },
     computed: {
         ...mapGetters({
@@ -55,13 +60,16 @@ export default {
             links: 'me/links',
         }),
     },
-    created() {
-        this.$store.dispatch('me/loadLinks')
+    async created() {
+        await this.$store.dispatch('me/loadLinks')
+        this.loading = false
     },
     methods: {
+        editLink() {},
         deleteLink(link) {
             this.$store.dispatch('me/deleteLink', { link })
         },
+        handleDrop() {},
     },
 }
 </script>

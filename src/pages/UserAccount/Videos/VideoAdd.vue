@@ -9,7 +9,7 @@
             </header>
 
             <section class="fwz__step" v-show="step === 1">
-                <main>
+                <form>
                     <b-form-group label="YouTube Video URL" label-for="urlInput">
                         <b-form-input
                             v-model="$v.form.url.$model"
@@ -22,14 +22,12 @@
                             <template v-else-if="!$v.form.url.valid">Invalid YouTube URL</template>
                         </b-form-invalid-feedback>
                     </b-form-group>
-                </main>
+                </form>
             </section>
 
             <section class="fwz__step" v-show="step === 2">
-                <main>
-                    <div class="vid-wrap">
-                        <youtube :video-id="ytVidId"></youtube>
-                    </div>
+                <form>
+                    <youtube class="vid-wrap" :video-id="ytVidId"></youtube>
                     <b-form-group label="Video Title" label-for="titleInput">
                         <b-form-input
                             id="titleInput"
@@ -80,7 +78,7 @@
                             >{{ v.title }}</b-form-radio>
                         </b-form-radio-group>
                     </b-form-group>
-                </main>
+                </form>
             </section>
 
             <footer class="fwz__pager">
@@ -88,37 +86,26 @@
                 <basic-button
                     class="fwz__prev"
                     variant="secondary"
-                    :disabled="isSaving"
+                    :disabled="saving"
                     @click="goToStep(1)"
                 >Back</basic-button>
-                <spinner-button class="fwz__submit" :loading="isSaving" @click="save">Add Video</spinner-button>
+                <spinner-button class="fwz__submit" :loading="saving" @click="save">Add Video</spinner-button>
             </footer>
         </div>
     </b-container>
 </template>
 
 <script>
-import resize from 'vue-resize-directive'
-import { SpinnerButton, BasicButton } from '~/components/Button'
-import { SelectBox } from '~/components/Select'
 import { videoAddEditForm } from '~/mixins/videos/videoAddEditForm'
 
 export default {
     name: 'VideoAdd',
-    directives: {
-        resize,
-    },
-    components: {
-        SpinnerButton,
-        BasicButton,
-        SelectBox,
-    },
+    mixins: [videoAddEditForm],
     data() {
         return {
             step: 1, // [1, 2]
         }
     },
-    mixins: [videoAddEditForm],
     methods: {
         goToStep(step) {
             if (this.step === 1) {

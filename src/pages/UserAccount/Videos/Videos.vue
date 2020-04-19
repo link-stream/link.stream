@@ -8,7 +8,7 @@
             <div class="page__nav__left">
                 <span class="permalink">
                     <span class="permalink__light">link.stream/</span>
-                    {{ user.user_name }}/videos
+                    <span>{{ user.user_name }}/videos</span>
                 </span>
                 <preview-pill-button
                     :to="{
@@ -23,12 +23,11 @@
         </nav>
         <main class="page__body">
             <Container @drop="handleDrop" drag-handle-selector=".vid-crd-drag-sel">
-                <Draggable v-for="video in localVideos" :key="`video-${video.id}`">
+                <Draggable v-for="video in localVideos" :key="video.id">
                     <VideoCard :video="video" @editVideo="editVideo" @deleteVideo="deleteVideo" />
                 </Draggable>
             </Container>
         </main>
-
         <VideoEditModal :videoToEdit="videoToEdit" @hidden="handleEditModalHidden" />
     </div>
 </template>

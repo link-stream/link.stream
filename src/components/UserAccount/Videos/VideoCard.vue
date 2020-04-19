@@ -15,9 +15,9 @@
         </div>
         <div class="crd__act">
             <span class="crd__hov">
-                <IconButton icon="trash" @click="remove" />
+                <IconButton icon="trash" @click="handleDeleteClick" />
             </span>
-            <IconButton icon="edit-2" @click="edit" />
+            <IconButton icon="edit-2" @click="handleEditClick" />
         </div>
     </div>
 </template>
@@ -48,11 +48,11 @@ export default {
         },
     },
     methods: {
-        edit() {
-            this.$emit('editVideo', { video: this.video })
+        handleEditClick() {
+            this.$emit('editClick', { video: this.video })
         },
-        remove() {
-            this.$emit('deleteVideo', { video: this.video })
+        handleDeleteClick() {
+            this.$emit('deleteClick', { video: this.video })
         },
     },
 }

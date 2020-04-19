@@ -14,10 +14,7 @@
                 </div>
             </div>
             <div class="crd__act">
-                <span class="crd__hov">
-                    <IconButton icon="trash" @click="remove" />
-                </span>
-                <IconButton icon="edit-2" @click="edit" />
+                <IconButton icon="edit-2" @click="handleEditClick" />
             </div>
         </div>
         <div class="crd__editor" v-else>
@@ -42,9 +39,9 @@
                     <div class="invalid-feedback">Looks good!</div>
                 </div>
             </div>
-            <basic-button @click="save">Save</basic-button>
-            <basic-button @click="remove">Delete</basic-button>
-            <basic-button @click="cancel">Cancel</basic-button>
+            <basic-button>Save</basic-button>
+            <basic-button @click="handleDeleteClick">Delete</basic-button>
+            <basic-button @click="handleCancelClick">Cancel</basic-button>
         </div>
     </div>
 </template>
@@ -68,13 +65,15 @@ export default {
         },
     },
     methods: {
-        edit() {
+        handleEditClick() {
             this.editing = true
         },
-        cancel() {
+        handleCancelClick() {
             this.editing = false
         },
-        remove() {},
+        handleDeleteClick() {
+            this.$emit('deleteClick', { link: this.link })
+        },
     },
 }
 </script>

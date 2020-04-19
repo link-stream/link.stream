@@ -22,9 +22,9 @@
             </div>
         </nav>
         <main class="page__body">
-            <Container @drop="handleDrop" drag-handle-selector=".vid-crd-drag-sel">
+            <Container @drop="handleReorder" drag-handle-selector=".vid-crd-drag-sel">
                 <Draggable v-for="video in localVideos" :key="video.id">
-                    <VideoCard :video="video" @editVideo="editVideo" @deleteVideo="deleteVideo" />
+                    <VideoCard :video="video" @editClick="handleEdit" @deleteClick="handleDelete" />
                 </Draggable>
             </Container>
         </main>
@@ -76,17 +76,18 @@ export default {
         },
     },
     methods: {
-        editVideo({ video }) {
+        handleEditModalHidden() {
+            this.videoToEdit = {}
+        },
+        handleEdit({ video }) {
             this.videoToEdit = video
             this.$bvModal.show('videoEditModal')
         },
-        deleteVideo({ video }) {
-            this.$alert.alert({
+        handleDelete({ video }) {
+            this.$alert.confirm({
                 title: 'Delete video?',
                 message: 'This video and its data will be permanently deleted.',
-                okText: 'Confirm',
-                cancelText: 'Cancel',
-                onOk: async alert => {
+                okCallback: async alert => {
                     alert.loading = true
                     const {
                         status,
@@ -95,15 +96,16 @@ export default {
                     } = await this.$store.dispatch('me/deleteVideo', {
                         video,
                     })
-                    this.$toast.success(status === 'success' ? message : error)
+                    if (status === 'success') {
+                        this.$toast.success(message)
+                    } else {
+                        this.$toast.error(error)
+                    }
                     alert.close()
                 },
             })
         },
-        handleEditModalHidden() {
-            this.videoToEdit = {}
-        },
-        handleDrop(dropResult) {
+        handleReorder(dropResult) {
             const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
             const video = this.localVideos[oldIndex]
             this.localVideos.splice(oldIndex, 1)

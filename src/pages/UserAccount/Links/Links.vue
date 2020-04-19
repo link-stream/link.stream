@@ -23,9 +23,13 @@
         </nav>
         <main class="page__body">
             <LoadingIndicator :loading="loading" />
-            <Container v-if="!loading" @drop="handleDrop" drag-handle-selector=".lnk-crd-drag-sel">
+            <Container
+                v-if="!loading"
+                @drop="handleReorder"
+                drag-handle-selector=".lnk-crd-drag-sel"
+            >
                 <Draggable v-for="link in links" :key="link.id">
-                    <LinkCard :link="link" />
+                    <LinkCard :link="link" @deleteClick="handleDelete" />
                 </Draggable>
             </Container>
         </main>
@@ -65,11 +69,29 @@ export default {
         this.loading = false
     },
     methods: {
-        editLink() {},
-        deleteLink(link) {
-            this.$store.dispatch('me/deleteLink', { link })
+        handleDelete({ link }) {
+            this.$alert.confirm({
+                title: 'Delete link?',
+                message: 'This link and its data will be permanently deleted.',
+                okCallback: async alert => {
+                    alert.loading = true
+                    const {
+                        status,
+                        message,
+                        error,
+                    } = await this.$store.dispatch('me/deleteLink', {
+                        link,
+                    })
+                    if (status === 'success') {
+                        this.$toast.success(message)
+                    } else {
+                        this.$toast.error(error)
+                    }
+                    alert.close()
+                },
+            })
         },
-        handleDrop() {},
+        handleReorder() {},
     },
 }
 </script>

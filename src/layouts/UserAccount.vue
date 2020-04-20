@@ -25,5 +25,8 @@ export default {
     computed: {
         ...mapGetters(['getMenuType']),
     },
+    created() {
+        this.$store.dispatch('me/loadProfile')
+    },
 }
 </script>

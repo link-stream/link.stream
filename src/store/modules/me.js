@@ -104,6 +104,12 @@ const mutations = {
         state.links.push(link)
     },
 
+    [meTypes.UPDATE_LINK](state, { link }) {
+        const { links } = state
+        const index = links.map(l => l.id).indexOf(link.id)
+        index > -1 && links.splice(index, 1, link)
+    },
+
     [meTypes.DELETE_LINK](state, { link }) {
         const { links } = state
         const index = links.map(l => l.id).indexOf(link.id)
@@ -236,6 +242,13 @@ const actions = {
         return res
     },
 
+    async updateLink({ commit }, { id, params }) {
+        const res = await api.links.updateLink(id, params)
+        res.status === 'success' &&
+            commit(meTypes.UPDATE_LINK, { link: res.data })
+        return res
+    },
+
     async deleteLink({ commit }, { link }) {
         const res = await api.links.deleteLink(link.id)
         res.status === 'success' && commit(meTypes.DELETE_LINK, { link })
@@ -278,7 +291,7 @@ const getters = {
         return links.map(link => {
             return {
                 ...link,
-                image: base64ImgToSrc(link.data_image),
+                coverImage: base64ImgToSrc(link.data_image),
                 isPublic: link.public == '1',
                 isPrivate: link.public == '2',
             }

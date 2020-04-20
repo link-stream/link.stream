@@ -20,12 +20,13 @@ export const videoAddEditForm = {
     },
     data() {
         return {
+            editing: false,
             saving: false,
             form: {
                 url: null,
                 title: null,
                 genre: null,
-                relatedtrack: null,
+                relatedTrack: null,
                 visibility: appConstants.user.visibilities.private,
                 date: null,
                 time: null,
@@ -34,12 +35,9 @@ export const videoAddEditForm = {
         }
     },
     computed: {
-        editing() {
-            return this.video ? true : false
-        },
         ...mapGetters({
             user: ['me/user'],
-            relatedtracks: ['me/tracks'],
+            relatedTracks: ['me/tracks'],
             visibilities: ['me/visibilities'],
             times: ['common/times'],
             genres: ['common/genres'],
@@ -102,7 +100,7 @@ export const videoAddEditForm = {
                 url,
                 title,
                 genre,
-                relatedtrack,
+                relatedTrack,
                 visibility,
                 date,
                 time,
@@ -114,7 +112,7 @@ export const videoAddEditForm = {
                 url,
                 title,
                 genre_id: genre,
-                related_track: relatedtrack,
+                related_track: relatedTrack,
                 public: visibility,
                 scheduled: scheduled ? 1 : 0,
             }
@@ -135,9 +133,11 @@ export const videoAddEditForm = {
 
             if (status === 'success') {
                 this.$toast.success(message)
-                this.editing
-                    ? this.closeModal()
-                    : this.$router.push({ name: 'userAccountVideos' })
+                if (this.editing) {
+                    this.editing = false
+                } else {
+                    this.$router.push({ name: 'userAccountVideos' })
+                }
             } else {
                 this.$toast.error(error)
             }

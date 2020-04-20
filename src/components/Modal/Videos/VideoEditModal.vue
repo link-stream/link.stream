@@ -1,9 +1,8 @@
 <template>
     <b-modal
-        id="videoEditModal"
         modal-class="mdl mdl-vid-edit"
+        v-model="editing"
         @hidden="handleHidden"
-        @shown="handleShown"
         hide-header
         hide-footer
         no-close-on-backdrop
@@ -11,7 +10,7 @@
     >
         <header class="mdl__header">
             <h2 class="mdl__title">Edit video info</h2>
-            <IconButton icon="modal-close" class="mdl__close" @click="closeModal" />
+            <IconButton icon="modal-close" class="mdl__close" @click="close" />
         </header>
 
         <b-form class="mdl__body" :novalidate="true">
@@ -61,10 +60,10 @@
 
             <b-form-group label="Related Track" label-for="trackInput">
                 <SelectBox
-                    v-model="form.relatedtrack"
+                    v-model="form.related_track"
                     id="trackInput"
                     placeholder="Select Related Track"
-                    :options="relatedtracks"
+                    :options="relatedTracks"
                     :reduce="track => track.id"
                     label="title"
                 />
@@ -103,7 +102,7 @@
         </b-form>
 
         <footer class="mdl__footer">
-            <basic-button variant="secondary" :disabled="saving" @click="closeModal">Cancel</basic-button>
+            <basic-button variant="secondary" :disabled="saving" @click="close">Cancel</basic-button>
             <spinner-button :loading="saving" @click="handleSaveClick">Save</spinner-button>
         </footer>
     </b-modal>
@@ -128,36 +127,38 @@ export default {
             required: true,
         },
     },
+    created() {
+        this.editing = true
+
+        const {
+            title,
+            url,
+            genre_id,
+            related_track,
+            public: visibility,
+            scheduled,
+            date,
+            time,
+        } = this.video
+
+        this.form = {
+            ...this.form,
+            title,
+            url,
+            genre: genre_id,
+            relatedTrack: related_track != '0' ? related_track : '', // TODO move check to backend
+            visibility,
+            scheduled,
+            date: new Date(date + ' 00:00:00'),
+            time,
+        }
+    },
     methods: {
-        closeModal() {
-            this.$bvModal.hide('videoEditModal')
+        close() {
+            this.editing = false
         },
         handleHidden() {
             this.$emit('hidden')
-        },
-        handleShown() {
-            const {
-                title,
-                url,
-                genre_id,
-                related_track,
-                public: visibility,
-                date,
-                time,
-                scheduled,
-            } = this.video
-
-            this.form = {
-                ...this.form,
-                title,
-                url,
-                genre: genre_id,
-                relatedtrack: related_track != '0' ? related_track : '', // TODO move check to backend
-                visibility,
-                date: new Date(date + ' 00:00:00'),
-                time,
-                scheduled,
-            }
         },
     },
 }

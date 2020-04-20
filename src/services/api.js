@@ -169,6 +169,11 @@ export const api = {
                 showProgress: false,
             })
         },
+        async updateLink(id, params) {
+            const endpoint = '/links/' + id
+            const method = METHOD_PUT
+            return await call({ endpoint, params, method })
+        },
         async deleteLink(id) {
             const endpoint = '/links/' + id
             const method = METHOD_DELETE

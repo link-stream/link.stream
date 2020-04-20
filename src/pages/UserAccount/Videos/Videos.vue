@@ -22,17 +22,17 @@
             </div>
         </nav>
         <main class="page__body">
-            <Container @drop="handleReorder" drag-handle-selector=".vid-crd-drag-sel">
+            <Container @drop="handleDrop" drag-handle-selector=".vid-crd-drag-sel">
                 <Draggable v-for="video in localVideos" :key="video.id">
                     <VideoCard
                         :video="video"
-                        @editClick="handleEditClick"
-                        @deleteClick="handleDeleteClick"
+                        @edit-click="handleEditClick"
+                        @delete-click="handleDeleteClick"
                     />
                 </Draggable>
             </Container>
         </main>
-        <VideoEditModal :video="videoToEdit" @hidden="handleEditModalHidden" />
+        <VideoEditModal v-if="editingVideo" :video="editingVideo" @hidden="handleEditModalHidden" />
     </div>
 </template>
 
@@ -57,7 +57,7 @@ export default {
     data() {
         return {
             localVideos: [],
-            videoToEdit: {},
+            editingVideo: null,
         }
     },
     computed: {
@@ -81,18 +81,16 @@ export default {
     },
     methods: {
         handleEditModalHidden() {
-            this.videoToEdit = {}
+            this.editingVideo = null
         },
         handleEditClick({ video }) {
-            this.videoToEdit = video
-            this.$bvModal.show('videoEditModal')
+            this.editingVideo = video
         },
         handleDeleteClick({ video }) {
             this.$alert.confirm({
                 title: 'Delete video?',
                 message: 'This video and its data will be permanently deleted.',
-                okCallback: async alert => {
-                    alert.loading = true
+                okCallback: async () => {
                     const {
                         status,
                         message,
@@ -105,11 +103,10 @@ export default {
                     } else {
                         this.$toast.error(error)
                     }
-                    alert.close()
                 },
             })
         },
-        handleReorder(dropResult) {
+        handleDrop(dropResult) {
             const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
             const video = this.localVideos[oldIndex]
             this.localVideos.splice(oldIndex, 1)

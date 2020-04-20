@@ -6,6 +6,7 @@ import { SelectBox } from '~/components/Select'
 import { required, requiredIf, url } from 'vuelidate/lib/validators'
 import { appConstants } from '~/constants'
 import { moment } from 'moment'
+import { base64ImgToSrc } from '~/utils'
 
 export const linkAddEditForm = {
     components: {
@@ -20,14 +21,14 @@ export const linkAddEditForm = {
         return {
             editing: false,
             saving: false,
-            imageBase64: null,
             form: {
-                url: 'http://slicvic.com',
-                title: 'slicvic',
+                url: null,
+                title: null,
                 visibility: appConstants.user.visibilities.public,
+                scheduled: null,
                 date: null,
                 time: null,
-                scheduled: false,
+                image: null,
             },
         }
     },
@@ -37,6 +38,32 @@ export const linkAddEditForm = {
             visibilities: 'me/visibilities',
             times: 'common/times',
         }),
+    },
+    watch: {
+        editing() {
+            if (!this.editing) {
+                return
+            }
+            const {
+                url,
+                title,
+                public: visibility,
+                scheduled,
+                date,
+                time,
+                data_image,
+            } = this.link
+            this.form = {
+                ...this.form,
+                url,
+                title,
+                visibility,
+                scheduled,
+                date: new Date(date + ' 00:00:00'),
+                time,
+                image: base64ImgToSrc(data_image),
+            }
+        },
     },
     validations: {
         form: {
@@ -60,14 +87,18 @@ export const linkAddEditForm = {
         },
     },
     methods: {
-        toggleScheduled() {
+        handleScheduleClick() {
             this.form.scheduled = !this.form.scheduled
             this.form.date = null
             this.form.time = null
             this.$v.form.date.$reset()
             this.$v.form.time.$reset()
         },
-        async save() {
+        handleImageChange({ image }) {
+            console.log(image)
+            this.form.image = image ? image.base64 : null
+        },
+        async handleSaveClick() {
             this.$v.form.$touch()
 
             if (this.$v.form.$invalid) {
@@ -76,7 +107,15 @@ export const linkAddEditForm = {
 
             this.saving = true
 
-            const { url, title, visibility, date, time, scheduled } = this.form
+            const {
+                url,
+                title,
+                visibility,
+                date,
+                time,
+                scheduled,
+                image,
+            } = this.form
 
             const params = {
                 user_id: this.user.id,
@@ -84,7 +123,7 @@ export const linkAddEditForm = {
                 title,
                 public: visibility,
                 scheduled: scheduled ? 1 : 0,
-                image: this.imageBase64,
+                image,
             }
 
             if (scheduled) {
@@ -92,23 +131,25 @@ export const linkAddEditForm = {
                 params.time = time
             }
 
-            const {
-                status,
-                message,
-                error,
-            } = await this.$store.dispatch('me/createLink', { params })
+            const { status, message, error } = this.editing
+                ? await this.$store.dispatch('me/updateLink', {
+                      id: this.link.id,
+                      params,
+                  })
+                : await this.$store.dispatch('me/createLink', { params })
 
             if (status === 'success') {
                 this.$toast.success(message)
-                this.$router.push({ name: 'userAccountLinks' })
+                if (this.editing) {
+                    this.editing = false
+                } else {
+                    this.$router.push({ name: 'userAccountLinks' })
+                }
             } else {
                 this.$toast.error(error)
             }
 
             this.saving = false
-        },
-        handleImageChange({ image }) {
-            this.imageBase64 = image ? image.base64 : null
         },
     },
 }

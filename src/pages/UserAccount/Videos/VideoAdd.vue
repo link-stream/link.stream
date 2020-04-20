@@ -60,10 +60,10 @@
 
                     <b-form-group label="Related Track" label-for="trackInput">
                         <SelectBox
-                            v-model="form.relatedtrack"
+                            v-model="form.relatedTrack"
                             id="trackInput"
                             placeholder="Select Related Track"
-                            :options="relatedtracks"
+                            :options="relatedTracks"
                             :reduce="track => track.id"
                             label="title"
                         />
@@ -107,7 +107,7 @@ export default {
     mixins: [videoAddEditForm],
     data() {
         return {
-            step: 1, // [1, 2]
+            step: 1,
         }
     },
     methods: {

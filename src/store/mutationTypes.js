@@ -29,5 +29,6 @@ export const meTypes = {
     // Links
     SET_LINKS: 'SET_LINKS',
     ADD_LINK: 'ADD_LINK',
+    UPDATE_LINK: 'UPDATE_LINK',
     DELETE_LINK: 'DELETE_LINK',
 }

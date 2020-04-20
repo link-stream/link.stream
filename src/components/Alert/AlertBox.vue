@@ -17,14 +17,14 @@
                     :disabled="loading"
                     v-if="opts.cancelVisible"
                     @click="handleCancelClick"
-                >{{ opts.cancelText }}</basic-button>
+                >{{ opts.cancelLabel }}</basic-button>
                 <spinner-button
                     class="alrt__ok"
                     size="sm"
                     :loading="loading"
                     v-if="opts.okVisible"
                     @click="handleOkClick"
-                >{{ opts.okText }}</spinner-button>
+                >{{ opts.okLabel }}</spinner-button>
             </footer>
         </div>
     </b-modal>
@@ -37,15 +37,19 @@ const defaultOpts = {
     title: null,
     message: null,
     okVisible: true,
-    okText: 'OK',
-    okCallback: function() {
-        this.close()
-    },
+    okLabel: 'OK',
+    okCallback: null,
     cancelVisible: true,
-    cancelText: 'Cancel',
-    cancelCallback: function() {
-        this.close()
-    },
+    cancelLabel: 'Cancel',
+    cancelCallback: null,
+}
+
+const showAlert = function(opts) {
+    for (let key in defaultOpts) {
+        this.opts[key] = key in opts ? opts[key] : defaultOpts[key]
+    }
+    this.loading = false
+    this.visible = true
 }
 
 export default {
@@ -63,39 +67,32 @@ export default {
                 title: null,
                 message: null,
                 okVisible: null,
-                okText: null,
+                okLabel: null,
                 okCallback: null,
                 cancelVisible: null,
-                cancelText: null,
+                cancelLabel: null,
                 cancelCallback: null,
             },
         }
     },
     methods: {
         confirm(opts) {
-            this.show({
-                okText: 'Confirm',
+            showAlert.call(this, {
+                okLabel: 'Confirm',
                 ...opts,
             })
-        },
-        show(opts) {
-            for (let key in defaultOpts) {
-                this.opts[key] = key in opts ? opts[key] : defaultOpts[key]
-            }
-            this.loading = false
-            this.visible = true
         },
         close() {
             this.visible = false
             this.loading = false
         },
         handleOkClick() {
-            typeof this.opts.okCallback === 'function' &&
-                this.opts.okCallback.call(this, this)
+            this.opts.okCallback !== null && this.opts.okCallback()
+            this.close()
         },
         handleCancelClick() {
-            typeof this.opts.cancelCallback === 'function' &&
-                this.opts.cancelCallback.call(this, this)
+            this.opts.cancelCallback !== null && this.opts.cancelCallback()
+            this.close()
         },
     },
 }

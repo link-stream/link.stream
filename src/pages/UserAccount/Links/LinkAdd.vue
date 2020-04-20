@@ -58,7 +58,7 @@
                         >Select a date and time</b-form-invalid-feedback>
                     </b-form-group>
 
-                    <basic-button variant="link" @click="toggleScheduled">
+                    <basic-button variant="link" @click="handleScheduleClick">
                         {{
                         form.scheduled ? 'Clear scheduling ' : 'Schedule this link'
                         }}
@@ -76,7 +76,11 @@
                     :to="{ name: 'userAccountLinks' }"
                     :disabled="saving"
                 >Cancel</basic-button>
-                <spinner-button class="fwz__submit" :loading="saving" @click="save">Add Link</spinner-button>
+                <spinner-button
+                    class="fwz__submit"
+                    :loading="saving"
+                    @click="handleSaveClick"
+                >Add Link</spinner-button>
             </footer>
         </div>
     </div>

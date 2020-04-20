@@ -5,7 +5,7 @@ import { DatePicker, TimePicker } from '~/components/Picker'
 import { SelectBox } from '~/components/Select'
 import { required, requiredIf, url } from 'vuelidate/lib/validators'
 import { appConstants } from '~/constants'
-import { moment } from 'moment'
+import moment from 'moment'
 
 export const linkAddEditForm = {
     components: {

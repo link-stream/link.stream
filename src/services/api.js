@@ -183,6 +183,11 @@ export const api = {
                 showProgress: false,
             })
         },
+        async sortLinks(params) {
+            const endpoint = '/links/sort_links/'
+            const method = METHOD_POST
+            return await call({ endpoint, params, method })
+        },
     },
     common: {
         async getGenres() {

@@ -52,19 +52,37 @@ export default {
     data() {
         return {
             loading: true,
+            links: [],
         }
     },
     computed: {
         ...mapGetters({
             user: 'me/user',
-            links: 'me/links',
         }),
     },
     async created() {
         await this.$store.dispatch('me/loadLinks')
+        this.links = [...this.$store.getters['me/links']]
         this.loading = false
     },
     methods: {
+        handleDrop(result) {
+            const { removedIndex: oldIndex, addedIndex: newIndex } = result
+            const link = this.links[oldIndex]
+            this.links.splice(oldIndex, 1)
+            this.links.splice(newIndex, 0, link)
+            const sorts = this.links.map((v, idx) => {
+                return {
+                    id: v.id,
+                    sort: (idx + 1).toString(),
+                }
+            })
+            this.$store.dispatch('me/reorderLink', {
+                oldIndex,
+                newIndex,
+                sorts,
+            })
+        },
         handleDeleteClick({ link }) {
             this.$alert.confirm({
                 title: 'Delete link?',
@@ -87,7 +105,6 @@ export default {
                 },
             })
         },
-        handleDrop() {},
     },
 }
 </script>

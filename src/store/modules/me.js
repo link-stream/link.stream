@@ -114,6 +114,13 @@ const mutations = {
         const index = links.map(l => l.id).indexOf(link.id)
         links.splice(index, 1)
     },
+
+    [meTypes.REORDER_LINK](state, { oldIndex, newIndex }) {
+        const { links } = state
+        const link = links[oldIndex]
+        links.splice(oldIndex, 1)
+        links.splice(newIndex, 0, link)
+    },
 }
 
 const actions = {
@@ -256,6 +263,14 @@ const actions = {
         const res = await api.links.deleteLink(link.id)
         res.status === 'success' && commit(meTypes.DELETE_LINK, { link })
         return res
+    },
+
+    reorderLink({ state, commit }, { oldIndex, newIndex, sorts }) {
+        commit(meTypes.REORDER_LINK, { oldIndex, newIndex })
+        api.links.sortLinks({
+            user_id: state.user.id,
+            list: JSON.stringify(sorts),
+        })
     },
 }
 

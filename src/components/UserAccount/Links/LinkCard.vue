@@ -2,7 +2,7 @@
     <div class="crd lnk-crd" :class="{ 'is-editing': editing }">
         <div class="crd__viewer" v-if="!editing">
             <div class="crd__flex">
-                <Icon icon="reorder" class="crd__reorder vid-crd-drag-sel" />
+                <Icon icon="reorder" class="crd__reorder lnk-crd-drag-sel" />
                 <div class="crd__body">
                     <div class="crd__thumb">
                         <img class="crd__img" :src="link.data_image" :alt="link.title" />

@@ -31,4 +31,5 @@ export const meTypes = {
     ADD_LINK: 'ADD_LINK',
     UPDATE_LINK: 'UPDATE_LINK',
     DELETE_LINK: 'DELETE_LINK',
+    REORDER_LINK: 'REORDER_LINK',
 }

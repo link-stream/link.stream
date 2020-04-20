@@ -28,18 +28,6 @@ export function setStatusChange(
 }
 
 /**
- * Generate an HTML image src attribute from a base64 encoded image.
- * @param {string} base64
- * @return {string|null}
- */
-export function base64ImgToSrc(base64) {
-    if (typeof base64 === 'string' && base64) {
-        return 'data:image/jpeg;base64,' + base64
-    }
-    return null
-}
-
-/**
  * Get the thumb image URL of a YouTube video.
  * @param {string} videoId
  * @return {string}

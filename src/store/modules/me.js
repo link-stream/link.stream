@@ -4,7 +4,6 @@
 
 import { types, meTypes } from '../mutationTypes'
 import { api } from '~/services/api'
-import { base64ImgToSrc } from '~/utils'
 
 const initialState = () => ({
     /**
@@ -264,8 +263,8 @@ const getters = {
         }
         return {
             ...user,
-            photo: base64ImgToSrc(user.data_image),
-            banner: base64ImgToSrc(user.data_banner),
+            photo: user.data_image,
+            banner: user.data_banner,
         }
     },
     visibilities: state => state.visibilities || [],
@@ -291,7 +290,6 @@ const getters = {
         return links.map(link => {
             return {
                 ...link,
-                coverImage: base64ImgToSrc(link.data_image),
                 isPublic: link.public == '1',
                 isPrivate: link.public == '2',
             }

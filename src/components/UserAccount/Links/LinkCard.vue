@@ -5,7 +5,7 @@
                 <Icon icon="reorder" class="crd__reorder vid-crd-drag-sel" />
                 <div class="crd__body">
                     <div class="crd__thumb">
-                        <img class="crd__img" :src="link.coverImage" :alt="link.title" />
+                        <img class="crd__img" :src="link.data_image" :alt="link.title" />
                     </div>
                     <div class="crd__info">
                         <h2 class="crd__title">{{ link.title }}</h2>
@@ -18,7 +18,7 @@
         </div>
         <div class="crd__editor" v-else>
             <div>
-                <DropFoto :src="link.coverImage" @change="handleImageChange" />
+                <DropFoto :src="link.data_image" @change="handleImageChange" />
             </div>
             <div>
                 <div class="form-group">
@@ -55,7 +55,7 @@
                 </div>
             </div>
             <basic-button @click="handleScheduleClick">Schedule</basic-button>
-            <basic-button @click="handleSaveClick">Save</basic-button>
+            <spinner-button @click="handleSaveClick" :loading="saving">Save</spinner-button>
             <basic-button @click="handleDeleteClick">Delete</basic-button>
             <basic-button @click="handleCancelClick">Cancel</basic-button>
         </div>

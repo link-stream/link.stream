@@ -6,7 +6,6 @@ import { SelectBox } from '~/components/Select'
 import { required, requiredIf, url } from 'vuelidate/lib/validators'
 import { appConstants } from '~/constants'
 import { moment } from 'moment'
-import { base64ImgToSrc } from '~/utils'
 
 export const linkAddEditForm = {
     components: {
@@ -61,7 +60,7 @@ export const linkAddEditForm = {
                 scheduled,
                 date: new Date(date + ' 00:00:00'),
                 time,
-                image: base64ImgToSrc(data_image),
+                image: data_image,
             }
         },
     },

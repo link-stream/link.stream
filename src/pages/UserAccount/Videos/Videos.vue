@@ -66,7 +66,7 @@ export default {
             videos: 'me/videos',
         }),
     },
-    async created() {
+    created() {
         this.$store.dispatch('me/loadVideos', {
             params: {
                 page: 1,
@@ -75,8 +75,11 @@ export default {
         })
     },
     watch: {
-        videos() {
-            this.localVideos = [...this.videos]
+        videos: {
+            immediate: true,
+            handler() {
+                this.localVideos = [...this.videos]
+            },
         },
     },
     methods: {
@@ -106,8 +109,8 @@ export default {
                 },
             })
         },
-        handleDrop(dropResult) {
-            const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
+        handleDrop(result) {
+            const { removedIndex: oldIndex, addedIndex: newIndex } = result
             const video = this.localVideos[oldIndex]
             this.localVideos.splice(oldIndex, 1)
             this.localVideos.splice(newIndex, 0, video)

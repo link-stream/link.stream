@@ -63,7 +63,7 @@ const mutations = {
     },
 
     [meTypes.ADD_VIDEO](state, { video }) {
-        if (state.videos === null) {
+        if (!state.videos) {
             state.videos = []
         }
         state.videos.push(video)
@@ -97,7 +97,7 @@ const mutations = {
     },
 
     [meTypes.ADD_LINK](state, { link }) {
-        if (state.links === null) {
+        if (!state.links) {
             state.links = []
         }
         state.links.push(link)
@@ -188,12 +188,14 @@ const actions = {
      */
 
     async loadVideos({ state, commit }, { params }) {
+        if (state.videos) {
+            return
+        }
         const res = await api.videos.getVideosByUser(state.user.id, params)
         commit({
             type: meTypes.SET_VIDEOS,
             videos: res.status === 'success' ? res.data : [],
         })
-        return res
     },
 
     async createVideo({ commit }, { params }) {
@@ -229,10 +231,12 @@ const actions = {
      */
 
     async loadLinks({ state, commit }) {
+        if (state.links) {
+            return
+        }
         const res = await api.links.getLinksByUser(state.user.id)
         res.status === 'success' &&
             commit(meTypes.SET_LINKS, { links: res.data })
-        return res
     },
 
     async createLink({ commit }, { params }) {

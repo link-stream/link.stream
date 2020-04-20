@@ -23,7 +23,7 @@
         </nav>
         <main class="page__body">
             <Container @drop="handleDrop" drag-handle-selector=".vid-crd-drag-sel">
-                <Draggable v-for="video in localVideos" :key="video.id">
+                <Draggable v-for="video in videos" :key="video.id">
                     <VideoCard
                         :video="video"
                         @edit-click="handleEditClick"
@@ -56,31 +56,23 @@ export default {
     },
     data() {
         return {
-            localVideos: [],
+            videos: [],
             editingVideo: null,
         }
     },
     computed: {
         ...mapGetters({
             user: 'me/user',
-            videos: 'me/videos',
         }),
     },
-    created() {
-        this.$store.dispatch('me/loadVideos', {
+    async created() {
+        await this.$store.dispatch('me/loadVideos', {
             params: {
                 page: 1,
                 page_size: appConstants.user.account.videosPerPage,
             },
         })
-    },
-    watch: {
-        videos: {
-            immediate: true,
-            handler() {
-                this.localVideos = [...this.videos]
-            },
-        },
+        this.videos = [...this.$store.getters['me/videos']]
     },
     methods: {
         handleEditModalHidden() {
@@ -111,10 +103,10 @@ export default {
         },
         handleDrop(result) {
             const { removedIndex: oldIndex, addedIndex: newIndex } = result
-            const video = this.localVideos[oldIndex]
-            this.localVideos.splice(oldIndex, 1)
-            this.localVideos.splice(newIndex, 0, video)
-            const sorts = this.localVideos.map((v, idx) => {
+            const video = this.videos[oldIndex]
+            this.videos.splice(oldIndex, 1)
+            this.videos.splice(newIndex, 0, video)
+            const sorts = this.videos.map((v, idx) => {
                 return {
                     id: v.id,
                     sort: (idx + 1).toString(),

@@ -35,7 +35,7 @@ export const videoAddEditForm = {
     },
     computed: {
         editing() {
-            return this.videoToEdit ? true : false
+            return this.video ? true : false
         },
         ...mapGetters({
             user: ['me/user'],
@@ -82,14 +82,14 @@ export const videoAddEditForm = {
         },
     },
     methods: {
-        toggleScheduled() {
+        handleScheduleClick() {
             this.$v.form.date.$reset()
             this.$v.form.time.$reset()
             this.form.date = null
             this.form.time = null
             this.form.scheduled = !this.form.scheduled
         },
-        async save() {
+        async handleSaveClick() {
             this.$v.form.$touch()
 
             if (this.$v.form.$invalid) {
@@ -126,7 +126,7 @@ export const videoAddEditForm = {
 
             const { status, error, message } = this.editing
                 ? await this.$store.dispatch('me/updateVideo', {
-                      id: this.videoToEdit.id,
+                      id: this.video.id,
                       params,
                   })
                 : await this.$store.dispatch('me/createVideo', {

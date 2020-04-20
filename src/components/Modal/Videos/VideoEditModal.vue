@@ -3,6 +3,7 @@
         id="videoEditModal"
         modal-class="mdl mdl-vid-edit"
         @hidden="handleHidden"
+        @shown="handleShown"
         hide-header
         hide-footer
         no-close-on-backdrop
@@ -94,7 +95,7 @@
                 </b-form-group>
             </template>
 
-            <basic-button variant="link" @click="toggleScheduled">
+            <basic-button variant="link" @click="handleScheduleClick">
                 {{
                 form.scheduled ? 'Clear scheduling ' : 'Schedule this video'
                 }}
@@ -103,7 +104,7 @@
 
         <footer class="mdl__footer">
             <basic-button variant="secondary" :disabled="saving" @click="closeModal">Cancel</basic-button>
-            <spinner-button :loading="saving" @click="save">Save</spinner-button>
+            <spinner-button :loading="saving" @click="handleSaveClick">Save</spinner-button>
         </footer>
     </b-modal>
 </template>
@@ -122,17 +123,19 @@ export default {
         TimePicker,
     },
     props: {
-        videoToEdit: {
+        video: {
             type: Object,
             required: true,
         },
     },
-    watch: {
-        videoToEdit(video) {
-            if (!video.id) {
-                return
-            }
-
+    methods: {
+        closeModal() {
+            this.$bvModal.hide('videoEditModal')
+        },
+        handleHidden() {
+            this.$emit('hidden')
+        },
+        handleShown() {
             const {
                 title,
                 url,
@@ -142,7 +145,7 @@ export default {
                 date,
                 time,
                 scheduled,
-            } = video
+            } = this.video
 
             this.form = {
                 ...this.form,
@@ -155,14 +158,6 @@ export default {
                 time,
                 scheduled,
             }
-        },
-    },
-    methods: {
-        closeModal() {
-            this.$bvModal.hide('videoEditModal')
-        },
-        handleHidden() {
-            this.$emit('hidden')
         },
     },
 }

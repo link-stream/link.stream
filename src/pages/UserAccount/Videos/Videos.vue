@@ -24,11 +24,15 @@
         <main class="page__body">
             <Container @drop="handleReorder" drag-handle-selector=".vid-crd-drag-sel">
                 <Draggable v-for="video in localVideos" :key="video.id">
-                    <VideoCard :video="video" @editClick="handleEdit" @deleteClick="handleDelete" />
+                    <VideoCard
+                        :video="video"
+                        @editClick="handleEditClick"
+                        @deleteClick="handleDeleteClick"
+                    />
                 </Draggable>
             </Container>
         </main>
-        <VideoEditModal :videoToEdit="videoToEdit" @hidden="handleEditModalHidden" />
+        <VideoEditModal :video="videoToEdit" @hidden="handleEditModalHidden" />
     </div>
 </template>
 
@@ -79,11 +83,11 @@ export default {
         handleEditModalHidden() {
             this.videoToEdit = {}
         },
-        handleEdit({ video }) {
+        handleEditClick({ video }) {
             this.videoToEdit = video
             this.$bvModal.show('videoEditModal')
         },
-        handleDelete({ video }) {
+        handleDeleteClick({ video }) {
             this.$alert.confirm({
                 title: 'Delete video?',
                 message: 'This video and its data will be permanently deleted.',

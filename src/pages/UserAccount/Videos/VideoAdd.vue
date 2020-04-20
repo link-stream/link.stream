@@ -89,7 +89,11 @@
                     :disabled="saving"
                     @click="goToStep(1)"
                 >Back</basic-button>
-                <spinner-button class="fwz__submit" :loading="saving" @click="save">Add Video</spinner-button>
+                <spinner-button
+                    class="fwz__submit"
+                    :loading="saving"
+                    @click="handleSaveClick"
+                >Add Video</spinner-button>
             </footer>
         </div>
     </b-container>

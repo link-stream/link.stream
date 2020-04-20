@@ -6,7 +6,7 @@
         :class="{ 'is-invalid': !state }"
         :min-date="new Date()"
         :popover="{ visibility: 'click' }"
-        @input="updateValue"
+        @input="handleInput"
         :input-props="{
                 class: 'ls-datepicker__input form-control',
                 placeholder,
@@ -38,7 +38,7 @@ export default {
         }
     },
     methods: {
-        updateValue(value) {
+        handleInput(value) {
             this.$emit('input', value)
         },
     },

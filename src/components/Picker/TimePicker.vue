@@ -8,7 +8,7 @@
         label="title"
         :options="times"
         :reduce="time => time.id"
-        @input="updateValue"
+        @input="handleInput"
     ></select-box>
 </template>
 
@@ -41,7 +41,7 @@ export default {
         }
     },
     methods: {
-        updateValue(value) {
+        handleInput(value) {
             this.$emit('input', value)
         },
     },

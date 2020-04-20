@@ -7,7 +7,7 @@
         :placeholder="placeholder"
         :options="options"
         :reduce="reduce"
-        @input="updateValue"
+        @input="handleInput"
     >
         <template v-slot:open-indicator>
             <Icon :icon="icon" class="ls-select__icon" />
@@ -59,7 +59,7 @@ export default {
         }
     },
     methods: {
-        updateValue(value) {
+        handleInput(value) {
             this.$emit('input', value)
         },
     },

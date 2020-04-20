@@ -5,7 +5,7 @@
                 <Icon icon="reorder" class="crd__reorder lnk-crd-drag-sel" />
                 <div class="crd__body">
                     <div class="crd__thumb">
-                        <img class="crd__img" :src="link.data_image" :alt="link.title" />
+                        <img class="crd__img" :src="link.artwork" :alt="link.title" />
                     </div>
                     <div class="crd__info">
                         <h2 class="crd__title">{{ link.title }}</h2>

@@ -309,6 +309,7 @@ const getters = {
         return links.map(link => {
             return {
                 ...link,
+                artwork: link.data_image || '/static/img/artwork-missing.jpg',
                 isPublic: link.public == '1',
                 isPrivate: link.public == '2',
             }

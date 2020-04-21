@@ -1,5 +1,5 @@
-.form-wiz {
-    .fwz__cnt {
+.fwz {
+    .fwz-cnt {
         color: $linkstream-70;
         font-size: px2rem(11);
         font-weight: bold;
@@ -9,11 +9,11 @@
         font-weight: 600;
     }
 
-    .fwz__topnav {
+    .fwz-topnav {
         margin-bottom: 20px;
     }
 
-    .fwz__back {
+    .fwz-back {
         color: $linkstream-70;
         font-size: px2rem(11);
         font-weight: bold;
@@ -27,25 +27,25 @@
         }
     }
 
-    .fwz__header {
+    .fwz-header {
         margin-bottom: 20px;
     }
 
-    .fwz__title {
+    .fwz-title {
         color: $black;
         font-size: px2rem(30);
         font-weight: 800;
         line-height: 34px;
     }
 
-    .fwz__subtitle {
+    .fwz-subtitle {
         color: $black;
         line-height: 24px;
         font-weight: normal;
         font-size: px2rem(14);
     }
 
-    .fwz__step {
+    .fwz-step {
         display: flex;
         flex-direction: column;
         form {
@@ -56,36 +56,36 @@
         }
     }
 
-    .fwz__pager {
+    .fwz-pager {
         display: flex;
         flex-direction: column;
         flex-direction: column-reverse;
     }
 
-    .fwz__submit,
-    .fwz__prev {
+    .fwz-submit,
+    .fwz-prev {
         display: none;
     }
 
-    .fwz__prev {
+    .fwz-prev {
         color: $linkstream-70;
     }
 
-    .fwz__submit {
+    .fwz-submit {
         margin-bottom: 10px;
     }
 
     &.is-final-step {
-        .fwz__submit,
-        .fwz__prev {
+        .fwz-submit,
+        .fwz-prev {
             display: block;
         }
 
-        .fwz__next {
+        .fwz-next {
             display: none;
         }
 
-        .fwz__pager {
+        .fwz-pager {
             border-top: 1px solid $linkstream-30;
             padding-top: 20px;
             margin-top: 29px;
@@ -93,18 +93,18 @@
     }
 
     @include media-breakpoint-up(sm) {
-        .fwz__pager {
+        .fwz-pager {
             flex-direction: row;
             justify-content: space-between;
         }
 
-        .fwz__submit {
+        .fwz-submit {
             margin-bottom: 0;
         }
     }
 
     @include media-breakpoint-up(md) {
-        .fwz__step {
+        .fwz-step {
             flex-direction: row;
             justify-content: space-between;
             form {

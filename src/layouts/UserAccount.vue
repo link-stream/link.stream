@@ -1,6 +1,6 @@
 <template>
     <div class="layout layout-ua" :class="getMenuType">
-        <main class="layout__content">
+        <main class="layout-content">
             <transition name="page" mode="out-in">
                 <router-view :key="$route.fullPath"></router-view>
             </transition>

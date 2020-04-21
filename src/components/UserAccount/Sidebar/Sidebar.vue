@@ -1,5 +1,5 @@
 <template>
-    <div class="layout__sidebar" @click.stop="() => {}">
+    <div class="layout-sidebar" @click.stop="() => {}">
         <div class="main-menu">
             <ul class="list-unstyled">
                 <li

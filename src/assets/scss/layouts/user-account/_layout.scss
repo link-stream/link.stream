@@ -6,24 +6,24 @@
         overflow: visible !important;
     }
 
-    .layout__content {
+    .layout-content {
         margin-top: $navbar-height + $main-margin;
         margin-bottom: $main-margin;
     }
 
     // Mobile device
-    &.menu-mobile .layout__content {
+    &.menu-mobile .layout-content {
         margin-left: $main-margin-mobile-x !important;
         margin-right: $main-margin-mobile-x !important;
         margin-top: $main-margin-mobile-y + $navbar-height !important;
         margin-bottom: $main-margin-mobile-y;
     }
 
-    .page__header {
+    .page-header {
         margin-bottom: 15px;
     }
 
-    .page__title {
+    .page-title {
         font-weight: 800;
         color: $black;
         font-size: px2rem(30);
@@ -32,33 +32,33 @@
         margin-bottom: $spacer * 0.5;
     }
 
-    .page__subtitle {
+    .page-subtitle {
         color: $black;
         line-height: 18px;
         font-weight: normal;
         font-size: px2rem(14);
     }
 
-    .page__nav {
+    .page-nav {
         display: flex;
         flex-direction: column;
         align-items: stretch;
         margin-bottom: 1.5rem;
     }
 
-    .page__nav__left {
+    .page-nav-left {
         margin-bottom: 15px;
     }
 
     @include media-breakpoint-up(md) {
         // Sidebar completely hidden
         &.menu-sub-hidden.main-hidden.sub-hidden {
-            .layout__content {
+            .layout-content {
                 margin-left: $main-margin;
             }
         }
 
-        .layout__content {
+        .layout-content {
             margin-left: $main-menu-width + $main-margin;
             margin-right: $main-margin;
             transition: margin-left $menu-collapse-time;
@@ -71,21 +71,21 @@
     }
 
     @include media-breakpoint-up(sm) {
-        .page__nav {
-            flex-direction: row;
-        }
-
-        .page__header {
+        .page-header {
             margin-bottom: 0;
         }
 
-        .page__nav__left {
+        .page-nav {
+            flex-direction: row;
+        }
+
+        .page-nav-left {
             flex-grow: 1;
             margin-bottom: 0;
             align-self: flex-end;
         }
 
-        .page__nav__right {
+        .page-nav-right {
             align-content: flex-end;
         }
     }

@@ -6,42 +6,42 @@
     margin: $spacer 0;
     padding: $spacer;
 
-    .crd__flex {
+    .crd-flex {
         display: flex;
         align-items: center;
     }
 
-    .crd__reorder {
+    .crd-reorder {
         cursor: move;
         top: -15px;
         position: relative;
     }
 
-    .crd__body {
+    .crd-body {
         display: flex;
         flex-direction: column;
         padding-left: $spacer;
     }
 
-    .crd__thumb {
+    .crd-thumb {
         position: relative;
         margin-bottom: 0.6rem;
     }
 
-    .crd__lock {
+    .crd-lock {
         position: absolute;
         background-image: url(~@/../public/static/img/lock-overlay.svg);
         background-repeat: no-repeat;
         background-size: cover;
     }
 
-    .crd__lock,
-    .crd__img {
+    .crd-lock,
+    .crd-img {
         width: 190px;
         height: 107px;
     }
 
-    .crd__title {
+    .crd-title {
         color: $linkstream-110;
         font-size: 14px;
         font-weight: bold;
@@ -54,12 +54,12 @@
         text-overflow: ellipsis;
     }
 
-    .crd__priv {
+    .crd-priv {
         color: $black;
         font-size: 11px;
     }
 
-    .crd__act {
+    .crd-act {
         position: absolute;
         top: 5px;
         right: 5px;
@@ -68,7 +68,7 @@
         }
     }
 
-    .crd__hov {
+    .crd-hov {
         display: inline-block;
         visibility: hidden;
         opacity: 0;
@@ -76,24 +76,24 @@
     }
 
     &:hover {
-        .crd__hov {
+        .crd-hov {
             visibility: visible;
             opacity: 1;
         }
     }
 
     @include media-breakpoint-up(sm) {
-        .crd__reorder {
+        .crd-reorder {
             align-items: center;
             top: auto;
         }
 
-        .crd__body {
+        .crd-body {
             flex-direction: row;
             padding-right: 0;
         }
 
-        .crd__act {
+        .crd-act {
             position: absolute;
             top: 15px;
             right: 0;
@@ -102,17 +102,17 @@
             }
         }
 
-        .crd__thumb {
+        .crd-thumb {
             margin-bottom: 0;
         }
 
-        .crd__lock,
-        .crd__img {
+        .crd-lock,
+        .crd-img {
             width: 123px;
             height: 69px;
         }
 
-        .crd__info {
+        .crd-info {
             align-self: center;
             padding-left: $spacer;
         }

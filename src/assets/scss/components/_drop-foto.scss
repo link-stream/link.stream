@@ -1,8 +1,8 @@
-.dropfoto {
+.drpf {
     height: 140px;
     width: 140px;
 
-    .dropfoto__dropbox {
+    .drpf-droparea {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -20,12 +20,11 @@
         }
     }
 
-    .dropfoto__ico {
-        display: inline-block;
+    .drpf-ico {
         margin-bottom: 5px;
     }
 
-    .dropfoto__ico:before {
+    .drpf-ico:before {
         content: '';
         display: inline-block;
         background-image: url(~@/../public/static/ico/dropfoto/cam-plus.svg);
@@ -35,40 +34,40 @@
         height: 36px;
     }
 
-    .dropfoto__txt-sm {
+    .drpf-hint {
+        display: none;
+        font-size: px2rem(13);
+    }
+
+    .drpf-hint-sm {
         font-size: px2rem(12);
         letter-spacing: 0;
         line-height: 20px;
     }
 
-    .dropfoto__txt {
-        display: none;
-        font-size: px2rem(13);
-    }
-
-    .dropfoto__preview {
+    .drpf-preview {
         position: relative;
         margin-bottom: 7px;
     }
 
-    .dropfoto__img {
+    .drpf-img {
         max-width: 100%;
         max-height: 100%;
     }
 
-    .dropfoto__addbtn {
+    .drpf-add-btn {
         position: absolute;
         right: 0px;
         bottom: 0px;
     }
 
-    .dropfoto__removebtn {
+    .drpf-rem-btn {
         position: absolute;
         right: -15px;
         top: -15px;
     }
 
-    .dropfoto__removelink {
+    .drpf-rem-link {
         font-size: px2rem(12);
     }
 
@@ -78,20 +77,20 @@
             height: 215px;
         }
 
-        .dropfoto__dropbox {
+        .drpf-droparea {
             padding-left: 30px;
             padding-right: 30px;
         }
 
-        .dropfoto__txt-sm {
-            display: none;
-        }
-
-        .dropfoto__txt {
+        .drpf-hint {
             display: block;
         }
 
-        .dropfoto__ico:before {
+        .drpf-hint-sm {
+            display: none;
+        }
+
+        .drpf-ico:before {
             background-image: url(~@/../public/static/ico/dropfoto/cam-plus-lg.svg);
             width: 49px;
             height: 44px;

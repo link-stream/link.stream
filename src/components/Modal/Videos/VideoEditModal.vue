@@ -8,12 +8,12 @@
         no-close-on-backdrop
         no-close-on-esc
     >
-        <header class="mdl__header">
-            <h2 class="mdl__title">Edit video info</h2>
-            <IconButton icon="modal-close" class="mdl__close" @click="close" />
+        <header class="mdl-header">
+            <h2 class="mdl-title">Edit video info</h2>
+            <IconButton icon="modal-close" class="mdl-close" @click="close" />
         </header>
 
-        <b-form class="mdl__body" :novalidate="true">
+        <b-form class="mdl-body" :novalidate="true">
             <youtube class="vid-wrap" :video-id="ytVidId"></youtube>
             <b-form-group label="YouTube Video URL" label-for="urlInput">
                 <b-form-input
@@ -118,7 +118,7 @@
             </basic-button>
         </b-form>
 
-        <footer class="mdl__footer">
+        <footer class="mdl-footer">
             <basic-button variant="secondary" :disabled="saving" @click="close"
                 >Cancel</basic-button
             >

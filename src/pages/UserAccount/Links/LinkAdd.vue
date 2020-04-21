@@ -1,27 +1,36 @@
 <template>
     <div class="page page-ua-link-add">
-        <div class="form-wiz is-final-step">
-            <div class="fwz__topnav">
-                <basic-button class="fwz__back" variant="link" :to="{ name: 'userAccountLinks' }">
+        <div class="fwz is-final-step">
+            <div class="fwz-topnav">
+                <basic-button
+                    class="fwz-back"
+                    variant="link"
+                    :to="{ name: 'userAccountLinks' }"
+                >
                     <i class="ls-ic ls-ic-back"></i>
                     Links
                 </basic-button>
             </div>
 
-            <header class="fwz__header">
-                <h1 class="fwz__title">Add a link</h1>
+            <header class="fwz-header">
+                <h1 class="fwz-title">Add a link</h1>
             </header>
 
-            <section class="fwz__step">
+            <section class="fwz-step">
                 <form>
-                    <b-form-group label="Copy &amp; Paste Your Link URL" label-for="urlInput">
+                    <b-form-group
+                        label="Copy &amp; Paste Your Link URL"
+                        label-for="urlInput"
+                    >
                         <b-form-input
                             v-model="$v.form.url.$model"
                             :state="!$v.form.url.$error"
                             placeholder="e.g. https://myblog.blogspot.com"
                             id="urlInput"
                         />
-                        <b-form-invalid-feedback>Enter a valid URL</b-form-invalid-feedback>
+                        <b-form-invalid-feedback
+                            >Enter a valid URL</b-form-invalid-feedback
+                        >
                     </b-form-group>
 
                     <b-form-group label="Link Title" label-for="titleInput">
@@ -31,7 +40,9 @@
                             placeholder="e.g. My Blog"
                             :state="!$v.form.title.$error"
                         />
-                        <b-form-invalid-feedback>Enter a title</b-form-invalid-feedback>
+                        <b-form-invalid-feedback
+                            >Enter a title</b-form-invalid-feedback
+                        >
                     </b-form-group>
 
                     <b-form-group label="Link Visibility">
@@ -44,23 +55,29 @@
                     <b-form-group label="Publish Date" v-if="form.scheduled">
                         <b-input-group
                             class="datetime-input-group"
-                            :class="{ 'is-invalid': $v.form.date.$error || $v.form.time.$error }"
+                            :class="{
+                                'is-invalid':
+                                    $v.form.date.$error || $v.form.time.$error,
+                            }"
                         >
                             <DatePicker v-model="$v.form.date.$model" />
                             <TimePicker v-model="$v.form.time.$model" />
                         </b-input-group>
                         <b-form-invalid-feedback
                             :state="
-                            $v.form.date.$error || $v.form.time.$error
-                                ? false
-                                : true
+                                $v.form.date.$error || $v.form.time.$error
+                                    ? false
+                                    : true
                             "
-                        >Select a date and time</b-form-invalid-feedback>
+                            >Select a date and time</b-form-invalid-feedback
+                        >
                     </b-form-group>
 
                     <basic-button variant="link" @click="toggleSchedule">
                         {{
-                        form.scheduled ? 'Clear scheduling ' : 'Schedule this link'
+                            form.scheduled
+                                ? 'Clear scheduling '
+                                : 'Schedule this link'
                         }}
                     </basic-button>
                 </form>
@@ -69,14 +86,20 @@
                 </aside>
             </section>
 
-            <footer class="fwz__pager">
+            <footer class="fwz-pager">
                 <basic-button
-                    class="fwz__prev"
+                    class="fwz-prev"
                     variant="secondary"
                     :to="{ name: 'userAccountLinks' }"
                     :disabled="saving"
-                >Cancel</basic-button>
-                <spinner-button class="fwz__submit" :loading="saving" @click="save">Add Link</spinner-button>
+                    >Cancel</basic-button
+                >
+                <spinner-button
+                    class="fwz-submit"
+                    :loading="saving"
+                    @click="save"
+                    >Add Link</spinner-button
+                >
             </footer>
         </div>
     </div>

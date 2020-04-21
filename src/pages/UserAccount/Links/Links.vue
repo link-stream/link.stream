@@ -1,15 +1,15 @@
 <template>
     <div class="page page-ua-links">
-        <header class="page__header">
-            <h1 class="page__title">Your links</h1>
-            <h4 class="page__subtitle"
+        <header class="page-header">
+            <h1 class="page-title">Your links</h1>
+            <h4 class="page-subtitle"
                 >Add, remove, edit &amp; order links anyway you'd like.</h4
             >
         </header>
-        <nav class="page__nav">
-            <div class="page__nav__left">
+        <nav class="page-nav">
+            <div class="page-nav-left">
                 <span class="permalink">
-                    <span class="permalink__light">link.stream/</span>
+                    <span class="permalink-light">link.stream/</span>
                     <span>{{ user.user_name }}/links</span>
                 </span>
                 <preview-pill-button
@@ -20,13 +20,13 @@
                     >Preview</preview-pill-button
                 >
             </div>
-            <div class="page__nav__right">
+            <div class="page-nav-right">
                 <basic-button :to="{ name: 'userAccountLinksAdd' }"
                     >Add New Link</basic-button
                 >
             </div>
         </nav>
-        <main class="page__body">
+        <main class="page-body">
             <LoadingIndicator :loading="loading" />
             <Container
                 v-if="!loading"

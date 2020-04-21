@@ -1,20 +1,22 @@
 <template>
     <div class="crd vid-crd">
-        <div class="crd__flex">
-            <Icon icon="reorder" class="crd__reorder vid-crd-drag-sel" />
-            <div class="crd__body">
-                <div class="crd__thumb">
-                    <div class="crd__lock" v-if="video.isPrivate"></div>
-                    <img class="crd__img" :src="thumbUrl" :alt="video.title" />
+        <div class="crd-flex">
+            <Icon icon="reorder" class="crd-reorder vid-crd-drag-sel" />
+            <div class="crd-body">
+                <div class="crd-thumb">
+                    <div class="crd-lock" v-if="video.isPrivate"></div>
+                    <img class="crd-img" :src="thumbUrl" :alt="video.title" />
                 </div>
-                <div class="crd__info">
-                    <h2 class="crd__title">{{ video.title }}</h2>
-                    <small class="crd__priv" v-if="video.isPrivate">Private</small>
+                <div class="crd-info">
+                    <h2 class="crd-title">{{ video.title }}</h2>
+                    <small class="crd-priv" v-if="video.isPrivate"
+                        >Private</small
+                    >
                 </div>
             </div>
         </div>
-        <div class="crd__act">
-            <span class="crd__hov">
+        <div class="crd-act">
+            <span class="crd-hov">
                 <IconButton icon="trash" @click="handleDeleteClick" />
             </span>
             <IconButton icon="edit-2" @click="handleEditClick" />

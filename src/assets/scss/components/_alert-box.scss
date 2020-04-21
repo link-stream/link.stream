@@ -1,4 +1,4 @@
-.alertbox {
+.alrt {
     text-align: center;
 
     // Reset bs styles
@@ -15,37 +15,37 @@
         }
     }
 
-    .alrt__content {
+    .alrt-inner {
         padding: 5px;
     }
 
-    .alrt__close {
+    .alrt-close {
         position: absolute;
         top: 6px;
         right: 6px;
     }
 
-    .alrt__title {
+    .alrt-title {
         color: $black;
         font-size: 14px;
         font-weight: bold;
         letter-spacing: 0;
     }
 
-    .alrt__msg {
+    .alrt-msg {
         margin-top: 15px;
         color: $linkstream-100;
         font-size: 13px;
     }
 
-    .alrt__act {
+    .alrt-act {
         display: flex;
         justify-content: space-between;
         margin-top: 20px;
     }
 
-    .alrt__ok,
-    .alrt__cancl {
+    .alrt-ok,
+    .alrt-cancl {
         width: 130px;
         height: 40px;
         padding: 0;

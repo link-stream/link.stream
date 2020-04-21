@@ -1,5 +1,11 @@
 <template>
-    <b-navbar class="layout__navbar" toggleable="lg" type="dark" variant="dark" fixed="top">
+    <b-navbar
+        class="layout-navbar"
+        toggleable="lg"
+        type="dark"
+        variant="dark"
+        fixed="top"
+    >
         <b-navbar-brand to="/">
             <Logo1 />
         </b-navbar-brand>

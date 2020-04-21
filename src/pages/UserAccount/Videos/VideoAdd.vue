@@ -1,18 +1,18 @@
 <template>
     <b-container class="page page-ua-vids-add">
-        <div class="form-wiz" :class="{ 'is-final-step': step === 2 }">
-            <h6 class="fwz__cnt">Step {{ step }} / 2</h6>
+        <div class="fwz" :class="{ 'is-final-step': step === 2 }">
+            <h6 class="fwz-cnt">Step {{ step }} / 2</h6>
 
-            <header class="fwz__header">
-                <h1 class="fwz__title">{{
+            <header class="fwz-header">
+                <h1 class="fwz-title">{{
                     step === 1 ? 'Add a video' : 'Review video info'
                 }}</h1>
-                <h4 class="fwz__subtitle">{{
+                <h4 class="fwz-subtitle">{{
                     step === 2 ? 'Preview and publish your content' : ''
                 }}</h4>
             </header>
 
-            <section class="fwz__step" v-show="step === 1">
+            <section class="fwz-step" v-show="step === 1">
                 <form>
                     <b-form-group
                         label="YouTube Video URL"
@@ -36,7 +36,7 @@
                 </form>
             </section>
 
-            <section class="fwz__step" v-show="step === 2">
+            <section class="fwz-step" v-show="step === 2">
                 <form>
                     <youtube class="vid-wrap" :video-id="ytVidId"></youtube>
                     <b-form-group label="Video Title" label-for="titleInput">
@@ -97,19 +97,19 @@
                 </form>
             </section>
 
-            <footer class="fwz__pager">
-                <basic-button class="fwz__next" @click="goToStep(2)"
+            <footer class="fwz-pager">
+                <basic-button class="fwz-next" @click="goToStep(2)"
                     >Next</basic-button
                 >
                 <basic-button
-                    class="fwz__prev"
+                    class="fwz-prev"
                     variant="secondary"
                     :disabled="saving"
                     @click="goToStep(1)"
                     >Back</basic-button
                 >
                 <spinner-button
-                    class="fwz__submit"
+                    class="fwz-submit"
                     :loading="saving"
                     @click="save"
                     >Add Video</spinner-button

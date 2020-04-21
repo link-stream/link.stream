@@ -8,10 +8,10 @@
         :popover="{ visibility: 'click' }"
         @input="handleInput"
         :input-props="{
-                class: 'ls-datepicker__input form-control',
-                placeholder,
-                readonly: true
-            }"
+            class: 'ls-datepicker-input form-control',
+            placeholder,
+            readonly: true,
+        }"
     ></v-date-picker>
 </template>
 

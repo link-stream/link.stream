@@ -10,7 +10,7 @@
         @input="handleInput"
     >
         <template v-slot:open-indicator>
-            <Icon :icon="icon" class="ls-select__icon" />
+            <Icon :icon="icon" class="ls-select-icon" />
         </template>
     </v-select>
 </template>

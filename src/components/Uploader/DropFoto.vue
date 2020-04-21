@@ -1,5 +1,5 @@
 <template>
-    <div class="dropfoto">
+    <div class="drpf">
         <input
             type="file"
             v-show="false"
@@ -8,29 +8,26 @@
             @change="handleFileInputChange"
         />
         <section v-if="isPreview">
-            <div class="dropfoto__preview">
-                <img class="dropfoto__img" :src="image.src" alt />
+            <div class="drpf-preview">
+                <img class="drpf-img" :src="image.src" alt />
                 <IconButton
-                    class="dropfoto__removebtn"
+                    class="drpf-rem-btn"
                     icon="dropfoto-remove"
                     @click="reset"
                 />
                 <IconButton
-                    class="dropfoto__addbtn"
+                    class="drpf-add-btn"
                     icon="dropfoto-cam"
                     @click="showFileDialog"
                 />
             </div>
-            <basic-button
-                class="dropfoto__removelink"
-                variant="link"
-                @click="reset"
+            <basic-button class="drpf-rem-link" variant="link" @click="reset"
                 >Remove artwork</basic-button
             >
         </section>
         <section
             v-else
-            class="dropfoto__dropbox"
+            class="drpf-droparea"
             :class="{ 'is-highlight': isDraggingOver }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
@@ -38,12 +35,12 @@
             @dragenter="handleDragEnter"
             @click="showFileDialog"
         >
-            <i class="dropfoto__ico"></i>
-            <div class="dropfoto__txt">
+            <i class="drpf-ico"></i>
+            <div class="drpf-hint">
                 Drag thumbnail image here or
                 <span class="text-primary-underline">browse</span>
             </div>
-            <div class="dropfoto__txt-sm">
+            <div class="drpf-hint-sm">
                 <span class="text-primary-underline">Upload</span> a thumbnail
                 image
             </div>

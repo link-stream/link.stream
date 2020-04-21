@@ -48,7 +48,7 @@
 .ls-select {
     cursor: pointer;
 
-    .ls-select__icon {
+    .ls-select-icon {
         position: relative;
         top: 4px;
         right: 1px;
@@ -100,7 +100,7 @@
 }
 
 .ls-timepicker {
-    .ls-select__icon {
+    .ls-select-icon {
         top: 5px;
         left: 3px;
     }
@@ -115,7 +115,7 @@
         background: rgba($linkstream-10, 0.9) !important;
     }
 
-    .ls-datepicker__input {
+    .ls-datepicker-input {
         cursor: default;
         background-color: $white;
         background-image: url(~@/../public/static/ico/select-date.svg);
@@ -127,7 +127,7 @@
     }
 
     &.is-invalid {
-        .ls-datepicker__input {
+        .ls-datepicker-input {
             border-color: $form-feedback-invalid-color;
         }
     }
@@ -139,12 +139,12 @@
         width: 50%;
     }
 
-    .ls-datepicker__input {
+    .ls-datepicker-input {
         border-right-width: 0px;
     }
 
     &.is-invalid {
-        .ls-datepicker__input,
+        .ls-datepicker-input,
         .ls-select .vs__dropdown-toggle {
             border-bottom-color: $form-feedback-invalid-color;
         }

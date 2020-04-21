@@ -1,30 +1,40 @@
 <template>
-    <b-modal modal-class="alertbox" v-model="visible" hide-header hide-footer>
-        <div class="alrt__content">
-            <IconButton class="alrt__close" icon="alert-close" @click="close" />
+    <b-modal modal-class="alrt" v-model="visible" hide-header hide-footer>
+        <div class="alrt-inner">
+            <IconButton class="alrt-close" icon="alert-close" @click="close" />
             <template v-if="opts.title && opts.message">
-                <h2 class="alrt__title" v-if="opts.title" v-html="opts.title"></h2>
-                <p class="alrt__msg" v-show="opts.message" v-html="opts.message"></p>
+                <h2
+                    class="alrt-title"
+                    v-if="opts.title"
+                    v-html="opts.title"
+                ></h2>
+                <p
+                    class="alrt-msg"
+                    v-show="opts.message"
+                    v-html="opts.message"
+                ></p>
             </template>
             <template v-else>
-                <h2 class="alrt__title" v-html="opts.title || opts.message"></h2>
+                <h2 class="alrt-title" v-html="opts.title || opts.message"></h2>
             </template>
-            <footer class="alrt__act">
+            <footer class="alrt-act">
                 <basic-button
-                    class="alrt__cancl"
+                    class="alrt-cancl"
                     variant="secondary"
                     size="sm"
                     :disabled="loading"
                     v-if="opts.cancelVisible"
                     @click="handleCancelClick"
-                >{{ opts.cancelLabel }}</basic-button>
+                    >{{ opts.cancelLabel }}</basic-button
+                >
                 <spinner-button
-                    class="alrt__ok"
+                    class="alrt-ok"
                     size="sm"
                     :loading="loading"
                     v-if="opts.okVisible"
                     @click="handleOkClick"
-                >{{ opts.okLabel }}</spinner-button>
+                    >{{ opts.okLabel }}</spinner-button
+                >
             </footer>
         </div>
     </b-modal>

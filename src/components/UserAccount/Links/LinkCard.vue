@@ -1,26 +1,26 @@
 <template>
     <div class="crd lnk-crd" :class="{ 'is-editing': editing }">
-        <div class="crd__viewer" v-if="!editing">
-            <div class="crd__flex">
-                <Icon icon="reorder" class="crd__reorder lnk-crd-drag-sel" />
-                <div class="crd__body">
-                    <div class="crd__thumb">
+        <div class="crd-viewer" v-if="!editing">
+            <div class="crd-flex">
+                <Icon icon="reorder" class="crd-reorder lnk-crd-drag-sel" />
+                <div class="crd-body">
+                    <div class="crd-thumb">
                         <img
-                            class="crd__img"
+                            class="crd-img"
                             :src="link.artwork"
                             :alt="link.title"
                         />
                     </div>
-                    <div class="crd__info">
-                        <h2 class="crd__title">{{ link.title }}</h2>
+                    <div class="crd-info">
+                        <h2 class="crd-title">{{ link.title }}</h2>
                     </div>
                 </div>
             </div>
-            <div class="crd__act">
+            <div class="crd-act">
                 <IconButton icon="edit-2" @click="showEditView" />
             </div>
         </div>
-        <div class="crd__editor" v-else>
+        <div class="crd-editor" v-else>
             <div>
                 <DropFoto :src="link.data_image" @change="updateImage" />
             </div>

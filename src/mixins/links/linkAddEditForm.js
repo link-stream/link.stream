@@ -86,18 +86,17 @@ export const linkAddEditForm = {
         },
     },
     methods: {
-        handleScheduleClick() {
+        updateImage({ image }) {
+            this.form.image = image ? image.base64 : null
+        },
+        toggleSchedule() {
             this.form.scheduled = !this.form.scheduled
             this.form.date = null
             this.form.time = null
             this.$v.form.date.$reset()
             this.$v.form.time.$reset()
         },
-        handleImageChange({ image }) {
-            console.log(image)
-            this.form.image = image ? image.base64 : null
-        },
-        async handleSaveClick() {
+        async save() {
             this.$v.form.$touch()
 
             if (this.$v.form.$invalid) {

@@ -10,27 +10,42 @@
         <section v-if="isPreview">
             <div class="dropfoto__preview">
                 <img class="dropfoto__img" :src="image.src" alt />
-                <IconButton class="dropfoto__removebtn" icon="dropfoto-remove" @click="reset" />
-                <IconButton class="dropfoto__addbtn" icon="dropfoto-add" @click="openFileDialog" />
+                <IconButton
+                    class="dropfoto__removebtn"
+                    icon="dropfoto-remove"
+                    @click="reset"
+                />
+                <IconButton
+                    class="dropfoto__addbtn"
+                    icon="dropfoto-cam"
+                    @click="showFileDialog"
+                />
             </div>
-            <basic-button class="dropfoto__removelink" variant="link" @click="reset">Remove artwork</basic-button>
+            <basic-button
+                class="dropfoto__removelink"
+                variant="link"
+                @click="reset"
+                >Remove artwork</basic-button
+            >
         </section>
         <section
             v-else
             class="dropfoto__dropbox"
-            :class="{'is-highlight': isDraggingOver}"
+            :class="{ 'is-highlight': isDraggingOver }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
             @dragover="handleDragOver"
             @dragenter="handleDragEnter"
-            @click="openFileDialog"
+            @click="showFileDialog"
         >
-            <div>
-                <Icon icon="dropfoto-add-lg" />
-                <div class="dropfoto__droptxt">
-                    Drag thumbnail image here or
-                    <span class="text-primary-underline">browse</span>
-                </div>
+            <i class="dropfoto__ico"></i>
+            <div class="dropfoto__txt">
+                Drag thumbnail image here or
+                <span class="text-primary-underline">browse</span>
+            </div>
+            <div class="dropfoto__txt-sm">
+                <span class="text-primary-underline">Upload</span> a thumbnail
+                image
             </div>
         </section>
 
@@ -105,7 +120,7 @@ export default {
             }
             this.$emit('change', { image: null })
         },
-        openFileDialog() {
+        showFileDialog() {
             this.$refs.fileinput.value = null
             this.$refs.fileinput.click()
         },

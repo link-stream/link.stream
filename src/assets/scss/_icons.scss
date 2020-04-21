@@ -81,20 +81,20 @@
     height: 21px;
 }
 
-.ls-ic-dropfoto-add:before {
-    background-image: url(~@/../public/static/ico/dropfoto-add.svg);
+.ls-ic-dropfoto-remove:before {
+    background-image: url(~@/../public/static/ico/dropfoto/remove.svg);
+    width: 32px;
+    height: 31px;
+}
+
+.ls-ic-dropfoto-cam:before {
+    background-image: url(~@/../public/static/ico/dropfoto/cam.svg);
     width: 21px;
     height: 19px;
 }
 
-.ls-ic-dropfoto-add-lg:before {
-    background-image: url(~@/../public/static/ico/dropfoto-add-lg.svg);
-    width: 49px;
-    height: 44px;
-}
-
 .ls-ic-dropfoto-remove:before {
-    background-image: url(~@/../public/static/ico/dropfoto-remove.svg);
+    background-image: url(~@/../public/static/ico/dropfoto/remove.svg);
     width: 32px;
     height: 31px;
 }

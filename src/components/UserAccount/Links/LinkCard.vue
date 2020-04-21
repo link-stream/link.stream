@@ -5,7 +5,11 @@
                 <Icon icon="reorder" class="crd__reorder lnk-crd-drag-sel" />
                 <div class="crd__body">
                     <div class="crd__thumb">
-                        <img class="crd__img" :src="link.artwork" :alt="link.title" />
+                        <img
+                            class="crd__img"
+                            :src="link.artwork"
+                            :alt="link.title"
+                        />
                     </div>
                     <div class="crd__info">
                         <h2 class="crd__title">{{ link.title }}</h2>
@@ -13,12 +17,12 @@
                 </div>
             </div>
             <div class="crd__act">
-                <IconButton icon="edit-2" @click="handleEditClick" />
+                <IconButton icon="edit-2" @click="showEditView" />
             </div>
         </div>
         <div class="crd__editor" v-else>
             <div>
-                <DropFoto :src="link.data_image" @change="handleImageChange" />
+                <DropFoto :src="link.data_image" @change="updateImage" />
             </div>
             <div>
                 <div class="form-group">
@@ -26,7 +30,7 @@
                         type="text"
                         class="form-control"
                         v-model="$v.form.url.$model"
-                        :class="{'is-invalid': $v.form.url.$error }"
+                        :class="{ 'is-invalid': $v.form.url.$error }"
                     />
                     <div class="invalid-feedback">Enter a valid URL</div>
                 </div>
@@ -35,7 +39,7 @@
                         type="text"
                         class="form-control"
                         v-model="$v.form.title.$model"
-                        :class="{'is-invalid': $v.form.title.$error }"
+                        :class="{ 'is-invalid': $v.form.title.$error }"
                     />
                     <div class="invalid-feedback">Enter a title</div>
                 </div>
@@ -43,7 +47,10 @@
                 <div class="form-group" v-if="form.scheduled">
                     <div
                         class="input-group datetime-input-group"
-                        :class="{'is-invalid': $v.form.date.$error || $v.form.time.$error }"
+                        :class="{
+                            'is-invalid':
+                                $v.form.date.$error || $v.form.time.$error,
+                        }"
                     >
                         <DatePicker v-model="form.date" />
                         <TimePicker v-model="form.time" />
@@ -51,13 +58,16 @@
                     <div
                         class="invalid-feedback"
                         v-if="$v.form.date.$error || $v.form.time.$error"
-                    >Select a date and time</div>
+                        >Select a date and time</div
+                    >
                 </div>
             </div>
-            <basic-button @click="handleScheduleClick">Schedule</basic-button>
-            <spinner-button @click="handleSaveClick" :loading="saving">Save</spinner-button>
+            <basic-button @click="toggleSchedule">Schedule</basic-button>
+            <spinner-button @click="save" :loading="saving"
+                >Save</spinner-button
+            >
             <basic-button @click="handleDeleteClick">Delete</basic-button>
-            <basic-button @click="handleCancelClick">Cancel</basic-button>
+            <basic-button @click="hideEditView">Cancel</basic-button>
         </div>
     </div>
 </template>
@@ -81,14 +91,14 @@ export default {
         },
     },
     methods: {
-        handleEditClick() {
+        showEditView() {
             this.editing = true
         },
-        handleCancelClick() {
+        hideEditView() {
             this.editing = false
         },
         handleDeleteClick() {
-            this.$emit('delete-click', { link: this.link })
+            this.$emit('delete-click', this.link)
         },
     },
 }

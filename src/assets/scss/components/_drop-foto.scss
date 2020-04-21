@@ -1,6 +1,6 @@
 .dropfoto {
-    height: 215px;
-    width: 215px;
+    height: 140px;
+    width: 140px;
 
     .dropfoto__dropbox {
         display: flex;
@@ -10,8 +10,8 @@
         height: 100%;
         cursor: pointer;
         text-align: center;
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-left: 15px;
+        padding-right: 15px;
         border: 2px dashed $linkstream-30;
         background-color: $white;
         &.is-highlight,
@@ -20,10 +20,30 @@
         }
     }
 
-    .dropfoto__droptxt {
-        font-size: px2rem(13);
+    .dropfoto__ico {
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+
+    .dropfoto__ico:before {
+        content: '';
+        display: inline-block;
+        background-image: url(~@/../public/static/ico/dropfoto/cam-plus.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 40px;
+        height: 36px;
+    }
+
+    .dropfoto__txt-sm {
+        font-size: px2rem(12);
         letter-spacing: 0;
-        margin-top: 10px;
+        line-height: 20px;
+    }
+
+    .dropfoto__txt {
+        display: none;
+        font-size: px2rem(13);
     }
 
     .dropfoto__preview {
@@ -50,5 +70,31 @@
 
     .dropfoto__removelink {
         font-size: px2rem(12);
+    }
+
+    @include media-breakpoint-up(sm) {
+        & {
+            width: 215px;
+            height: 215px;
+        }
+
+        .dropfoto__dropbox {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        .dropfoto__txt-sm {
+            display: none;
+        }
+
+        .dropfoto__txt {
+            display: block;
+        }
+
+        .dropfoto__ico:before {
+            background-image: url(~@/../public/static/ico/dropfoto/cam-plus-lg.svg);
+            width: 49px;
+            height: 44px;
+        }
     }
 }

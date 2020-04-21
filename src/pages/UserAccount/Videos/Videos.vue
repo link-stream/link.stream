@@ -2,7 +2,9 @@
     <div class="page page-ua-vids">
         <header class="page__header">
             <h1 class="page__title">Your videos</h1>
-            <h4 class="page__subtitle">Add, remove, edit &amp; order videos anyway you'd like.</h4>
+            <h4 class="page__subtitle">
+                Add, remove, edit &amp; order videos anyway you'd like.
+            </h4>
         </header>
         <nav class="page__nav">
             <div class="page__nav__left">
@@ -15,24 +17,34 @@
                         name: 'userVideos',
                         params: { username: user.user_name },
                     }"
-                >Preview</preview-pill-button>
+                    >Preview</preview-pill-button
+                >
             </div>
             <div class="page__nav__right">
-                <basic-button :to="{ name: 'userAccountVideosAdd' }">Add New Video</basic-button>
+                <basic-button :to="{ name: 'userAccountVideosAdd' }"
+                    >Add New Video</basic-button
+                >
             </div>
         </nav>
         <main class="page__body">
-            <Container @drop="handleDrop" drag-handle-selector=".vid-crd-drag-sel">
-                <Draggable v-for="video in videos" :key="video.id">
+            <Container
+                @drop="handleDrop"
+                drag-handle-selector=".vid-crd-drag-sel"
+            >
+                <Draggable v-for="video in localVideos" :key="video.id">
                     <VideoCard
                         :video="video"
-                        @edit-click="handleEditClick"
-                        @delete-click="handleDeleteClick"
+                        @edit-click="showEditModal"
+                        @delete-click="confirmDelete"
                     />
                 </Draggable>
             </Container>
         </main>
-        <VideoEditModal v-if="editingVideo" :video="editingVideo" @hidden="handleEditModalHidden" />
+        <VideoEditModal
+            v-if="editingVideo"
+            :video="editingVideo"
+            @hidden="handleEditModalHidden"
+        />
     </div>
 </template>
 
@@ -56,57 +68,61 @@ export default {
     },
     data() {
         return {
-            videos: [],
+            localVideos: [],
             editingVideo: null,
         }
     },
     computed: {
         ...mapGetters({
             user: 'me/user',
+            videos: 'me/videos',
         }),
     },
-    async created() {
-        await this.$store.dispatch('me/loadVideos', {
+    watch: {
+        videos: {
+            immediate: true,
+            handler() {
+                this.localVideos = [...this.videos]
+            },
+        },
+    },
+    created() {
+        this.$store.dispatch('me/loadVideos', {
             params: {
                 page: 1,
                 page_size: appConstants.user.account.videosPerPage,
             },
         })
-        this.videos = [...this.$store.getters['me/videos']]
     },
     methods: {
-        handleEditModalHidden() {
-            this.editingVideo = null
-        },
-        handleEditClick({ video }) {
+        showEditModal(video) {
             this.editingVideo = video
         },
-        handleDeleteClick({ video }) {
+        confirmDelete(video) {
             this.$alert.confirm({
                 title: 'Delete video?',
                 message: 'This video and its data will be permanently deleted.',
-                okCallback: async () => {
-                    const {
-                        status,
-                        message,
-                        error,
-                    } = await this.$store.dispatch('me/deleteVideo', {
-                        video,
-                    })
-                    if (status === 'success') {
-                        this.$toast.success(message)
-                    } else {
-                        this.$toast.error(error)
-                    }
-                },
+                okCallback: async () => this.deleteVideo(video),
             })
         },
-        handleDrop(result) {
-            const { removedIndex: oldIndex, addedIndex: newIndex } = result
-            const video = this.videos[oldIndex]
-            this.videos.splice(oldIndex, 1)
-            this.videos.splice(newIndex, 0, video)
-            const sorts = this.videos.map((v, idx) => {
+        async deleteVideo(video) {
+            const { status, message, error } = await this.$store.dispatch(
+                'me/deleteVideo',
+                {
+                    video,
+                }
+            )
+            if (status === 'success') {
+                this.$toast.success(message)
+            } else {
+                this.$toast.error(error)
+            }
+        },
+        reorderVideo(newIndex, oldIndex) {
+            const video = this.localVideos[oldIndex]
+            this.localVideos.splice(oldIndex, 1)
+            this.localVideos.splice(newIndex, 0, video)
+            const sorts = this.localVideos.map((v, idx) => {
                 return {
                     id: v.id,
                     sort: (idx + 1).toString(),
@@ -117,6 +133,13 @@ export default {
                 newIndex,
                 sorts,
             })
+        },
+        handleEditModalHidden() {
+            this.editingVideo = null
+        },
+        handleDrop(result) {
+            const { removedIndex: oldIndex, addedIndex: newIndex } = result
+            this.reorderVideo(newIndex, oldIndex)
         },
     },
 }

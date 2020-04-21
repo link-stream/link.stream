@@ -80,14 +80,14 @@ export const videoAddEditForm = {
         },
     },
     methods: {
-        handleScheduleClick() {
+        toggleSchedule() {
             this.$v.form.date.$reset()
             this.$v.form.time.$reset()
             this.form.date = null
             this.form.time = null
             this.form.scheduled = !this.form.scheduled
         },
-        async handleSaveClick() {
+        async save() {
             this.$v.form.$touch()
 
             if (this.$v.form.$invalid) {

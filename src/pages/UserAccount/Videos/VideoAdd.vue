@@ -4,13 +4,20 @@
             <h6 class="fwz__cnt">Step {{ step }} / 2</h6>
 
             <header class="fwz__header">
-                <h1 class="fwz__title">{{ step === 1 ? 'Add a video' : 'Review video info' }}</h1>
-                <h4 class="fwz__subtitle">{{ step === 2 ? 'Preview and publish your content' : '' }}</h4>
+                <h1 class="fwz__title">{{
+                    step === 1 ? 'Add a video' : 'Review video info'
+                }}</h1>
+                <h4 class="fwz__subtitle">{{
+                    step === 2 ? 'Preview and publish your content' : ''
+                }}</h4>
             </header>
 
             <section class="fwz__step" v-show="step === 1">
                 <form>
-                    <b-form-group label="YouTube Video URL" label-for="urlInput">
+                    <b-form-group
+                        label="YouTube Video URL"
+                        label-for="urlInput"
+                    >
                         <b-form-input
                             v-model="$v.form.url.$model"
                             id="urlInput"
@@ -18,8 +25,12 @@
                             :state="!$v.form.url.$error"
                         ></b-form-input>
                         <b-form-invalid-feedback>
-                            <template v-if="!$v.form.url.required">Enter a YouTube URL</template>
-                            <template v-else-if="!$v.form.url.valid">Invalid YouTube URL</template>
+                            <template v-if="!$v.form.url.required"
+                                >Enter a YouTube URL</template
+                            >
+                            <template v-else-if="!$v.form.url.valid"
+                                >Invalid YouTube URL</template
+                            >
                         </b-form-invalid-feedback>
                     </b-form-group>
                 </form>
@@ -35,7 +46,9 @@
                             :state="!$v.form.title.$error"
                         ></b-form-input>
                         <b-form-invalid-feedback>
-                            <template v-if="!$v.form.title.required">Enter a title</template>
+                            <template v-if="!$v.form.title.required"
+                                >Enter a title</template
+                            >
                             <template v-else-if="!$v.form.title.minLength">
                                 The title must be at least
                                 {{ $v.form.title.$params.minLength.min }}
@@ -54,7 +67,9 @@
                             label="genre"
                         />
                         <b-form-invalid-feedback>
-                            <template v-if="!$v.form.genre.required">Select a genre</template>
+                            <template v-if="!$v.form.genre.required"
+                                >Select a genre</template
+                            >
                         </b-form-invalid-feedback>
                     </b-form-group>
 
@@ -75,25 +90,30 @@
                                 :value="v.id"
                                 v-for="v in visibilities"
                                 :key="v.id"
-                            >{{ v.title }}</b-form-radio>
+                                >{{ v.title }}</b-form-radio
+                            >
                         </b-form-radio-group>
                     </b-form-group>
                 </form>
             </section>
 
             <footer class="fwz__pager">
-                <basic-button class="fwz__next" @click="goToStep(2)">Next</basic-button>
+                <basic-button class="fwz__next" @click="goToStep(2)"
+                    >Next</basic-button
+                >
                 <basic-button
                     class="fwz__prev"
                     variant="secondary"
                     :disabled="saving"
                     @click="goToStep(1)"
-                >Back</basic-button>
+                    >Back</basic-button
+                >
                 <spinner-button
                     class="fwz__submit"
                     :loading="saving"
-                    @click="handleSaveClick"
-                >Add Video</spinner-button>
+                    @click="save"
+                    >Add Video</spinner-button
+                >
             </footer>
         </div>
     </b-container>

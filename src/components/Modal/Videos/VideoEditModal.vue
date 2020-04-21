@@ -23,8 +23,12 @@
                     :state="!$v.form.url.$error"
                 ></b-form-input>
                 <b-form-invalid-feedback>
-                    <template v-if="!$v.form.url.required">Enter a YouTube URL</template>
-                    <template v-else-if="!$v.form.url.valid">Invalid YouTube URL</template>
+                    <template v-if="!$v.form.url.required"
+                        >Enter a YouTube URL</template
+                    >
+                    <template v-else-if="!$v.form.url.valid"
+                        >Invalid YouTube URL</template
+                    >
                 </b-form-invalid-feedback>
             </b-form-group>
 
@@ -35,7 +39,9 @@
                     :state="!$v.form.title.$error"
                 ></b-form-input>
                 <b-form-invalid-feedback>
-                    <template v-if="!$v.form.title.required">Enter a title</template>
+                    <template v-if="!$v.form.title.required"
+                        >Enter a title</template
+                    >
                     <template v-else-if="!$v.form.title.minLength">
                         The title must be at least
                         {{ $v.form.title.$params.minLength.min }} characters
@@ -54,7 +60,9 @@
                     label="genre"
                 />
                 <b-form-invalid-feedback>
-                    <template v-if="!$v.form.genre.required">Select a genre</template>
+                    <template v-if="!$v.form.genre.required"
+                        >Select a genre</template
+                    >
                 </b-form-invalid-feedback>
             </b-form-group>
 
@@ -71,7 +79,12 @@
 
             <b-form-group label="Visibility">
                 <b-form-radio-group v-model="form.visibility">
-                    <b-form-radio :value="v.id" v-for="v in visibilities" :key="v.id">{{ v.title }}</b-form-radio>
+                    <b-form-radio
+                        :value="v.id"
+                        v-for="v in visibilities"
+                        :key="v.id"
+                        >{{ v.title }}</b-form-radio
+                    >
                 </b-form-radio-group>
             </b-form-group>
 
@@ -79,7 +92,10 @@
                 <b-form-group label="Publish Date">
                     <b-input-group
                         class="datetime-input-group"
-                        :class="{ 'is-invalid': $v.form.date.$error || $v.form.time.$error }"
+                        :class="{
+                            'is-invalid':
+                                $v.form.date.$error || $v.form.time.$error,
+                        }"
                     >
                         <DatePicker v-model="$v.form.date.$model" />
                         <TimePicker v-model="$v.form.time.$model" />
@@ -90,20 +106,25 @@
                                 ? false
                                 : true
                         "
-                    >Select a date and time</b-form-invalid-feedback>
+                        >Select a date and time</b-form-invalid-feedback
+                    >
                 </b-form-group>
             </template>
 
-            <basic-button variant="link" @click="handleScheduleClick">
+            <basic-button variant="link" @click="toggleSchedule">
                 {{
-                form.scheduled ? 'Clear scheduling ' : 'Schedule this video'
+                    form.scheduled ? 'Clear scheduling ' : 'Schedule this video'
                 }}
             </basic-button>
         </b-form>
 
         <footer class="mdl__footer">
-            <basic-button variant="secondary" :disabled="saving" @click="close">Cancel</basic-button>
-            <spinner-button :loading="saving" @click="handleSaveClick">Save</spinner-button>
+            <basic-button variant="secondary" :disabled="saving" @click="close"
+                >Cancel</basic-button
+            >
+            <spinner-button :loading="saving" @click="save"
+                >Save</spinner-button
+            >
         </footer>
     </b-modal>
 </template>

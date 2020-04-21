@@ -49,10 +49,10 @@ export default {
     },
     methods: {
         handleEditClick() {
-            this.$emit('edit-click', { video: this.video })
+            this.$emit('edit-click', this.video)
         },
         handleDeleteClick() {
-            this.$emit('delete-click', { video: this.video })
+            this.$emit('delete-click', this.video)
         },
     },
 }

@@ -1,8 +1,95 @@
 .lnk-crd {
+    .dropfoto {
+        margin-bottom: 10px;
+    }
+
+    .dropfoto-upl,
+    .dropfoto-thumb {
+        width: 120px;
+        height: 120px;
+    }
+
+    .dropfoto-prv {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .dropfoto-rm-lnk {
+        margin-left: 10px;
+        align-self: center;
+    }
+
+    .dropfoto-upl-ico {
+        margin-bottom: 0;
+    }
+
     .crd-img {
         width: 68px;
         height: 68px;
         min-width: 68px;
         min-height: 68px;
+    }
+
+    &.--hidden {
+        .crd-title,
+        .crd-vis {
+            color: $linkstream-40;
+        }
+    }
+
+    .crd-edit-main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .crd-edit-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .crd-edit-actions {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid $linkstream-30;
+        padding-top: 16px;
+        margin-top: 16px;
+        display: flex;
+    }
+
+    @include media-breakpoint-up(sm) {
+        .dropfoto {
+            margin-bottom: 0;
+        }
+
+        .dropfoto-upl,
+        .dropfoto-thumb {
+            width: 151px;
+            height: 151px;
+        }
+
+        .dropfoto-prv {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .dropfoto-rm-lnk {
+            margin-left: 0;
+            align-self: flex-start;
+        }
+
+        .crd-edit-main {
+            flex-direction: row;
+        }
+
+        .crd-edit-form {
+            flex-grow: 1;
+            margin-left: 20px;
+            margin-right: 45px;
+        }
+
+        .crd-edit-cancel {
+            margin-right: 10px;
+        }
     }
 }

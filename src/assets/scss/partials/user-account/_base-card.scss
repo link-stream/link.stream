@@ -6,7 +6,7 @@
     margin: $spacer 0;
     padding: $spacer;
 
-    .crd-flex {
+    .crd-main {
         display: flex;
         align-items: center;
     }
@@ -20,10 +20,11 @@
     .crd-body {
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
         padding-left: $spacer;
     }
 
-    .crd-thumb {
+    .crd-art {
         position: relative;
         margin-bottom: 0.6rem;
     }
@@ -54,12 +55,12 @@
         text-overflow: ellipsis;
     }
 
-    .crd-priv {
+    .crd-vis {
         color: $black;
         font-size: 11px;
     }
 
-    .crd-act {
+    .crd-actions {
         position: absolute;
         top: 5px;
         right: 5px;
@@ -68,7 +69,7 @@
         }
     }
 
-    .crd-hov {
+    .crd-hover {
         display: inline-block;
         visibility: hidden;
         opacity: 0;
@@ -76,7 +77,7 @@
     }
 
     &:hover {
-        .crd-hov {
+        .crd-hover {
             visibility: visible;
             opacity: 1;
         }
@@ -93,7 +94,7 @@
             padding-right: 0;
         }
 
-        .crd-act {
+        .crd-actions {
             position: absolute;
             top: 15px;
             right: 0;
@@ -102,7 +103,7 @@
             }
         }
 
-        .crd-thumb {
+        .crd-art {
             margin-bottom: 0;
         }
 

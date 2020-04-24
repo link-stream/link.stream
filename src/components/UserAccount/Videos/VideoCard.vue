@@ -1,23 +1,23 @@
 <template>
     <div class="crd vid-crd">
-        <div class="crd-flex">
-            <Icon icon="reorder" class="crd-reorder vid-crd-drag-sel" />
+        <div class="crd-main">
+            <Icon icon="reorder" class="crd-reorder" />
             <div class="crd-body">
-                <div class="crd-thumb">
+                <div class="crd-art">
                     <div class="crd-lock" v-if="video.isPrivate"></div>
                     <img class="crd-img" :src="thumbUrl" :alt="video.title" />
                 </div>
                 <div class="crd-info">
                     <h2 class="crd-title">{{ video.title }}</h2>
-                    <small class="crd-priv" v-if="video.isPrivate"
-                        >Private</small
-                    >
+                    <small class="crd-vis" v-if="video.isPrivate"
+                        >Private
+                    </small>
                 </div>
             </div>
         </div>
-        <div class="crd-act">
-            <span class="crd-hov">
-                <IconButton icon="trash" @click="handleDeleteClick" />
+        <div class="crd-actions">
+            <span class="crd-hover">
+                <IconButton icon="trash" @click="confirmDelete" />
             </span>
             <IconButton icon="edit-2" @click="handleEditClick" />
         </div>
@@ -53,8 +53,25 @@ export default {
         handleEditClick() {
             this.$emit('edit-click', this.video)
         },
-        handleDeleteClick() {
-            this.$emit('delete-click', this.video)
+        confirmDelete() {
+            this.$alert.confirm({
+                title: 'Delete video?',
+                message: 'This video and its data will be permanently deleted.',
+                okCallback: this.delete,
+            })
+        },
+        async delete() {
+            const { status, message, error } = await this.$store.dispatch(
+                'me/deleteVideo',
+                {
+                    video: this.video,
+                }
+            )
+            if (status === 'success') {
+                this.$toast.success(message)
+            } else {
+                this.$toast.error(error)
+            }
         },
     },
 }

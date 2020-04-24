@@ -1,93 +1,93 @@
-.ls-ic {
+.ls-i {
     display: inline-block;
 }
 
-.ls-ic:before {
+.ls-i:before {
     content: '';
     display: inline-block;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.ls-ic-reorder:before {
+.ls-i-reorder:before {
     background-image: url(~@/../public/static/ico/reorder.svg);
     width: 18px;
     height: 14px;
 }
 
-.ls-ic-card-close:before {
+.ls-i-card-close:before {
     background-image: url(~@/../public/static/ico/card-close.svg);
     width: 16px;
     height: 16px;
 }
 
-.ls-ic-modal-close:before {
+.ls-i-modal-close:before {
     background-image: url(~@/../public/static/ico/modal-close.svg);
     width: 17px;
     height: 17px;
 }
 
-.ls-ic-alert-close:before {
+.ls-i-alert-close:before {
     background-image: url(~@/../public/static/ico/alert-close.svg);
     width: 13px;
     height: 13px;
 }
 
-.ls-ic-edit:before {
+.ls-i-edit:before {
     background-image: url(~@/../public/static/ico/edit.svg);
     width: 50px;
     height: 50px;
 }
 
-.ls-ic-edit-2:before {
+.ls-i-edit-2:before {
     background-image: url(~@/../public/static/ico/edit-2.svg);
     width: 50px;
     height: 50px;
 }
 
-.ls-ic-trash:before {
+.ls-i-trash:before {
     background-image: url(~@/../public/static/ico/trash.svg);
     width: 35px;
     height: 35px;
 }
 
-.ls-ic-eye:before {
+.ls-i-eye:before {
     background-image: url(~@/../public/static/ico/eye.svg);
-    width: 35px;
-    height: 35px;
+    width: 23px;
+    height: 16px;
 }
 
-.ls-ic-clock:before {
+.ls-i-clock:before {
     background-image: url(~@/../public/static/ico/clock.svg);
     width: 35px;
     height: 35px;
 }
 
-.ls-ic-back:before {
+.ls-i-back:before {
     background-image: url(~@/../public/static/ico/back.svg);
     width: 17px;
     height: 17px;
 }
 
-.ls-ic-select-arrow:before {
+.ls-i-select-arrow:before {
     background-image: url(~@/../public/static/ico/select-arrow.svg);
     width: 1em;
     height: 1em;
 }
 
-.ls-ic-select-time:before {
+.ls-i-select-time:before {
     background-image: url(~@/../public/static/ico/select-time.svg);
     width: 21px;
     height: 21px;
 }
 
-.ls-ic-dropfoto-remove:before {
+.ls-i-dropfoto-remove:before {
     background-image: url(~@/../public/static/ico/dropfoto/remove.svg);
     width: 32px;
     height: 31px;
 }
 
-.ls-ic-dropfoto-cam:before {
+.ls-i-dropfoto-cam:before {
     background-image: url(~@/../public/static/ico/dropfoto/cam.svg);
     width: 21px;
     height: 19px;

@@ -27,7 +27,7 @@ export const videoAddEditForm = {
                 title: null,
                 genre: null,
                 relatedTrack: null,
-                visibility: appConstants.user.visibilities.private,
+                visibility: appConstants.visibilities.private,
                 date: null,
                 time: null,
                 scheduled: null,

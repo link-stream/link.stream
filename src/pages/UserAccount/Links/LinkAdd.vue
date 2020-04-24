@@ -7,7 +7,7 @@
                     variant="link"
                     :to="{ name: 'userAccountLinks' }"
                 >
-                    <i class="ls-ic ls-ic-back"></i>
+                    <i class="ls-i ls-i-back"></i>
                     Links
                 </basic-button>
             </div>
@@ -82,7 +82,7 @@
                     </basic-button>
                 </form>
                 <aside>
-                    <DropFoto @change="updateImage" />
+                    <DropFoto @change="updateImage" no-remove-link-mobile />
                 </aside>
             </section>
 

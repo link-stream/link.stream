@@ -1,5 +1,5 @@
 <template>
-    <b-modal modal-class="alrt" v-model="visible" hide-header hide-footer>
+    <b-modal modal-class="alrt" v-model="show" hide-header hide-footer>
         <div class="alrt-inner">
             <IconButton class="alrt-close" icon="alert-close" @click="close" />
             <template v-if="opts.title && opts.message">
@@ -17,9 +17,9 @@
             <template v-else>
                 <h2 class="alrt-title" v-html="opts.title || opts.message"></h2>
             </template>
-            <footer class="alrt-act">
+            <footer class="alrt-actions">
                 <basic-button
-                    class="alrt-cancl"
+                    class="alrt-cancel"
                     variant="secondary"
                     size="sm"
                     :disabled="loading"
@@ -59,7 +59,7 @@ const showAlert = function(opts) {
         this.opts[key] = key in opts ? opts[key] : defaultOpts[key]
     }
     this.loading = false
-    this.visible = true
+    this.show = true
 }
 
 export default {
@@ -71,7 +71,7 @@ export default {
     },
     data() {
         return {
-            visible: false,
+            show: false,
             loading: false,
             opts: {
                 title: null,
@@ -93,7 +93,7 @@ export default {
             })
         },
         close() {
-            this.visible = false
+            this.show = false
             this.loading = false
         },
         handleOkClick() {

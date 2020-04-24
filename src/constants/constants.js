@@ -16,12 +16,12 @@ export const constants = {
             aspectRatio: 1,
         },
     },
+    visibilities: {
+        public: 1,
+        private: 2,
+    },
     user: {
         profileBannerAspectRatio: 0.254364,
-        visibilities: {
-            public: 1,
-            private: 2,
-        },
         account: {
             videosPerPage: 20,
             menuHiddenBreakpoint: 992,

@@ -8,8 +8,8 @@
         </header>
         <nav class="page-nav">
             <div class="page-nav-left">
-                <span class="permalink">
-                    <span class="permalink-light">link.stream/</span>
+                <span class="permalnk">
+                    <span class="permalnk-light">link.stream/</span>
                     <span>{{ user.user_name }}/videos</span>
                 </span>
                 <preview-pill-button
@@ -28,15 +28,11 @@
         </nav>
         <main class="page-body">
             <Container
-                @drop="handleDrop"
-                drag-handle-selector=".vid-crd-drag-sel"
+                @drop="handleReorder"
+                drag-handle-selector=".crd-reorder"
             >
                 <Draggable v-for="video in localVideos" :key="video.id">
-                    <VideoCard
-                        :video="video"
-                        @edit-click="showEditModal"
-                        @delete-click="confirmDelete"
-                    />
+                    <VideoCard :video="video" @edit-click="showEditModal" />
                 </Draggable>
             </Container>
         </main>
@@ -98,27 +94,11 @@ export default {
         showEditModal(video) {
             this.editingVideo = video
         },
-        confirmDelete(video) {
-            this.$alert.confirm({
-                title: 'Delete video?',
-                message: 'This video and its data will be permanently deleted.',
-                okCallback: async () => this.deleteVideo(video),
-            })
+        handleEditModalHidden() {
+            this.editingVideo = null
         },
-        async deleteVideo(video) {
-            const { status, message, error } = await this.$store.dispatch(
-                'me/deleteVideo',
-                {
-                    video,
-                }
-            )
-            if (status === 'success') {
-                this.$toast.success(message)
-            } else {
-                this.$toast.error(error)
-            }
-        },
-        reorderVideo(newIndex, oldIndex) {
+        handleReorder(result) {
+            const { removedIndex: oldIndex, addedIndex: newIndex } = result
             const video = this.localVideos[oldIndex]
             this.localVideos.splice(oldIndex, 1)
             this.localVideos.splice(newIndex, 0, video)
@@ -133,13 +113,6 @@ export default {
                 newIndex,
                 sorts,
             })
-        },
-        handleEditModalHidden() {
-            this.editingVideo = null
-        },
-        handleDrop(result) {
-            const { removedIndex: oldIndex, addedIndex: newIndex } = result
-            this.reorderVideo(newIndex, oldIndex)
         },
     },
 }

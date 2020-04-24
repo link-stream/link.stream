@@ -8,8 +8,8 @@
         </header>
         <nav class="page-nav">
             <div class="page-nav-left">
-                <span class="permalink">
-                    <span class="permalink-light">link.stream/</span>
+                <span class="permalnk">
+                    <span class="permalnk-light">link.stream/</span>
                     <span>{{ user.user_name }}/links</span>
                 </span>
                 <preview-pill-button
@@ -30,11 +30,11 @@
             <LoadingIndicator :loading="loading" />
             <Container
                 v-if="!loading"
-                @drop="handleDrop"
-                drag-handle-selector=".lnk-crd-drag-sel"
+                @drop="handleReorder"
+                drag-handle-selector=".crd-reorder"
             >
                 <Draggable v-for="link in localLinks" :key="link.id">
-                    <LinkCard :link="link" @delete-click="confirmDelete" />
+                    <LinkCard :link="link" />
                 </Draggable>
             </Container>
         </main>
@@ -83,29 +83,8 @@ export default {
         this.loading = false
     },
     methods: {
-        confirmDelete(link) {
-            this.$alert.confirm({
-                title: 'Delete link?',
-                message: 'This link and its data will be permanently deleted.',
-                okCallback: async () => this.deleteLink(link),
-            })
-        },
-        async deleteLink(link) {
-            this.loading = true
-            const { status, message, error } = await this.$store.dispatch(
-                'me/deleteLink',
-                {
-                    link,
-                }
-            )
-            if (status === 'success') {
-                this.$toast.success(message)
-            } else {
-                this.$toast.error(error)
-            }
-            this.loading = false
-        },
-        reorderLink(newIndex, oldIndex) {
+        handleReorder(result) {
+            const { removedIndex: oldIndex, addedIndex: newIndex } = result
             const link = this.localLinks[oldIndex]
             this.localLinks.splice(oldIndex, 1)
             this.localLinks.splice(newIndex, 0, link)
@@ -120,10 +99,6 @@ export default {
                 newIndex,
                 sorts,
             })
-        },
-        handleDrop(result) {
-            const { removedIndex: oldIndex, addedIndex: newIndex } = result
-            this.reorderLink(newIndex, oldIndex)
         },
     },
 }

@@ -1,5 +1,11 @@
 <template>
-    <div class="drpf">
+    <div
+        class="dropfoto"
+        :class="{
+            'no-rm-link': noRemoveLink,
+            'no-rm-link-m': noRemoveLinkMobile,
+        }"
+    >
         <input
             type="file"
             v-show="false"
@@ -7,43 +13,37 @@
             ref="fileinput"
             @change="handleFileInputChange"
         />
-        <section v-if="isPreview">
-            <div class="drpf-preview">
-                <img class="drpf-img" :src="image.src" alt />
+        <section class="dropfoto-prv" v-if="isPreview">
+            <div class="dropfoto-thumb">
+                <img class="dropfoto-img" :src="image.src" alt />
                 <IconButton
-                    class="drpf-rem-btn"
+                    class="dropfoto-rm-btn"
                     icon="dropfoto-remove"
                     @click="reset"
                 />
                 <IconButton
-                    class="drpf-add-btn"
+                    class="dropfoto-add-btn"
                     icon="dropfoto-cam"
                     @click="showFileDialog"
                 />
             </div>
-            <basic-button class="drpf-rem-link" variant="link" @click="reset"
+            <basic-button class="dropfoto-rm-lnk" variant="link" @click="reset"
                 >Remove artwork</basic-button
             >
         </section>
         <section
             v-else
-            class="drpf-droparea"
-            :class="{ 'is-highlight': isDraggingOver }"
+            class="dropfoto-upl"
+            :class="{ '--highlight': isDraggingOver }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
             @dragover="handleDragOver"
             @dragenter="handleDragEnter"
             @click="showFileDialog"
         >
-            <i class="drpf-ico"></i>
-            <div class="drpf-hint">
-                Drag thumbnail image here or
-                <span class="text-primary-underline">browse</span>
-            </div>
-            <div class="drpf-hint-sm">
-                <span class="text-primary-underline">Upload</span> a thumbnail
-                image
-            </div>
+            <i class="dropfoto-upl-ico"></i>
+            <div class="dropfoto-upl-msg" v-html="msg"> </div>
+            <div class="dropfoto-upl-msg --m" v-html="mobileMsg"> </div>
         </section>
 
         <DokaModal
@@ -77,6 +77,22 @@ export default {
         src: {
             type: String,
             default: null,
+        },
+        noRemoveLink: {
+            type: Boolean,
+            default: false,
+        },
+        noRemoveLinkMobile: {
+            type: Boolean,
+            default: false,
+        },
+        msg: {
+            type: String,
+            default: 'Drag image here<br />or <strong>browse</strong>',
+        },
+        mobileMsg: {
+            type: String,
+            default: '<strong>Upload</strong><br>an image',
         },
     },
     data() {

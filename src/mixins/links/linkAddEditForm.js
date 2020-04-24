@@ -23,7 +23,7 @@ export const linkAddEditForm = {
             form: {
                 url: null,
                 title: null,
-                visibility: appConstants.user.visibilities.public,
+                visibility: appConstants.visibilities.public,
                 scheduled: null,
                 date: null,
                 time: null,
@@ -139,7 +139,7 @@ export const linkAddEditForm = {
             if (status === 'success') {
                 this.$toast.success(message)
                 if (this.editing) {
-                    this.editing = false
+                    this.closeEditView()
                 } else {
                     this.$router.push({ name: 'userAccountLinks' })
                 }

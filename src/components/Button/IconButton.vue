@@ -1,7 +1,12 @@
 <template>
-    <button class="btn btn-icon" :type="type" @click="handleClick">
+    <button
+        class="btn btn-icon"
+        :class="{ '--bg-img': useBgImg }"
+        :type="type"
+        @click="handleClick"
+    >
         <slot>
-            <Icon :icon="icon" />
+            <Icon :icon="icon" v-if="!useBgImg" />
         </slot>
     </button>
 </template>
@@ -22,6 +27,10 @@ export default {
         icon: {
             type: String,
             default: '',
+        },
+        useBgImg: {
+            type: Boolean,
+            default: false,
         },
     },
     methods: {

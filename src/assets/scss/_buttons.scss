@@ -39,17 +39,10 @@
 
 .btn-tertiary {
     @extend .btn-black;
-    &:hover {
-        @extend .btn-black:hover;
-        background-color: $gray-900;
-    }
-    &:focus {
-        @extend .btn-black:focus;
-        background-color: $gray-900;
-    }
+    &:hover,
+    &:focus,
     &:active {
-        @extend .btn-black:active;
-        background-color: $gray-900 !important;
+        background-color: $gray-900;
     }
 }
 
@@ -80,24 +73,21 @@
 }
 
 .btn-icon {
-    padding: 0.5rem;
+    padding: 0;
     border: 0;
     margin: 0;
     line-height: 0;
-}
+    &.--bg-img:before {
+        @extend .ls-i:before;
+    }
+    &:focus {
+        outline: 0;
+        box-shadow: none;
+    }
 
-.btn-icon:focus {
-    outline: 0;
-    box-shadow: none;
-}
-
-.btn-icon:hover {
-    transform: scale(1.08);
-    opacity: 0.75;
-}
-
-.btn-icon:active {
-    transform: scale(0.9);
+    &:active {
+        transform: scale(0.9);
+    }
 }
 
 .btn-link {
@@ -108,10 +98,17 @@
     padding: 0;
     margin: 0;
     line-height: normal;
+    &:hover {
+        color: $linkstream-60;
+    }
 }
 
-.btn-link:hover {
-    color: $linkstream-60;
+.btn-text {
+    @extend .btn-link;
+    &:hover,
+    &:focus {
+        text-decoration: none;
+    }
 }
 
 .btn-iconic-outline {

@@ -51,6 +51,12 @@
     }
 
     @include media-breakpoint-up(md) {
+        .layout-content {
+            margin-left: $main-margin + $main-menu-width;
+            margin-right: $main-margin;
+            transition: margin-left $menu-collapse-time;
+        }
+
         // Sidebar completely hidden
         &.menu-sub-hidden.main-hidden.sub-hidden {
             .layout-content {
@@ -58,19 +64,11 @@
             }
         }
 
-        .layout-content {
-            margin-left: $main-menu-width + $main-margin;
-            margin-right: $main-margin;
-            transition: margin-left $menu-collapse-time;
-        }
-
         .page {
             max-width: 836px;
             margin: 0 auto;
         }
-    }
 
-    @include media-breakpoint-up(sm) {
         .page-header {
             margin-bottom: 0;
         }
@@ -81,8 +79,8 @@
 
         .page-nav-left {
             flex-grow: 1;
-            margin-bottom: 0;
             align-self: flex-end;
+            margin-bottom: 0;
         }
 
         .page-nav-right {

@@ -1,42 +1,59 @@
 <template>
-    <div class="crd lnk-crd" :class="{ '--hidden': link.isPrivate }">
-        <div class="crd-view" v-if="!editing">
-            <div class="crd-main">
-                <Icon icon="reorder" class="crd-reorder" />
-                <div class="crd-body">
-                    <div class="crd-art">
-                        <img
-                            class="crd-img"
-                            :src="link.artwork"
-                            :alt="link.title"
-                        />
-                    </div>
-                    <div class="crd-info">
-                        <h2 class="crd-title">{{ link.title }}</h2>
-                        <small class="crd-vis" v-if="link.isPrivate"
-                            >Hidden</small
-                        >
-                    </div>
-                </div>
-            </div>
-            <div class="crd-actions">
-                <span class="crd-hover">
-                    <IconButton icon="trash" @click="confirmDelete" />
-                </span>
-                <IconButton icon="edit-2" @click="openEditView" />
-            </div>
+    <div
+        class="crd lnk-crd"
+        :class="{ '--private': link.isPrivate, '--loading': loading || saving }"
+    >
+        <div class="crd-loading-mask" role="status">
+            <div class="spinner-grow"></div>
+            <div class="spinner-grow"></div>
+            <div class="spinner-grow"></div>
         </div>
-        <div class="crd-edit" v-else>
+
+        <section class="crd-view" v-if="!editing">
+            <Icon icon="reorder" class="crd-reorder-i" />
+            <div class="crd-art">
+                <img class="crd-img" :src="link.artwork" :alt="link.title" />
+            </div>
+            <main class="crd-body">
+                <h2 class="crd-title">{{ link.title }}</h2>
+                <small class="crd-viz" v-if="link.isPrivate">Hidden</small>
+            </main>
+            <div class="crd-actions">
+                <span class="crd-actions-hover">
+                    <IconButton
+                        icon="trash-2"
+                        title="Delete"
+                        class="crd-del-btn"
+                        use-bg-img
+                        @click="handleDeleteClick"
+                    />
+                </span>
+                <IconButton
+                    title="Edit"
+                    class="crd-edit-btn"
+                    use-bg-img
+                    @click="openEditView"
+                />
+            </div>
+        </section>
+
+        <section class="crd-edit" v-else>
             <IconButton
-                icon="card-close"
+                icon="close"
                 class="crd-edit-close"
+                title="Close"
                 @click="closeEditView"
             />
-            <div class="crd-edit-main">
+            <main class="crd-edit-body">
                 <div class="crd-edit-art">
-                    <DropFoto :src="link.data_image" @change="updateImage" />
+                    <DropFoto
+                        :src="link.data_image"
+                        msg-long="Drag image here&nbsp;or&nbsp;<u>browse</u>"
+                        msg-short=""
+                        @change="updateImage"
+                    />
                 </div>
-                <div class="crd-edit-form">
+                <form class="crd-edit-form">
                     <div class="form-group">
                         <input
                             type="text"
@@ -74,30 +91,34 @@
                             >Select a date and time</div
                         >
                     </div>
-                </div>
-            </div>
-            <div class="crd-edit-actions">
-                <div>
-                    <IconButton icon="trash" @click="confirmDelete" />
-                </div>
-                <div>
-                    <spinner-button
-                        variant="tertiary"
-                        size="xs"
-                        :loading="loading.visibility"
-                        @click="toggleVisibility"
-                        >{{ link.isPublic ? 'Hide' : 'Show' }}
-                    </spinner-button>
-                    <spinner-button
-                        variant="tertiary"
-                        size="xs"
-                        @click="save"
-                        :loading="saving"
+                </form>
+            </main>
+            <footer class="crd-edit-actions">
+                <IconButton
+                    icon="trash-sm"
+                    title="Delete"
+                    @click="handleDeleteClick"
+                />
+                <div class="actions-primary">
+                    <icon-button
+                        :title="link.isPublic ? 'Hide' : 'Unhide'"
+                        @click="handleVisibilityClick"
+                    >
+                        <Icon
+                            :icon="
+                                link.isPublic
+                                    ? 'eye-cir-gray'
+                                    : 'eye-slash-cir-gray'
+                            "
+                        />
+                    </icon-button>
+                    <IconButton icon="clock-cir-gray" title="Schedule" />
+                    <spinner-button variant="tertiary" size="xs" @click="save"
                         >Save</spinner-button
                     >
                 </div>
-            </div>
-        </div>
+            </footer>
+        </section>
     </div>
 </template>
 
@@ -122,9 +143,7 @@ export default {
     },
     data() {
         return {
-            loading: {
-                visibility: false,
-            },
+            loading: false,
         }
     },
     methods: {
@@ -135,38 +154,48 @@ export default {
             this.editing = false
         },
         async toggleVisibility() {
-            this.loading.visibility = true
+            this.loading = true
             const { status, message, error } = await this.$store.dispatch(
                 'me/updateLink',
                 {
                     id: this.link.id,
                     params: {
-                        public: this.link.isPrivate
-                            ? appConstants.visibilities.public
-                            : appConstants.visibilities.private,
+                        public: this.link.isPublic
+                            ? appConstants.visibilities.private
+                            : appConstants.visibilities.public,
                     },
                 }
             )
-            this.loading.visibility = false
+            this.loading = false
         },
-        confirmDelete() {
+        handleDeleteClick() {
             this.$alert.confirm({
                 title: 'Delete link?',
                 message: 'This link and its data will be permanently deleted.',
-                okCallback: this.delete,
+                okCallback: async () => {
+                    const {
+                        status,
+                        message,
+                        error,
+                    } = await this.$store.dispatch('me/deleteLink', {
+                        link: this.link,
+                    })
+                    status === 'success'
+                        ? this.$toast.success(message)
+                        : this.$toast.error(error)
+                },
             })
         },
-        async delete() {
-            const { status, message, error } = await this.$store.dispatch(
-                'me/deleteLink',
-                {
-                    link: this.link,
-                }
-            )
-            if (status === 'success') {
-                this.$toast.success(message)
+        handleVisibilityClick() {
+            if (this.link.isPrivate) {
+                this.toggleVisibility()
             } else {
-                this.$toast.error(error)
+                this.$alert.confirm({
+                    title: 'Hide link?',
+                    message:
+                        'This link will be hidden from your visitors. Are you sure?',
+                    okCallback: this.toggleVisibility,
+                })
             }
         },
     },

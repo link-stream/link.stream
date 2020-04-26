@@ -1,7 +1,14 @@
 <template>
-    <b-modal modal-class="alrt" v-model="show" hide-header hide-footer>
-        <div class="alrt-inner">
-            <IconButton class="alrt-close" icon="alert-close" @click="close" />
+    <b-modal
+        modal-class="alrt"
+        v-model="show"
+        size="sm"
+        centered
+        hide-header
+        hide-footer
+    >
+        <IconButton class="alrt-close" icon="close" @click="close" />
+        <div class="alrt-body">
             <template v-if="opts.title && opts.message">
                 <h2
                     class="alrt-title"
@@ -17,26 +24,26 @@
             <template v-else>
                 <h2 class="alrt-title" v-html="opts.title || opts.message"></h2>
             </template>
-            <footer class="alrt-actions">
-                <basic-button
-                    class="alrt-cancel"
-                    variant="secondary"
-                    size="sm"
-                    :disabled="loading"
-                    v-if="opts.cancelVisible"
-                    @click="handleCancelClick"
-                    >{{ opts.cancelLabel }}</basic-button
-                >
-                <spinner-button
-                    class="alrt-ok"
-                    size="sm"
-                    :loading="loading"
-                    v-if="opts.okVisible"
-                    @click="handleOkClick"
-                    >{{ opts.okLabel }}</spinner-button
-                >
-            </footer>
         </div>
+        <footer class="alrt-actions">
+            <basic-button
+                class="alrt-action-btn"
+                variant="secondary"
+                size="sm"
+                :disabled="loading"
+                v-if="opts.cancelVisible"
+                @click="handleCancelClick"
+                >{{ opts.cancelLabel }}</basic-button
+            >
+            <spinner-button
+                class="alrt-action-btn"
+                size="sm"
+                :loading="loading"
+                v-if="opts.okVisible"
+                @click="handleOkClick"
+                >{{ opts.okLabel }}</spinner-button
+            >
+        </footer>
     </b-modal>
 </template>
 

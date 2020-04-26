@@ -1,95 +1,202 @@
 .lnk-crd {
-    .dropfoto {
-        margin-bottom: 10px;
-    }
+    padding: 0;
 
-    .dropfoto-upl,
-    .dropfoto-thumb {
-        width: 120px;
-        height: 120px;
-    }
-
-    .dropfoto-prv {
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .dropfoto-rm-lnk {
-        margin-left: 10px;
-        align-self: center;
-    }
-
-    .dropfoto-upl-ico {
-        margin-bottom: 0;
-    }
-
-    .crd-img {
-        width: 68px;
-        height: 68px;
-        min-width: 68px;
-        min-height: 68px;
-    }
-
-    &.--hidden {
+    &.--private {
         .crd-title,
-        .crd-vis {
+        .crd-viz {
             color: $linkstream-40;
         }
     }
 
-    .crd-edit-main {
-        display: flex;
-        flex-direction: column;
+    &.--loading {
+        .crd-loading-mask {
+            visibility: visible;
+        }
     }
 
-    .crd-edit-close {
+    .crd-loading-mask {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        display: flex;
+        visibility: hidden;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        .spinner-grow {
+            background-color: $linkstream-40;
+        }
     }
 
-    .crd-edit-actions {
+    .crd-view {
         display: flex;
-        justify-content: space-between;
-        border-top: 1px solid $linkstream-30;
-        padding-top: 16px;
-        margin-top: 16px;
-        display: flex;
+        align-items: center;
+        padding: 15px;
+
+        .crd-art {
+            margin: 0 10px;
+        }
+
+        .crd-img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .crd-title {
+            color: $linkstream-110;
+            font-size: px2rem(12);
+            font-weight: bold;
+            letter-spacing: 0;
+            line-height: 16px;
+        }
+
+        .crd-body {
+            flex-grow: 1;
+        }
+
+        .crd-viz {
+            font-size: px2rem(11);
+            color: $black;
+        }
     }
 
-    @include media-breakpoint-up(sm) {
-        .dropfoto {
-            margin-bottom: 0;
-        }
+    .crd-edit {
+        position: relative;
+        padding: 20px;
 
-        .dropfoto-upl,
-        .dropfoto-thumb {
-            width: 151px;
-            height: 151px;
-        }
-
-        .dropfoto-prv {
+        .crd-edit-body {
+            display: flex;
             flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .dropfoto-rm-lnk {
-            margin-left: 0;
-            align-self: flex-start;
-        }
-
-        .crd-edit-main {
-            flex-direction: row;
         }
 
         .crd-edit-form {
-            flex-grow: 1;
-            margin-left: 20px;
-            margin-right: 45px;
+            .form-group:last-child {
+                margin-bottom: 0;
+            }
         }
 
-        .crd-edit-cancel {
-            margin-right: 10px;
+        .crd-edit-close {
+            position: absolute;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 20px;
+        }
+
+        .crd-edit-actions {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid $linkstream-30;
+            padding-top: 16px;
+            margin-top: 16px;
+            .actions-primary {
+                .btn {
+                    margin-left: 10px;
+                }
+            }
+        }
+
+        .dropfoto {
+            margin-bottom: 10px;
+        }
+
+        .dropfoto-add-btn-lnk {
+            display: block;
+            margin-left: 10px;
+            color: $black;
+            font-size: px2rem(11);
+        }
+
+        .dropfoto-upl-i:before {
+            background-image: url(~@/../public/static/ico/dropfoto/cam-plus-sm.svg);
+            width: 34px;
+            height: 31px;
+        }
+
+        .dropfoto-upl-msg {
+            font-size: px2rem(10);
+        }
+
+        .dropfoto-upl-box,
+        .dropfoto-img-box {
+            width: 65px;
+            height: 65px;
+        }
+
+        .dropfoto-prv {
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .dropfoto-rm-btn {
+            display: none;
+        }
+
+        .dropfoto-rm-btn-lnk {
+            margin-left: 10px;
+            align-self: center;
+            color: $black;
+            font-size: px2rem(11);
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        .crd-view {
+            .crd-art {
+                margin: 0 14px;
+            }
+
+            .crd-img {
+                width: 68px;
+                height: 68px;
+            }
+
+            .crd-title {
+                font-size: px2rem(13);
+            }
+        }
+
+        .crd-edit {
+            .crd-edit-body {
+                flex-direction: row;
+            }
+
+            .crd-edit-form {
+                flex-grow: 1;
+                margin-left: 20px;
+                margin-right: 80px;
+            }
+
+            .dropfoto {
+                margin-bottom: 0;
+            }
+
+            .dropfoto-add-btn-lnk {
+                display: none;
+            }
+
+            .dropfoto-upl-box,
+            .dropfoto-img-box {
+                width: 120px;
+                height: 120px;
+            }
+
+            .dropfoto-prv {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .dropfoto-rm-btn-lnk {
+                margin-left: 0;
+                align-self: flex-start;
+            }
+
+            .dropfoto-upl-msg {
+                font-size: px2rem(12);
+            }
         }
     }
 }

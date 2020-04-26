@@ -1,115 +1,113 @@
-.fwz {
-    .fwz-cnt {
-        color: $linkstream-70;
-        font-size: px2rem(11);
-        font-weight: bold;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        margin-bottom: 1rem;
-        font-weight: 600;
-    }
-
-    .fwz-topnav {
-        margin-bottom: 20px;
-    }
-
-    .fwz-back {
-        color: $linkstream-70;
-        font-size: px2rem(11);
-        font-weight: bold;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        text-decoration: none;
-        i {
-            position: relative;
-            top: 5px;
-            left: 5px;
-        }
-    }
-
-    .fwz-header {
-        margin-bottom: 20px;
-    }
-
-    .fwz-title {
-        color: $black;
-        font-size: px2rem(30);
-        font-weight: 800;
-        line-height: 34px;
-    }
-
-    .fwz-subtitle {
-        color: $black;
-        line-height: 24px;
-        font-weight: normal;
-        font-size: px2rem(14);
-    }
-
-    .fwz-step {
-        display: flex;
-        flex-direction: column;
-        form {
-            max-width: 500px;
-        }
-        aside {
-            margin-top: 20px;
-        }
-    }
-
-    .fwz-pager {
-        display: flex;
-        flex-direction: column;
-        flex-direction: column-reverse;
-    }
-
+.fwz.--final-step {
     .fwz-submit,
     .fwz-prev {
+        display: block;
+    }
+
+    .fwz-next {
         display: none;
     }
 
-    .fwz-prev {
-        color: $linkstream-70;
+    .fwz-pager {
+        border-top: 1px solid $linkstream-30;
+        padding-top: 20px;
+        margin-top: 29px;
+    }
+}
+
+.fwz-cnt {
+    color: $linkstream-70;
+    font-size: px2rem(11);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.fwz-topnav {
+    margin-bottom: 20px;
+}
+
+.fwz-back {
+    color: $linkstream-70;
+    font-size: px2rem(11);
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    i {
+        position: relative;
+        top: 5px;
+        left: 0;
+    }
+}
+
+.fwz-header {
+    margin-bottom: 20px;
+}
+
+.fwz-title {
+    color: $black;
+    font-size: px2rem(30);
+    font-weight: 800;
+    line-height: 34px;
+}
+
+.fwz-subtitle {
+    color: $black;
+    line-height: 24px;
+    font-weight: normal;
+    font-size: px2rem(14);
+}
+
+.fwz-step {
+    display: flex;
+    flex-direction: column;
+}
+
+.fwz-step-main {
+    max-width: 500px;
+}
+
+.fwz-step-aside {
+    margin-top: 20px;
+}
+
+.fwz-pager {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.fwz-submit,
+.fwz-prev {
+    display: none;
+}
+
+.fwz-prev {
+    color: $linkstream-70;
+}
+
+.fwz-submit {
+    margin-bottom: 10px;
+}
+
+@include media-breakpoint-up(md) {
+    .fwz-step {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .fwz-step-main {
+        flex-grow: 1;
+    }
+
+    .fwz-pager {
+        flex-direction: row;
+        justify-content: space-between;
     }
 
     .fwz-submit {
-        margin-bottom: 10px;
-    }
-
-    &.is-final-step {
-        .fwz-submit,
-        .fwz-prev {
-            display: block;
-        }
-
-        .fwz-next {
-            display: none;
-        }
-
-        .fwz-pager {
-            border-top: 1px solid $linkstream-30;
-            padding-top: 20px;
-            margin-top: 29px;
-        }
-    }
-
-    @include media-breakpoint-up(sm) {
-        .fwz-pager {
-            flex-direction: row;
-            justify-content: space-between;
-        }
-
-        .fwz-submit {
-            margin-bottom: 0;
-        }
-    }
-
-    @include media-breakpoint-up(md) {
-        .fwz-step {
-            flex-direction: row;
-            justify-content: space-between;
-            form {
-                flex-grow: 1;
-            }
-        }
+        margin-bottom: 0;
     }
 }

@@ -29,10 +29,14 @@
         <main class="page-body">
             <Container
                 @drop="handleReorder"
-                drag-handle-selector=".crd-reorder"
+                drag-handle-selector=".crd-reorder-i"
             >
                 <Draggable v-for="video in localVideos" :key="video.id">
-                    <VideoCard :video="video" @edit-click="showEditModal" />
+                    <VideoCard
+                        :video="video"
+                        @edit-click="openEditModal"
+                        @delete-click="handleDeleteClick"
+                    />
                 </Draggable>
             </Container>
         </main>
@@ -40,6 +44,7 @@
             v-if="editingVideo"
             :video="editingVideo"
             @hidden="handleEditModalHidden"
+            @delete-click="handleDeleteClick"
         />
     </div>
 </template>
@@ -91,8 +96,31 @@ export default {
         })
     },
     methods: {
-        showEditModal(video) {
+        openEditModal(video) {
             this.editingVideo = video
+        },
+        handleDeleteClick(video) {
+            this.$alert.confirm({
+                title: 'Delete video?',
+                message: 'This video and its data will be permanently deleted.',
+                okCallback: async () => {
+                    const {
+                        status,
+                        message,
+                        error,
+                    } = await this.$store.dispatch('me/deleteVideo', {
+                        video,
+                    })
+                    if (status === 'success') {
+                        if (this.editingVideo) {
+                            this.editingVideo = null
+                        }
+                        this.$toast.success(message)
+                    } else {
+                        this.$toast.error(error)
+                    }
+                },
+            })
         },
         handleEditModalHidden() {
             this.editingVideo = null

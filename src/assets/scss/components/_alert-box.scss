@@ -1,54 +1,55 @@
 .alrt {
-    text-align: center;
-
     // Reset bs styles
     .modal-dialog {
-        width: 320px !important;
-        height: 154px !important;
-        margin: 0 auto;
-        top: 100px;
-        .modal-content {
-            border-color: transparent;
-        }
-        .modal-body {
-            padding: 20px 15px;
-        }
+        max-width: 300px !important;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    .alrt-inner {
-        padding: 5px;
+    .modal-content {
+        border-color: $white;
     }
 
-    .alrt-close {
-        position: absolute;
-        top: 6px;
-        right: 6px;
+    .modal-body {
+        padding: 20px 15px 15px 15px;
     }
+}
 
-    .alrt-title {
-        color: $black;
-        font-size: 14px;
-        font-weight: bold;
-        letter-spacing: 0;
-    }
+.alrt-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px;
+    z-index: 1;
+}
 
-    .alrt-msg {
-        margin-top: 15px;
-        color: $linkstream-100;
-        font-size: 13px;
-    }
+.alrt-body {
+    text-align: center;
+    padding: 0 30px;
+}
 
-    .alrt-actions {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-    }
+.alrt-title {
+    color: $black;
+    font-size: px2rem(14);
+    font-weight: bold;
+    letter-spacing: 0;
+}
 
-    .alrt-ok,
-    .alrt-cancel {
-        width: 130px;
-        height: 40px;
-        padding: 0;
-        margin: 0 auto;
-    }
+.alrt-msg {
+    color: $linkstream-100;
+    font-size: px2rem(13);
+    line-height: 20px;
+    margin: 10px 0 0 0;
+}
+
+.alrt-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.alrt-action-btn {
+    width: 128px;
+    height: 40px;
+    padding: 0 !important;
 }

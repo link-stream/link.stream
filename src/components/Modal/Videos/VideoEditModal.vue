@@ -2,19 +2,21 @@
     <b-modal
         modal-class="mdl mdl-vid-edit"
         v-model="editing"
-        @hidden="handleHidden"
+        centered
         hide-header
         hide-footer
         no-close-on-backdrop
         no-close-on-esc
+        @hidden="handleHidden"
     >
+        <IconButton class="mdl-close" use-bg-img @click="close" />
+
         <header class="mdl-header">
             <h2 class="mdl-title">Edit video info</h2>
-            <IconButton icon="modal-close" class="mdl-close" @click="close" />
         </header>
 
         <b-form class="mdl-body" :novalidate="true">
-            <youtube class="vid-wrap" :video-id="ytVidId"></youtube>
+            <youtube class="yt-wrap" :video-id="ytVidId"></youtube>
             <b-form-group label="YouTube Video URL" label-for="urlInput">
                 <b-form-input
                     v-model="$v.form.url.$model"
@@ -119,10 +121,23 @@
         </b-form>
 
         <footer class="mdl-footer">
-            <basic-button variant="secondary" :disabled="saving" @click="close"
+            <div class="delete-action"
+                ><IconButton
+                    icon="trash-sm"
+                    title="Delete"
+                    @click="handleDeleteClick"
+            /></div>
+            <basic-button
+                class="mdl-action-btn"
+                variant="secondary"
+                :disabled="saving"
+                @click="close"
                 >Cancel</basic-button
             >
-            <spinner-button :loading="saving" @click="save"
+            <spinner-button
+                class="mdl-action-btn"
+                :loading="saving"
+                @click="save"
                 >Save</spinner-button
             >
         </footer>
@@ -150,7 +165,6 @@ export default {
     },
     created() {
         this.editing = true
-
         const {
             title,
             url,
@@ -161,7 +175,6 @@ export default {
             date,
             time,
         } = this.video
-
         this.form = {
             ...this.form,
             title,
@@ -177,6 +190,9 @@ export default {
     methods: {
         close() {
             this.editing = false
+        },
+        handleDeleteClick() {
+            this.$emit('delete-click', this.video)
         },
         handleHidden() {
             this.$emit('hidden')

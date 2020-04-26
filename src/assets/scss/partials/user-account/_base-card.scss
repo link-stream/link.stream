@@ -3,119 +3,55 @@
     position: relative;
     background-color: $white;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.22);
-    margin: $spacer 0;
-    padding: $spacer;
+    margin: 15px 0;
+    padding: 15px;
 
-    .crd-main {
-        display: flex;
-        align-items: center;
-    }
-
-    .crd-reorder {
+    .crd-reorder-i {
         cursor: move;
-        top: -15px;
-        position: relative;
-    }
-
-    .crd-body {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        padding-left: $spacer;
-    }
-
-    .crd-art {
-        position: relative;
-        margin-bottom: 0.6rem;
-    }
-
-    .crd-lock {
-        position: absolute;
-        background-image: url(~@/../public/static/img/lock-overlay.svg);
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
-    .crd-lock,
-    .crd-img {
-        width: 190px;
-        height: 107px;
-    }
-
-    .crd-title {
-        color: $linkstream-110;
-        font-size: 14px;
-        font-weight: bold;
-        letter-spacing: 0;
-        line-height: 16px;
-        margin: 0;
-        max-width: 230px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .crd-vis {
-        color: $black;
-        font-size: 11px;
     }
 
     .crd-actions {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        .btn-icon {
-            padding: 0;
+        .btn {
+            margin-left: 10px;
         }
     }
 
-    .crd-hover {
-        display: inline-block;
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 1s;
+    .crd-actions-hover {
+        display: none;
     }
 
-    &:hover {
-        .crd-hover {
-            visibility: visible;
-            opacity: 1;
+    .crd-edit-btn {
+        padding: 0;
+        &:before {
+            background-image: url(~@/../public/static/ico/edit-cir-white-sm.svg);
+            width: 40px;
+            height: 40px;
         }
     }
 
-    @include media-breakpoint-up(sm) {
-        .crd-reorder {
-            align-items: center;
-            top: auto;
-        }
-
-        .crd-body {
-            flex-direction: row;
-            padding-right: 0;
-        }
-
-        .crd-actions {
-            position: absolute;
-            top: 15px;
-            right: 0;
-            .btn-icon {
-                padding: 0.5rem;
+    @include media-breakpoint-up(md) {
+        &:hover {
+            .crd-actions-hover {
+                display: inline;
             }
         }
 
-        .crd-art {
-            margin-bottom: 0;
+        .crd-edit-btn:before {
+            background-image: url(~@/../public/static/ico/edit-cir-white-lg.svg);
+            width: 50px;
+            height: 50px;
         }
 
-        .crd-lock,
-        .crd-img {
-            width: 123px;
-            height: 69px;
+        .crd-edit-btn:hover {
+            &:before {
+                background-image: url(~@/../public/static/ico/edit-cir-gray-lg.svg);
+            }
         }
 
-        .crd-info {
-            align-self: center;
-            padding-left: $spacer;
+        .crd-del-btn:before {
+            background-image: url(~@/../public/static/ico/trash-lg.svg);
+            width: 50px;
+            height: 50px;
         }
     }
 }

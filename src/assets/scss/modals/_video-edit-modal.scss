@@ -1,7 +1,13 @@
 .mdl-vid-edit {
-    .vid-wrap {
+    .yt-wrap {
         width: 201px;
-        height: 112.76px;
+        height: 113px;
         margin-bottom: 20px;
+    }
+
+    @include media-breakpoint-up(md) {
+        .delete-action {
+            flex-grow: 1;
+        }
     }
 }

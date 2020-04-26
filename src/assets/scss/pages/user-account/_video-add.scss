@@ -1,12 +1,12 @@
 .page-ua-vids-add {
-    .vid-wrap {
-        width: 100%;
-        height: auto;
+    .yt-wrap {
+        width: 202px;
+        height: 113px;
         margin-bottom: 20px;
     }
 
     @include media-breakpoint-up(sm) {
-        .vid-wrap {
+        .yt-wrap {
             width: 330px;
             height: 186px;
         }

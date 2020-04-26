@@ -1,42 +1,80 @@
 .mdl {
     // Reset bs style
-    .modal-body {
-        padding: 1.2rem;
+    .modal-dialog {
+        max-width: 300px !important;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    .mdl-header {
-        position: relative;
-        margin-bottom: 20px;
+    .modal-content {
+        border-color: $white;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+}
+
+.mdl-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 15px;
+    z-index: 1;
+    &:before {
+        @extend .ls-i-close:before;
+    }
+}
+
+.mdl-header {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.mdl-title {
+    color: $black;
+    font-size: px2rem(18);
+    font-weight: bold;
+}
+
+.mdl-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid $linkstream-130;
+}
+
+.mdl-action-btn {
+    padding: 0;
+    width: 100px;
+    height: 34px;
+    font-size: px2rem(11);
+}
+
+@include media-breakpoint-up(md) {
+    .mdl {
+        // Reset bs style
+        .modal-dialog {
+            max-width: 600px !important;
+        }
     }
 
     .mdl-close {
-        position: absolute;
-        top: -10px;
-        right: -10px;
-    }
-
-    .mdl-title {
-        color: $black;
-        font-size: px2rem(18);
-        font-weight: bold;
+        &:before {
+            background-image: url(~@/../public/static/ico/close-lg.svg);
+            width: 16px;
+            height: 16px;
+        }
     }
 
     .mdl-footer {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-
-        .btn {
-            padding: 0;
-            width: 135px;
-            height: 40px;
-        }
+        justify-content: flex-end;
     }
 
-    @include media-breakpoint-up(sm) {
-        // Reset bs style
-        .modal-dialog {
-            max-width: 320px !important;
-        }
+    .mdl-action-btn {
+        width: 135px;
+        height: 40px;
+        margin-left: 10px;
     }
 }

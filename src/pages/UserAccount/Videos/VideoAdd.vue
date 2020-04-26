@@ -1,6 +1,6 @@
 <template>
     <b-container class="page page-ua-vids-add">
-        <div class="fwz" :class="{ 'is-final-step': step === 2 }">
+        <div class="fwz" :class="{ '--final-step': step === 2 }">
             <h6 class="fwz-cnt">Step {{ step }} / 2</h6>
 
             <header class="fwz-header">
@@ -13,7 +13,7 @@
             </header>
 
             <section class="fwz-step" v-show="step === 1">
-                <form>
+                <form class="fwz-step-main">
                     <b-form-group
                         label="YouTube Video URL"
                         label-for="urlInput"
@@ -37,8 +37,8 @@
             </section>
 
             <section class="fwz-step" v-show="step === 2">
-                <form>
-                    <youtube class="vid-wrap" :video-id="ytVidId"></youtube>
+                <form class="fwz-step-main">
+                    <youtube class="yt-wrap" :video-id="ytVidId"></youtube>
                     <b-form-group label="Video Title" label-for="titleInput">
                         <b-form-input
                             id="titleInput"

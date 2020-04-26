@@ -22,10 +22,10 @@ h6 {
 
 .permalnk {
     color: $black;
-    font-size: 12px;
+    font-size: px2rem(12);
     font-weight: 600;
     line-height: 1rem;
-    margin-right: 0.3rem;
+    margin-right: 10px;
     letter-spacing: 0.5px;
     .permalnk-light {
         color: $linkstream-70;

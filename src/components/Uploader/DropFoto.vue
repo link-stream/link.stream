@@ -1,11 +1,5 @@
 <template>
-    <div
-        class="dropfoto"
-        :class="{
-            'no-rm-link': noRemoveLink,
-            'no-rm-link-m': noRemoveLinkMobile,
-        }"
-    >
+    <div class="dropfoto">
         <input
             type="file"
             v-show="false"
@@ -14,7 +8,7 @@
             @change="handleFileInputChange"
         />
         <section class="dropfoto-prv" v-if="isPreview">
-            <div class="dropfoto-thumb">
+            <main class="dropfoto-img-box">
                 <img class="dropfoto-img" :src="image.src" alt />
                 <IconButton
                     class="dropfoto-rm-btn"
@@ -26,8 +20,11 @@
                     icon="dropfoto-cam"
                     @click="showFileDialog"
                 />
-            </div>
-            <basic-button class="dropfoto-rm-lnk" variant="link" @click="reset"
+            </main>
+            <basic-button
+                class="dropfoto-rm-btn-lnk"
+                variant="link"
+                @click="reset"
                 >Remove artwork</basic-button
             >
         </section>
@@ -41,9 +38,19 @@
             @dragenter="handleDragEnter"
             @click="showFileDialog"
         >
-            <i class="dropfoto-upl-ico"></i>
-            <div class="dropfoto-upl-msg" v-html="msg"> </div>
-            <div class="dropfoto-upl-msg --m" v-html="mobileMsg"> </div>
+            <main class="dropfoto-upl-box">
+                <i class="dropfoto-upl-i"></i>
+                <div class="dropfoto-upl-msg">
+                    <div class="msg-short" v-html="msgShort"></div>
+                    <div class="msg-long" v-html="msgLong"></div>
+                </div>
+            </main>
+            <basic-button
+                class="dropfoto-add-btn-lnk"
+                variant="link"
+                @click="showFileDialog"
+                >Add artwork</basic-button
+            >
         </section>
 
         <DokaModal
@@ -78,21 +85,13 @@ export default {
             type: String,
             default: null,
         },
-        noRemoveLink: {
-            type: Boolean,
-            default: false,
-        },
-        noRemoveLinkMobile: {
-            type: Boolean,
-            default: false,
-        },
-        msg: {
+        msgShort: {
             type: String,
-            default: 'Drag image here<br />or <strong>browse</strong>',
+            default: '<u>Upload</u><br>an image',
         },
-        mobileMsg: {
+        msgLong: {
             type: String,
-            default: '<strong>Upload</strong><br>an image',
+            default: 'Drag image here<br>&nbsp;or&nbsp;<u>browse</u>',
         },
     },
     data() {

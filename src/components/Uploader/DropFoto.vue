@@ -21,10 +21,7 @@
                     @click="showFileDialog"
                 />
             </main>
-            <basic-button
-                class="dropfoto-rm-btn-lnk"
-                variant="link"
-                @click="reset"
+            <basic-button class="dropfoto-rm-lnk" variant="link" @click="reset"
                 >Remove artwork</basic-button
             >
         </section>
@@ -46,7 +43,7 @@
                 </div>
             </main>
             <basic-button
-                class="dropfoto-add-btn-lnk"
+                class="dropfoto-add-lnk"
                 variant="link"
                 @click="showFileDialog"
                 >Add artwork</basic-button

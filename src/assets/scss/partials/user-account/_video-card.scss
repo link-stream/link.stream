@@ -12,36 +12,36 @@
         flex-direction: column;
         flex-grow: 1;
         margin-left: 15px;
+    }
 
-        .crd-art {
-            margin-bottom: 10px;
-        }
+    .crd-art {
+        margin-bottom: 10px;
+    }
 
-        .crd-lock {
-            position: absolute;
-            background-image: url(~@/../public/static/img/lock-overlay.svg);
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+    .crd-lock {
+        position: absolute;
+        background-image: url(~@/../public/static/img/lock-overlay.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 
-        .crd-lock,
-        .crd-img {
-            width: 190px;
-            height: 107px;
-        }
+    .crd-lock,
+    .crd-img {
+        width: 190px;
+        height: 107px;
+    }
 
-        .crd-title {
-            color: $linkstream-110;
-            font-size: px2rem(12);
-            font-weight: bold;
-            letter-spacing: 0;
-            line-height: 16px;
-        }
+    .crd-title {
+        color: $linkstream-110;
+        font-size: px2rem(12);
+        font-weight: bold;
+        letter-spacing: 0;
+        line-height: 16px;
+    }
 
-        .crd-vis {
-            font-size: px2rem(11);
-            color: $black;
-        }
+    .crd-vis {
+        font-size: px2rem(11);
+        color: $black;
     }
 
     @include media-breakpoint-up(md) {
@@ -54,21 +54,21 @@
         .crd-content {
             flex-direction: row;
             align-items: center;
+        }
 
-            .crd-art {
-                margin: 0 15px 0 0;
-            }
+        .crd-art {
+            margin: 0 15px 0 0;
+        }
 
-            .crd-lock,
-            .crd-img {
-                width: 123px;
-                height: 69px;
-            }
+        .crd-lock,
+        .crd-img {
+            width: 123px;
+            height: 69px;
+        }
 
-            .crd-title {
-                font-size: px2rem(13);
-                line-height: 20px;
-            }
+        .crd-title {
+            font-size: px2rem(13);
+            line-height: 20px;
         }
     }
 }

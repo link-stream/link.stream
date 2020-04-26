@@ -3,7 +3,7 @@
         <div class="crd-load-mask" role="status" v-if="loading">
             <LoadingSpinner />
         </div>
-        <section class="crd-view" v-if="!editing">
+        <section class="crd-viewing" v-if="!editing">
             <Icon icon="reorder" class="crd-reorder-i" />
             <div class="crd-art">
                 <img class="crd-img" :src="link.artwork" :alt="link.title" />
@@ -26,7 +26,7 @@
                 @click="openEditView"
             />
         </section>
-        <section class="crd-edit" v-else>
+        <section class="crd-editing" v-else>
             <IconButton
                 icon="close"
                 class="crd-edit-close"

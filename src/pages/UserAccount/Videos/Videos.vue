@@ -27,6 +27,7 @@
             </div>
         </nav>
         <main class="page-body">
+            <LoadingSpinner v-if="loading" />
             <Container
                 @drop="handleReorder"
                 drag-handle-selector=".crd-reorder-i"
@@ -55,6 +56,7 @@ import { Container, Draggable } from 'vue-smooth-dnd'
 import { PreviewPillButton, BasicButton } from '~/components/Button'
 import { VideoEditModal } from '~/components/Modal/Videos'
 import { VideoCard } from '~/components/UserAccount/Videos'
+import { LoadingSpinner } from '~/components/Loading'
 import { appConstants } from '~/constants'
 
 export default {
@@ -66,9 +68,11 @@ export default {
         PreviewPillButton,
         VideoEditModal,
         VideoCard,
+        LoadingSpinner,
     },
     data() {
         return {
+            loading: true,
             localVideos: [],
             editingVideo: null,
         }
@@ -87,13 +91,14 @@ export default {
             },
         },
     },
-    created() {
-        this.$store.dispatch('me/loadVideos', {
+    async created() {
+        await this.$store.dispatch('me/loadVideos', {
             params: {
                 page: 1,
                 page_size: appConstants.user.account.videosPerPage,
             },
         })
+        this.loading = false
     },
     methods: {
         openEditModal(video) {

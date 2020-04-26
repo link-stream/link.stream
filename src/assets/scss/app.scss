@@ -12,6 +12,7 @@
 @import 'utilities';
 
 // Base
+@import 'animations';
 @import 'base';
 @import 'buttons';
 @import 'form';
@@ -23,7 +24,7 @@
 @import 'components/btn-spinner';
 @import 'components/alert-box';
 @import 'components/drop-foto';
-@import 'components/loading-indicator';
+@import 'components/loading-spinner';
 
 // Modals
 @import 'modals/base-modal';

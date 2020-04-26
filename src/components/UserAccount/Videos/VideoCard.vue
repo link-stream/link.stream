@@ -8,23 +8,21 @@
             </div>
             <div class="crd-body">
                 <h2 class="crd-title">{{ video.title }}</h2>
-                <small class="crd-viz" v-if="video.isPrivate">Private</small>
+                <small class="crd-vis" v-if="video.isPrivate">Private</small>
             </div>
         </div>
-        <div class="crd-actions">
-            <span class="crd-actions-hover">
-                <IconButton
-                    class="crd-del-btn"
-                    use-bg-img
-                    @click="handleDeleteClick"
-                />
-            </span>
-            <IconButton
-                class="crd-edit-btn"
-                use-bg-img
-                @click="handleEditClick"
-            />
-        </div>
+        <IconButton
+            class="crd-del-btn"
+            title="Delete"
+            use-bg-img
+            @click="handleDeleteClick"
+        />
+        <IconButton
+            class="crd-edit-btn"
+            title="Edit"
+            use-bg-img
+            @click="handleEditClick"
+        />
     </div>
 </template>
 

@@ -9,10 +9,16 @@
             no-caret
         >
             <template slot="button-content">
-                <font-awesome-icon :icon="['fas', 'bell']" class="text-white" size="2x" />
-                <b-badge pill variant="danger count">3</b-badge>
+                <font-awesome-icon
+                    :icon="['fas', 'bell']"
+                    class="text-white"
+                    size="2x"
+                />
+                <!--<b-badge pill variant="danger count">3</b-badge>-->
             </template>
-            <vue-perfect-scrollbar :settings="{ suppressScrollX: true, wheelPropagation: false }">
+            <vue-perfect-scrollbar
+                :settings="{ suppressScrollX: true, wheelPropagation: false }"
+            >
                 <div
                     class="d-flex flex-row p-2"
                     :class="{ 'border-top': index > 0 }"
@@ -48,7 +54,7 @@ export default {
     },
     data() {
         return {
-            notifications,
+            notifications: [],
         }
     },
 }

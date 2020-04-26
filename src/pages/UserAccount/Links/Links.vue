@@ -2,12 +2,15 @@
     <div class="page page-ua-links">
         <header class="page-header">
             <h1 class="page-title">Your links</h1>
-            <h4 class="page-subtitle">Add, remove, edit &amp; order links anyway you'd like.</h4>
+            <h4 class="page-subtitle"
+                >Add, remove, edit &amp; order links anyway you'd like.</h4
+            >
         </header>
         <nav class="page-nav">
             <div class="page-nav-left">
                 <span class="permalnk">
-                    <span class="permalnk-light">link.stream/</span>{{ user.user_name }}/links
+                    <span class="permalnk-light">link.stream/</span
+                    >{{ user.user_name }}/links
                 </span>
                 <preview-pill-button
                     :to="{
@@ -18,12 +21,18 @@
                 >
             </div>
             <div class="page-nav-right">
-                <basic-button :to="{ name: 'userAccountLinksAdd' }">Add New Link</basic-button>
+                <basic-button :to="{ name: 'userAccountLinksAdd' }"
+                    >Add New Link</basic-button
+                >
             </div>
         </nav>
         <main class="page-body">
-            <LoadingIndicator :loading="loading" />
-            <Container v-if="!loading" @drop="handleReorder" drag-handle-selector=".crd-reorder-i">
+            <LoadingSpinner v-if="loading" />
+            <Container
+                v-if="!loading"
+                @drop="handleReorder"
+                drag-handle-selector=".crd-reorder-i"
+            >
                 <Draggable v-for="link in localLinks" :key="link.id">
                     <LinkCard :link="link" />
                 </Draggable>
@@ -36,7 +45,7 @@
 import { mapGetters } from 'vuex'
 import { BasicButton, PreviewPillButton } from '~/components/Button'
 import { LinkCard } from '~/components/UserAccount/Links'
-import { LoadingIndicator } from '~/components/Loading'
+import { LoadingSpinner } from '~/components/Loading'
 import { Container, Draggable } from 'vue-smooth-dnd'
 
 export default {
@@ -47,7 +56,7 @@ export default {
         LinkCard,
         Container,
         Draggable,
-        LoadingIndicator,
+        LoadingSpinner,
     },
     data() {
         return {

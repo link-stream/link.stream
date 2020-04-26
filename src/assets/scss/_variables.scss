@@ -1,4 +1,4 @@
-$linkstream-10: #dc2ea6;
+$linkstream-1: #dc2ea6;
 $linkstream-20: #fdd311;
 $linkstream-30: #d7d7d7;
 $linkstream-40: #7d7d7d;
@@ -34,7 +34,7 @@ $green: #28a745;
 $teal: #20c997;
 $cyan: #17a2b8;
 
-$primary: $linkstream-10;
+$primary: $linkstream-1;
 $secondary: $linkstream-80;
 $success: $green;
 $info: $cyan;
@@ -63,13 +63,13 @@ $theme-colors: map-merge(
 $spacer: 1rem;
 
 // Link
-$link-color: $linkstream-10;
-$link-hover-color: $linkstream-10;
+$link-color: $linkstream-1;
+$link-hover-color: $linkstream-1;
 
 // Navbar
 $navbar-light-color: $linkstream-60;
-$navbar-light-hover-color: $linkstream-10;
-$navbar-light-active-color: $linkstream-10;
+$navbar-light-hover-color: $linkstream-1;
+$navbar-light-active-color: $linkstream-1;
 $navbar-nav-link-padding-x: 0.65rem;
 $navbar-padding-y: 0;
 $nav-link-padding-x: 1rem;
@@ -85,7 +85,7 @@ $container-max-widths: (
 // Dropdown
 $dropdown-item-padding-x: 0.75rem;
 $dropdown-item-padding-y: 0.75rem;
-$dropdown-link-hover-color: $linkstream-10;
+$dropdown-link-hover-color: $linkstream-1;
 
 // Fonts
 $font-family-sans-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;

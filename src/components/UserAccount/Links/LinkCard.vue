@@ -1,14 +1,8 @@
 <template>
-    <div
-        class="crd lnk-crd"
-        :class="{ '--private': link.isPrivate, '--loading': loading || saving }"
-    >
-        <div class="crd-loading-mask" role="status">
-            <div class="spinner-grow"></div>
-            <div class="spinner-grow"></div>
-            <div class="spinner-grow"></div>
+    <div class="crd lnk-crd" :class="{ '--private': link.isPrivate }">
+        <div class="crd-load-mask" role="status" v-if="loading">
+            <LoadingSpinner />
         </div>
-
         <section class="crd-view" v-if="!editing">
             <Icon icon="reorder" class="crd-reorder-i" />
             <div class="crd-art">
@@ -16,27 +10,22 @@
             </div>
             <main class="crd-body">
                 <h2 class="crd-title">{{ link.title }}</h2>
-                <small class="crd-viz" v-if="link.isPrivate">Hidden</small>
+                <small class="crd-vis" v-if="link.isPrivate">Hidden</small>
             </main>
-            <div class="crd-actions">
-                <span class="crd-actions-hover">
-                    <IconButton
-                        icon="trash-2"
-                        title="Delete"
-                        class="crd-del-btn"
-                        use-bg-img
-                        @click="handleDeleteClick"
-                    />
-                </span>
-                <IconButton
-                    title="Edit"
-                    class="crd-edit-btn"
-                    use-bg-img
-                    @click="openEditView"
-                />
-            </div>
+            <IconButton
+                icon="trash-2"
+                title="Delete"
+                class="crd-del-btn"
+                use-bg-img
+                @click="handleDeleteClick"
+            />
+            <IconButton
+                title="Edit"
+                class="crd-edit-btn"
+                use-bg-img
+                @click="openEditView"
+            />
         </section>
-
         <section class="crd-edit" v-else>
             <IconButton
                 icon="close"
@@ -93,13 +82,13 @@
                     </div>
                 </form>
             </main>
-            <footer class="crd-edit-actions">
+            <footer class="crd-edit-footer">
                 <IconButton
                     icon="trash-sm"
                     title="Delete"
                     @click="handleDeleteClick"
                 />
-                <div class="actions-primary">
+                <div class="footer-right">
                     <icon-button
                         :title="link.isPublic ? 'Hide' : 'Unhide'"
                         @click="handleVisibilityClick"
@@ -113,8 +102,8 @@
                         />
                     </icon-button>
                     <IconButton icon="clock-cir-gray" title="Schedule" />
-                    <spinner-button variant="tertiary" size="xs" @click="save"
-                        >Save</spinner-button
+                    <basic-button variant="tertiary" size="xs" @click="save"
+                        >Save</basic-button
                     >
                 </div>
             </footer>
@@ -125,6 +114,7 @@
 <script>
 import { IconButton } from '~/components/Button'
 import { Icon } from '~/components/Icon'
+import { LoadingSpinner } from '~/components/Loading'
 import { linkAddEditForm } from '~/mixins/links/linkAddEditForm'
 import { appConstants } from '~/constants'
 
@@ -134,17 +124,13 @@ export default {
     components: {
         IconButton,
         Icon,
+        LoadingSpinner,
     },
     props: {
         link: {
             type: Object,
             required: true,
         },
-    },
-    data() {
-        return {
-            loading: false,
-        }
     },
     methods: {
         openEditView() {
@@ -173,6 +159,7 @@ export default {
                 title: 'Delete link?',
                 message: 'This link and its data will be permanently deleted.',
                 okCallback: async () => {
+                    this.loading = true
                     const {
                         status,
                         message,
@@ -183,6 +170,7 @@ export default {
                     status === 'success'
                         ? this.$toast.success(message)
                         : this.$toast.error(error)
+                    this.loading = false
                 },
             })
         },

@@ -3,9 +3,8 @@
         <h1>Dashboard Page</h1>
 
         <div class="my-4">
-            <basic-button variant="iconic-outline"
-                ><i class="ls-i ls-i-eye"></i
-            ></basic-button>
+            <LoadingSpinner class="text-left m-0" />
+            <LoadingSpinner class="text-left m-0" animation="bounc3" />
         </div>
 
         <div class="mb-4">
@@ -63,13 +62,14 @@
 <script>
 import { SpinnerButton, BasicButton } from '~/components/Button'
 import { DropFoto } from '~/components/Uploader'
-
+import { LoadingSpinner } from '~/components/Loading'
 export default {
     name: 'Dashboard',
     components: {
         SpinnerButton,
         DropFoto,
         BasicButton,
+        LoadingSpinner,
     },
 }
 </script>

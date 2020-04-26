@@ -21,7 +21,7 @@ export const videoAddEditForm = {
     data() {
         return {
             editing: false,
-            saving: false,
+            loading: false,
             form: {
                 url: null,
                 title: null,
@@ -94,7 +94,7 @@ export const videoAddEditForm = {
                 return
             }
 
-            this.saving = true
+            this.loading = true
 
             const {
                 url,
@@ -142,7 +142,7 @@ export const videoAddEditForm = {
                 this.$toast.error(error)
             }
 
-            this.saving = false
+            this.loading = false
         },
     },
 }

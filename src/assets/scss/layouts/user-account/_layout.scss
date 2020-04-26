@@ -19,6 +19,12 @@
         margin-bottom: $main-margin-mobile-y;
     }
 
+    .page {
+        .loading-spinner {
+            margin-top: 75px;
+        }
+    }
+
     .page-header {
         margin-bottom: 15px;
     }

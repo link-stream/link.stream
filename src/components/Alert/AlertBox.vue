@@ -27,7 +27,7 @@
         </div>
         <footer class="alrt-actions">
             <basic-button
-                class="alrt-action-btn"
+                class="alrt-act-btn"
                 variant="secondary"
                 size="sm"
                 :disabled="loading"
@@ -36,7 +36,7 @@
                 >{{ opts.cancelLabel }}</basic-button
             >
             <spinner-button
-                class="alrt-action-btn"
+                class="alrt-act-btn"
                 size="sm"
                 :loading="loading"
                 v-if="opts.okVisible"

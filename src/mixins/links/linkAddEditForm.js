@@ -19,7 +19,7 @@ export const linkAddEditForm = {
     data() {
         return {
             editing: false,
-            saving: false,
+            loading: false,
             form: {
                 url: null,
                 title: null,
@@ -103,7 +103,7 @@ export const linkAddEditForm = {
                 return
             }
 
-            this.saving = true
+            this.loading = true
 
             const {
                 url,
@@ -147,7 +147,7 @@ export const linkAddEditForm = {
                 this.$toast.error(error)
             }
 
-            this.saving = false
+            this.loading = false
         },
     },
 }

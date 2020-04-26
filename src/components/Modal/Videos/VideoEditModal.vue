@@ -128,16 +128,13 @@
                     @click="handleDeleteClick"
             /></div>
             <basic-button
-                class="mdl-action-btn"
+                class="mdl-act-btn"
                 variant="secondary"
-                :disabled="saving"
+                :disabled="loading"
                 @click="close"
                 >Cancel</basic-button
             >
-            <spinner-button
-                class="mdl-action-btn"
-                :loading="saving"
-                @click="save"
+            <spinner-button class="mdl-act-btn" :loading="loading" @click="save"
                 >Save</spinner-button
             >
         </footer>

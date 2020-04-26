@@ -13,7 +13,7 @@
             </header>
 
             <section class="fwz-step" v-show="step === 1">
-                <form class="fwz-step-main">
+                <form class="fwz-step-form">
                     <b-form-group
                         label="YouTube Video URL"
                         label-for="urlInput"
@@ -37,7 +37,7 @@
             </section>
 
             <section class="fwz-step" v-show="step === 2">
-                <form class="fwz-step-main">
+                <form class="fwz-step-form">
                     <youtube class="yt-wrap" :video-id="ytVidId"></youtube>
                     <b-form-group label="Video Title" label-for="titleInput">
                         <b-form-input
@@ -104,13 +104,13 @@
                 <basic-button
                     class="fwz-prev"
                     variant="secondary"
-                    :disabled="saving"
+                    :disabled="loading"
                     @click="goToStep(1)"
                     >Back</basic-button
                 >
                 <spinner-button
                     class="fwz-submit"
-                    :loading="saving"
+                    :loading="loading"
                     @click="save"
                     >Add Video</spinner-button
                 >

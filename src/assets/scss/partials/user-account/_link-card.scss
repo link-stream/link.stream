@@ -3,31 +3,24 @@
 
     &.--private {
         .crd-title,
-        .crd-viz {
+        .crd-vis {
             color: $linkstream-40;
         }
     }
 
-    &.--loading {
-        .crd-loading-mask {
-            visibility: visible;
-        }
-    }
-
-    .crd-loading-mask {
+    .crd-load-mask {
         position: absolute;
         display: flex;
-        visibility: hidden;
         justify-content: center;
         align-items: center;
-        background: rgba(0, 0, 0, 0.3);
+        background: rgba(215, 215, 215, 0.2);
         z-index: 1;
         width: 100%;
         height: 100%;
-        top: 0px;
-        left: 0px;
-        .spinner-grow {
-            background-color: $linkstream-40;
+        top: 0;
+        left: 0;
+        .loading-spinner {
+            margin-top: 0 !important;
         }
     }
 
@@ -45,6 +38,10 @@
             height: 60px;
         }
 
+        .crd-body {
+            flex-grow: 1;
+        }
+
         .crd-title {
             color: $linkstream-110;
             font-size: px2rem(12);
@@ -53,11 +50,7 @@
             line-height: 16px;
         }
 
-        .crd-body {
-            flex-grow: 1;
-        }
-
-        .crd-viz {
+        .crd-vis {
             font-size: px2rem(11);
             color: $black;
         }
@@ -86,13 +79,13 @@
             padding: 20px;
         }
 
-        .crd-edit-actions {
+        .crd-edit-footer {
             display: flex;
             justify-content: space-between;
             border-top: 1px solid $linkstream-30;
             padding-top: 16px;
             margin-top: 16px;
-            .actions-primary {
+            .footer-right {
                 .btn {
                     margin-left: 10px;
                 }

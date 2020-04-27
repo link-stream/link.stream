@@ -3,8 +3,9 @@
         <h1>Dashboard Page</h1>
 
         <div class="my-4">
-            <LoadingSpinner class="text-left m-0" />
-            <LoadingSpinner class="text-left m-0" animation="bounc3" />
+            <LoadingSpinner class="text-left m-0" animation="bounce" />
+            <LoadingSpinner class="text-left m-0" animation="pulse" />
+            <LoadingSpinner class="text-left m-0" animation="scale" />
         </div>
 
         <div class="mb-4">

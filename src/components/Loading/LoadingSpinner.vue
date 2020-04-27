@@ -1,15 +1,30 @@
 <template>
     <div class="loading-spinner" :class="`--${animation}`">
-        <template v-if="isBounc3">
-            <div class="loading-spinner-dot dot1"></div>
-            <div class="loading-spinner-dot dot2"></div>
-            <div class="loading-spinner-dot"></div>
+        <template v-if="animation === 'pulse'">
+            <span class="dot1"></span>
+            <span class="dot2"></span>
+            <span></span>
+            <span class="dot4"></span>
+            <span class="dot5"></span>
         </template>
-        <template v-else>
-            <div class="loading-spinner-dot"></div>
-            <div class="loading-spinner-dot dot2"></div>
-            <div class="loading-spinner-dot dot3"></div>
-            <div class="loading-spinner-dot dot4"></div>
+        <template v-else-if="animation === 'bounce'">
+            <span class="dot1"></span>
+            <span class="dot2"></span>
+            <span></span>
+        </template>
+        <template v-else-if="animation === 'bars'">
+            <span></span>
+            <span class="dot2"></span>
+            <span class="dot3"></span>
+            <span class="dot4"></span>
+            <span class="dot5"></span>
+        </template>
+        <template v-else-if="animation === 'scale'">
+            <span class="dot1"></span>
+            <span class="dot2"></span>
+            <span class="dot3"></span>
+            <span class="dot4"></span>
+            <span class="dot5"></span>
         </template>
     </div>
 </template>
@@ -20,18 +35,12 @@ export default {
     props: {
         animation: {
             type: String,
-            default: 'barz',
+            default: 'pulse',
             validator: function(value) {
-                return ['barz', 'bounc3'].indexOf(value) !== -1
+                return (
+                    ['bars', 'bounce', 'pulse', 'scale'].indexOf(value) !== -1
+                )
             },
-        },
-    },
-    computed: {
-        isBarz() {
-            return 'barz' === this.animation
-        },
-        isBounc3() {
-            return 'bounc3' === this.animation
         },
     },
 }

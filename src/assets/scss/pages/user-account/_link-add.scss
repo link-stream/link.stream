@@ -1,0 +1,19 @@
+.page-ua-link-add {
+    .page-nav {
+        margin-bottom: 20px;
+    }
+
+    .page-back {
+        color: $linkstream-70;
+        font-size: px2rem(11);
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        i {
+            position: relative;
+            top: 5px;
+            left: 0;
+        }
+    }
+}

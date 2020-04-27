@@ -1,16 +1,16 @@
 <template>
     <div class="page page-ua-link-add">
-        <div class="fwz --final-step">
-            <div class="fwz-topnav">
-                <basic-button
-                    class="fwz-back"
-                    variant="text"
-                    :to="{ name: 'userAccountLinks' }"
-                >
-                    <i class="ls-i ls-i-back"></i>Links
-                </basic-button>
-            </div>
+        <div class="page-nav">
+            <basic-button
+                class="page-back"
+                variant="text"
+                :to="{ name: 'userAccountLinks' }"
+            >
+                <i class="ls-i ls-i-back"></i>Links
+            </basic-button>
+        </div>
 
+        <div class="fwz --final-step">
             <header class="fwz-header">
                 <h1 class="fwz-title">Add a link</h1>
             </header>

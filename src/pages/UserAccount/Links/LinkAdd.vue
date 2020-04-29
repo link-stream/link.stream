@@ -52,7 +52,7 @@
                     </b-form-group>
 
                     <b-form-group label="Publish Date" v-if="form.scheduled">
-                        <b-input-group class="datetime-input-group">
+                        <b-input-group class="input-group-datetime">
                             <DatePicker v-model="$v.form.date.$model" />
                             <TimePicker v-model="$v.form.time.$model" />
                         </b-input-group>

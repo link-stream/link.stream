@@ -15,21 +15,28 @@
         </header>
         <form class="mdl-body">
             <div class="form-group was-validated">
-                <div class="input-group datetime-input-group">
+                <div class="input-group input-group-datetime">
                     <DatePicker v-model="form.date" />
                     <TimePicker v-model="form.time" />
                 </div>
-                <div class="invalid-feedback" v-if="showInvalidError">Select a date and time</div>
+                <div class="invalid-feedback" v-if="showInvalidError"
+                    >Select a date and time</div
+                >
             </div>
         </form>
         <basic-button
             variant="link"
             @click="clearSchedule"
             v-if="showClearScheduleButton"
-        >Remove scheduling</basic-button>
+            >Remove scheduling</basic-button
+        >
         <footer class="mdl-footer">
-            <basic-button class="mdl-action" variant="secondary" @click="close">Cancel</basic-button>
-            <spinner-button class="mdl-action" :loading="loading" @click="save">Save</spinner-button>
+            <basic-button class="mdl-action" variant="secondary" @click="close"
+                >Cancel</basic-button
+            >
+            <spinner-button class="mdl-action" :loading="loading" @click="save"
+                >Save</spinner-button
+            >
         </footer>
     </b-modal>
 </template>
@@ -77,7 +84,9 @@ export default {
         form: {
             deep: true,
             handler(form) {
-                this.showInvalidError = this.$v.form.$invalid
+                if (form.date && form.time) {
+                    this.showInvalidError = false
+                }
             },
         },
     },

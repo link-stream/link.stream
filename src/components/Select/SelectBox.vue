@@ -7,6 +7,7 @@
         :placeholder="placeholder"
         :options="options"
         :reduce="reduce"
+        :clearable="false"
         @input="handleInput"
     >
         <template v-slot:open-indicator>
@@ -57,6 +58,11 @@ export default {
         return {
             localValue: this.value,
         }
+    },
+    watch: {
+        value() {
+            this.localValue = this.value
+        },
     },
     methods: {
         handleInput(value) {

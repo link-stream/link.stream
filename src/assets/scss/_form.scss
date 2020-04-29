@@ -50,12 +50,8 @@
 
     .ls-select-icon {
         position: relative;
-        top: 4px;
-        right: 1px;
-    }
-
-    .vs__actions {
-        padding: 10px 10px 10px 5px !important;
+        top: 1px;
+        right: 0px;
     }
 
     .vs__dropdown-toggle {
@@ -63,22 +59,32 @@
         height: $input-height;
         border-radius: $input-border-radius;
         border: 1px solid $input-border-color;
+        padding: $input-btn-padding-y $input-btn-padding-x;
+    }
+
+    .vs__selected,
+    .vs__search {
+        line-height: 1.9;
+        margin-top: 0;
+        margin-left: 0;
+        padding-left: 0;
+    }
+
+    .vs__selected-options {
+        padding: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .vs__actions {
+        padding: 0 !important;
     }
 
     .vs__dropdown-menu {
         border-radius: initial !important;
         box-shadow: initial !important;
         max-height: 250px;
-    }
-
-    &.is-invalid {
-        .vs__dropdown-toggle {
-            border-color: $form-feedback-invalid-color;
-        }
-
-        .vs__dropdown-menu {
-            border-top: 1px solid $form-feedback-invalid-color;
-        }
     }
 
     .vs__clear {
@@ -97,11 +103,21 @@
     .vs__no-options {
         padding: 5px !important;
     }
+
+    &.is-invalid {
+        .vs__dropdown-toggle {
+            border-color: $form-feedback-invalid-color;
+        }
+
+        .vs__dropdown-menu {
+            border-top: 1px solid $form-feedback-invalid-color;
+        }
+    }
 }
 
 .ls-timepicker {
     .ls-select-icon {
-        top: 5px;
+        top: 0px;
         left: 1px;
     }
 }
@@ -141,12 +157,5 @@
 
     .ls-datepicker-input {
         border-right-width: 0px;
-    }
-
-    &.is-invalid {
-        .ls-datepicker-input,
-        .ls-select .vs__dropdown-toggle {
-            border-bottom-color: $form-feedback-invalid-color;
-        }
     }
 }

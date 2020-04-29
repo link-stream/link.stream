@@ -226,7 +226,7 @@ export const api = {
                     const m24 = m < 10 ? `0${m}` : m
                     const h12 = h24 % 12 || 12
                     const m12 = m24 || '00'
-                    const amPm = h > 11 ? 'PM' : 'AM'
+                    const amPm = h > 11 ? 'pm' : 'am'
                     const t24 = `${h24}:${m24}:00`
                     const t12 = `${h12}:${m12} ${amPm}`
                     times.push({

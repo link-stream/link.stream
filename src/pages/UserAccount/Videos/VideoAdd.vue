@@ -1,15 +1,15 @@
 <template>
-    <b-container class="page page-ua-vids-add">
+    <div class="page page-ua-vid-add">
         <div class="fwz" :class="{ '--final-step': step === 2 }">
             <h6 class="fwz-cnt">Step {{ step }} / 2</h6>
 
             <header class="fwz-header">
-                <h1 class="fwz-title">{{
-                    step === 1 ? 'Add a video' : 'Review video info'
-                }}</h1>
-                <h4 class="fwz-subtitle">{{
-                    step === 2 ? 'Preview and publish your content' : ''
-                }}</h4>
+                <h1 class="fwz-title">
+                    {{ step === 1 ? 'Add a video' : 'Review video info' }}
+                </h1>
+                <h4 class="fwz-subtitle">
+                    {{ step === 2 ? 'Preview and publish your content' : '' }}
+                </h4>
             </header>
 
             <section class="fwz-step" v-show="step === 1">
@@ -116,7 +116,7 @@
                 >
             </footer>
         </div>
-    </b-container>
+    </div>
 </template>
 
 <script>

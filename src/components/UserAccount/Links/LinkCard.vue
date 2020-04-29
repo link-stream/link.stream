@@ -1,5 +1,5 @@
 <template>
-    <div class="crd lnk-crd" :class="{ '--private': link.isPrivate }">
+    <div class="crd crd-lnk" :class="{ '--private': link.isPrivate }">
         <div class="crd-load-mask" role="status" v-if="loading">
             <LoadingSpinner />
         </div>
@@ -63,23 +63,6 @@
                         />
                         <div class="invalid-feedback">Enter a title</div>
                     </div>
-                    <div class="form-group" v-if="form.scheduled">
-                        <div
-                            class="input-group datetime-input-group"
-                            :class="{
-                                'is-invalid':
-                                    $v.form.date.$error || $v.form.time.$error,
-                            }"
-                        >
-                            <DatePicker v-model="form.date" />
-                            <TimePicker v-model="form.time" />
-                        </div>
-                        <div
-                            class="invalid-feedback"
-                            v-if="$v.form.date.$error || $v.form.time.$error"
-                            >Select a date and time</div
-                        >
-                    </div>
                 </form>
             </main>
             <footer class="crd-edit-footer">
@@ -101,7 +84,11 @@
                             "
                         />
                     </icon-button>
-                    <IconButton icon="clock-cir-gray" title="Schedule" />
+                    <IconButton
+                        icon="clock-cir-gray"
+                        title="Schedule"
+                        @click="handleScheduleClick"
+                    />
                     <basic-button variant="tertiary" size="xs" @click="save"
                         >Save</basic-button
                     >
@@ -153,6 +140,9 @@ export default {
                 }
             )
             this.loading = false
+        },
+        handleScheduleClick() {
+            this.$emit('schedule-click', this.link)
         },
         handleDeleteClick() {
             this.$alert.confirm({

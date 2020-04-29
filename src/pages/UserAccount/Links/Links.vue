@@ -9,8 +9,8 @@
         <nav class="page-nav">
             <div class="page-nav-left">
                 <span class="permalnk">
-                    <span class="permalnk-light">link.stream/</span
-                    >{{ user.user_name }}/links
+                    <span class="permalnk-light">link.stream/</span>
+                    <span>{{ user.user_name }}/links</span>
                 </span>
                 <preview-pill-button
                     :to="{
@@ -34,10 +34,18 @@
                 drag-handle-selector=".crd-reorder-i"
             >
                 <Draggable v-for="link in localLinks" :key="link.id">
-                    <LinkCard :link="link" />
+                    <LinkCard
+                        :link="link"
+                        @schedule-click="openScheduleModal"
+                    />
                 </Draggable>
             </Container>
         </main>
+        <LinkScheduleModal
+            v-if="schedulingLink"
+            :link="schedulingLink"
+            @hidden="handleScheduleModalHidden"
+        />
     </div>
 </template>
 
@@ -46,6 +54,7 @@ import { mapGetters } from 'vuex'
 import { BasicButton, PreviewPillButton } from '~/components/Button'
 import { LinkCard } from '~/components/UserAccount/Links'
 import { LoadingSpinner } from '~/components/Loading'
+import { LinkScheduleModal } from '~/components/Modal'
 import { Container, Draggable } from 'vue-smooth-dnd'
 
 export default {
@@ -57,10 +66,12 @@ export default {
         Container,
         Draggable,
         LoadingSpinner,
+        LinkScheduleModal,
     },
     data() {
         return {
             loading: true,
+            schedulingLink: null,
             localLinks: [],
         }
     },
@@ -83,6 +94,12 @@ export default {
         this.loading = false
     },
     methods: {
+        openScheduleModal(link) {
+            this.schedulingLink = link
+        },
+        handleScheduleModalHidden() {
+            this.schedulingLink = null
+        },
         handleReorder(result) {
             const { removedIndex: oldIndex, addedIndex: newIndex } = result
             const link = this.localLinks[oldIndex]

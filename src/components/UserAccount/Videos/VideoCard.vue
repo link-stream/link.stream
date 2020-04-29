@@ -1,5 +1,5 @@
 <template>
-    <div class="crd vid-crd">
+    <div class="crd crd-vid">
         <Icon class="crd-reorder-i" icon="reorder" />
         <div class="crd-content">
             <div class="crd-art">

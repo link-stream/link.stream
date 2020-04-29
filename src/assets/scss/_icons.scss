@@ -1,5 +1,6 @@
 .ls-i {
     display: inline-block;
+    line-height: 0;
 }
 
 .ls-i:before {
@@ -35,8 +36,8 @@
 
 .ls-i-select-arrow:before {
     background-image: url(~@/../public/static/ico/select-arrow.svg);
-    width: 1em;
-    height: 1em;
+    width: 15px;
+    height: 15px;
 }
 
 .ls-i-select-time:before {

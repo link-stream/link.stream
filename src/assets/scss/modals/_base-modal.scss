@@ -1,13 +1,14 @@
 .mdl {
     // Reset bs style
     .modal-dialog {
-        max-width: 300px !important;
+        max-width: 320px !important;
         margin-left: auto;
         margin-right: auto;
     }
 
     .modal-content {
         border-color: $white;
+        border-radius: 0;
     }
 
     .modal-body {
@@ -47,34 +48,31 @@
 
 .mdl-action {
     padding: 0;
-    width: 100px;
-    height: 34px;
+    width: 135px;
+    height: 40px;
     font-size: px2rem(11);
 }
 
 @include media-breakpoint-up(md) {
-    .mdl {
-        // Reset bs style
+    .mdl.--lg {
         .modal-dialog {
             max-width: 600px !important;
         }
-    }
 
-    .mdl-close {
-        &:before {
-            background-image: url(~@/../public/static/ico/close-lg.svg);
-            width: 16px;
-            height: 16px;
+        .mdl-close {
+            &:before {
+                background-image: url(~@/../public/static/ico/close-lg.svg);
+                width: 16px;
+                height: 16px;
+            }
         }
-    }
 
-    .mdl-footer {
-        justify-content: flex-end;
-    }
+        .mdl-footer {
+            justify-content: flex-end;
+        }
 
-    .mdl-action {
-        width: 135px;
-        height: 40px;
-        margin-left: 10px;
+        .mdl-cancel {
+            margin-right: 10px;
+        }
     }
 }

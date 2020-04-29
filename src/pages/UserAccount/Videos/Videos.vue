@@ -2,9 +2,9 @@
     <div class="page page-ua-vids">
         <header class="page-header">
             <h1 class="page-title">Your videos</h1>
-            <h4 class="page-subtitle">
-                Add, remove, edit &amp; order videos anyway you'd like.
-            </h4>
+            <h4 class="page-subtitle"
+                >Add, remove, edit &amp; order videos anyway you'd like.</h4
+            >
         </header>
         <nav class="page-nav">
             <div class="page-nav-left">
@@ -54,7 +54,7 @@
 import { mapGetters } from 'vuex'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import { PreviewPillButton, BasicButton } from '~/components/Button'
-import { VideoEditModal } from '~/components/Modal/Videos'
+import { VideoEditModal } from '~/components/Modal'
 import { VideoCard } from '~/components/UserAccount/Videos'
 import { LoadingSpinner } from '~/components/Loading'
 import { appConstants } from '~/constants'

@@ -52,24 +52,10 @@
                     </b-form-group>
 
                     <b-form-group label="Publish Date" v-if="form.scheduled">
-                        <b-input-group
-                            class="datetime-input-group"
-                            :class="{
-                                'is-invalid':
-                                    $v.form.date.$error || $v.form.time.$error,
-                            }"
-                        >
+                        <b-input-group class="datetime-input-group">
                             <DatePicker v-model="$v.form.date.$model" />
                             <TimePicker v-model="$v.form.time.$model" />
                         </b-input-group>
-                        <b-form-invalid-feedback
-                            :state="
-                                $v.form.date.$error || $v.form.time.$error
-                                    ? false
-                                    : true
-                            "
-                            >Select a date and time</b-form-invalid-feedback
-                        >
                     </b-form-group>
 
                     <basic-button variant="link" @click="toggleSchedule">

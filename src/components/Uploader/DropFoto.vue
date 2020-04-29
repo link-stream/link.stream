@@ -8,7 +8,7 @@
             @change="handleFileInputChange"
         />
         <section class="dropfoto-prv" v-if="isPreview">
-            <main class="dropfoto-img-box">
+            <main class="dropfoto-img-box" @click="showFileDialog">
                 <img class="dropfoto-img" :src="image.src" alt />
                 <IconButton
                     class="dropfoto-rm-btn"

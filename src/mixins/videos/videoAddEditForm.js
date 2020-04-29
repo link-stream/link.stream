@@ -28,9 +28,9 @@ export const videoAddEditForm = {
                 genre: null,
                 relatedTrack: null,
                 visibility: appConstants.visibilities.private,
+                scheduled: null,
                 date: null,
                 time: null,
-                scheduled: null,
             },
         }
     },
@@ -64,27 +64,10 @@ export const videoAddEditForm = {
             genre: {
                 required,
             },
-            visibility: {
-                required,
-            },
-            date: {
-                required: requiredIf(function() {
-                    return this.form.scheduled
-                }),
-            },
-            time: {
-                required: requiredIf(function() {
-                    return this.form.scheduled
-                }),
-            },
         },
     },
     methods: {
         toggleSchedule() {
-            this.$v.form.date.$reset()
-            this.$v.form.time.$reset()
-            this.form.date = null
-            this.form.time = null
             this.form.scheduled = !this.form.scheduled
         },
         async save() {
@@ -115,11 +98,8 @@ export const videoAddEditForm = {
                 related_track: relatedTrack,
                 public: visibility,
                 scheduled: scheduled ? 1 : 0,
-            }
-
-            if (scheduled) {
-                params.date = moment(date).format('YYYY-MM-DD')
-                params.time = time
+                date: scheduled ? moment(date).format('YYYY-MM-DD') : null,
+                time: scheduled ? time : null,
             }
 
             const { status, error, message } = this.editing

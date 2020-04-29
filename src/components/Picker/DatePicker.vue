@@ -37,6 +37,11 @@ export default {
             localValue: this.value,
         }
     },
+    watch: {
+        value() {
+            this.localValue = this.value
+        },
+    },
     methods: {
         handleInput(value) {
             this.$emit('input', value)

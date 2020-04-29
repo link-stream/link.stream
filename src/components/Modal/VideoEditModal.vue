@@ -1,6 +1,6 @@
 <template>
     <b-modal
-        modal-class="mdl mdl-vid-edit"
+        modal-class="mdl --lg mdl-vid-edit"
         v-model="editing"
         centered
         hide-header
@@ -15,7 +15,7 @@
             <h2 class="mdl-title">Edit video info</h2>
         </header>
 
-        <b-form class="mdl-body" :novalidate="true">
+        <b-form class="mdl-body">
             <youtube class="yt-wrap" :video-id="ytVidId"></youtube>
             <b-form-group label="YouTube Video URL" label-for="urlInput">
                 <b-form-input
@@ -92,24 +92,10 @@
 
             <template v-if="form.scheduled">
                 <b-form-group label="Publish Date">
-                    <b-input-group
-                        class="datetime-input-group"
-                        :class="{
-                            'is-invalid':
-                                $v.form.date.$error || $v.form.time.$error,
-                        }"
-                    >
-                        <DatePicker v-model="$v.form.date.$model" />
-                        <TimePicker v-model="$v.form.time.$model" />
+                    <b-input-group class="datetime-input-group">
+                        <DatePicker v-model="form.date" />
+                        <TimePicker v-model="form.time" />
                     </b-input-group>
-                    <b-form-invalid-feedback
-                        :state="
-                            $v.form.date.$error || $v.form.time.$error
-                                ? false
-                                : true
-                        "
-                        >Select a date and time</b-form-invalid-feedback
-                    >
                 </b-form-group>
             </template>
 
@@ -121,14 +107,15 @@
         </b-form>
 
         <footer class="mdl-footer">
-            <div class="delete-action"
-                ><IconButton
+            <div class="mdl-delete">
+                <IconButton
                     icon="trash-sm"
                     title="Delete"
                     @click="handleDeleteClick"
-            /></div>
+                />
+            </div>
             <basic-button
-                class="mdl-action"
+                class="mdl-action mdl-cancel"
                 variant="secondary"
                 :disabled="loading"
                 @click="close"
@@ -162,6 +149,7 @@ export default {
     },
     created() {
         this.editing = true
+
         const {
             title,
             url,
@@ -172,6 +160,7 @@ export default {
             date,
             time,
         } = this.video
+
         this.form = {
             ...this.form,
             title,
@@ -180,8 +169,8 @@ export default {
             relatedTrack: related_track != '0' ? related_track : '', // TODO move check to backend
             visibility,
             scheduled,
-            date: new Date(date + ' 00:00:00'),
-            time,
+            date: scheduled ? new Date(date + ' 00:00:00') : new Date(),
+            time: scheduled ? time : '00:00:00',
         }
     },
     methods: {

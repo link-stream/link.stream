@@ -25,8 +25,8 @@ export const linkAddEditForm = {
                 title: null,
                 visibility: appConstants.visibilities.public,
                 scheduled: null,
-                date: null,
-                time: null,
+                date: new Date(),
+                time: '00:00:00',
                 image: null,
             },
         }
@@ -43,23 +43,13 @@ export const linkAddEditForm = {
             if (!this.editing) {
                 return
             }
-            const {
-                url,
-                title,
-                public: visibility,
-                scheduled,
-                date,
-                time,
-                data_image,
-            } = this.link
+
+            const { url, title, data_image } = this.link
+
             this.form = {
                 ...this.form,
                 url,
                 title,
-                visibility,
-                scheduled,
-                date: new Date(date + ' 00:00:00'),
-                time,
                 image: data_image,
             }
         },
@@ -73,16 +63,6 @@ export const linkAddEditForm = {
             title: {
                 required,
             },
-            date: {
-                required: requiredIf(function() {
-                    return this.form.scheduled
-                }),
-            },
-            time: {
-                required: requiredIf(function() {
-                    return this.form.scheduled
-                }),
-            },
         },
     },
     methods: {
@@ -91,10 +71,6 @@ export const linkAddEditForm = {
         },
         toggleSchedule() {
             this.form.scheduled = !this.form.scheduled
-            this.form.date = null
-            this.form.time = null
-            this.$v.form.date.$reset()
-            this.$v.form.time.$reset()
         },
         async save() {
             this.$v.form.$touch()
@@ -115,18 +91,25 @@ export const linkAddEditForm = {
                 image,
             } = this.form
 
-            const params = {
+            let params = {
                 user_id: this.user.id,
                 url,
                 title,
-                public: visibility,
-                scheduled: scheduled ? 1 : 0,
-                image,
             }
 
-            if (scheduled) {
-                params.date = moment(date).format('YYYY-MM-DD')
-                params.time = time
+            if (this.editing) {
+                if (image !== this.link.data_image) {
+                    params.image = image
+                }
+            } else {
+                params = {
+                    ...params,
+                    image,
+                    public: visibility,
+                    scheduled: scheduled ? 1 : 0,
+                    date: scheduled ? moment(date).format('YYYY-MM-DD') : null,
+                    time: scheduled ? time : null,
+                }
             }
 
             const { status, message, error } = this.editing

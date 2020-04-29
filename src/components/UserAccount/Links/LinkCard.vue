@@ -17,13 +17,13 @@
                 title="Delete"
                 class="crd-del-btn"
                 use-bg-img
-                @click="handleDeleteClick"
+                @click="deleteLink"
             />
             <IconButton
                 title="Edit"
                 class="crd-edit-btn"
                 use-bg-img
-                @click="openEditView"
+                @click="showEditView"
             />
         </section>
         <section class="crd-editing" v-else>
@@ -31,7 +31,7 @@
                 icon="close"
                 class="crd-edit-close"
                 title="Close"
-                @click="closeEditView"
+                @click="hideEditView"
             />
             <main class="crd-edit-body">
                 <div class="crd-edit-art">
@@ -43,33 +43,33 @@
                     />
                 </div>
                 <form class="crd-edit-form">
-                    <div class="form-group">
-                        <input
-                            type="text"
-                            class="form-control"
+                    <b-form-group>
+                        <b-form-input
                             placeholder="e.g. https://myblog.blogspot.com"
                             v-model="$v.form.url.$model"
-                            :class="{ 'is-invalid': $v.form.url.$error }"
-                        />
-                        <div class="invalid-feedback">Enter a valid URL</div>
-                    </div>
-                    <div class="form-group">
-                        <input
-                            type="text"
-                            class="form-control"
+                            :state="!$v.form.url.$error"
+                        ></b-form-input>
+                        <b-form-invalid-feedback>
+                            Enter a valid URL
+                        </b-form-invalid-feedback>
+                    </b-form-group>
+                    <b-form-group>
+                        <b-form-input
                             placeholder="e.g. My Blog"
                             v-model="$v.form.title.$model"
-                            :class="{ 'is-invalid': $v.form.title.$error }"
-                        />
-                        <div class="invalid-feedback">Enter a title</div>
-                    </div>
+                            :state="!$v.form.title.$error"
+                        ></b-form-input>
+                        <b-form-invalid-feedback>
+                            Enter a title
+                        </b-form-invalid-feedback>
+                    </b-form-group>
                 </form>
             </main>
             <footer class="crd-edit-footer">
                 <IconButton
                     icon="trash-sm"
                     title="Delete"
-                    @click="handleDeleteClick"
+                    @click="deleteLink"
                 />
                 <div class="footer-right">
                     <icon-button
@@ -89,9 +89,9 @@
                         title="Schedule"
                         @click="handleScheduleClick"
                     />
-                    <basic-button variant="tertiary" size="xs" @click="save"
-                        >Save</basic-button
-                    >
+                    <basic-button variant="tertiary" size="xs" @click="save">
+                        Save
+                    </basic-button>
                 </div>
             </footer>
         </section>
@@ -120,15 +120,15 @@ export default {
         },
     },
     methods: {
-        openEditView() {
+        showEditView() {
             this.editing = true
         },
-        closeEditView() {
+        hideEditView() {
             this.editing = false
         },
-        async toggleVisibility() {
+        async toggleLinkVisibility() {
             this.loading = true
-            const { status, message, error } = await this.$store.dispatch(
+            const { status, error } = await this.$store.dispatch(
                 'me/updateLink',
                 {
                     id: this.link.id,
@@ -139,12 +139,10 @@ export default {
                     },
                 }
             )
+            status !== 'success' && this.$toast.error(error)
             this.loading = false
         },
-        handleScheduleClick() {
-            this.$emit('schedule-click', this.link)
-        },
-        handleDeleteClick() {
+        deleteLink() {
             this.$alert.confirm({
                 title: 'Delete link?',
                 message: 'This link and its data will be permanently deleted.',
@@ -164,15 +162,18 @@ export default {
                 },
             })
         },
+        handleScheduleClick() {
+            this.$emit('schedule-click', this.link)
+        },
         handleVisibilityClick() {
             if (this.link.isPrivate) {
-                this.toggleVisibility()
+                this.toggleLinkVisibility()
             } else {
                 this.$alert.confirm({
                     title: 'Hide link?',
                     message:
                         'This link will be hidden from your visitors. Are you sure?',
-                    okCallback: this.toggleVisibility,
+                    okCallback: this.toggleLinkVisibility,
                 })
             }
         },

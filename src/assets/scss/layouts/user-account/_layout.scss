@@ -50,10 +50,9 @@
         flex-direction: column;
         align-items: stretch;
         margin-bottom: 1.5rem;
-    }
-
-    .page-nav-left {
-        margin-bottom: 15px;
+        .nav-left {
+            margin-bottom: 15px;
+        }
     }
 
     @include media-breakpoint-up(md) {
@@ -81,16 +80,14 @@
 
         .page-nav {
             flex-direction: row;
-        }
-
-        .page-nav-left {
-            flex-grow: 1;
-            align-self: flex-end;
-            margin-bottom: 0;
-        }
-
-        .page-nav-right {
-            align-content: flex-end;
+            .nav-left {
+                flex-grow: 1;
+                align-self: flex-end;
+                margin-bottom: 0;
+            }
+            .nav-right {
+                align-content: flex-end;
+            }
         }
     }
 }

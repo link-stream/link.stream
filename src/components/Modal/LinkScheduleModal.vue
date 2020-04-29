@@ -1,7 +1,7 @@
 <template>
     <b-modal
         modal-class="mdl mdl-lnk-sched"
-        v-model="showModal"
+        v-model="show"
         @hidden="handleHidden"
         centered
         hide-header
@@ -14,29 +14,30 @@
             <h2 class="mdl-title">Schedule link</h2>
         </header>
         <form class="mdl-body">
-            <div class="form-group was-validated">
+            <div class="form-group">
                 <div class="input-group input-group-datetime">
                     <DatePicker v-model="form.date" />
                     <TimePicker v-model="form.time" />
                 </div>
-                <div class="invalid-feedback" v-if="showInvalidError"
-                    >Select a date and time</div
-                >
+                <div class="invalid-feedback" v-if="formError">
+                    Select a date and time
+                </div>
             </div>
         </form>
         <basic-button
             variant="link"
-            @click="clearSchedule"
-            v-if="showClearScheduleButton"
-            >Remove scheduling</basic-button
+            @click="removeSchedule"
+            v-if="canRemoveSchedule"
         >
+            Remove scheduling
+        </basic-button>
         <footer class="mdl-footer">
-            <basic-button class="mdl-action" variant="secondary" @click="close"
-                >Cancel</basic-button
-            >
-            <spinner-button class="mdl-action" :loading="loading" @click="save"
-                >Save</spinner-button
-            >
+            <basic-button class="mdl-action" variant="secondary" @click="close">
+                Cancel
+            </basic-button>
+            <spinner-button class="mdl-action" :loading="loading" @click="save">
+                Save
+            </spinner-button>
         </footer>
     </b-modal>
 </template>
@@ -66,9 +67,9 @@ export default {
         const { date, time, scheduled } = this.link
 
         return {
-            showModal: true,
-            showInvalidError: false,
+            show: true,
             loading: false,
+            formError: false,
             form: {
                 date: scheduled ? new Date(date + ' 00:00:00') : null,
                 time: scheduled ? time : null,
@@ -76,7 +77,7 @@ export default {
         }
     },
     computed: {
-        showClearScheduleButton() {
+        canRemoveSchedule() {
             return this.link.scheduled && this.form.date && this.form.time
         },
     },
@@ -85,7 +86,7 @@ export default {
             deep: true,
             handler(form) {
                 if (form.date && form.time) {
-                    this.showInvalidError = false
+                    this.formError = false
                 }
             },
         },
@@ -106,15 +107,15 @@ export default {
     },
     methods: {
         close() {
-            this.showModal = false
+            this.show = false
         },
-        clearSchedule() {
+        removeSchedule() {
             this.form.date = null
             this.form.time = null
         },
         async save() {
             if (this.$v.form.$invalid) {
-                this.showInvalidError = true
+                this.formError = true
                 return
             }
 

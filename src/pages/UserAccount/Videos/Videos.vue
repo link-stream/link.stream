@@ -2,12 +2,12 @@
     <div class="page page-ua-vids">
         <header class="page-header">
             <h1 class="page-title">Your videos</h1>
-            <h4 class="page-subtitle"
-                >Add, remove, edit &amp; order videos anyway you'd like.</h4
-            >
+            <h4 class="page-subtitle">
+                Add, remove, edit &amp; order videos anyway you'd like.
+            </h4>
         </header>
         <nav class="page-nav">
-            <div class="page-nav-left">
+            <div class="nav-left">
                 <span class="permalnk">
                     <span class="permalnk-light">link.stream/</span>
                     <span>{{ user.user_name }}/videos</span>
@@ -17,13 +17,14 @@
                         name: 'userVideos',
                         params: { username: user.user_name },
                     }"
-                    >Preview</preview-pill-button
                 >
+                    Preview
+                </preview-pill-button>
             </div>
-            <div class="page-nav-right">
-                <basic-button :to="{ name: 'userAccountVideosAdd' }"
-                    >Add New Video</basic-button
-                >
+            <div class="nav-right">
+                <basic-button :to="{ name: 'userAccountVideosAdd' }">
+                    Add New Video
+                </basic-button>
             </div>
         </nav>
         <main class="page-body">

@@ -3,7 +3,7 @@
   "semi": false,
   "singleQuote": true,
   "trailingComma": "es5",
-  "htmlWhitespaceSensitivity": "strict",
+  "htmlWhitespaceSensitivity": "ignore",
   "overrides": [
     {
       "files": "*.{vue,js,jsx,scss}",

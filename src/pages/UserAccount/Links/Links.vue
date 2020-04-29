@@ -2,12 +2,12 @@
     <div class="page page-ua-links">
         <header class="page-header">
             <h1 class="page-title">Your links</h1>
-            <h4 class="page-subtitle"
-                >Add, remove, edit &amp; order links anyway you'd like.</h4
-            >
+            <h4 class="page-subtitle">
+                Add, remove, edit &amp; order links anyway you'd like.
+            </h4>
         </header>
         <nav class="page-nav">
-            <div class="page-nav-left">
+            <div class="nav-left">
                 <span class="permalnk">
                     <span class="permalnk-light">link.stream/</span>
                     <span>{{ user.user_name }}/links</span>
@@ -17,26 +17,27 @@
                         name: 'userLinks',
                         params: { username: user.user_name },
                     }"
-                    >Preview</preview-pill-button
                 >
+                    Preview
+                </preview-pill-button>
             </div>
-            <div class="page-nav-right">
-                <basic-button :to="{ name: 'userAccountLinksAdd' }"
-                    >Add New Link</basic-button
-                >
+            <div class="nav-right">
+                <basic-button :to="{ name: 'userAccountLinksAdd' }">
+                    Add New Link
+                </basic-button>
             </div>
         </nav>
         <main class="page-body">
             <LoadingSpinner v-if="loading" />
             <Container
-                v-if="!loading"
+                v-else
                 @drop="handleReorder"
                 drag-handle-selector=".crd-reorder-i"
             >
-                <Draggable v-for="link in localLinks" :key="link.id">
+                <Draggable v-for="link in sortableLinks" :key="link.id">
                     <LinkCard
                         :link="link"
-                        @schedule-click="openScheduleModal"
+                        @schedule-click="showScheduleModal"
                     />
                 </Draggable>
             </Container>
@@ -70,9 +71,9 @@ export default {
     },
     data() {
         return {
-            loading: true,
-            schedulingLink: null,
-            localLinks: [],
+            loading: false,
+            schedulingLink: false,
+            sortableLinks: [],
         }
     },
     computed: {
@@ -85,27 +86,28 @@ export default {
         links: {
             immediate: true,
             handler() {
-                this.localLinks = [...this.links]
+                this.sortableLinks = [...this.links]
             },
         },
     },
     async created() {
+        this.loading = true
         await this.$store.dispatch('me/loadLinks')
         this.loading = false
     },
     methods: {
-        openScheduleModal(link) {
+        showScheduleModal(link) {
             this.schedulingLink = link
         },
         handleScheduleModalHidden() {
-            this.schedulingLink = null
+            this.schedulingLink = false
         },
-        handleReorder(result) {
-            const { removedIndex: oldIndex, addedIndex: newIndex } = result
-            const link = this.localLinks[oldIndex]
-            this.localLinks.splice(oldIndex, 1)
-            this.localLinks.splice(newIndex, 0, link)
-            const sorts = this.localLinks.map((v, idx) => {
+        handleReorder(dropResult) {
+            const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
+            const link = this.sortableLinks[oldIndex]
+            this.sortableLinks.splice(oldIndex, 1)
+            this.sortableLinks.splice(newIndex, 0, link)
+            const sorts = this.sortableLinks.map((v, idx) => {
                 return {
                     id: v.id,
                     sort: (idx + 1).toString(),

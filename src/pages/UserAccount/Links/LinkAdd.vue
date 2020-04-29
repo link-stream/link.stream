@@ -6,15 +6,14 @@
                 variant="text"
                 :to="{ name: 'userAccountLinks' }"
             >
-                <i class="ls-i ls-i-back"></i>Links
+                <i class="ls-i ls-i-back"></i>
+                Links
             </basic-button>
         </div>
-
         <div class="fwz --final-step">
             <header class="fwz-header">
                 <h1 class="fwz-title">Add a link</h1>
             </header>
-
             <section class="fwz-step">
                 <form class="fwz-step-form">
                     <b-form-group
@@ -27,9 +26,9 @@
                             placeholder="e.g. https://myblog.blogspot.com"
                             id="urlInput"
                         />
-                        <b-form-invalid-feedback
-                            >Enter a valid URL</b-form-invalid-feedback
-                        >
+                        <b-form-invalid-feedback>
+                            Enter a valid URL
+                        </b-form-invalid-feedback>
                     </b-form-group>
 
                     <b-form-group label="Link Title" label-for="titleInput">
@@ -39,9 +38,9 @@
                             placeholder="e.g. My Blog"
                             :state="!$v.form.title.$error"
                         />
-                        <b-form-invalid-feedback
-                            >Enter a title</b-form-invalid-feedback
-                        >
+                        <b-form-invalid-feedback>
+                            Enter a title
+                        </b-form-invalid-feedback>
                     </b-form-group>
 
                     <b-form-group label="Link Visibility">
@@ -53,8 +52,8 @@
 
                     <b-form-group label="Publish Date" v-if="form.scheduled">
                         <b-input-group class="input-group-datetime">
-                            <DatePicker v-model="$v.form.date.$model" />
-                            <TimePicker v-model="$v.form.time.$model" />
+                            <DatePicker v-model="form.date" />
+                            <TimePicker v-model="form.time" />
                         </b-input-group>
                     </b-form-group>
 
@@ -70,21 +69,22 @@
                     <DropFoto @change="updateImage" />
                 </aside>
             </section>
-
             <footer class="fwz-pager">
                 <basic-button
                     class="fwz-prev"
                     variant="secondary"
                     :to="{ name: 'userAccountLinks' }"
                     :disabled="loading"
-                    >Cancel</basic-button
                 >
+                    Cancel
+                </basic-button>
                 <spinner-button
                     class="fwz-submit"
                     :loading="loading"
                     @click="save"
-                    >Add Link</spinner-button
                 >
+                    Add Link
+                </spinner-button>
             </footer>
         </div>
     </div>

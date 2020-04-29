@@ -20,8 +20,8 @@ export const videoAddEditForm = {
     },
     data() {
         return {
-            editing: false,
             loading: false,
+            editing: false,
             form: {
                 url: null,
                 title: null,

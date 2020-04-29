@@ -25,12 +25,12 @@
                             :state="!$v.form.url.$error"
                         ></b-form-input>
                         <b-form-invalid-feedback>
-                            <template v-if="!$v.form.url.required"
-                                >Enter a YouTube URL</template
-                            >
-                            <template v-else-if="!$v.form.url.valid"
-                                >Invalid YouTube URL</template
-                            >
+                            <template v-if="!$v.form.url.required">
+                                Enter a YouTube URL
+                            </template>
+                            <template v-else-if="!$v.form.url.valid">
+                                Invalid YouTube URL
+                            </template>
                         </b-form-invalid-feedback>
                     </b-form-group>
                 </form>
@@ -46,9 +46,9 @@
                             :state="!$v.form.title.$error"
                         ></b-form-input>
                         <b-form-invalid-feedback>
-                            <template v-if="!$v.form.title.required"
-                                >Enter a title</template
-                            >
+                            <template v-if="!$v.form.title.required">
+                                Enter a title
+                            </template>
                             <template v-else-if="!$v.form.title.minLength">
                                 The title must be at least
                                 {{ $v.form.title.$params.minLength.min }}
@@ -56,6 +56,7 @@
                             </template>
                         </b-form-invalid-feedback>
                     </b-form-group>
+
                     <b-form-group label="Genre" label-for="genreInput">
                         <SelectBox
                             v-model="$v.form.genre.$model"
@@ -67,9 +68,9 @@
                             label="genre"
                         />
                         <b-form-invalid-feedback>
-                            <template v-if="!$v.form.genre.required"
-                                >Select a genre</template
-                            >
+                            <template v-if="!$v.form.genre.required">
+                                Select a genre
+                            </template>
                         </b-form-invalid-feedback>
                     </b-form-group>
 
@@ -90,30 +91,33 @@
                                 :value="v.id"
                                 v-for="v in visibilities"
                                 :key="v.id"
-                                >{{ v.title }}</b-form-radio
                             >
+                                {{ v.title }}
+                            </b-form-radio>
                         </b-form-radio-group>
                     </b-form-group>
                 </form>
             </section>
 
             <footer class="fwz-pager">
-                <basic-button class="fwz-next" @click="goToStep(2)"
-                    >Next</basic-button
-                >
+                <basic-button class="fwz-next" @click="goToStep(2)">
+                    Next
+                </basic-button>
                 <basic-button
                     class="fwz-prev"
                     variant="secondary"
                     :disabled="loading"
                     @click="goToStep(1)"
-                    >Back</basic-button
                 >
+                    Back
+                </basic-button>
                 <spinner-button
                     class="fwz-submit"
                     :loading="loading"
                     @click="save"
-                    >Add Video</spinner-button
                 >
+                    Add Video
+                </spinner-button>
             </footer>
         </div>
     </div>

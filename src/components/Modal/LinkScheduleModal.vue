@@ -1,19 +1,18 @@
 <template>
     <b-modal
-        modal-class="mdl mdl-lnk-sched"
+        modal-class="mdl-lnk-sched"
         v-model="show"
         @hidden="handleHidden"
         centered
-        hide-header
-        hide-footer
         no-close-on-backdrop
         no-close-on-esc
     >
-        <IconButton class="mdl-close" use-bg-img @click="close" />
-        <header class="mdl-header">
-            <h2 class="mdl-title">Schedule link</h2>
-        </header>
-        <form class="mdl-body">
+        <template v-slot:modal-header>
+            <IconButton class="modal-close" use-bg-img @click="close" />
+            <h2 class="modal-title">Schedule link</h2>
+        </template>
+
+        <template v-slot:default>
             <div class="form-group">
                 <div class="input-group input-group-datetime">
                     <DatePicker v-model="form.date" />
@@ -23,22 +22,31 @@
                     Select a date and time
                 </div>
             </div>
-        </form>
-        <basic-button
-            variant="link"
-            @click="removeSchedule"
-            v-if="canRemoveSchedule"
-        >
-            Remove scheduling
-        </basic-button>
-        <footer class="mdl-footer">
-            <basic-button class="mdl-action" variant="secondary" @click="close">
+            <basic-button
+                variant="link"
+                @click="removeSchedule"
+                v-if="canRemoveSchedule"
+            >
+                Remove scheduling
+            </basic-button>
+        </template>
+
+        <template v-slot:modal-footer>
+            <basic-button
+                class="modal-action"
+                variant="secondary"
+                @click="close"
+            >
                 Cancel
             </basic-button>
-            <spinner-button class="mdl-action" :loading="loading" @click="save">
+            <spinner-button
+                class="modal-action"
+                :loading="loading"
+                @click="save"
+            >
                 Save
             </spinner-button>
-        </footer>
+        </template>
     </b-modal>
 </template>
 

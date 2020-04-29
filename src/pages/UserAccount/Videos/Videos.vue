@@ -33,11 +33,11 @@
                 @drop="handleReorder"
                 drag-handle-selector=".crd-reorder-i"
             >
-                <Draggable v-for="video in localVideos" :key="video.id">
+                <Draggable v-for="video in sortableVideos" :key="video.id">
                     <VideoCard
                         :video="video"
-                        @edit-click="openEditModal"
-                        @delete-click="handleDeleteClick"
+                        @edit-click="showEditModal"
+                        @delete-click="deleteVideo"
                     />
                 </Draggable>
             </Container>
@@ -46,7 +46,7 @@
             v-if="editingVideo"
             :video="editingVideo"
             @hidden="handleEditModalHidden"
-            @delete-click="handleDeleteClick"
+            @delete-click="deleteVideo"
         />
     </div>
 </template>
@@ -73,9 +73,9 @@ export default {
     },
     data() {
         return {
-            loading: true,
-            localVideos: [],
-            editingVideo: null,
+            loading: false,
+            editingVideo: false,
+            sortableVideos: [],
         }
     },
     computed: {
@@ -88,11 +88,12 @@ export default {
         videos: {
             immediate: true,
             handler() {
-                this.localVideos = [...this.videos]
+                this.sortableVideos = [...this.videos]
             },
         },
     },
     async created() {
+        this.loading = true
         await this.$store.dispatch('me/loadVideos', {
             params: {
                 page: 1,
@@ -102,10 +103,10 @@ export default {
         this.loading = false
     },
     methods: {
-        openEditModal(video) {
+        showEditModal(video) {
             this.editingVideo = video
         },
-        handleDeleteClick(video) {
+        deleteVideo(video) {
             this.$alert.confirm({
                 title: 'Delete video?',
                 message: 'This video and its data will be permanently deleted.',
@@ -119,7 +120,7 @@ export default {
                     })
                     if (status === 'success') {
                         if (this.editingVideo) {
-                            this.editingVideo = null
+                            this.editingVideo = false
                         }
                         this.$toast.success(message)
                     } else {
@@ -129,14 +130,14 @@ export default {
             })
         },
         handleEditModalHidden() {
-            this.editingVideo = null
+            this.editingVideo = false
         },
-        handleReorder(result) {
-            const { removedIndex: oldIndex, addedIndex: newIndex } = result
-            const video = this.localVideos[oldIndex]
-            this.localVideos.splice(oldIndex, 1)
-            this.localVideos.splice(newIndex, 0, video)
-            const sorts = this.localVideos.map((v, idx) => {
+        handleReorder(dropResult) {
+            const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
+            const video = this.sortableVideos[oldIndex]
+            this.sortableVideos.splice(oldIndex, 1)
+            this.sortableVideos.splice(newIndex, 0, video)
+            const sorts = this.sortableVideos.map((v, idx) => {
                 return {
                     id: v.id,
                     sort: (idx + 1).toString(),

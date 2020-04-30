@@ -84,16 +84,27 @@
         padding: 20px;
     }
 
-    .crd-edit-footer {
+    .crd-edit-actions {
         display: flex;
         justify-content: space-between;
         border-top: 1px solid $linkstream-30;
         padding-top: 16px;
         margin-top: 16px;
-        .footer-right {
+        .actions-primary {
             .btn {
                 margin-left: 10px;
             }
+        }
+    }
+
+    .schedule-dt {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+        font-size: px2rem(11);
+        .btn {
+            font-size: px2rem(11);
+            margin-left: 5px;
         }
     }
 
@@ -166,6 +177,10 @@
             flex-grow: 1;
             margin-left: 20px;
             margin-right: 80px;
+        }
+
+        .schedule-dt {
+            justify-content: flex-end;
         }
 
         .dropfoto {

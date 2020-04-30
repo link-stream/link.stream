@@ -65,13 +65,13 @@
                     </b-form-group>
                 </form>
             </main>
-            <footer class="crd-edit-footer">
+            <footer class="crd-edit-actions">
                 <IconButton
                     icon="trash-sm"
                     title="Delete"
                     @click="deleteLink"
                 />
-                <div class="footer-right">
+                <div class="actions-primary">
                     <icon-button
                         :title="link.isPublic ? 'Hide' : 'Unhide'"
                         @click="handleVisibilityClick"
@@ -93,6 +93,17 @@
                         Save
                     </basic-button>
                 </div>
+            </footer>
+            <footer class="schedule-dt" v-if="link.scheduled">
+                Scheduled: {{ link.date | mmddyyyy }}
+                <b-dropdown variant="link" text="Modify" no-caret>
+                    <b-dropdown-item @click="handleScheduleClick">
+                        Change Date
+                    </b-dropdown-item>
+                    <b-dropdown-item @click="removeLinkScheduling">
+                        Remove Scheduling
+                    </b-dropdown-item>
+                </b-dropdown>
             </footer>
         </section>
     </div>
@@ -161,6 +172,26 @@ export default {
                     this.loading = false
                 },
             })
+        },
+        async removeLinkScheduling() {
+            this.loading = true
+            const { status, message, error } = await this.$store.dispatch(
+                'me/updateLink',
+                {
+                    id: this.link.id,
+                    params: {
+                        scheduled: 0,
+                        date: null,
+                        time: null,
+                        end_date: null,
+                        end_time: null,
+                    },
+                }
+            )
+            status === 'success'
+                ? this.$toast.success(message)
+                : this.$toast.error(error)
+            this.loading = false
         },
         handleScheduleClick() {
             this.$emit('schedule-click', this.link)

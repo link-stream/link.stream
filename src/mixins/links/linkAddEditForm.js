@@ -3,7 +3,7 @@ import { BasicButton, SpinnerButton } from '~/components/Button'
 import { DropFoto } from '~/components/Uploader'
 import { DatePicker, TimePicker } from '~/components/Picker'
 import { SelectBox } from '~/components/Select'
-import { required, requiredIf, url } from 'vuelidate/lib/validators'
+import { required, url } from 'vuelidate/lib/validators'
 import { appConstants } from '~/constants'
 import moment from 'moment'
 
@@ -20,14 +20,17 @@ export const linkAddEditForm = {
         return {
             editing: false,
             loading: false,
+            endDateEnabled: false,
             form: {
                 url: null,
                 title: null,
+                image: null,
                 visibility: appConstants.visibilities.public,
                 scheduled: null,
                 date: new Date(),
                 time: '00:00:00',
-                image: null,
+                endDate: new Date(),
+                endTime: '00:00:00',
             },
         }
     },
@@ -84,14 +87,16 @@ export const linkAddEditForm = {
             const {
                 url,
                 title,
+                image,
                 visibility,
+                scheduled,
                 date,
                 time,
-                scheduled,
-                image,
+                endDate,
+                endTime,
             } = this.form
 
-            let params = {
+            const params = {
                 user_id: this.user.id,
                 url,
                 title,
@@ -102,13 +107,16 @@ export const linkAddEditForm = {
                     params.image = image
                 }
             } else {
-                params = {
-                    ...params,
-                    image,
-                    public: visibility,
-                    scheduled: scheduled ? 1 : 0,
-                    date: scheduled ? moment(date).format('YYYY-MM-DD') : null,
-                    time: scheduled ? time : null,
+                params.image = image
+                params.public = visibility
+                if (scheduled) {
+                    params.scheduled = 1
+                    params.date = moment(date).format('YYYY-MM-DD')
+                    params.time = time
+                    if (this.endDateEnabled) {
+                        params.end_date = moment(endDate).format('YYYY-MM-DD')
+                        params.end_time = endTime
+                    }
                 }
             }
 

@@ -7,7 +7,7 @@
                 :to="{ name: 'userAccountLinks' }"
             >
                 <i class="ls-i ls-i-back"></i>
-                Links
+                <span>Links</span>
             </basic-button>
         </div>
         <div class="fwz --final-step">
@@ -50,12 +50,25 @@
                         </b-form-radio-group>
                     </b-form-group>
 
-                    <b-form-group label="Publish Date" v-if="form.scheduled">
-                        <b-input-group class="input-group-datetime">
-                            <DatePicker v-model="form.date" />
-                            <TimePicker v-model="form.time" />
-                        </b-input-group>
-                    </b-form-group>
+                    <div v-if="form.scheduled">
+                        <b-form-group label="Start Date">
+                            <b-input-group class="input-group-datetime">
+                                <DatePicker v-model="form.date" />
+                                <TimePicker v-model="form.time" />
+                            </b-input-group>
+                        </b-form-group>
+                        <b-form-group>
+                            <b-form-checkbox v-model="endDateEnabled">
+                                Set end date
+                            </b-form-checkbox>
+                        </b-form-group>
+                        <b-form-group label="End Date" v-if="endDateEnabled">
+                            <b-input-group class="input-group-datetime">
+                                <DatePicker v-model="form.endDate" />
+                                <TimePicker v-model="form.endTime" />
+                            </b-input-group>
+                        </b-form-group>
+                    </div>
 
                     <basic-button variant="link" @click="toggleSchedule">
                         {{

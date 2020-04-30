@@ -1,7 +1,7 @@
 <template>
     <b-modal
         modal-class="alrt"
-        v-model="show"
+        ref="modal"
         size="sm"
         centered
         hide-header
@@ -30,19 +30,19 @@
                 class="alrt-action"
                 variant="secondary"
                 size="sm"
-                :disabled="loading"
                 v-if="opts.cancelVisible"
                 @click="handleCancelClick"
-                >{{ opts.cancelLabel }}</basic-button
             >
+                {{ opts.cancelText }}
+            </basic-button>
             <spinner-button
                 class="alrt-action"
                 size="sm"
-                :loading="loading"
                 v-if="opts.okVisible"
                 @click="handleOkClick"
-                >{{ opts.okLabel }}</spinner-button
             >
+                {{ opts.okText }}
+            </spinner-button>
         </footer>
     </b-modal>
 </template>
@@ -54,10 +54,10 @@ const defaultOpts = {
     title: null,
     message: null,
     okVisible: true,
-    okLabel: 'OK',
+    okText: 'OK',
     okCallback: null,
     cancelVisible: true,
-    cancelLabel: 'Cancel',
+    cancelText: 'Cancel',
     cancelCallback: null,
 }
 
@@ -65,8 +65,7 @@ const showAlert = function(opts) {
     for (let key in defaultOpts) {
         this.opts[key] = key in opts ? opts[key] : defaultOpts[key]
     }
-    this.loading = false
-    this.show = true
+    this.$refs.modal.show()
 }
 
 export default {
@@ -78,16 +77,14 @@ export default {
     },
     data() {
         return {
-            show: false,
-            loading: false,
             opts: {
                 title: null,
                 message: null,
                 okVisible: null,
-                okLabel: null,
+                okText: null,
                 okCallback: null,
                 cancelVisible: null,
-                cancelLabel: null,
+                cancelText: null,
                 cancelCallback: null,
             },
         }
@@ -95,13 +92,12 @@ export default {
     methods: {
         confirm(opts) {
             showAlert.call(this, {
-                okLabel: 'Confirm',
+                okText: 'Confirm',
                 ...opts,
             })
         },
         close() {
-            this.show = false
-            this.loading = false
+            this.$refs.modal.hide()
         },
         handleOkClick() {
             this.opts.okCallback !== null && this.opts.okCallback()

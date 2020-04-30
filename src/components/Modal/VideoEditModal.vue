@@ -1,7 +1,7 @@
 <template>
     <b-modal
         modal-class="mdl-vid-edit"
-        v-model="editing"
+        ref="modal"
         size="lg"
         centered
         no-close-on-backdrop
@@ -177,9 +177,12 @@ export default {
             time: scheduled ? time : '00:00:00',
         }
     },
+    mounted() {
+        this.$refs.modal.show()
+    },
     methods: {
         close() {
-            this.editing = false
+            this.$refs.modal.hide()
         },
         handleDeleteClick() {
             this.$emit('delete-click', this.video)

@@ -128,3 +128,9 @@
         box-shadow: none;
     }
 }
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    color: $white;
+    background-color: $primary;
+}

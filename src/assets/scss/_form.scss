@@ -5,16 +5,33 @@
 }
 
 .form-group {
-    label {
+    label,
+    .col-form-label {
         color: $black;
         line-height: 24px;
     }
-
     .invalid-feedback {
         font-size: px2rem(12);
         color: $linkstream-120;
         font-weight: 600;
         margin-top: 5px;
+    }
+}
+
+.custom-checkbox {
+    .custom-control-label {
+        padding-left: 6px;
+        color: $black;
+        line-height: 1.9;
+        &:before {
+            width: 18px;
+            height: 18px;
+        }
+        &:after {
+            top: 6px;
+            left: -20px;
+            background: no-repeat 75% / 75% 75%;
+        }
     }
 }
 

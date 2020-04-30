@@ -114,7 +114,7 @@ export const videoAddEditForm = {
             if (status === 'success') {
                 this.$toast.success(message)
                 if (this.editing) {
-                    this.editing = false
+                    this.close()
                 } else {
                     this.$router.push({ name: 'userAccountVideos' })
                 }

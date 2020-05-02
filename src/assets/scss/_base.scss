@@ -19,18 +19,3 @@ h5,
 h6 {
     margin: 0;
 }
-
-.permalnk {
-    color: $black;
-    font-size: px2rem(12);
-    font-weight: 600;
-    line-height: 1rem;
-    margin-right: 10px;
-    letter-spacing: 0.5px;
-    .permalnk-light {
-        color: $linkstream-70;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0;
-    }
-}

@@ -23,10 +23,30 @@
         .loading-spinner {
             margin-top: 75px;
         }
+
+        .permaurl {
+            color: $black;
+            font-size: px2rem(12);
+            font-weight: 600;
+            line-height: 1rem;
+            letter-spacing: 0.5px;
+            margin: 15px 0;
+            .permaurl-light {
+                color: $linkstream-70;
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: 0;
+            }
+            .permaurl-link {
+                margin-left: 7px;
+            }
+        }
     }
 
     .page-header {
-        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
     }
 
     .page-title {
@@ -43,16 +63,6 @@
         line-height: 18px;
         font-weight: normal;
         font-size: px2rem(14);
-    }
-
-    .page-nav {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        margin-bottom: 1.5rem;
-        .nav-left {
-            margin-bottom: 15px;
-        }
     }
 
     @include media-breakpoint-up(md) {
@@ -72,21 +82,18 @@
         .page {
             max-width: 816px;
             margin: 0 auto;
+            .permaurl {
+                margin-bottom: 0;
+            }
         }
 
         .page-header {
-            margin-bottom: 0;
-        }
-
-        .page-nav {
             flex-direction: row;
-            .nav-left {
+            .header-col:first-child {
                 flex-grow: 1;
-                align-self: flex-end;
-                margin-bottom: 0;
             }
-            .nav-right {
-                align-content: flex-end;
+            .header-col:nth-child(2) {
+                align-self: flex-end;
             }
         }
     }

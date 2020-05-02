@@ -1,32 +1,31 @@
 <template>
     <div class="page page-ua-vids">
         <header class="page-header">
-            <h1 class="page-title">Your videos</h1>
-            <h4 class="page-subtitle">
-                Add, remove, edit &amp; order videos anyway you'd like.
-            </h4>
-        </header>
-        <nav class="page-nav">
-            <div class="nav-left">
-                <span class="permalnk">
-                    <span class="permalnk-light">link.stream/</span>
+            <div class="header-col">
+                <h1 class="page-title">Your videos</h1>
+                <h4 class="page-subtitle">
+                    Add, remove, edit &amp; order videos anyway you'd like.
+                </h4>
+                <div class="permaurl">
+                    <span class="permaurl-light">link.stream/</span>
                     <span>{{ user.user_name }}/videos</span>
-                </span>
-                <preview-pill-button
-                    :to="{
-                        name: 'userVideos',
-                        params: { username: user.user_name },
-                    }"
-                >
-                    Preview
-                </preview-pill-button>
+                    <preview-pill-button
+                        class="permaurl-link"
+                        :to="{
+                            name: 'userVideos',
+                            params: { username: user.user_name },
+                        }"
+                    >
+                        Preview
+                    </preview-pill-button>
+                </div>
             </div>
-            <div class="nav-right">
+            <div class="header-col">
                 <basic-button :to="{ name: 'userAccountVideosAdd' }">
                     Add New Video
                 </basic-button>
             </div>
-        </nav>
+        </header>
         <main class="page-body">
             <LoadingSpinner v-if="loading" />
             <Container
@@ -109,7 +108,8 @@ export default {
         deleteVideo(video) {
             this.$alert.confirm({
                 title: 'Delete video?',
-                message: 'This video and its data will be permanently deleted.',
+                message:
+                    'This video and its data will be permaurlnently deleted.',
                 okCallback: async () => {
                     const {
                         status,

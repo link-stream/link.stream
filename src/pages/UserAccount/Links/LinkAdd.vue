@@ -1,6 +1,6 @@
 <template>
     <div class="page page-ua-link-add">
-        <div class="page-nav">
+        <div class="page-header">
             <basic-button
                 class="page-back"
                 variant="text"

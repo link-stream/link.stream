@@ -1,32 +1,31 @@
 <template>
     <div class="page page-ua-links">
         <header class="page-header">
-            <h1 class="page-title">Your links</h1>
-            <h4 class="page-subtitle">
-                Add, remove, edit &amp; order links anyway you'd like.
-            </h4>
-        </header>
-        <nav class="page-nav">
-            <div class="nav-left">
-                <span class="permalnk">
-                    <span class="permalnk-light">link.stream/</span>
+            <div class="header-col">
+                <h1 class="page-title">Your links</h1>
+                <h4 class="page-subtitle">
+                    Add, remove, edit &amp; order links anyway you'd like.
+                </h4>
+                <div class="permaurl">
+                    <span class="permaurl-light">link.stream/</span>
                     <span>{{ user.user_name }}/links</span>
-                </span>
-                <preview-pill-button
-                    :to="{
-                        name: 'userLinks',
-                        params: { username: user.user_name },
-                    }"
-                >
-                    Preview
-                </preview-pill-button>
+                    <preview-pill-button
+                        class="permaurl-link"
+                        :to="{
+                            name: 'userLinks',
+                            params: { username: user.user_name },
+                        }"
+                    >
+                        Preview
+                    </preview-pill-button>
+                </div>
             </div>
-            <div class="nav-right">
+            <div class="header-col">
                 <basic-button :to="{ name: 'userAccountLinksAdd' }">
                     Add New Link
                 </basic-button>
             </div>
-        </nav>
+        </header>
         <main class="page-body">
             <LoadingSpinner v-if="loading" />
             <Container

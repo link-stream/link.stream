@@ -56,21 +56,21 @@
     }
 
     @include media-breakpoint-up(md) {
+        // Sidebar showing
         .layout-content {
-            margin-left: $main-margin + $main-menu-width;
-            margin-right: $main-margin;
+            margin-left: $main-menu-width;
             transition: margin-left $menu-collapse-time;
         }
 
-        // Sidebar completely hidden
+        // Sidebar hidden
         &.menu-sub-hidden.main-hidden.sub-hidden {
             .layout-content {
-                margin-left: $main-margin;
+                margin-left: 0;
             }
         }
 
         .page {
-            max-width: 836px;
+            max-width: 816px;
             margin: 0 auto;
         }
 

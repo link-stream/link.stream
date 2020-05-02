@@ -1,6 +1,6 @@
 .layout-ua {
-    @import 'navbar';
-    @import 'sidebar';
+    @import 'topnav';
+    @import 'sidenav';
 
     .smooth-dnd-draggable-wrapper {
         overflow: visible !important;
@@ -66,13 +66,13 @@
     }
 
     @include media-breakpoint-up(md) {
-        // Sidebar showing
+        // Side nav shown
         .layout-content {
             margin-left: $main-menu-width;
             transition: margin-left $menu-collapse-time;
         }
 
-        // Sidebar hidden
+        // Side nav hidden
         &.menu-sub-hidden.main-hidden.sub-hidden {
             .layout-content {
                 margin-left: 0;

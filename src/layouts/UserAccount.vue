@@ -5,22 +5,22 @@
                 <router-view :key="$route.fullPath"></router-view>
             </transition>
         </main>
-        <TopNavbar />
-        <Sidebar :class="getMenuType" />
+        <TopNav />
+        <SideNav :class="getMenuType" />
         <vue-progress-bar></vue-progress-bar>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import TopNavbar from '~/components/UserAccount/TopNavbar/TopNavbar'
-import Sidebar from '~/components/UserAccount/Sidebar/Sidebar'
+import TopNav from '~/components/UserAccount/TopNav/TopNav'
+import SideNav from '~/components/UserAccount/SideNav/SideNav'
 
 export default {
     name: 'UserAccount',
     components: {
-        TopNavbar,
-        Sidebar,
+        TopNav,
+        SideNav,
     },
     computed: {
         ...mapGetters(['getMenuType']),

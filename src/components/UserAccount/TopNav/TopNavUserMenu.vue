@@ -17,10 +17,17 @@
                         rounded="circle"
                         class="avatar"
                     />
-                    <vue-letter-avatar v-else :name="user.display_name" size="40" :rounded="true" />
+                    <vue-letter-avatar
+                        v-else
+                        :name="user.display_name"
+                        size="40"
+                        :rounded="true"
+                    />
                 </span>
             </template>
-            <b-dropdown-item :to="{ name: 'userAccountProfileEdit' }">Account</b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'userAccountProfileEdit' }">
+                Account
+            </b-dropdown-item>
             <b-dropdown-item>Features</b-dropdown-item>
             <b-dropdown-item>History</b-dropdown-item>
             <b-dropdown-item>Support</b-dropdown-item>
@@ -34,7 +41,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-    name: 'TopNavbarUserMenu',
+    name: 'TopNavUserMenu',
     computed: {
         ...mapGetters({
             user: 'me/user',

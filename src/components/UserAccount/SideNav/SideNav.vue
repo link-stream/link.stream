@@ -1,5 +1,5 @@
 <template>
-    <div class="layout-sidebar" @click.stop="() => {}">
+    <div class="layout-sidenav" @click.stop="() => {}">
         <div class="main-menu">
             <ul class="list-unstyled">
                 <li
@@ -86,7 +86,7 @@ import { mapGetters, mapMutations } from 'vuex'
 import { appConstants, appMenus } from '~/constants'
 
 export default {
-    name: 'Sidebar',
+    name: 'SideNav',
     data() {
         return {
             selectedParentMenu: '',

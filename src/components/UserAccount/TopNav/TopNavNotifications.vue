@@ -48,7 +48,7 @@ import { SpinnerButton } from '~/components/Button'
 import notifications from '~/data/notifications'
 
 export default {
-    name: 'TopNavbarNotifications',
+    name: 'TopNavNotifications',
     components: {
         SpinnerButton,
     },

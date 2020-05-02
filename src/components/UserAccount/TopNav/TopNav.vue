@@ -1,6 +1,6 @@
 <template>
     <b-navbar
-        class="layout-navbar"
+        class="layout-topnav"
         toggleable="lg"
         type="dark"
         variant="dark"
@@ -15,10 +15,10 @@
             </a>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
-            <TopNavbarNotifications />
+            <TopNavNotifications />
         </b-navbar-nav>
         <b-navbar-nav>
-            <TopNavbarUserMenu />
+            <TopNavUserMenu />
         </b-navbar-nav>
     </b-navbar>
 </template>
@@ -27,16 +27,16 @@
 import { mapGetters, mapMutations } from 'vuex'
 import { appConstants } from '~/constants'
 import { Logo1, ToggleMenu } from '~/components/Svg'
-import TopNavbarUserMenu from './TopNavbarUserMenu'
-import TopNavbarNotifications from './TopNavbarNotifications'
+import TopNavUserMenu from './TopNavUserMenu'
+import TopNavNotifications from './TopNavNotifications'
 
 export default {
-    name: 'TopNavbar',
+    name: 'TopNav',
     components: {
         Logo1,
         ToggleMenu,
-        TopNavbarNotifications,
-        TopNavbarUserMenu,
+        TopNavNotifications,
+        TopNavUserMenu,
     },
     computed: {
         ...mapGetters({

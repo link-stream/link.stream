@@ -87,6 +87,10 @@
         padding-left: 0;
     }
 
+    .vs__search::placeholder {
+        color: $input-placeholder-color;
+    }
+
     .vs__selected-options {
         padding: 0;
         white-space: nowrap;

@@ -1,7 +1,7 @@
 import { mapGetters } from 'vuex'
 import { SpinnerButton, BasicButton } from '~/components/Button'
 import { SelectBox } from '~/components/Select'
-import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
+import { required, minLength } from 'vuelidate/lib/validators'
 import { helpers } from 'vuelidate/lib/validators'
 import { appConstants } from '~/constants'
 import moment from 'moment'

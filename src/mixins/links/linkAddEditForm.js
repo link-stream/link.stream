@@ -103,7 +103,8 @@ export const linkAddEditForm = {
             }
 
             if (this.editing) {
-                if (image !== this.link.data_image) {
+                const imageChanged = image !== this.link.data_image
+                if (imageChanged) {
                     params.image = image
                 }
             } else {

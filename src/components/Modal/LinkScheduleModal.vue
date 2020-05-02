@@ -144,9 +144,10 @@ export default {
             this.$refs.modal.hide()
         },
         toggleEndDate() {
-            this.$v.form.$reset()
             this.form.endDate = null
             this.form.endTime = null
+            this.$v.form.endDate.$reset()
+            this.$v.form.endTime.$reset()
             this.endDateEnabled = !this.endDateEnabled
         },
         async save() {

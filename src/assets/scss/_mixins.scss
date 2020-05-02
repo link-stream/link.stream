@@ -111,3 +111,15 @@ $breakpoints: (
     $string: '%23' + $string;
     @return $string;
 }
+
+/** Hide scrollbar on scrollable element */
+@mixin scrollbarHidden {
+    // Chrome/Safari
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    // FireFox
+    scrollbar-width: none;
+    // IE 10+
+    -ms-overflow-style: none;
+}

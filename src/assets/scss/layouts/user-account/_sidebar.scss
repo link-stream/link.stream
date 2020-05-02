@@ -9,6 +9,7 @@
     .main-menu {
         position: fixed;
         overflow-y: scroll;
+        @include scrollbarHidden;
         left: 0;
         width: $main-menu-width;
         height: calc(100% - #{$navbar-height});

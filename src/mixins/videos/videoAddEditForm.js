@@ -61,9 +61,6 @@ export const videoAddEditForm = {
                 required,
                 minLength: minLength(10),
             },
-            genre: {
-                required,
-            },
         },
     },
     methods: {

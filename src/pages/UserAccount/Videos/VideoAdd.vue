@@ -60,19 +60,13 @@
 
                     <b-form-group label="Genre" label-for="genreInput">
                         <SelectBox
-                            v-model="$v.form.genre.$model"
+                            v-model="form.genre"
                             id="genreInput"
                             placeholder="Select Genre"
-                            :class="{ 'is-invalid': $v.form.genre.$error }"
                             :options="genres"
                             :reduce="genre => genre.id"
                             label="genre"
                         />
-                        <b-form-invalid-feedback>
-                            <template v-if="!$v.form.genre.required">
-                                Select a genre
-                            </template>
-                        </b-form-invalid-feedback>
                     </b-form-group>
 
                     <b-form-group label="Related Track" label-for="trackInput">

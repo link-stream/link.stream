@@ -28,9 +28,18 @@
             height: 18px;
         }
         &:after {
-            top: 6px;
-            left: -20px;
-            background: no-repeat 75% / 75% 75%;
+            width: 21px;
+            height: 21px;
+            top: 3px;
+            left: -22px;
+        }
+    }
+}
+
+.modal {
+    .custom-control-label {
+        &:after {
+            top: 2px;
         }
     }
 }

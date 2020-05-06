@@ -5,10 +5,10 @@
         </div>
         <section class="crd-viewing" v-if="!editing">
             <Icon icon="reorder" class="crd-reorder-i" />
-            <div class="crd-art">
+            <div class="crd-art" @click="showEditView">
                 <img class="crd-img" :src="link.artwork" :alt="link.title" />
             </div>
-            <main class="crd-body">
+            <main class="crd-body" @click="showEditView">
                 <h2 class="crd-title">{{ link.title }}</h2>
                 <small class="crd-vis" v-if="link.isPrivate">Hidden</small>
             </main>

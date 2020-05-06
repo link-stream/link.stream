@@ -1,7 +1,7 @@
 <template>
     <div class="crd crd-vid">
         <Icon class="crd-reorder-i" icon="reorder" />
-        <div class="crd-content">
+        <div class="crd-content" @click="handleEditClick">
             <div class="crd-art">
                 <div class="crd-lock" v-if="video.isPrivate"></div>
                 <img class="crd-img" :src="thumbUrl" :alt="video.title" />

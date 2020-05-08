@@ -1,6 +1,6 @@
 <template>
     <div>
-        step marketing
+        marketing
     </div>
 </template>
 

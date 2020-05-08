@@ -1,6 +1,6 @@
 <template>
     <div>
-        step upload
+        upload
     </div>
 </template>
 

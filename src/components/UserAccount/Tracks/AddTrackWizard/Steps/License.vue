@@ -1,6 +1,6 @@
 <template>
     <div>
-        step licenses
+        licenses
     </div>
 </template>
 

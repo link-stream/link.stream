@@ -1,6 +1,6 @@
 <template>
     <div>
-        step review
+        review
     </div>
 </template>
 

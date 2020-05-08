@@ -1,6 +1,6 @@
 <template>
     <div>
-        step track type
+        track type
     </div>
 </template>
 

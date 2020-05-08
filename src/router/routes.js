@@ -88,7 +88,7 @@ const routes = [
      */
     {
         path: '/app',
-        name: 'uaDashboard',
+        name: 'userAccountDashboard',
         alias: '/app/dashboard',
         component: UserAccountDashboard,
         meta: { requiresAuth: true, layout: 'UserAccount' },

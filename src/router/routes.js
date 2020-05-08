@@ -13,9 +13,11 @@ import {
     UserAccountDashboard,
     UserAccountProfileEdit,
     UserAccountVideos,
-    UserAccountVideosAdd,
+    UserAccountVideoAdd,
     UserAccountLinks,
-    UserAccountLinksAdd,
+    UserAccountLinkAdd,
+    UserAccountTracks,
+    UserAccountTrackAdd,
 } from '~/pages/UserAccount'
 
 const routes = [
@@ -86,7 +88,7 @@ const routes = [
      */
     {
         path: '/app',
-        name: 'userAccountDashboard',
+        name: 'uaDashboard',
         alias: '/app/dashboard',
         component: UserAccountDashboard,
         meta: { requiresAuth: true, layout: 'UserAccount' },
@@ -106,7 +108,7 @@ const routes = [
     {
         path: '/app/videos/add',
         name: 'userAccountVideosAdd',
-        component: UserAccountVideosAdd,
+        component: UserAccountVideoAdd,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
     {
@@ -118,7 +120,19 @@ const routes = [
     {
         path: '/app/links/add',
         name: 'userAccountLinksAdd',
-        component: UserAccountLinksAdd,
+        component: UserAccountLinkAdd,
+        meta: { requiresAuth: true, layout: 'UserAccount' },
+    },
+    {
+        path: '/app/tracks/manage',
+        name: 'userAccountTracks',
+        component: UserAccountTracks,
+        meta: { requiresAuth: true, layout: 'UserAccount' },
+    },
+    {
+        path: '/app/tracks/add',
+        name: 'userAccountTracksAdd',
+        component: UserAccountTrackAdd,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
 

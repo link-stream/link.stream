@@ -35,7 +35,7 @@
             />
             <main class="crd-edit-body">
                 <div class="crd-edit-art">
-                    <DropFoto
+                    <DropImage
                         :src="link.data_image"
                         msg-long="Drag image here&nbsp;or&nbsp;<u>browse</u>"
                         msg-short=""

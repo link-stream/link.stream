@@ -79,7 +79,7 @@
                     </basic-button>
                 </form>
                 <aside class="fwz-step-aside">
-                    <DropFoto @change="updateImage" />
+                    <DropImage @change="updateImage" />
                 </aside>
             </section>
             <footer class="fwz-pager">

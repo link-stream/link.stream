@@ -1,5 +1,5 @@
 <template>
-    <div class="dropfoto">
+    <div class="dropimg">
         <input
             type="file"
             v-show="false"
@@ -7,27 +7,27 @@
             ref="fileinput"
             @change="handleFileInputChange"
         />
-        <section class="dropfoto-prv" v-if="isPreview">
-            <main class="dropfoto-img-box" @click="showFileDialog">
-                <img class="dropfoto-img" :src="image.src" alt />
+        <section class="dropimg-p" v-if="isPreview">
+            <main class="dropimg-thumb" @click="showFileDialog">
+                <img :src="image.src" />
                 <IconButton
-                    class="dropfoto-rm-btn"
-                    icon="dropfoto-remove"
+                    class="dropimg-rm-btn"
+                    icon="dropimg-remove"
                     @click="reset"
                 />
                 <IconButton
-                    class="dropfoto-add-btn"
-                    icon="dropfoto-cam"
+                    class="dropimg-add-btn"
+                    icon="dropimg-cam"
                     @click="showFileDialog"
                 />
             </main>
-            <basic-button class="dropfoto-rm-lnk" variant="link" @click="reset"
-                >Remove artwork</basic-button
-            >
+            <basic-button class="dropimg-rm-lnk" variant="link" @click="reset">
+                Remove artwork
+            </basic-button>
         </section>
         <section
             v-else
-            class="dropfoto-upl"
+            class="dropimg-u"
             :class="{ '--highlight': isDraggingOver }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
@@ -35,19 +35,20 @@
             @dragenter="handleDragEnter"
             @click="showFileDialog"
         >
-            <main class="dropfoto-upl-box">
-                <i class="dropfoto-upl-i"></i>
-                <div class="dropfoto-upl-msg">
+            <main class="dropimg-u-dz">
+                <i class="dropimg-u-i"></i>
+                <div class="dropimg-u-msg">
                     <div class="msg-short" v-html="msgShort"></div>
                     <div class="msg-long" v-html="msgLong"></div>
                 </div>
             </main>
             <basic-button
-                class="dropfoto-add-lnk"
+                class="dropimg-add-lnk"
                 variant="link"
                 @click="showFileDialog"
-                >Add artwork</basic-button
             >
+                Add artwork
+            </basic-button>
         </section>
 
         <DokaModal
@@ -67,7 +68,7 @@ import { Icon } from '~/components/Icon'
 import { blobToBase64 } from 'base64-blob'
 
 export default {
-    name: 'DropFoto',
+    name: 'DropImage',
     components: { DokaModal, BasicButton, Icon, IconButton },
     props: {
         aspectRatio: {

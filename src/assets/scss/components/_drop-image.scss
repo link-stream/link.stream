@@ -1,51 +1,50 @@
-.dropfoto-upl-box,
-.dropfoto-img-box {
+.dropimg-u-dz,
+.dropimg-thumb {
     height: 140px;
     width: 140px;
 }
 
-.dropfoto-prv {
+.dropimg-p {
     display: flex;
     flex-direction: column;
 }
 
-.dropfoto-img-box {
+.dropimg-thumb {
     position: relative;
     margin-bottom: 7px;
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
 }
 
-.dropfoto-img {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-.dropfoto-add-btn {
+.dropimg-add-btn {
     position: absolute;
     right: 0;
     bottom: 0;
     padding: 5px;
 }
 
-.dropfoto-add-lnk {
+.dropimg-add-lnk {
     display: none;
 }
 
-.dropfoto-rm-btn {
+.dropimg-rm-btn {
     position: absolute;
     top: -8px;
     right: -8px;
 }
 
-.dropfoto-rm-lnk {
+.dropimg-rm-lnk {
     align-self: flex-start;
     font-size: px2rem(12);
 }
 
-.dropfoto-upl {
+.dropimg-u {
     display: flex;
 }
 
-.dropfoto-upl-box {
+.dropimg-u-dz {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -59,16 +58,16 @@
     }
 }
 
-.dropfoto-upl-i {
+.dropimg-u-i {
     &:before {
         @extend .ls-i:before;
-        background-image: url(~@/../public/static/ico/dropfoto/cam-plus-md.svg);
+        background-image: url(~@/../public/static/ico/drop-image/cam-plus-md.svg);
         width: 40px;
         height: 36px;
     }
 }
 
-.dropfoto-upl-msg {
+.dropimg-u-msg {
     font-size: px2rem(12);
     text-align: center;
     u {
@@ -82,20 +81,20 @@
 }
 
 @include media-breakpoint-up(md) {
-    .dropfoto-upl-box,
-    .dropfoto-img-box {
+    .dropimg-u-dz,
+    .dropimg-thumb {
         width: 215px;
         height: 215px;
         cursor: pointer;
     }
 
-    .dropfoto-upl-i:before {
-        background-image: url(~@/../public/static/ico/dropfoto/cam-plus-lg.svg);
+    .dropimg-u-i:before {
+        background-image: url(~@/../public/static/ico/drop-image/cam-plus-lg.svg);
         width: 49px;
         height: 44px;
     }
 
-    .dropfoto-upl-msg {
+    .dropimg-u-msg {
         font-size: px2rem(13);
         .msg-long {
             display: block;

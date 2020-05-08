@@ -1,1 +1,1 @@
-export { default as DropFoto } from './DropFoto'
+export { default as DropImage } from './DropImage'

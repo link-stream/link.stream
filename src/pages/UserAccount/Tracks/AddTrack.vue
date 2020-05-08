@@ -5,7 +5,9 @@
 </template>
 
 <script>
+import { AddTrackWizard } from '~/components/UserAccount/Tracks'
+
 export default {
-    name: 'TrackAdd',
+    name: 'AddTrack',
 }
 </script>

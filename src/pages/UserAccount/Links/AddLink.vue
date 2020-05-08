@@ -107,7 +107,7 @@
 import { linkAddEditForm } from '~/mixins/links/linkAddEditForm'
 
 export default {
-    name: 'LinkAdd',
+    name: 'AddLink',
     mixins: [linkAddEditForm],
 }
 </script>

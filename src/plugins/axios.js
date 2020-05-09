@@ -34,7 +34,6 @@ instance.interceptors.response.use(
     error => {
         if (error.config.showProgress) {
             // Stop progress when a response is received
-
             app.$Progress.finish()
         }
         return Promise.reject(error)

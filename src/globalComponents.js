@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import 'typeface-montserrat'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'
@@ -15,7 +16,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import Vuelidate from 'vuelidate'
-import { AlertBox } from '@/components/Alert'
+import { alertBox, eventBus } from '~/plugins'
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
@@ -81,5 +82,8 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 // Install Vuelidate
 Vue.use(Vuelidate)
 
-// Install AlertBox
-Vue.prototype.$alert = new Vue(AlertBox).$mount()
+// Install alert box
+Vue.use(alertBox)
+
+// Install event bus
+Vue.use(eventBus)

@@ -1,100 +1,319 @@
 <template>
-    <div>
-        <span v-for="(step, k) in stepsWithTabs" :key="k">
-            <span :class="{ 'font-weight-bold': step.name === curStep.name }">
-                {{ k + 1 }}. {{ step.tab }}&nbsp;
-            </span>
-        </span>
+    <div class="fwz">
+        <WizardTabs v-show="stepIndex > 0" :tabs="tabs" :activeStep="step" />
 
-        <div class="my-5">
-            <keep-alive>
-                <component :is="curStep.name"></component>
-            </keep-alive>
-        </div>
+        <!-- STEP - TRACK TYPE -->
+        <wizard-step v-show="isStepTrackType" title="Track Type">
+            <basic-button @click="handleAddBeatClick">Add a Beat</basic-button>
+            <basic-button @click="handleAddSongClick">Add a Song</basic-button>
+        </wizard-step>
 
-        <basic-button @click="prev">Prev</basic-button>
-        <basic-button @click="next">Next</basic-button>
+        <!-- STEP - TRACK INFO -->
+        <wizard-step
+            v-show="isStepTrackInfo"
+            :title="isSong ? 'Song info' : 'Beat info'"
+        >
+            <aside>
+                <DropImage
+                    msgLong="Drag artwork here or<br><u>browse for file</u>"
+                    @image-added="handleImageAdded"
+                    @image-removed="handleImageRemoved"
+                />
+            </aside>
+            <main>
+                <fieldset>
+                    <b-form-group
+                        :label="isSong ? 'Song Title*' : 'Beat Title*'"
+                        label-for="titleInput"
+                    >
+                        <b-form-input
+                            id="titleInput"
+                            placeholder="Enter a title"
+                            v-model="$v.form.trackInfo.title.$model"
+                            :state="!$v.form.trackInfo.title.$error"
+                        ></b-form-input>
+                        <b-form-invalid-feedback>
+                            Enter a title
+                        </b-form-invalid-feedback>
+                    </b-form-group>
+
+                    <b-form-group label="Primary Genre" label-for="genreInput">
+                        <SelectBox
+                            v-model="form.trackInfo.genre"
+                            id="genreInput"
+                            placeholder="Select Genre"
+                            :options="genres"
+                            :reduce="genre => genre.id"
+                            label="genre"
+                        />
+                    </b-form-group>
+
+                    <b-form-group label="Tags(3)">
+                        <VueTagsInput
+                            :placeholder="
+                                form.trackInfo.tags.length ? '' : 'Tags'
+                            "
+                            v-model="form.trackInfo.tag"
+                            @tags-changed="handleTagsChanged"
+                        />
+                    </b-form-group>
+
+                    <b-form-row>
+                        <b-col md="6">
+                            <b-form-group label="BPM" label-for="bpmInput">
+                                <b-form-input
+                                    id="bpmInput"
+                                    v-model="form.trackInfo.bpm"
+                                ></b-form-input>
+                            </b-form-group>
+                        </b-col>
+                        <b-col md="6">
+                            <b-form-group label="Key" label-for="keyInput">
+                                <SelectBox
+                                    v-model="form.trackInfo.genre"
+                                    id="keyInput"
+                                    placeholder="Select"
+                                    :options="[]"
+                                    :reduce="key => key.id"
+                                    label="text"
+                                />
+                            </b-form-group>
+                        </b-col>
+                    </b-form-row>
+
+                    <div class="collaborators">
+                        <div class="c-row">
+                            <div class="c-col">
+                                Collaborator
+                            </div>
+                            <div class="c-col">
+                                Profit %
+                            </div>
+                            <div class="c-col">
+                                Publishing %
+                            </div>
+                        </div>
+                        <div
+                            class="c-row"
+                            v-for="c in form.trackInfo.collaborators"
+                            :key="c.id"
+                        >
+                            <div class="c-col">
+                                <b-form-group>
+                                    <b-form-input></b-form-input>
+                                </b-form-group>
+                            </div>
+                            <div class="c-col">
+                                <b-form-group>
+                                    <b-form-input
+                                        v-model="c.profitPercent"
+                                    ></b-form-input>
+                                </b-form-group>
+                            </div>
+                            <div class="c-col">
+                                <b-form-group>
+                                    <b-form-input
+                                        v-model="c.pubPercent"
+                                    ></b-form-input>
+                                </b-form-group>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </main>
+        </wizard-step>
+
+        <footer class="fwz-pager" v-show="stepIndex > 0">
+            <basic-button
+                variant="secondary"
+                class="fwz-prev-btn"
+                @click="prev"
+            >
+                Back
+            </basic-button>
+            <basic-button class="fwz-next-btn" @click="next">Next</basic-button>
+        </footer>
     </div>
 </template>
 
 <script>
-import StepTrackType from './Steps/TrackType'
-import StepTrackInfo from './Steps/TrackInfo'
-import StepLicense from './Steps/License'
-import StepUpload from './Steps/Upload'
-import StepMarketing from './Steps/Marketing'
-import StepReview from './Steps/Review'
-
+import WizardStep from './WizardStep'
+import WizardTabs from './WizardTabs'
 import { BasicButton } from '~/components/Button'
+import { DropImage } from '~/components/Uploader'
+import { SelectBox } from '~/components/Select'
+
+import { appConstants } from '~/constants'
+import { required, minLength } from 'vuelidate/lib/validators'
+import { helpers } from 'vuelidate/lib/validators'
+import { mapGetters } from 'vuex'
+
+const STEP_TRACK_TYPE = 'trackType'
+const STEP_TRACK_INFO = 'trackInfo'
+const STEP_LICENSES = 'licenses'
+const STEP_UPLOAD = 'upload'
+const STEP_MARKETING = 'marketing'
+const STEP_REVIEW = 'review'
+
+const steps = [
+    STEP_TRACK_TYPE,
+    STEP_TRACK_INFO,
+    STEP_LICENSES,
+    STEP_UPLOAD,
+    STEP_MARKETING,
+    STEP_REVIEW,
+]
+
+const tabs = [
+    {
+        text: 'Beat Info',
+        step: STEP_TRACK_INFO,
+    },
+    {
+        text: 'Licenses',
+        step: STEP_LICENSES,
+    },
+    {
+        text: 'Upload Files',
+        step: STEP_UPLOAD,
+    },
+    {
+        text: 'Marketing',
+        step: STEP_MARKETING,
+    },
+    {
+        text: 'Review',
+        step: STEP_REVIEW,
+    },
+]
 
 export default {
     name: 'AddTrackWizard',
     components: {
+        WizardTabs,
+        WizardStep,
         BasicButton,
-        StepTrackType,
-        StepTrackInfo,
-        StepLicense,
-        StepUpload,
-        StepMarketing,
-        StepReview,
+        DropImage,
+        SelectBox,
     },
     data() {
-        return {
-            curStepIndex: 0,
-            steps: [
+        const data = {
+            stepIndex: 0,
+        }
+
+        const form = {}
+        form[STEP_TRACK_TYPE] = null
+        form[STEP_TRACK_INFO] = {
+            title: null,
+            image: null,
+            genre: null,
+            tag: '',
+            tags: [],
+            bpm: 0,
+            collaborators: [
                 {
-                    name: 'StepTrackType',
-                    tab: 'Beat Type',
-                },
-                {
-                    name: 'StepTrackInfo',
-                    tab: 'Beat Info',
-                },
-                {
-                    name: 'StepLicense',
-                    tab: 'Licenses',
-                },
-                {
-                    name: 'StepUpload',
-                    tab: 'Upload Files',
-                },
-                {
-                    name: 'StepMarketing',
-                    tab: 'Marketing',
-                },
-                {
-                    name: 'StepReview',
-                    tab: 'Review',
+                    user: {
+                        id: '',
+                        name: '',
+                        photo: '',
+                    },
+                    profitPercent: 100,
+                    pubPercent: 100,
                 },
             ],
         }
+
+        return {
+            ...data,
+            form,
+        }
+    },
+    validations() {
+        const form = {}
+        form[STEP_TRACK_INFO] = {
+            title: {
+                required,
+            },
+        }
+        return { form }
     },
     computed: {
-        stepsWithTabs() {
-            return this.steps.filter(step => {
-                return step.tab !== false
-            })
-        },
-        curStep() {
-            return this.steps[this.curStepIndex]
-        },
-        curStepNum() {
-            return 1 + this.curStepIndex
+        ...mapGetters({ user: 'me/user', genres: 'common/genres' }),
+        step() {
+            return steps[this.stepIndex]
         },
         numSteps() {
-            return this.steps.length
+            return steps.length
         },
+        tabs() {
+            tabs[0].text = this.isSong ? 'Song info' : 'Beat info'
+            return tabs
+        },
+        isSong() {
+            return this.form.trackType === appConstants.tracks.types.song
+        },
+        isStepTrackType() {
+            return this.step === STEP_TRACK_TYPE
+        },
+        isStepTrackInfo() {
+            return this.step === STEP_TRACK_INFO
+        },
+        isStepLicenses() {
+            return this.step === STEP_LICENSES
+        },
+        isStepUpload() {
+            return this.step === STEP_UPLOAD
+        },
+        isStepMarketing() {
+            return this.step === STEP_MARKETING
+        },
+        isStepReview() {
+            return this.step === STEP_REVIEW
+        },
+    },
+    beforeMount() {
+        this.form.trackInfo.collaborators[0].user = {
+            id: this.user.id,
+            name: this.user.user_name,
+            photo: this.user.photo,
+        }
     },
     methods: {
         next() {
-            if (this.curStepNum < this.numSteps) {
-                this.curStepIndex++
+            if (this.$v.form[this.step]) {
+                this.$v.form[this.step].$touch()
+                if (this.$v.form[this.step].$invalid) {
+                    return
+                }
+            }
+
+            if (this.stepIndex < this.numSteps - 1) {
+                this.stepIndex++
             }
         },
         prev() {
-            if (this.curStepNum > 1) {
-                this.curStepIndex--
+            if (this.stepIndex > 0) {
+                this.stepIndex--
             }
+        },
+        /* STEP - TRACK TYPE */
+        handleAddBeatClick() {
+            this.form.trackType = appConstants.tracks.types.beat
+            this.next()
+        },
+        handleAddSongClick() {
+            this.form.trackType = appConstants.tracks.types.song
+            this.next()
+        },
+        /* STEP - TRACK INFO */
+        handleImageAdded(image) {
+            this.form.trackInfo.image = image.base64
+        },
+        handleImageRemoved(image) {
+            this.form.trackInfo.image = null
+        },
+        handleTagsChanged(tags) {
+            this.form.trackInfo.tags = tags.map(tag => tag.text)
         },
     },
 }

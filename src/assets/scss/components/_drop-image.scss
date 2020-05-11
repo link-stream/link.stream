@@ -1,5 +1,5 @@
 .dropimg-u-dz,
-.dropimg-thumb {
+.dropimg-img {
     height: 140px;
     width: 140px;
 }
@@ -9,7 +9,7 @@
     flex-direction: column;
 }
 
-.dropimg-thumb {
+.dropimg-img {
     position: relative;
     margin-bottom: 7px;
     img {
@@ -82,7 +82,7 @@
 
 @include media-breakpoint-up(md) {
     .dropimg-u-dz,
-    .dropimg-thumb {
+    .dropimg-img {
         width: 215px;
         height: 215px;
         cursor: pointer;

@@ -34,6 +34,17 @@ export const linkAddEditForm = {
             },
         }
     },
+    validations: {
+        form: {
+            url: {
+                required,
+                url,
+            },
+            title: {
+                required,
+            },
+        },
+    },
     computed: {
         ...mapGetters({
             user: 'me/user',
@@ -57,20 +68,12 @@ export const linkAddEditForm = {
             }
         },
     },
-    validations: {
-        form: {
-            url: {
-                required,
-                url,
-            },
-            title: {
-                required,
-            },
-        },
-    },
     methods: {
-        updateImage({ image }) {
-            this.form.image = image ? image.base64 : null
+        handleImageAdded(image) {
+            this.form.image = image.base64
+        },
+        handleImageRemoved() {
+            this.form.image = null
         },
         toggleSchedule() {
             this.form.scheduled = !this.form.scheduled

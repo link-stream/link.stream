@@ -8,7 +8,7 @@
             @change="handleFileInputChange"
         />
         <section class="dropimg-p" v-if="isPreview">
-            <main class="dropimg-thumb" @click="showFileDialog">
+            <main class="dropimg-img" @click="showFileDialog">
                 <img :src="image.src" />
                 <IconButton
                     class="dropimg-rm-btn"
@@ -128,7 +128,7 @@ export default {
                 file: null,
                 src: null,
             }
-            this.$emit('change', { image: null })
+            this.$emit('image-removed')
         },
         showFileDialog() {
             this.$refs.fileinput.value = null
@@ -183,16 +183,14 @@ export default {
                     src: toURL(file),
                     base64,
                 }
+                this.$emit('image-added', this.image)
             } else {
-                this.$toast.error(
-                    'Aw snap! Something went wrong, please try again.'
-                )
+                this.$toast.error('Something went wrong, please try again.')
             }
             this.tmp = {
                 file: null,
                 src: null,
             }
-            this.$emit('change', { image: this.image })
         },
         handleDokaCancel() {
             this.tmp = {

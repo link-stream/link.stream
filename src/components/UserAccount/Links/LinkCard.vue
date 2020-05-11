@@ -39,7 +39,8 @@
                         :src="link.data_image"
                         msg-long="Drag image here&nbsp;or&nbsp;<u>browse</u>"
                         msg-short=""
-                        @change="updateImage"
+                        @image-added="handleImageAdded"
+                        @image-removed="handleImageRemoved"
                     />
                 </div>
                 <form class="crd-edit-form">

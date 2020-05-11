@@ -17,6 +17,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import Vuelidate from 'vuelidate'
 import { alertBox, eventBus } from '~/plugins'
+import VueTagsInput from '@johmun/vue-tags-input'
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
@@ -87,3 +88,6 @@ Vue.use(alertBox)
 
 // Install event bus
 Vue.use(eventBus)
+
+// Install VueTagsInput
+Vue.use(VueTagsInput)

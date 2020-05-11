@@ -30,7 +30,7 @@
                 class="alrt-action"
                 variant="secondary"
                 size="sm"
-                v-if="opts.cancelVisible"
+                v-if="opts.cancelShow"
                 @click="handleCancelClick"
             >
                 {{ opts.cancelText }}
@@ -38,7 +38,7 @@
             <spinner-button
                 class="alrt-action"
                 size="sm"
-                v-if="opts.okVisible"
+                v-if="opts.okShow"
                 @click="handleOkClick"
             >
                 {{ opts.okText }}
@@ -53,19 +53,12 @@ import { BasicButton, SpinnerButton, IconButton } from '~/components/Button'
 const defaultOpts = {
     title: null,
     message: null,
-    okVisible: true,
+    okShow: true,
     okText: 'OK',
     okCallback: null,
-    cancelVisible: true,
+    cancelShow: true,
     cancelText: 'Cancel',
     cancelCallback: null,
-}
-
-const showAlert = function(opts) {
-    for (let key in defaultOpts) {
-        this.opts[key] = key in opts ? opts[key] : defaultOpts[key]
-    }
-    this.$refs.modal.show()
 }
 
 export default {
@@ -80,10 +73,10 @@ export default {
             opts: {
                 title: null,
                 message: null,
-                okVisible: null,
+                okShow: null,
                 okText: null,
                 okCallback: null,
-                cancelVisible: null,
+                cancelShow: null,
                 cancelText: null,
                 cancelCallback: null,
             },
@@ -91,10 +84,16 @@ export default {
     },
     methods: {
         confirm(opts) {
-            showAlert.call(this, {
+            this.alert({
                 okText: 'Confirm',
                 ...opts,
             })
+        },
+        alert(opts) {
+            for (let key in defaultOpts) {
+                this.opts[key] = key in opts ? opts[key] : defaultOpts[key]
+            }
+            this.$refs.modal.show()
         },
         close() {
             this.$refs.modal.hide()

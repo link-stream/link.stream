@@ -1,5 +1,5 @@
 /**
- * Logged In User Module
+ * User Account Module
  */
 
 import { types, meTypes } from '../mutationTypes'
@@ -38,20 +38,20 @@ const mutations = {
         }
     },
 
-    /**
-     * General
-     */
+    [meTypes.SET_USER](state, { user }) {
+        state.user = user
+    },
 
     [meTypes.SET_VISIBILITIES](state, { visibilities }) {
         state.visibilities = visibilities
     },
 
+    /**
+     * Tracks
+     */
+
     [meTypes.SET_TRACKS](state, { tracks }) {
         state.tracks = tracks
-    },
-
-    [meTypes.SET_USER](state, { user }) {
-        state.user = user
     },
 
     /**
@@ -130,10 +130,6 @@ const actions = {
             commit(types.RESET)
         },
     },
-
-    /**
-     * Misc
-     */
 
     async loadVisibilities({ commit, rootGetters }) {
         const authUser = rootGetters['auth/user']

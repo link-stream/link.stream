@@ -1,0 +1,21 @@
+.page-ua-track-add {
+    .fwz-step-body {
+        > aside {
+            margin-right: 30px;
+        }
+    }
+
+    .collaborators {
+        .c-row {
+            display: flex;
+            justify-content: space-between;
+        }
+        .c-col:nth-child(1) {
+            width: 56%;
+        }
+        .c-col:nth-child(2),
+        .c-col:nth-child(3) {
+            width: 20%;
+        }
+    }
+}

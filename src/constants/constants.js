@@ -20,6 +20,12 @@ export const constants = {
         public: 1,
         private: 2,
     },
+    tracks: {
+        types: {
+            song: 1,
+            beat: 2,
+        },
+    },
     user: {
         profileBannerAspectRatio: 0.254364,
         account: {

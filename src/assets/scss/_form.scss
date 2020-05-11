@@ -96,8 +96,10 @@
         padding-left: 0;
     }
 
-    .vs__search::placeholder {
-        color: $input-placeholder-color;
+    .vs__search {
+        &::placeholder {
+            color: $input-placeholder-color;
+        }
     }
 
     .vs__selected-options {
@@ -187,5 +189,18 @@
 
     .ls-datepicker-input {
         border-right-width: 0px;
+    }
+}
+
+.vue-tags-input {
+    max-width: none !important;
+    .ti-input {
+        min-height: $input-height;
+    }
+    .ti-new-tag-input {
+        font-size: $input-btn-font-size;
+        &::placeholder {
+            color: $input-placeholder-color;
+        }
     }
 }

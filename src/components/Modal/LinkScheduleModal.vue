@@ -108,9 +108,9 @@ export default {
             data.form.date = new Date(date + ' 00:00:00')
             data.form.time = time
             if (end_date && end_time) {
+                data.endDateEnabled = true
                 data.form.endDate = new Date(end_date + ' 00:00:00')
                 data.form.endTime = end_time
-                data.endDateEnabled = true
             }
         }
 

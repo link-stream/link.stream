@@ -1,5 +1,5 @@
 <template>
-    <select-box
+    <SelectBox
         class="ls-timepicker"
         icon="select-time"
         :value="value"
@@ -9,7 +9,7 @@
         :options="times"
         :reduce="time => time.id"
         @input="handleInput"
-    ></select-box>
+    />
 </template>
 
 <script>

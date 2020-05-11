@@ -25,8 +25,7 @@ import {
     PreviewPillButton,
 } from '~/components/Button'
 
-import { SelectBox } from '~/components/Select'
-import { DatePicker, TimePicker } from '~/components/Picker'
+import { SelectBox, DatePicker, TimePicker } from '~/components/Form'
 import { Icon } from '~/components/Icon'
 
 // Install BootstrapVue

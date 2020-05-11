@@ -1,6 +1,6 @@
 <template>
     <div class="crd crd-vid">
-        <Icon class="crd-reorder-i" icon="reorder" />
+        <LsIcon class="crd-reorder-i" icon="reorder" />
         <div class="crd-content" @click="handleEditClick">
             <div class="crd-art">
                 <div class="crd-lock" v-if="video.isPrivate"></div>
@@ -11,13 +11,13 @@
                 <small class="crd-vis" v-if="video.isPrivate">Private</small>
             </div>
         </div>
-        <IconButton
+        <LsIconButton
             class="crd-del-btn"
             title="Delete"
             use-bg-img
             @click="handleDeleteClick"
         />
-        <IconButton
+        <LsIconButton
             class="crd-edit-btn"
             title="Edit"
             use-bg-img

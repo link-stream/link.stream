@@ -7,7 +7,7 @@
         hide-header
         hide-footer
     >
-        <IconButton class="alrt-close" icon="close" @click="close" />
+        <LsIconButton class="alrt-close" icon="close" @click="close" />
         <div class="alrt-body">
             <template v-if="opts.title && opts.message">
                 <h2
@@ -26,7 +26,7 @@
             </template>
         </div>
         <footer class="alrt-actions">
-            <basic-button
+            <ls-button
                 class="alrt-action"
                 variant="secondary"
                 size="sm"
@@ -34,15 +34,15 @@
                 @click="handleCancelClick"
             >
                 {{ opts.cancelText }}
-            </basic-button>
-            <spinner-button
+            </ls-button>
+            <ls-spinner-button
                 class="alrt-action"
                 size="sm"
                 v-if="opts.okShow"
                 @click="handleOkClick"
             >
                 {{ opts.okText }}
-            </spinner-button>
+            </ls-spinner-button>
         </footer>
     </b-modal>
 </template>

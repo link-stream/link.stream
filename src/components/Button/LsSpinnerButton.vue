@@ -30,7 +30,7 @@
 
 <script>
 export default {
-    name: 'SpinnerButton',
+    name: 'LsSpinnerButton',
     props: {
         type: {
             type: String,

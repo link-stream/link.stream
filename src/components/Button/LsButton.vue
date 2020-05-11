@@ -1,12 +1,19 @@
 <template>
-    <b-button :type="type" :to="to" :size="size" pill :variant="variant" @click="handleClick">
+    <b-button
+        :type="type"
+        :to="to"
+        :size="size"
+        pill
+        :variant="variant"
+        @click="handleClick"
+    >
         <slot></slot>
     </b-button>
 </template>
 
 <script>
 export default {
-    name: 'BasicButton',
+    name: 'LsButton',
     props: {
         type: {
             type: String,

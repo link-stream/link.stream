@@ -1,3 +1,3 @@
-export { default as DatePicker } from './DatePicker'
-export { default as TimePicker } from './TimePicker'
-export { default as SelectBox } from './SelectBox'
+export { default as LsDatePicker } from './LsDatePicker'
+export { default as LsTimePicker } from './LsTimePicker'
+export { default as LsSelect } from './LsSelect'

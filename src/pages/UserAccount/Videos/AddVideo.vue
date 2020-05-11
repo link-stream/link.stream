@@ -69,7 +69,7 @@
                         </b-form-group>
 
                         <b-form-group label="Genre" label-for="genreInput">
-                            <SelectBox
+                            <LsSelect
                                 v-model="form.genre"
                                 id="genreInput"
                                 placeholder="Select Genre"
@@ -83,7 +83,7 @@
                             label="Related Track"
                             label-for="trackInput"
                         >
-                            <SelectBox
+                            <LsSelect
                                 v-model="form.relatedTrack"
                                 id="trackInput"
                                 placeholder="Select Related Track"
@@ -109,24 +109,24 @@
             </section>
 
             <footer class="fwz-pager">
-                <basic-button class="fwz-next-btn" @click="goToStep(2)">
+                <ls-button class="fwz-next-btn" @click="goToStep(2)">
                     Next
-                </basic-button>
-                <basic-button
+                </ls-button>
+                <ls-button
                     class="fwz-prev-btn"
                     variant="secondary"
                     :disabled="loading"
                     @click="goToStep(1)"
                 >
                     Back
-                </basic-button>
-                <spinner-button
+                </ls-button>
+                <ls-spinner-button
                     class="fwz-submit-btn"
                     :loading="loading"
                     @click="save"
                 >
                     Add Video
-                </spinner-button>
+                </ls-spinner-button>
             </footer>
         </div>
     </div>

@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    name: 'DatePicker',
+    name: 'LsDatePicker',
     props: {
         placeholder: {
             type: String,

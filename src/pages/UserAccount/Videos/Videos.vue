@@ -21,9 +21,9 @@
                 </div>
             </div>
             <div class="header-col">
-                <basic-button :to="{ name: 'userAccountVideosAdd' }">
+                <ls-button :to="{ name: 'userAccountVideosAdd' }">
                     Add New Video
-                </basic-button>
+                </ls-button>
             </div>
         </header>
         <main class="page-body">

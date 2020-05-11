@@ -11,14 +11,19 @@
         @input="handleInput"
     >
         <template v-slot:open-indicator>
-            <Icon :icon="icon" class="ls-select-icon" />
+            <LsIcon :icon="icon" class="ls-select-icon" />
         </template>
     </v-select>
 </template>
 
 <script>
+import vSelect from 'vue-select'
+
 export default {
-    name: 'SelectBox',
+    name: 'LsSelect',
+    components: {
+        vSelect,
+    },
     props: {
         label: {
             type: String,

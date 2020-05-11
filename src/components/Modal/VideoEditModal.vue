@@ -9,7 +9,7 @@
         @hidden="handleHidden"
     >
         <template v-slot:modal-header>
-            <IconButton class="modal-close" use-bg-img @click="close" />
+            <LsIconButton class="modal-close" use-bg-img @click="close" />
             <h2 class="modal-title">Edit video info</h2>
         </template>
 
@@ -51,7 +51,7 @@
             </b-form-group>
 
             <b-form-group label="Primary Genre" label-for="genreInput">
-                <SelectBox
+                <LsSelect
                     v-model="form.genre"
                     id="genreInput"
                     placeholder="Select Genre"
@@ -62,7 +62,7 @@
             </b-form-group>
 
             <b-form-group label="Related Track" label-for="trackInput">
-                <SelectBox
+                <LsSelect
                     v-model="form.related_track"
                     id="trackInput"
                     placeholder="Select Related Track"
@@ -87,42 +87,42 @@
             <template v-if="form.scheduled">
                 <b-form-group label="Publish Date">
                     <b-input-group class="input-group-datetime">
-                        <DatePicker v-model="form.date" />
-                        <TimePicker v-model="form.time" />
+                        <LsDatePicker v-model="form.date" />
+                        <LsTimePicker v-model="form.time" />
                     </b-input-group>
                 </b-form-group>
             </template>
 
-            <basic-button variant="link" @click="toggleSchedule">
+            <ls-button variant="link" @click="toggleSchedule">
                 {{
                     form.scheduled ? 'Clear scheduling ' : 'Schedule this video'
                 }}
-            </basic-button>
+            </ls-button>
         </template>
 
         <template v-slot:modal-footer>
             <div class="modal-delete">
-                <IconButton
+                <LsIconButton
                     icon="trash-sm"
                     title="Delete"
                     @click="handleDeleteClick"
                 />
             </div>
-            <basic-button
+            <ls-button
                 class="modal-action modal-cancel"
                 variant="secondary"
                 :disabled="loading"
                 @click="close"
             >
                 Cancel
-            </basic-button>
-            <spinner-button
+            </ls-button>
+            <ls-spinner-button
                 class="modal-action"
                 :loading="loading"
                 @click="save"
             >
                 Save
-            </spinner-button>
+            </ls-spinner-button>
         </template>
     </b-modal>
 </template>

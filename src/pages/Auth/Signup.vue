@@ -3,7 +3,7 @@
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-2">
-                    <spinner-button
+                    <ls-spinner-button
                         instagram
                         class="auth-btn"
                         :loading="status.loading.instagram"
@@ -12,7 +12,7 @@
                     >
                         <i class="ig-ico fab fa-instagram fa-lg"></i>
                         Sign up with Instagram
-                    </spinner-button>
+                    </ls-spinner-button>
                 </b-col>
                 <b-col cols="12" class="my-2">
                     <GoogleLogin
@@ -20,7 +20,7 @@
                         :params="google"
                         :onSuccess="onGoogleSuccess"
                     >
-                        <spinner-button
+                        <ls-spinner-button
                             google
                             class="auth-btn"
                             :loading="status.loading.google"
@@ -28,7 +28,7 @@
                         >
                             <i class="g-ico fab fa-google fa-1x"></i>
                             Sign up with Google
-                        </spinner-button>
+                        </ls-spinner-button>
                     </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
@@ -171,14 +171,14 @@
                             </b-link>
                             .
                         </b-form-group>
-                        <spinner-button
+                        <ls-spinner-button
                             type="submit"
                             class="auth-btn mt-5"
                             :loading="status.loading.signup"
                             :error="status.error.signup"
                         >
                             Sign Up
-                        </spinner-button>
+                        </ls-spinner-button>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-4">

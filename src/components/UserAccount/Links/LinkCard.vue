@@ -4,7 +4,7 @@
             <LoadingSpinner />
         </div>
         <section class="crd-viewing" v-if="!editing">
-            <Icon icon="reorder" class="crd-reorder-i" />
+            <LsIcon icon="reorder" class="crd-reorder-i" />
             <div class="crd-art" @click="showEditView">
                 <img class="crd-img" :src="link.artwork" :alt="link.title" />
             </div>
@@ -12,14 +12,14 @@
                 <h2 class="crd-title">{{ link.title }}</h2>
                 <small class="crd-vis" v-if="link.isPrivate">Hidden</small>
             </main>
-            <IconButton
+            <LsIconButton
                 icon="trash-2"
                 title="Delete"
                 class="crd-del-btn"
                 use-bg-img
                 @click="deleteLink"
             />
-            <IconButton
+            <LsIconButton
                 title="Edit"
                 class="crd-edit-btn"
                 use-bg-img
@@ -27,7 +27,7 @@
             />
         </section>
         <section class="crd-editing" v-else>
-            <IconButton
+            <LsIconButton
                 icon="close"
                 class="crd-edit-close"
                 title="Close"
@@ -67,32 +67,32 @@
                 </form>
             </main>
             <footer class="crd-edit-actions">
-                <IconButton
+                <LsIconButton
                     icon="trash-sm"
                     title="Delete"
                     @click="deleteLink"
                 />
                 <div class="actions-primary">
-                    <icon-button
+                    <ls-icon-button
                         :title="link.isPublic ? 'Hide' : 'Unhide'"
                         @click="handleVisibilityClick"
                     >
-                        <Icon
+                        <LsIcon
                             :icon="
                                 link.isPublic
                                     ? 'eye-cir-gray'
                                     : 'eye-slash-cir-gray'
                             "
                         />
-                    </icon-button>
-                    <IconButton
+                    </ls-icon-button>
+                    <LsIconButton
                         icon="clock-cir-gray"
                         title="Schedule"
                         @click="handleScheduleClick"
                     />
-                    <basic-button variant="tertiary" size="xs" @click="save">
+                    <ls-button variant="tertiary" size="xs" @click="save">
                         Save
-                    </basic-button>
+                    </ls-button>
                 </div>
             </footer>
             <footer class="schedule-dt" v-if="link.scheduled">

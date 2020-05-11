@@ -4,8 +4,8 @@
 
         <!-- STEP - TRACK TYPE -->
         <wizard-step v-show="isStepTrackType" title="Track Type">
-            <basic-button @click="handleAddBeatClick">Add a Beat</basic-button>
-            <basic-button @click="handleAddSongClick">Add a Song</basic-button>
+            <ls-button @click="handleAddBeatClick">Add a Beat</ls-button>
+            <ls-button @click="handleAddSongClick">Add a Song</ls-button>
         </wizard-step>
 
         <!-- STEP - TRACK INFO -->
@@ -38,7 +38,7 @@
                     </b-form-group>
 
                     <b-form-group label="Primary Genre" label-for="genreInput">
-                        <SelectBox
+                        <LsSelect
                             v-model="form.trackInfo.genre"
                             id="genreInput"
                             placeholder="Select Genre"
@@ -69,7 +69,7 @@
                         </b-col>
                         <b-col md="6">
                             <b-form-group label="Key" label-for="keyInput">
-                                <SelectBox
+                                <LsSelect
                                     v-model="form.trackInfo.genre"
                                     id="keyInput"
                                     placeholder="Select"
@@ -124,14 +124,10 @@
         </wizard-step>
 
         <footer class="fwz-pager" v-show="stepIndex > 0">
-            <basic-button
-                variant="secondary"
-                class="fwz-prev-btn"
-                @click="prev"
-            >
+            <ls-button variant="secondary" class="fwz-prev-btn" @click="prev">
                 Back
-            </basic-button>
-            <basic-button class="fwz-next-btn" @click="next">Next</basic-button>
+            </ls-button>
+            <ls-button class="fwz-next-btn" @click="next">Next</ls-button>
         </footer>
     </div>
 </template>

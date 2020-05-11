@@ -10,20 +10,20 @@
         <section class="dropimg-p" v-if="isPreview">
             <main class="dropimg-img" @click="showFileDialog">
                 <img :src="image.src" />
-                <IconButton
+                <LsIconButton
                     class="dropimg-rm-btn"
                     icon="dropimg-remove"
                     @click="reset"
                 />
-                <IconButton
+                <LsIconButton
                     class="dropimg-add-btn"
                     icon="dropimg-cam"
                     @click="showFileDialog"
                 />
             </main>
-            <basic-button class="dropimg-rm-lnk" variant="link" @click="reset">
+            <ls-button class="dropimg-rm-lnk" variant="link" @click="reset">
                 Remove artwork
-            </basic-button>
+            </ls-button>
         </section>
         <section
             v-else
@@ -42,13 +42,13 @@
                     <div class="msg-long" v-html="msgLong"></div>
                 </div>
             </main>
-            <basic-button
+            <ls-button
                 class="dropimg-add-lnk"
                 variant="link"
                 @click="showFileDialog"
             >
                 Add artwork
-            </basic-button>
+            </ls-button>
         </section>
 
         <DokaModal

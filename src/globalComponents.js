@@ -1,11 +1,36 @@
 import Vue from 'vue'
 import 'typeface-montserrat'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import {
+    BModal,
+    BButton,
+    BForm,
+    BFormRow,
+    BFormGroup,
+    BFormInput,
+    BFormCheckbox,
+    BFormRadio,
+    BFormRadioGroup,
+    BFormInvalidFeedback,
+    BFormTextarea,
+    BInputGroup,
+    BContainer,
+    BRow,
+    BCol,
+    BSpinner,
+    BNavbar,
+    BNavbarNav,
+    BNavbarBrand,
+    BImg,
+    BIcon,
+    BLink,
+    BDropdown,
+    BDropdownItem,
+    BDropdownDivider,
+} from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'
 import Toast from 'vue-toastification'
 import vuePerfectScrollbar from 'vue-perfect-scrollbar'
-import vSelect from 'vue-select'
 import VueYoutube from 'vue-youtube'
 import VCalendar from 'v-calendar'
 import { Plugin } from 'vue-fragment'
@@ -19,20 +44,41 @@ import Vuelidate from 'vuelidate'
 import { alertBox, eventBus } from '~/plugins'
 import VueTagsInput from '@johmun/vue-tags-input'
 import {
-    BasicButton,
-    SpinnerButton,
-    IconButton,
+    LsButton,
+    LsSpinnerButton,
+    LsIconButton,
     PreviewPillButton,
 } from '~/components/Button'
 
-import { SelectBox, DatePicker, TimePicker } from '~/components/Form'
-import { Icon } from '~/components/Icon'
+import { LsSelect, LsDatePicker, LsTimePicker } from '~/components/Form'
+import { LsIcon } from '~/components/Icon'
 
-// Install BootstrapVue
-Vue.use(BootstrapVue)
-
-// Install the BootstrapVue icon components plugin
-Vue.use(IconsPlugin)
+// Install BootstrapVue components
+Vue.component('BModal', BModal)
+Vue.component('BButton', BButton)
+Vue.component('BForm', BForm)
+Vue.component('BFormRow', BFormRow)
+Vue.component('BFormGroup', BFormGroup)
+Vue.component('BFormInput', BFormInput)
+Vue.component('BFormCheckbox', BFormCheckbox)
+Vue.component('BFormRadio', BFormRadio)
+Vue.component('BFormRadioGroup', BFormRadioGroup)
+Vue.component('BFormInvalidFeedback', BFormInvalidFeedback)
+Vue.component('BFormTextarea', BFormTextarea)
+Vue.component('BInputGroup', BInputGroup)
+Vue.component('BContainer', BContainer)
+Vue.component('BRow', BRow)
+Vue.component('BCol', BCol)
+Vue.component('BSpinner', BSpinner)
+Vue.component('BNavbar', BNavbar)
+Vue.component('BNavbarNav', BNavbarNav)
+Vue.component('BNavbarBrand', BNavbarBrand)
+Vue.component('BImg', BImg)
+Vue.component('BIcon', BIcon)
+Vue.component('BLink', BLink)
+Vue.component('BDropdown', BDropdown)
+Vue.component('BDropdownItem', BDropdownItem)
+Vue.component('BDropdownDivider', BDropdownDivider)
 
 // Install VueProgressBar
 Vue.use(VueProgressBar, {
@@ -53,9 +99,6 @@ Vue.use(Toast, {
 
 // Installl Perfect Scrollbar
 Vue.component('vue-perfect-scrollbar', vuePerfectScrollbar)
-
-// Install Vue Select
-Vue.component('v-select', vSelect)
 
 // Install Vue Youtube
 Vue.use(VueYoutube)
@@ -95,18 +138,15 @@ Vue.use(Vuelidate)
 // Install alert box
 Vue.use(alertBox)
 
-// Install event bus
-Vue.use(eventBus)
-
 // Install VueTagsInput
 Vue.use(VueTagsInput)
 
 // Install base components
-Vue.component('BasicButton', BasicButton)
-Vue.component('SpinnerButton', SpinnerButton)
-Vue.component('IconButton', IconButton)
+Vue.component('LsButton', LsButton)
+Vue.component('LsSpinnerButton', LsSpinnerButton)
+Vue.component('LsIconButton', LsIconButton)
 Vue.component('PreviewPillButton', PreviewPillButton)
-Vue.component('SelectBox', SelectBox)
-Vue.component('DatePicker', DatePicker)
-Vue.component('TimePicker', TimePicker)
-Vue.component('Icon', Icon)
+Vue.component('LsSelect', LsSelect)
+Vue.component('LsDatePicker', LsDatePicker)
+Vue.component('LsTimePicker', LsTimePicker)
+Vue.component('LsIcon', LsIcon)

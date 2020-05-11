@@ -9,27 +9,27 @@
         </div>
 
         <div class="mb-4">
-            <basic-button>Add Video</basic-button>
+            <ls-button>Add Video</ls-button>
             &nbsp;
-            <basic-button size="sm">Add Video</basic-button>
+            <ls-button size="sm">Add Video</ls-button>
             &nbsp;
-            <basic-button size="xs">Close</basic-button>
+            <ls-button size="xs">Close</ls-button>
         </div>
 
         <div class="mb-4">
-            <basic-button variant="secondary">Add Video</basic-button>
+            <ls-button variant="secondary">Add Video</ls-button>
             &nbsp;
-            <basic-button variant="secondary" size="sm">Add Video</basic-button>
+            <ls-button variant="secondary" size="sm">Add Video</ls-button>
             &nbsp;
-            <basic-button variant="secondary" size="xs">Close</basic-button>
+            <ls-button variant="secondary" size="xs">Close</ls-button>
         </div>
 
         <div class="mb-4">
-            <basic-button variant="tertiary">Add Video</basic-button>
+            <ls-button variant="tertiary">Add Video</ls-button>
             &nbsp;
-            <basic-button variant="tertiary" size="sm">Add Video</basic-button>
+            <ls-button variant="tertiary" size="sm">Add Video</ls-button>
             &nbsp;
-            <basic-button variant="tertiary" size="xs">Close</basic-button>
+            <ls-button variant="tertiary" size="xs">Close</ls-button>
         </div>
 
         <div class="mb-4">

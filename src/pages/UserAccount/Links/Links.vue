@@ -21,9 +21,9 @@
                 </div>
             </div>
             <div class="header-col">
-                <basic-button :to="{ name: 'userAccountLinksAdd' }">
+                <ls-button :to="{ name: 'userAccountLinksAdd' }">
                     Add New Link
-                </basic-button>
+                </ls-button>
             </div>
         </header>
         <main class="page-body">

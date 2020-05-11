@@ -8,7 +8,7 @@
         no-close-on-esc
     >
         <template v-slot:modal-header>
-            <IconButton class="modal-close" use-bg-img @click="close" />
+            <LsIconButton class="modal-close" use-bg-img @click="close" />
             <h2 class="modal-title">Schedule link</h2>
         </template>
 
@@ -16,8 +16,8 @@
             <div class="form-group">
                 <b-form-group label="Start Date">
                     <b-input-group class="input-group-datetime">
-                        <DatePicker v-model="form.date" />
-                        <TimePicker v-model="form.time" />
+                        <LsDatePicker v-model="form.date" />
+                        <LsTimePicker v-model="form.time" />
                     </b-input-group>
                     <div
                         class="invalid-feedback"
@@ -38,8 +38,8 @@
 
                 <b-form-group label="End Date" v-if="endDateEnabled">
                     <b-input-group class="input-group-datetime">
-                        <DatePicker v-model="form.endDate" />
-                        <TimePicker v-model="form.endTime" />
+                        <LsDatePicker v-model="form.endDate" />
+                        <LsTimePicker v-model="form.endTime" />
                     </b-input-group>
                     <div
                         class="invalid-feedback"
@@ -52,20 +52,16 @@
         </template>
 
         <template v-slot:modal-footer>
-            <basic-button
-                class="modal-action"
-                variant="secondary"
-                @click="close"
-            >
+            <ls-button class="modal-action" variant="secondary" @click="close">
                 Cancel
-            </basic-button>
-            <spinner-button
+            </ls-button>
+            <ls-spinner-button
                 class="modal-action"
                 :loading="loading"
                 @click="save"
             >
                 Save
-            </spinner-button>
+            </ls-spinner-button>
         </template>
     </b-modal>
 </template>

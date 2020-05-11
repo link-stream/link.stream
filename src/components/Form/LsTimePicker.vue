@@ -1,5 +1,5 @@
 <template>
-    <SelectBox
+    <LsSelect
         class="ls-timepicker"
         icon="select-time"
         :value="value"
@@ -16,7 +16,7 @@
 import { api } from '~/services/api'
 
 export default {
-    name: 'TimePicker',
+    name: 'LsTimePicker',
     props: {
         value: {
             type: String,

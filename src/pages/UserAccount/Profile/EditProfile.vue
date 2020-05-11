@@ -209,7 +209,7 @@
                                 label-for="country"
                                 class="mb-4"
                             >
-                                <SelectBox
+                                <LsSelect
                                     v-model="form.country"
                                     :options="allCountries"
                                     :reduce="country => country.code"
@@ -235,14 +235,14 @@
                     </b-row>
                 </b-col>
                 <b-col cols="12" class="mb-5">
-                    <spinner-button
+                    <ls-spinner-button
                         type="submit"
                         class="mt-5"
                         :loading="status.loading.update"
                         :error="status.error.update"
                     >
                         Save Updates
-                    </spinner-button>
+                    </ls-spinner-button>
                 </b-col>
             </b-row>
         </b-form>

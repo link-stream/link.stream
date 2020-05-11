@@ -6,14 +6,14 @@
         @click="handleClick"
     >
         <slot>
-            <Icon :icon="icon" v-if="!useBgImg" />
+            <LsIcon :icon="icon" v-if="!useBgImg" />
         </slot>
     </button>
 </template>
 
 <script>
 export default {
-    name: 'IconButton',
+    name: 'LsIconButton',
     props: {
         type: {
             type: String,

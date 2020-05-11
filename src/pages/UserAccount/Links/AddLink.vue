@@ -1,14 +1,14 @@
 <template>
     <div class="page page-ua-link-add">
         <div class="page-header">
-            <basic-button
+            <ls-button
                 class="page-back"
                 variant="text"
                 :to="{ name: 'userAccountLinks' }"
             >
                 <i class="ls-i ls-i-back"></i>
                 <span>Links</span>
-            </basic-button>
+            </ls-button>
         </div>
         <div class="fwz">
             <section class="fwz-step">
@@ -62,8 +62,8 @@
                             <div v-if="form.scheduled">
                                 <b-form-group label="Start Date">
                                     <b-input-group class="input-group-datetime">
-                                        <DatePicker v-model="form.date" />
-                                        <TimePicker v-model="form.time" />
+                                        <LsDatePicker v-model="form.date" />
+                                        <LsTimePicker v-model="form.time" />
                                     </b-input-group>
                                 </b-form-group>
                                 <b-form-group>
@@ -76,22 +76,19 @@
                                     v-if="endDateEnabled"
                                 >
                                     <b-input-group class="input-group-datetime">
-                                        <DatePicker v-model="form.endDate" />
-                                        <TimePicker v-model="form.endTime" />
+                                        <LsDatePicker v-model="form.endDate" />
+                                        <LsTimePicker v-model="form.endTime" />
                                     </b-input-group>
                                 </b-form-group>
                             </div>
 
-                            <basic-button
-                                variant="link"
-                                @click="toggleSchedule"
-                            >
+                            <ls-button variant="link" @click="toggleSchedule">
                                 {{
                                     form.scheduled
                                         ? 'Clear scheduling '
                                         : 'Schedule this link'
                                 }}
-                            </basic-button>
+                            </ls-button>
                         </fieldset>
                     </main>
                     <aside>
@@ -103,21 +100,21 @@
                 </main>
             </section>
             <footer class="fwz-pager">
-                <basic-button
+                <ls-button
                     class="fwz-prev-btn"
                     variant="secondary"
                     :to="{ name: 'userAccountLinks' }"
                     :disabled="loading"
                 >
                     Cancel
-                </basic-button>
-                <spinner-button
+                </ls-button>
+                <ls-spinner-button
                     class="fwz-submit-btn"
                     :loading="loading"
                     @click="save"
                 >
                     Add Link
-                </spinner-button>
+                </ls-spinner-button>
             </footer>
         </div>
     </div>

@@ -129,17 +129,10 @@
 
 <script>
 import { videoAddEditForm } from '~/mixins/videos/videoAddEditForm'
-import { IconButton } from '~/components/Button'
-import { DatePicker, TimePicker } from '~/components/Picker'
 
 export default {
     name: 'VideoEditModal',
     mixins: [videoAddEditForm],
-    components: {
-        IconButton,
-        DatePicker,
-        TimePicker,
-    },
     props: {
         video: {
             type: Object,

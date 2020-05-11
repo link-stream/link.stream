@@ -53,7 +53,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import { Container, Draggable } from 'vue-smooth-dnd'
-import { PreviewPillButton, BasicButton } from '~/components/Button'
 import { VideoEditModal } from '~/components/Modal'
 import { VideoCard } from '~/components/UserAccount/Videos'
 import { LoadingSpinner } from '~/components/Loading'
@@ -64,8 +63,6 @@ export default {
     components: {
         Container,
         Draggable,
-        BasicButton,
-        PreviewPillButton,
         VideoEditModal,
         VideoCard,
         LoadingSpinner,

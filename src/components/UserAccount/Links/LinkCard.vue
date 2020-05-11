@@ -111,8 +111,6 @@
 </template>
 
 <script>
-import { IconButton } from '~/components/Button'
-import { Icon } from '~/components/Icon'
 import { LoadingSpinner } from '~/components/Loading'
 import { linkAddEditForm } from '~/mixins/links/linkAddEditForm'
 import { appConstants } from '~/constants'
@@ -121,8 +119,6 @@ export default {
     name: 'VideoCard',
     mixins: [linkAddEditForm],
     components: {
-        IconButton,
-        Icon,
         LoadingSpinner,
     },
     props: {

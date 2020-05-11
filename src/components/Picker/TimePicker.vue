@@ -13,14 +13,10 @@
 </template>
 
 <script>
-import { SelectBox } from '~/components/Select'
 import { api } from '~/services/api'
 
 export default {
     name: 'TimePicker',
-    components: {
-        SelectBox,
-    },
     props: {
         value: {
             type: String,

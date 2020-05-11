@@ -51,7 +51,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { BasicButton, PreviewPillButton } from '~/components/Button'
 import { LinkCard } from '~/components/UserAccount/Links'
 import { LoadingSpinner } from '~/components/Loading'
 import { LinkScheduleModal } from '~/components/Modal'
@@ -60,8 +59,6 @@ import { Container, Draggable } from 'vue-smooth-dnd'
 export default {
     name: 'Links',
     components: {
-        BasicButton,
-        PreviewPillButton,
         LinkCard,
         Container,
         Draggable,

@@ -44,14 +44,10 @@
 </template>
 
 <script>
-import { SpinnerButton } from '~/components/Button'
 import notifications from '~/data/notifications'
 
 export default {
     name: 'TopNavNotifications',
-    components: {
-        SpinnerButton,
-    },
     data() {
         return {
             notifications: [],

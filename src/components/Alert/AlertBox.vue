@@ -48,8 +48,6 @@
 </template>
 
 <script>
-import { BasicButton, SpinnerButton, IconButton } from '~/components/Button'
-
 const defaultOpts = {
     title: null,
     message: null,
@@ -63,11 +61,6 @@ const defaultOpts = {
 
 export default {
     name: 'AlertBox',
-    components: {
-        BasicButton,
-        SpinnerButton,
-        IconButton,
-    },
     data() {
         return {
             opts: {

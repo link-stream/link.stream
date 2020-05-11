@@ -12,13 +12,8 @@
 </template>
 
 <script>
-import { Icon } from '~/components/Icon'
-
 export default {
     name: 'IconButton',
-    components: {
-        Icon,
-    },
     props: {
         type: {
             type: String,

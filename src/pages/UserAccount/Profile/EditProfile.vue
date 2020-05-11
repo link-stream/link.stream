@@ -259,8 +259,6 @@ import csc from 'country-state-city'
 import { setStatusChange } from '~/utils'
 import { api } from '~/services/api'
 import { appConstants } from '~/constants'
-import { SpinnerButton, PreviewPillButton } from '~/components/Button'
-import { SelectBox } from '~/components/Select'
 
 export default {
     name: 'EditProfile',
@@ -270,9 +268,6 @@ export default {
     components: {
         DokaModal,
         DokaOverlay,
-        SpinnerButton,
-        PreviewPillButton,
-        SelectBox,
     },
     data() {
         const user = this.$store.getters['me/user']

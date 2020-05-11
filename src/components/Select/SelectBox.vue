@@ -17,13 +17,8 @@
 </template>
 
 <script>
-import { Icon } from '~/components/Icon'
-
 export default {
     name: 'SelectBox',
-    components: {
-        Icon,
-    },
     props: {
         label: {
             type: String,

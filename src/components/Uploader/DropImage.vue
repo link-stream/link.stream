@@ -63,13 +63,11 @@
 
 <script>
 import { Doka, DokaModal, toURL } from 'vue-doka'
-import { IconButton, BasicButton } from '~/components/Button'
-import { Icon } from '~/components/Icon'
 import { blobToBase64 } from 'base64-blob'
 
 export default {
     name: 'DropImage',
-    components: { DokaModal, BasicButton, Icon, IconButton },
+    components: { DokaModal },
     props: {
         aspectRatio: {
             type: String,

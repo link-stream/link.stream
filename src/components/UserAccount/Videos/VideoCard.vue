@@ -28,16 +28,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { IconButton } from '~/components/Button'
-import { Icon } from '~/components/Icon'
 import { getYtVideoThumbUrl } from '~/utils'
 
 export default {
     name: 'VideoCard',
-    components: {
-        IconButton,
-        Icon,
-    },
     props: {
         video: {
             type: Object,

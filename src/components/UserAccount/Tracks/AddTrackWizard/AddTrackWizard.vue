@@ -139,9 +139,7 @@
 <script>
 import WizardStep from './WizardStep'
 import WizardTabs from './WizardTabs'
-import { BasicButton } from '~/components/Button'
 import { DropImage } from '~/components/Uploader'
-import { SelectBox } from '~/components/Select'
 
 import { appConstants } from '~/constants'
 import { required, minLength } from 'vuelidate/lib/validators'
@@ -192,9 +190,7 @@ export default {
     components: {
         WizardTabs,
         WizardStep,
-        BasicButton,
         DropImage,
-        SelectBox,
     },
     data() {
         const data = {

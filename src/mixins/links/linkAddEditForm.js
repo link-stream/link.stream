@@ -1,20 +1,12 @@
 import { mapGetters } from 'vuex'
-import { BasicButton, SpinnerButton } from '~/components/Button'
 import { DropImage } from '~/components/Uploader'
-import { DatePicker, TimePicker } from '~/components/Picker'
-import { SelectBox } from '~/components/Select'
 import { required, url } from 'vuelidate/lib/validators'
 import { appConstants } from '~/constants'
 import moment from 'moment'
 
 export const linkAddEditForm = {
     components: {
-        BasicButton,
-        SpinnerButton,
         DropImage,
-        DatePicker,
-        TimePicker,
-        SelectBox,
     },
     data() {
         return {

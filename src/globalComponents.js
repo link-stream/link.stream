@@ -18,6 +18,16 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import Vuelidate from 'vuelidate'
 import { alertBox, eventBus } from '~/plugins'
 import VueTagsInput from '@johmun/vue-tags-input'
+import {
+    BasicButton,
+    SpinnerButton,
+    IconButton,
+    PreviewPillButton,
+} from '~/components/Button'
+
+import { SelectBox } from '~/components/Select'
+import { DatePicker, TimePicker } from '~/components/Picker'
+import { Icon } from '~/components/Icon'
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
@@ -91,3 +101,13 @@ Vue.use(eventBus)
 
 // Install VueTagsInput
 Vue.use(VueTagsInput)
+
+// Install base components
+Vue.component('BasicButton', BasicButton)
+Vue.component('SpinnerButton', SpinnerButton)
+Vue.component('IconButton', IconButton)
+Vue.component('PreviewPillButton', PreviewPillButton)
+Vue.component('SelectBox', SelectBox)
+Vue.component('DatePicker', DatePicker)
+Vue.component('TimePicker', TimePicker)
+Vue.component('Icon', Icon)

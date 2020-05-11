@@ -71,20 +71,11 @@
 </template>
 
 <script>
-import { DatePicker, TimePicker } from '~/components/Picker'
-import { IconButton, BasicButton, SpinnerButton } from '~/components/Button'
 import { required, requiredIf } from 'vuelidate/lib/validators'
 import moment from 'moment'
 
 export default {
     name: 'LinkScheduleModal',
-    components: {
-        DatePicker,
-        TimePicker,
-        IconButton,
-        BasicButton,
-        SpinnerButton,
-    },
     props: {
         link: {
             type: Object,

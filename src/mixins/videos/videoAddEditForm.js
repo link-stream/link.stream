@@ -1,17 +1,10 @@
 import { mapGetters } from 'vuex'
-import { SpinnerButton, BasicButton } from '~/components/Button'
-import { SelectBox } from '~/components/Select'
 import { required, minLength } from 'vuelidate/lib/validators'
 import { helpers } from 'vuelidate/lib/validators'
 import { appConstants } from '~/constants'
 import moment from 'moment'
 
 export const videoAddEditForm = {
-    components: {
-        SpinnerButton,
-        BasicButton,
-        SelectBox,
-    },
     created() {
         this.$store.dispatch('common/loadTimes')
         this.$store.dispatch('common/loadGenres')

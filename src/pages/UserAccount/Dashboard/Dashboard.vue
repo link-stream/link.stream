@@ -65,15 +65,12 @@
 </template>
 
 <script>
-import { SpinnerButton, BasicButton } from '~/components/Button'
 import { DropImage } from '~/components/Uploader'
 import { LoadingSpinner } from '~/components/Loading'
 export default {
     name: 'Dashboard',
     components: {
-        SpinnerButton,
         DropImage,
-        BasicButton,
         LoadingSpinner,
     },
 }

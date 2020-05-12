@@ -4,6 +4,7 @@
 
 import { types, meTypes } from '../mutationTypes'
 import { api } from '~/services/api'
+import { appConstants } from '~/constants'
 
 const initialState = () => ({
     /**
@@ -305,7 +306,7 @@ const getters = {
         return links.map(link => {
             return {
                 ...link,
-                artwork: link.data_image || '/static/img/artwork-missing.jpg',
+                artwork: link.data_image || appConstants.defaultArtwork,
                 isPublic: link.public == '1',
                 isPrivate: link.public == '2',
             }

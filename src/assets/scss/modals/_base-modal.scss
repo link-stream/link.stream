@@ -18,7 +18,7 @@
 .modal-content {
     border-color: transparent;
     border-radius: 0;
-    padding: 0;
+    padding: 0 0 20px 0;
     margin: 0;
 }
 
@@ -44,7 +44,7 @@
     justify-content: space-between;
     border-top: 1px solid $linkstream-130;
     padding: 20px 0 0 0;
-    margin: 30px 20px 20px 20px;
+    margin: 30px 20px 0 20px;
     & > * {
         margin: 0;
     }
@@ -60,6 +60,11 @@
 @include media-breakpoint-up(md) {
     .modal-lg {
         max-width: 460px !important;
+
+        .modal-content {
+            padding-bottom: 30px;
+        }
+
         .modal-close {
             margin: 4px;
             &:before {
@@ -81,7 +86,7 @@
         .modal-footer {
             justify-content: flex-end;
             padding: 20px 0 0 0;
-            margin: 30px;
+            margin: 30px 30px 0 30px;
         }
 
         .modal-cancel {

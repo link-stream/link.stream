@@ -89,9 +89,9 @@ export default {
     name: 'SideNav',
     data() {
         return {
-            selectedParentMenu: '',
+            selectedParentMenu: null,
             menuItems: appMenus,
-            viewingParentMenu: '',
+            viewingParentMenu: null,
         }
     },
     mounted() {

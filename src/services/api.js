@@ -109,6 +109,11 @@ export const api = {
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
+        async searchCollab({ userId, search }) {
+            const endpoint = `/users/collaborator/${userId}?search=${search}`
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
     },
     audios: {
         async getTracksByUser(userId) {

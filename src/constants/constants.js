@@ -2,6 +2,7 @@ export const constants = {
     vuexLocalStorage: {
         key: 'ls',
     },
+    defaultArtwork: '/static/img/artwork-missing.jpg',
     cookies: {
         auth: {
             name: 'ls',

@@ -3,7 +3,7 @@
         <WizardTabs v-show="stepIndex > 0" :tabs="tabs" :activeStep="step" />
 
         <!-- STEP - TRACK TYPE -->
-        <wizard-step v-show="isStepTrackType" title="Track Type">
+        <wizard-step v-show="isStepTrackType" title="Select Track Type">
             <ls-button @click="handleAddBeatClick">Add a Beat</ls-button>
             <ls-button @click="handleAddSongClick">Add a Song</ls-button>
         </wizard-step>
@@ -53,7 +53,7 @@
                             :placeholder="
                                 form.trackInfo.tags.length ? '' : 'Tags'
                             "
-                            v-model="form.trackInfo.tag"
+                            v-model="tagInput"
                             @tags-changed="handleTagsChanged"
                         />
                     </b-form-group>
@@ -81,8 +81,8 @@
                         </b-col>
                     </b-form-row>
 
-                    <div class="collaborators">
-                        <div class="c-row">
+                    <div class="collabs">
+                        <header class="c-row">
                             <div class="c-col">
                                 Collaborator
                             </div>
@@ -92,33 +92,50 @@
                             <div class="c-col">
                                 Publishing %
                             </div>
-                        </div>
-                        <div
-                            class="c-row"
-                            v-for="c in form.trackInfo.collaborators"
-                            :key="c.id"
-                        >
-                            <div class="c-col">
-                                <b-form-group>
-                                    <b-form-input></b-form-input>
-                                </b-form-group>
-                            </div>
-                            <div class="c-col">
-                                <b-form-group>
-                                    <b-form-input
-                                        v-model="c.profitPercent"
-                                    ></b-form-input>
-                                </b-form-group>
-                            </div>
-                            <div class="c-col">
-                                <b-form-group>
-                                    <b-form-input
-                                        v-model="c.pubPercent"
-                                    ></b-form-input>
-                                </b-form-group>
-                            </div>
-                        </div>
+                            <div class="c-col"></div>
+                        </header>
+                        <ul>
+                            <li
+                                class="c-row"
+                                v-for="(c, index) in form.trackInfo.collabs"
+                                :key="c.id"
+                            >
+                                <div class="c-col">
+                                    <div class="c-user">
+                                        <img :src="c.user.photo" />
+                                        {{ c.user.name }}
+                                    </div>
+                                </div>
+                                <div class="c-col">
+                                    <b-form-group>
+                                        <b-form-input
+                                            v-model="c.profitPercent"
+                                        ></b-form-input>
+                                    </b-form-group>
+                                </div>
+                                <div class="c-col">
+                                    <b-form-group>
+                                        <b-form-input
+                                            v-model="c.pubPercent"
+                                        ></b-form-input>
+                                    </b-form-group>
+                                </div>
+                                <div class="c-col">
+                                    <LsIconButton
+                                        icon="close"
+                                        v-if="index > 0"
+                                        @click="removeCollab(index)"
+                                    />
+                                </div>
+                            </li>
+                        </ul>
                     </div>
+                    <ls-button
+                        variant="link"
+                        @click="showCollabSearchModal = true"
+                    >
+                        Add Collaborator
+                    </ls-button>
                 </fieldset>
             </main>
         </wizard-step>
@@ -129,6 +146,12 @@
             </ls-button>
             <ls-button class="fwz-next-btn" @click="next">Next</ls-button>
         </footer>
+
+        <CollaboratorSearchModal
+            v-if="showCollabSearchModal"
+            @hidden="handleCollabSearchModalHidden"
+            @user-selected="handleAddCollab"
+        />
     </div>
 </template>
 
@@ -136,7 +159,7 @@
 import WizardStep from './WizardStep'
 import WizardTabs from './WizardTabs'
 import { DropImage } from '~/components/Uploader'
-
+import { CollaboratorSearchModal } from '~/components/Modal'
 import { appConstants } from '~/constants'
 import { required, minLength } from 'vuelidate/lib/validators'
 import { helpers } from 'vuelidate/lib/validators'
@@ -187,10 +210,13 @@ export default {
         WizardTabs,
         WizardStep,
         DropImage,
+        CollaboratorSearchModal,
     },
     data() {
         const data = {
             stepIndex: 0,
+            showCollabSearchModal: false,
+            tagInput: '',
         }
 
         const form = {}
@@ -199,18 +225,17 @@ export default {
             title: null,
             image: null,
             genre: null,
-            tag: '',
             tags: [],
             bpm: 0,
-            collaborators: [
+            collabs: [
                 {
-                    user: {
-                        id: '',
-                        name: '',
-                        photo: '',
-                    },
                     profitPercent: 100,
                     pubPercent: 100,
+                    user: {
+                        id: null,
+                        name: null,
+                        photo: null,
+                    },
                 },
             ],
         }
@@ -264,9 +289,9 @@ export default {
         },
     },
     beforeMount() {
-        this.form.trackInfo.collaborators[0].user = {
+        this.form.trackInfo.collabs[0].user = {
             id: this.user.id,
-            name: this.user.user_name,
+            name: this.user.user_name + ' (you)',
             photo: this.user.photo,
         }
     },
@@ -298,6 +323,9 @@ export default {
             this.next()
         },
         /* STEP - TRACK INFO */
+        removeCollab(index) {
+            this.form.trackInfo.collabs.splice(index, 1)
+        },
         handleImageAdded(image) {
             this.form.trackInfo.image = image.base64
         },
@@ -306,6 +334,21 @@ export default {
         },
         handleTagsChanged(tags) {
             this.form.trackInfo.tags = tags.map(tag => tag.text)
+        },
+        handleCollabSearchModalHidden() {
+            this.showCollabSearchModal = false
+        },
+        handleAddCollab(user) {
+            const collabs = this.form.trackInfo.collabs
+            const exist = collabs.find(c => c.user.id == user.id)
+            if (exist) {
+                return
+            }
+            collabs.push({
+                user,
+                profitPercent: null,
+                pubPercent: null,
+            })
         },
     },
 }

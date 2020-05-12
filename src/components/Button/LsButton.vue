@@ -21,7 +21,7 @@ export default {
         },
         size: {
             type: String,
-            default: '',
+            default: null,
         },
         variant: {
             type: String,

@@ -42,7 +42,7 @@ export default {
         },
         size: {
             type: String,
-            default: '',
+            default: null,
         },
         loading: {
             type: Boolean,

@@ -5,7 +5,7 @@
         }
     }
 
-    .collaborators {
+    .collabs {
         .c-row {
             display: flex;
             justify-content: space-between;
@@ -16,6 +16,23 @@
         .c-col:nth-child(2),
         .c-col:nth-child(3) {
             width: 20%;
+        }
+        .c-user {
+            display: flex;
+            align-items: center;
+            color: $black;
+            font-size: px2rem(13);
+            font-weight: 600;
+            letter-spacing: 0;
+            border: 1px solid $input-border-color;
+            height: 42.6px;
+            padding-left: 7px;
+            img {
+                width: 32.25px;
+                height: 32.25px;
+                border-radius: 50%;
+                margin-right: 5px;
+            }
         }
     }
 }

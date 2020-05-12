@@ -8,7 +8,7 @@ export default {
     props: {
         icon: {
             type: String,
-            default: '',
+            default: null,
             required: true,
         },
     },

@@ -21,11 +21,11 @@ export default {
     props: {
         title: {
             type: String,
-            default: '',
+            default: null,
         },
         subtitle: {
             type: String,
-            default: '',
+            default: null,
         },
     },
 }

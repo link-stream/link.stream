@@ -158,7 +158,7 @@ export default {
             title,
             url,
             genre: genre_id,
-            relatedTrack: related_track != '0' ? related_track : '', // TODO move check to backend
+            relatedTrack: related_track != '0' ? related_track : null, // TODO move check to backend
             visibility,
             scheduled,
             date: scheduled ? new Date(date + ' 00:00:00') : new Date(),

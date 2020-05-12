@@ -21,10 +21,10 @@
 @import 'vendor/vue-toastification';
 
 // Components
-@import 'components/btn-spinner';
+@import 'components/ls-spinner-btn';
+@import 'components/ls-spinner';
 @import 'components/alert-box';
 @import 'components/drop-image';
-@import 'components/loading-spinner';
 
 // Modals
 @import 'modals/base-modal';

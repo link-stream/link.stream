@@ -27,7 +27,7 @@
             </div>
         </header>
         <main class="page-body">
-            <LoadingSpinner v-if="loading" />
+            <LsSpinner v-if="loading" />
             <Container
                 @drop="handleReorder"
                 drag-handle-selector=".crd-reorder-i"
@@ -55,7 +55,6 @@ import { mapGetters } from 'vuex'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import { VideoEditModal } from '~/components/Modal'
 import { VideoCard } from '~/components/UserAccount/Videos'
-import { LoadingSpinner } from '~/components/Loading'
 import { appConstants } from '~/constants'
 
 export default {
@@ -65,7 +64,6 @@ export default {
         Draggable,
         VideoEditModal,
         VideoCard,
-        LoadingSpinner,
     },
     data() {
         return {

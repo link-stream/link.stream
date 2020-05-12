@@ -49,7 +49,7 @@ import {
     LsIconButton,
     PreviewPillButton,
 } from '~/components/Button'
-
+import { LsSpinner } from '~/components/Loading'
 import { LsSelect, LsDatePicker, LsTimePicker } from '~/components/Form'
 import { LsIcon } from '~/components/Icon'
 
@@ -150,3 +150,4 @@ Vue.component('LsSelect', LsSelect)
 Vue.component('LsDatePicker', LsDatePicker)
 Vue.component('LsTimePicker', LsTimePicker)
 Vue.component('LsIcon', LsIcon)
+Vue.component('LsSpinner', LsSpinner)

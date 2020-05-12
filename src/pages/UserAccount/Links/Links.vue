@@ -27,7 +27,7 @@
             </div>
         </header>
         <main class="page-body">
-            <LoadingSpinner v-if="loading" />
+            <LsSpinner v-if="loading" />
             <Container
                 v-else
                 @drop="handleReorder"
@@ -52,7 +52,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import { LinkCard } from '~/components/UserAccount/Links'
-import { LoadingSpinner } from '~/components/Loading'
 import { LinkScheduleModal } from '~/components/Modal'
 import { Container, Draggable } from 'vue-smooth-dnd'
 
@@ -62,7 +61,6 @@ export default {
         LinkCard,
         Container,
         Draggable,
-        LoadingSpinner,
         LinkScheduleModal,
     },
     data() {

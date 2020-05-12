@@ -31,7 +31,7 @@
             </div>
             <div class="s-results">
                 <div class="loading-mask" v-show="loading">
-                    <LoadingSpinner animation="bounce" />
+                    <LsSpinner animation="bounce" />
                 </div>
                 <ul v-show="showResults">
                     <li
@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import { LoadingSpinner } from '~/components/Loading'
 import { api } from '~/services/api'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
@@ -65,9 +64,6 @@ const MAX_RESULTS = 5
 
 export default {
     name: 'CollaboratorSearchModal',
-    components: {
-        LoadingSpinner,
-    },
     data() {
         return {
             /**

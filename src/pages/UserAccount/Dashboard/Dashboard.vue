@@ -3,9 +3,9 @@
         <h1>Dashboard Page</h1>
 
         <div class="my-4">
-            <LoadingSpinner class="text-left m-0" animation="bounce" />
-            <LoadingSpinner class="text-left m-0" animation="pulse" />
-            <LoadingSpinner class="text-left m-0" animation="scale" />
+            <LsSpinner class="text-left m-0" animation="bounce" />
+            <LsSpinner class="text-left m-0" animation="pulse" />
+            <LsSpinner class="text-left m-0" animation="scale" />
         </div>
 
         <div class="mb-4">
@@ -66,12 +66,10 @@
 
 <script>
 import { DropImage } from '~/components/Uploader'
-import { LoadingSpinner } from '~/components/Loading'
 export default {
     name: 'Dashboard',
     components: {
         DropImage,
-        LoadingSpinner,
     },
 }
 </script>

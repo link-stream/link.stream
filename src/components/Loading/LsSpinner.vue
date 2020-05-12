@@ -1,5 +1,5 @@
 <template>
-    <div class="loading-spinner" :class="`--${animation}`">
+    <div class="ls-spinner" :class="`--${animation}`">
         <template v-if="animation === 'pulse'">
             <span class="dot1"></span>
             <span class="dot2"></span>
@@ -31,7 +31,7 @@
 
 <script>
 export default {
-    name: 'LoadingSpinner',
+    name: 'LsSpinner',
     props: {
         animation: {
             type: String,

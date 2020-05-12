@@ -1,4 +1,4 @@
-.loading-spinner {
+.ls-spinner {
     text-align: center;
     line-height: 0;
     > span {
@@ -9,7 +9,7 @@
 
 /** Pulse */
 
-.loading-spinner.--pulse {
+.ls-spinner.--pulse {
     > span {
         width: 4px;
         height: 35px;
@@ -34,7 +34,7 @@
 
 /** Bounce */
 
-.loading-spinner.--bounce {
+.ls-spinner.--bounce {
     > span {
         width: 20px;
         height: 20px;
@@ -54,7 +54,7 @@
 
 /** Bars */
 
-.loading-spinner.--bars {
+.ls-spinner.--bars {
     > span {
         height: 60px;
         width: 6px;
@@ -82,7 +82,7 @@
 
 /** Scale */
 
-.loading-spinner.--scale {
+.ls-spinner.--scale {
     > span {
         width: 4px;
         height: 35px;

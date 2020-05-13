@@ -15,40 +15,38 @@
         </template>
 
         <template v-slot:default>
-            <div class="s-input">
+            <div class="search-input" :class="{ '--loading': loading }">
+                <LsSpinner animation="bounce" />
                 <input
                     type="text"
                     class="form-control"
                     placeholder="Username or email"
+                    maxlength="35"
                     v-model="query"
                 />
                 <LsIconButton
                     icon="close"
-                    class="s-input-clear"
+                    class="search-clear-btn"
                     @click="clearQuery"
                     v-show="allowClear"
                 />
             </div>
-            <div class="s-results">
-                <div class="loading-mask" v-show="loading">
-                    <LsSpinner animation="bounce" />
-                </div>
-                <ul v-show="showResults">
-                    <li
-                        v-for="user in results"
-                        :key="user.id"
-                        @click="handleUserClick(user)"
-                    >
-                        <ls-button variant="link">
-                            {{ user.name }}
-                        </ls-button>
-                    </li>
-                    <li>
-                        Can't find who you're looking for?
-                        <ls-button variant="link">Send an invite</ls-button>
-                    </li>
-                </ul>
-            </div>
+
+            <ul v-show="showResults">
+                <li
+                    v-for="user in results"
+                    :key="user.id"
+                    @click="handleUserClick(user)"
+                >
+                    <ls-button variant="link">
+                        {{ user.name }}
+                    </ls-button>
+                </li>
+                <li>
+                    Can't find who you're looking for?
+                    <ls-button variant="link">Send an invite</ls-button>
+                </li>
+            </ul>
         </template>
     </b-modal>
 </template>
@@ -80,7 +78,7 @@ export default {
         ...mapGetters({
             user: 'me/user',
         }),
-        isQueryValid() {
+        validQuery() {
             return this.query.length >= MIN_QUERY_LENGTH
         },
         allowClear() {
@@ -89,7 +87,7 @@ export default {
     },
     watch: {
         query() {
-            if (this.isQueryValid) {
+            if (this.validQuery) {
                 this.loading = true
                 this.debounceSeach()
             } else {
@@ -115,7 +113,7 @@ export default {
             this.$refs.modal.hide()
         },
         async search() {
-            if (!this.isQueryValid) {
+            if (!this.validQuery) {
                 this.resetSearch()
                 return
             }
@@ -125,7 +123,7 @@ export default {
                 search: this.query,
             })
 
-            if (!this.isQueryValid) {
+            if (!this.validQuery) {
                 this.resetSearch()
                 return
             }

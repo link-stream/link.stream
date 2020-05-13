@@ -1,0 +1,15 @@
+.ls-spinner-mask {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(215, 215, 215, 0.2);
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    .ls-spinner {
+        margin-top: 0 !important;
+    }
+}

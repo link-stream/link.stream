@@ -1,8 +1,6 @@
 <template>
     <div class="crd crd-lnk" :class="{ '--private': link.isPrivate }">
-        <div class="crd-load-mask" role="status" v-if="loading">
-            <LsSpinner />
-        </div>
+        <LsSpinnerMask v-show="loading" />
         <section class="crd-viewing" v-if="!editing">
             <LsIcon icon="reorder" class="crd-reorder-i" />
             <div class="crd-art" @click="showEditView">
@@ -111,12 +109,16 @@
 </template>
 
 <script>
+import { LsSpinnerMask } from '~/components/Loading'
 import { linkAddEditForm } from '~/mixins/links/linkAddEditForm'
 import { appConstants } from '~/constants'
 
 export default {
     name: 'VideoCard',
     mixins: [linkAddEditForm],
+    components: {
+        LsSpinnerMask,
+    },
     props: {
         link: {
             type: Object,

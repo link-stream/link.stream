@@ -1,29 +1,39 @@
 .mdl-collab-search {
-    .s-input {
-        position: relative;
-        margin-bottom: 20px;
-        input {
-            padding-right: 35px;
-        }
-    }
-
-    .s-input-clear {
+    .search-clear-btn {
         position: absolute;
         top: 15px;
         right: 15px;
     }
 
-    .s-results {
-        position: relative;
+    .ls-spinner {
+        display: none;
+        position: absolute;
+        top: 17px;
+        right: 15px;
+        & > span {
+            width: 10px;
+            height: 10px;
+        }
     }
 
-    .loading-mask {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
+    .search-input {
+        position: relative;
+        margin-bottom: 20px;
+
+        input {
+            padding-right: 35px;
+        }
+
+        &.--loading {
+            input {
+                padding-right: 50px;
+            }
+            .ls-spinner {
+                display: block;
+            }
+            .search-clear-btn {
+                display: none;
+            }
+        }
     }
 }

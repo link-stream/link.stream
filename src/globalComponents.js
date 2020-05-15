@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import 'typeface-montserrat'
 import {
+    ModalPlugin,
     BModal,
     BButton,
     BForm,
@@ -54,6 +55,7 @@ import { LsSelect, LsDatePicker, LsTimePicker } from '~/components/Form'
 import { LsIcon } from '~/components/Icon'
 
 // Install BootstrapVue components
+Vue.use(ModalPlugin)
 Vue.component('BModal', BModal)
 Vue.component('BButton', BButton)
 Vue.component('BForm', BForm)

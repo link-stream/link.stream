@@ -4,8 +4,6 @@
         ref="modal"
         @hidden="handleHidden"
         centered
-        no-close-on-backdrop
-        no-close-on-esc
     >
         <template v-slot:modal-header>
             <LsIconButton class="modal-close" use-bg-img @click="close" />

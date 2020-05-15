@@ -5,7 +5,7 @@
             v-show="false"
             :accept="allowedTypes"
             ref="fileinput"
-            @change="handleFileInputChange"
+            @change="handleFileSelected"
         />
         <section class="dropimg-p" v-if="isPreview">
             <main class="dropimg-img" @click="showFileDialog">
@@ -165,7 +165,7 @@ export default {
                 }
             }
         },
-        handleFileInputChange(e) {
+        handleFileSelected(e) {
             const file = e.target.files[0]
             this.tmp = {
                 file,

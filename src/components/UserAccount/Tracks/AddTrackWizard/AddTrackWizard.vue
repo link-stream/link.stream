@@ -147,11 +147,12 @@
             <ls-button class="fwz-next-btn" @click="next">Next</ls-button>
         </footer>
 
-        <CollaboratorSearchModal
+        <UserSearchModal
             v-if="showCollabSearchModal"
             @hidden="handleCollabSearchModalHidden"
             @user-selected="handleAddCollab"
         />
+        <UserInviteModal />
     </div>
 </template>
 
@@ -159,7 +160,7 @@
 import WizardStep from './WizardStep'
 import WizardTabs from './WizardTabs'
 import { DropImage } from '~/components/Uploader'
-import { CollaboratorSearchModal } from '~/components/Modal'
+import { UserSearchModal, UserInviteModal } from '~/components/Modal'
 import { appConstants } from '~/constants'
 import { required, minLength } from 'vuelidate/lib/validators'
 import { helpers } from 'vuelidate/lib/validators'
@@ -210,7 +211,8 @@ export default {
         WizardTabs,
         WizardStep,
         DropImage,
-        CollaboratorSearchModal,
+        UserSearchModal,
+        UserInviteModal,
     },
     data() {
         const data = {

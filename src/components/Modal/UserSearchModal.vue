@@ -1,12 +1,10 @@
 <template>
     <b-modal
-        modal-class="mdl-collab-search"
+        modal-class="mdl-user-search"
         ref="modal"
         size="lg"
         @hidden="handleHidden"
         centered
-        no-close-on-backdrop
-        no-close-on-esc
         hide-footer
     >
         <template v-slot:modal-header>
@@ -44,7 +42,9 @@
                 </li>
                 <li>
                     Can't find who you're looking for?
-                    <ls-button variant="link">Send an invite</ls-button>
+                    <ls-button variant="link" @click="showInviteModal">
+                        Send an invite
+                    </ls-button>
                 </li>
             </ul>
         </template>
@@ -61,7 +61,7 @@ const MIN_QUERY_LENGTH = 3
 const MAX_RESULTS = 5
 
 export default {
-    name: 'CollaboratorSearchModal',
+    name: 'UserSearchModal',
     data() {
         return {
             /**
@@ -78,7 +78,7 @@ export default {
         ...mapGetters({
             user: 'me/user',
         }),
-        validQuery() {
+        isValidQuery() {
             return this.query.length >= MIN_QUERY_LENGTH
         },
         allowClear() {
@@ -87,7 +87,7 @@ export default {
     },
     watch: {
         query() {
-            if (this.validQuery) {
+            if (this.isValidQuery) {
                 this.loading = true
                 this.debounceSeach()
             } else {
@@ -112,8 +112,12 @@ export default {
         close() {
             this.$refs.modal.hide()
         },
+        showInviteModal() {
+            this.close()
+            this.$bvModal.show('mdlUserInvite')
+        },
         async search() {
-            if (!this.validQuery) {
+            if (!this.isValidQuery) {
                 this.resetSearch()
                 return
             }
@@ -123,7 +127,7 @@ export default {
                 search: this.query,
             })
 
-            if (!this.validQuery) {
+            if (!this.isValidQuery) {
                 this.resetSearch()
                 return
             }

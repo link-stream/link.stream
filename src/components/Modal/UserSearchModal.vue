@@ -37,6 +37,7 @@
                     @click="handleUserClick(user)"
                 >
                     <ls-button variant="link">
+                        <UserAvatar :username="user.name" :src="user.photo" />
                         {{ user.name }}
                     </ls-button>
                 </li>

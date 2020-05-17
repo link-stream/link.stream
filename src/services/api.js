@@ -115,6 +115,13 @@ export const api = {
             return await call({ endpoint, method })
         },
     },
+    licenses: {
+        async getLicensesByUser(userId) {
+            const endpoint = `/licenses/${userId}`
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
+    },
     audios: {
         async getTracksByUser(userId) {
             const endpoint = '/audios/related_track/' + userId

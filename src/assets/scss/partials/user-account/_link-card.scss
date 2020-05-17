@@ -3,20 +3,20 @@
 
     &.--private {
         .crd-title,
-        .crd-vis {
+        .crd-subtitle {
             color: $linkstream-40;
         }
     }
 
     /** View Mode */
 
-    .crd-viewing {
+    .crd-content {
         display: flex;
         align-items: center;
         padding: 15px;
     }
 
-    .crd-art {
+    .crd-media {
         margin: 0 10px;
         cursor: pointer;
     }
@@ -26,7 +26,7 @@
         height: 60px;
     }
 
-    .crd-body {
+    .crd-info {
         flex-grow: 1;
         cursor: pointer;
     }
@@ -39,14 +39,14 @@
         line-height: 16px;
     }
 
-    .crd-vis {
+    .crd-subtitle {
         font-size: px2rem(11);
         color: $black;
     }
 
     /** Edit Mode */
 
-    .crd-editing {
+    .crd-editable {
         position: relative;
         padding: 20px;
     }
@@ -59,27 +59,6 @@
     .crd-edit-form {
         .form-group:last-child {
             margin-bottom: 0;
-        }
-    }
-
-    .crd-edit-close {
-        position: absolute;
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 20px;
-    }
-
-    .crd-edit-actions {
-        display: flex;
-        justify-content: space-between;
-        border-top: 1px solid $linkstream-30;
-        padding-top: 16px;
-        margin-top: 16px;
-        .actions-primary {
-            .btn {
-                margin-left: 10px;
-            }
         }
     }
 
@@ -140,7 +119,7 @@
     @include media-breakpoint-up(md) {
         /** View Mode */
 
-        .crd-art {
+        .crd-media {
             margin: 0 14px;
         }
 

@@ -53,7 +53,7 @@
                             :placeholder="
                                 form.trackInfo.tags.length ? '' : 'Tags'
                             "
-                            v-model="tagInput"
+                            v-model="tag"
                             @tags-changed="handleTagsChanged"
                         />
                     </b-form-group>
@@ -81,46 +81,52 @@
                         </b-col>
                     </b-form-row>
 
-                    <div class="collabs">
-                        <header class="c-row">
-                            <div class="c-col">
+                    <div class="collabs-table">
+                        <header class="t-row">
+                            <div class="t-col">
                                 Collaborator
                             </div>
-                            <div class="c-col">
+                            <div class="t-col">
                                 Profit %
                             </div>
-                            <div class="c-col">
+                            <div class="t-col">
                                 Publishing %
                             </div>
-                            <div class="c-col"></div>
+                            <div class="t-col"></div>
                         </header>
                         <ul>
                             <li
-                                class="c-row"
-                                v-for="(c, index) in form.trackInfo.collabs"
-                                :key="c.id"
+                                class="t-row"
+                                v-for="(collab, index) in $v.form.trackInfo
+                                    .collabs.$each.$iter"
+                                :key="collab.id"
                             >
-                                <div class="c-col">
-                                    <div class="c-user">
-                                        <img :src="c.user.photo" />
-                                        {{ c.user.name }}
+                                <div class="t-col">
+                                    <div class="user-profile">
+                                        <UserAvatar
+                                            :username="collab.$model.user.name"
+                                            :src="collab.$model.user.photo"
+                                        />
+                                        {{ collab.$model.user.name }}
                                     </div>
                                 </div>
-                                <div class="c-col">
+                                <div class="t-col">
                                     <b-form-group>
                                         <b-form-input
-                                            v-model="c.profitPercent"
+                                            v-model="collab.profitPct.$model"
+                                            :state="!collab.profitPct.$error"
                                         ></b-form-input>
                                     </b-form-group>
                                 </div>
-                                <div class="c-col">
+                                <div class="t-col">
                                     <b-form-group>
                                         <b-form-input
-                                            v-model="c.pubPercent"
+                                            v-model="collab.pubPct.$model"
+                                            :state="!collab.pubPct.$error"
                                         ></b-form-input>
                                     </b-form-group>
                                 </div>
-                                <div class="c-col">
+                                <div class="t-col">
                                     <LsIconButton
                                         icon="close"
                                         v-if="index > 0"
@@ -138,6 +144,19 @@
                     </ls-button>
                 </fieldset>
             </main>
+        </wizard-step>
+
+        <!-- STEP - LICENSE TYPES -->
+        <wizard-step
+            title="License types"
+            class="step-licenses"
+            v-show="isStepLicenses"
+        >
+            <LicenseCard
+                v-for="license in licenses"
+                :license="license"
+                :key="license.id"
+            />
         </wizard-step>
 
         <footer class="fwz-pager" v-show="stepIndex > 0">
@@ -159,6 +178,7 @@
 <script>
 import WizardStep from './WizardStep'
 import WizardTabs from './WizardTabs'
+import LicenseCard from './LicenseCard'
 import { DropImage } from '~/components/Uploader'
 import { UserSearchModal, UserInviteModal } from '~/components/Modal'
 import { appConstants } from '~/constants'
@@ -210,29 +230,30 @@ export default {
     components: {
         WizardTabs,
         WizardStep,
+        LicenseCard,
         DropImage,
         UserSearchModal,
         UserInviteModal,
     },
     data() {
         const data = {
-            stepIndex: 0,
+            stepIndex: 2,
             showCollabSearchModal: false,
-            tagInput: '',
+            tag: '',
         }
 
         const form = {}
         form[STEP_TRACK_TYPE] = null
         form[STEP_TRACK_INFO] = {
-            title: null,
+            title: 'test',
             image: null,
             genre: null,
             tags: [],
             bpm: 0,
             collabs: [
                 {
-                    profitPercent: 100,
-                    pubPercent: 100,
+                    profitPct: 100,
+                    pubPct: 100,
                     user: {
                         id: null,
                         name: null,
@@ -253,11 +274,25 @@ export default {
             title: {
                 required,
             },
+            collabs: {
+                $each: {
+                    profitPct: {
+                        required,
+                    },
+                    pubPct: {
+                        required,
+                    },
+                },
+            },
         }
         return { form }
     },
     computed: {
-        ...mapGetters({ user: 'me/user', genres: 'common/genres' }),
+        ...mapGetters({
+            user: 'me/user',
+            genres: 'common/genres',
+            licenses: 'me/licenses',
+        }),
         step() {
             return steps[this.stepIndex]
         },
@@ -342,14 +377,14 @@ export default {
         },
         handleAddCollab(user) {
             const collabs = this.form.trackInfo.collabs
-            const exist = collabs.find(c => c.user.id == user.id)
+            const exist = collabs.find(collab => collab.user.id == user.id)
             if (exist) {
                 return
             }
             collabs.push({
                 user,
-                profitPercent: null,
-                pubPercent: null,
+                profitPct: null,
+                pubPct: null,
             })
         },
     },

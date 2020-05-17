@@ -89,10 +89,10 @@
 
         .page-header {
             flex-direction: row;
-            .header-col:first-child {
+            .header-left {
                 flex-grow: 1;
             }
-            .header-col:nth-child(2) {
+            .header-right {
                 align-self: flex-end;
             }
         }

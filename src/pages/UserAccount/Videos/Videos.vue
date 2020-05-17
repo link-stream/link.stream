@@ -1,7 +1,7 @@
 <template>
     <div class="page page-ua-vids">
         <header class="page-header">
-            <div class="header-col">
+            <div class="header-left">
                 <h1 class="page-title">Your videos</h1>
                 <h4 class="page-subtitle">
                     Add, remove, edit &amp; order videos anyway you'd like.
@@ -20,7 +20,7 @@
                     </preview-pill-button>
                 </div>
             </div>
-            <div class="header-col">
+            <div class="header-right">
                 <ls-button :to="{ name: 'userAccountVideosAdd' }">
                     Add New Video
                 </ls-button>

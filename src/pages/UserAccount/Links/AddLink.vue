@@ -12,12 +12,12 @@
         </div>
         <div class="fwz">
             <section class="fwz-step">
-                <header class="fwz-step-header">
-                    <h2 class="fwz-step-title">Add a link</h2>
+                <header class="step-header">
+                    <h2 class="step-title">Add a link</h2>
                 </header>
-                <main class="fwz-step-body">
+                <main class="step-body">
                     <main>
-                        <fieldset>
+                        <div class="step-fields">
                             <b-form-group
                                 label="Copy &amp; Paste Your Link URL"
                                 label-for="urlInput"
@@ -89,7 +89,7 @@
                                         : 'Schedule this link'
                                 }}
                             </ls-button>
-                        </fieldset>
+                        </div>
                     </main>
                     <aside>
                         <DropImage

@@ -4,13 +4,13 @@
             <h6 class="fwz-cnt">Step {{ step }} / 2</h6>
 
             <section class="fwz-step" v-show="step === 1">
-                <header class="fwz-step-header">
-                    <h2 class="fwz-step-title">
+                <header class="step-header">
+                    <h2 class="step-title">
                         Add a video
                     </h2>
                 </header>
-                <main class="fwz-step-body">
-                    <fieldset>
+                <main class="step-body">
+                    <div class="step-fields">
                         <b-form-group
                             label="YouTube Video URL"
                             label-for="urlInput"
@@ -30,21 +30,21 @@
                                 </template>
                             </b-form-invalid-feedback>
                         </b-form-group>
-                    </fieldset>
+                    </div>
                 </main>
             </section>
 
             <section class="fwz-step" v-show="step === 2">
-                <header class="fwz-step-header">
-                    <h2 class="fwz-step-title">
+                <header class="step-header">
+                    <h2 class="step-title">
                         Review video info
                     </h2>
-                    <h4 class="fwz-step-subtitle">
+                    <h4 class="step-subtitle">
                         Preview and publish your content
                     </h4>
                 </header>
-                <main class="fwz-step-body">
-                    <fieldset>
+                <main class="step-body">
+                    <div class="step-fields">
                         <youtube class="yt-wrap" :video-id="ytVidId"></youtube>
                         <b-form-group
                             label="Video Title"
@@ -104,7 +104,7 @@
                                 </b-form-radio>
                             </b-form-radio-group>
                         </b-form-group>
-                    </fieldset>
+                    </div>
                 </main>
             </section>
 

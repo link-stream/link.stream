@@ -1,15 +1,15 @@
 <template>
     <div class="fwz-step">
         <slot name="header">
-            <header class="fwz-step-header" v-if="title">
-                <h2 class="fwz-step-title">{{ title }}</h2>
-                <h4 class="fwz-step-subtitle" v-if="subtitle">
+            <header class="step-header" v-if="title">
+                <h2 class="step-title">{{ title }}</h2>
+                <h4 class="step-subtitle" v-if="subtitle">
                     {{ subtitle }}
                 </h4>
             </header>
         </slot>
 
-        <main class="fwz-step-body">
+        <main class="step-body">
             <slot></slot>
         </main>
     </div>

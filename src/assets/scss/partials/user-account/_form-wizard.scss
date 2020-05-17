@@ -8,29 +8,31 @@
     font-weight: 600;
 }
 
-.fwz-step-header {
-    margin-bottom: 20px;
-}
+.fwz {
+    .step-header {
+        margin-bottom: 20px;
+    }
 
-.fwz-step-title {
-    color: $black;
-    font-size: px2rem(30);
-    font-weight: 800;
-    line-height: 34px;
-}
+    .step-title {
+        color: $black;
+        font-size: px2rem(30);
+        font-weight: 800;
+        line-height: 34px;
+    }
 
-.fwz-step-subtitle {
-    color: $black;
-    line-height: 24px;
-    font-weight: normal;
-    font-size: px2rem(14);
-}
+    .step-subtitle {
+        color: $black;
+        line-height: 24px;
+        font-weight: normal;
+        font-size: px2rem(14);
+    }
 
-.fwz-step-body {
-    display: flex;
-    flex-direction: column;
-    > aside {
-        margin-top: 20px;
+    .step-body {
+        display: flex;
+        flex-direction: column;
+        > aside {
+            margin-top: 20px;
+        }
     }
 }
 
@@ -51,18 +53,20 @@
 }
 
 @include media-breakpoint-up(md) {
-    .fwz-step-body {
-        flex-direction: row;
-        > fieldset,
-        > main > fieldset {
+    .fwz {
+        .step-fields {
             max-width: 500px;
         }
-        > fieldset,
-        > main {
-            flex-grow: 1;
-        }
-        > aside {
-            margin-top: 0;
+
+        .step-body {
+            flex-direction: row;
+            > .step-fields,
+            > main {
+                flex-grow: 1;
+            }
+            > aside {
+                margin-top: 0;
+            }
         }
     }
 

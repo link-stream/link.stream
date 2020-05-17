@@ -7,7 +7,7 @@
         top: 46px;
     }
 
-    .crd-content {
+    .crd-body {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
@@ -15,7 +15,7 @@
         cursor: pointer;
     }
 
-    .crd-art {
+    .crd-media {
         margin-bottom: 10px;
     }
 
@@ -40,7 +40,7 @@
         line-height: 16px;
     }
 
-    .crd-vis {
+    .crd-subtitle {
         font-size: px2rem(11);
         color: $black;
     }
@@ -52,12 +52,12 @@
             top: auto;
         }
 
-        .crd-content {
+        .crd-body {
             flex-direction: row;
             align-items: center;
         }
 
-        .crd-art {
+        .crd-media {
             margin: 0 15px 0 0;
         }
 

@@ -27,6 +27,10 @@ const initialState = () => ({
      * @var {array}
      */
     links: null,
+    /**
+     * @var {array}
+     */
+    licenses: null,
 })
 
 const state = initialState()
@@ -39,12 +43,20 @@ const mutations = {
         }
     },
 
+    /**
+     * User
+     */
+
     [meTypes.SET_USER](state, { user }) {
         state.user = user
     },
 
     [meTypes.SET_VISIBILITIES](state, { visibilities }) {
         state.visibilities = visibilities
+    },
+
+    [meTypes.SET_LICENSES](state, { licenses }) {
+        state.licenses = licenses
     },
 
     /**
@@ -61,13 +73,6 @@ const mutations = {
 
     [meTypes.SET_VIDEOS](state, { videos }) {
         state.videos = videos
-    },
-
-    [meTypes.ADD_VIDEO](state, { video }) {
-        if (!state.videos) {
-            state.videos = []
-        }
-        state.videos.push(video)
     },
 
     [meTypes.UPDATE_VIDEO](state, { video }) {
@@ -95,13 +100,6 @@ const mutations = {
 
     [meTypes.SET_LINKS](state, { links }) {
         state.links = links
-    },
-
-    [meTypes.ADD_LINK](state, { link }) {
-        if (!state.links) {
-            state.links = []
-        }
-        state.links.push(link)
     },
 
     [meTypes.UPDATE_LINK](state, { link }) {
@@ -132,6 +130,10 @@ const actions = {
         },
     },
 
+    /**
+     * User
+     */
+
     async loadVisibilities({ commit, rootGetters }) {
         const authUser = rootGetters['auth/user']
         const res = await api.common.getVisibilitiesByUser(authUser.id)
@@ -160,10 +162,6 @@ const actions = {
         ])
     },
 
-    /**
-     * Profile
-     */
-
     updateProfile({ commit }, { user }) {
         commit(meTypes.SET_USER, { user })
     },
@@ -172,6 +170,17 @@ const actions = {
         const authUser = rootGetters['auth/user']
         const { status, data } = await api.users.getUser(authUser.id)
         status === 'success' && commit(meTypes.SET_USER, { user: data })
+    },
+
+    async loadLicenses({ commit, rootGetters }) {
+        const authUser = rootGetters['auth/user']
+        const { status, data } = await api.licenses.getLicensesByUser(
+            authUser.id
+        )
+        commit({
+            type: meTypes.SET_LICENSES,
+            licenses: status === 'success' ? data : [],
+        })
     },
 
     /**
@@ -192,9 +201,6 @@ const actions = {
      */
 
     async loadVideos({ state, commit }, { params }) {
-        if (state.videos) {
-            return
-        }
         const res = await api.videos.getVideosByUser(state.user.id, params)
         commit({
             type: meTypes.SET_VIDEOS,
@@ -202,11 +208,8 @@ const actions = {
         })
     },
 
-    async createVideo({ commit }, { params }) {
-        const res = await api.videos.createVideo(params)
-        res.status === 'success' &&
-            commit(meTypes.ADD_VIDEO, { video: res.data })
-        return res
+    async createVideo(context, { params }) {
+        return await api.videos.createVideo(params)
     },
 
     async updateVideo({ commit }, { id, params }) {
@@ -235,18 +238,13 @@ const actions = {
      */
 
     async loadLinks({ state, commit }) {
-        if (state.links) {
-            return
-        }
         const res = await api.links.getLinksByUser(state.user.id)
         res.status === 'success' &&
             commit(meTypes.SET_LINKS, { links: res.data })
     },
 
-    async createLink({ commit }, { params }) {
-        const res = await api.links.createLink(params)
-        res.status === 'success' && commit(meTypes.ADD_LINK, { link: res.data })
-        return res
+    async createLink(context, { params }) {
+        return await api.links.createLink(params)
     },
 
     async updateLink({ commit }, { id, params }) {
@@ -272,6 +270,9 @@ const actions = {
 }
 
 const getters = {
+    visibilities: state => state.visibilities || [],
+    tracks: state => state.tracks || [],
+    licenses: state => state.licenses || [],
     user: state => {
         const user = state.user
         if (!user) {
@@ -283,8 +284,6 @@ const getters = {
             banner: user.data_banner,
         }
     },
-    visibilities: state => state.visibilities || [],
-    tracks: state => state.tracks || [],
     videos: state => {
         const videos = state.videos
         if (!videos) {

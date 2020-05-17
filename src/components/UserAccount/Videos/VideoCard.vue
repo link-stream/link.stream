@@ -1,14 +1,16 @@
 <template>
     <div class="crd crd-vid">
         <LsIcon class="crd-reorder-i" icon="reorder" />
-        <div class="crd-content" @click="handleEditClick">
-            <div class="crd-art">
+        <div class="crd-body" @click="handleEditClick">
+            <div class="crd-media">
                 <div class="crd-lock" v-if="video.isPrivate"></div>
                 <img class="crd-img" :src="thumbUrl" :alt="video.title" />
             </div>
-            <div class="crd-body">
+            <div class="crd-info">
                 <h2 class="crd-title">{{ video.title }}</h2>
-                <small class="crd-vis" v-if="video.isPrivate">Private</small>
+                <small class="crd-subtitle" v-if="video.isPrivate">
+                    Private
+                </small>
             </div>
         </div>
         <LsIconButton

@@ -1,14 +1,14 @@
 <template>
     <div class="crd crd-lnk" :class="{ '--private': link.isPrivate }">
         <LsSpinnerMask v-show="loading" />
-        <section class="crd-viewing" v-if="!editing">
-            <LsIcon icon="reorder" class="crd-reorder-i" />
-            <div class="crd-art" @click="showEditView">
+        <section class="crd-content" v-show="!editing">
+            <LsIcon class="crd-reorder-i" icon="reorder" />
+            <div class="crd-media" @click="showEditView">
                 <img class="crd-img" :src="link.artwork" :alt="link.title" />
             </div>
-            <main class="crd-body" @click="showEditView">
+            <main class="crd-info" @click="showEditView">
                 <h2 class="crd-title">{{ link.title }}</h2>
-                <small class="crd-vis" v-if="link.isPrivate">Hidden</small>
+                <small class="crd-subtitle" v-if="link.isPrivate">Hidden</small>
             </main>
             <LsIconButton
                 icon="trash-2"
@@ -24,7 +24,7 @@
                 @click="showEditView"
             />
         </section>
-        <section class="crd-editing" v-else>
+        <section class="crd-editable" v-if="editing">
             <LsIconButton
                 icon="close"
                 class="crd-edit-close"
@@ -32,15 +32,13 @@
                 @click="hideEditView"
             />
             <main class="crd-edit-body">
-                <div class="crd-edit-art">
-                    <DropImage
-                        :src="link.data_image"
-                        msg-long="Drag image here&nbsp;or&nbsp;<u>browse</u>"
-                        msg-short=""
-                        @image-added="handleImageAdded"
-                        @image-removed="handleImageRemoved"
-                    />
-                </div>
+                <DropImage
+                    :src="link.data_image"
+                    msg-long="Drag image here&nbsp;or&nbsp;<u>browse</u>"
+                    msg-short=""
+                    @image-added="handleImageAdded"
+                    @image-removed="handleImageRemoved"
+                />
                 <form class="crd-edit-form">
                     <b-form-group>
                         <b-form-input
@@ -65,12 +63,14 @@
                 </form>
             </main>
             <footer class="crd-edit-actions">
-                <LsIconButton
-                    icon="trash-sm"
-                    title="Delete"
-                    @click="deleteLink"
-                />
-                <div class="actions-primary">
+                <div class="actions-left">
+                    <LsIconButton
+                        icon="trash-sm"
+                        title="Delete"
+                        @click="deleteLink"
+                    />
+                </div>
+                <div class="actions-right">
                     <ls-icon-button
                         :title="link.isPublic ? 'Hide' : 'Unhide'"
                         @click="handleVisibilityClick"

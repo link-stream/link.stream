@@ -19,6 +19,27 @@
         }
     }
 
+    .crd-edit-close {
+        position: absolute;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 20px;
+    }
+
+    .crd-edit-actions {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid $linkstream-30;
+        padding-top: 16px;
+        margin-top: 16px;
+        .actions-right {
+            .btn {
+                margin-left: 10px;
+            }
+        }
+    }
+
     .crd-del-btn {
         visibility: hidden;
         display: none;

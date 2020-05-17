@@ -15,20 +15,22 @@ export const authTypes = {
 
 // Logged In User
 export const meTypes = {
-    SET_VISIBILITIES: 'SET_VISIBILITIES',
-    SET_TRACKS: 'SET_TRACKS',
+    // User
     SET_USER: 'SET_USER',
+    SET_VISIBILITIES: 'SET_VISIBILITIES',
+    SET_LICENSES: 'SET_LICENSES',
+
+    // Tracks
+    SET_TRACKS: 'SET_TRACKS',
 
     // Videos
     SET_VIDEOS: 'SET_VIDEOS',
-    ADD_VIDEO: 'ADD_VIDEO',
     UPDATE_VIDEO: 'UPDATE_VIDEO',
     DELETE_VIDEO: 'DELETE_VIDEO',
     REORDER_VIDEO: 'REORDER_VIDEO',
 
     // Links
     SET_LINKS: 'SET_LINKS',
-    ADD_LINK: 'ADD_LINK',
     UPDATE_LINK: 'UPDATE_LINK',
     DELETE_LINK: 'DELETE_LINK',
     REORDER_LINK: 'REORDER_LINK',

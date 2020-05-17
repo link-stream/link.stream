@@ -53,6 +53,7 @@ import {
 import { LsSpinner } from '~/components/Loading'
 import { LsSelect, LsDatePicker, LsTimePicker } from '~/components/Form'
 import { LsIcon } from '~/components/Icon'
+import UserAvatar from '~/components/Avatar/UserAvatar'
 
 // Install BootstrapVue components
 Vue.use(ModalPlugin)
@@ -153,3 +154,4 @@ Vue.component('LsDatePicker', LsDatePicker)
 Vue.component('LsTimePicker', LsTimePicker)
 Vue.component('LsIcon', LsIcon)
 Vue.component('LsSpinner', LsSpinner)
+Vue.component('UserAvatar', UserAvatar)

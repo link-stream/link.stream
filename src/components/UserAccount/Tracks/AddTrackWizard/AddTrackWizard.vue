@@ -166,6 +166,10 @@
             v-show="isStepUpload"
         >
             <DropAudio title="Untagged .WAV (or .MP3)" />
+            <DropFile
+                title="Track Stems .ZIP (or .RAR)"
+                acceptTypes=".zip,.rar"
+            />
             <DropAudio title="Tagged Streaming File (.MP3 or .WAV)" />
         </wizard-step>
 
@@ -189,7 +193,7 @@
 import WizardStep from './WizardStep'
 import WizardTabs from './WizardTabs'
 import LicenseCard from './LicenseCard'
-import { DropImage, DropAudio } from '~/components/Uploader'
+import { DropImage, DropAudio, DropFile } from '~/components/Uploader'
 import { UserSearchModal, UserInviteModal } from '~/components/Modal'
 import { appConstants } from '~/constants'
 import { required, minLength } from 'vuelidate/lib/validators'
@@ -243,6 +247,7 @@ export default {
         LicenseCard,
         DropImage,
         DropAudio,
+        DropFile,
         UserSearchModal,
         UserInviteModal,
     },

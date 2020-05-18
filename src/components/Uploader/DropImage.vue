@@ -1,14 +1,14 @@
 <template>
-    <div class="dropimg">
+    <div class="drop-img">
         <input
             type="file"
             v-show="false"
-            :accept="allowedTypes"
+            :accept="acceptTypes"
             ref="fileinput"
             @change="handleFileSelected"
         />
 
-        <section class="di-preview" v-if="isStateAdded">
+        <section class="df-preview" v-if="isStateAdded">
             <div class="p-box" @click="showFileDialog">
                 <img :src="image.src" />
                 <LsIconButton
@@ -25,7 +25,7 @@
 
         <section
             v-else
-            class="di-upload"
+            class="df-upload"
             :class="{ '--highlight': draggingOver }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
@@ -67,7 +67,7 @@ export default {
             type: String,
             default: '1',
         },
-        allowedTypes: {
+        acceptTypes: {
             type: String,
             default: 'image/*',
         },

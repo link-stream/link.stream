@@ -69,7 +69,7 @@
         }
     }
 
-    .dropimg {
+    .drop-img {
         margin-bottom: 10px;
 
         .u-box,
@@ -78,7 +78,7 @@
             height: 65px;
         }
 
-        .di-upload {
+        .df-upload {
             .u-add-btn {
                 display: block;
                 margin-left: 10px;
@@ -97,7 +97,7 @@
             }
         }
 
-        .di-preview {
+        .df-preview {
             flex-direction: row;
             align-items: center;
 
@@ -142,7 +142,7 @@
             justify-content: flex-end;
         }
 
-        .dropimg {
+        .drop-img {
             margin-bottom: 0;
 
             .u-box,
@@ -151,7 +151,7 @@
                 height: 120px;
             }
 
-            .di-preview {
+            .df-preview {
                 flex-direction: column;
                 align-items: flex-start;
 
@@ -161,7 +161,7 @@
                 }
             }
 
-            .di-upload {
+            .df-upload {
                 .u-msg {
                     font-size: px2rem(12);
                 }

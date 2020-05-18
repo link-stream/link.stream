@@ -1,11 +1,11 @@
-.dropimg {
+.drop-img {
     .u-box,
     .p-box {
         height: 140px;
         width: 140px;
     }
 
-    .di-preview {
+    .df-preview {
         display: flex;
         flex-direction: column;
 
@@ -37,7 +37,7 @@
         }
     }
 
-    .di-upload {
+    .df-upload {
         display: flex;
 
         &.--highlight,
@@ -86,7 +86,7 @@
 }
 
 @include media-breakpoint-up(md) {
-    .dropimg {
+    .drop-img {
         .u-box,
         .p-box {
             width: 215px;
@@ -94,7 +94,7 @@
             cursor: pointer;
         }
 
-        .di-upload {
+        .df-upload {
             .u-ico:before {
                 background-image: url(~@/../public/static/ico/drop-image/cam-plus-lg.svg);
                 width: 49px;

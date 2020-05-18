@@ -1,0 +1,26 @@
+.dropaud {
+    .da-title {
+        font-weight: bold;
+    }
+
+    .da-preview {
+        display: flex;
+        .flx-item:nth-child(2) {
+            flex-grow: 1;
+        }
+    }
+
+    .da-upload {
+        display: flex;
+        border: 1px dashed #d1d1d1;
+        border-radius: 4px;
+        cursor: pointer;
+        &.--highlight,
+        &:hover {
+            border-color: $linkstream-20;
+        }
+        .flx-item:nth-child(1) {
+            flex-grow: 1;
+        }
+    }
+}

@@ -21,7 +21,7 @@
                 />
             </aside>
             <main>
-                <fieldset>
+                <div class="step-fields">
                     <b-form-group
                         :label="isSong ? 'Song Title*' : 'Beat Title*'"
                         label-for="titleInput"
@@ -142,7 +142,7 @@
                     >
                         Add Collaborator
                     </ls-button>
-                </fieldset>
+                </div>
             </main>
         </wizard-step>
 
@@ -157,6 +157,16 @@
                 :license="license"
                 :key="license.id"
             />
+        </wizard-step>
+
+        <!-- STEP - UPLOAD -->
+        <wizard-step
+            title="Upload files"
+            class="step-upload"
+            v-show="isStepUpload"
+        >
+            <DropAudio title="Untagged .WAV (or .MP3)" />
+            <DropAudio title="Tagged Streaming File (.MP3 or .WAV)" />
         </wizard-step>
 
         <footer class="fwz-pager" v-show="stepIndex > 0">
@@ -179,7 +189,7 @@
 import WizardStep from './WizardStep'
 import WizardTabs from './WizardTabs'
 import LicenseCard from './LicenseCard'
-import { DropImage } from '~/components/Uploader'
+import { DropImage, DropAudio } from '~/components/Uploader'
 import { UserSearchModal, UserInviteModal } from '~/components/Modal'
 import { appConstants } from '~/constants'
 import { required, minLength } from 'vuelidate/lib/validators'
@@ -232,12 +242,13 @@ export default {
         WizardStep,
         LicenseCard,
         DropImage,
+        DropAudio,
         UserSearchModal,
         UserInviteModal,
     },
     data() {
         const data = {
-            stepIndex: 2,
+            stepIndex: 3,
             showCollabSearchModal: false,
             tag: '',
         }

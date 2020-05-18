@@ -1,106 +1,115 @@
-.dropimg-u-dz,
-.dropimg-img {
-    height: 140px;
-    width: 140px;
-}
-
-.dropimg-p {
-    display: flex;
-    flex-direction: column;
-}
-
-.dropimg-img {
-    position: relative;
-    margin-bottom: 7px;
-    img {
-        max-width: 100%;
-        max-height: 100%;
+.dropimg {
+    .u-box,
+    .p-box {
+        height: 140px;
+        width: 140px;
     }
-}
 
-.dropimg-add-btn {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    padding: 5px;
-}
+    .di-preview {
+        display: flex;
+        flex-direction: column;
 
-.dropimg-add-lnk {
-    display: none;
-}
+        .p-box {
+            position: relative;
+            margin-bottom: 7px;
+            img {
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
 
-.dropimg-rm-btn {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-}
+        .p-cam-btn {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            padding: 5px;
+        }
 
-.dropimg-rm-lnk {
-    align-self: flex-start;
-    font-size: px2rem(12);
-}
+        .p-close-btn {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+        }
 
-.dropimg-u {
-    display: flex;
-}
-
-.dropimg-u-dz {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border: 2px dashed $linkstream-30;
-    background-color: $white;
-    &.--highlight,
-    &:hover {
-        border-color: $linkstream-20;
+        .p-rm-btn {
+            align-self: flex-start;
+            font-size: px2rem(12);
+        }
     }
-}
 
-.dropimg-u-i {
-    &:before {
-        @extend .ls-i:before;
-        background-image: url(~@/../public/static/ico/drop-image/cam-plus-md.svg);
-        width: 40px;
-        height: 36px;
-    }
-}
+    .di-upload {
+        display: flex;
 
-.dropimg-u-msg {
-    font-size: px2rem(12);
-    text-align: center;
-    u {
-        color: $primary;
-        text-decoration: none;
-        font-weight: normal;
-    }
-    .msg-long {
-        display: none;
+        &.--highlight,
+        &:hover {
+            .u-box {
+                border-color: $linkstream-20;
+            }
+        }
+
+        .u-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border: 2px dashed $linkstream-30;
+            background-color: $white;
+        }
+
+        .u-add-btn {
+            display: none;
+        }
+
+        .u-ico {
+            &:before {
+                @extend .ls-i:before;
+                background-image: url(~@/../public/static/ico/drop-image/cam-plus-md.svg);
+                width: 40px;
+                height: 36px;
+            }
+        }
+
+        .u-msg {
+            font-size: px2rem(12);
+            text-align: center;
+            u {
+                color: $primary;
+                text-decoration: none;
+                font-weight: normal;
+            }
+            .u-msg-lg {
+                display: none;
+            }
+        }
     }
 }
 
 @include media-breakpoint-up(md) {
-    .dropimg-u-dz,
-    .dropimg-img {
-        width: 215px;
-        height: 215px;
-        cursor: pointer;
-    }
-
-    .dropimg-u-i:before {
-        background-image: url(~@/../public/static/ico/drop-image/cam-plus-lg.svg);
-        width: 49px;
-        height: 44px;
-    }
-
-    .dropimg-u-msg {
-        font-size: px2rem(13);
-        .msg-long {
-            display: block;
+    .dropimg {
+        .u-box,
+        .p-box {
+            width: 215px;
+            height: 215px;
+            cursor: pointer;
         }
-        .msg-short {
-            display: none;
+
+        .di-upload {
+            .u-ico:before {
+                background-image: url(~@/../public/static/ico/drop-image/cam-plus-lg.svg);
+                width: 49px;
+                height: 44px;
+            }
+
+            .u-msg {
+                font-size: px2rem(13);
+                .u-msg-lg {
+                    display: block;
+                }
+                .u-msg-sm {
+                    display: none;
+                }
+            }
         }
     }
 }

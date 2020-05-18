@@ -7,52 +7,46 @@
             ref="fileinput"
             @change="handleFileSelected"
         />
-        <section class="dropimg-p" v-if="isPreview">
-            <main class="dropimg-img" @click="showFileDialog">
+
+        <section class="di-preview" v-if="isStateAdded">
+            <div class="p-box" @click="showFileDialog">
                 <img :src="image.src" />
                 <LsIconButton
-                    class="dropimg-rm-btn"
+                    class="p-close-btn"
                     icon="dropimg-remove"
-                    @click="reset"
+                    @click="removeImage"
                 />
-                <LsIconButton
-                    class="dropimg-add-btn"
-                    icon="dropimg-cam"
-                    @click="showFileDialog"
-                />
-            </main>
-            <ls-button class="dropimg-rm-lnk" variant="link" @click="reset">
+                <LsIconButton class="p-cam-btn" icon="dropimg-cam" />
+            </div>
+            <ls-button class="p-rm-btn" variant="link" @click="removeImage">
                 Remove artwork
             </ls-button>
         </section>
+
         <section
             v-else
-            class="dropimg-u"
-            :class="{ '--highlight': isDraggingOver }"
+            class="di-upload"
+            :class="{ '--highlight': draggingOver }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
             @dragover="handleDragOver"
             @dragenter="handleDragEnter"
             @click="showFileDialog"
         >
-            <main class="dropimg-u-dz">
-                <i class="dropimg-u-i"></i>
-                <div class="dropimg-u-msg">
-                    <div class="msg-short" v-html="msgShort"></div>
-                    <div class="msg-long" v-html="msgLong"></div>
+            <div class="u-box">
+                <i class="u-ico"></i>
+                <div class="u-msg">
+                    <div class="u-msg-sm" v-html="msgShort"></div>
+                    <div class="u-msg-lg" v-html="msgLong"></div>
                 </div>
-            </main>
-            <ls-button
-                class="dropimg-add-lnk"
-                variant="link"
-                @click="showFileDialog"
-            >
+            </div>
+            <ls-button class="u-add-btn" variant="link" @click="showFileDialog">
                 Add artwork
             </ls-button>
         </section>
 
         <DokaModal
-            v-if="isEdit"
+            v-if="isStateEdit"
             :src="tmp.src"
             :crop-aspect-ratio="aspectRatio"
             @confirm="handleDokaConfirm"
@@ -92,7 +86,7 @@ export default {
     },
     data() {
         return {
-            isDraggingOver: false,
+            draggingOver: false,
             image: {
                 file: null,
                 src: this.src,
@@ -105,18 +99,15 @@ export default {
         }
     },
     computed: {
-        isInitial() {
-            return !this.image.src
+        isStateEdit() {
+            return this.tmp.file ? true : false
         },
-        isEdit() {
-            return this.tmp.file
-        },
-        isPreview() {
-            return this.image.src
+        isStateAdded() {
+            return this.image.src ? true : false
         },
     },
     methods: {
-        reset() {
+        removeImage() {
             this.image = {
                 file: null,
                 src: null,
@@ -135,35 +126,27 @@ export default {
         handleDragEnter(e) {
             e.preventDefault()
             e.stopPropagation()
-            if (this.isInitial) {
-                this.isDraggingOver = true
-            }
+            this.draggingOver = true
         },
         handleDragOver(e) {
             e.preventDefault()
             e.stopPropagation()
-            if (this.isInitial) {
-                this.isDraggingOver = true
-            }
+            this.draggingOver = true
         },
         handleDragLeave(e) {
             e.preventDefault()
             e.stopPropagation()
-            if (this.isInitial) {
-                this.isDraggingOver = false
-            }
+            this.draggingOver = false
         },
         handleDrop(e) {
             e.preventDefault()
             e.stopPropagation()
-            if (this.isInitial) {
-                const file = e.dataTransfer.files[0]
-                this.isDraggingOver = false
-                this.tmp = {
-                    file,
-                    src: toURL(file),
-                }
+            const file = e.dataTransfer.files[0]
+            this.tmp = {
+                file,
+                src: toURL(file),
             }
+            this.draggingOver = false
         },
         handleFileSelected(e) {
             const file = e.target.files[0]

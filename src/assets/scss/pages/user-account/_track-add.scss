@@ -5,7 +5,8 @@
         }
     }
 
-    .step-licenses {
+    .step-licenses,
+    .step-upload {
         .step-body {
             flex-direction: column;
         }
@@ -29,6 +30,10 @@
                 display: none;
             }
         }
+    }
+
+    .dropaud {
+        margin-bottom: 20px;
     }
 
     .collabs-table {

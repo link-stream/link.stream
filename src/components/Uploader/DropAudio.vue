@@ -4,14 +4,44 @@
             type="file"
             v-show="false"
             :accept="acceptTypes"
-            ref="fileinput"
+            ref="fileInput"
             @change="handleFileSelected"
         />
 
+        <div class="df-preview" v-if="isFileAdded">
+            <div class="flx-item">
+                <ls-icon-button @click="handlePlayClick">
+                    <i
+                        class="fa fa-3x"
+                        :class="isPlaying ? 'fa-pause' : 'fa-play'"
+                    ></i>
+                </ls-icon-button>
+            </div>
+            <div class="flx-item">
+                <div class="df-title" v-html="title"></div>
+                <div class="df-filename">{{ file.name }}</div>
+                <audio
+                    controls
+                    controlsList="nodownload"
+                    ref="player"
+                    @playing="handlePlayerPlaying"
+                    @pause="handlePlayerPause"
+                >
+                    <source :src="file.src" />
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            <div class="flx-item">
+                <ls-button variant="link" @click="handleRemoveClick">
+                    Remove File
+                </ls-button>
+            </div>
+        </div>
+
         <div
+            v-else
             class="df-upload"
-            :class="{ '--highlight': draggingOver }"
-            v-if="!fileAdded"
+            :class="{ '--highlight': isDraggingFile }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
             @dragover="handleDragOver"
@@ -24,47 +54,16 @@
             </div>
             <LsIcon class="flx-item" icon="cloud-upload-lg" />
         </div>
-
-        <div class="df-preview" v-else>
-            <div class="flx-item">
-                <ls-button-icon @click="playPause">
-                    <i
-                        class="fa fa-3x"
-                        :class="playing ? 'fa-pause' : 'fa-play'"
-                    ></i>
-                </ls-button-icon>
-            </div>
-            <div class="flx-item">
-                <div class="df-title" v-html="title"></div>
-                <div class="df-filename">{{ fileName }}</div>
-                <audio
-                    controls
-                    controlsList="nodownload"
-                    ref="player"
-                    @playing="handlePlayerPlaying"
-                    @pause="handlePlayerPause"
-                >
-                    <source :src="fileSrc" :type="fileType" />
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-            <div class="flx-item">
-                <ls-button variant="link" @click="removeFile">
-                    Remove File
-                </ls-button>
-            </div>
-        </div>
     </div>
 </template>
 
 <script>
+import { uploaderMixin } from '~/mixins/uploader'
+
 export default {
     name: 'DropAudio',
+    mixins: [uploaderMixin],
     props: {
-        title: {
-            type: String,
-            default: '',
-        },
         acceptTypes: {
             type: String,
             default: 'audio/wav,audio/mpeg',
@@ -72,67 +71,23 @@ export default {
     },
     data() {
         return {
-            file: null,
-            draggingOver: false,
-            playing: false,
+            isPlaying: false,
         }
     },
-    computed: {
-        fileAdded() {
-            return this.file ? true : false
-        },
-        fileName() {
-            return this.file ? this.file.name : null
-        },
-        fileType() {
-            return this.file ? this.file.type : null
-        },
-        fileSrc() {
-            return this.file ? URL.createObjectURL(this.file) : null
-        },
-    },
     methods: {
-        showFileDialog() {
-            this.$refs.fileinput.value = null
-            this.$refs.fileinput.click()
-        },
-        removeFile() {
-            this.file = null
-            this.playing = false
-        },
-        playPause() {
+        handlePlayClick() {
             const player = this.$refs.player
-            this.playing ? player.pause() : player.play()
+            this.isPlaying ? player.pause() : player.play()
+        },
+        handleRemoveClick() {
+            this.isPlaying = false
+            this.removeFile()
         },
         handlePlayerPlaying() {
-            this.playing = true
+            this.isPlaying = true
         },
         handlePlayerPause() {
-            this.playing = false
-        },
-        handleDragEnter(e) {
-            e.preventDefault()
-            e.stopPropagation()
-            this.draggingOver = true
-        },
-        handleDragOver(e) {
-            e.preventDefault()
-            e.stopPropagation()
-            this.draggingOver = true
-        },
-        handleDragLeave(e) {
-            e.preventDefault()
-            e.stopPropagation()
-            this.draggingOver = false
-        },
-        handleDrop(e) {
-            e.preventDefault()
-            e.stopPropagation()
-            this.draggingOver = false
-            this.file = e.dataTransfer.files[0]
-        },
-        handleFileSelected(e) {
-            this.file = e.target.files[0]
+            this.isPlaying = false
         },
     },
 }

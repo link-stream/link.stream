@@ -93,8 +93,8 @@
                     </main>
                     <aside>
                         <DropImage
-                            @image-added="handleImageAdded"
-                            @image-removed="handleImageRemoved"
+                            @file-added="handleImageAdded"
+                            @file-removed="handleImageRemoved"
                         />
                     </aside>
                 </main>

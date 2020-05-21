@@ -4,36 +4,43 @@
             type="file"
             v-show="false"
             :accept="acceptTypes"
-            ref="fileinput"
+            ref="fileInput"
             @change="handleFileSelected"
         />
 
-        <section class="df-preview" v-if="isStateAdded">
-            <div class="p-box" @click="showFileDialog">
-                <img :src="image.src" />
+        <section class="df-preview" v-if="isFileAdded">
+            <div class="p-box">
+                <img :src="file.src" @click="showFileDialog" />
                 <LsIconButton
                     class="p-close-btn"
                     icon="dropimg-remove"
-                    @click="removeImage"
+                    @click="handleRemoveClick"
                 />
-                <LsIconButton class="p-cam-btn" icon="dropimg-cam" />
+                <LsIconButton
+                    class="p-cam-btn"
+                    icon="dropimg-cam"
+                    @click="showFileDialog"
+                />
             </div>
-            <ls-button class="p-rm-btn" variant="link" @click="removeImage">
+            <ls-button
+                class="p-rm-btn"
+                variant="link"
+                @click="handleRemoveClick"
+            >
                 Remove artwork
             </ls-button>
         </section>
 
-        <section
-            v-else
-            class="df-upload"
-            :class="{ '--highlight': draggingOver }"
-            @drop="handleDrop"
-            @dragleave="handleDragLeave"
-            @dragover="handleDragOver"
-            @dragenter="handleDragEnter"
-            @click="showFileDialog"
-        >
-            <div class="u-box">
+        <section v-else class="df-upload">
+            <div
+                class="u-box"
+                :class="{ '--highlight': isDraggingFile }"
+                @drop="handleDrop"
+                @dragleave="handleDragLeave"
+                @dragover="handleDragOver"
+                @dragenter="handleDragEnter"
+                @click="showFileDialog"
+            >
                 <i class="u-ico"></i>
                 <div class="u-msg">
                     <div class="u-msg-sm" v-html="msgShort"></div>
@@ -46,8 +53,8 @@
         </section>
 
         <DokaModal
-            v-if="isStateEdit"
-            :src="tmp.src"
+            v-if="isEditMode"
+            :src="tmpFile"
             :crop-aspect-ratio="aspectRatio"
             @confirm="handleDokaConfirm"
             @cancel="handleDokaCancel"
@@ -56,11 +63,14 @@
 </template>
 
 <script>
-import { Doka, DokaModal, toURL } from 'vue-doka'
+import { uploaderMixin } from '~/mixins/uploader'
+import { toUrl } from '~/utils'
+import { Doka, DokaModal } from 'vue-doka'
 import { blobToBase64 } from 'base64-blob'
 
 export default {
     name: 'DropImage',
+    mixins: [uploaderMixin],
     components: { DokaModal },
     props: {
         aspectRatio: {
@@ -70,10 +80,6 @@ export default {
         acceptTypes: {
             type: String,
             default: 'image/*',
-        },
-        src: {
-            type: String,
-            default: null,
         },
         msgShort: {
             type: String,
@@ -86,98 +92,47 @@ export default {
     },
     data() {
         return {
-            draggingOver: false,
-            image: {
-                file: null,
-                src: this.src,
-                base64: null,
-            },
-            tmp: {
-                file: null,
-                src: null,
-            },
+            tmpFile: null,
         }
     },
     computed: {
-        isStateEdit() {
-            return this.tmp.file ? true : false
-        },
-        isStateAdded() {
-            return this.image.src ? true : false
+        isEditMode() {
+            return this.tmpFile ? true : false
         },
     },
     methods: {
-        removeImage() {
-            this.image = {
-                file: null,
-                src: null,
-                base64: null,
+        async addFile(file) {
+            const base64 = await blobToBase64(file)
+            this.tmpFile = null
+            if (base64) {
+                this.file = {
+                    src: toUrl(base64),
+                }
+                this.$emit('file-added', {
+                    base64,
+                })
+            } else {
+                this.$toast.error('Something went wrong, please try again.')
             }
-            this.tmp = {
-                file: null,
-                src: null,
-            }
-            this.$emit('image-removed')
         },
-        showFileDialog() {
-            this.$refs.fileinput.value = null
-            this.$refs.fileinput.click()
-        },
-        handleDragEnter(e) {
-            e.preventDefault()
-            e.stopPropagation()
-            this.draggingOver = true
-        },
-        handleDragOver(e) {
-            e.preventDefault()
-            e.stopPropagation()
-            this.draggingOver = true
-        },
-        handleDragLeave(e) {
-            e.preventDefault()
-            e.stopPropagation()
-            this.draggingOver = false
+        handleRemoveClick() {
+            this.tmpFile = null
+            this.removeFile()
         },
         handleDrop(e) {
             e.preventDefault()
             e.stopPropagation()
-            const file = e.dataTransfer.files[0]
-            this.tmp = {
-                file,
-                src: toURL(file),
-            }
-            this.draggingOver = false
+            this.tmpFile = e.dataTransfer.files[0]
+            this.isDraggingFile = false
         },
         handleFileSelected(e) {
-            const file = e.target.files[0]
-            this.tmp = {
-                file,
-                src: toURL(file),
-            }
-        },
-        async handleDokaConfirm(output) {
-            const file = output.file
-            const base64 = await blobToBase64(file)
-            if (base64) {
-                this.image = {
-                    file,
-                    src: toURL(file),
-                    base64,
-                }
-                this.$emit('image-added', this.image)
-            } else {
-                this.$toast.error('Something went wrong, please try again.')
-            }
-            this.tmp = {
-                file: null,
-                src: null,
-            }
+            this.tmpFile = e.target.files[0]
         },
         handleDokaCancel() {
-            this.tmp = {
-                file: null,
-                src: null,
-            }
+            this.tmpFile = null
+        },
+        handleDokaConfirm(output) {
+            this.addFile(output.file)
         },
     },
 }

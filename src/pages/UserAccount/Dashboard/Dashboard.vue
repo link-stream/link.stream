@@ -59,16 +59,20 @@
         </div>
 
         <div class="mb-4">
+            <DropAudio />
             <DropImage />
+            <DropFile />
         </div>
     </div>
 </template>
 
 <script>
-import { DropImage } from '~/components/Uploader'
+import { DropAudio, DropImage, DropFile } from '~/components/Uploader'
 export default {
     name: 'Dashboard',
     components: {
+        DropAudio,
+        DropFile,
         DropImage,
     },
 }

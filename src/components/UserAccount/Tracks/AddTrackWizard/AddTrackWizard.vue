@@ -16,8 +16,8 @@
             <aside>
                 <DropImage
                     msgLong="Drag artwork here or<br><u>browse for file</u>"
-                    @image-added="handleImageAdded"
-                    @image-removed="handleImageRemoved"
+                    @file-added="handleImageAdded"
+                    @file-removed="handleImageRemoved"
                 />
             </aside>
             <main>
@@ -379,11 +379,11 @@ export default {
         removeCollab(index) {
             this.form.trackInfo.collabs.splice(index, 1)
         },
-        handleImageAdded(image) {
-            this.form.trackInfo.image = image.base64
+        handleImageAdded(file) {
+            this.form.trackInfo.imageBase64 = file.base64
         },
-        handleImageRemoved(image) {
-            this.form.trackInfo.image = null
+        handleImageRemoved() {
+            this.form.trackInfo.imageBase64 = null
         },
         handleTagsChanged(tags) {
             this.form.trackInfo.tags = tags.map(tag => tag.text)

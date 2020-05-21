@@ -4,14 +4,26 @@
             type="file"
             v-show="false"
             :accept="acceptTypes"
-            ref="fileinput"
+            ref="fileInput"
             @change="handleFileSelected"
         />
 
+        <div class="df-preview" v-if="isFileAdded">
+            <div class="flx-item">
+                <div class="df-title" v-html="title"></div>
+                <div class="df-filename">{{ file.name }}</div>
+            </div>
+            <div class="flx-item">
+                <ls-button variant="link" @click="handleRemoveClick">
+                    Remove File
+                </ls-button>
+            </div>
+        </div>
+
         <div
+            v-else
             class="df-upload"
-            :class="{ '--highlight': draggingOver }"
-            v-if="!fileAdded"
+            :class="{ '--highlight': isDraggingFile }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
             @dragover="handleDragOver"
@@ -24,80 +36,14 @@
             </div>
             <LsIcon class="flx-item" icon="cloud-upload-lg" />
         </div>
-
-        <div class="df-preview" v-else>
-            <div class="flx-item">
-                <div class="df-title" v-html="title"></div>
-                <div class="df-filename">{{ fileName }}</div>
-            </div>
-            <div class="flx-item">
-                <ls-button variant="link" @click="removeFile">
-                    Remove File
-                </ls-button>
-            </div>
-        </div>
     </div>
 </template>
 
 <script>
+import { uploaderMixin } from '~/mixins/uploader'
+
 export default {
     name: 'DropFile',
-    props: {
-        title: {
-            type: String,
-            default: '',
-        },
-        acceptTypes: {
-            type: String,
-            default: '',
-        },
-    },
-    data() {
-        return {
-            file: null,
-            draggingOver: false,
-        }
-    },
-    computed: {
-        fileAdded() {
-            return this.file ? true : false
-        },
-        fileName() {
-            return this.file ? this.file.name : null
-        },
-    },
-    methods: {
-        showFileDialog() {
-            this.$refs.fileinput.value = null
-            this.$refs.fileinput.click()
-        },
-        removeFile() {
-            this.file = null
-        },
-        handleDragEnter(e) {
-            e.preventDefault()
-            e.stopPropagation()
-            this.draggingOver = true
-        },
-        handleDragOver(e) {
-            e.preventDefault()
-            e.stopPropagation()
-            this.draggingOver = true
-        },
-        handleDragLeave(e) {
-            e.preventDefault()
-            e.stopPropagation()
-            this.draggingOver = false
-        },
-        handleDrop(e) {
-            e.preventDefault()
-            e.stopPropagation()
-            this.draggingOver = false
-            this.file = e.dataTransfer.files[0]
-        },
-        handleFileSelected(e) {
-            this.file = e.target.files[0]
-        },
-    },
+    mixins: [uploaderMixin],
 }
 </script>

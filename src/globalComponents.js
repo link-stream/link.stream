@@ -42,7 +42,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import Vuelidate from 'vuelidate'
-import { alertBox, eventBus } from '~/plugins'
+import { alertBox } from '~/plugins'
 import VueTagsInput from '@johmun/vue-tags-input'
 import {
     LsButton,

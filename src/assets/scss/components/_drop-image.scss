@@ -40,13 +40,6 @@
     .df-upload {
         display: flex;
 
-        &.--highlight,
-        &:hover {
-            .u-box {
-                border-color: $linkstream-20;
-            }
-        }
-
         .u-box {
             display: flex;
             flex-direction: column;
@@ -55,6 +48,10 @@
             cursor: pointer;
             border: 2px dashed $linkstream-30;
             background-color: $white;
+            &.--highlight,
+            &:hover {
+                border-color: $linkstream-20;
+            }
         }
 
         .u-add-btn {

@@ -28,10 +28,12 @@ export function setStatusChange(
 }
 
 /**
- * Get the thumb image URL of a YouTube video.
+ * Get YouTube video thumb URL.
  * @param {string} videoId
  * @return {string}
  */
-export function getYtVideoThumbUrl(videoId) {
-    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
-}
+export const getYtVideoThumbUrl = videoId =>
+    `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+
+export const toUrl = src =>
+    src instanceof Blob ? URL.createObjectURL(src) : src

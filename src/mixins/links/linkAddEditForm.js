@@ -16,7 +16,7 @@ export const linkAddEditForm = {
             form: {
                 url: null,
                 title: null,
-                image: null,
+                imageBase64: null,
                 visibility: appConstants.visibilities.public,
                 scheduled: null,
                 date: new Date(),
@@ -56,16 +56,16 @@ export const linkAddEditForm = {
                 ...this.form,
                 url,
                 title,
-                image: data_image,
+                imageBase64: data_image,
             }
         },
     },
     methods: {
-        handleImageAdded(image) {
-            this.form.image = image.base64
+        handleImageAdded(file) {
+            this.form.imageBase64 = file.base64
         },
         handleImageRemoved() {
-            this.form.image = null
+            this.form.imageBase64 = null
         },
         toggleSchedule() {
             this.form.scheduled = !this.form.scheduled
@@ -82,7 +82,7 @@ export const linkAddEditForm = {
             const {
                 url,
                 title,
-                image,
+                imageBase64,
                 visibility,
                 scheduled,
                 date,
@@ -98,12 +98,12 @@ export const linkAddEditForm = {
             }
 
             if (this.editing) {
-                const imageChanged = image !== this.link.data_image
-                if (imageChanged) {
-                    params.image = image
+                const didImageChange = imageBase64 !== this.link.data_image
+                if (didImageChange) {
+                    params.image = imageBase64
                 }
             } else {
-                params.image = image
+                params.image = imageBase64
                 params.public = visibility
                 if (scheduled) {
                     params.scheduled = 1

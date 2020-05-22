@@ -2,7 +2,10 @@
     <div class="crd crd-license" :class="{ '--editing': editing }">
         <div class="crd-content">
             <b-form-group>
-                <b-form-checkbox></b-form-checkbox>
+                <b-form-checkbox
+                    :checked="selected"
+                    @change="handleCheckChange"
+                ></b-form-checkbox>
             </b-form-group>
             <div class="crd-body">
                 <div class="crd-title">
@@ -61,6 +64,10 @@
 export default {
     name: 'LicenseCard',
     props: {
+        selected: {
+            type: Boolean,
+            default: false,
+        },
         license: {
             type: Object,
             required: true,
@@ -80,6 +87,9 @@ export default {
         },
         hideEditView() {
             this.editing = false
+        },
+        handleCheckChange(checked) {
+            this.$emit(checked ? 'select' : 'deselect', this.license)
         },
     },
 }

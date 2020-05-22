@@ -53,7 +53,7 @@
         </section>
 
         <DokaModal
-            v-if="isEditMode"
+            v-if="isFileSelected"
             :src="tmpFile"
             :crop-aspect-ratio="aspectRatio"
             @confirm="handleDokaConfirm"
@@ -96,7 +96,7 @@ export default {
         }
     },
     computed: {
-        isEditMode() {
+        isFileSelected() {
             return this.tmpFile ? true : false
         },
     },
@@ -108,7 +108,7 @@ export default {
                 this.file = {
                     src: toUrl(base64),
                 }
-                this.$emit('file-added', {
+                this.$emit('file-add', {
                     base64,
                 })
             } else {

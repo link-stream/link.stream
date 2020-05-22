@@ -25,11 +25,11 @@ export default {
         vSelect,
     },
     props: {
+        /**
+         * @type {Object||String||null}
+         */
+        value: {},
         label: {
-            type: String,
-            default: null,
-        },
-        value: {
             type: String,
             default: null,
         },

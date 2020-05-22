@@ -1,12 +1,10 @@
 .page-ua-track-add {
-    .step-body {
-        > aside {
-            margin-right: 30px;
-        }
+    .step-side {
+        margin-right: 30px;
     }
 
-    .step-licenses,
-    .step-upload {
+    .licenses-step,
+    .files-step {
         .step-body {
             flex-direction: column;
         }

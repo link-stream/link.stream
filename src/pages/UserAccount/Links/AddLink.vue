@@ -16,7 +16,7 @@
                     <h2 class="step-title">Add a link</h2>
                 </header>
                 <main class="step-body">
-                    <main>
+                    <div class="step-main">
                         <div class="step-fields">
                             <b-form-group
                                 label="Copy &amp; Paste Your Link URL"
@@ -90,13 +90,13 @@
                                 }}
                             </ls-button>
                         </div>
-                    </main>
-                    <aside>
+                    </div>
+                    <div class="step-side">
                         <DropImage
-                            @file-added="handleImageAdded"
-                            @file-removed="handleImageRemoved"
+                            @file-add="handleImageAdded"
+                            @file-remove="handleImageRemoved"
                         />
-                    </aside>
+                    </div>
                 </main>
             </section>
             <footer class="fwz-pager">

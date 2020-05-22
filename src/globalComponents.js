@@ -42,7 +42,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import Vuelidate from 'vuelidate'
-import { alertBox } from '~/plugins'
+import { alertBox, eventBus } from '~/plugins'
 import VueTagsInput from '@johmun/vue-tags-input'
 import {
     LsButton,
@@ -138,13 +138,12 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 // Install Vuelidate
 Vue.use(Vuelidate)
 
-// Install alert box
-Vue.use(alertBox)
-
 // Install VueTagsInput
 Vue.use(VueTagsInput)
 
-// Install base components
+// Install LS components
+Vue.use(alertBox)
+Vue.use(eventBus)
 Vue.component('LsButton', LsButton)
 Vue.component('LsSpinnerButton', LsSpinnerButton)
 Vue.component('LsIconButton', LsIconButton)

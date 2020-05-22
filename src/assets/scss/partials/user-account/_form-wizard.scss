@@ -30,9 +30,10 @@
     .step-body {
         display: flex;
         flex-direction: column;
-        > aside {
-            margin-top: 20px;
-        }
+    }
+
+    .step-side {
+        margin-top: 20px;
     }
 }
 
@@ -58,14 +59,18 @@
             max-width: 500px;
         }
 
+        .step-side {
+            margin-top: 0;
+        }
+
+        .step-main {
+            flex-grow: 1;
+        }
+
         .step-body {
             flex-direction: row;
-            > .step-fields,
-            > main {
+            > .step-fields {
                 flex-grow: 1;
-            }
-            > aside {
-                margin-top: 0;
             }
         }
     }

@@ -1,17 +1,17 @@
 <template>
     <div class="page page-ua-track-add">
         <LsSpinner v-show="loading" />
-        <AddTrackWizard v-show="!loading" />
+        <Wizard v-show="!loading" />
     </div>
 </template>
 
 <script>
-import { AddTrackWizard } from '~/components/UserAccount/Tracks'
+import Wizard from '~/components/UserAccount/Tracks/AddTrackWizard/Wizard'
 
 export default {
     name: 'AddTrack',
     components: {
-        AddTrackWizard,
+        Wizard,
     },
     data() {
         return {

@@ -151,7 +151,7 @@ export default {
         },
         handleUserClick(user) {
             this.close()
-            this.$emit('user-selected', user)
+            this.$emit('user-select', user)
         },
     },
 }

@@ -1,8 +1,8 @@
 <template>
     <b-modal
-        modal-class="alrt"
-        ref="modal"
+        :modal-class="`alrt --${type}`"
         size="sm"
+        v-model="shown"
         centered
         hide-header
         hide-footer
@@ -48,55 +48,69 @@
 </template>
 
 <script>
+const Type = {
+    CONFIRM: 'confirm',
+    MESSAGE: 'msg',
+}
+
 const defaultOpts = {
     title: null,
     message: null,
     okShow: true,
     okText: 'OK',
-    okCallback: null,
+    onOk: null,
     cancelShow: true,
     cancelText: 'Cancel',
-    cancelCallback: null,
+    onCancel: null,
 }
 
 export default {
     name: 'AlertBox',
     data() {
         return {
+            shown: false,
+            type: null,
             opts: {
                 title: null,
                 message: null,
                 okShow: null,
                 okText: null,
-                okCallback: null,
+                onOk: null,
                 cancelShow: null,
                 cancelText: null,
-                cancelCallback: null,
+                onCancel: null,
             },
         }
     },
     methods: {
-        confirm(opts) {
-            this.alert({
+        confirm(opts = {}) {
+            this.type = Type.CONFIRM
+            this.opts = {
+                ...defaultOpts,
                 okText: 'Confirm',
                 ...opts,
-            })
-        },
-        alert(opts) {
-            for (let key in defaultOpts) {
-                this.opts[key] = key in opts ? opts[key] : defaultOpts[key]
             }
-            this.$refs.modal.show()
+            this.shown = true
+        },
+        msg(message, okText = 'OK') {
+            this.type = Type.MESSAGE
+            this.opts = {
+                ...defaultOpts,
+                message,
+                okText,
+                cancelShow: false,
+            }
+            this.shown = true
         },
         close() {
-            this.$refs.modal.hide()
+            this.shown = false
         },
         handleOkClick() {
-            this.opts.okCallback !== null && this.opts.okCallback()
+            typeof this.opts.onOk === 'function' && this.opts.onOk()
             this.close()
         },
         handleCancelClick() {
-            this.opts.cancelCallback !== null && this.opts.cancelCallback()
+            typeof this.opts.onCancel === 'function' && this.opts.onCancel()
             this.close()
         },
     },

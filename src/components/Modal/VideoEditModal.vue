@@ -1,12 +1,11 @@
 <template>
     <b-modal
         modal-class="mdl-vid-edit"
-        ref="modal"
         size="lg"
+        v-model="shown"
         centered
         no-close-on-backdrop
         no-close-on-esc
-        @hidden="handleHidden"
     >
         <template v-slot:modal-header>
             <LsIconButton class="modal-close" use-bg-img @click="close" />
@@ -93,7 +92,7 @@
                 </b-form-group>
             </template>
 
-            <ls-button variant="link" @click="toggleSchedule">
+            <ls-button variant="link" @click="handleScheduleToggleClick">
                 {{
                     form.scheduled ? 'Clear scheduling ' : 'Schedule this video'
                 }}
@@ -119,7 +118,7 @@
             <ls-spinner-button
                 class="modal-action"
                 :loading="loading"
-                @click="save"
+                @click="handleSaveClick"
             >
                 Save
             </ls-spinner-button>
@@ -129,54 +128,60 @@
 
 <script>
 import { videoAddEditForm } from '~/mixins/videos/videoAddEditForm'
+import { appConstants } from '~/constants'
 
 export default {
     name: 'VideoEditModal',
     mixins: [videoAddEditForm],
-    props: {
-        video: {
-            type: Object,
-            required: true,
-        },
-    },
-    created() {
-        this.editing = true
-
-        const {
-            title,
-            url,
-            genre_id,
-            related_track,
-            public: visibility,
-            scheduled,
-            date,
-            time,
-        } = this.video
-
-        this.form = {
-            ...this.form,
-            title,
-            url,
-            genre: genre_id,
-            relatedTrack: related_track != '0' ? related_track : null, // TODO move check to backend
-            visibility,
-            scheduled,
-            date: scheduled ? new Date(date + ' 00:00:00') : new Date(),
-            time: scheduled ? time : '00:00:00',
+    data() {
+        return {
+            shown: false,
+            video: null,
         }
     },
-    mounted() {
-        this.$refs.modal.show()
+    created() {
+        this.$bus.$on('modal.videoEdit.show', this.handleShow)
+        this.$bus.$on('modal.videoEdit.hide', this.handleHide)
     },
     methods: {
         close() {
-            this.$refs.modal.hide()
+            this.shown = false
+        },
+        handleScheduleToggleClick() {
+            this.form.scheduled = !this.form.scheduled
         },
         handleDeleteClick() {
             this.$emit('delete-click', this.video)
         },
-        handleHidden() {
-            this.$emit('hidden')
+        handleHide() {
+            this.shown = false
+        },
+        handleShow(video) {
+            this.video = { ...video }
+
+            const {
+                url,
+                title,
+                genre_id,
+                related_track,
+                public: visibility,
+                scheduled,
+                date,
+                time,
+            } = this.video
+
+            this.form = {
+                url,
+                title,
+                visibility,
+                scheduled,
+                genre: genre_id != '0' ? genre_id : null,
+                relatedTrack: related_track != '0' ? related_track : null,
+                date: scheduled ? new Date(date + ' 00:00:00') : new Date(),
+                time: scheduled ? time : '00:00:00',
+            }
+
+            this.shown = true
         },
     },
 }

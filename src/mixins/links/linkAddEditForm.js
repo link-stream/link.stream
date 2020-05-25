@@ -67,10 +67,7 @@ export const linkAddEditForm = {
         handleImageRemoved() {
             this.form.imageBase64 = null
         },
-        toggleSchedule() {
-            this.form.scheduled = !this.form.scheduled
-        },
-        async save() {
+        async handleSaveClick() {
             this.$v.form.$touch()
 
             if (this.$v.form.$invalid) {
@@ -126,7 +123,7 @@ export const linkAddEditForm = {
             if (status === 'success') {
                 this.$toast.success(message)
                 if (this.editing) {
-                    this.hideEditView()
+                    this.closeEdit()
                 } else {
                     this.$router.push({ name: 'userAccountLinks' })
                 }

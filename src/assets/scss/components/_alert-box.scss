@@ -1,5 +1,4 @@
 .alrt {
-    // Reset bs styles
     .modal-dialog {
         max-width: 300px !important;
         margin-left: auto;
@@ -7,11 +6,18 @@
     }
 
     .modal-content {
-        border-color: $white;
+        border: 0;
+        padding: 0;
     }
 
     .modal-body {
         padding: 20px 15px 15px 15px;
+    }
+
+    &.--msg {
+        .alrt-actions {
+            justify-content: center;
+        }
     }
 }
 

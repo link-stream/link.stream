@@ -17,6 +17,10 @@
 export default {
     name: 'Marketing',
     props: {
+        active: {
+            type: Boolean,
+            default: false,
+        },
         initialSelected: {
             type: Array,
             default() {
@@ -55,18 +59,23 @@ export default {
             ],
         }
     },
+    watch: {
+        initialSelected() {
+            this.selected = [...this.initialSelected]
+        },
+    },
     created() {
-        this.$eventBus.$on('wz.nextClick', this.handleStepNextClick)
+        this.$bus.$on('wz.validate.marketing', this.handleValidate)
     },
     methods: {
-        handleStepNextClick({ currentStep }) {
-            if (currentStep !== 'marketing') {
+        handleValidate({ onSuccess }) {
+            if (!this.active) {
                 return
             }
-            this.$eventBus.$emit('wz.updateForm', {
-                marketing: this.selected,
+            this.$bus.$emit('wz.updateForm', {
+                marketing: [...this.selected],
             })
-            this.$eventBus.$emit('wz.goToNext')
+            onSuccess()
         },
     },
 }

@@ -1,6 +1,11 @@
 <template>
     <div class="fwz">
-        <WizardTabs v-show="stepIndex > 0" :tabs="tabs" :activeStep="step" />
+        <WizardTabs
+            v-show="stepIndex > 0"
+            :tabs="tabs"
+            :activeStep="step"
+            @tab-click="handleTabClick"
+        />
 
         <!-- STEP - TRACK TYPE -->
         <wizard-step v-show="isStepTrackType" title="Select Track Type">
@@ -21,8 +26,9 @@
                     @file-remove="handleImageRemoved"
                 />
             </div>
-            <TrackInfoPane
+            <TrackInfoFormBlock
                 class="step-main"
+                :active="isStepTrackInfo"
                 :track-type="form.trackType"
                 :track-info="form.trackInfo"
             />
@@ -34,7 +40,10 @@
             class="licenses-step"
             v-show="isStepLicenses"
         >
-            <LicensesPane :initial-selected="form.licenses" />
+            <LicensesBlock
+                :active="isStepLicenses"
+                :initial-selected="form.licenses"
+            />
         </wizard-step>
 
         <!-- STEP - UPLOAD FILES -->
@@ -43,12 +52,18 @@
             class="files-step"
             v-show="isStepFiles"
         >
-            <FilesPane />
+            <FileUploadBlock
+                :active="isStepFiles"
+                :initial-files="form.files"
+            />
         </wizard-step>
 
         <!-- STEP - MARKETING -->
         <wizard-step title="Marketing" v-show="isStepMarketing">
-            <MarketingPane :initial-selected="form.marketing" />
+            <MarketingBlock
+                :active="isStepMarketing"
+                :initial-selected="form.marketing"
+            />
         </wizard-step>
 
         <!-- STEP - REVIEW -->
@@ -64,7 +79,7 @@
                     @file-remove="handleImageRemoved"
                 />
             </div>
-            <ReviewPane class="step-main" :summary="form" />
+            <ReviewBlock class="step-main" :summary="form" />
         </wizard-step>
 
         <footer class="fwz-pager" v-show="stepIndex > 0">
@@ -82,11 +97,11 @@
 import {
     WizardStep,
     WizardTabs,
-    TrackInfoPane,
-    LicensesPane,
-    FilesPane,
-    MarketingPane,
-    ReviewPane,
+    TrackInfoFormBlock,
+    LicensesBlock,
+    FileUploadBlock,
+    MarketingBlock,
+    ReviewBlock,
 } from './'
 import { DropImage } from '~/components/Uploader'
 import { appConstants } from '~/constants'
@@ -136,11 +151,11 @@ export default {
     components: {
         WizardTabs,
         WizardStep,
-        TrackInfoPane,
-        LicensesPane,
-        FilesPane,
-        MarketingPane,
-        ReviewPane,
+        TrackInfoFormBlock,
+        LicensesBlock,
+        FileUploadBlock,
+        MarketingBlock,
+        ReviewBlock,
         DropImage,
     },
     data() {
@@ -152,11 +167,7 @@ export default {
                 trackInfo: null,
                 licenses: [],
                 marketing: [],
-                files: {
-                    tagged: null,
-                    untagged: null,
-                    stems: null,
-                },
+                files: {},
             },
         }
     },
@@ -197,25 +208,31 @@ export default {
         },
     },
     created() {
-        this.$eventBus.$on('wz.updateForm', this.handleUpdateForm)
-        this.$eventBus.$on('wz.goToNext', this.next)
+        this.$bus.$on('wz.updateForm', this.handleUpdateForm)
     },
     methods: {
+        goToStep(index) {
+            this.stepIndex = index
+        },
         next() {
             if (this.stepIndex < this.numSteps - 1) {
-                this.stepIndex++
+                this.goToStep(this.stepIndex + 1)
             }
         },
         prev() {
             if (this.stepIndex > 0) {
-                this.stepIndex--
+                this.goToStep(this.stepIndex - 1)
             }
+        },
+        handleTabClick(tab) {
+            this.goToStep(steps.indexOf(tab.step))
         },
         handleUpdateForm(value) {
             this.form = {
                 ...this.form,
                 ...value,
             }
+            console.log(value)
         },
         handleNextClick() {
             switch (this.step) {
@@ -223,8 +240,8 @@ export default {
                 case STEP_FILES:
                 case STEP_LICENSES:
                 case STEP_MARKETING:
-                    this.$eventBus.$emit('wz.nextClick', {
-                        currentStep: this.step,
+                    this.$bus.$emit(`wz.validate.${this.step}`, {
+                        onSuccess: this.next,
                     })
                     return
                 default:

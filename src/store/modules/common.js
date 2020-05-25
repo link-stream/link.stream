@@ -3,15 +3,15 @@ import { api } from '~/services/api'
 
 const initialState = () => ({
     /**
-     * @var {array}
+     * @type {array}
      */
     timezones: null,
     /**
-     * @var {array}
+     * @type {array}
      */
     times: null,
     /**
-     * @var {array}
+     * @type {array}
      */
     genres: null,
 })

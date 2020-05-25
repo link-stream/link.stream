@@ -35,18 +35,13 @@
                 <Draggable v-for="video in sortableVideos" :key="video.id">
                     <VideoCard
                         :video="video"
-                        @edit-click="showEditModal"
-                        @delete-click="deleteVideo"
+                        @edit-click="handleEditClick"
+                        @delete-click="handleDeleteClick"
                     />
                 </Draggable>
             </Container>
         </main>
-        <VideoEditModal
-            v-if="editingVideo"
-            :video="editingVideo"
-            @hidden="handleEditModalHidden"
-            @delete-click="deleteVideo"
-        />
+        <VideoEditModal @delete-click="handleDeleteClick" />
     </div>
 </template>
 
@@ -68,7 +63,6 @@ export default {
     data() {
         return {
             loading: false,
-            editingVideo: false,
             sortableVideos: [],
         }
     },
@@ -97,15 +91,15 @@ export default {
         this.loading = false
     },
     methods: {
-        showEditModal(video) {
-            this.editingVideo = video
+        handleEditClick(video) {
+            this.$bus.$emit('modal.videoEdit.show', video)
         },
-        deleteVideo(video) {
+        handleDeleteClick(video) {
             this.$alert.confirm({
                 title: 'Delete video?',
                 message:
                     'This video and its data will be permaurlnently deleted.',
-                okCallback: async () => {
+                onOk: async () => {
                     const {
                         status,
                         message,
@@ -114,18 +108,13 @@ export default {
                         video,
                     })
                     if (status === 'success') {
-                        if (this.editingVideo) {
-                            this.editingVideo = false
-                        }
                         this.$toast.success(message)
+                        this.$bus.$emit('modal.videoEdit.hide')
                     } else {
                         this.$toast.error(error)
                     }
                 },
             })
-        },
-        handleEditModalHidden() {
-            this.editingVideo = false
         },
         handleReorder(dropResult) {
             const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult

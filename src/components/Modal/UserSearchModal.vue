@@ -3,9 +3,9 @@
         modal-class="mdl-user-search"
         ref="modal"
         size="lg"
-        @hidden="handleHidden"
         centered
         hide-footer
+        v-model="shown"
     >
         <template v-slot:modal-header>
             <LsIconButton class="modal-close" use-bg-img @click="close" />
@@ -25,7 +25,7 @@
                 <LsIconButton
                     icon="close"
                     class="search-clear-btn"
-                    @click="clearQuery"
+                    @click="handleClearClick"
                     v-show="allowClear"
                 />
             </div>
@@ -43,7 +43,7 @@
                 </li>
                 <li>
                     Can't find who you're looking for?
-                    <ls-button variant="link" @click="showInviteModal">
+                    <ls-button variant="link" @click="handleInviteClick">
                         Send an invite
                     </ls-button>
                 </li>
@@ -66,10 +66,11 @@ export default {
     data() {
         return {
             /**
-             * @var {array}
+             * @type {array}
              * e.g. [{ id: null, name: null, photo: null }]
              */
             results: [],
+            shown: false,
             showResults: false,
             loading: false,
             query: '',
@@ -79,7 +80,7 @@ export default {
         ...mapGetters({
             user: 'me/user',
         }),
-        isValidQuery() {
+        validQuery() {
             return this.query.length >= MIN_QUERY_LENGTH
         },
         allowClear() {
@@ -88,38 +89,31 @@ export default {
     },
     watch: {
         query() {
-            if (this.isValidQuery) {
-                this.loading = true
+            if (this.validQuery) {
                 this.debounceSeach()
             } else {
-                this.resetSearch()
+                this.reset()
             }
         },
     },
-    mounted() {
-        this.$refs.modal.show()
-    },
     created() {
-        this.debounceSeach = debounce(this.search, 500)
+        this.$bus.$on('modal.userSearch.show', this.handleShow)
+        this.debounceSeach = debounce(() => {
+            this.loading = true
+            this.search()
+        }, 500)
     },
     methods: {
-        clearQuery() {
-            this.query = ''
-        },
-        resetSearch() {
+        reset() {
             this.showResults = false
             this.loading = false
         },
         close() {
-            this.$refs.modal.hide()
-        },
-        showInviteModal() {
-            this.close()
-            this.$bvModal.show('mdlUserInvite')
+            this.shown = false
         },
         async search() {
-            if (!this.isValidQuery) {
-                this.resetSearch()
+            if (!this.validQuery) {
+                this.reset()
                 return
             }
 
@@ -128,8 +122,8 @@ export default {
                 search: this.query,
             })
 
-            if (!this.isValidQuery) {
-                this.resetSearch()
+            if (!this.validQuery) {
+                this.reset()
                 return
             }
 
@@ -146,12 +140,19 @@ export default {
             this.showResults = true
             this.loading = false
         },
-        handleHidden() {
-            this.$emit('hidden')
+        handleClearClick() {
+            this.query = ''
+        },
+        handleInviteClick() {
+            this.close()
+            this.$bus.$emit('modal.userInvite.show')
+        },
+        handleShow() {
+            this.shown = true
         },
         handleUserClick(user) {
             this.close()
-            this.$emit('user-select', user)
+            this.$bus.$emit('modal.userSearch.userClick', user)
         },
     },
 }

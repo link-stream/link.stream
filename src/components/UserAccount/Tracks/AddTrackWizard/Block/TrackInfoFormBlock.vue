@@ -1,11 +1,5 @@
 <template>
     <div>
-        <UserSearchModal
-            v-if="showCollabSearchModal"
-            @hidden="showCollabSearchModal = false"
-            @user-select="handleCollabAdd"
-        />
-        <UserInviteModal />
         <div class="step-fields">
             <b-form-group
                 :label="isSong ? 'Song Title*' : 'Beat Title*'"
@@ -35,8 +29,9 @@
 
             <b-form-group label="Tags(3)">
                 <VueTagsInput
-                    :placeholder="form.tags.length ? '' : 'Tags'"
                     v-model="tag"
+                    :placeholder="form.tags.length ? '' : 'Tags'"
+                    :tags="form.tags"
                     @tags-changed="handleTagsChange"
                 />
             </b-form-group>
@@ -96,16 +91,16 @@
                         <div class="t-col">
                             <b-form-group>
                                 <b-form-input
-                                    v-model="collab.profitPct.$model"
-                                    :state="!collab.profitPct.$error"
+                                    v-model="collab.profitPercent.$model"
+                                    :state="!collab.profitPercent.$error"
                                 ></b-form-input>
                             </b-form-group>
                         </div>
                         <div class="t-col">
                             <b-form-group>
                                 <b-form-input
-                                    v-model="collab.pubPct.$model"
-                                    :state="!collab.pubPct.$error"
+                                    v-model="collab.pubPercent.$model"
+                                    :state="!collab.pubPercent.$error"
                                 ></b-form-input>
                             </b-form-group>
                         </div>
@@ -113,13 +108,13 @@
                             <LsIconButton
                                 icon="close"
                                 v-if="index > 0"
-                                @click="handleCollabRemove(index)"
+                                @click="handleRemoveCollabClick(index)"
                             />
                         </div>
                     </li>
                 </ul>
             </div>
-            <ls-button variant="link" @click="showCollabSearchModal = true">
+            <ls-button variant="link" @click="showCollabSearchModal">
                 Add Collaborator
             </ls-button>
         </div>
@@ -127,18 +122,17 @@
 </template>
 
 <script>
-import { UserSearchModal, UserInviteModal } from '~/components/Modal'
 import { required } from 'vuelidate/lib/validators'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
 
 export default {
-    name: 'TrackInfoPane',
-    components: {
-        UserSearchModal,
-        UserInviteModal,
-    },
+    name: 'TrackInfoFormBlock',
     props: {
+        active: {
+            type: Boolean,
+            default: false,
+        },
         trackType: {
             type: Number,
         },
@@ -152,7 +146,6 @@ export default {
     data() {
         return {
             tag: '',
-            showCollabSearchModal: false,
             form: {
                 title: null,
                 genre: {},
@@ -160,8 +153,8 @@ export default {
                 bpm: 0,
                 collabs: [
                     {
-                        profitPct: 100,
-                        pubPct: 100,
+                        profitPercent: 100,
+                        pubPercent: 100,
                         user: {
                             id: null,
                             name: null,
@@ -198,10 +191,10 @@ export default {
                 },
                 collabs: {
                     $each: {
-                        profitPct: {
+                        profitPercent: {
                             required,
                         },
-                        pubPct: {
+                        pubPercent: {
                             required,
                         },
                     },
@@ -210,7 +203,8 @@ export default {
         }
     },
     created() {
-        this.$eventBus.$on('wz.nextClick', this.handleStepNextClick)
+        this.$bus.$on('wz.validate.trackInfo', this.handleValidate)
+        this.$bus.$on('modal.userSearch.userClick', this.handleAddCollab)
     },
     beforeMount() {
         this.form.collabs[0].user = {
@@ -220,13 +214,16 @@ export default {
         }
     },
     methods: {
-        handleTagsChange(tags) {
-            this.form.tags = tags.map(tag => tag.text)
+        showCollabSearchModal() {
+            this.$bus.$emit('modal.userSearch.show')
         },
-        handleCollabRemove(index) {
+        handleTagsChange(tags) {
+            this.form.tags = tags
+        },
+        handleRemoveCollabClick(index) {
             this.form.collabs.splice(index, 1)
         },
-        handleCollabAdd(user) {
+        handleAddCollab(user) {
             const collabs = this.form.collabs
             const alreadyAdded = collabs.find(
                 collab => collab.user.id == user.id
@@ -236,22 +233,22 @@ export default {
             }
             collabs.push({
                 user,
-                profitPct: null,
-                pubPct: null,
+                profitPercent: null,
+                pubPercent: null,
             })
         },
-        handleStepNextClick({ currentStep }) {
-            if (currentStep !== 'trackInfo') {
+        handleValidate({ onSuccess }) {
+            if (!this.active) {
                 return
             }
             this.$v.form.$touch()
             if (this.$v.form.$invalid) {
                 return
             }
-            this.$eventBus.$emit('wz.updateForm', {
-                trackInfo: this.form,
+            this.$bus.$emit('wz.updateForm', {
+                trackInfo: { ...this.form },
             })
-            this.$eventBus.$emit('wz.goToNext')
+            onSuccess()
         },
     },
 }

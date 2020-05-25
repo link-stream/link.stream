@@ -1,10 +1,5 @@
 <template>
-    <b-modal
-        modal-class="mdl-lnk-sched"
-        ref="modal"
-        @hidden="handleHidden"
-        centered
-    >
+    <b-modal modal-class="mdl-lnk-sched" centered v-model="shown">
         <template v-slot:modal-header>
             <LsIconButton class="modal-close" use-bg-img @click="close" />
             <h2 class="modal-title">Schedule link</h2>
@@ -28,13 +23,13 @@
                 <b-form-group>
                     <b-form-checkbox
                         :checked="endDateEnabled"
-                        @change="toggleEndDate"
+                        @change="handleEndDateToggleChange"
                     >
                         Set end date
                     </b-form-checkbox>
                 </b-form-group>
 
-                <b-form-group label="End Date" v-if="endDateEnabled">
+                <b-form-group label="End Date" v-show="endDateEnabled">
                     <b-input-group class="input-group-datetime">
                         <LsDatePicker v-model="form.endDate" />
                         <LsTimePicker v-model="form.endTime" />
@@ -56,7 +51,7 @@
             <ls-spinner-button
                 class="modal-action"
                 :loading="loading"
-                @click="save"
+                @click="handleSaveClick"
             >
                 Save
             </ls-spinner-button>
@@ -70,14 +65,9 @@ import moment from 'moment'
 
 export default {
     name: 'LinkScheduleModal',
-    props: {
-        link: {
-            type: Object,
-            required: true,
-        },
-    },
     data() {
-        const data = {
+        return {
+            shown: false,
             loading: false,
             endDateEnabled: false,
             form: {
@@ -87,19 +77,6 @@ export default {
                 endTime: null,
             },
         }
-
-        if (this.link.scheduled) {
-            const { date, time, end_date, end_time } = this.link
-            data.form.date = new Date(date + ' 00:00:00')
-            data.form.time = time
-            if (end_date && end_time) {
-                data.endDateEnabled = true
-                data.form.endDate = new Date(end_date + ' 00:00:00')
-                data.form.endTime = end_time
-            }
-        }
-
-        return data
     },
     validations: {
         form: {
@@ -121,21 +98,49 @@ export default {
             },
         },
     },
-    mounted() {
-        this.$refs.modal.show()
+    created() {
+        this.$bus.$on('modal.linkSchedule.show', this.handleShow)
     },
     methods: {
         close() {
-            this.$refs.modal.hide()
+            this.shown = false
         },
-        toggleEndDate() {
-            this.form.endDate = null
-            this.form.endTime = null
+        handleEndDateToggleChange() {
             this.$v.form.endDate.$reset()
             this.$v.form.endTime.$reset()
             this.endDateEnabled = !this.endDateEnabled
         },
-        async save() {
+        handleShow(link) {
+            this.$v.form.$reset()
+            this.link = { ...link }
+            this.endDateEnabled = false
+            this.form = {
+                date: null,
+                time: null,
+                endDate: null,
+                endTime: null,
+            }
+            if (!this.link.scheduled) {
+                this.shown = true
+                return
+            }
+            const { date, time, end_date, end_time } = this.link
+            this.endDateEnabled = end_date && end_time ? true : false
+            this.form = {
+                ...this.form,
+                date: new Date(date + ' 00:00:00'),
+                time,
+            }
+            if (this.endDateEnabled) {
+                this.form = {
+                    ...this.form,
+                    endDate: new Date(end_date + ' 00:00:00'),
+                    endTime: end_time,
+                }
+            }
+            this.shown = true
+        },
+        async handleSaveClick() {
             this.$v.form.$touch()
 
             if (this.$v.form.$invalid) {
@@ -146,7 +151,7 @@ export default {
 
             const { date, time, endDate, endTime } = this.form
 
-            let params = {
+            const params = {
                 scheduled: 1,
                 date: moment(date).format('YYYY-MM-DD'),
                 time,
@@ -175,9 +180,6 @@ export default {
             }
 
             this.loading = false
-        },
-        handleHidden() {
-            this.$emit('hidden')
         },
     },
 }

@@ -3,10 +3,10 @@
         <LsSpinnerMask v-show="loading" />
         <section class="crd-content" v-show="!editing">
             <LsIcon class="crd-reorder-i" icon="reorder" />
-            <div class="crd-media" @click="showEditView">
+            <div class="crd-media" @click="handleEditClick">
                 <img class="crd-img" :src="link.artwork" :alt="link.title" />
             </div>
-            <main class="crd-info" @click="showEditView">
+            <main class="crd-info" @click="handleEditClick">
                 <h2 class="crd-title">{{ link.title }}</h2>
                 <small class="crd-subtitle" v-if="link.isPrivate">Hidden</small>
             </main>
@@ -15,13 +15,13 @@
                 title="Delete"
                 class="crd-del-btn"
                 use-bg-img
-                @click="deleteLink"
+                @click="handleDeleteClick"
             />
             <LsIconButton
                 title="Edit"
                 class="crd-edit-btn"
                 use-bg-img
-                @click="showEditView"
+                @click="handleEditClick"
             />
         </section>
         <section class="crd-editable" v-if="editing">
@@ -29,7 +29,7 @@
                 icon="close"
                 class="crd-edit-close"
                 title="Close"
-                @click="hideEditView"
+                @click="closeEdit"
             />
             <main class="crd-edit-body">
                 <DropImage
@@ -67,13 +67,13 @@
                     <LsIconButton
                         icon="trash-sm"
                         title="Delete"
-                        @click="deleteLink"
+                        @click="handleDeleteClick"
                     />
                 </div>
                 <div class="actions-right">
                     <ls-icon-button
                         :title="link.isPublic ? 'Hide' : 'Unhide'"
-                        @click="handleVisibilityClick"
+                        @click="handleVisibilityToggleClick"
                     >
                         <LsIcon
                             :icon="
@@ -86,9 +86,13 @@
                     <LsIconButton
                         icon="clock-cir-gray"
                         title="Schedule"
-                        @click="handleScheduleClick"
+                        @click="handleChangeScheduleClick"
                     />
-                    <ls-button variant="tertiary" size="xs" @click="save">
+                    <ls-button
+                        variant="tertiary"
+                        size="xs"
+                        @click="handleSaveClick"
+                    >
                         Save
                     </ls-button>
                 </div>
@@ -96,10 +100,10 @@
             <footer class="schedule-dt" v-if="link.scheduled">
                 Scheduled: {{ link.date | mmddyyyy }}
                 <b-dropdown variant="link" text="Modify" no-caret>
-                    <b-dropdown-item @click="handleScheduleClick">
+                    <b-dropdown-item @click="handleChangeScheduleClick">
                         Change Date
                     </b-dropdown-item>
-                    <b-dropdown-item @click="removeLinkScheduling">
+                    <b-dropdown-item @click="handleRemoveScheduleClick">
                         Remove Scheduling
                     </b-dropdown-item>
                 </b-dropdown>
@@ -126,13 +130,7 @@ export default {
         },
     },
     methods: {
-        showEditView() {
-            this.editing = true
-        },
-        hideEditView() {
-            this.editing = false
-        },
-        async toggleLinkVisibility() {
+        async toggleVisibility() {
             this.loading = true
             const { status, error } = await this.$store.dispatch(
                 'me/updateLink',
@@ -148,11 +146,20 @@ export default {
             status !== 'success' && this.$toast.error(error)
             this.loading = false
         },
-        deleteLink() {
+        closeEdit() {
+            this.editing = false
+        },
+        handleEditClick() {
+            this.editing = true
+        },
+        handleChangeScheduleClick() {
+            this.$emit('schedule-click', this.link)
+        },
+        handleDeleteClick() {
             this.$alert.confirm({
                 title: 'Delete link?',
                 message: 'This link and its data will be permanently deleted.',
-                okCallback: async () => {
+                onOk: async () => {
                     this.loading = true
                     const {
                         status,
@@ -168,7 +175,7 @@ export default {
                 },
             })
         },
-        async removeLinkScheduling() {
+        async handleRemoveScheduleClick() {
             this.loading = true
             const { status, message, error } = await this.$store.dispatch(
                 'me/updateLink',
@@ -188,18 +195,15 @@ export default {
                 : this.$toast.error(error)
             this.loading = false
         },
-        handleScheduleClick() {
-            this.$emit('schedule-click', this.link)
-        },
-        handleVisibilityClick() {
+        handleVisibilityToggleClick() {
             if (this.link.isPrivate) {
-                this.toggleLinkVisibility()
+                this.toggleVisibility()
             } else {
                 this.$alert.confirm({
                     title: 'Hide link?',
                     message:
                         'This link will be hidden from your visitors. Are you sure?',
-                    okCallback: this.toggleLinkVisibility,
+                    onOk: this.toggleVisibility,
                 })
             }
         },

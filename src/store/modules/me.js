@@ -8,27 +8,27 @@ import { appConstants } from '~/constants'
 
 const initialState = () => ({
     /**
-     * @var {object}
+     * @type {object}
      */
     user: null,
     /**
-     * @var {array}
+     * @type {array}
      */
     visibilities: null,
     /**
-     * @var {array}
+     * @type {array}
      */
     tracks: null,
     /**
-     * @var {array}
+     * @type {array}
      */
     videos: null,
     /**
-     * @var {array}
+     * @type {array}
      */
     links: null,
     /**
-     * @var {array}
+     * @type {array}
      */
     licenses: null,
 })

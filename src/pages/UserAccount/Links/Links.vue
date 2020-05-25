@@ -36,16 +36,12 @@
                 <Draggable v-for="link in sortableLinks" :key="link.id">
                     <LinkCard
                         :link="link"
-                        @schedule-click="showScheduleModal"
+                        @schedule-click="handleScheduleClick"
                     />
                 </Draggable>
             </Container>
         </main>
-        <LinkScheduleModal
-            v-if="schedulingLink"
-            :link="schedulingLink"
-            @hidden="handleScheduleModalHidden"
-        />
+        <LinkScheduleModal />
     </div>
 </template>
 
@@ -66,7 +62,6 @@ export default {
     data() {
         return {
             loading: false,
-            schedulingLink: false,
             sortableLinks: [],
         }
     },
@@ -90,11 +85,8 @@ export default {
         this.loading = false
     },
     methods: {
-        showScheduleModal(link) {
-            this.schedulingLink = link
-        },
-        handleScheduleModalHidden() {
-            this.schedulingLink = false
+        handleScheduleClick(link) {
+            this.$bus.$emit('modal.linkSchedule.show', link)
         },
         handleReorder(dropResult) {
             const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult

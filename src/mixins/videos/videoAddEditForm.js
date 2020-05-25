@@ -14,7 +14,6 @@ export const videoAddEditForm = {
     data() {
         return {
             loading: false,
-            editing: false,
             form: {
                 url: null,
                 title: null,
@@ -57,10 +56,7 @@ export const videoAddEditForm = {
         },
     },
     methods: {
-        toggleSchedule() {
-            this.form.scheduled = !this.form.scheduled
-        },
-        async save() {
+        async handleSaveClick() {
             this.$v.form.$touch()
 
             if (this.$v.form.$invalid) {
@@ -92,7 +88,7 @@ export const videoAddEditForm = {
                 time: scheduled ? time : null,
             }
 
-            const { status, error, message } = this.editing
+            const { status, error, message } = this.video
                 ? await this.$store.dispatch('me/updateVideo', {
                       id: this.video.id,
                       params,
@@ -103,7 +99,7 @@ export const videoAddEditForm = {
 
             if (status === 'success') {
                 this.$toast.success(message)
-                if (this.editing) {
+                if (this.video) {
                     this.close()
                 } else {
                     this.$router.push({ name: 'userAccountVideos' })

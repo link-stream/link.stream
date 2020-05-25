@@ -123,7 +123,7 @@
                 <ls-spinner-button
                     class="fwz-submit-btn"
                     :loading="loading"
-                    @click="save"
+                    @click="handleSaveClick"
                 >
                     Add Video
                 </ls-spinner-button>

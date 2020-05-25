@@ -19,7 +19,7 @@
                 class="crd-edit-btn"
                 title="Edit"
                 use-bg-img
-                @click="showEditView"
+                @click="handleEditClick"
             />
         </div>
         <div class="crd-editable" v-if="editing">
@@ -27,7 +27,7 @@
                 icon="close"
                 class="crd-edit-close"
                 title="Close"
-                @click="hideEditView"
+                @click="handleCloseEditClick"
             />
             <div class="crd-edit-body">
                 <b-form-group label="Adjust price" label-for="priceInput">
@@ -47,11 +47,15 @@
                     <ls-button
                         size="xs"
                         variant="secondary"
-                        @click="hideEditView"
+                        @click="handleCloseEditClick"
                     >
                         Cancel
                     </ls-button>
-                    <ls-button size="xs" variant="black" @click="hideEditView">
+                    <ls-button
+                        size="xs"
+                        variant="black"
+                        @click="handleCloseEditClick"
+                    >
                         Save
                     </ls-button>
                 </div>
@@ -82,10 +86,10 @@ export default {
         }
     },
     methods: {
-        showEditView() {
+        handleEditClick() {
             this.editing = true
         },
-        hideEditView() {
+        handleCloseEditClick() {
             this.editing = false
         },
         handleCheckChange(checked) {

@@ -82,7 +82,10 @@
                                 </b-form-group>
                             </div>
 
-                            <ls-button variant="link" @click="toggleSchedule">
+                            <ls-button
+                                variant="link"
+                                @click="handleScheduleToggleClick"
+                            >
                                 {{
                                     form.scheduled
                                         ? 'Clear scheduling '
@@ -111,7 +114,7 @@
                 <ls-spinner-button
                     class="fwz-submit-btn"
                     :loading="loading"
-                    @click="save"
+                    @click="handleSaveClick"
                 >
                     Add Link
                 </ls-spinner-button>
@@ -126,5 +129,10 @@ import { linkAddEditForm } from '~/mixins/links/linkAddEditForm'
 export default {
     name: 'AddLink',
     mixins: [linkAddEditForm],
+    methods: {
+        handleScheduleToggleClick() {
+            this.form.scheduled = !this.form.scheduled
+        },
+    },
 }
 </script>

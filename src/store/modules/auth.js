@@ -11,11 +11,11 @@ import {
 
 const initialState = () => ({
     /**
-     * @var {object}
+     * @type {object}
      */
     user: null,
     /**
-     * @var {object}
+     * @type {object}
      */
     pendingUser: null,
 })

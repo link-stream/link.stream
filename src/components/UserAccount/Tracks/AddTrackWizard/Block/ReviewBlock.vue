@@ -2,22 +2,19 @@
     <div>
         <div class="crd" v-if="trackInfo">
             <h4>Track Info</h4>
+            <ls-button @click="handleEditTrackInfoClick">Edit</ls-button>
             <p>Title: {{ trackInfo.title }}</p>
             <p>Type: {{ isSong ? 'Song' : 'Beat' }}</p>
             <p>Genre: {{ trackInfo.genre.genre }}</p>
-            <p>Tags: {{ trackInfo.tags.join(', ') }}</p>
+            <p>Tags: {{ tags }}</p>
             <p>BPM: {{ trackInfo.bpm }}</p>
             <p>Key: {{ trackInfo.key }}</p>
-            <p>
-                Collaborators:
-                {{
-                    trackInfo.collabs.map(collab => collab.user.name).join(', ')
-                }}
-            </p>
+            <p>Collaborators: {{ collabs }}</p>
         </div>
 
         <div class="crd">
             <h4>Licenses</h4>
+            <ls-button @click="handleEditLicensesClick">Edit</ls-button>
             <div v-for="license in licenses" :key="license.id" class="mb-2">
                 <div>
                     ${{ license.prize | trimZeroDecimal }} -
@@ -29,6 +26,7 @@
 
         <div class="crd">
             <h4>Files</h4>
+            <ls-button @click="handleEdiFilesClick">Edit</ls-button>
             <div v-if="files.untagged">
                 Untagged File: {{ files.untagged.name }}
             </div>
@@ -40,6 +38,7 @@
 
         <div class="crd">
             <h4>Marketing</h4>
+            <ls-button @click="handleEditMarketingClick">Edit</ls-button>
             <div v-for="m in marketing" :key="m.id">
                 {{ m.title }}
             </div>
@@ -51,7 +50,7 @@
 import { appConstants } from '~/constants'
 
 export default {
-    name: 'ReviewPane',
+    name: 'ReviewBlock',
     props: {
         summary: {
             type: Object,
@@ -73,6 +72,40 @@ export default {
         },
         isSong() {
             return this.summary.trackType === appConstants.tracks.types.song
+        },
+        collabs() {
+            return this.trackInfo
+                ? this.trackInfo.collabs.map(c => c.user.name).join(', ')
+                : ''
+        },
+        tags() {
+            return this.trackInfo
+                ? this.trackInfo.tags.map(t => t.text).join(', ')
+                : ''
+        },
+    },
+    methods: {
+        handleEditTrackInfoClick() {
+            const { trackType, trackInfo } = this.summary
+            this.$bus.$emit('modal.trackInfoEdit.show', {
+                trackType,
+                trackInfo,
+            })
+        },
+        handleEditLicensesClick() {
+            this.$bus.$emit('modal.licensesEdit.show', {
+                selected: this.licenses,
+            })
+        },
+        handleEdiFilesClick() {
+            this.$bus.$emit('modal.filesEdit.show', {
+                files: this.files,
+            })
+        },
+        handleEditMarketingClick() {
+            this.$bus.$emit('modal.marketingEdit.show', {
+                selected: this.marketing,
+            })
         },
     },
 }

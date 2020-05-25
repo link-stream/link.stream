@@ -106,9 +106,11 @@ export default {
             this.tmpFile = null
             if (base64) {
                 this.file = {
+                    name: file.name,
                     src: toUrl(base64),
                 }
                 this.$emit('file-add', {
+                    name: file.name,
                     base64,
                 })
             } else {

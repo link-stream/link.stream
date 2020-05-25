@@ -21,7 +21,6 @@ export default {
         },
         size: {
             type: String,
-            default: null,
         },
         variant: {
             type: String,
@@ -29,7 +28,6 @@ export default {
         },
         to: {
             type: Object,
-            default: null,
         },
     },
     methods: {

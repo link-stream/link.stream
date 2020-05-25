@@ -42,7 +42,6 @@ export default {
         },
         size: {
             type: String,
-            default: null,
         },
         loading: {
             type: Boolean,

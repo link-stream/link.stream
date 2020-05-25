@@ -25,7 +25,6 @@ export default {
         },
         value: {
             type: Date,
-            default: null,
         },
         state: {
             type: Boolean,

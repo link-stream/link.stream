@@ -10,7 +10,6 @@ export default {
     props: {
         to: {
             type: Object,
-            default: null,
         },
     },
     methods: {

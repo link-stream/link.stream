@@ -71,14 +71,7 @@ export default {
             shown: false,
             type: null,
             opts: {
-                title: null,
-                message: null,
-                okShow: null,
-                okText: null,
-                onOk: null,
-                cancelShow: null,
-                cancelText: null,
-                onCancel: null,
+                ...defaultOpts,
             },
         }
     },

@@ -25,25 +25,20 @@ export default {
         vSelect,
     },
     props: {
-        /**
-         * @type {Object||String||null}
-         */
-        value: {},
+        value: {
+            type: [String, Object],
+        },
         label: {
             type: String,
-            default: null,
         },
         placeholder: {
             type: String,
-            default: null,
         },
         options: {
             type: Array,
-            default: null,
         },
         reduce: {
             type: Function,
-            default: null,
         },
         state: {
             type: Boolean,

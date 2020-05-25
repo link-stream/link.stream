@@ -21,7 +21,6 @@ export default {
         },
         icon: {
             type: String,
-            default: null,
         },
         useBgImg: {
             type: Boolean,

@@ -1,4 +1,4 @@
-.crd {
+.c-card {
     @include border-radius(4px);
     position: relative;
     background-color: $white;
@@ -6,11 +6,11 @@
     margin: 15px 0;
     padding: 15px;
 
-    .crd-reorder-i {
+    .c-card-reorder-i {
         cursor: move;
     }
 
-    .crd-edit-btn {
+    .c-card-edit-btn {
         padding: 0;
         &:before {
             background-image: url(~@/../public/static/ico/edit-cir-white-sm.svg);
@@ -19,7 +19,7 @@
         }
     }
 
-    .crd-edit-close {
+    .c-card-edit-close {
         position: absolute;
         position: absolute;
         top: 0;
@@ -27,7 +27,7 @@
         padding: 20px;
     }
 
-    .crd-edit-actions {
+    .c-card-edit-actions {
         display: flex;
         justify-content: space-between;
         border-top: 1px solid $linkstream-30;
@@ -40,7 +40,7 @@
         }
     }
 
-    .crd-del-btn {
+    .c-card-del-btn {
         visibility: hidden;
         display: none;
         opacity: 0;
@@ -48,24 +48,24 @@
     }
 
     @include media-breakpoint-up(md) {
-        .crd-del-btn,
-        .crd-edit-btn {
+        .c-card-del-btn,
+        .c-card-edit-btn {
             margin-left: 10px;
         }
 
-        .crd-edit-btn:before {
+        .c-card-edit-btn:before {
             background-image: url(~@/../public/static/ico/edit-cir-white-lg.svg);
             width: 50px;
             height: 50px;
         }
 
-        .crd-edit-btn:hover {
+        .c-card-edit-btn:hover {
             &:before {
                 background-image: url(~@/../public/static/ico/edit-cir-gray-lg.svg);
             }
         }
 
-        .crd-del-btn {
+        .c-card-del-btn {
             display: block;
             &:before {
                 background-image: url(~@/../public/static/ico/trash-lg.svg);
@@ -75,7 +75,7 @@
         }
 
         &:hover {
-            .crd-del-btn {
+            .c-card-del-btn {
                 visibility: visible;
                 opacity: 1;
             }

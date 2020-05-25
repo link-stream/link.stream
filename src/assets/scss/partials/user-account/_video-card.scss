@@ -1,13 +1,13 @@
-.crd-vid {
+.c-card.--video {
     display: flex;
     align-items: flex-start;
 
-    .crd-reorder-i {
+    .c-card-reorder-i {
         position: relative;
         top: 46px;
     }
 
-    .crd-body {
+    .c-card-body {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
@@ -15,24 +15,24 @@
         cursor: pointer;
     }
 
-    .crd-media {
+    .c-card-media {
         margin-bottom: 10px;
     }
 
-    .crd-lock {
+    .c-card-lock {
         position: absolute;
         background-image: url(~@/../public/static/img/lock-overlay.svg);
         background-repeat: no-repeat;
         background-size: cover;
     }
 
-    .crd-lock,
-    .crd-img {
+    .c-card-lock,
+    .c-card-img {
         width: 190px;
         height: 107px;
     }
 
-    .crd-title {
+    .c-card-title {
         color: $linkstream-110;
         font-size: px2rem(12);
         font-weight: bold;
@@ -40,7 +40,7 @@
         line-height: 16px;
     }
 
-    .crd-subtitle {
+    .c-card-subtitle {
         font-size: px2rem(11);
         color: $black;
     }
@@ -48,26 +48,26 @@
     @include media-breakpoint-up(md) {
         align-items: center;
 
-        .crd-reorder-i {
+        .c-card-reorder-i {
             top: auto;
         }
 
-        .crd-body {
+        .c-card-body {
             flex-direction: row;
             align-items: center;
         }
 
-        .crd-media {
+        .c-card-media {
             margin: 0 15px 0 0;
         }
 
-        .crd-lock,
-        .crd-img {
+        .c-card-lock,
+        .c-card-img {
             width: 123px;
             height: 69px;
         }
 
-        .crd-title {
+        .c-card-title {
             font-size: px2rem(13);
             line-height: 20px;
         }

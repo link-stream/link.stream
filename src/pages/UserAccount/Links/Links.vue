@@ -31,7 +31,7 @@
             <Container
                 v-else
                 @drop="handleReorder"
-                drag-handle-selector=".crd-reorder-i"
+                drag-handle-selector=".c-card-reorder-i"
             >
                 <Draggable v-for="link in sortableLinks" :key="link.id">
                     <LinkCard

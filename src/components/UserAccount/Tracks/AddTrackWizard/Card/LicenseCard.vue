@@ -1,35 +1,35 @@
 <template>
-    <div class="crd crd-license" :class="{ '--editing': editing }">
-        <div class="crd-content">
+    <div class="c-card --license" :class="{ '--editing': editing }">
+        <div class="c-card-content">
             <b-form-group>
                 <b-form-checkbox
                     :checked="selected"
                     @change="handleCheckChange"
                 ></b-form-checkbox>
             </b-form-group>
-            <div class="crd-body">
-                <div class="crd-title">
+            <div class="c-card-body">
+                <div class="c-card-title">
                     {{ license.title }} - ${{ license.prize | trimZeroDecimal }}
                 </div>
-                <small class="crd-subtitle">
+                <small class="c-card-subtitle">
                     <p>{{ license.descripcion }}</p>
                 </small>
             </div>
             <LsIconButton
-                class="crd-edit-btn"
+                class="c-card-edit-btn"
                 title="Edit"
                 use-bg-img
                 @click="handleEditClick"
             />
         </div>
-        <div class="crd-editable" v-if="editing">
+        <div class="c-card-edit" v-if="editing">
             <LsIconButton
                 icon="close"
-                class="crd-edit-close"
+                class="c-card-edit-close"
                 title="Close"
                 @click="handleCloseEditClick"
             />
-            <div class="crd-edit-body">
+            <div class="c-card-edit-body">
                 <b-form-group label="Adjust price" label-for="priceInput">
                     <b-form-input
                         type="number"
@@ -38,7 +38,7 @@
                     />
                 </b-form-group>
             </div>
-            <div class="crd-edit-actions">
+            <div class="c-card-edit-actions">
                 <div class="actions-left">
                     To customize your default license terms, go to
                     <ls-button variant="link">Licenses</ls-button>

@@ -1,35 +1,35 @@
-.crd-lnk {
+.c-card.--link {
     padding: 0;
 
     &.--private {
-        .crd-title,
-        .crd-subtitle {
+        .c-card-title,
+        .c-card-subtitle {
             color: $linkstream-40;
         }
     }
 
-    .crd-content {
+    .c-card-content {
         display: flex;
         align-items: center;
         padding: 15px;
     }
 
-    .crd-media {
+    .c-card-media {
         margin: 0 10px;
         cursor: pointer;
     }
 
-    .crd-img {
+    .c-card-img {
         width: 60px;
         height: 60px;
     }
 
-    .crd-info {
+    .c-card-info {
         flex-grow: 1;
         cursor: pointer;
     }
 
-    .crd-title {
+    .c-card-title {
         color: $linkstream-110;
         font-size: px2rem(12);
         font-weight: bold;
@@ -37,22 +37,22 @@
         line-height: 16px;
     }
 
-    .crd-subtitle {
+    .c-card-subtitle {
         font-size: px2rem(11);
         color: $black;
     }
 
-    .crd-editable {
+    .c-card-edit {
         position: relative;
         padding: 20px;
     }
 
-    .crd-edit-body {
+    .c-card-edit-body {
         display: flex;
         flex-direction: column;
     }
 
-    .crd-edit-form {
+    .c-card-edit-form {
         .form-group:last-child {
             margin-bottom: 0;
         }
@@ -115,24 +115,24 @@
     }
 
     @include media-breakpoint-up(md) {
-        .crd-media {
+        .c-card-media {
             margin: 0 14px;
         }
 
-        .crd-img {
+        .c-card-img {
             width: 68px;
             height: 68px;
         }
 
-        .crd-title {
+        .c-card-title {
             font-size: px2rem(13);
         }
 
-        .crd-edit-body {
+        .c-card-edit-body {
             flex-direction: row;
         }
 
-        .crd-edit-form {
+        .c-card-edit-form {
             flex-grow: 1;
             margin-left: 20px;
             margin-right: 80px;

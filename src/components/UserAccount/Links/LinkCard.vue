@@ -1,37 +1,39 @@
 <template>
-    <div class="crd crd-lnk" :class="{ '--private': link.isPrivate }">
+    <div class="c-card --link" :class="{ '--private': link.isPrivate }">
         <LsSpinnerMask v-show="loading" />
-        <section class="crd-content" v-show="!editing">
-            <LsIcon class="crd-reorder-i" icon="reorder" />
-            <div class="crd-media" @click="handleEditClick">
-                <img class="crd-img" :src="link.artwork" :alt="link.title" />
+        <section class="c-card-content" v-show="!editing">
+            <LsIcon class="c-card-reorder-i" icon="reorder" />
+            <div class="c-card-media" @click="handleEditClick">
+                <img class="c-card-img" :src="link.artwork" :alt="link.title" />
             </div>
-            <main class="crd-info" @click="handleEditClick">
-                <h2 class="crd-title">{{ link.title }}</h2>
-                <small class="crd-subtitle" v-if="link.isPrivate">Hidden</small>
+            <main class="c-card-info" @click="handleEditClick">
+                <h2 class="c-card-title">{{ link.title }}</h2>
+                <small class="c-card-subtitle" v-if="link.isPrivate">
+                    Hidden
+                </small>
             </main>
             <LsIconButton
                 icon="trash-2"
                 title="Delete"
-                class="crd-del-btn"
+                class="c-card-del-btn"
                 use-bg-img
                 @click="handleDeleteClick"
             />
             <LsIconButton
                 title="Edit"
-                class="crd-edit-btn"
+                class="c-card-edit-btn"
                 use-bg-img
                 @click="handleEditClick"
             />
         </section>
-        <section class="crd-editable" v-if="editing">
+        <section class="c-card-edit" v-if="editing">
             <LsIconButton
                 icon="close"
-                class="crd-edit-close"
+                class="c-card-edit-close"
                 title="Close"
                 @click="closeEdit"
             />
-            <main class="crd-edit-body">
+            <main class="c-card-edit-body">
                 <DropImage
                     :src="link.data_image"
                     msg-long="Drag image here&nbsp;or&nbsp;<u>browse</u>"
@@ -39,7 +41,7 @@
                     @file-add="handleImageAdded"
                     @file-remove="handleImageRemoved"
                 />
-                <form class="crd-edit-form">
+                <form class="c-card-edit-form">
                     <b-form-group>
                         <b-form-input
                             placeholder="e.g. https://myblog.blogspot.com"
@@ -62,7 +64,7 @@
                     </b-form-group>
                 </form>
             </main>
-            <footer class="crd-edit-actions">
+            <footer class="c-card-edit-actions">
                 <div class="actions-left">
                     <LsIconButton
                         icon="trash-sm"

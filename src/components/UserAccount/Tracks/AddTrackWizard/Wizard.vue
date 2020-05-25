@@ -9,10 +9,10 @@
 
         <!-- STEP - TRACK TYPE -->
         <wizard-step v-show="isStepTrackType" class="step-track-type">
-            <div class="crd">
+            <div class="c-card">
                 <LsIcon icon="beat" />
-                <h2 class="crd-title">Upload a Beat</h2>
-                <div class="crd-text">
+                <h2 class="c-card-title">Upload a Beat</h2>
+                <div class="c-card-text">
                     Generally short music tracks created
                     <br />
                     by producers. Usually intended to be
@@ -27,10 +27,10 @@
                 </div>
                 <ls-button @click="handleAddBeatClick">Get Started</ls-button>
             </div>
-            <div class="crd">
+            <div class="c-card">
                 <LsIcon icon="song" />
-                <h2 class="crd-title">Upload a Song</h2>
-                <div class="crd-text">
+                <h2 class="c-card-title">Upload a Song</h2>
+                <div class="c-card-text">
                     Commonly released by recording
                     <br />
                     artists and songwriters and are

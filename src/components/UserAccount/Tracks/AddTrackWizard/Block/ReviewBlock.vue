@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="crd" v-if="trackInfo">
+        <div class="c-card" v-if="trackInfo">
             <h4>Track Info</h4>
             <ls-button @click="handleEditTrackInfoClick">Edit</ls-button>
             <p>Title: {{ trackInfo.title }}</p>
@@ -12,7 +12,7 @@
             <p>Collaborators: {{ collabs }}</p>
         </div>
 
-        <div class="crd">
+        <div class="c-card">
             <h4>Licenses</h4>
             <ls-button @click="handleEditLicensesClick">Edit</ls-button>
             <div v-for="license in licenses" :key="license.id" class="mb-2">
@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div class="crd">
+        <div class="c-card">
             <h4>Files</h4>
             <ls-button @click="handleEdiFilesClick">Edit</ls-button>
             <div v-if="files.untagged">
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div class="crd">
+        <div class="c-card">
             <h4>Marketing</h4>
             <ls-button @click="handleEditMarketingClick">Edit</ls-button>
             <div v-for="m in marketing" :key="m.id">

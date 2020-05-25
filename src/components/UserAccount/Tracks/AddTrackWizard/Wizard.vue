@@ -8,9 +8,43 @@
         />
 
         <!-- STEP - TRACK TYPE -->
-        <wizard-step v-show="isStepTrackType" title="Select Track Type">
-            <ls-button @click="handleAddBeatClick">Add a Beat</ls-button>
-            <ls-button @click="handleAddSongClick">Add a Song</ls-button>
+        <wizard-step v-show="isStepTrackType" class="step-track-type">
+            <div class="crd">
+                <LsIcon icon="beat" />
+                <h2 class="crd-title">Upload a Beat</h2>
+                <div class="crd-text">
+                    Generally short music tracks created
+                    <br />
+                    by producers. Usually intended to be
+                    <br />
+                    licensed by recording artists and
+                    <br />
+                    songwriters for use in commercially
+                    <br />
+                    released songs. Beats can be sold
+                    <br />
+                    individually or as part of a beat pack.
+                </div>
+                <ls-button @click="handleAddBeatClick">Get Started</ls-button>
+            </div>
+            <div class="crd">
+                <LsIcon icon="song" />
+                <h2 class="crd-title">Upload a Song</h2>
+                <div class="crd-text">
+                    Commonly released by recording
+                    <br />
+                    artists and songwriters and are
+                    <br />
+                    considered a finished musical
+                    <br />
+                    product intended for commercial
+                    <br />
+                    release. Songs can be single releases
+                    <br />
+                    or part of an album or playlist.
+                </div>
+                <ls-button @click="handleAddSongClick">Get Started</ls-button>
+            </div>
         </wizard-step>
 
         <!-- STEP - TRACK INFO -->
@@ -37,7 +71,7 @@
         <!-- STEP - LICENSE TYPES -->
         <wizard-step
             title="License types"
-            class="licenses-step"
+            class="step-licenses"
             v-show="isStepLicenses"
         >
             <LicensesBlock
@@ -49,7 +83,7 @@
         <!-- STEP - UPLOAD FILES -->
         <wizard-step
             title="Upload files"
-            class="files-step"
+            class="step-files"
             v-show="isStepFiles"
         >
             <FileUploadBlock

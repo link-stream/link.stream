@@ -14,7 +14,7 @@
                 margin-bottom: 15px;
             }
         }
-        .c-card-title {
+        .c-title {
             color: $black;
             font-size: px2rem(18);
             font-weight: 800;
@@ -23,7 +23,7 @@
             text-align: center;
             margin-top: 13px;
         }
-        .c-card-text {
+        .c-text {
             color: $black;
             font-size: px2rem(13);
             letter-spacing: 0.1px;
@@ -57,20 +57,20 @@
     }
 
     .c-card.--license {
-        .c-card-content {
+        .c-content {
             display: flex;
         }
 
-        .c-card-body {
+        .c-body {
             flex: 1;
         }
 
-        .c-card-title {
+        .c-title {
             font-weight: bold;
         }
 
         &.--editing {
-            .c-card-edit-btn {
+            .c-edit-btn {
                 display: none;
             }
         }

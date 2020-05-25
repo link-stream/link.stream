@@ -11,8 +11,8 @@
         <wizard-step v-show="isStepTrackType" class="step-track-type">
             <div class="c-card">
                 <LsIcon icon="beat" />
-                <h2 class="c-card-title">Upload a Beat</h2>
-                <div class="c-card-text">
+                <h2 class="c-title">Upload a Beat</h2>
+                <div class="c-text">
                     Generally short music tracks created
                     <br />
                     by producers. Usually intended to be
@@ -29,8 +29,8 @@
             </div>
             <div class="c-card">
                 <LsIcon icon="song" />
-                <h2 class="c-card-title">Upload a Song</h2>
-                <div class="c-card-text">
+                <h2 class="c-title">Upload a Song</h2>
+                <div class="c-text">
                     Commonly released by recording
                     <br />
                     artists and songwriters and are

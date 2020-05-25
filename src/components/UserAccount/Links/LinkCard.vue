@@ -1,39 +1,39 @@
 <template>
     <div class="c-card --link" :class="{ '--private': link.isPrivate }">
         <LsSpinnerMask v-show="loading" />
-        <section class="c-card-content" v-show="!editing">
-            <LsIcon class="c-card-reorder-i" icon="reorder" />
-            <div class="c-card-media" @click="handleEditClick">
-                <img class="c-card-img" :src="link.artwork" :alt="link.title" />
+        <section class="c-content" v-show="!editing">
+            <LsIcon class="c-reorder-i" icon="reorder" />
+            <div class="c-media" @click="handleEditClick">
+                <img class="c-img" :src="link.artwork" :alt="link.title" />
             </div>
-            <main class="c-card-info" @click="handleEditClick">
-                <h2 class="c-card-title">{{ link.title }}</h2>
-                <small class="c-card-subtitle" v-if="link.isPrivate">
+            <main class="c-info" @click="handleEditClick">
+                <h2 class="c-title">{{ link.title }}</h2>
+                <small class="c-subtitle" v-if="link.isPrivate">
                     Hidden
                 </small>
             </main>
             <LsIconButton
                 icon="trash-2"
                 title="Delete"
-                class="c-card-del-btn"
+                class="c-del-btn"
                 use-bg-img
                 @click="handleDeleteClick"
             />
             <LsIconButton
                 title="Edit"
-                class="c-card-edit-btn"
+                class="c-edit-btn"
                 use-bg-img
                 @click="handleEditClick"
             />
         </section>
-        <section class="c-card-edit" v-if="editing">
+        <section class="c-edit" v-if="editing">
             <LsIconButton
                 icon="close"
-                class="c-card-edit-close"
+                class="c-edit-close"
                 title="Close"
                 @click="closeEdit"
             />
-            <main class="c-card-edit-body">
+            <main class="c-edit-body">
                 <DropImage
                     :src="link.data_image"
                     msg-long="Drag image here&nbsp;or&nbsp;<u>browse</u>"
@@ -41,7 +41,7 @@
                     @file-add="handleImageAdded"
                     @file-remove="handleImageRemoved"
                 />
-                <form class="c-card-edit-form">
+                <form class="c-edit-form">
                     <b-form-group>
                         <b-form-input
                             placeholder="e.g. https://myblog.blogspot.com"
@@ -64,7 +64,7 @@
                     </b-form-group>
                 </form>
             </main>
-            <footer class="c-card-edit-actions">
+            <footer class="c-edit-actions">
                 <div class="actions-left">
                     <LsIconButton
                         icon="trash-sm"

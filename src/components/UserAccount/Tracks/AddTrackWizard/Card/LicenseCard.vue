@@ -1,35 +1,35 @@
 <template>
     <div class="c-card --license" :class="{ '--editing': editing }">
-        <div class="c-card-content">
+        <div class="c-content">
             <b-form-group>
                 <b-form-checkbox
                     :checked="selected"
                     @change="handleCheckChange"
                 ></b-form-checkbox>
             </b-form-group>
-            <div class="c-card-body">
-                <div class="c-card-title">
+            <div class="c-body">
+                <div class="c-title">
                     {{ license.title }} - ${{ license.prize | trimZeroDecimal }}
                 </div>
-                <small class="c-card-subtitle">
+                <small class="c-subtitle">
                     <p>{{ license.descripcion }}</p>
                 </small>
             </div>
             <LsIconButton
-                class="c-card-edit-btn"
+                class="c-edit-btn"
                 title="Edit"
                 use-bg-img
                 @click="handleEditClick"
             />
         </div>
-        <div class="c-card-edit" v-if="editing">
+        <div class="c-edit" v-if="editing">
             <LsIconButton
                 icon="close"
-                class="c-card-edit-close"
+                class="c-edit-close"
                 title="Close"
                 @click="handleCloseEditClick"
             />
-            <div class="c-card-edit-body">
+            <div class="c-edit-body">
                 <b-form-group label="Adjust price" label-for="priceInput">
                     <b-form-input
                         type="number"
@@ -38,7 +38,7 @@
                     />
                 </b-form-group>
             </div>
-            <div class="c-card-edit-actions">
+            <div class="c-edit-actions">
                 <div class="actions-left">
                     To customize your default license terms, go to
                     <ls-button variant="link">Licenses</ls-button>

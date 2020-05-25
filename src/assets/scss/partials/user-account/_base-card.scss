@@ -6,11 +6,11 @@
     margin: 15px 0;
     padding: 15px;
 
-    .c-card-reorder-i {
+    .c-reorder-i {
         cursor: move;
     }
 
-    .c-card-edit-btn {
+    .c-edit-btn {
         padding: 0;
         &:before {
             background-image: url(~@/../public/static/ico/edit-cir-white-sm.svg);
@@ -19,7 +19,7 @@
         }
     }
 
-    .c-card-edit-close {
+    .c-edit-close {
         position: absolute;
         position: absolute;
         top: 0;
@@ -27,7 +27,7 @@
         padding: 20px;
     }
 
-    .c-card-edit-actions {
+    .c-edit-actions {
         display: flex;
         justify-content: space-between;
         border-top: 1px solid $linkstream-30;
@@ -40,7 +40,7 @@
         }
     }
 
-    .c-card-del-btn {
+    .c-del-btn {
         visibility: hidden;
         display: none;
         opacity: 0;
@@ -48,24 +48,24 @@
     }
 
     @include media-breakpoint-up(md) {
-        .c-card-del-btn,
-        .c-card-edit-btn {
+        .c-del-btn,
+        .c-edit-btn {
             margin-left: 10px;
         }
 
-        .c-card-edit-btn:before {
+        .c-edit-btn:before {
             background-image: url(~@/../public/static/ico/edit-cir-white-lg.svg);
             width: 50px;
             height: 50px;
         }
 
-        .c-card-edit-btn:hover {
+        .c-edit-btn:hover {
             &:before {
                 background-image: url(~@/../public/static/ico/edit-cir-gray-lg.svg);
             }
         }
 
-        .c-card-del-btn {
+        .c-del-btn {
             display: block;
             &:before {
                 background-image: url(~@/../public/static/ico/trash-lg.svg);
@@ -75,7 +75,7 @@
         }
 
         &:hover {
-            .c-card-del-btn {
+            .c-del-btn {
                 visibility: visible;
                 opacity: 1;
             }

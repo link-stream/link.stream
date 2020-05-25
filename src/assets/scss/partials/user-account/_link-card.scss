@@ -2,34 +2,34 @@
     padding: 0;
 
     &.--private {
-        .c-card-title,
-        .c-card-subtitle {
+        .c-title,
+        .c-subtitle {
             color: $linkstream-40;
         }
     }
 
-    .c-card-content {
+    .c-content {
         display: flex;
         align-items: center;
         padding: 15px;
     }
 
-    .c-card-media {
+    .c-media {
         margin: 0 10px;
         cursor: pointer;
     }
 
-    .c-card-img {
+    .c-img {
         width: 60px;
         height: 60px;
     }
 
-    .c-card-info {
+    .c-info {
         flex-grow: 1;
         cursor: pointer;
     }
 
-    .c-card-title {
+    .c-title {
         color: $linkstream-110;
         font-size: px2rem(12);
         font-weight: bold;
@@ -37,22 +37,22 @@
         line-height: 16px;
     }
 
-    .c-card-subtitle {
+    .c-subtitle {
         font-size: px2rem(11);
         color: $black;
     }
 
-    .c-card-edit {
+    .c-edit {
         position: relative;
         padding: 20px;
     }
 
-    .c-card-edit-body {
+    .c-edit-body {
         display: flex;
         flex-direction: column;
     }
 
-    .c-card-edit-form {
+    .c-edit-form {
         .form-group:last-child {
             margin-bottom: 0;
         }
@@ -115,24 +115,24 @@
     }
 
     @include media-breakpoint-up(md) {
-        .c-card-media {
+        .c-media {
             margin: 0 14px;
         }
 
-        .c-card-img {
+        .c-img {
             width: 68px;
             height: 68px;
         }
 
-        .c-card-title {
+        .c-title {
             font-size: px2rem(13);
         }
 
-        .c-card-edit-body {
+        .c-edit-body {
             flex-direction: row;
         }
 
-        .c-card-edit-form {
+        .c-edit-form {
             flex-grow: 1;
             margin-left: 20px;
             margin-right: 80px;

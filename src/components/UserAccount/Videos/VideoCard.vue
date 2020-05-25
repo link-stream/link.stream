@@ -1,26 +1,26 @@
 <template>
     <div class="c-card --video">
-        <LsIcon class="c-card-reorder-i" icon="reorder" />
-        <div class="c-card-body" @click="handleEditClick">
-            <div class="c-card-media">
-                <div class="c-card-lock" v-if="video.isPrivate"></div>
-                <img class="c-card-img" :src="thumbUrl" :alt="video.title" />
+        <LsIcon class="c-reorder-i" icon="reorder" />
+        <div class="c-body" @click="handleEditClick">
+            <div class="c-media">
+                <div class="c-lock" v-if="video.isPrivate"></div>
+                <img class="c-img" :src="thumbUrl" :alt="video.title" />
             </div>
-            <div class="c-card-info">
-                <h2 class="c-card-title">{{ video.title }}</h2>
-                <small class="c-card-subtitle" v-if="video.isPrivate">
+            <div class="c-info">
+                <h2 class="c-title">{{ video.title }}</h2>
+                <small class="c-subtitle" v-if="video.isPrivate">
                     Private
                 </small>
             </div>
         </div>
         <LsIconButton
-            class="c-card-del-btn"
+            class="c-del-btn"
             title="Delete"
             use-bg-img
             @click="handleDeleteClick"
         />
         <LsIconButton
-            class="c-card-edit-btn"
+            class="c-edit-btn"
             title="Edit"
             use-bg-img
             @click="handleEditClick"

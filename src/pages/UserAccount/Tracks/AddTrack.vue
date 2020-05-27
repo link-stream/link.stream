@@ -37,9 +37,11 @@ export default {
             loading: false,
         }
     },
-    created() {
+    async created() {
         this.loading = true
-        this.$store.dispatch('me/loadLicenses')
+        await this.$store.dispatch('common/loadGenres')
+        await this.$store.dispatch('common/loadAudioKeys')
+        await this.$store.dispatch('me/loadLicenses')
         this.loading = false
     },
 }

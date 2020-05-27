@@ -2,18 +2,9 @@ import { types } from '../mutationTypes'
 import { api } from '~/services/api'
 
 const initialState = () => ({
-    /**
-     * @type {array}
-     */
-    timezones: null,
-    /**
-     * @type {array}
-     */
-    times: null,
-    /**
-     * @type {array}
-     */
-    genres: null,
+    timezones: [],
+    genres: [],
+    audioKeys: [],
 })
 
 const state = initialState()
@@ -23,12 +14,12 @@ const mutations = {
         state.timezones = timezones
     },
 
-    [types.SET_TIMES](state, { times }) {
-        state.times = times
-    },
-
     [types.SET_GENRES](state, { genres }) {
         state.genres = genres
+    },
+
+    [types.SET_AUDIO_KEYS](state, { audioKeys }) {
+        state.audioKeys = audioKeys
     },
 }
 
@@ -49,16 +40,18 @@ const actions = {
         })
     },
 
-    loadTimes({ commit }) {
-        const times = api.common.getTimes()
-        commit(types.SET_TIMES, { times })
+    async loadAudioKeys({ commit }) {
+        const { status, data } = await api.audios.getKeys()
+        commit({
+            type: types.SET_AUDIO_KEYS,
+            audioKeys: status === 'success' ? data : [],
+        })
     },
 }
 
 const getters = {
-    timezones: state => state.timezones,
-    times: state => state.times,
-    genres: state => state.genres,
+    genres: ({ genres }) => genres,
+    audioKeys: ({ audioKeys }) => audioKeys,
 }
 
 export default {

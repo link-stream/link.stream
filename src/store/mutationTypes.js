@@ -2,8 +2,8 @@
 export const types = {
     RESET: 'RESET',
     SET_TIMEZONES: 'SET_TIMEZONES',
-    SET_TIMES: 'SET_TIMES',
     SET_GENRES: 'SET_GENRES',
+    SET_AUDIO_KEYS: 'SET_AUDIO_KEYS',
 }
 
 // Auth

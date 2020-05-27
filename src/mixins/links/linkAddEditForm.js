@@ -40,8 +40,6 @@ export const linkAddEditForm = {
     computed: {
         ...mapGetters({
             user: 'me/user',
-            visibilities: 'me/visibilities',
-            times: 'common/times',
         }),
     },
     watch: {

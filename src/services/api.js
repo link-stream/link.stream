@@ -25,7 +25,7 @@ const call = async function({
     let payload
 
     try {
-        const res = await axios({
+        const response = await axios({
             method,
             url: endpoint,
             data: qs.stringify(params),
@@ -33,19 +33,19 @@ const call = async function({
             auth,
             showProgress,
         })
-        payload = res.data
+        payload = response.data
     } catch (e) {
-        const res =
+        const response =
             typeof e === 'object' && typeof e.response === 'object'
                 ? e.response
                 : {}
 
-        if (typeof res.data === 'object') {
-            payload = res.data
+        if (typeof response.data === 'object') {
+            payload = response.data
         } else {
             payload = {
                 status: 'false',
-                error: res.statusText || 'Unexpected error',
+                error: response.statusText || 'Unexpected error',
             }
         }
     }
@@ -125,6 +125,11 @@ export const api = {
     audios: {
         async getTracksByUser(userId) {
             const endpoint = '/audios/related_track/' + userId
+            const method = METHOD_GET
+            return await call({ endpoint, method, showProgress: false })
+        },
+        async getKeys() {
+            const endpoint = '/audios/audio_key'
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
         },
@@ -210,44 +215,26 @@ export const api = {
         async getVisibilitiesByUser(userId) {
             const endpoint = '/common/visibility/' + userId
             const method = METHOD_GET
-            const res = await call({
+            const response = await call({
                 endpoint,
                 method,
                 showProgress: false,
             })
-            if (res.status === 'success') {
-                res.data = Object.keys(res.data).map(key => {
+            const { status, data } = response
+            if (status === 'success') {
+                response.data = Object.keys(data).map(key => {
                     return {
                         id: key,
-                        title: res.data[key],
+                        title: data[key],
                     }
                 })
             }
-            return res
+            return response
         },
         async getTimezones() {
             const endpoint = '/common/timezones'
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
-        },
-        getTimes() {
-            const times = []
-            for (let h = 0; h < 24; h++) {
-                for (let m = 0; m < 60; m += 15) {
-                    const h24 = h < 10 ? `0${h}` : h
-                    const m24 = m < 10 ? `0${m}` : m
-                    const h12 = h24 % 12 || 12
-                    const m12 = m24 || '00'
-                    const amPm = h > 11 ? 'pm' : 'am'
-                    const t24 = `${h24}:${m24}:00`
-                    const t12 = `${h12}:${m12} ${amPm}`
-                    times.push({
-                        id: t24,
-                        title: t12,
-                    })
-                }
-            }
-            return times
         },
     },
 }

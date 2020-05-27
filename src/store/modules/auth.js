@@ -80,10 +80,10 @@ const actions = {
 }
 
 const getters = {
-    user: state => state.user,
-    isLoggedIn: state => (state.user ? true : false),
-    token: (state, getters) => (getters.isLoggedIn ? state.user.token : null),
-    pendingUser: state => state.pendingUser,
+    user: ({ user }) => user,
+    isLoggedIn: ({ user }) => (user ? true : false),
+    token: ({ user }, getters) => (getters.isLoggedIn ? user.token : null),
+    pendingUser: ({ pendingUser }) => pendingUser,
 }
 
 export default {

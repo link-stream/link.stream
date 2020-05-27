@@ -11,26 +11,11 @@ const initialState = () => ({
      * @type {object}
      */
     user: null,
-    /**
-     * @type {array}
-     */
-    visibilities: null,
-    /**
-     * @type {array}
-     */
-    tracks: null,
-    /**
-     * @type {array}
-     */
-    videos: null,
-    /**
-     * @type {array}
-     */
-    links: null,
-    /**
-     * @type {array}
-     */
-    licenses: null,
+    visibilities: [],
+    tracks: [],
+    videos: [],
+    links: [],
+    licenses: [],
 })
 
 const state = initialState()
@@ -136,30 +121,17 @@ const actions = {
 
     async loadVisibilities({ commit, rootGetters }) {
         const authUser = rootGetters['auth/user']
-        const res = await api.common.getVisibilitiesByUser(authUser.id)
+        const { status, data } = await api.common.getVisibilitiesByUser(
+            authUser.id
+        )
         commit({
             type: meTypes.SET_VISIBILITIES,
-            visibilities: res.status === 'success' ? res.data : [],
+            visibilities: status === 'success' ? data : [],
         })
     },
 
     loadAccount({ dispatch }) {
-        const loadProfile = dispatch('loadProfile')
-        const loadVisibilities = dispatch('loadVisibilities')
-        const loadTracks = dispatch('loadTracks')
-        const loadTimezones = dispatch('common/loadTimezones', null, {
-            root: true,
-        })
-        const loadTimes = dispatch('common/loadTimes', null, { root: true })
-        const loadGenres = dispatch('common/loadGenres', null, { root: true })
-        return Promise.all([
-            loadProfile,
-            loadVisibilities,
-            loadTracks,
-            loadTimezones,
-            loadTimes,
-            loadGenres,
-        ])
+        dispatch('loadProfile')
     },
 
     updateProfile({ commit }, { user }) {
@@ -201,10 +173,13 @@ const actions = {
      */
 
     async loadVideos({ state, commit }, { params }) {
-        const res = await api.videos.getVideosByUser(state.user.id, params)
+        const { status, data } = await api.videos.getVideosByUser(
+            state.user.id,
+            params
+        )
         commit({
             type: meTypes.SET_VIDEOS,
-            videos: res.status === 'success' ? res.data : [],
+            videos: status === 'success' ? data : [],
         })
     },
 
@@ -213,16 +188,17 @@ const actions = {
     },
 
     async updateVideo({ commit }, { id, params }) {
-        const res = await api.videos.updateVideo(id, params)
-        res.status === 'success' &&
-            commit(meTypes.UPDATE_VIDEO, { video: res.data })
-        return res
+        const response = await api.videos.updateVideo(id, params)
+        const { status, data } = response
+        status === 'success' && commit(meTypes.UPDATE_VIDEO, { video: data })
+        return response
     },
 
     async deleteVideo({ commit }, { video }) {
-        const res = await api.videos.deleteVideo(video.id)
-        res.status === 'success' && commit(meTypes.DELETE_VIDEO, { video })
-        return res
+        const response = await api.videos.deleteVideo(video.id)
+        const { status } = response
+        status === 'success' && commit(meTypes.DELETE_VIDEO, { video })
+        return response
     },
 
     reorderVideo({ state, commit }, { oldIndex, newIndex, sorts }) {
@@ -238,9 +214,8 @@ const actions = {
      */
 
     async loadLinks({ state, commit }) {
-        const res = await api.links.getLinksByUser(state.user.id)
-        res.status === 'success' &&
-            commit(meTypes.SET_LINKS, { links: res.data })
+        const { status, data } = await api.links.getLinksByUser(state.user.id)
+        status === 'success' && commit(meTypes.SET_LINKS, { links: data })
     },
 
     async createLink(context, { params }) {
@@ -248,16 +223,17 @@ const actions = {
     },
 
     async updateLink({ commit }, { id, params }) {
-        const res = await api.links.updateLink(id, params)
-        res.status === 'success' &&
-            commit(meTypes.UPDATE_LINK, { link: res.data })
-        return res
+        const response = await api.links.updateLink(id, params)
+        const { status, data } = response
+        status === 'success' && commit(meTypes.UPDATE_LINK, { link: data })
+        return response
     },
 
     async deleteLink({ commit }, { link }) {
-        const res = await api.links.deleteLink(link.id)
-        res.status === 'success' && commit(meTypes.DELETE_LINK, { link })
-        return res
+        const response = await api.links.deleteLink(link.id)
+        const { status } = response
+        status === 'success' && commit(meTypes.DELETE_LINK, { link })
+        return response
     },
 
     reorderLink({ state, commit }, { oldIndex, newIndex, sorts }) {
@@ -270,11 +246,10 @@ const actions = {
 }
 
 const getters = {
-    visibilities: state => state.visibilities || [],
-    tracks: state => state.tracks || [],
-    licenses: state => state.licenses || [],
-    user: state => {
-        const user = state.user
+    visibilities: ({ visibilities }) => visibilities,
+    tracks: ({ tracks }) => tracks,
+    licenses: ({ licenses }) => licenses,
+    user: ({ user }) => {
         if (!user) {
             return null
         }
@@ -284,11 +259,7 @@ const getters = {
             banner: user.data_banner,
         }
     },
-    videos: state => {
-        const videos = state.videos
-        if (!videos) {
-            return []
-        }
+    videos: ({ videos }) => {
         return videos.map(video => {
             return {
                 ...video,
@@ -297,11 +268,7 @@ const getters = {
             }
         })
     },
-    links: state => {
-        const links = state.links
-        if (!links) {
-            return []
-        }
+    links: ({ links }) => {
         return links.map(link => {
             return {
                 ...link,

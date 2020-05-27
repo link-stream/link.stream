@@ -42,9 +42,9 @@
                         <LsSelect
                             v-model="form.key"
                             placeholder="Select"
-                            :options="[]"
-                            :reduce="key => key.id"
-                            label="text"
+                            :options="audioKeys"
+                            :reduce="key => key"
+                            label="name"
                         />
                     </b-form-group>
                 </b-col>
@@ -185,6 +185,7 @@ export default {
         ...mapGetters({
             user: 'me/user',
             genres: 'common/genres',
+            audioKeys: 'common/audioKeys',
         }),
     },
     watch: {

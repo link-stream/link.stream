@@ -6,21 +6,20 @@
         :state="state"
         :placeholder="placeholder"
         label="title"
-        :options="times"
-        :reduce="time => time.id"
+        :options="options"
+        :reduce="option => option.id"
         @input="handleInput"
     />
 </template>
 
 <script>
-import { api } from '~/services/api'
+import { generateTimePickerOptions } from '~/utils'
 
 export default {
     name: 'LsTimePicker',
     props: {
         value: {
             type: String,
-            defualt: null,
         },
         placeholder: {
             type: String,
@@ -33,7 +32,7 @@ export default {
     },
     data() {
         return {
-            times: api.common.getTimes(),
+            options: generateTimePickerOptions(),
         }
     },
     methods: {

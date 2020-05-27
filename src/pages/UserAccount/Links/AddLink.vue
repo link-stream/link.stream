@@ -94,7 +94,7 @@
                             </ls-button>
                         </div>
                     </div>
-                    <div class="step-side">
+                    <div class="step-sidebar">
                         <DropImage
                             @file-add="handleImageAdded"
                             @file-remove="handleImageRemoved"

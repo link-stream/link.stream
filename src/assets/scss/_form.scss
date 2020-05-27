@@ -203,4 +203,30 @@
             color: $input-placeholder-color;
         }
     }
+    .ti-tags {
+        line-height: inherit;
+    }
+    .ti-tag {
+        background-color: $black;
+        border-radius: 100px;
+        padding: 0 10px;
+        color: $gray-200;
+        font-size: px2rem(11);
+        font-weight: 500;
+        letter-spacing: 0;
+        margin: 4px 2px;
+        padding: 3px 12px;
+    }
+}
+
+.ls-search-input {
+    position: relative;
+    .search-icon {
+        position: absolute;
+        top: 13px;
+        left: 13px;
+    }
+    .search-input {
+        padding-left: 37px;
+    }
 }

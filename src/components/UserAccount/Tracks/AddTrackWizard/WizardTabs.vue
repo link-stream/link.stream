@@ -1,13 +1,15 @@
 <template>
     <nav class="fwz-tabs">
-        <span v-for="(tab, k) in tabs" :key="k">
-            <span
-                :class="{ 'font-weight-bold': tab.step === activeStep }"
+        <ul>
+            <li
+                v-for="(tab, k) in tabs"
+                :key="k"
+                :class="{ active: tab.step === activeStep }"
                 @click="handleTabClick(tab)"
             >
                 {{ k + 1 }}. {{ tab.text }}&nbsp;
-            </span>
-        </span>
+            </li>
+        </ul>
     </nav>
 </template>
 

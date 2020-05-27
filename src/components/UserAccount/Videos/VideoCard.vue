@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import { getYtVideoThumbUrl } from '~/utils'
 
 export default {

@@ -1,10 +1,9 @@
 <template>
-    <div class="user-avatar" :class="{ '--letter': !src }">
-        <img :src="src" v-if="src" />
-        <div class="user-avatar-letter" v-else-if="username">
-            {{ username[0].toUpperCase() }}
-        </div>
-    </div>
+    <div
+        class="user-avatar"
+        :style="src ? `background-image: url('${src}')` : ''"
+        v-text="!src && username ? username[0].toUpperCase() : ''"
+    ></div>
 </template>
 
 <script>

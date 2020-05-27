@@ -1,10 +1,12 @@
 .mdl-user-search {
-    .search-clear-btn {
-        position: absolute;
-        top: 15px;
-        right: 15px;
+    .modal-content {
+        padding-bottom: 60px;
     }
-
+    &.--searched {
+        .modal-content {
+            padding-bottom: 30px;
+        }
+    }
     .ls-spinner {
         display: none;
         position: absolute;
@@ -15,24 +17,51 @@
             height: 10px;
         }
     }
-
-    .search-input {
-        position: relative;
-        margin-bottom: 20px;
-
-        input {
-            padding-right: 35px;
-        }
-
+    .ls-search-input {
         &.--loading {
-            input {
-                padding-right: 50px;
-            }
             .ls-spinner {
                 display: block;
             }
-            .search-clear-btn {
+            .search-input {
+                padding-right: 50px;
+            }
+            .search-clear {
                 display: none;
+            }
+        }
+        .search-input {
+            padding-right: 35px;
+        }
+        .search-clear {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+    }
+    .search-results {
+        .user-avatar {
+            margin-right: 8px;
+        }
+        li {
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px solid $linkstream-90;
+            align-items: center;
+            &:not(.invite) {
+                cursor: pointer;
+            }
+            &:hover:not(.invite) {
+                background-color: $gray-100;
+            }
+            &:first-child:not(.invite) {
+                margin-top: 15px;
+            }
+            &.invite {
+                border-bottom: 0;
+                padding-bottom: 0;
+                p {
+                    margin-bottom: 0;
+                }
             }
         }
     }

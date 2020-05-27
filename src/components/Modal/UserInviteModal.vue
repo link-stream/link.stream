@@ -22,7 +22,9 @@
         </template>
 
         <template v-slot:modal-footer>
-            <ls-button @click="handleSendClick">Send Invite</ls-button>
+            <ls-button size="sm" @click="handleSendClick">
+                Send Invite
+            </ls-button>
         </template>
     </b-modal>
 </template>

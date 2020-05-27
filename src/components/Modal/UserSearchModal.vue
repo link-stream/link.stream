@@ -1,7 +1,9 @@
 <template>
     <b-modal
-        modal-class="mdl-user-search"
-        ref="modal"
+        :modal-class="{
+            'mdl-user-search': true,
+            '--searched': showResults,
+        }"
         size="lg"
         centered
         hide-footer
@@ -13,39 +15,40 @@
         </template>
 
         <template v-slot:default>
-            <div class="search-input" :class="{ '--loading': loading }">
-                <LsSpinner animation="bounce" />
+            <div class="ls-search-input" :class="{ '--loading': loading }">
+                <LsIcon class="search-icon" icon="search" />
                 <input
                     type="text"
-                    class="form-control"
+                    class="search-input form-control"
                     placeholder="Username or email"
                     maxlength="35"
                     v-model="query"
                 />
                 <LsIconButton
                     icon="close"
-                    class="search-clear-btn"
+                    class="search-clear"
                     @click="handleClearClick"
-                    v-show="allowClear"
+                    v-show="showClear"
                 />
+                <LsSpinner animation="bounce" />
             </div>
 
-            <ul v-show="showResults">
+            <ul class="search-results" v-show="showResults">
                 <li
                     v-for="user in results"
                     :key="user.id"
                     @click="handleUserClick(user)"
                 >
-                    <ls-button variant="link">
-                        <UserAvatar :username="user.name" :src="user.photo" />
-                        {{ user.name }}
-                    </ls-button>
+                    <UserAvatar :username="user.name" :src="user.photo" />
+                    {{ user.name }}
                 </li>
-                <li>
-                    Can't find who you're looking for?
-                    <ls-button variant="link" @click="handleInviteClick">
-                        Send an invite
-                    </ls-button>
+                <li class="invite">
+                    <p>
+                        Can't find who you're looking for?
+                        <ls-button variant="link" @click="handleInviteClick">
+                            Send an invite
+                        </ls-button>
+                    </p>
                 </li>
             </ul>
         </template>
@@ -54,11 +57,10 @@
 
 <script>
 import { api } from '~/services/api'
-import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
 import { debounce } from 'lodash'
 
-const MIN_QUERY_LENGTH = 3
+const MIN_QUERY_LENGTH = 2
 const MAX_RESULTS = 5
 
 export default {
@@ -83,7 +85,7 @@ export default {
         validQuery() {
             return this.query.length >= MIN_QUERY_LENGTH
         },
-        allowClear() {
+        showClear() {
             return this.query ? true : false
         },
     },

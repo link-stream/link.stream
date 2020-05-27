@@ -7,7 +7,7 @@
     }
 
     .layout-content {
-        margin-top: $navbar-height + $main-margin;
+        margin-top: $navbar-height;
         margin-bottom: $main-margin;
     }
 
@@ -15,31 +15,32 @@
     &.menu-mobile .layout-content {
         margin-left: $main-margin-mobile-x !important;
         margin-right: $main-margin-mobile-x !important;
-        margin-top: $main-margin-mobile-y + $navbar-height !important;
+        margin-top: $navbar-height !important;
         margin-bottom: $main-margin-mobile-y;
+        .page {
+            padding-top: $main-margin-mobile-y;
+        }
     }
 
-    .page {
-        .ls-spinner {
-            margin-top: 75px;
-        }
+    .ls-spinner {
+        margin-top: 75px;
+    }
 
-        .permaurl {
-            color: $black;
-            font-size: px2rem(12);
+    .permaurl {
+        color: $black;
+        font-size: px2rem(12);
+        font-weight: 600;
+        line-height: 1rem;
+        letter-spacing: 0.5px;
+        margin: 15px 0;
+        .permaurl-light {
+            color: $linkstream-70;
+            font-size: 12px;
             font-weight: 600;
-            line-height: 1rem;
-            letter-spacing: 0.5px;
-            margin: 15px 0;
-            .permaurl-light {
-                color: $linkstream-70;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: 0;
-            }
-            .permaurl-link {
-                margin-left: 7px;
-            }
+            letter-spacing: 0;
+        }
+        .permaurl-link {
+            margin-left: 7px;
         }
     }
 
@@ -79,12 +80,15 @@
             }
         }
 
+        .permaurl {
+            margin-bottom: 0;
+        }
+
         .page {
-            max-width: 816px;
-            margin: 0 auto;
-            .permaurl {
-                margin-bottom: 0;
-            }
+            max-width: $page-max-width;
+            padding-top: $main-margin;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .page-header {

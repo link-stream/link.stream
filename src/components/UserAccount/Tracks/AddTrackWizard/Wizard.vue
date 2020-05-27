@@ -50,15 +50,19 @@
         <!-- STEP - TRACK INFO -->
         <wizard-step
             v-show="isStepTrackInfo"
+            class="step-track-info"
             :title="isSong ? 'Song info' : 'Beat info'"
         >
-            <div class="step-side">
+            <div class="step-sidebar">
                 <DropImage
                     msgLong="Drag artwork here or<br><u>browse for file</u>"
                     :src="form.imageBase64"
                     @file-add="handleImageAdded"
                     @file-remove="handleImageRemoved"
                 />
+                <div class="text-muted" v-if="!form.imageBase64">
+                    Suggested Dimensions: 1000x1000
+                </div>
             </div>
             <TrackInfoFormBlock
                 class="step-main"
@@ -105,7 +109,7 @@
             :title="isSong ? 'Review song' : 'Review beat'"
             v-show="isStepReview"
         >
-            <div class="step-side">
+            <div class="step-sidebar">
                 <DropImage
                     msgLong="Drag artwork here or<br><u>browse for file</u>"
                     :src="form.imageBase64"

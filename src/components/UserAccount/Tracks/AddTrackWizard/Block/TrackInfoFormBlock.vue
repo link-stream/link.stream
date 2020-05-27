@@ -1,12 +1,8 @@
 <template>
     <div>
         <div class="step-fields">
-            <b-form-group
-                :label="isSong ? 'Song Title*' : 'Beat Title*'"
-                label-for="titleInput"
-            >
+            <b-form-group :label="isSong ? 'Song Title*' : 'Beat Title*'">
                 <b-form-input
-                    id="titleInput"
                     placeholder="Enter a title"
                     v-model="$v.form.title.$model"
                     :state="!$v.form.title.$error"
@@ -16,10 +12,9 @@
                 </b-form-invalid-feedback>
             </b-form-group>
 
-            <b-form-group label="Primary Genre" label-for="genreInput">
+            <b-form-group label="Primary Genre">
                 <LsSelect
                     v-model="form.genre"
-                    id="genreInput"
                     placeholder="Select Genre"
                     :options="genres"
                     :reduce="genre => genre"
@@ -38,18 +33,14 @@
 
             <b-form-row>
                 <b-col md="6">
-                    <b-form-group label="BPM" label-for="bpmInput">
-                        <b-form-input
-                            id="bpmInput"
-                            v-model="form.bpm"
-                        ></b-form-input>
+                    <b-form-group label="BPM">
+                        <b-form-input v-model="form.bpm"></b-form-input>
                     </b-form-group>
                 </b-col>
                 <b-col md="6">
-                    <b-form-group label="Key" label-for="keyInput">
+                    <b-form-group label="Key">
                         <LsSelect
                             v-model="form.key"
-                            id="keyInput"
                             placeholder="Select"
                             :options="[]"
                             :reduce="key => key.id"
@@ -59,36 +50,45 @@
                 </b-col>
             </b-form-row>
 
-            <div class="collabs-table">
-                <header class="t-row">
-                    <div class="t-col">
-                        Collaborator
-                    </div>
-                    <div class="t-col">
-                        Profit %
-                    </div>
-                    <div class="t-col">
-                        Publishing %
-                    </div>
-                    <div class="t-col"></div>
-                </header>
+            <b-form-group
+                class="input-track-pack"
+                :label="`Add to ${isSong ? 'Song' : 'Beat'} Pack`"
+            >
+                <div class="ls-search-input">
+                    <LsIcon class="search-icon" icon="search" />
+                    <b-form-input
+                        v-model="form.trackPack"
+                        class="search-input"
+                        :placeholder="
+                            `Search for ${isSong ? 'song' : 'beat'} pack`
+                        "
+                    ></b-form-input>
+                </div>
+            </b-form-group>
+
+            <div class="collabs">
                 <ul>
                     <li
-                        class="t-row"
                         v-for="(collab, index) in $v.form.collabs.$each.$iter"
                         :key="collab.id"
                     >
-                        <div class="t-col">
+                        <div class="cell cell--name">
+                            <div class="cell-title">
+                                Collaborator
+                            </div>
                             <div class="user-profile">
                                 <UserAvatar
                                     :username="collab.$model.user.name"
                                     :src="collab.$model.user.photo"
                                 />
-                                <span>{{ collab.$model.user.name }}</span>
-                                <span v-if="index == 0">(you)</span>
+                                {{ collab.$model.user.name | truncate(14) }}
+                                {{ index == 0 ? '(you)' : '' }}
                             </div>
                         </div>
-                        <div class="t-col">
+                        <div class="cell cell--profit">
+                            <div class="cell-title">
+                                Profit %
+                            </div>
                             <b-form-group>
                                 <b-form-input
                                     v-model="collab.profitPercent.$model"
@@ -96,7 +96,10 @@
                                 ></b-form-input>
                             </b-form-group>
                         </div>
-                        <div class="t-col">
+                        <div class="cell cell--pub">
+                            <div class="cell-title">
+                                Publishing %
+                            </div>
                             <b-form-group>
                                 <b-form-input
                                     v-model="collab.pubPercent.$model"
@@ -104,19 +107,26 @@
                                 ></b-form-input>
                             </b-form-group>
                         </div>
-                        <div class="t-col">
+                        <div class="cell cell--action">
                             <LsIconButton
                                 icon="close"
+                                class="remove-btn"
                                 v-if="index > 0"
                                 @click="handleRemoveCollabClick(index)"
                             />
                         </div>
                     </li>
                 </ul>
+
+                <ls-button
+                    variant="text"
+                    class="add-btn"
+                    @click="showCollabSearchModal"
+                >
+                    <LsIcon icon="plus" />
+                    Add Collaborator
+                </ls-button>
             </div>
-            <ls-button variant="link" @click="showCollabSearchModal">
-                Add Collaborator
-            </ls-button>
         </div>
     </div>
 </template>
@@ -151,6 +161,8 @@ export default {
                 genre: {},
                 tags: [],
                 bpm: 0,
+                key: null,
+                trackPack: null,
                 collabs: [
                     {
                         profitPercent: 100,

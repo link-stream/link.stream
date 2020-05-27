@@ -105,9 +105,12 @@
 
 .btn-text {
     @extend .btn-link;
+    color: $black;
+    text-decoration: none;
     &:hover,
     &:focus {
         text-decoration: none;
+        color: $black;
     }
 }
 

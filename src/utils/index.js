@@ -11,7 +11,7 @@ import { set } from 'lodash'
  * @param {<Number>} duration
  * @return
  */
-export function setStatusChange(
+export const setStatusChange = function(
     obj,
     target,
     value = true,
@@ -35,5 +35,26 @@ export function setStatusChange(
 export const getYtVideoThumbUrl = videoId =>
     `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
 
-export const toUrl = src =>
-    src instanceof Blob ? URL.createObjectURL(src) : src
+/**
+ * Generate time picker options.
+ * @return {array}
+ */
+export const generateTimePickerOptions = function() {
+    const options = []
+    for (let h = 0; h < 24; h++) {
+        for (let m = 0; m < 60; m += 15) {
+            const h24 = h < 10 ? `0${h}` : h
+            const m24 = m < 10 ? `0${m}` : m
+            const h12 = h24 % 12 || 12
+            const m12 = m24 || '00'
+            const amPm = h > 11 ? 'pm' : 'am'
+            const t24 = `${h24}:${m24}:00`
+            const t12 = `${h12}:${m12} ${amPm}`
+            options.push({
+                id: t24,
+                title: t12,
+            })
+        }
+    }
+    return options
+}

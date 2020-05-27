@@ -8,8 +8,8 @@
             @change="handleFileSelected"
         />
 
-        <div class="df-preview" v-if="isFileAdded">
-            <div class="flx-item">
+        <div class="d__prv" v-if="isFileAdded">
+            <div class="flex-item">
                 <ls-icon-button @click="handlePlayClick">
                     <i
                         class="fa fa-3x"
@@ -17,9 +17,9 @@
                     ></i>
                 </ls-icon-button>
             </div>
-            <div class="flx-item">
-                <div class="df-title" v-html="title"></div>
-                <div class="df-filename">{{ file.name }}</div>
+            <div class="flex-item">
+                <div class="d__title" v-html="title"></div>
+                <div class="d__filename">{{ file.name }}</div>
                 <audio
                     controls
                     controlsList="nodownload"
@@ -31,7 +31,7 @@
                     Your browser does not support the audio element.
                 </audio>
             </div>
-            <div class="flx-item">
+            <div class="flex-item">
                 <ls-button variant="link" @click="handleRemoveClick">
                     Remove File
                 </ls-button>
@@ -40,7 +40,7 @@
 
         <div
             v-else
-            class="df-upload"
+            class="d__upl"
             :class="{ '--highlight': isDraggingFile }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
@@ -48,11 +48,11 @@
             @dragenter="handleDragEnter"
             @click="showFileDialog"
         >
-            <div class="flx-item">
-                <div class="df-title" v-html="title"></div>
-                <div class="df-filename">No File Added</div>
+            <div class="flex-item">
+                <div class="d__title" v-html="title"></div>
+                <div class="d__filename">No File Added</div>
             </div>
-            <LsIcon class="flx-item" icon="cloud-upload-lg" />
+            <LsIcon class="flex-item" icon="cloud-upload-lg" />
         </div>
     </div>
 </template>

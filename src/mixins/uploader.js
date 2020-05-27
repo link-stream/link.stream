@@ -1,4 +1,3 @@
-import { toUrl } from '~/utils'
 import { blobToBase64 } from 'base64-blob'
 
 export const uploaderMixin = {
@@ -48,7 +47,7 @@ export const uploaderMixin = {
             if (base64) {
                 this.file = {
                     name: file.name,
-                    src: toUrl(base64),
+                    src: base64,
                 }
                 this.$emit('file-add', {
                     name: file.name,

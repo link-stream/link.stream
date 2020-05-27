@@ -8,22 +8,22 @@
             @change="handleFileSelected"
         />
 
-        <section class="df-preview" v-if="isFileAdded">
-            <div class="p-box">
+        <section class="d__prv" v-if="isFileAdded">
+            <div class="d__prv__box">
                 <img :src="file.src" @click="showFileDialog" />
                 <LsIconButton
-                    class="p-close-btn"
+                    class="d__prv__close"
                     icon="dropimg-remove"
                     @click="handleRemoveClick"
                 />
                 <LsIconButton
-                    class="p-cam-btn"
+                    class="d__prv__cam"
                     icon="dropimg-cam"
                     @click="showFileDialog"
                 />
             </div>
             <ls-button
-                class="p-rm-btn"
+                class="d__prv__rm"
                 variant="link"
                 @click="handleRemoveClick"
             >
@@ -31,9 +31,9 @@
             </ls-button>
         </section>
 
-        <section v-else class="df-upload">
+        <section v-else class="d__upl">
             <div
-                class="u-box"
+                class="d__upl__box"
                 :class="{ '--highlight': isDraggingFile }"
                 @drop="handleDrop"
                 @dragleave="handleDragLeave"
@@ -41,13 +41,17 @@
                 @dragenter="handleDragEnter"
                 @click="showFileDialog"
             >
-                <i class="u-ico"></i>
-                <div class="u-msg">
-                    <div class="u-msg-sm" v-html="msgShort"></div>
-                    <div class="u-msg-lg" v-html="msgLong"></div>
+                <i class="d__upl__i"></i>
+                <div class="d__upl__msg">
+                    <div class="d__upl__msg__sm" v-html="msgShort"></div>
+                    <div class="d__upl__msg__lg" v-html="msgLong"></div>
                 </div>
             </div>
-            <ls-button class="u-add-btn" variant="link" @click="showFileDialog">
+            <ls-button
+                class="d__upl__add"
+                variant="link"
+                @click="showFileDialog"
+            >
                 Add artwork
             </ls-button>
         </section>
@@ -64,7 +68,6 @@
 
 <script>
 import { uploaderMixin } from '~/mixins/uploader'
-import { toUrl } from '~/utils'
 import { Doka, DokaModal } from 'vue-doka'
 import { blobToBase64 } from 'base64-blob'
 
@@ -107,7 +110,7 @@ export default {
             if (base64) {
                 this.file = {
                     name: file.name,
-                    src: toUrl(base64),
+                    src: base64,
                 }
                 this.$emit('file-add', {
                     name: file.name,

@@ -72,45 +72,43 @@
     .drop-img {
         margin-bottom: 10px;
 
-        .u-box,
-        .p-box {
+        .d__upl__box,
+        .d__prv__box {
             width: 65px;
             height: 65px;
         }
 
-        .df-upload {
-            .u-add-btn {
-                display: block;
-                margin-left: 10px;
-                color: $black;
-                font-size: px2rem(11);
-            }
-
-            .u-ico:before {
-                background-image: url(~@/../public/static/ico/drop-image/cam-plus-sm.svg);
-                width: 34px;
-                height: 31px;
-            }
-
-            .u-msg {
-                font-size: px2rem(10);
-            }
+        .d__upl__add {
+            display: block;
+            margin-left: 10px;
+            color: $black;
+            font-size: px2rem(11);
         }
 
-        .df-preview {
+        .d__upl__i:before {
+            background-image: url(~@/../public/static/ico/drop-image/cam-plus-sm.svg);
+            width: 34px;
+            height: 31px;
+        }
+
+        .d__upl__msg {
+            font-size: px2rem(10);
+        }
+
+        .d__prv {
             flex-direction: row;
             align-items: center;
+        }
 
-            .p-close-btn {
-                display: none;
-            }
+        .d__prv__close {
+            display: none;
+        }
 
-            .p-rm-btn {
-                margin-left: 10px;
-                align-self: center;
-                color: $black;
-                font-size: px2rem(11);
-            }
+        .d__prv__rm {
+            margin-left: 10px;
+            align-self: center;
+            color: $black;
+            font-size: px2rem(11);
         }
     }
 
@@ -145,30 +143,28 @@
         .drop-img {
             margin-bottom: 0;
 
-            .u-box,
-            .p-box {
+            .d__upl__box,
+            .d__prv__box {
                 width: 120px;
                 height: 120px;
             }
 
-            .df-preview {
+            .d__prv {
                 flex-direction: column;
                 align-items: flex-start;
-
-                .p-rm-btn {
-                    margin-left: 0;
-                    align-self: flex-start;
-                }
             }
 
-            .df-upload {
-                .u-msg {
-                    font-size: px2rem(12);
-                }
+            .d__prv__rm {
+                margin-left: 0;
+                align-self: flex-start;
+            }
 
-                .u-add-btn {
-                    display: none;
-                }
+            .d__upl__msg {
+                font-size: px2rem(12);
+            }
+
+            .d__upl__add {
+                display: none;
             }
         }
     }

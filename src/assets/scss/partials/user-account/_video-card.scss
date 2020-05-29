@@ -1,13 +1,13 @@
-.c-card.--video {
+.Card.VideoCard {
     display: flex;
     align-items: flex-start;
 
-    .c-reorder-i {
+    .Card-drag-i {
         position: relative;
         top: 46px;
     }
 
-    .c-body {
+    .Card-main {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
@@ -15,24 +15,24 @@
         cursor: pointer;
     }
 
-    .c-media {
+    .Card-media {
         margin-bottom: 10px;
     }
 
-    .c-lock {
+    .Card-lock {
         position: absolute;
         background-image: url(~@/../public/static/img/lock-overlay.svg);
         background-repeat: no-repeat;
         background-size: cover;
     }
 
-    .c-lock,
-    .c-img {
+    .Card-lock,
+    .Card-img {
         width: 190px;
         height: 107px;
     }
 
-    .c-title {
+    .Card-title {
         color: $linkstream-110;
         font-size: px2rem(12);
         font-weight: bold;
@@ -40,7 +40,7 @@
         line-height: 16px;
     }
 
-    .c-subtitle {
+    .Card-subtitle {
         font-size: px2rem(11);
         color: $black;
     }
@@ -48,26 +48,26 @@
     @include media-breakpoint-up(md) {
         align-items: center;
 
-        .c-reorder-i {
+        .Card-drag-i {
             top: auto;
         }
 
-        .c-body {
+        .Card-main {
             flex-direction: row;
             align-items: center;
         }
 
-        .c-media {
+        .Card-media {
             margin: 0 15px 0 0;
         }
 
-        .c-lock,
-        .c-img {
+        .Card-lock,
+        .Card-img {
             width: 123px;
             height: 69px;
         }
 
-        .c-title {
+        .Card-title {
             font-size: px2rem(13);
             line-height: 20px;
         }

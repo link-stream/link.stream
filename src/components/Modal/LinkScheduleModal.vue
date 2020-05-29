@@ -1,5 +1,5 @@
 <template>
-    <b-modal modal-class="mdl-lnk-sched" centered v-model="shown">
+    <b-modal modal-class="LinkScheduleModal" centered v-model="shown">
         <template v-slot:modal-header>
             <LsIconButton class="modal-close" use-bg-img @click="close" />
             <h2 class="modal-title">Schedule link</h2>

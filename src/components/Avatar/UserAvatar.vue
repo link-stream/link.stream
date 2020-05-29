@@ -1,6 +1,6 @@
 <template>
     <div
-        class="u-avatar"
+        class="UserAvatar"
         :style="src ? `background-image: url('${src}')` : ''"
         v-text="!src && username ? username[0].toUpperCase() : ''"
     ></div>

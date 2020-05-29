@@ -1,112 +1,112 @@
-.ls-i {
+.LsIcon {
     display: inline-block;
     line-height: 0;
 }
 
-.ls-i:before {
+.LsIcon:before {
     content: '';
     display: inline-block;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.ls-i-reorder:before {
-    background-image: url(~@/../public/static/ico/reorder.svg);
+.LsIcon-drag:before {
+    background-image: url(~@/../public/static/ico/drag.svg);
     width: 18px;
     height: 14px;
 }
 
-.ls-i-eye-cir-gray:before {
+.LsIcon-eye-cir-gray:before {
     background-image: url(~@/../public/static/ico/eye-cir-gray.svg);
     width: 35px;
     height: 35px;
 }
 
-.ls-i-eye-slash-cir-gray:before {
+.LsIcon-eye-slash-cir-gray:before {
     background-image: url(~@/../public/static/ico/eye-slash-cir-gray.svg);
     width: 35px;
     height: 35px;
 }
 
-.ls-i-back:before {
+.LsIcon-back:before {
     background-image: url(~@/../public/static/ico/back.svg);
     width: 17px;
     height: 17px;
 }
 
-.ls-i-select-arrow:before {
+.LsIcon-select-arrow:before {
     background-image: url(~@/../public/static/ico/select-arrow.svg);
     width: 15px;
     height: 15px;
 }
 
-.ls-i-select-time:before {
-    background-image: url(~@/../public/static/ico/select-time.svg);
+.LsIcon-timepicker:before {
+    background-image: url(~@/../public/static/ico/timepicker.svg);
     width: 19px;
     height: 19px;
 }
 
-.ls-i-dropimg-remove:before {
+.LsIcon-dropimg-remove:before {
     background-image: url(~@/../public/static/ico/drop-image/remove.svg);
     width: 32px;
     height: 31px;
 }
 
-.ls-i-dropimg-cam:before {
+.LsIcon-dropimg-cam:before {
     background-image: url(~@/../public/static/ico/drop-image/cam.svg);
     width: 21px;
     height: 19px;
 }
 
-.ls-i-close:before {
+.LsIcon-close:before {
     background-image: url(~@/../public/static/ico/close.svg);
     width: 13px;
     height: 13px;
 }
 
-.ls-i-close-lg:before {
+.LsIcon-close-lg:before {
     background-image: url(~@/../public/static/ico/close-lg.svg);
     width: 16px;
     height: 16px;
 }
 
-.ls-i-trash-sm:before {
+.LsIcon-trash-sm:before {
     background-image: url(~@/../public/static/ico/trash-sm.svg);
     width: 35px;
     height: 35px;
 }
 
-.ls-i-clock-cir-gray:before {
+.LsIcon-clock-cir-gray:before {
     background-image: url(~@/../public/static/ico/clock-cir-gray.svg);
     width: 35px;
     height: 35px;
 }
 
-.ls-i-cloud-upload-lg:before {
+.LsIcon-cloud-upload-lg:before {
     background-image: url(~@/../public/static/ico/cloud-upload-lg.svg);
     width: 50px;
     height: 50px;
 }
 
-.ls-i-song:before {
+.LsIcon-song:before {
     background-image: url(~@/../public/static/ico/song.svg);
     width: 114px;
     height: 114px;
 }
 
-.ls-i-beat:before {
+.LsIcon-beat:before {
     background-image: url(~@/../public/static/ico/beat.svg);
     width: 114px;
     height: 114px;
 }
 
-.ls-i-plus:before {
+.LsIcon-plus:before {
     background-image: url(~@/../public/static/ico/plus.svg);
     width: 14px;
     height: 14px;
 }
 
-.ls-i-search {
+.LsIcon-search {
     background-image: url(~@/../public/static/ico/search.svg);
     width: 16px;
     height: 16px;

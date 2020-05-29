@@ -1,4 +1,4 @@
-.alrt {
+.AlertBox {
     .modal-dialog {
         max-width: 300px !important;
         margin-left: auto;
@@ -15,13 +15,13 @@
     }
 
     &.--msg {
-        .alrt-actions {
+        .AlertBox-actions {
             justify-content: center;
         }
     }
 }
 
-.alrt-close {
+.AlertBox-close {
     position: absolute;
     top: 0;
     right: 0;
@@ -29,32 +29,32 @@
     z-index: 1;
 }
 
-.alrt-body {
+.AlertBox-body {
     text-align: center;
     padding: 0 30px;
 }
 
-.alrt-title {
+.AlertBox-title {
     color: $black;
     font-size: px2rem(14);
     font-weight: bold;
     letter-spacing: 0;
 }
 
-.alrt-msg {
+.AlertBox-msg {
     color: $linkstream-100;
     font-size: px2rem(13);
     line-height: 20px;
     margin: 10px 0 0 0;
 }
 
-.alrt-actions {
+.AlertBox-actions {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
 }
 
-.alrt-action {
+.AlertBox-action {
     width: 128px;
     height: 40px;
     padding: 0 !important;

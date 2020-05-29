@@ -71,10 +71,10 @@
     }
 }
 
-.ls-select {
+.LsSelect {
     cursor: pointer;
 
-    .ls-select-icon {
+    .LsSelect-icon {
         position: relative;
         top: 1px;
         right: 0px;
@@ -147,14 +147,14 @@
     }
 }
 
-.ls-timepicker {
-    .ls-select-icon {
+.LsTimePicker {
+    .LsSelect-icon {
         top: 0px;
         left: 1px;
     }
 }
 
-.ls-datepicker {
+.LsDatePicker {
     .vc-bg-blue-600,
     .vc-day-content:active,
     .vc-day-content:hover,
@@ -163,10 +163,10 @@
         background: rgba($linkstream-1, 0.9) !important;
     }
 
-    .ls-datepicker-input {
+    .LsDatePicker-input {
         cursor: default;
         background-color: $white;
-        background-image: url(~@/../public/static/ico/select-date.svg);
+        background-image: url(~@/../public/static/ico/datepicker.svg);
         background-repeat: no-repeat;
         background-position: 96% center;
         &::placeholder {
@@ -175,19 +175,19 @@
     }
 
     &.is-invalid {
-        .ls-datepicker-input {
+        .LsDatePicker-input {
             border-color: $form-feedback-invalid-color;
         }
     }
 }
 
 .input-group-datetime {
-    .ls-timepicker,
-    .ls-datepicker {
+    .LsTimePicker,
+    .LsDatePicker {
         width: 50%;
     }
 
-    .ls-datepicker-input {
+    .LsDatePicker-input {
         border-right-width: 0px;
     }
 }

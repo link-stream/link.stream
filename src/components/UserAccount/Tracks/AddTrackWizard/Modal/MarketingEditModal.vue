@@ -1,5 +1,5 @@
 <template>
-    <b-modal modal-class="mdl-user-invite" size="lg" centered v-model="shown">
+    <b-modal size="lg" centered v-model="shown">
         <template v-slot:modal-header>
             <LsIconButton class="modal-close" use-bg-img @click="close" />
             <h2 class="modal-title">Marketing</h2>

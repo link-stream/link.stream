@@ -6,7 +6,7 @@
                 variant="text"
                 :to="{ name: 'userAccountLinks' }"
             >
-                <i class="ls-i ls-i-back"></i>
+                <i class="LsIcon LsIcon-back"></i>
                 <span>Links</span>
             </ls-button>
         </div>

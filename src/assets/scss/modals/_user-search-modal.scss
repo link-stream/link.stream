@@ -1,4 +1,4 @@
-.mdl-user-search {
+.UserSearchModal {
     .modal-content {
         padding-bottom: 60px;
     }
@@ -7,7 +7,7 @@
             padding-bottom: 30px;
         }
     }
-    .ls-spinner {
+    .LsSpinner {
         display: none;
         position: absolute;
         top: 17px;
@@ -19,7 +19,7 @@
     }
     .ls-search-input {
         &.--loading {
-            .ls-spinner {
+            .LsSpinner {
                 display: block;
             }
             .search-input {
@@ -39,7 +39,7 @@
         }
     }
     .search-results {
-        .u-avatar {
+        .UserAvatar {
             margin-right: 8px;
         }
         li {

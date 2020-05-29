@@ -1,6 +1,6 @@
 <template>
     <b-modal
-        modal-class="mdl-vid-edit"
+        modal-class="VideoEditModal"
         size="lg"
         v-model="shown"
         centered

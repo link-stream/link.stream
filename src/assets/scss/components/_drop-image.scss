@@ -1,111 +1,106 @@
-.drop-img {
-    .d__upl__box,
-    .d__prv__box {
-        height: 140px;
-        width: 140px;
-    }
+.DropImage-u-box,
+.DropImage-p-box {
+    height: 140px;
+    width: 140px;
+}
 
-    .d__prv {
-        display: flex;
-        flex-direction: column;
-    }
+.DropImage-p {
+    display: flex;
+    flex-direction: column;
+}
 
-    .d__prv__box {
-        position: relative;
-        margin-bottom: 7px;
-        img {
-            max-width: 100%;
-            max-height: 100%;
-        }
+.DropImage-p-box {
+    position: relative;
+    margin-bottom: 7px;
+    img {
+        max-width: 100%;
+        max-height: 100%;
     }
+}
 
-    .d__prv__cam {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        padding: 5px;
+.DropImage-p-add-i {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 5px;
+}
+
+.DropImage-p-remove-i {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+}
+
+.DropImage-p-remove-btn {
+    align-self: flex-start;
+    font-size: px2rem(12);
+}
+
+.DropImage-u {
+    display: flex;
+}
+
+.DropImage-u-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 2px dashed $linkstream-30;
+    background-color: $white;
+    &.--highlight,
+    &:hover {
+        border-color: $linkstream-20;
     }
+}
 
-    .d__prv__close {
-        position: absolute;
-        top: -8px;
-        right: -8px;
+.DropImage-u-add-btn {
+    display: none;
+}
+
+.DropImage-u-i {
+    &:before {
+        @extend .LsIcon:before;
+        background-image: url(~@/../public/static/ico/drop-image/cam-plus-md.svg);
+        width: 40px;
+        height: 36px;
     }
+}
 
-    .d__prv__rm {
-        align-self: flex-start;
-        font-size: px2rem(12);
+.DropImage-u-msg {
+    font-size: px2rem(12);
+    text-align: center;
+    &.--lg {
+        display: none;
     }
-
-    .d__upl {
-        display: flex;
+    u {
+        color: $primary;
+        text-decoration: none;
+        font-weight: normal;
     }
+}
 
-    .d__upl__box {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+@include media-breakpoint-up(md) {
+    .DropImage-u-box,
+    .DropImage-p-box {
+        width: 215px;
+        height: 215px;
         cursor: pointer;
-        border: 2px dashed $linkstream-30;
-        background-color: $white;
-        &.--highlight,
-        &:hover {
-            border-color: $linkstream-20;
-        }
     }
 
-    .d__upl__add {
-        display: none;
+    .DropImage-u-i:before {
+        background-image: url(~@/../public/static/ico/drop-image/cam-plus-lg.svg);
+        width: 49px;
+        height: 44px;
     }
 
-    .d__upl__i {
-        &:before {
-            @extend .ls-i:before;
-            background-image: url(~@/../public/static/ico/drop-image/cam-plus-md.svg);
-            width: 40px;
-            height: 36px;
-        }
-    }
-
-    .d__upl__msg {
-        font-size: px2rem(12);
-        text-align: center;
-        u {
-            color: $primary;
-            text-decoration: none;
-            font-weight: normal;
-        }
-    }
-
-    .d__upl__msg__lg {
-        display: none;
-    }
-
-    @include media-breakpoint-up(md) {
-        .d__upl__box,
-        .d__prv__box {
-            width: 215px;
-            height: 215px;
-            cursor: pointer;
-        }
-
-        .d__upl__i:before {
-            background-image: url(~@/../public/static/ico/drop-image/cam-plus-lg.svg);
-            width: 49px;
-            height: 44px;
-        }
-
-        .d__upl__msg {
-            font-size: px2rem(13);
-        }
-
-        .d__upl__msg__lg {
-            display: block;
-        }
-
-        .d__upl__msg__sm {
+    .DropImage-u-msg {
+        font-size: px2rem(13);
+        &.--sm {
             display: none;
+        }
+        &.--lg {
+            display: block;
         }
     }
 }

@@ -2,13 +2,13 @@
     <v-date-picker
         v-model="localValue"
         mode="single"
-        class="ls-datepicker"
+        class="LsDatePicker"
         :class="{ 'is-invalid': !state }"
         :min-date="new Date()"
         :popover="{ visibility: 'click' }"
         @input="handleInput"
         :input-props="{
-            class: 'ls-datepicker-input form-control',
+            class: 'LsDatePicker-input form-control',
             placeholder,
             readonly: true,
         }"

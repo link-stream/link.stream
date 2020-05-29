@@ -1,4 +1,4 @@
-.ls-spinner-mask {
+.LsSpinnerMask {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -9,7 +9,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    .ls-spinner {
+    .LsSpinner {
         margin-top: 0 !important;
     }
 }

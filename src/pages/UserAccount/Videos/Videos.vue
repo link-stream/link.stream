@@ -30,7 +30,7 @@
             <LsSpinner v-if="loading" />
             <Container
                 @drop="handleReorder"
-                drag-handle-selector=".c-reorder-i"
+                drag-handle-selector=".Card-drag-i"
             >
                 <Draggable v-for="video in sortableVideos" :key="video.id">
                     <VideoCard

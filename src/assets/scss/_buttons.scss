@@ -78,7 +78,7 @@
     margin: 0;
     line-height: 0;
     &.--bg-img:before {
-        @extend .ls-i:before;
+        @extend .LsIcon:before;
     }
     &:focus {
         outline: 0;

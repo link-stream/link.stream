@@ -1,5 +1,5 @@
 <template>
-    <div class="ls-spinner" :class="`--${animation}`">
+    <div class="LsSpinner" :class="`--${animation}`">
         <template v-if="animation === 'pulse'">
             <span class="dot1"></span>
             <span class="dot2"></span>

@@ -1,35 +1,35 @@
 <template>
-    <div class="c-card --license" :class="{ '--editing': editing }">
-        <div class="c-content">
+    <div class="Card LicenseCard" :class="{ '--editing': editing }">
+        <div class="Card-v">
             <b-form-group>
                 <b-form-checkbox
                     :checked="selected"
                     @change="handleCheckChange"
                 ></b-form-checkbox>
             </b-form-group>
-            <div class="c-body">
-                <div class="c-title">
+            <div class="Card-body">
+                <div class="Card-title">
                     {{ license.title }} - ${{ license.prize | trimZeroDecimal }}
                 </div>
-                <small class="c-subtitle">
+                <small class="Card-subtitle">
                     <p>{{ license.descripcion }}</p>
                 </small>
             </div>
             <LsIconButton
-                class="c-edit-btn"
+                class="Card-edit-btn"
                 title="Edit"
                 use-bg-img
                 @click="handleEditClick"
             />
         </div>
-        <div class="c-edit" v-if="editing">
+        <div class="Card-e" v-if="editing">
             <LsIconButton
                 icon="close"
-                class="c-edit-close"
+                class="Card-e-close-btn"
                 title="Close"
                 @click="handleCloseEditClick"
             />
-            <div class="c-edit-body">
+            <div class="Card-e-body">
                 <b-form-group label="Adjust price" label-for="priceInput">
                     <b-form-input
                         type="number"
@@ -38,12 +38,12 @@
                     />
                 </b-form-group>
             </div>
-            <div class="c-edit-actions">
-                <div class="actions-left">
+            <div class="Card-e-actions">
+                <div class="flex-item">
                     To customize your default license terms, go to
                     <ls-button variant="link">Licenses</ls-button>
                 </div>
-                <div class="actions-right">
+                <div class="flex-item">
                     <ls-button
                         size="xs"
                         variant="secondary"

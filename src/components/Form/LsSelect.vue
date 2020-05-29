@@ -1,6 +1,6 @@
 <template>
     <v-select
-        class="ls-select"
+        class="LsSelect"
         :class="{ 'is-invalid': !state }"
         :label="label"
         :value="localValue"
@@ -11,7 +11,7 @@
         @input="handleInput"
     >
         <template v-slot:open-indicator>
-            <LsIcon :icon="icon" class="ls-select-icon" />
+            <LsIcon :icon="icon" class="LsSelect-icon" />
         </template>
     </v-select>
 </template>

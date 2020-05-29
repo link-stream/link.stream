@@ -11,7 +11,7 @@
     padding: 15px;
     z-index: 1;
     &:before {
-        @extend .ls-i-close:before;
+        @extend .LsIcon-close:before;
     }
 }
 

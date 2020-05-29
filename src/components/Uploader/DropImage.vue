@@ -1,5 +1,5 @@
 <template>
-    <div class="drop-img">
+    <div class="DropImage">
         <input
             type="file"
             v-show="false"
@@ -8,22 +8,22 @@
             @change="handleFileSelected"
         />
 
-        <section class="d__prv" v-if="isFileAdded">
-            <div class="d__prv__box">
+        <section class="DropImage-p" v-if="isFileAdded">
+            <div class="DropImage-p-box">
                 <img :src="file.src" @click="showFileDialog" />
                 <LsIconButton
-                    class="d__prv__close"
+                    class="DropImage-p-remove-i"
                     icon="dropimg-remove"
                     @click="handleRemoveClick"
                 />
                 <LsIconButton
-                    class="d__prv__cam"
+                    class="DropImage-p-add-i"
                     icon="dropimg-cam"
                     @click="showFileDialog"
                 />
             </div>
             <ls-button
-                class="d__prv__rm"
+                class="DropImage-p-remove-btn"
                 variant="link"
                 @click="handleRemoveClick"
             >
@@ -31,9 +31,9 @@
             </ls-button>
         </section>
 
-        <section v-else class="d__upl">
+        <section v-else class="DropImage-u">
             <div
-                class="d__upl__box"
+                class="DropImage-u-box"
                 :class="{ '--highlight': isDraggingFile }"
                 @drop="handleDrop"
                 @dragleave="handleDragLeave"
@@ -41,14 +41,12 @@
                 @dragenter="handleDragEnter"
                 @click="showFileDialog"
             >
-                <i class="d__upl__i"></i>
-                <div class="d__upl__msg">
-                    <div class="d__upl__msg__sm" v-html="msgShort"></div>
-                    <div class="d__upl__msg__lg" v-html="msgLong"></div>
-                </div>
+                <i class="DropImage-u-i"></i>
+                <div class="DropImage-u-msg --sm" v-html="msgShort"></div>
+                <div class="DropImage-u-msg --lg" v-html="msgLong"></div>
             </div>
             <ls-button
-                class="d__upl__add"
+                class="DropImage-u-add-btn"
                 variant="link"
                 @click="showFileDialog"
             >

@@ -1,7 +1,7 @@
 <template>
     <LsSelect
-        class="ls-timepicker"
-        icon="select-time"
+        class="LsTimePicker"
+        icon="timepicker"
         :value="value"
         :state="state"
         :placeholder="placeholder"

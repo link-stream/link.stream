@@ -1,35 +1,35 @@
-.c-card.--link {
+.Card.LinkCard {
     padding: 0;
 
     &.--private {
-        .c-title,
-        .c-subtitle {
+        .Card-title,
+        .Card-subtitle {
             color: $linkstream-40;
         }
     }
 
-    .c-content {
+    .Card-v {
         display: flex;
         align-items: center;
         padding: 15px;
     }
 
-    .c-media {
+    .Card-media {
         margin: 0 10px;
         cursor: pointer;
     }
 
-    .c-img {
+    .Card-img {
         width: 60px;
         height: 60px;
     }
 
-    .c-info {
+    .Card-body {
         flex-grow: 1;
         cursor: pointer;
     }
 
-    .c-title {
+    .Card-title {
         color: $linkstream-110;
         font-size: px2rem(12);
         font-weight: bold;
@@ -37,22 +37,22 @@
         line-height: 16px;
     }
 
-    .c-subtitle {
+    .Card-subtitle {
         font-size: px2rem(11);
         color: $black;
     }
 
-    .c-edit {
+    .Card-e {
         position: relative;
         padding: 20px;
     }
 
-    .c-edit-body {
+    .Card-e-body {
         display: flex;
         flex-direction: column;
     }
 
-    .c-edit-form {
+    .Card-e-form {
         .form-group:last-child {
             margin-bottom: 0;
         }
@@ -69,42 +69,42 @@
         }
     }
 
-    .drop-img {
+    .DropImage {
         margin-bottom: 10px;
 
-        .d__upl__box,
-        .d__prv__box {
+        .DropImage-u-box,
+        .DropImage-p-box {
             width: 65px;
             height: 65px;
         }
 
-        .d__upl__add {
+        .DropImage-u-add-btn {
             display: block;
             margin-left: 10px;
             color: $black;
             font-size: px2rem(11);
         }
 
-        .d__upl__i:before {
+        .DropImage-u-i:before {
             background-image: url(~@/../public/static/ico/drop-image/cam-plus-sm.svg);
             width: 34px;
             height: 31px;
         }
 
-        .d__upl__msg {
+        .DropImage-u-msg {
             font-size: px2rem(10);
         }
 
-        .d__prv {
+        .DropImage-p {
             flex-direction: row;
             align-items: center;
         }
 
-        .d__prv__close {
+        .DropImage-p-remove-i {
             display: none;
         }
 
-        .d__prv__rm {
+        .DropImage-p-remove-btn {
             margin-left: 10px;
             align-self: center;
             color: $black;
@@ -113,24 +113,24 @@
     }
 
     @include media-breakpoint-up(md) {
-        .c-media {
+        .Card-media {
             margin: 0 14px;
         }
 
-        .c-img {
+        .Card-img {
             width: 68px;
             height: 68px;
         }
 
-        .c-title {
+        .Card-title {
             font-size: px2rem(13);
         }
 
-        .c-edit-body {
+        .Card-e-body {
             flex-direction: row;
         }
 
-        .c-edit-form {
+        .Card-e-form {
             flex-grow: 1;
             margin-left: 20px;
             margin-right: 80px;
@@ -140,30 +140,30 @@
             justify-content: flex-end;
         }
 
-        .drop-img {
+        .DropImage {
             margin-bottom: 0;
 
-            .d__upl__box,
-            .d__prv__box {
+            .DropImage-u-box,
+            .DropImage-p-box {
                 width: 120px;
                 height: 120px;
             }
 
-            .d__prv {
+            .DropImage-p {
                 flex-direction: column;
                 align-items: flex-start;
             }
 
-            .d__prv__rm {
+            .DropImage-p-remove-btn {
                 margin-left: 0;
                 align-self: flex-start;
             }
 
-            .d__upl__msg {
+            .DropImage-u-msg {
                 font-size: px2rem(12);
             }
 
-            .d__upl__add {
+            .DropImage-u-add-btn {
                 display: none;
             }
         }

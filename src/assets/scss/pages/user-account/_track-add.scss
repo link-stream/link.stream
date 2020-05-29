@@ -31,7 +31,7 @@
         .step-body {
             justify-content: center;
         }
-        .c-card {
+        .Card {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -42,7 +42,7 @@
                 margin-bottom: 15px;
             }
         }
-        .c-title {
+        .Card-title {
             color: $black;
             font-size: px2rem(18);
             font-weight: 800;
@@ -51,7 +51,7 @@
             text-align: center;
             margin-top: 13px;
         }
-        .c-text {
+        .Card-text {
             color: $black;
             font-size: px2rem(13);
             letter-spacing: 0.1px;
@@ -80,21 +80,21 @@
         }
     }
 
-    .c-card.--license {
-        .c-content {
+    .Card.LicenseCard {
+        .Card-v {
             display: flex;
         }
 
-        .c-body {
+        .Card-body {
             flex: 1;
         }
 
-        .c-title {
+        .Card-title {
             font-weight: bold;
         }
 
         &.--editing {
-            .c-edit-btn {
+            .Card-edit-btn {
                 display: none;
             }
         }
@@ -150,14 +150,14 @@
             height: 42.6px;
             padding-left: 7px;
         }
-        .u-avatar {
+        .UserAvatar {
             margin-right: 5px;
         }
         .add-btn {
             color: $black;
             font-size: px2rem(14);
             font-weight: bold;
-            .ls-i {
+            .LsIcon {
                 position: relative;
                 top: 2px;
                 margin-right: 2px;
@@ -170,7 +170,7 @@
         max-width: none;
 
         .step-track-type {
-            .c-card {
+            .Card {
                 padding: 60px 50px;
                 &:first-child {
                     margin-right: 30px;

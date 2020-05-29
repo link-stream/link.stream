@@ -1,5 +1,5 @@
 <template>
-    <div class="ls-spinner-mask" role="status">
+    <div class="LsSpinnerMask" role="status">
         <LsSpinner />
     </div>
 </template>

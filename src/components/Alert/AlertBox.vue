@@ -1,33 +1,36 @@
 <template>
     <b-modal
-        :modal-class="`alrt --${type}`"
+        :modal-class="`AlertBox --${type}`"
         size="sm"
         v-model="shown"
         centered
         hide-header
         hide-footer
     >
-        <LsIconButton class="alrt-close" icon="close" @click="close" />
-        <div class="alrt-body">
+        <LsIconButton class="AlertBox-close" icon="close" @click="close" />
+        <div class="AlertBox-body">
             <template v-if="opts.title && opts.message">
                 <h2
-                    class="alrt-title"
+                    class="AlertBox-title"
                     v-if="opts.title"
                     v-html="opts.title"
                 ></h2>
                 <p
-                    class="alrt-msg"
+                    class="AlertBox-msg"
                     v-show="opts.message"
                     v-html="opts.message"
                 ></p>
             </template>
             <template v-else>
-                <h2 class="alrt-title" v-html="opts.title || opts.message"></h2>
+                <h2
+                    class="AlertBox-title"
+                    v-html="opts.title || opts.message"
+                ></h2>
             </template>
         </div>
-        <footer class="alrt-actions">
+        <footer class="AlertBox-actions">
             <ls-button
-                class="alrt-action"
+                class="AlertBox-action"
                 variant="secondary"
                 size="sm"
                 v-if="opts.cancelShow"
@@ -36,7 +39,7 @@
                 {{ opts.cancelText }}
             </ls-button>
             <ls-spinner-button
-                class="alrt-action"
+                class="AlertBox-action"
                 size="sm"
                 v-if="opts.okShow"
                 @click="handleOkClick"

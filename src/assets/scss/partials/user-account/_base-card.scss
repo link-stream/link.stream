@@ -1,84 +1,85 @@
-.c-card {
+.Card {
     @include border-radius(4px);
     position: relative;
     background-color: $white;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.22);
     margin: 15px 0;
     padding: 15px;
+}
 
-    .c-reorder-i {
-        cursor: move;
+.Card-drag-i {
+    cursor: move;
+}
+
+.Card-edit-btn {
+    padding: 0;
+    &:before {
+        background-image: url(~@/../public/static/ico/edit-cir-white-sm.svg);
+        width: 40px;
+        height: 40px;
     }
+}
 
-    .c-edit-btn {
-        padding: 0;
-        &:before {
-            background-image: url(~@/../public/static/ico/edit-cir-white-sm.svg);
-            width: 40px;
-            height: 40px;
-        }
-    }
+.Card-trash-btn {
+    visibility: hidden;
+    display: none;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s;
+}
 
-    .c-edit-close {
-        position: absolute;
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 20px;
-    }
+.Card-e-close-btn {
+    position: absolute;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 20px;
+}
 
-    .c-edit-actions {
-        display: flex;
-        justify-content: space-between;
-        border-top: 1px solid $linkstream-30;
-        padding-top: 16px;
-        margin-top: 16px;
-        .actions-right {
-            .btn {
-                margin-left: 10px;
-            }
-        }
-    }
-
-    .c-del-btn {
-        visibility: hidden;
-        display: none;
-        opacity: 0;
-        transition: visibility 0.3s, opacity 0.3s;
-    }
-
-    @include media-breakpoint-up(md) {
-        .c-del-btn,
-        .c-edit-btn {
+.Card-e-actions {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid $linkstream-30;
+    padding-top: 16px;
+    margin-top: 16px;
+    .flex-item:nth-child(2) {
+        .btn {
             margin-left: 10px;
         }
+    }
+}
 
-        .c-edit-btn:before {
+@include media-breakpoint-up(md) {
+    .Card:hover {
+        .Card-trash-btn {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
+    .Card-trash-btn,
+    .Card-edit-btn {
+        margin-left: 10px;
+    }
+
+    .Card-edit-btn {
+        &:before {
             background-image: url(~@/../public/static/ico/edit-cir-white-lg.svg);
             width: 50px;
             height: 50px;
         }
-
-        .c-edit-btn:hover {
+        &:hover {
             &:before {
                 background-image: url(~@/../public/static/ico/edit-cir-gray-lg.svg);
             }
         }
+    }
 
-        .c-del-btn {
-            display: block;
-            &:before {
-                background-image: url(~@/../public/static/ico/trash-lg.svg);
-                width: 50px;
-                height: 50px;
-            }
-        }
-
-        &:hover {
-            .c-del-btn {
-                visibility: visible;
-                opacity: 1;
-            }
+    .Card-trash-btn {
+        display: block;
+        &:before {
+            background-image: url(~@/../public/static/ico/trash-lg.svg);
+            width: 50px;
+            height: 50px;
         }
     }
 }

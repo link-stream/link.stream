@@ -1,7 +1,7 @@
 <template>
     <b-modal
         :modal-class="{
-            'mdl-user-search': true,
+            UserSearchModal: true,
             '--searched': showResults,
         }"
         size="lg"

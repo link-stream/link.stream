@@ -6,10 +6,7 @@
         </template>
 
         <template v-slot:default>
-            <LicensesBlock
-                :selected-licenses="selectedLicenses"
-                :is-edit-mode="true"
-            />
+            <LicensesBlock :is-edit-mode="true" />
         </template>
 
         <template v-slot:modal-footer>
@@ -34,11 +31,6 @@ export default {
     name: 'LicensesEditModal',
     components: {
         LicensesBlock,
-    },
-    props: {
-        selectedLicenses: {
-            type: Array,
-        },
     },
     data() {
         return {

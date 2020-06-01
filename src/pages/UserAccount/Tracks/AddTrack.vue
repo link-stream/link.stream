@@ -32,6 +32,9 @@ export default {
         await this.$store.dispatch('common/loadGenres')
         await this.$store.dispatch('common/loadAudioKeys')
         await this.$store.dispatch('me/loadLicenses')
+        this.$store.dispatch('trackAddWizard/setLicenses', {
+            licenses: this.$store.getters['me/licenses'],
+        })
         this.loading = false
     },
 }

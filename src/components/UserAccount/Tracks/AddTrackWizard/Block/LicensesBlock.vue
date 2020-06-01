@@ -1,13 +1,12 @@
 <template>
     <div class="LicensesBlock">
         <LicenseCard
-            v-for="license in localAllLicenses"
+            v-for="license in allLicenses"
             :key="license.id"
             :license="license"
-            :checked="selectedLicenseIds.indexOf(license.id) > -1"
+            :checked="selectedIds.indexOf(license.id) > -1"
             @check="handleLicenseCheck"
             @uncheck="handleLicenseUncheck"
-            @update="handleLicenseUpdate"
         />
     </div>
 </template>
@@ -22,62 +21,48 @@ export default {
         LicenseCard,
     },
     props: {
-        selectedLicenses: {
-            type: Array,
-        },
         isEditMode: {
             type: Boolean,
             default: false,
         },
     },
     data() {
+        const getters = this.$store.getters
         return {
-            localAllLicenses: [],
-            localSelectedLicenses: [],
+            selectedIds: [
+                ...getters['trackAddWizard/form'].licenses.map(l => l.id),
+            ],
         }
     },
     computed: {
-        ...mapGetters({
-            allLicenses: 'me/licenses',
-        }),
-        selectedLicenseIds() {
-            return this.localSelectedLicenses.map(license => license.id)
-        },
+        ...mapGetters({ allLicenses: 'trackAddWizard/licenses' }),
     },
     watch: {
-        selectedLicenses() {
+        selectedIds() {
             !this.isEditMode && this.updateWizardForm()
         },
     },
     created() {
-        this.localSelectedLicenses = [...this.selectedLicenses]
-        this.localAllLicenses = [...this.allLicenses]
         this.$bus.$on('wz.validateBlock.licenses', this.handleBlockValidate)
-        this.$bus.$on('wz.beforePrevStep', this.updateWizardForm)
     },
     destroyed() {
         this.$bus.$off('wz.validateBlock.licenses')
-        this.$bus.$off('wz.beforePrevStep')
     },
     methods: {
         updateWizardForm() {
-            this.$bus.$emit('wz.updateForm', {
-                licenses: [...this.localSelectedLicenses],
+            this.$store.dispatch('trackAddWizard/updateForm', {
+                licenses: this.allLicenses.filter(
+                    l => this.selectedIds.indexOf(l.id) !== -1
+                ),
             })
         },
         handleLicenseCheck(license) {
-            const index = this.selectedLicenseIds.indexOf(license.id)
-            index === -1 && this.localSelectedLicenses.push(license)
+            const index = this.selectedIds.indexOf(license.id)
+            index === -1 && this.selectedIds.push(license.id)
         },
         handleLicenseUncheck(license) {
-            const index = this.selectedLicenseIds.indexOf(license.id)
-            this.localSelectedLicenses.splice(index, 1)
-        },
-        handleLicenseUpdate(license) {
-            const index = this.localAllLicenses
-                .map(l => l.id)
-                .indexOf(license.id)
-            this.localAllLicenses.splice(index, 1, license)
+            const index = this.selectedIds.indexOf(license.id)
+            this.selectedIds.splice(index, 1)
         },
         handleBlockValidate({ onSuccess }) {
             this.updateWizardForm()

@@ -340,12 +340,6 @@
     }
 }
 
-.MarketingEditModal {
-    .Card {
-        flex-basis: 100%;
-    }
-}
-
 .MarketingBlock {
     display: flex;
     flex-direction: column;
@@ -395,5 +389,11 @@
     .DropAudio,
     .DropFile {
         margin-bottom: 15px;
+    }
+}
+
+.MarketingEditModal {
+    .Card {
+        flex-basis: 100%;
     }
 }

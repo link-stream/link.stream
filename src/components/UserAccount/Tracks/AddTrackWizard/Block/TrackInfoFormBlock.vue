@@ -151,9 +151,6 @@ import { cloneDeep } from 'lodash'
 export default {
     name: 'TrackInfoFormBlock',
     props: {
-        trackInfo: {
-            type: Object,
-        },
         isEditMode: {
             type: Boolean,
             default: false,
@@ -166,7 +163,9 @@ export default {
     data() {
         return {
             tag: '',
-            form: cloneDeep(this.trackInfo),
+            form: cloneDeep(
+                this.$store.getters['trackAddWizard/form'].trackInfo
+            ),
         }
     },
     computed: {
@@ -215,10 +214,12 @@ export default {
     },
     methods: {
         updateWizardForm() {
-            const trackInfo = { ...this.form }
-            delete trackInfo.imageBase64
-            this.$bus.$emit('wz.updateForm', {
-                trackInfo,
+            this.$store.dispatch('trackAddWizard/updateForm', {
+                trackInfo: {
+                    ...this.form,
+                    imageBase64: this.$store.getters['trackAddWizard/form']
+                        .trackInfo.imageBase64,
+                },
             })
         },
         showCollabSearchModal() {
@@ -231,7 +232,7 @@ export default {
             this.form.collabs.splice(index, 1)
         },
         handleCollabAdd(user) {
-            const collabs = this.form.collabs
+            const { collabs } = this.form
             const alreadyAdded = collabs.find(
                 collab => collab.user.id == user.id
             )

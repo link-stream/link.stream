@@ -77,25 +77,21 @@
 
         <TrackInfoEditModal
             v-if="modalShow.trackInfo"
-            :track-info="trackInfo"
             @hidden="handleEditModalHidden"
         />
 
         <LicensesEditModal
             v-if="modalShow.licenses"
-            :selected-licenses="licenses"
             @hidden="handleEditModalHidden"
         />
 
         <FilesEditModal
             v-if="modalShow.files"
-            :files="files"
             @hidden="handleEditModalHidden"
         />
 
         <MarketingEditModal
             v-if="modalShow.marketing"
-            :selected="marketing"
             @hidden="handleEditModalHidden"
         />
     </div>
@@ -116,12 +112,6 @@ export default {
         FilesEditModal,
         MarketingEditModal,
     },
-    props: {
-        summary: {
-            type: Object,
-            required: true,
-        },
-    },
     data() {
         return {
             modalShow: {
@@ -133,6 +123,9 @@ export default {
         }
     },
     computed: {
+        summary() {
+            return this.$store.getters['trackAddWizard/form']
+        },
         trackInfo() {
             return {
                 genre: {},

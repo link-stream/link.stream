@@ -2,23 +2,23 @@
     <div class="FileUploadBlock">
         <DropAudio
             title="Untagged .WAV (or .MP3)"
-            :src="localFiles.untagged && localFiles.untagged.base64"
-            :filename="localFiles.untagged && localFiles.untagged.name"
+            :src="files.untagged && files.untagged.base64"
+            :filename="files.untagged && files.untagged.name"
             @file-add="handleUntaggedFileAdded"
             @file-remove="handleUntaggedFileRemoved"
         />
         <DropFile
             title="Track Stems .ZIP (or .RAR)"
             :acceptTypes="['.rar', '.zip']"
-            :src="localFiles.stems && localFiles.stems.base64"
-            :filename="localFiles.stems && localFiles.stems.name"
+            :src="files.stems && files.stems.base64"
+            :filename="files.stems && files.stems.name"
             @file-add="handleStemsFileAdded"
             @file-remove="handleStemsFileRemoved"
         />
         <DropAudio
             title="Tagged Streaming File (.MP3 or .WAV)"
-            :src="localFiles.tagged && localFiles.tagged.base64"
-            :filename="localFiles.tagged && localFiles.tagged.name"
+            :src="files.tagged && files.tagged.base64"
+            :filename="files.tagged && files.tagged.name"
             @file-add="handleTaggedFileAdded"
             @file-remove="handleTaggedFileRemoved"
         />
@@ -35,9 +35,6 @@ export default {
         DropFile,
     },
     props: {
-        files: {
-            type: Object,
-        },
         isEditMode: {
             type: Boolean,
             default: false,
@@ -45,11 +42,11 @@ export default {
     },
     data() {
         return {
-            localFiles: { ...this.files },
+            files: { ...this.$store.getters['trackAddWizard/form'].files },
         }
     },
     watch: {
-        localFiles() {
+        files() {
             !this.isEditMode && this.updateWizardForm()
         },
     },
@@ -61,8 +58,8 @@ export default {
     },
     methods: {
         updateWizardForm() {
-            this.$bus.$emit('wz.updateForm', {
-                files: { ...this.localFiles },
+            this.$store.dispatch('trackAddWizard/updateForm', {
+                files: { ...this.files },
             })
         },
         handleBlockValidate({ onSuccess }) {
@@ -70,31 +67,31 @@ export default {
             onSuccess()
         },
         handleUntaggedFileAdded({ name, base64 }) {
-            this.localFiles.untagged = {
+            this.files.untagged = {
                 name,
                 base64,
             }
         },
         handleUntaggedFileRemoved() {
-            this.localFiles.untagged = null
+            this.files.untagged = null
         },
         handleStemsFileAdded({ name, base64 }) {
-            this.localFiles.stems = {
+            this.files.stems = {
                 name,
                 base64,
             }
         },
         handleStemsFileRemoved() {
-            this.localFiles.stems = null
+            this.files.stems = null
         },
         handleTaggedFileAdded({ name, base64 }) {
-            this.localFiles.tagged = {
+            this.files.tagged = {
                 name,
                 base64,
             }
         },
         handleTaggedFileRemoved() {
-            this.localFiles.tagged = null
+            this.files.tagged = null
         },
     },
 }

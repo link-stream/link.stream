@@ -3,7 +3,7 @@
         <div class="Card" v-for="option in options" :key="option.id">
             <b-form-checkbox
                 :value="option"
-                v-model="localSelected"
+                v-model="selected"
             ></b-form-checkbox>
             <LsIcon class="logo" :icon="option.icon" />
             <div class="Card-title">
@@ -17,9 +17,6 @@
 export default {
     name: 'MarketingBlock',
     props: {
-        selected: {
-            type: Array,
-        },
         isEditMode: {
             type: Boolean,
             default: false,
@@ -27,7 +24,7 @@ export default {
     },
     data() {
         return {
-            localSelected: [...this.selected],
+            selected: [...this.$store.getters['trackAddWizard/form'].marketing],
             options: [
                 {
                     id: 1,
@@ -63,7 +60,7 @@ export default {
         }
     },
     watch: {
-        localSelected() {
+        selected() {
             !this.isEditMode && this.updateWizardForm()
         },
     },
@@ -75,8 +72,8 @@ export default {
     },
     methods: {
         updateWizardForm() {
-            this.$bus.$emit('wz.updateForm', {
-                marketing: [...this.localSelected],
+            this.$store.dispatch('trackAddWizard/updateForm', {
+                marketing: [...this.selected],
             })
         },
         handleBlockValidate({ onSuccess }) {

@@ -65,11 +65,7 @@
                     Suggested Dimensions: 1000x1000
                 </div>
             </div>
-            <TrackInfoFormBlock
-                class="step-main"
-                :track-info="form.trackInfo"
-                no-track-type-field
-            />
+            <TrackInfoFormBlock class="step-main" no-track-type-field />
         </wizard-step>
 
         <!-- STEP - LICENSE TYPES -->
@@ -78,7 +74,7 @@
             class="step-licenses"
             v-if="isStepLicenses"
         >
-            <LicensesBlock :selected-licenses="form.licenses" />
+            <LicensesBlock />
         </wizard-step>
 
         <!-- STEP - UPLOAD FILES -->
@@ -88,7 +84,7 @@
             class="step-files"
             v-if="isStepFiles"
         >
-            <FileUploadBlock :files="form.files" />
+            <FileUploadBlock />
         </wizard-step>
 
         <!-- STEP - MARKETING -->
@@ -98,7 +94,7 @@
             class="step-marketing"
             v-if="isStepMarketing"
         >
-            <MarketingBlock :selected="form.marketing" />
+            <MarketingBlock />
         </wizard-step>
 
         <!-- STEP - REVIEW -->
@@ -115,7 +111,7 @@
                     @file-remove="handleImageRemoved"
                 />
             </div>
-            <ReviewBlock class="step-main" :summary="form" />
+            <ReviewBlock class="step-main" />
         </wizard-step>
 
         <footer class="fwz-pager" v-show="stepIndex > 0">
@@ -197,41 +193,12 @@ export default {
     data() {
         return {
             stepIndex: 0,
-            form: {
-                licenses: [],
-                marketing: [],
-                files: {
-                    tagged: null,
-                    untagged: null,
-                    stems: null,
-                },
-                trackInfo: {
-                    trackType: null,
-                    imageBase64: null,
-                    title: null,
-                    genre: {},
-                    tags: [],
-                    bpm: 0,
-                    key: {},
-                    trackPack: null,
-                    collabs: [
-                        /*{
-                            profitPercent: null,
-                            pubPercent: null,
-                            user: {
-                                id: null,
-                                name: null,
-                                photo: null,
-                            },
-                        },*/
-                    ],
-                },
-            },
         }
     },
     computed: {
         ...mapGetters({
             user: 'me/user',
+            form: 'trackAddWizard/form',
         }),
         step() {
             return steps[this.stepIndex]
@@ -267,17 +234,21 @@ export default {
             return this.step === STEP_REVIEW
         },
     },
-    created() {
-        this.$bus.$on('wz.updateForm', this.handleUpdateForm)
-    },
     beforeMount() {
-        this.form.trackInfo.collabs.push({
-            profitPercent: 100,
-            pubPercent: 100,
-            user: {
-                id: this.user.id,
-                name: this.user.user_name,
-                photo: this.user.photo,
+        this.$store.dispatch('trackAddWizard/updateForm', {
+            trackInfo: {
+                ...this.form.trackInfo,
+                collabs: [
+                    {
+                        profitPercent: 100,
+                        pubPercent: 100,
+                        user: {
+                            id: this.user.id,
+                            name: this.user.user_name,
+                            photo: this.user.photo,
+                        },
+                    },
+                ],
             },
         })
     },
@@ -298,12 +269,6 @@ export default {
         handleTabClick(tab) {
             //this.goToStep(steps.indexOf(tab.step))
         },
-        handleUpdateForm(value) {
-            this.form = {
-                ...this.form,
-                ...value,
-            }
-        },
         handleNextClick() {
             switch (this.step) {
                 case STEP_TRACK_INFO:
@@ -319,18 +284,38 @@ export default {
             }
         },
         handleAddBeatClick() {
-            this.form.trackInfo.trackType = appConstants.tracks.types.beat
+            this.$store.dispatch('trackAddWizard/updateForm', {
+                trackInfo: {
+                    ...this.form.trackInfo,
+                    trackType: appConstants.tracks.types.beat,
+                },
+            })
             this.next()
         },
         handleAddSongClick() {
-            this.form.trackInfo.trackType = appConstants.tracks.types.song
+            this.$store.dispatch('trackAddWizard/updateForm', {
+                trackInfo: {
+                    ...this.form.trackInfo,
+                    trackType: appConstants.tracks.types.song,
+                },
+            })
             this.next()
         },
         handleImageAdded(file) {
-            this.form.trackInfo.imageBase64 = file.base64
+            this.$store.dispatch('trackAddWizard/updateForm', {
+                trackInfo: {
+                    ...this.form.trackInfo,
+                    imageBase64: file.base64,
+                },
+            })
         },
         handleImageRemoved() {
-            this.form.trackInfo.imageBase64 = null
+            this.$store.dispatch('trackAddWizard/updateForm', {
+                trackInfo: {
+                    ...this.form.trackInfo,
+                    imageBase64: null,
+                },
+            })
         },
     },
 }

@@ -35,3 +35,10 @@ export const meTypes = {
     DELETE_LINK: 'DELETE_LINK',
     REORDER_LINK: 'REORDER_LINK',
 }
+
+// Track Add Wizard
+export const trackAddWizardTypes = {
+    UPDATE_FORM: 'UPDATE_FORM',
+    SET_LICENSES: 'SET_LICENSES',
+    UPDATE_LICENSE: 'UPDATE_LICENSE',
+}

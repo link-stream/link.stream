@@ -4,6 +4,7 @@ import auth from './modules/auth'
 import common from './modules/common'
 import me from './modules/me'
 import menu from './modules/menu'
+import trackAddWizard from './modules/trackAddWizard'
 import { appConstants } from '~/constants'
 import createPersistedState from 'vuex-persistedstate'
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
         common,
         me,
         menu,
+        trackAddWizard,
     },
     plugins: [
         createPersistedState({

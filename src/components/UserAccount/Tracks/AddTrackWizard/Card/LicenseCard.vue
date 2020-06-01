@@ -117,7 +117,9 @@ export default {
             if (this.$v.form.$invalid) {
                 return
             }
-            this.$emit('update', { ...this.license, prize: this.form.price })
+            this.$store.dispatch('trackAddWizard/updateLicense', {
+                license: { ...this.license, prize: this.form.price },
+            })
             this.close()
         },
         handleCheckChange(checked) {

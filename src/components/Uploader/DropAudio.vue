@@ -83,7 +83,7 @@ export default {
     data() {
         return {
             playing: false,
-            player: new Audio(),
+            player: new Audio(this.src || null),
         }
     },
     watch: {
@@ -97,6 +97,9 @@ export default {
         this.player.addEventListener('playing', this.handlePlayerPlaying)
         this.player.addEventListener('pause', this.handlePlayerPause)
         this.player.addEventListener('ended', this.handlePlayerPause)
+    },
+    destroyed() {
+        this.player.pause()
     },
     methods: {
         handlePlayClick() {

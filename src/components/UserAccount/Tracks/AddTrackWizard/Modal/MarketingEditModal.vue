@@ -12,7 +12,7 @@
         </template>
 
         <template v-slot:default>
-            <MarketingBlock :selected="selected" :is-edit-mode="true" />
+            <MarketingBlock :is-edit-mode="true" />
         </template>
 
         <template v-slot:modal-footer>
@@ -37,11 +37,6 @@ export default {
     name: 'MarketingEditModal',
     components: {
         MarketingBlock,
-    },
-    props: {
-        selected: {
-            type: Array,
-        },
     },
     data() {
         return {

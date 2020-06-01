@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { LicensesBlock } from '../'
+import LicensesBlock from '../Block/LicensesBlock'
 
 export default {
     name: 'LicensesEditModal',

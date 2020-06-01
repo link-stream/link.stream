@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { TrackInfoFormBlock } from '../'
+import TrackInfoFormBlock from '../Block/TrackInfoFormBlock'
 
 export default {
     name: 'TrackInfoEditModal',

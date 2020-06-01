@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { FileUploadBlock } from '../'
+import FileUploadBlock from '../Block/FileUploadBlock'
 
 export default {
     name: 'FilesEditModal',

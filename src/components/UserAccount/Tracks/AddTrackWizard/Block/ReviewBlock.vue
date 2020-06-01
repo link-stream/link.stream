@@ -98,11 +98,11 @@
 </template>
 
 <script>
-import { appConstants } from '~/constants'
 import TrackInfoEditModal from '../Modal/TrackInfoEditModal'
 import LicensesEditModal from '../Modal/LicensesEditModal'
 import FilesEditModal from '../Modal/FilesEditModal'
 import MarketingEditModal from '../Modal/MarketingEditModal'
+import { appConstants } from '~/constants'
 
 export default {
     name: 'ReviewBlock',

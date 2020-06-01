@@ -1,8 +1,8 @@
 <template>
     <div
         class="UserAvatar"
-        :style="src ? `background-image: url('${src}')` : ''"
-        v-text="!src && username ? username[0].toUpperCase() : ''"
+        :style="user.photo ? `background-image: url('${user.photo}')` : ''"
+        v-text="!user.photo && user.name ? user.name[0].toUpperCase() : ''"
     ></div>
 </template>
 
@@ -10,11 +10,14 @@
 export default {
     name: 'UserAvatar',
     props: {
-        src: {
-            type: String,
-        },
-        username: {
-            type: String,
+        user: {
+            type: Object,
+            default() {
+                return {
+                    photo: null,
+                    name: null,
+                }
+            },
         },
     },
 }

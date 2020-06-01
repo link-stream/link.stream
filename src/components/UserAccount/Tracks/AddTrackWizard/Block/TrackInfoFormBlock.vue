@@ -88,10 +88,7 @@
                                 Collaborator
                             </div>
                             <div class="user-profile">
-                                <UserAvatar
-                                    :username="collab.$model.user.name"
-                                    :src="collab.$model.user.photo"
-                                />
+                                <UserAvatar :user="collab.$model.user" />
                                 {{ collab.$model.user.name | truncate(14) }}
                                 {{ index == 0 ? '(you)' : '' }}
                             </div>

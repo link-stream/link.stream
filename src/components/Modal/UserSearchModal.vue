@@ -39,7 +39,7 @@
                     :key="user.id"
                     @click="handleUserClick(user)"
                 >
-                    <UserAvatar :username="user.name" :src="user.photo" />
+                    <UserAvatar :user="user" />
                     {{ user.name }}
                 </li>
                 <li class="invite">

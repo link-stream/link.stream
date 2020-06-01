@@ -126,15 +126,13 @@
 </template>
 
 <script>
-import {
-    WizardStep,
-    WizardTabs,
-    TrackInfoFormBlock,
-    LicensesBlock,
-    FileUploadBlock,
-    MarketingBlock,
-    ReviewBlock,
-} from './'
+import WizardStep from './WizardStep'
+import WizardTabs from './WizardTabs'
+import TrackInfoFormBlock from './Block/TrackInfoFormBlock'
+import LicensesBlock from './Block/LicensesBlock'
+import FileUploadBlock from './Block/FileUploadBlock'
+import MarketingBlock from './Block/MarketingBlock'
+import ReviewBlock from './Block/ReviewBlock'
 import { DropImage } from '~/components/Uploader'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'

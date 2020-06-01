@@ -1,18 +1,21 @@
 <template>
     <div class="LicensesBlock">
         <LicenseCard
-            v-for="license in allLicenses"
+            v-for="license in availableLicenses"
             :key="license.id"
             :license="license"
             :checked="selectedIds.indexOf(license.id) > -1"
             @check="handleLicenseCheck"
             @uncheck="handleLicenseUncheck"
         />
+        <div class="invalid-feedback" v-show="showError">
+            Please select at least one license.
+        </div>
     </div>
 </template>
 
 <script>
-import { LicenseCard } from '../'
+import LicenseCard from '../Card/LicenseCard'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -27,19 +30,29 @@ export default {
         },
     },
     data() {
-        const getters = this.$store.getters
         return {
+            showError: false,
             selectedIds: [
-                ...getters['trackAddWizard/form'].licenses.map(l => l.id),
+                ...this.$store.getters['trackAddWizard/form'].licenses.map(
+                    l => l.id
+                ),
             ],
         }
     },
     computed: {
-        ...mapGetters({ allLicenses: 'trackAddWizard/licenses' }),
+        ...mapGetters({
+            availableLicenses: 'trackAddWizard/licenses',
+        }),
+        numSelected() {
+            return this.selectedIds.length
+        },
     },
     watch: {
         selectedIds() {
             !this.isEditMode && this.updateWizardForm()
+            if (this.numSelected) {
+                this.showError = false
+            }
         },
     },
     created() {
@@ -51,7 +64,7 @@ export default {
     methods: {
         updateWizardForm() {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                licenses: this.allLicenses.filter(
+                licenses: this.availableLicenses.filter(
                     l => this.selectedIds.indexOf(l.id) !== -1
                 ),
             })
@@ -65,6 +78,9 @@ export default {
             this.selectedIds.splice(index, 1)
         },
         handleBlockValidate({ onSuccess }) {
+            if (!this.numSelected) {
+                return
+            }
             this.updateWizardForm()
             onSuccess()
         },

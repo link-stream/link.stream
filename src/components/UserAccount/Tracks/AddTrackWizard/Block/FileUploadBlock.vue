@@ -2,31 +2,48 @@
     <div class="FileUploadBlock">
         <DropAudio
             title="Untagged .WAV (or .MP3)"
+            :class="{ 'is-invalid': $v.files.untagged.$error }"
             :src="files.untagged && files.untagged.base64"
             :filename="files.untagged && files.untagged.name"
             @file-add="handleUntaggedFileAdded"
             @file-remove="handleUntaggedFileRemoved"
         />
+        <div class="invalid-feedback" v-show="$v.files.untagged.$error">
+            Required
+        </div>
+
         <DropFile
             title="Track Stems .ZIP (or .RAR)"
+            class="stems-file"
+            :class="{ 'is-invalid': $v.files.stems.$error }"
             :acceptTypes="['.rar', '.zip']"
             :src="files.stems && files.stems.base64"
             :filename="files.stems && files.stems.name"
             @file-add="handleStemsFileAdded"
             @file-remove="handleStemsFileRemoved"
         />
+        <div class="invalid-feedback" v-show="$v.files.stems.$error">
+            Required
+        </div>
+
         <DropAudio
             title="Tagged Streaming File (.MP3 or .WAV)"
+            class="tagged-file"
+            :class="{ 'is-invalid': $v.files.tagged.$error }"
             :src="files.tagged && files.tagged.base64"
             :filename="files.tagged && files.tagged.name"
             @file-add="handleTaggedFileAdded"
             @file-remove="handleTaggedFileRemoved"
         />
+        <div class="invalid-feedback" v-show="$v.files.tagged.$error">
+            Required
+        </div>
     </div>
 </template>
 
 <script>
 import { DropAudio, DropFile } from '~/components/Uploader'
+import { required } from 'vuelidate/lib/validators'
 
 export default {
     name: 'FileUploadBlock',
@@ -50,6 +67,26 @@ export default {
             !this.isEditMode && this.updateWizardForm()
         },
     },
+    validations() {
+        const rules = {
+            untagged: {},
+            tagged: {},
+            stems: {},
+        }
+        const licenses = this.$store.getters['trackAddWizard/form'].licenses
+        licenses.forEach(license => {
+            if (license.mp3 == '1') {
+                rules.untagged.required = required
+            }
+            if (license.wav == '1') {
+                rules.tagged.required = required
+            }
+            if (license.trackout_stems == '1') {
+                rules.stems.required = required
+            }
+        })
+        return { files: rules }
+    },
     created() {
         this.$bus.$on('wz.validateBlock.files', this.handleBlockValidate)
     },
@@ -63,35 +100,57 @@ export default {
             })
         },
         handleBlockValidate({ onSuccess }) {
+            this.$v.files.$touch()
+            if (this.$v.files.$invalid) {
+                return
+            }
             this.updateWizardForm()
             onSuccess()
         },
         handleUntaggedFileAdded({ name, base64 }) {
-            this.files.untagged = {
-                name,
-                base64,
+            this.files = {
+                ...this.files,
+                untagged: {
+                    name,
+                    base64,
+                },
             }
         },
         handleUntaggedFileRemoved() {
-            this.files.untagged = null
+            this.files = {
+                ...this.files,
+                untagged: null,
+            }
         },
         handleStemsFileAdded({ name, base64 }) {
-            this.files.stems = {
-                name,
-                base64,
+            this.files = {
+                ...this.files,
+                stems: {
+                    name,
+                    base64,
+                },
             }
         },
         handleStemsFileRemoved() {
-            this.files.stems = null
+            this.files = {
+                ...this.files,
+                stems: null,
+            }
         },
         handleTaggedFileAdded({ name, base64 }) {
-            this.files.tagged = {
-                name,
-                base64,
+            this.files = {
+                ...this.files,
+                tagged: {
+                    name,
+                    base64,
+                },
             }
         },
         handleTaggedFileRemoved() {
-            this.files.tagged = null
+            this.files = {
+                ...this.files,
+                tagged: null,
+            }
         },
     },
 }

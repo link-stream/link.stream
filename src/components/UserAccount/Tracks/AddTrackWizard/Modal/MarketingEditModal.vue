@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { MarketingBlock } from '../'
+import MarketingBlock from '../Block/MarketingBlock'
 
 export default {
     name: 'MarketingEditModal',

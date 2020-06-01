@@ -276,6 +276,11 @@
             }
         }
     }
+
+    .invalid-feedback {
+        display: block;
+        font-size: px2rem(14);
+    }
 }
 
 .TrackInfoFormBlock {
@@ -386,9 +391,9 @@
 }
 
 .FileUploadBlock {
-    .DropAudio,
-    .DropFile {
-        margin-bottom: 15px;
+    .tagged-file,
+    .stems-file {
+        margin-top: 15px;
     }
 }
 

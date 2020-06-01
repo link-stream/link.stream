@@ -69,6 +69,8 @@
 <script>
 import { uploaderMixin } from '~/mixins/uploader'
 
+const audioObject = new Audio()
+
 export default {
     name: 'DropAudio',
     mixins: [uploaderMixin],
@@ -83,40 +85,53 @@ export default {
     data() {
         return {
             playing: false,
-            player: new Audio(this.src || null),
         }
     },
     watch: {
         file() {
-            if (this.file.src) {
-                this.player.src = this.file.src
+            if (this.fileAdded) {
+                this.loadAudio()
+            } else {
+                this.pauseAudio()
             }
         },
     },
     created() {
-        this.player.addEventListener('playing', this.handlePlayerPlaying)
-        this.player.addEventListener('pause', this.handlePlayerPause)
-        this.player.addEventListener('ended', this.handlePlayerPause)
+        audioObject.addEventListener('loadstart', this.handleAudioPause)
+        audioObject.addEventListener('playing', this.handleAudioPlaying)
+        audioObject.addEventListener('pause', this.handleAudioPause)
+        audioObject.addEventListener('ended', this.handleAudioPause)
+        this.fileAdded && this.loadAudio()
     },
     destroyed() {
-        this.player.pause()
+        this.pauseAudio()
     },
     methods: {
+        loadAudio() {
+            audioObject.src = this.file.src
+            audioObject.load()
+        },
+        playAudio() {
+            audioObject.play()
+        },
+        pauseAudio() {
+            this.playing && audioObject.pause()
+        },
         handlePlayClick() {
             if (this.playing) {
-                this.player.pause()
+                this.pauseAudio()
             } else {
-                this.player.play()
+                this.playAudio()
             }
         },
         handleRemoveClick() {
-            this.player.pause()
+            this.pauseAudio()
             this.removeFile()
         },
-        handlePlayerPlaying() {
+        handleAudioPlaying() {
             this.playing = true
         },
-        handlePlayerPause() {
+        handleAudioPause() {
             this.playing = false
         },
     },

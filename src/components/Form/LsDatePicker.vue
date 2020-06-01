@@ -8,7 +8,7 @@
         :popover="{ visibility: 'click' }"
         @input="handleInput"
         :input-props="{
-            class: 'LsDatePicker-input form-control',
+            class: 'form-control',
             placeholder,
             readonly: true,
         }"

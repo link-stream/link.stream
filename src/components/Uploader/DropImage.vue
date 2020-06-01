@@ -3,27 +3,27 @@
         <input
             type="file"
             v-show="false"
-            :accept="acceptTypes"
+            :accept="acceptTypes.join(',')"
             ref="fileInput"
             @change="handleFileSelected"
         />
 
-        <section class="DropImage-p" v-if="isFileAdded">
-            <div class="DropImage-p-box">
+        <section class="preview" v-if="fileAdded">
+            <div class="img-box">
                 <img :src="file.src" @click="showFileDialog" />
                 <LsIconButton
-                    class="DropImage-p-remove-i"
+                    class="file-remove-ibtn"
                     icon="dropimg-remove"
                     @click="handleRemoveClick"
                 />
                 <LsIconButton
-                    class="DropImage-p-add-i"
+                    class="file-replace-btn"
                     icon="dropimg-cam"
                     @click="showFileDialog"
                 />
             </div>
             <ls-button
-                class="DropImage-p-remove-btn"
+                class="file-remove-btn"
                 variant="link"
                 @click="handleRemoveClick"
             >
@@ -31,22 +31,22 @@
             </ls-button>
         </section>
 
-        <section v-else class="DropImage-u">
+        <section class="upload" v-else>
             <div
-                class="DropImage-u-box"
-                :class="{ '--highlight': isDraggingFile }"
+                class="drop-box"
+                :class="{ highlight: isDraggingFile }"
                 @drop="handleDrop"
                 @dragleave="handleDragLeave"
                 @dragover="handleDragOver"
                 @dragenter="handleDragEnter"
                 @click="showFileDialog"
             >
-                <i class="DropImage-u-i"></i>
-                <div class="DropImage-u-msg --sm" v-html="msgShort"></div>
-                <div class="DropImage-u-msg --lg" v-html="msgLong"></div>
+                <i class="upload-icon"></i>
+                <div class="upload-msg --sm" v-html="msgShort"></div>
+                <div class="upload-msg --lg" v-html="msgLong"></div>
             </div>
             <ls-button
-                class="DropImage-u-add-btn"
+                class="file-add-btn"
                 variant="link"
                 @click="showFileDialog"
             >
@@ -79,8 +79,10 @@ export default {
             default: '1',
         },
         acceptTypes: {
-            type: String,
-            default: 'image/*',
+            type: Array,
+            default() {
+                return ['.png', '.jpg', '.jpeg']
+            },
         },
         msgShort: {
             type: String,
@@ -102,7 +104,20 @@ export default {
         },
     },
     methods: {
+        showInvalidFileAlert() {
+            this.$alert.oops({
+                message: `Only ${this.acceptTypes
+                    .slice(0, -1)
+                    .join(', ')} and ${this.acceptTypes
+                    .slice(-1)
+                    .join(', ')} images allowed`,
+            })
+        },
         async addFile(file) {
+            if (!this.validateFile(file)) {
+                this.showInvalidFileAlert()
+                return
+            }
             const base64 = await blobToBase64(file)
             this.tmpFile = null
             if (base64) {
@@ -125,8 +140,13 @@ export default {
         handleDrop(e) {
             e.preventDefault()
             e.stopPropagation()
-            this.tmpFile = e.dataTransfer.files[0]
             this.isDraggingFile = false
+            const file = e.dataTransfer.files[0]
+            if (!this.validateFile(file)) {
+                this.showInvalidFileAlert()
+                return
+            }
+            this.tmpFile = file
         },
         handleFileSelected(e) {
             this.tmpFile = e.target.files[0]

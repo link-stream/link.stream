@@ -3,7 +3,8 @@
         <WizardTabs
             v-show="stepIndex > 0"
             :tabs="tabs"
-            :activeStep="step"
+            :activeStepName="step"
+            :activeStepIndex="stepIndex"
             @tab-click="handleTabClick"
         />
 
@@ -49,26 +50,25 @@
 
         <!-- STEP - TRACK INFO -->
         <wizard-step
-            v-show="isStepTrackInfo"
+            v-if="isStepTrackInfo"
             class="step-track-info"
             :title="isSong ? 'Song info' : 'Beat info'"
         >
             <div class="step-sidebar">
                 <DropImage
                     msgLong="Drag artwork here or<br><u>browse for file</u>"
-                    :src="form.imageBase64"
+                    :src="form.trackInfo.imageBase64"
                     @file-add="handleImageAdded"
                     @file-remove="handleImageRemoved"
                 />
-                <div class="text-muted" v-if="!form.imageBase64">
+                <div class="text-muted" v-if="!form.trackInfo.imageBase64">
                     Suggested Dimensions: 1000x1000
                 </div>
             </div>
             <TrackInfoFormBlock
                 class="step-main"
-                :active="isStepTrackInfo"
-                :track-type="form.trackType"
                 :track-info="form.trackInfo"
+                no-track-type-field
             />
         </wizard-step>
 
@@ -76,43 +76,41 @@
         <wizard-step
             title="License types"
             class="step-licenses"
-            v-show="isStepLicenses"
+            v-if="isStepLicenses"
         >
-            <LicensesBlock
-                :active="isStepLicenses"
-                :initial-selected="form.licenses"
-            />
+            <LicensesBlock :selected-licenses="form.licenses" />
         </wizard-step>
 
         <!-- STEP - UPLOAD FILES -->
         <wizard-step
             title="Upload files"
+            subtitle="Add files to deliver when the license for this track is purchased"
             class="step-files"
-            v-show="isStepFiles"
+            v-if="isStepFiles"
         >
-            <FileUploadBlock
-                :active="isStepFiles"
-                :initial-files="form.files"
-            />
+            <FileUploadBlock :files="form.files" />
         </wizard-step>
 
         <!-- STEP - MARKETING -->
-        <wizard-step title="Marketing" v-show="isStepMarketing">
-            <MarketingBlock
-                :active="isStepMarketing"
-                :initial-selected="form.marketing"
-            />
+        <wizard-step
+            title="Free downloads"
+            subtitle="Build your audience by allowing free MP3 downloads for social follows, email and SMS subscribes"
+            class="step-marketing"
+            v-if="isStepMarketing"
+        >
+            <MarketingBlock :selected="form.marketing" />
         </wizard-step>
 
         <!-- STEP - REVIEW -->
         <wizard-step
             :title="isSong ? 'Review song' : 'Review beat'"
-            v-show="isStepReview"
+            class="step-review"
+            v-if="isStepReview"
         >
             <div class="step-sidebar">
                 <DropImage
                     msgLong="Drag artwork here or<br><u>browse for file</u>"
-                    :src="form.imageBase64"
+                    :src="form.trackInfo.imageBase64"
                     @file-add="handleImageAdded"
                     @file-remove="handleImageRemoved"
                 />
@@ -200,12 +198,34 @@ export default {
         return {
             stepIndex: 0,
             form: {
-                imageBase64: null,
-                trackType: null,
-                trackInfo: null,
                 licenses: [],
                 marketing: [],
-                files: {},
+                files: {
+                    tagged: null,
+                    untagged: null,
+                    stems: null,
+                },
+                trackInfo: {
+                    trackType: null,
+                    imageBase64: null,
+                    title: null,
+                    genre: {},
+                    tags: [],
+                    bpm: 0,
+                    key: {},
+                    trackPack: null,
+                    collabs: [
+                        /*{
+                            profitPercent: null,
+                            pubPercent: null,
+                            user: {
+                                id: null,
+                                name: null,
+                                photo: null,
+                            },
+                        },*/
+                    ],
+                },
             },
         }
     },
@@ -224,7 +244,9 @@ export default {
             return tabs
         },
         isSong() {
-            return this.form.trackType === appConstants.tracks.types.song
+            return (
+                this.form.trackInfo.trackType === appConstants.tracks.types.song
+            )
         },
         isStepTrackType() {
             return this.step === STEP_TRACK_TYPE
@@ -248,6 +270,17 @@ export default {
     created() {
         this.$bus.$on('wz.updateForm', this.handleUpdateForm)
     },
+    beforeMount() {
+        this.form.trackInfo.collabs.push({
+            profitPercent: 100,
+            pubPercent: 100,
+            user: {
+                id: this.user.id,
+                name: this.user.user_name,
+                photo: this.user.photo,
+            },
+        })
+    },
     methods: {
         goToStep(index) {
             this.stepIndex = index
@@ -263,14 +296,13 @@ export default {
             }
         },
         handleTabClick(tab) {
-            this.goToStep(steps.indexOf(tab.step))
+            //this.goToStep(steps.indexOf(tab.step))
         },
         handleUpdateForm(value) {
             this.form = {
                 ...this.form,
                 ...value,
             }
-            console.log(value)
         },
         handleNextClick() {
             switch (this.step) {
@@ -278,7 +310,7 @@ export default {
                 case STEP_FILES:
                 case STEP_LICENSES:
                 case STEP_MARKETING:
-                    this.$bus.$emit(`wz.validate.${this.step}`, {
+                    this.$bus.$emit(`wz.validateBlock.${this.step}`, {
                         onSuccess: this.next,
                     })
                     return
@@ -287,18 +319,18 @@ export default {
             }
         },
         handleAddBeatClick() {
-            this.form.trackType = appConstants.tracks.types.beat
+            this.form.trackInfo.trackType = appConstants.tracks.types.beat
             this.next()
         },
         handleAddSongClick() {
-            this.form.trackType = appConstants.tracks.types.song
+            this.form.trackInfo.trackType = appConstants.tracks.types.song
             this.next()
         },
         handleImageAdded(file) {
-            this.form.imageBase64 = file.base64
+            this.form.trackInfo.imageBase64 = file.base64
         },
         handleImageRemoved() {
-            this.form.imageBase64 = null
+            this.form.trackInfo.imageBase64 = null
         },
     },
 }

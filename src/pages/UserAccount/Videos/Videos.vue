@@ -1,16 +1,15 @@
 <template>
     <div class="page page-ua-vids">
         <header class="page-header">
-            <div class="header-left">
+            <div class="col-left">
                 <h1 class="page-title">Your videos</h1>
                 <h4 class="page-subtitle">
                     Add, remove, edit &amp; order videos anyway you'd like.
                 </h4>
-                <div class="permaurl">
-                    <span class="permaurl-light">link.stream/</span>
+                <div class="perma-url">
+                    <span class="text-light">link.stream/</span>
                     <span>{{ user.user_name }}/videos</span>
                     <preview-pill-button
-                        class="permaurl-link"
                         :to="{
                             name: 'userVideos',
                             params: { username: user.user_name },
@@ -20,17 +19,20 @@
                     </preview-pill-button>
                 </div>
             </div>
-            <div class="header-right">
+            <div class="col-right">
                 <ls-button :to="{ name: 'userAccountVideosAdd' }">
                     Add New Video
                 </ls-button>
             </div>
         </header>
         <main class="page-body">
-            <LsSpinner v-if="loading" />
+            <div class="page-spinner" v-if="loading">
+                <LsSpinner />
+            </div>
             <Container
+                v-else
                 @drop="handleReorder"
-                drag-handle-selector=".Card-drag-i"
+                drag-handle-selector=".drag-icon"
             >
                 <Draggable v-for="video in sortableVideos" :key="video.id">
                     <VideoCard

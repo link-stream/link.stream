@@ -1,4 +1,10 @@
 .AlertBox {
+    &.--message {
+        .actions {
+            justify-content: center;
+        }
+    }
+
     .modal-dialog {
         max-width: 300px !important;
         margin-left: auto;
@@ -14,48 +20,42 @@
         padding: 20px 15px 15px 15px;
     }
 
-    &.--msg {
-        .AlertBox-actions {
-            justify-content: center;
-        }
+    .close-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 12px;
+        z-index: 1;
     }
-}
 
-.AlertBox-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 12px;
-    z-index: 1;
-}
+    .body {
+        text-align: center;
+        padding: 0 30px;
+    }
 
-.AlertBox-body {
-    text-align: center;
-    padding: 0 30px;
-}
+    .title {
+        color: $black;
+        font-size: px2rem(14);
+        font-weight: bold;
+        letter-spacing: 0;
+    }
 
-.AlertBox-title {
-    color: $black;
-    font-size: px2rem(14);
-    font-weight: bold;
-    letter-spacing: 0;
-}
+    .message {
+        color: $linkstream-100;
+        font-size: px2rem(13);
+        line-height: 20px;
+        margin: 10px 0 0 0;
+    }
 
-.AlertBox-msg {
-    color: $linkstream-100;
-    font-size: px2rem(13);
-    line-height: 20px;
-    margin: 10px 0 0 0;
-}
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
 
-.AlertBox-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.AlertBox-action {
-    width: 128px;
-    height: 40px;
-    padding: 0 !important;
+    .action-btn {
+        width: 128px;
+        height: 40px;
+        padding: 0 !important;
+    }
 }

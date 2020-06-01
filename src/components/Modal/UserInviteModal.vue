@@ -1,7 +1,7 @@
 <template>
     <b-modal modal-class="UserInviteModal" size="lg" centered v-model="shown">
         <template v-slot:modal-header>
-            <LsIconButton class="modal-close" use-bg-img @click="close" />
+            <LsButton variant="icon-bg" class="modal-close" @click="close" />
             <h2 class="modal-title">Invite collaborator</h2>
             <h4 class="modal-subtitle">
                 Send an invitation to join and collaborate
@@ -63,7 +63,7 @@ export default {
             if (this.$v.email.$invalid) {
                 return
             }
-            this.$alert.msg('Todo')
+            this.$alert.ok({ message: 'Todo' })
         },
     },
 }

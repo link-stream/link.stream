@@ -74,7 +74,7 @@
 .LsSelect {
     cursor: pointer;
 
-    .LsSelect-icon {
+    .arrow-icon {
         position: relative;
         top: 1px;
         right: 0px;
@@ -148,7 +148,7 @@
 }
 
 .LsTimePicker {
-    .LsSelect-icon {
+    .arrow-icon {
         top: 0px;
         left: 1px;
     }
@@ -163,9 +163,9 @@
         background: rgba($linkstream-1, 0.9) !important;
     }
 
-    .LsDatePicker-input {
+    input {
         cursor: default;
-        background-color: $white;
+        background-color: $white !important;
         background-image: url(~@/../public/static/ico/datepicker.svg);
         background-repeat: no-repeat;
         background-position: 96% center;
@@ -175,7 +175,7 @@
     }
 
     &.is-invalid {
-        .LsDatePicker-input {
+        input {
             border-color: $form-feedback-invalid-color;
         }
     }
@@ -187,7 +187,7 @@
         width: 50%;
     }
 
-    .LsDatePicker-input {
+    .LsDatePicker input {
         border-right-width: 0px;
     }
 }
@@ -219,7 +219,7 @@
     }
 }
 
-.ls-search-input {
+.search-box {
     position: relative;
     .search-icon {
         position: absolute;

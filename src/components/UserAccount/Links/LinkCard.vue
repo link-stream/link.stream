@@ -1,8 +1,8 @@
 <template>
-    <div class="Card LinkCard" :class="{ '--private': link.isPrivate }">
+    <div class="Card LinkCard" :class="{ 'is-private': link.isPrivate }">
         <LsSpinnerMask v-show="loading" />
-        <section class="Card-v" v-show="!editing">
-            <LsIcon class="Card-drag-i" icon="drag" />
+        <section class="view-block" v-show="!editing">
+            <LsIcon class="drag-icon" icon="drag" />
             <div class="Card-media" @click="handleEditClick">
                 <img class="Card-img" :src="link.artwork" :alt="link.title" />
             </div>
@@ -12,28 +12,27 @@
                     Hidden
                 </small>
             </main>
-            <LsIconButton
-                icon="trash-2"
+            <LsButton
+                variant="icon-bg"
                 title="Delete"
-                class="Card-trash-btn"
-                use-bg-img
+                class="trash-btn"
                 @click="handleDeleteClick"
             />
-            <LsIconButton
+            <LsButton
+                variant="icon-bg"
                 title="Edit"
-                class="Card-edit-btn"
-                use-bg-img
+                class="edit-btn"
                 @click="handleEditClick"
             />
         </section>
-        <section class="Card-e" v-if="editing">
+        <section class="edit-block" v-if="editing">
             <LsIconButton
                 icon="close"
-                class="Card-e-close-btn"
+                class="close-btn"
                 title="Close"
-                @click="closeEdit"
+                @click="closeEditMode"
             />
-            <main class="Card-e-body">
+            <main class="Card-body">
                 <DropImage
                     :src="link.data_image"
                     msg-long="Drag image here&nbsp;or&nbsp;<u>browse</u>"
@@ -41,7 +40,7 @@
                     @file-add="handleImageAdded"
                     @file-remove="handleImageRemoved"
                 />
-                <form class="Card-e-form">
+                <form class="edit-form">
                     <b-form-group>
                         <b-form-input
                             placeholder="e.g. https://myblog.blogspot.com"
@@ -64,15 +63,15 @@
                     </b-form-group>
                 </form>
             </main>
-            <footer class="Card-e-actions">
-                <div class="flex-item">
+            <footer class="edit-actions">
+                <div class="col-left">
                     <LsIconButton
                         icon="trash-sm"
                         title="Delete"
                         @click="handleDeleteClick"
                     />
                 </div>
-                <div class="flex-item">
+                <div class="col-right">
                     <ls-icon-button
                         :title="link.isPublic ? 'Hide' : 'Unhide'"
                         @click="handleVisibilityToggleClick"
@@ -99,7 +98,7 @@
                     </ls-button>
                 </div>
             </footer>
-            <footer class="schedule-dt" v-if="link.scheduled">
+            <div class="pubdate" v-if="link.scheduled">
                 Scheduled: {{ link.date | mmddyyyy }}
                 <b-dropdown variant="link" text="Modify" no-caret>
                     <b-dropdown-item @click="handleChangeScheduleClick">
@@ -109,7 +108,7 @@
                         Remove Scheduling
                     </b-dropdown-item>
                 </b-dropdown>
-            </footer>
+            </div>
         </section>
     </div>
 </template>
@@ -148,7 +147,7 @@ export default {
             status !== 'success' && this.$toast.error(error)
             this.loading = false
         },
-        closeEdit() {
+        closeEditMode() {
             this.editing = false
         },
         handleEditClick() {

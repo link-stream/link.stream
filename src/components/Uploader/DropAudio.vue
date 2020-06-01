@@ -1,58 +1,67 @@
 <template>
-    <div class="drop-audio">
+    <div
+        class="DropAudio DropFile"
+        :class="{
+            'is-playing': playing,
+        }"
+    >
         <input
             type="file"
             v-show="false"
-            :accept="acceptTypes"
+            :accept="acceptTypes.join(',')"
             ref="fileInput"
             @change="handleFileSelected"
         />
 
-        <div class="d__prv" v-if="isFileAdded">
-            <div class="flex-item">
-                <ls-icon-button @click="handlePlayClick">
-                    <i
-                        class="fa fa-3x"
-                        :class="isPlaying ? 'fa-pause' : 'fa-play'"
-                    ></i>
-                </ls-icon-button>
+        <div class="preview" v-if="fileAdded">
+            <div class="player-controls">
+                <LsButton
+                    variant="icon-bg"
+                    class="play-btn"
+                    @click="handlePlayClick"
+                />
             </div>
-            <div class="flex-item">
-                <div class="d__title" v-html="title"></div>
-                <div class="d__filename">{{ file.name }}</div>
-                <audio
-                    controls
-                    controlsList="nodownload"
-                    ref="player"
-                    @playing="handlePlayerPlaying"
-                    @pause="handlePlayerPause"
+            <div class="file-info">
+                <div class="file-desc" v-html="title"></div>
+                <div class="file-name">{{ file.name }}</div>
+            </div>
+            <div class="file-controls">
+                <ls-button
+                    class="file-remove-btn"
+                    variant="link"
+                    @click="handleRemoveClick"
                 >
-                    <source :src="file.src" />
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-            <div class="flex-item">
-                <ls-button variant="link" @click="handleRemoveClick">
                     Remove File
                 </ls-button>
+                <b-dropdown class="file-menu" variant="icon" dropleft no-caret>
+                    <template v-slot:button-content>
+                        <LsIcon icon="dot-menu-v" />
+                    </template>
+                    <b-dropdown-item @click="showFileDialog">
+                        Replace File
+                    </b-dropdown-item>
+                    <b-dropdown-item @click="handleRemoveClick">
+                        Remove File
+                    </b-dropdown-item>
+                </b-dropdown>
             </div>
         </div>
 
         <div
             v-else
-            class="d__upl"
-            :class="{ '--highlight': isDraggingFile }"
+            class="upload"
+            :class="{ highlight: isDraggingFile }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
             @dragover="handleDragOver"
             @dragenter="handleDragEnter"
             @click="showFileDialog"
         >
-            <div class="flex-item">
-                <div class="d__title" v-html="title"></div>
-                <div class="d__filename">No File Added</div>
+            <div class="file-info">
+                <div class="file-desc" v-html="title"></div>
+                <div class="file-name">No File Added</div>
             </div>
-            <LsIcon class="flex-item" icon="cloud-upload-lg" />
+            <i class="upload-icon"></i>
         </div>
     </div>
 </template>
@@ -65,29 +74,47 @@ export default {
     mixins: [uploaderMixin],
     props: {
         acceptTypes: {
-            type: String,
-            default: 'audio/wav,audio/mpeg',
+            type: Array,
+            default() {
+                return ['.wav', '.mp3']
+            },
         },
     },
     data() {
         return {
-            isPlaying: false,
+            playing: false,
+            player: new Audio(),
         }
+    },
+    watch: {
+        file() {
+            if (this.file.src) {
+                this.player.src = this.file.src
+            }
+        },
+    },
+    created() {
+        this.player.addEventListener('playing', this.handlePlayerPlaying)
+        this.player.addEventListener('pause', this.handlePlayerPause)
+        this.player.addEventListener('ended', this.handlePlayerPause)
     },
     methods: {
         handlePlayClick() {
-            const player = this.$refs.player
-            this.isPlaying ? player.pause() : player.play()
+            if (this.playing) {
+                this.player.pause()
+            } else {
+                this.player.play()
+            }
         },
         handleRemoveClick() {
-            this.isPlaying = false
+            this.player.pause()
             this.removeFile()
         },
         handlePlayerPlaying() {
-            this.isPlaying = true
+            this.playing = true
         },
         handlePlayerPause() {
-            this.isPlaying = false
+            this.playing = false
         },
     },
 }

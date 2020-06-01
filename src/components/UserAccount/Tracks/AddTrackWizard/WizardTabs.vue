@@ -2,12 +2,15 @@
     <nav class="fwz-tabs">
         <ul>
             <li
-                v-for="(tab, k) in tabs"
-                :key="k"
-                :class="{ active: tab.step === activeStep }"
+                v-for="(tab, index) in tabs"
+                :key="index"
+                :class="{
+                    active: tab.step === activeStepName,
+                    done: index < activeStepIndex,
+                }"
                 @click="handleTabClick(tab)"
             >
-                {{ k + 1 }}. {{ tab.text }}&nbsp;
+                {{ index + 1 }}. {{ tab.text }}&nbsp;
             </li>
         </ul>
     </nav>
@@ -20,8 +23,11 @@ export default {
         tabs: {
             type: Array,
         },
-        activeStep: {
+        activeStepName: {
             type: String,
+        },
+        activeStepIndex: {
+            type: Number,
         },
     },
     methods: {

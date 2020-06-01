@@ -1,18 +1,18 @@
 .VideoEditModal {
-    .yt-wrap {
+    .video-wrapper {
         width: 201px;
         height: 113px;
         margin-bottom: 20px;
     }
 
     @include media-breakpoint-down(sm) {
-        .modal-action {
+        .action-btn {
             width: 110px;
         }
     }
 
     @include media-breakpoint-up(md) {
-        .modal-delete {
+        .delete-btn {
             flex-grow: 1;
         }
     }

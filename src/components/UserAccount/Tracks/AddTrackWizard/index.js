@@ -1,3 +1,4 @@
+export { default as Wizard } from './Wizard'
 export { default as WizardStep } from './WizardStep'
 export { default as WizardTabs } from './WizardTabs'
 export { default as LicenseCard } from './Card/LicenseCard'

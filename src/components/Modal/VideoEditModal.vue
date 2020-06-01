@@ -8,12 +8,12 @@
         no-close-on-esc
     >
         <template v-slot:modal-header>
-            <LsIconButton class="modal-close" use-bg-img @click="close" />
+            <LsButton variant="icon-bg" class="modal-close" @click="close" />
             <h2 class="modal-title">Edit video info</h2>
         </template>
 
         <template v-slot:default>
-            <youtube class="yt-wrap" :video-id="ytVidId"></youtube>
+            <youtube class="video-wrapper" :video-id="ytVidId"></youtube>
             <b-form-group label="YouTube Video URL" label-for="urlInput">
                 <b-form-input
                     v-model="$v.form.url.$model"
@@ -40,10 +40,10 @@
                 ></b-form-input>
                 <b-form-invalid-feedback>
                     <template v-if="!$v.form.title.required">
-                        Enter a title
+                        Title can't be blank
                     </template>
                     <template v-else-if="!$v.form.title.minLength">
-                        The title must be at least
+                        Title must be at least
                         {{ $v.form.title.$params.minLength.min }} characters
                     </template>
                 </b-form-invalid-feedback>
@@ -100,7 +100,7 @@
         </template>
 
         <template v-slot:modal-footer>
-            <div class="modal-delete">
+            <div class="delete-btn">
                 <LsIconButton
                     icon="trash-sm"
                     title="Delete"
@@ -108,7 +108,7 @@
                 />
             </div>
             <ls-button
-                class="modal-action modal-cancel"
+                class="action-btn cancel-btn"
                 variant="secondary"
                 :disabled="loading"
                 @click="close"
@@ -116,7 +116,7 @@
                 Cancel
             </ls-button>
             <ls-spinner-button
-                class="modal-action"
+                class="action-btn"
                 :loading="loading"
                 @click="handleSaveClick"
             >

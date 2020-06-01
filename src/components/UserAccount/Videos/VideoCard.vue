@@ -1,9 +1,9 @@
 <template>
     <div class="Card VideoCard">
-        <LsIcon class="Card-drag-i" icon="drag" />
-        <div class="Card-main" @click="handleEditClick">
+        <LsIcon class="drag-icon" icon="drag" />
+        <main @click="handleEditClick">
             <div class="Card-media">
-                <div class="Card-lock" v-if="video.isPrivate"></div>
+                <div class="lock-img" v-if="video.isPrivate"></div>
                 <img class="Card-img" :src="thumbUrl" :alt="video.title" />
             </div>
             <div class="Card-body">
@@ -12,17 +12,17 @@
                     Private
                 </small>
             </div>
-        </div>
-        <LsIconButton
-            class="Card-trash-btn"
+        </main>
+        <LsButton
+            variant="icon-bg"
+            class="trash-btn"
             title="Delete"
-            use-bg-img
             @click="handleDeleteClick"
         />
-        <LsIconButton
-            class="Card-edit-btn"
+        <LsButton
+            variant="icon-bg"
+            class="edit-btn"
             title="Edit"
-            use-bg-img
             @click="handleEditClick"
         />
     </div>

@@ -77,16 +77,20 @@
     border: 0;
     margin: 0;
     line-height: 0;
-    &.--bg-img:before {
-        @extend .LsIcon:before;
-    }
     &:focus {
         outline: 0;
         box-shadow: none;
     }
-
     &:active {
         transform: scale(0.9);
+    }
+}
+
+.btn-icon-bg {
+    @extend .btn-icon;
+    @extend .LsIcon;
+    &:before {
+        @extend .LsIcon:before;
     }
 }
 

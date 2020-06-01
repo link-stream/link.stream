@@ -11,7 +11,7 @@
         @input="handleInput"
     >
         <template v-slot:open-indicator>
-            <LsIcon :icon="icon" class="LsSelect-icon" />
+            <LsIcon :icon="icon" class="arrow-icon" />
         </template>
     </v-select>
 </template>

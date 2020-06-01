@@ -1,4 +1,7 @@
 .page.page-ua-track-add {
+    .page-spinner {
+        margin-top: 200px;
+    }
     .fwz-tabs ul,
     .fwz-step,
     .fwz-pager {
@@ -19,6 +22,10 @@
             font-weight: 600;
             letter-spacing: 0;
             cursor: default;
+            &.done {
+                color: $linkstream-110;
+                font-weight: bold;
+            }
             &.active {
                 color: $linkstream-110;
                 font-weight: bold;
@@ -74,37 +81,204 @@
     }
 
     .step-licenses,
-    .step-files {
+    .step-files,
+    .step-marketing {
         .step-body {
             flex-direction: column;
         }
     }
 
-    .Card.LicenseCard {
-        .Card-v {
-            display: flex;
-        }
+    .step-track-type {
+        padding-top: 48px;
+    }
 
-        .Card-body {
-            flex: 1;
+    .step-review {
+        .step-sidebar {
+            margin: 0 0 15px 0;
         }
-
+        .Card {
+            position: relative;
+            padding: 15px;
+            margin-top: 0;
+            font-size: px2rem(13);
+            p {
+                margin: 0;
+                line-height: 20px;
+            }
+            p,
+            li {
+                line-height: 20px;
+            }
+        }
         .Card-title {
+            font-size: px2rem(14);
             font-weight: bold;
+            margin-bottom: 5px;
         }
-
-        &.--editing {
-            .Card-edit-btn {
+        .edit-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+        .DropImage {
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            .preview {
+                flex-direction: row;
+            }
+            .file-remove-ibtn,
+            .file-replace-btn {
+                display: none;
+            }
+            .file-remove-btn {
+                align-self: center;
+            }
+            .file-add-btn {
+                display: block;
+            }
+            .file-remove-btn,
+            .file-add-btn {
+                margin-left: 15px;
+            }
+            .img-box,
+            .drop-box {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 0;
+            }
+            .upload-msg {
                 display: none;
             }
         }
     }
 
-    .drop-audio,
-    .drop-file {
-        margin-bottom: 20px;
-    }
+    @include media-breakpoint-up(md) {
+        padding-top: 0;
+        max-width: none;
 
+        .step-track-type {
+            .Card {
+                padding: 60px 50px;
+                &:first-child {
+                    margin-right: 30px;
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .step-review {
+            .step-sidebar {
+                margin: 0 20px 0 0;
+            }
+            .Card {
+                padding: 20px;
+            }
+            .Card-title {
+                font-size: px2rem(18);
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            .DropImage {
+                box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+                padding: 20px;
+                .img-box,
+                .drop-box {
+                    width: 215px;
+                    height: 215px;
+                    margin-bottom: 0;
+                }
+                .preview {
+                    flex-direction: column;
+                }
+                .file-remove-btn {
+                    align-self: flex-start;
+                    margin: 10px 0 0 0;
+                }
+                .file-add-btn {
+                    display: none;
+                }
+                .file-replace-btn {
+                    display: block;
+                }
+                .upload-msg.--lg {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+.LicensesBlock {
+    .LicenseCard {
+        padding: 15px 20px;
+
+        .view-block {
+            display: flex;
+            align-items: center;
+            .form-group {
+                margin-bottom: 0;
+            }
+        }
+
+        .Card-body {
+            flex: 1;
+            margin-left: 10px;
+        }
+
+        .Card-title {
+            font-weight: bold;
+            line-height: 15px;
+        }
+
+        .close-btn,
+        .edit-actions,
+        .price-field {
+            display: none;
+        }
+
+        .edit-actions {
+            flex-direction: column;
+            margin-top: 30px;
+            .col-left {
+                order: 1;
+                text-align: center;
+                margin-top: 20px;
+            }
+            .col-right {
+                display: flex;
+                .btn {
+                    margin: 0;
+                    width: 50%;
+                }
+                .cancel-btn {
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        .price-field {
+            margin-top: 20px;
+        }
+
+        &.is-editing {
+            .custom-checkbox {
+                align-self: flex-start;
+            }
+            .edit-btn {
+                visibility: hidden;
+            }
+            .edit-actions {
+                display: flex;
+            }
+            .close-btn,
+            .price-field {
+                display: block;
+            }
+        }
+    }
+}
+
+.TrackInfoFormBlock {
     .collabs {
         ul {
             margin-bottom: 12px;
@@ -164,19 +338,62 @@
             }
         }
     }
+}
 
-    @include media-breakpoint-up(md) {
-        padding-top: 0;
-        max-width: none;
+.MarketingEditModal {
+    .Card {
+        flex-basis: 100%;
+    }
+}
 
-        .step-track-type {
-            .Card {
-                padding: 60px 50px;
-                &:first-child {
-                    margin-right: 30px;
-                    margin-bottom: 0;
+.MarketingBlock {
+    display: flex;
+    flex-direction: column;
+    .logo {
+        margin: 0 20px 0 15px;
+    }
+    .Card {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        margin: 0 0 15px 0;
+        padding: 28px 20px;
+    }
+    .Card-title {
+        font-size: px2rem(12px);
+        font-weight: bold;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .MarketingBlock {
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-between;
+        .Card {
+            flex-basis: 49%;
+        }
+        .Card-title {
+            font-size: px2rem(14px);
+        }
+    }
+
+    .LicensesBlock {
+        .LicenseCard {
+            .edit-actions {
+                flex-direction: row;
+                .col-left {
+                    order: 0;
+                    margin-top: 0;
                 }
             }
         }
+    }
+}
+
+.FileUploadBlock {
+    .DropAudio,
+    .DropFile {
+        margin-bottom: 15px;
     }
 }

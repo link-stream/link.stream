@@ -1,12 +1,13 @@
 <template>
-    <div>
+    <div class="LicensesBlock">
         <LicenseCard
-            v-for="license in licenses"
-            :license="license"
+            v-for="license in localAllLicenses"
             :key="license.id"
-            :selected="selectedIds.indexOf(license.id) > -1"
-            @select="handleSelect"
-            @deselect="handleDeselect"
+            :license="license"
+            :checked="selectedLicenseIds.indexOf(license.id) > -1"
+            @check="handleLicenseCheck"
+            @uncheck="handleLicenseUncheck"
+            @update="handleLicenseUpdate"
         />
     </div>
 </template>
@@ -21,54 +22,65 @@ export default {
         LicenseCard,
     },
     props: {
-        active: {
+        selectedLicenses: {
+            type: Array,
+        },
+        isEditMode: {
             type: Boolean,
             default: false,
-        },
-        initialSelected: {
-            type: Array,
-            default() {
-                return []
-            },
         },
     },
     data() {
         return {
-            selected: [...this.initialSelected],
+            localAllLicenses: [],
+            localSelectedLicenses: [],
         }
     },
     computed: {
         ...mapGetters({
-            licenses: 'me/licenses',
+            allLicenses: 'me/licenses',
         }),
-        selectedIds() {
-            return this.selected.map(license => license.id)
+        selectedLicenseIds() {
+            return this.localSelectedLicenses.map(license => license.id)
         },
     },
     watch: {
-        initialSelected() {
-            this.selected = [...this.initialSelected]
+        selectedLicenses() {
+            !this.isEditMode && this.updateWizardForm()
         },
     },
     created() {
-        this.$bus.$on('wz.validate.licenses', this.handleValidate)
+        this.localSelectedLicenses = [...this.selectedLicenses]
+        this.localAllLicenses = [...this.allLicenses]
+        this.$bus.$on('wz.validateBlock.licenses', this.handleBlockValidate)
+        this.$bus.$on('wz.beforePrevStep', this.updateWizardForm)
+    },
+    destroyed() {
+        this.$bus.$off('wz.validateBlock.licenses')
+        this.$bus.$off('wz.beforePrevStep')
     },
     methods: {
-        handleSelect(license) {
-            const index = this.selectedIds.indexOf(license.id)
-            index === -1 && this.selected.push(license)
-        },
-        handleDeselect(license) {
-            const index = this.selectedIds.indexOf(license.id)
-            this.selected.splice(index, 1)
-        },
-        handleValidate({ onSuccess }) {
-            if (!this.active) {
-                return
-            }
+        updateWizardForm() {
             this.$bus.$emit('wz.updateForm', {
-                licenses: [...this.selected],
+                licenses: [...this.localSelectedLicenses],
             })
+        },
+        handleLicenseCheck(license) {
+            const index = this.selectedLicenseIds.indexOf(license.id)
+            index === -1 && this.localSelectedLicenses.push(license)
+        },
+        handleLicenseUncheck(license) {
+            const index = this.selectedLicenseIds.indexOf(license.id)
+            this.localSelectedLicenses.splice(index, 1)
+        },
+        handleLicenseUpdate(license) {
+            const index = this.localAllLicenses
+                .map(l => l.id)
+                .indexOf(license.id)
+            this.localAllLicenses.splice(index, 1, license)
+        },
+        handleBlockValidate({ onSuccess }) {
+            this.updateWizardForm()
             onSuccess()
         },
     },

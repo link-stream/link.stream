@@ -1,40 +1,55 @@
 <template>
-    <div class="drop-file">
+    <div class="DropFile">
         <input
             type="file"
             v-show="false"
-            :accept="acceptTypes"
+            :accept="acceptTypes.join(',')"
             ref="fileInput"
             @change="handleFileSelected"
         />
 
-        <div class="d__prv" v-if="isFileAdded">
-            <div class="flex-item">
-                <div class="d__title" v-html="title"></div>
-                <div class="d__filename">{{ file.name }}</div>
+        <div class="preview" v-if="fileAdded">
+            <div class="file-info">
+                <div class="file-desc" v-html="title"></div>
+                <div class="file-name">{{ file.name | truncate(200) }}</div>
             </div>
-            <div class="flex-item">
-                <ls-button variant="link" @click="handleRemoveClick">
+            <div class="file-controls">
+                <ls-button
+                    class="file-remove-btn"
+                    variant="link"
+                    @click="handleRemoveClick"
+                >
                     Remove File
                 </ls-button>
+                <b-dropdown class="file-menu" variant="icon" dropleft no-caret>
+                    <template v-slot:button-content>
+                        <LsIcon icon="dot-menu-v" />
+                    </template>
+                    <b-dropdown-item @click="showFileDialog">
+                        Replace File
+                    </b-dropdown-item>
+                    <b-dropdown-item @click="handleRemoveClick">
+                        Remove File
+                    </b-dropdown-item>
+                </b-dropdown>
             </div>
         </div>
 
         <div
             v-else
-            class="d__upl"
-            :class="{ '--highlight': isDraggingFile }"
+            class="upload"
+            :class="{ highlight: isDraggingFile }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
             @dragover="handleDragOver"
             @dragenter="handleDragEnter"
             @click="showFileDialog"
         >
-            <div class="flex-item">
-                <div class="d__title" v-html="title"></div>
-                <div class="d__filename">No File Added</div>
+            <div class="file-info">
+                <div class="file-desc" v-html="title"></div>
+                <div class="file-name">No File Added</div>
             </div>
-            <LsIcon class="flex-item" icon="cloud-upload-lg" />
+            <i class="upload-icon"></i>
         </div>
     </div>
 </template>

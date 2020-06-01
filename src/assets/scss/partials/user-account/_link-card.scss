@@ -1,17 +1,21 @@
-.Card.LinkCard {
+.LinkCard {
     padding: 0;
 
-    &.--private {
+    &.is-private {
         .Card-title,
         .Card-subtitle {
             color: $linkstream-40;
         }
     }
 
-    .Card-v {
+    .view-block {
         display: flex;
         align-items: center;
         padding: 15px;
+        .Card-body {
+            flex-grow: 1;
+            cursor: pointer;
+        }
     }
 
     .Card-media {
@@ -22,11 +26,6 @@
     .Card-img {
         width: 60px;
         height: 60px;
-    }
-
-    .Card-body {
-        flex-grow: 1;
-        cursor: pointer;
     }
 
     .Card-title {
@@ -42,23 +41,30 @@
         color: $black;
     }
 
-    .Card-e {
+    .edit-block {
         position: relative;
         padding: 20px;
+        .Card-body {
+            display: flex;
+            flex-direction: column;
+        }
     }
 
-    .Card-e-body {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .Card-e-form {
+    .edit-form {
         .form-group:last-child {
             margin-bottom: 0;
         }
     }
 
-    .schedule-dt {
+    .edit-actions {
+        .col-right {
+            .btn {
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .pubdate {
         display: flex;
         justify-content: center;
         margin-top: 15px;
@@ -72,39 +78,39 @@
     .DropImage {
         margin-bottom: 10px;
 
-        .DropImage-u-box,
-        .DropImage-p-box {
+        .drop-box,
+        .img-box {
             width: 65px;
             height: 65px;
         }
 
-        .DropImage-u-add-btn {
+        .file-add-btn {
             display: block;
             margin-left: 10px;
             color: $black;
             font-size: px2rem(11);
         }
 
-        .DropImage-u-i:before {
+        .upload-icon:before {
             background-image: url(~@/../public/static/ico/drop-image/cam-plus-sm.svg);
             width: 34px;
             height: 31px;
         }
 
-        .DropImage-u-msg {
+        .upload-msg {
             font-size: px2rem(10);
         }
 
-        .DropImage-p {
+        .preview {
             flex-direction: row;
             align-items: center;
         }
 
-        .DropImage-p-remove-i {
+        .file-remove-ibtn {
             display: none;
         }
 
-        .DropImage-p-remove-btn {
+        .file-remove-btn {
             margin-left: 10px;
             align-self: center;
             color: $black;
@@ -113,6 +119,12 @@
     }
 
     @include media-breakpoint-up(md) {
+        .edit-block {
+            .Card-body {
+                flex-direction: row;
+            }
+        }
+
         .Card-media {
             margin: 0 14px;
         }
@@ -126,44 +138,40 @@
             font-size: px2rem(13);
         }
 
-        .Card-e-body {
-            flex-direction: row;
-        }
-
-        .Card-e-form {
+        .edit-form {
             flex-grow: 1;
             margin-left: 20px;
             margin-right: 80px;
         }
 
-        .schedule-dt {
+        .pubdate {
             justify-content: flex-end;
         }
 
         .DropImage {
             margin-bottom: 0;
 
-            .DropImage-u-box,
-            .DropImage-p-box {
+            .drop-box,
+            .img-box {
                 width: 120px;
                 height: 120px;
             }
 
-            .DropImage-p {
+            .preview {
                 flex-direction: column;
                 align-items: flex-start;
             }
 
-            .DropImage-p-remove-btn {
+            .file-remove-btn {
                 margin-left: 0;
                 align-self: flex-start;
             }
 
-            .DropImage-u-msg {
+            .upload-msg {
                 font-size: px2rem(12);
             }
 
-            .DropImage-u-add-btn {
+            .file-add-btn {
                 display: none;
             }
         }

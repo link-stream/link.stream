@@ -12,7 +12,10 @@ export const uploaderMixin = {
             type: String,
         },
         acceptTypes: {
-            type: String,
+            type: Array,
+            default() {
+                return []
+            },
         },
     },
     data() {
@@ -25,7 +28,7 @@ export const uploaderMixin = {
         }
     },
     computed: {
-        isFileAdded() {
+        fileAdded() {
             return this.file.src ? true : false
         },
     },
@@ -38,11 +41,36 @@ export const uploaderMixin = {
         },
     },
     methods: {
+        showInvalidFileAlert() {
+            this.$alert.oops({
+                message: `Only ${this.acceptTypes
+                    .slice(0, -1)
+                    .join(', ')} and ${this.acceptTypes
+                    .slice(-1)
+                    .join(', ')} files allowed`,
+            })
+        },
         showFileDialog() {
             this.$refs.fileInput.value = null
             this.$refs.fileInput.click()
         },
+        validateFile(file) {
+            const acceptTypes = this.acceptTypes
+            if (acceptTypes.indexOf(file.type) !== -1) {
+                return true
+            }
+            const extIndex = file.name.lastIndexOf('.')
+            if (extIndex === -1) {
+                return false
+            }
+            const ext = file.name.substr(extIndex)
+            return acceptTypes.indexOf(ext) !== -1
+        },
         async addFile(file) {
+            if (!this.validateFile(file)) {
+                this.showInvalidFileAlert()
+                return
+            }
             const base64 = await blobToBase64(file)
             if (base64) {
                 this.file = {

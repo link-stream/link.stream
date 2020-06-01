@@ -1,23 +1,26 @@
 <template>
-    <b-modal size="lg" centered v-model="shown">
+    <b-modal v-model="shown" size="lg" centered @hidden="handleHidden">
         <template v-slot:modal-header>
-            <LsIconButton class="modal-close" use-bg-img @click="close" />
+            <LsButton variant="icon-bg" class="modal-close" @click="close" />
             <h2 class="modal-title">Licenses</h2>
         </template>
 
         <template v-slot:default>
-            <LicensesBlock :active="shown" :initial-selected="selected" />
+            <LicensesBlock
+                :selected-licenses="selectedLicenses"
+                :is-edit-mode="true"
+            />
         </template>
 
         <template v-slot:modal-footer>
             <ls-button
-                class="modal-action modal-cancel"
+                class="action-btn cancel-btn"
                 variant="secondary"
                 @click="close"
             >
                 Cancel
             </ls-button>
-            <ls-button class="modal-action" @click="handleSaveClick">
+            <ls-button class="action-btn" @click="handleSaveClick">
                 Save
             </ls-button>
         </template>
@@ -32,28 +35,27 @@ export default {
     components: {
         LicensesBlock,
     },
+    props: {
+        selectedLicenses: {
+            type: Array,
+        },
+    },
     data() {
         return {
-            shown: false,
-            selected: [],
+            shown: true,
         }
-    },
-    created() {
-        this.$bus.$on('modal.licensesEdit.show', this.handleShow)
-        this.$bus.$on('modal.licensesEdit.hide', this.close)
     },
     methods: {
         close() {
             this.shown = false
         },
-        handleShow({ selected }) {
-            this.selected = selected
-            this.shown = true
-        },
         handleSaveClick() {
-            this.$bus.$emit('wz.validate.licenses', {
+            this.$bus.$emit('wz.validateBlock.licenses', {
                 onSuccess: this.close,
             })
+        },
+        handleHidden() {
+            this.$emit('hidden', { modalName: 'licenses' })
         },
     },
 }

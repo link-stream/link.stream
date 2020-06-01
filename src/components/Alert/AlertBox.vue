@@ -7,30 +7,23 @@
         hide-header
         hide-footer
     >
-        <LsIconButton class="AlertBox-close" icon="close" @click="close" />
-        <div class="AlertBox-body">
+        <LsIconButton class="close-btn" icon="close" @click="close" />
+        <div class="body">
             <template v-if="opts.title && opts.message">
-                <h2
-                    class="AlertBox-title"
-                    v-if="opts.title"
-                    v-html="opts.title"
-                ></h2>
+                <h2 class="title" v-if="opts.title" v-html="opts.title"></h2>
                 <p
-                    class="AlertBox-msg"
+                    class="message"
                     v-show="opts.message"
                     v-html="opts.message"
                 ></p>
             </template>
             <template v-else>
-                <h2
-                    class="AlertBox-title"
-                    v-html="opts.title || opts.message"
-                ></h2>
+                <h2 class="title" v-html="opts.title || opts.message"></h2>
             </template>
         </div>
-        <footer class="AlertBox-actions">
+        <footer class="actions">
             <ls-button
-                class="AlertBox-action"
+                class="action-btn"
                 variant="secondary"
                 size="sm"
                 v-if="opts.cancelShow"
@@ -39,7 +32,7 @@
                 {{ opts.cancelText }}
             </ls-button>
             <ls-spinner-button
-                class="AlertBox-action"
+                class="action-btn"
                 size="sm"
                 v-if="opts.okShow"
                 @click="handleOkClick"
@@ -53,7 +46,7 @@
 <script>
 const Type = {
     CONFIRM: 'confirm',
-    MESSAGE: 'msg',
+    MESSAGE: 'message',
 }
 
 const defaultOpts = {
@@ -88,10 +81,22 @@ export default {
             }
             this.shown = true
         },
-        msg(message, okText = 'OK') {
+        ok({ message, title = '', okText = 'OK' }) {
             this.type = Type.MESSAGE
             this.opts = {
                 ...defaultOpts,
+                title,
+                message,
+                okText,
+                cancelShow: false,
+            }
+            this.shown = true
+        },
+        oops({ message, title = 'Oops!', okText = 'OK' }) {
+            this.type = Type.MESSAGE
+            this.opts = {
+                ...defaultOpts,
+                title,
                 message,
                 okText,
                 cancelShow: false,

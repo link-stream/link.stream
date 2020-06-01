@@ -1,80 +1,86 @@
 <template>
-    <div>
-        <ul>
-            <li v-for="option in options" :key="option.id">
-                <b-form-checkbox
-                    :value="option"
-                    v-model="selected"
-                ></b-form-checkbox>
-
+    <div class="MarketingBlock">
+        <div class="Card" v-for="option in options" :key="option.id">
+            <b-form-checkbox
+                :value="option"
+                v-model="localSelected"
+            ></b-form-checkbox>
+            <LsIcon class="logo" :icon="option.icon" />
+            <div class="Card-title">
                 {{ option.title }}
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'Marketing',
+    name: 'MarketingBlock',
     props: {
-        active: {
+        selected: {
+            type: Array,
+        },
+        isEditMode: {
             type: Boolean,
             default: false,
-        },
-        initialSelected: {
-            type: Array,
-            default() {
-                return []
-            },
         },
     },
     data() {
         return {
-            selected: [...this.initialSelected],
+            localSelected: [...this.selected],
             options: [
                 {
                     id: 1,
                     title: 'Follow on LinkStream',
+                    icon: 'logo-streamy',
                 },
                 {
                     id: 2,
                     title: 'Follow on SoundCloud',
+                    icon: 'logo-sc',
                 },
                 {
                     id: 3,
                     title: 'Follow on Instagram',
+                    icon: 'logo-ig',
                 },
                 {
                     id: 4,
                     title: 'Follow on Twitter',
+                    icon: 'logo-twitter',
                 },
                 {
                     id: 5,
                     title: 'Subscribe to Emails',
+                    icon: 'envelope-open',
                 },
                 {
                     id: 6,
                     title: 'Subscribe to SMS',
+                    icon: 'envelope-open',
                 },
             ],
         }
     },
     watch: {
-        initialSelected() {
-            this.selected = [...this.initialSelected]
+        localSelected() {
+            !this.isEditMode && this.updateWizardForm()
         },
     },
     created() {
-        this.$bus.$on('wz.validate.marketing', this.handleValidate)
+        this.$bus.$on('wz.validateBlock.marketing', this.handleBlockValidate)
+    },
+    destroyed() {
+        this.$bus.$off('wz.validateBlock.marketing')
     },
     methods: {
-        handleValidate({ onSuccess }) {
-            if (!this.active) {
-                return
-            }
+        updateWizardForm() {
             this.$bus.$emit('wz.updateForm', {
-                marketing: [...this.selected],
+                marketing: [...this.localSelected],
             })
+        },
+        handleBlockValidate({ onSuccess }) {
+            this.updateWizardForm()
             onSuccess()
         },
     },

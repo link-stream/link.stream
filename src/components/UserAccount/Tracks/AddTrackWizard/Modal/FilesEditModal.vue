@@ -1,23 +1,23 @@
 <template>
-    <b-modal size="lg" centered v-model="shown">
+    <b-modal v-model="shown" size="lg" centered @hidden="handleHidden">
         <template v-slot:modal-header>
-            <LsIconButton class="modal-close" use-bg-img @click="close" />
+            <LsButton variant="icon-bg" class="modal-close" @click="close" />
             <h2 class="modal-title">Files</h2>
         </template>
 
         <template v-slot:default>
-            <FileUploadBlock :active="shown" :initial-files="files" />
+            <FileUploadBlock :files="files" :is-edit-mode="true" />
         </template>
 
         <template v-slot:modal-footer>
             <ls-button
-                class="modal-action modal-cancel"
+                class="action-btn cancel-btn"
                 variant="secondary"
                 @click="close"
             >
                 Cancel
             </ls-button>
-            <ls-button class="modal-action" @click="handleSaveClick">
+            <ls-button class="action-btn" @click="handleSaveClick">
                 Save
             </ls-button>
         </template>
@@ -32,28 +32,27 @@ export default {
     components: {
         FileUploadBlock,
     },
+    props: {
+        files: {
+            type: Object,
+        },
+    },
     data() {
         return {
-            shown: false,
-            files: {},
+            shown: true,
         }
-    },
-    created() {
-        this.$bus.$on('modal.filesEdit.show', this.handleShow)
-        this.$bus.$on('modal.filesEdit.hide', this.close)
     },
     methods: {
         close() {
             this.shown = false
         },
-        handleShow({ files }) {
-            this.files = files
-            this.shown = true
-        },
         handleSaveClick() {
-            this.$bus.$emit('wz.validate.files', {
+            this.$bus.$emit('wz.validateBlock.files', {
                 onSuccess: this.close,
             })
+        },
+        handleHidden() {
+            this.$emit('hidden', { modalName: 'files' })
         },
     },
 }

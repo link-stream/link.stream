@@ -45,7 +45,10 @@
                 </header>
                 <main class="step-body">
                     <div class="step-fields">
-                        <youtube class="yt-wrap" :video-id="ytVidId"></youtube>
+                        <youtube
+                            class="video-wrapper"
+                            :video-id="ytVidId"
+                        ></youtube>
                         <b-form-group
                             label="Video Title"
                             label-for="titleInput"
@@ -58,10 +61,10 @@
                             ></b-form-input>
                             <b-form-invalid-feedback>
                                 <template v-if="!$v.form.title.required">
-                                    Enter a title
+                                    Title can't be blank
                                 </template>
                                 <template v-else-if="!$v.form.title.minLength">
-                                    The title must be at least
+                                    Title must be at least
                                     {{ $v.form.title.$params.minLength.min }}
                                     characters
                                 </template>

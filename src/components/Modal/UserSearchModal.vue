@@ -10,12 +10,12 @@
         v-model="shown"
     >
         <template v-slot:modal-header>
-            <LsIconButton class="modal-close" use-bg-img @click="close" />
+            <LsButton variant="icon-bg" class="modal-close" @click="close" />
             <h2 class="modal-title">Search for collaborator</h2>
         </template>
 
         <template v-slot:default>
-            <div class="ls-search-input" :class="{ '--loading': loading }">
+            <div class="search-box" :class="{ '--loading': loading }">
                 <LsIcon class="search-icon" icon="search" />
                 <input
                     type="text"

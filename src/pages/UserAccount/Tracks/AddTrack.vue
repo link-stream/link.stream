@@ -1,25 +1,19 @@
 <template>
     <div class="page page-ua-track-add">
-        <LsSpinner v-show="loading" />
-        <Wizard v-show="!loading" />
+        <div class="page-body">
+            <div class="page-spinner" v-if="loading">
+                <LsSpinner />
+            </div>
+            <Wizard v-else />
+        </div>
         <UserInviteModal />
         <UserSearchModal />
-        <TrackInfoEditModal />
-        <LicensesEditModal />
-        <FilesEditModal />
-        <MarketingEditModal />
     </div>
 </template>
 
 <script>
 import Wizard from '~/components/UserAccount/Tracks/AddTrackWizard/Wizard'
 import { UserInviteModal, UserSearchModal } from '~/components/Modal'
-import {
-    TrackInfoEditModal,
-    LicensesEditModal,
-    FilesEditModal,
-    MarketingEditModal,
-} from '~/components/UserAccount/Tracks/AddTrackWizard'
 
 export default {
     name: 'AddTrack',
@@ -27,10 +21,6 @@ export default {
         Wizard,
         UserInviteModal,
         UserSearchModal,
-        TrackInfoEditModal,
-        LicensesEditModal,
-        FilesEditModal,
-        MarketingEditModal,
     },
     data() {
         return {

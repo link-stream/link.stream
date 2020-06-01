@@ -121,7 +121,7 @@ export const linkAddEditForm = {
             if (status === 'success') {
                 this.$toast.success(message)
                 if (this.editing) {
-                    this.closeEdit()
+                    this.closeEditMode()
                 } else {
                     this.$router.push({ name: 'userAccountLinks' })
                 }

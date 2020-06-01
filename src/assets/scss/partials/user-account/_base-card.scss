@@ -5,81 +5,75 @@
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.22);
     margin: 15px 0;
     padding: 15px;
-}
 
-.Card-drag-i {
-    cursor: move;
-}
-
-.Card-edit-btn {
-    padding: 0;
-    &:before {
-        background-image: url(~@/../public/static/ico/edit-cir-white-sm.svg);
-        width: 40px;
-        height: 40px;
-    }
-}
-
-.Card-trash-btn {
-    visibility: hidden;
-    display: none;
-    opacity: 0;
-    transition: visibility 0.3s, opacity 0.3s;
-}
-
-.Card-e-close-btn {
-    position: absolute;
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 20px;
-}
-
-.Card-e-actions {
-    display: flex;
-    justify-content: space-between;
-    border-top: 1px solid $linkstream-30;
-    padding-top: 16px;
-    margin-top: 16px;
-    .flex-item:nth-child(2) {
-        .btn {
-            margin-left: 10px;
-        }
-    }
-}
-
-@include media-breakpoint-up(md) {
-    .Card:hover {
-        .Card-trash-btn {
-            visibility: visible;
-            opacity: 1;
-        }
+    .close-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 20px;
     }
 
-    .Card-trash-btn,
-    .Card-edit-btn {
-        margin-left: 10px;
-    }
-
-    .Card-edit-btn {
+    .edit-btn {
+        padding: 0;
         &:before {
-            background-image: url(~@/../public/static/ico/edit-cir-white-lg.svg);
-            width: 50px;
-            height: 50px;
+            background-image: url(~@/../public/static/ico/edit-cir-white-sm.svg);
+            width: 40px;
+            height: 40px;
         }
+    }
+
+    .trash-btn {
+        visibility: hidden;
+        display: none;
+        opacity: 0;
+        transition: visibility 0.3s, opacity 0.3s;
+    }
+
+    .edit-actions {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid $linkstream-30;
+        padding-top: 16px;
+        margin-top: 16px;
+    }
+
+    .drag-icon {
+        cursor: move;
+    }
+
+    @include media-breakpoint-up(md) {
         &:hover {
-            &:before {
-                background-image: url(~@/../public/static/ico/edit-cir-gray-lg.svg);
+            .trash-btn {
+                visibility: visible;
+                opacity: 1;
             }
         }
-    }
 
-    .Card-trash-btn {
-        display: block;
-        &:before {
-            background-image: url(~@/../public/static/ico/trash-lg.svg);
-            width: 50px;
-            height: 50px;
+        .trash-btn,
+        .edit-btn {
+            margin-left: 10px;
+        }
+
+        .edit-btn {
+            &:before {
+                background-image: url(~@/../public/static/ico/edit-cir-white-lg.svg);
+                width: 50px;
+                height: 50px;
+            }
+            &:hover {
+                &:before {
+                    background-image: url(~@/../public/static/ico/edit-cir-gray-lg.svg);
+                }
+            }
+        }
+
+        .trash-btn {
+            display: block;
+            &:before {
+                background-image: url(~@/../public/static/ico/trash-lg.svg);
+                width: 50px;
+                height: 50px;
+            }
         }
     }
 }

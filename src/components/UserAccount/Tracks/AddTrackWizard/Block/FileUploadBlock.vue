@@ -1,24 +1,24 @@
 <template>
-    <div>
+    <div class="FileUploadBlock">
         <DropAudio
             title="Untagged .WAV (or .MP3)"
-            :src="files.untagged && files.untagged.base64"
-            :filename="files.untagged && files.untagged.name"
+            :src="localFiles.untagged && localFiles.untagged.base64"
+            :filename="localFiles.untagged && localFiles.untagged.name"
             @file-add="handleUntaggedFileAdded"
             @file-remove="handleUntaggedFileRemoved"
         />
         <DropFile
             title="Track Stems .ZIP (or .RAR)"
-            acceptTypes=".zip,.rar"
-            :src="files.stems && files.stems.base64"
-            :filename="files.stems && files.stems.name"
+            :acceptTypes="['.rar', '.zip']"
+            :src="localFiles.stems && localFiles.stems.base64"
+            :filename="localFiles.stems && localFiles.stems.name"
             @file-add="handleStemsFileAdded"
             @file-remove="handleStemsFileRemoved"
         />
         <DropAudio
             title="Tagged Streaming File (.MP3 or .WAV)"
-            :src="files.tagged && files.tagged.base64"
-            :filename="files.tagged && files.tagged.name"
+            :src="localFiles.tagged && localFiles.tagged.base64"
+            :filename="localFiles.tagged && localFiles.tagged.name"
             @file-add="handleTaggedFileAdded"
             @file-remove="handleTaggedFileRemoved"
         />
@@ -35,71 +35,66 @@ export default {
         DropFile,
     },
     props: {
-        active: {
+        files: {
+            type: Object,
+        },
+        isEditMode: {
             type: Boolean,
             default: false,
-        },
-        initialFiles: {
-            type: Object,
-            default() {
-                return {}
-            },
         },
     },
     data() {
         return {
-            files: {
-                tagged: null,
-                untagged: null,
-                stems: null,
-                ...this.initialFiles,
-            },
+            localFiles: { ...this.files },
         }
     },
     watch: {
-        initialFiles() {
-            this.files = { ...this.initialFiles }
+        localFiles() {
+            !this.isEditMode && this.updateWizardForm()
         },
     },
     created() {
-        this.$bus.$on('wz.validate.files', this.handleValidate)
+        this.$bus.$on('wz.validateBlock.files', this.handleBlockValidate)
+    },
+    destroyed() {
+        this.$bus.$off('wz.validateBlock.files')
     },
     methods: {
-        handleValidate({ onSuccess }) {
-            if (!this.active) {
-                return
-            }
+        updateWizardForm() {
             this.$bus.$emit('wz.updateForm', {
-                files: { ...this.files },
+                files: { ...this.localFiles },
             })
+        },
+        handleBlockValidate({ onSuccess }) {
+            this.updateWizardForm()
             onSuccess()
         },
         handleUntaggedFileAdded({ name, base64 }) {
-            this.files.untagged = {
+            this.localFiles.untagged = {
                 name,
                 base64,
             }
         },
         handleUntaggedFileRemoved() {
-            this.files.untagged = null
+            this.localFiles.untagged = null
         },
         handleStemsFileAdded({ name, base64 }) {
-            this.files.stems = {
+            this.localFiles.stems = {
                 name,
                 base64,
             }
         },
         handleStemsFileRemoved() {
-            this.files.stems = null
+            this.localFiles.stems = null
         },
         handleTaggedFileAdded({ name, base64 }) {
-            this.files.tagged = {
+            this.localFiles.tagged = {
                 name,
                 base64,
             }
         },
         handleTaggedFileRemoved() {
-            this.files.tagged = null
+            this.localFiles.tagged = null
         },
     },
 }

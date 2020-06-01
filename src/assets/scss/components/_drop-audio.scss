@@ -1,26 +1,31 @@
-.drop-audio {
-    .d__title {
-        font-weight: bold;
-    }
-
-    .d__prv {
-        display: flex;
-        .flex-item:nth-child(2) {
-            flex-grow: 1;
+.DropAudio.DropFile {
+    &.is-playing {
+        .play-icon:before {
+            background-image: url(~@/../public/static/ico/pause-sm.svg);
         }
     }
 
-    .d__upl {
-        display: flex;
-        border: 1px dashed #d1d1d1;
-        border-radius: 4px;
-        cursor: pointer;
-        &.--highlight,
-        &:hover {
-            border-color: $linkstream-20;
+    .player-controls {
+        margin-right: 10px;
+    }
+
+    .play-btn:before {
+        background-image: url(~@/../public/static/ico/play-sm.svg);
+        width: 24px;
+        height: 24px;
+    }
+
+    @include media-breakpoint-up(sm) {
+        &.is-playing {
+            .play-btn:before {
+                background-image: url(~@/../public/static/ico/pause-lg.svg);
+            }
         }
-        .flex-item:nth-child(1) {
-            flex-grow: 1;
+
+        .play-btn:before {
+            background-image: url(~@/../public/static/ico/play-lg.svg);
+            width: 35px;
+            height: 35px;
         }
     }
 }

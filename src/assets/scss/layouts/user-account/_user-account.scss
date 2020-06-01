@@ -22,26 +22,26 @@
         }
     }
 
-    .LsSpinner {
-        margin-top: 75px;
-    }
-
-    .permaurl {
+    .perma-url {
         color: $black;
         font-size: px2rem(12);
         font-weight: 600;
         line-height: 1rem;
         letter-spacing: 0.5px;
         margin: 15px 0;
-        .permaurl-light {
-            color: $linkstream-70;
+        .text-light {
+            color: $linkstream-70 !important;
             font-size: 12px;
             font-weight: 600;
             letter-spacing: 0;
         }
-        .permaurl-link {
+        .btn {
             margin-left: 7px;
         }
+    }
+
+    .page-spinner {
+        margin-top: 75px;
     }
 
     .page-header {
@@ -80,7 +80,7 @@
             }
         }
 
-        .permaurl {
+        .perma-url {
             margin-bottom: 0;
         }
 
@@ -93,10 +93,10 @@
 
         .page-header {
             flex-direction: row;
-            .header-left {
+            .col-left {
                 flex-grow: 1;
             }
-            .header-right {
+            .col-right {
                 align-self: flex-end;
             }
         }

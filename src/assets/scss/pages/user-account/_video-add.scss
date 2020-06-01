@@ -1,5 +1,5 @@
 .page-ua-vid-add {
-    .yt-wrap {
+    .video-wrapper {
         width: 202px;
         height: 113px;
         margin-bottom: 20px;
@@ -28,7 +28,7 @@
     }
 
     @include media-breakpoint-up(sm) {
-        .yt-wrap {
+        .video-wrapper {
             width: 330px;
             height: 186px;
         }

@@ -1,7 +1,7 @@
 <template>
     <b-modal modal-class="LinkScheduleModal" centered v-model="shown">
         <template v-slot:modal-header>
-            <LsIconButton class="modal-close" use-bg-img @click="close" />
+            <LsButton variant="icon-bg" class="modal-close" @click="close" />
             <h2 class="modal-title">Schedule link</h2>
         </template>
 
@@ -45,11 +45,11 @@
         </template>
 
         <template v-slot:modal-footer>
-            <ls-button class="modal-action" variant="secondary" @click="close">
+            <ls-button class="action-btn" variant="secondary" @click="close">
                 Cancel
             </ls-button>
             <ls-spinner-button
-                class="modal-action"
+                class="action-btn"
                 :loading="loading"
                 @click="handleSaveClick"
             >

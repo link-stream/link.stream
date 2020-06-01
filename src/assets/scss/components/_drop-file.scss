@@ -1,26 +1,75 @@
-.drop-file {
-    .d__title {
-        font-weight: bold;
-    }
-
-    .d__prv {
+.DropFile {
+    .preview,
+    .upload {
         display: flex;
-        .flex-item:nth-child(2) {
-            flex-grow: 1;
-        }
-    }
-
-    .d__upl {
-        display: flex;
-        border: 1px dashed #d1d1d1;
+        align-items: center;
         border-radius: 4px;
+        padding: 15px 20px;
+        height: 80px;
+    }
+
+    .preview {
+        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.22);
+    }
+
+    .upload {
+        border: 1px dashed $linkstream-130;
         cursor: pointer;
-        &.--highlight,
+        &.highlight,
         &:hover {
             border-color: $linkstream-20;
         }
-        .flex-item:nth-child(1) {
-            flex-grow: 1;
+    }
+
+    .upload-icon {
+        @extend .LsIcon;
+        &:before {
+            @extend .LsIcon:before;
+            background-image: url(~@/../public/static/ico/cloud-upload-sm.svg);
+            width: 35px;
+            height: 28px;
+        }
+    }
+
+    .file-info {
+        flex-grow: 1;
+    }
+
+    .file-desc {
+        font-size: px2rem(12);
+        font-weight: bold;
+    }
+
+    .file-name {
+        font-size: px2rem(11);
+    }
+
+    .file-remove-btn {
+        display: none;
+        text-decoration: none;
+    }
+
+    @include media-breakpoint-up(md) {
+        .file-desc {
+            font-size: px2rem(14);
+        }
+
+        .file-name {
+            font-size: px2rem(12);
+        }
+
+        .upload-icon:before {
+            background-image: url(~@/../public/static/ico/cloud-upload-lg.svg);
+            width: 43px;
+            height: 34px;
+        }
+
+        .file-remove-btn {
+            display: block;
+        }
+
+        .file-menu {
+            display: none;
         }
     }
 }

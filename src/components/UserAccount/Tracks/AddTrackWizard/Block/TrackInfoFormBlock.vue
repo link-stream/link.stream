@@ -1,6 +1,17 @@
 <template>
-    <div>
+    <div class="TrackInfoFormBlock">
         <div class="step-fields">
+            <b-form-group label="Track Type" v-if="!noTrackTypeField">
+                <b-form-radio-group v-model="form.trackType">
+                    <b-form-radio value="2">
+                        Beat
+                    </b-form-radio>
+                    <b-form-radio value="1">
+                        Song
+                    </b-form-radio>
+                </b-form-radio-group>
+            </b-form-group>
+
             <b-form-group :label="isSong ? 'Song Title*' : 'Beat Title*'">
                 <b-form-input
                     placeholder="Enter a title"
@@ -8,7 +19,7 @@
                     :state="!$v.form.title.$error"
                 ></b-form-input>
                 <b-form-invalid-feedback>
-                    Enter a title
+                    Title can't be blank
                 </b-form-invalid-feedback>
             </b-form-group>
 
@@ -54,7 +65,7 @@
                 class="input-track-pack"
                 :label="`Add to ${isSong ? 'Song' : 'Beat'} Pack`"
             >
-                <div class="ls-search-input">
+                <div class="search-box">
                     <LsIcon class="search-icon" icon="search" />
                     <b-form-input
                         v-model="form.trackPack"
@@ -112,7 +123,7 @@
                                 icon="close"
                                 class="remove-btn"
                                 v-if="index > 0"
-                                @click="handleRemoveCollabClick(index)"
+                                @click="handleCollabRemoveClick(index)"
                             />
                         </div>
                     </li>
@@ -135,65 +146,44 @@
 import { required } from 'vuelidate/lib/validators'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
+import { cloneDeep } from 'lodash'
 
 export default {
     name: 'TrackInfoFormBlock',
     props: {
-        active: {
+        trackInfo: {
+            type: Object,
+        },
+        isEditMode: {
             type: Boolean,
             default: false,
         },
-        trackType: {
-            type: Number,
-        },
-        trackInfo: {
-            type: Object,
-            default() {
-                return {}
-            },
+        noTrackTypeField: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {
         return {
             tag: '',
-            form: {
-                title: null,
-                genre: {},
-                tags: [],
-                bpm: 0,
-                key: null,
-                trackPack: null,
-                collabs: [
-                    {
-                        profitPercent: 100,
-                        pubPercent: 100,
-                        user: {
-                            id: null,
-                            name: null,
-                            photo: null,
-                        },
-                    },
-                ],
-                ...this.trackInfo,
-            },
+            form: cloneDeep(this.trackInfo),
         }
     },
     computed: {
         isSong() {
-            return this.trackType === appConstants.tracks.types.song
+            return this.form.trackType == appConstants.tracks.types.song
         },
         ...mapGetters({
-            user: 'me/user',
             genres: 'common/genres',
             audioKeys: 'common/audioKeys',
         }),
     },
     watch: {
-        trackInfo() {
-            this.form = {
-                ...this.form,
-                ...this.trackInfo,
-            }
+        form: {
+            deep: true,
+            handler() {
+                !this.isEditMode && this.updateWizardForm()
+            },
         },
     },
     validations() {
@@ -216,27 +206,31 @@ export default {
         }
     },
     created() {
-        this.$bus.$on('wz.validate.trackInfo', this.handleValidate)
-        this.$bus.$on('modal.userSearch.userClick', this.handleAddCollab)
+        this.$bus.$on('wz.validateBlock.trackInfo', this.handleBlockValidate)
+        this.$bus.$on('modal.userSearch.userClick', this.handleCollabAdd)
     },
-    beforeMount() {
-        this.form.collabs[0].user = {
-            id: this.user.id,
-            name: this.user.user_name,
-            photo: this.user.photo,
-        }
+    destroyed() {
+        this.$bus.$off('wz.validateBlock.trackInfo')
+        this.$bus.$off('modal.userSearch.userClick')
     },
     methods: {
+        updateWizardForm() {
+            const trackInfo = { ...this.form }
+            delete trackInfo.imageBase64
+            this.$bus.$emit('wz.updateForm', {
+                trackInfo,
+            })
+        },
         showCollabSearchModal() {
             this.$bus.$emit('modal.userSearch.show')
         },
         handleTagsChange(tags) {
             this.form.tags = tags
         },
-        handleRemoveCollabClick(index) {
+        handleCollabRemoveClick(index) {
             this.form.collabs.splice(index, 1)
         },
-        handleAddCollab(user) {
+        handleCollabAdd(user) {
             const collabs = this.form.collabs
             const alreadyAdded = collabs.find(
                 collab => collab.user.id == user.id
@@ -250,17 +244,12 @@ export default {
                 pubPercent: null,
             })
         },
-        handleValidate({ onSuccess }) {
-            if (!this.active) {
-                return
-            }
+        handleBlockValidate({ onSuccess }) {
             this.$v.form.$touch()
             if (this.$v.form.$invalid) {
                 return
             }
-            this.$bus.$emit('wz.updateForm', {
-                trackInfo: { ...this.form },
-            })
+            this.updateWizardForm()
             onSuccess()
         },
     },

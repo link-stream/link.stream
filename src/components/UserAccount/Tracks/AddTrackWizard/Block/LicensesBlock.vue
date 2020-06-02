@@ -8,7 +8,7 @@
             @check="handleLicenseCheck"
             @uncheck="handleLicenseUncheck"
         />
-        <div class="invalid-feedback" v-show="showError">
+        <div class="invalid-feedback" v-show="$v.selectedIds.$error">
             Please select at least one license.
         </div>
     </div>
@@ -17,6 +17,7 @@
 <script>
 import LicenseCard from '../Card/LicenseCard'
 import { mapGetters } from 'vuex'
+import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
     name: 'LicensesBlock',
@@ -30,29 +31,25 @@ export default {
         },
     },
     data() {
+        const { selectedLicenses } = this.$store.getters['trackAddWizard/form']
         return {
-            showError: false,
-            selectedIds: [
-                ...this.$store.getters['trackAddWizard/form'].licenses.map(
-                    l => l.id
-                ),
-            ],
+            selectedIds: [...selectedLicenses.map(l => l.id)],
         }
     },
     computed: {
         ...mapGetters({
             availableLicenses: 'trackAddWizard/licenses',
         }),
-        numSelected() {
-            return this.selectedIds.length
-        },
     },
     watch: {
         selectedIds() {
             !this.isEditMode && this.updateWizardForm()
-            if (this.numSelected) {
-                this.showError = false
-            }
+        },
+    },
+    validations: {
+        selectedIds: {
+            required,
+            minLength: minLength(1),
         },
     },
     created() {
@@ -64,7 +61,7 @@ export default {
     methods: {
         updateWizardForm() {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                licenses: this.availableLicenses.filter(
+                selectedLicenses: this.availableLicenses.filter(
                     l => this.selectedIds.indexOf(l.id) !== -1
                 ),
             })
@@ -78,7 +75,8 @@ export default {
             this.selectedIds.splice(index, 1)
         },
         handleBlockValidate({ onSuccess }) {
-            if (!this.numSelected) {
+            this.$v.selectedIds.$touch()
+            if (this.$v.selectedIds.$invalid) {
                 return
             }
             this.updateWizardForm()

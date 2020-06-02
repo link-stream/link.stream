@@ -9,7 +9,7 @@
             @file-remove="handleUntaggedFileRemoved"
         />
         <div class="invalid-feedback" v-show="$v.files.untagged.$error">
-            Required
+            Untagged file required
         </div>
 
         <DropFile
@@ -23,7 +23,7 @@
             @file-remove="handleStemsFileRemoved"
         />
         <div class="invalid-feedback" v-show="$v.files.stems.$error">
-            Required
+            Track Stems required
         </div>
 
         <DropAudio
@@ -36,7 +36,7 @@
             @file-remove="handleTaggedFileRemoved"
         />
         <div class="invalid-feedback" v-show="$v.files.tagged.$error">
-            Required
+            Tagged file required
         </div>
     </div>
 </template>
@@ -73,8 +73,8 @@ export default {
             tagged: {},
             stems: {},
         }
-        const licenses = this.$store.getters['trackAddWizard/form'].licenses
-        licenses.forEach(license => {
+        const { selectedLicenses } = this.$store.getters['trackAddWizard/form']
+        selectedLicenses.forEach(license => {
             if (license.mp3 == '1') {
                 rules.untagged.required = required
             }

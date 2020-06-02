@@ -4,8 +4,8 @@ import { cloneDeep } from 'lodash'
 const initialState = () => ({
     licenses: [],
     form: {
-        licenses: [],
-        marketing: [],
+        selectedLicenses: [],
+        selectedMarketing: [],
         files: {
             tagged: null,
             untagged: null,

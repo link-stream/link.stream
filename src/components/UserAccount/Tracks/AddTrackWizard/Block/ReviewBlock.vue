@@ -25,8 +25,8 @@
                 class="edit-btn"
                 @click="showEditModal('licenses')"
             />
-            <p v-if="!licenses.length">No licenses selected</p>
-            <ul v-for="license in licenses" :key="license.id">
+            <p v-if="!selectedLicenses.length">No licenses selected</p>
+            <ul v-for="license in selectedLicenses" :key="license.id">
                 <li>
                     <p>
                         ${{ license.prize | trimZeroDecimal }} -
@@ -67,9 +67,9 @@
                 class="edit-btn"
                 @click="showEditModal('marketing')"
             />
-            <p v-if="!marketing.length">No promotions selected</p>
+            <p v-if="!selectedMarketing.length">No promotions selected</p>
             <ul>
-                <li v-for="m in marketing" :key="m.id">
+                <li v-for="m in selectedMarketing" :key="m.id">
                     {{ m.title }}
                 </li>
             </ul>
@@ -135,14 +135,14 @@ export default {
                 ...this.summary.trackInfo,
             }
         },
-        licenses() {
-            return this.summary.licenses
+        selectedLicenses() {
+            return this.summary.selectedLicenses
         },
         files() {
             return this.summary.files
         },
-        marketing() {
-            return this.summary.marketing
+        selectedMarketing() {
+            return this.summary.selectedMarketing
         },
         isSong() {
             return (

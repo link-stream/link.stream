@@ -9,7 +9,7 @@
             @file-remove="handleUntaggedFileRemoved"
         />
         <div class="invalid-feedback" v-show="$v.files.untagged.$error">
-            Untagged file required
+            This file is required
         </div>
 
         <DropFile
@@ -23,7 +23,7 @@
             @file-remove="handleStemsFileRemoved"
         />
         <div class="invalid-feedback" v-show="$v.files.stems.$error">
-            Track Stems required
+            This file is required
         </div>
 
         <DropAudio
@@ -36,7 +36,7 @@
             @file-remove="handleTaggedFileRemoved"
         />
         <div class="invalid-feedback" v-show="$v.files.tagged.$error">
-            Tagged file required
+            This file is required
         </div>
     </div>
 </template>

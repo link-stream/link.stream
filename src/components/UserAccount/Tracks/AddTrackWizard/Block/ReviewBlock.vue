@@ -67,9 +67,9 @@
                 class="edit-btn"
                 @click="showEditModal('marketing')"
             />
-            <p v-if="!selectedMarketing.length">No promotions selected</p>
+            <p v-if="!selectedPromos.length">No promotions selected</p>
             <ul>
-                <li v-for="m in selectedMarketing" :key="m.id">
+                <li v-for="m in selectedPromos" :key="m.id">
                     {{ m.title }}
                 </li>
             </ul>
@@ -141,8 +141,8 @@ export default {
         files() {
             return this.summary.files
         },
-        selectedMarketing() {
-            return this.summary.selectedMarketing
+        selectedPromos() {
+            return this.summary.selectedPromos
         },
         isSong() {
             return (

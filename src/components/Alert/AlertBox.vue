@@ -81,7 +81,7 @@ export default {
             }
             this.shown = true
         },
-        ok({ message, title = '', okText = 'OK' }) {
+        ok(message, { title = '', okText = 'OK' } = {}) {
             this.type = Type.MESSAGE
             this.opts = {
                 ...defaultOpts,
@@ -92,7 +92,7 @@ export default {
             }
             this.shown = true
         },
-        oops({ message, title = 'Oops!', okText = 'OK' }) {
+        oops(message, { title = 'Oops!', okText = 'OK' } = {}) {
             this.type = Type.MESSAGE
             this.opts = {
                 ...defaultOpts,

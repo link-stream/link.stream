@@ -1,5 +1,5 @@
 <template>
-    <div class="TrackInfoFormBlock">
+    <div class="TrackInfoBlock">
         <div class="step-fields">
             <b-form-group label="Track Type" v-if="!noTrackTypeField">
                 <b-form-radio-group v-model="form.trackType">
@@ -146,7 +146,7 @@ import { mapGetters } from 'vuex'
 import { cloneDeep } from 'lodash'
 
 export default {
-    name: 'TrackInfoFormBlock',
+    name: 'TrackInfoBlock',
     props: {
         isEditMode: {
             type: Boolean,

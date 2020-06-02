@@ -42,13 +42,13 @@ export const uploaderMixin = {
     },
     methods: {
         showInvalidFileAlert() {
-            this.$alert.oops({
-                message: `Only ${this.acceptTypes
+            this.$alert.oops(
+               `Only ${this.acceptTypes
                     .slice(0, -1)
                     .join(', ')} and ${this.acceptTypes
                     .slice(-1)
                     .join(', ')} files allowed`,
-            })
+            )
         },
         showFileDialog() {
             this.$refs.fileInput.value = null

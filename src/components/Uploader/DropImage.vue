@@ -105,13 +105,13 @@ export default {
     },
     methods: {
         showInvalidFileAlert() {
-            this.$alert.oops({
-                message: `Only ${this.acceptTypes
+            this.$alert.oops(
+                `Only ${this.acceptTypes
                     .slice(0, -1)
                     .join(', ')} and ${this.acceptTypes
                     .slice(-1)
-                    .join(', ')} images allowed`,
-            })
+                    .join(', ')} images allowed`
+            )
         },
         async addFile(file) {
             if (!this.validateFile(file)) {
@@ -149,7 +149,12 @@ export default {
             this.tmpFile = file
         },
         handleFileSelected(e) {
-            this.tmpFile = e.target.files[0]
+            const file = e.target.files[0]
+            if (!this.validateFile(file)) {
+                this.showInvalidFileAlert()
+                return
+            }
+            this.tmpFile = file
         },
         handleDokaCancel() {
             this.tmpFile = null

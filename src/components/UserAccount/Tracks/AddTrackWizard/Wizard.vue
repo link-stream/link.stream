@@ -65,7 +65,7 @@
                     Suggested Dimensions: 1000x1000
                 </div>
             </div>
-            <TrackInfoFormBlock class="step-main" no-track-type-field />
+            <TrackInfoBlock class="step-main" no-track-type-field />
         </wizard-step>
 
         <!-- STEP - LICENSE TYPES -->
@@ -119,7 +119,7 @@
                 Back
             </ls-button>
             <ls-button class="fwz-next-btn" @click="handleNextClick">
-                Next
+                {{ isStepReview ? 'Save' : 'Next' }}
             </ls-button>
         </footer>
     </div>
@@ -128,7 +128,7 @@
 <script>
 import WizardStep from './WizardStep'
 import WizardTabs from './WizardTabs'
-import TrackInfoFormBlock from './Block/TrackInfoFormBlock'
+import TrackInfoBlock from './Block/TrackInfoBlock'
 import LicensesBlock from './Block/LicensesBlock'
 import FileUploadBlock from './Block/FileUploadBlock'
 import MarketingBlock from './Block/MarketingBlock'
@@ -181,7 +181,7 @@ export default {
     components: {
         WizardTabs,
         WizardStep,
-        TrackInfoFormBlock,
+        TrackInfoBlock,
         LicensesBlock,
         FileUploadBlock,
         MarketingBlock,
@@ -269,6 +269,9 @@ export default {
         },
         handleNextClick() {
             switch (this.step) {
+                case STEP_REVIEW:
+                    this.$alert.ok('Coming soon!')
+                    return
                 case STEP_TRACK_INFO:
                 case STEP_FILES:
                 case STEP_LICENSES:

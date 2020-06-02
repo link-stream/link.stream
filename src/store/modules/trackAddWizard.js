@@ -5,7 +5,7 @@ const initialState = () => ({
     licenses: [],
     form: {
         selectedLicenses: [],
-        selectedMarketing: [],
+        selectedPromos: [],
         files: {
             tagged: null,
             untagged: null,

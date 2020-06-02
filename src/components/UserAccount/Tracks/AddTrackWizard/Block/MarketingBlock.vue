@@ -25,7 +25,7 @@ export default {
     data() {
         return {
             selected: [
-                ...this.$store.getters['trackAddWizard/form'].selectedMarketing,
+                ...this.$store.getters['trackAddWizard/form'].selectedPromos,
             ],
             options: [
                 {
@@ -75,7 +75,7 @@ export default {
     methods: {
         updateWizardForm() {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                selectedMarketing: [...this.selected],
+                selectedPromos: [...this.selected],
             })
         },
         handleBlockValidate({ onSuccess }) {

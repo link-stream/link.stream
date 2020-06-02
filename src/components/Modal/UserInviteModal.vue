@@ -63,7 +63,7 @@ export default {
             if (this.$v.email.$invalid) {
                 return
             }
-            this.$alert.ok({ message: 'Todo' })
+            this.$alert.ok('Todo')
         },
     },
 }

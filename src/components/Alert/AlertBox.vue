@@ -2,7 +2,7 @@
     <b-modal
         :modal-class="`AlertBox --${type}`"
         size="sm"
-        v-model="shown"
+        v-model="open"
         centered
         hide-header
         hide-footer
@@ -46,7 +46,7 @@
 <script>
 const Type = {
     CONFIRM: 'confirm',
-    MESSAGE: 'message',
+    ALERT: 'alert',
 }
 
 const defaultOpts = {
@@ -64,7 +64,7 @@ export default {
     name: 'AlertBox',
     data() {
         return {
-            shown: false,
+            open: false,
             type: null,
             opts: {
                 ...defaultOpts,
@@ -79,10 +79,10 @@ export default {
                 okText: 'Confirm',
                 ...opts,
             }
-            this.shown = true
+            this.open = true
         },
         ok(message, { title = '', okText = 'OK' } = {}) {
-            this.type = Type.MESSAGE
+            this.type = Type.ALERT
             this.opts = {
                 ...defaultOpts,
                 title,
@@ -90,10 +90,10 @@ export default {
                 okText,
                 cancelShow: false,
             }
-            this.shown = true
+            this.open = true
         },
         oops(message, { title = 'Oops!', okText = 'OK' } = {}) {
-            this.type = Type.MESSAGE
+            this.type = Type.ALERT
             this.opts = {
                 ...defaultOpts,
                 title,
@@ -101,10 +101,10 @@ export default {
                 okText,
                 cancelShow: false,
             }
-            this.shown = true
+            this.open = true
         },
         close() {
-            this.shown = false
+            this.open = false
         },
         handleOkClick() {
             typeof this.opts.onOk === 'function' && this.opts.onOk()

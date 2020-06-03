@@ -1,5 +1,5 @@
 <template>
-    <b-modal modal-class="LinkScheduleModal" centered v-model="shown">
+    <b-modal modal-class="LinkScheduleModal" centered v-model="open">
         <template v-slot:modal-header>
             <LsButton variant="icon-bg" class="modal-close" @click="close" />
             <h2 class="modal-title">Schedule link</h2>
@@ -23,7 +23,7 @@
                 <b-form-group>
                     <b-form-checkbox
                         :checked="endDateEnabled"
-                        @change="handleEndDateToggleChange"
+                        @change="handleEndDateCheckChange"
                     >
                         Set end date
                     </b-form-checkbox>
@@ -67,7 +67,7 @@ export default {
     name: 'LinkScheduleModal',
     data() {
         return {
-            shown: false,
+            open: false,
             loading: false,
             endDateEnabled: false,
             form: {
@@ -103,9 +103,9 @@ export default {
     },
     methods: {
         close() {
-            this.shown = false
+            this.open = false
         },
-        handleEndDateToggleChange() {
+        handleEndDateCheckChange() {
             this.$v.form.endDate.$reset()
             this.$v.form.endTime.$reset()
             this.endDateEnabled = !this.endDateEnabled
@@ -121,7 +121,7 @@ export default {
                 endTime: null,
             }
             if (!this.link.scheduled) {
-                this.shown = true
+                this.open = true
                 return
             }
             const { date, time, end_date, end_time } = this.link
@@ -138,7 +138,7 @@ export default {
                     endTime: end_time,
                 }
             }
-            this.shown = true
+            this.open = true
         },
         async handleSaveClick() {
             this.$v.form.$touch()

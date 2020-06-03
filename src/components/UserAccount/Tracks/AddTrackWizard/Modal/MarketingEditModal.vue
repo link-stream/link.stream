@@ -1,7 +1,7 @@
 <template>
     <b-modal
         modal-class="MarketingEditModal"
-        v-model="shown"
+        v-model="open"
         size="lg"
         centered
         @hidden="handleHidden"
@@ -40,12 +40,12 @@ export default {
     },
     data() {
         return {
-            shown: true,
+            open: true,
         }
     },
     methods: {
         close() {
-            this.shown = false
+            this.open = false
         },
         handleSaveClick() {
             this.$bus.$emit('wz.validateBlock.marketing', {
@@ -53,7 +53,7 @@ export default {
             })
         },
         handleHidden() {
-            this.$emit('hidden', { modalName: 'marketing' })
+            this.$emit('hidden', { section: 'marketing' })
         },
     },
 }

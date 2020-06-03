@@ -1,5 +1,5 @@
 <template>
-    <b-modal v-model="shown" size="lg" centered @hidden="handleHidden">
+    <b-modal v-model="open" size="lg" centered @hidden="handleHidden">
         <template v-slot:modal-header>
             <LsButton variant="icon-bg" class="modal-close" @click="close" />
             <h2 class="modal-title">Track Info</h2>
@@ -34,12 +34,12 @@ export default {
     },
     data() {
         return {
-            shown: true,
+            open: true,
         }
     },
     methods: {
         close() {
-            this.shown = false
+            this.open = false
         },
         handleSaveClick() {
             this.$bus.$emit('wz.validateBlock.trackInfo', {
@@ -47,7 +47,7 @@ export default {
             })
         },
         handleHidden() {
-            this.$emit('hidden', { modalName: 'trackInfo' })
+            this.$emit('hidden', { section: 'trackInfo' })
         },
     },
 }

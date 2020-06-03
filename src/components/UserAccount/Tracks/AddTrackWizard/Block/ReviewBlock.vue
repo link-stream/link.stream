@@ -1,12 +1,12 @@
 <template>
-    <div class="block-review">
+    <div class="ReviewBlock">
         <div class="Card">
             <h4 class="Card-title">Track Info</h4>
             <LsButton
                 variant="icon-bg"
                 title="Edit"
                 class="edit-btn"
-                @click="showEditModal('trackInfo')"
+                @click="handleEditClick('trackInfo')"
             />
             <p>Title: {{ trackInfo.title }}</p>
             <p>Type: {{ isSong ? 'Song' : 'Beat' }}</p>
@@ -23,7 +23,7 @@
                 variant="icon-bg"
                 title="Edit"
                 class="edit-btn"
-                @click="showEditModal('licenses')"
+                @click="handleEditClick('licenses')"
             />
             <p v-if="!selectedLicenses.length">No licenses selected</p>
             <ul v-for="license in selectedLicenses" :key="license.id">
@@ -43,20 +43,32 @@
                 variant="icon-bg"
                 title="Edit"
                 class="edit-btn"
-                @click="showEditModal('files')"
+                @click="handleEditClick('files')"
             />
-            <p v-if="!files.untagged && !files.stems && !files.tagged">
-                No files added
-            </p>
-            <ul>
-                <li v-if="files.untagged">
+            <p>
+                <span class="text-danger" v-if="$v.files.untagged.$invalid">
+                    Untagged File: Required
+                </span>
+                <template v-else-if="files.untagged">
                     Untagged File: {{ files.untagged.name }}
-                </li>
-                <li v-if="files.stems">Track Stems: {{ files.stems.name }}</li>
-                <li v-if="files.tagged">
-                    Tagged Streaming File: {{ files.tagged.name }}
-                </li>
-            </ul>
+                </template>
+            </p>
+            <p>
+                <span class="text-danger" v-if="$v.files.stems.$invalid">
+                    Track Stems: Required
+                </span>
+                <template v-else-if="files.stems">
+                    Track Stems: {{ files.stems.name }}
+                </template>
+            </p>
+            <p>
+                <span class="text-danger" v-if="$v.files.tagged.$invalid">
+                    Tagged File: Required
+                </span>
+                <template v-else-if="files.tagged">
+                    Tagged File: {{ files.tagged.name }}
+                </template>
+            </p>
         </div>
 
         <div class="Card">
@@ -65,7 +77,7 @@
                 variant="icon-bg"
                 title="Edit"
                 class="edit-btn"
-                @click="showEditModal('marketing')"
+                @click="handleEditClick('marketing')"
             />
             <p v-if="!selectedPromos.length">No promotions selected</p>
             <ul>
@@ -76,22 +88,22 @@
         </div>
 
         <TrackInfoEditModal
-            v-if="modalShow.trackInfo"
+            v-if="edit.trackInfo"
             @hidden="handleEditModalHidden"
         />
 
         <LicensesEditModal
-            v-if="modalShow.licenses"
+            v-else-if="edit.licenses"
             @hidden="handleEditModalHidden"
         />
 
         <FilesEditModal
-            v-if="modalShow.files"
+            v-else-if="edit.files"
             @hidden="handleEditModalHidden"
         />
 
         <MarketingEditModal
-            v-if="modalShow.marketing"
+            v-else-if="edit.marketing"
             @hidden="handleEditModalHidden"
         />
     </div>
@@ -103,6 +115,7 @@ import LicensesEditModal from '../Modal/LicensesEditModal'
 import FilesEditModal from '../Modal/FilesEditModal'
 import MarketingEditModal from '../Modal/MarketingEditModal'
 import { appConstants } from '~/constants'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'ReviewBlock',
@@ -114,7 +127,7 @@ export default {
     },
     data() {
         return {
-            modalShow: {
+            edit: {
                 trackInfo: false,
                 licenses: false,
                 files: false,
@@ -122,33 +135,29 @@ export default {
             },
         }
     },
+    validations() {
+        return {
+            files: this.filesValidations,
+        }
+    },
     computed: {
-        summary() {
+        ...mapGetters({
+            filesValidations: 'trackAddWizard/filesValidations',
+        }),
+        form() {
             return this.$store.getters['trackAddWizard/form']
         },
         trackInfo() {
-            return {
-                genre: {},
-                collabs: [],
-                key: {},
-                tags: [],
-                ...this.summary.trackInfo,
-            }
+            return this.form.trackInfo
         },
         selectedLicenses() {
-            return this.summary.selectedLicenses
-        },
-        files() {
-            return this.summary.files
+            return this.form.selectedLicenses
         },
         selectedPromos() {
-            return this.summary.selectedPromos
+            return this.form.selectedPromos
         },
-        isSong() {
-            return (
-                this.summary.trackInfo.trackType ===
-                appConstants.tracks.types.song
-            )
+        files() {
+            return this.form.files
         },
         collabs() {
             return this.trackInfo.collabs.map(c => c.user.name).join(', ')
@@ -156,13 +165,18 @@ export default {
         tags() {
             return this.trackInfo.tags.map(t => t.text).join(', ')
         },
+        isSong() {
+            return (
+                this.form.trackInfo.trackType === appConstants.tracks.types.song
+            )
+        },
     },
     methods: {
-        showEditModal(modalName) {
-            this.modalShow[modalName] = true
+        handleEditClick(section) {
+            this.edit[section] = true
         },
-        handleEditModalHidden({ modalName }) {
-            this.modalShow[modalName] = false
+        handleEditModalHidden({ section }) {
+            this.edit[section] = false
         },
     },
 }

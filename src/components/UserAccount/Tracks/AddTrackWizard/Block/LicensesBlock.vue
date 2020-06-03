@@ -8,9 +8,6 @@
             @check="handleLicenseCheck"
             @uncheck="handleLicenseUncheck"
         />
-        <div class="invalid-feedback" v-show="$v.selectedIds.$error">
-            Please select at least one license.
-        </div>
     </div>
 </template>
 
@@ -77,6 +74,7 @@ export default {
         handleBlockValidate({ onSuccess }) {
             this.$v.selectedIds.$touch()
             if (this.$v.selectedIds.$invalid) {
+                this.$toast.error('Please select at least one license.')
                 return
             }
             this.updateWizardForm()

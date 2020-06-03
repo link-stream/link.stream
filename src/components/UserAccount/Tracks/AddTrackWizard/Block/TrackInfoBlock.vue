@@ -166,13 +166,13 @@ export default {
         }
     },
     computed: {
-        isSong() {
-            return this.form.trackType == appConstants.tracks.types.song
-        },
         ...mapGetters({
             genres: 'common/genres',
             audioKeys: 'common/audioKeys',
         }),
+        isSong() {
+            return this.form.trackType == appConstants.tracks.types.song
+        },
     },
     watch: {
         form: {
@@ -182,24 +182,22 @@ export default {
             },
         },
     },
-    validations() {
-        return {
-            form: {
-                title: {
-                    required,
-                },
-                collabs: {
-                    $each: {
-                        profitPercent: {
-                            required,
-                        },
-                        pubPercent: {
-                            required,
-                        },
+    validations: {
+        form: {
+            title: {
+                required,
+            },
+            collabs: {
+                $each: {
+                    profitPercent: {
+                        required,
+                    },
+                    pubPercent: {
+                        required,
                     },
                 },
             },
-        }
+        },
     },
     created() {
         this.$bus.$on('wz.validateBlock.trackInfo', this.handleBlockValidate)

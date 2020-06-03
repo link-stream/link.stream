@@ -1,11 +1,11 @@
 .UserSearchModal {
-    .modal-content {
-        padding-bottom: 60px;
-    }
-    &.--searched {
+    &.--search-done {
         .modal-content {
             padding-bottom: 30px;
         }
+    }
+    .modal-content {
+        padding-bottom: 60px;
     }
     .LsSpinner {
         display: none;
@@ -18,7 +18,7 @@
         }
     }
     .search-box {
-        &.--loading {
+        &.--searching {
             .LsSpinner {
                 display: block;
             }

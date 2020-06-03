@@ -2,7 +2,7 @@
     <b-modal
         modal-class="VideoEditModal"
         size="lg"
-        v-model="shown"
+        v-model="open"
         centered
         no-close-on-backdrop
         no-close-on-esc
@@ -135,7 +135,7 @@ export default {
     mixins: [videoAddEditForm],
     data() {
         return {
-            shown: false,
+            open: false,
             video: null,
         }
     },
@@ -145,7 +145,7 @@ export default {
     },
     methods: {
         close() {
-            this.shown = false
+            this.open = false
         },
         handleScheduleToggleClick() {
             this.form.scheduled = !this.form.scheduled
@@ -154,7 +154,7 @@ export default {
             this.$emit('delete-click', this.video)
         },
         handleHide() {
-            this.shown = false
+            this.open = false
         },
         handleShow(video) {
             this.video = { ...video }
@@ -181,7 +181,7 @@ export default {
                 time: scheduled ? time : '00:00:00',
             }
 
-            this.shown = true
+            this.open = true
         },
     },
 }

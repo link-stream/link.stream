@@ -276,11 +276,6 @@
             }
         }
     }
-
-    .invalid-feedback {
-        display: block;
-        font-size: px2rem(14);
-    }
 }
 
 .TrackInfoBlock {
@@ -400,5 +395,11 @@
 .MarketingEditModal {
     .Card {
         flex-basis: 100%;
+    }
+}
+
+.ReviewBlock {
+    .text-danger {
+        font-weight: bold;
     }
 }

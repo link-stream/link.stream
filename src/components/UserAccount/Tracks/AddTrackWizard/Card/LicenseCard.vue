@@ -89,14 +89,12 @@ export default {
             },
         }
     },
-    validations() {
-        return {
-            form: {
-                price: {
-                    required,
-                },
+    validations: {
+        form: {
+            price: {
+                required,
             },
-        }
+        },
     },
     methods: {
         close() {

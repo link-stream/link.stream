@@ -105,7 +105,7 @@ export default {
     },
     methods: {
         showInvalidFileAlert() {
-            this.$alert.oops(
+            this.$toast.error(
                 `Only ${this.acceptTypes
                     .slice(0, -1)
                     .join(', ')} and ${this.acceptTypes

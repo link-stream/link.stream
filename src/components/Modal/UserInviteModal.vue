@@ -1,9 +1,9 @@
 <template>
-    <b-modal modal-class="UserInviteModal" size="lg" centered v-model="shown">
+    <b-modal modal-class="UserInviteModal" size="lg" centered v-model="open">
         <template v-slot:modal-header>
             <LsButton variant="icon-bg" class="modal-close" @click="close" />
             <h2 class="modal-title">Invite collaborator</h2>
-            <h4 class="modal-subtitle">
+            <h4 class="subtitle">
                 Send an invitation to join and collaborate
             </h4>
         </template>
@@ -36,7 +36,7 @@ export default {
     name: 'UserInviteModal',
     data() {
         return {
-            shown: false,
+            open: false,
             email: null,
         }
     },
@@ -51,12 +51,7 @@ export default {
     },
     methods: {
         close() {
-            this.shown = false
-        },
-        handleShow() {
-            this.$v.email.$reset()
-            this.email = null
-            this.shown = true
+            this.open = false
         },
         handleSendClick() {
             this.$v.email.$touch()
@@ -64,6 +59,11 @@ export default {
                 return
             }
             this.$alert.ok('Todo')
+        },
+        handleShow() {
+            this.$v.email.$reset()
+            this.email = null
+            this.open = true
         },
     },
 }

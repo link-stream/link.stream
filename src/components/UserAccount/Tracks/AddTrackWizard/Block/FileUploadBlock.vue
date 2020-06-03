@@ -68,24 +68,9 @@ export default {
         },
     },
     validations() {
-        const rules = {
-            untagged: {},
-            tagged: {},
-            stems: {},
+        return {
+            files: this.$store.getters['trackAddWizard/filesValidations'],
         }
-        const { selectedLicenses } = this.$store.getters['trackAddWizard/form']
-        selectedLicenses.forEach(license => {
-            if (license.mp3 == '1') {
-                rules.untagged.required = required
-            }
-            if (license.wav == '1') {
-                rules.tagged.required = required
-            }
-            if (license.trackout_stems == '1') {
-                rules.stems.required = required
-            }
-        })
-        return { files: rules }
     },
     created() {
         this.$bus.$on('wz.validateBlock.files', this.handleBlockValidate)
@@ -102,6 +87,7 @@ export default {
         handleBlockValidate({ onSuccess }) {
             this.$v.files.$touch()
             if (this.$v.files.$invalid) {
+                this.$toast.error('Please upload required files.')
                 return
             }
             this.updateWizardForm()

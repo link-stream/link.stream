@@ -2,12 +2,12 @@
     <b-modal
         :modal-class="{
             UserSearchModal: true,
-            '--searched': showResults,
+            '--search-done': showResults,
         }"
         size="lg"
         centered
         hide-footer
-        v-model="shown"
+        v-model="open"
     >
         <template v-slot:modal-header>
             <LsButton variant="icon-bg" class="modal-close" @click="close" />
@@ -15,7 +15,7 @@
         </template>
 
         <template v-slot:default>
-            <div class="search-box" :class="{ '--loading': loading }">
+            <div class="search-box" :class="{ '--searching': searching }">
                 <LsIcon class="search-icon" icon="search" />
                 <input
                     type="text"
@@ -28,7 +28,7 @@
                     icon="close"
                     class="search-clear"
                     @click="handleClearClick"
-                    v-show="showClear"
+                    v-show="query ? true : false"
                 />
                 <LsSpinner animation="bounce" />
             </div>
@@ -67,31 +67,30 @@ export default {
     name: 'UserSearchModal',
     data() {
         return {
+            open: false,
+            showResults: false,
+            searching: false,
+            query: null,
             /**
              * @type {array}
              * e.g. [{ id: null, name: null, photo: null }]
              */
             results: [],
-            shown: false,
-            showResults: false,
-            loading: false,
-            query: '',
         }
     },
     computed: {
         ...mapGetters({
             user: 'me/user',
         }),
-        validQuery() {
-            return this.query.length >= MIN_QUERY_LENGTH
-        },
-        showClear() {
-            return this.query ? true : false
+        isValidQuery() {
+            return this.query && this.query.length >= MIN_QUERY_LENGTH
+                ? true
+                : false
         },
     },
     watch: {
         query() {
-            if (this.validQuery) {
+            if (this.isValidQuery) {
                 this.debounceSeach()
             } else {
                 this.reset()
@@ -101,20 +100,20 @@ export default {
     created() {
         this.$bus.$on('modal.userSearch.show', this.handleShow)
         this.debounceSeach = debounce(() => {
-            this.loading = true
+            this.searching = true
             this.search()
         }, 500)
     },
     methods: {
         reset() {
             this.showResults = false
-            this.loading = false
+            this.searching = false
         },
         close() {
-            this.shown = false
+            this.open = false
         },
         async search() {
-            if (!this.validQuery) {
+            if (!this.isValidQuery) {
                 this.reset()
                 return
             }
@@ -124,7 +123,7 @@ export default {
                 search: this.query,
             })
 
-            if (!this.validQuery) {
+            if (!this.isValidQuery) {
                 this.reset()
                 return
             }
@@ -140,21 +139,21 @@ export default {
             }
 
             this.showResults = true
-            this.loading = false
+            this.searching = false
         },
         handleClearClick() {
-            this.query = ''
+            this.query = null
         },
         handleInviteClick() {
             this.close()
             this.$bus.$emit('modal.userInvite.show')
         },
-        handleShow() {
-            this.shown = true
-        },
         handleUserClick(user) {
             this.close()
             this.$bus.$emit('modal.userSearch.userClick', user)
+        },
+        handleShow() {
+            this.open = true
         },
     },
 }

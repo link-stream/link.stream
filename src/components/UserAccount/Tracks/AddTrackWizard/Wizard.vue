@@ -197,6 +197,7 @@ export default {
         ...mapGetters({
             user: 'me/user',
             form: 'trackAddWizard/form',
+            filesMissing: 'trackAddWizard/filesMissing',
         }),
         step() {
             return steps[this.stepIndex]
@@ -270,7 +271,12 @@ export default {
         handleNextClick() {
             switch (this.step) {
                 case STEP_REVIEW:
-                    this.$alert.ok('Coming soon!')
+                    if (this.filesMissing) {
+                        this.$toast.error(
+                            `Missing required files. Please review the required information and try submitting again.`
+                        )
+                        return
+                    }
                     return
                 case STEP_TRACK_INFO:
                 case STEP_FILES:

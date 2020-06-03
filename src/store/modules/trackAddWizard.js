@@ -1,5 +1,6 @@
 import { trackAddWizardTypes } from '../mutationTypes'
 import { cloneDeep } from 'lodash'
+import { required } from 'vuelidate/lib/validators'
 
 const initialState = () => ({
     licenses: [],
@@ -78,6 +79,40 @@ const actions = {
 const getters = {
     licenses: ({ licenses }) => licenses,
     form: ({ form }) => form,
+    filesMissing: ({ form }, getters) => {
+        const validations = getters.filesValidations
+        const { files } = form
+        if (validations.untagged.required && !files.untagged) {
+            return true
+        }
+        if (validations.tagged.required && !files.tagged) {
+            return true
+        }
+        if (validations.stems.required && !files.stems) {
+            return true
+        }
+        return false
+    },
+    filesValidations: ({ form }) => {
+        const { selectedLicenses } = form
+        const validations = {
+            untagged: {},
+            tagged: {},
+            stems: {},
+        }
+        selectedLicenses.forEach(license => {
+            if (license.mp3 == '1') {
+                validations.untagged.required = required
+            }
+            if (license.wav == '1') {
+                validations.tagged.required = required
+            }
+            if (license.trackout_stems == '1') {
+                validations.stems.required = required
+            }
+        })
+        return validations
+    },
 }
 
 export default {

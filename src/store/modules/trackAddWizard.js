@@ -1,6 +1,7 @@
 import { trackAddWizardTypes } from '../mutationTypes'
 import { cloneDeep } from 'lodash'
 import { required } from 'vuelidate/lib/validators'
+import { appConstants } from '~/constants'
 
 const initialState = () => ({
     licenses: [],
@@ -8,31 +9,39 @@ const initialState = () => ({
         selectedLicenses: [],
         selectedPromos: [],
         files: {
+            /**
+             * e.g.
+             * tagged: {
+             *   name: null,
+             *   base64: null
+             * }
+             */
             tagged: null,
             untagged: null,
             stems: null,
         },
-        trackInfo: {
-            trackType: null,
-            imageBase64: null,
-            title: null,
-            genre: {},
-            tags: [],
-            bpm: 0,
-            key: {},
-            trackPack: null,
-            collabs: [
-                /*{
-                    profitPercent: null,
-                    pubPercent: null,
-                    user: {
-                        id: null,
-                        name: null,
-                        photo: null,
-                    },
-                },*/
-            ],
-        },
+        trackType: null,
+        imageBase64: null,
+        title: null,
+        genre: {},
+        tags: [],
+        bpm: 0,
+        key: {},
+        trackPack: null,
+        collabs: [
+            /**
+             * e.g.
+             * {
+             *   profit: null,
+             *   publishing: null,
+             *   user: {
+             *     id: null,
+             *     name: null,
+             *     photo: null,
+             *   }
+             * }
+             */
+        ],
     },
 })
 
@@ -40,6 +49,9 @@ const state = initialState()
 
 const mutations = {
     [trackAddWizardTypes.UPDATE_FORM](state, { values }) {
+        for (let k in values) {
+            state.form
+        }
         state.form = {
             ...state.form,
             ...cloneDeep(values),
@@ -77,9 +89,10 @@ const actions = {
 }
 
 const getters = {
-    licenses: ({ licenses }) => licenses,
     form: ({ form }) => form,
-    filesMissing: ({ form }, getters) => {
+    licenses: ({ licenses }) => licenses,
+    isSong: ({ form }) => form.trackType === appConstants.tracks.types.song,
+    isMissingFiles: ({ form }, getters) => {
         const validations = getters.filesValidations
         const { files } = form
         if (validations.untagged.required && !files.untagged) {

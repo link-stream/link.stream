@@ -133,6 +133,11 @@ export const api = {
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
         },
+        async createAudio(params) {
+            const endpoint = '/audios'
+            const method = METHOD_POST
+            return await call({ endpoint, method, params })
+        },
     },
     videos: {
         async createVideo(params) {

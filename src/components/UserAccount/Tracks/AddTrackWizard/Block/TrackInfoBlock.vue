@@ -99,8 +99,8 @@
                             </div>
                             <b-form-group>
                                 <b-form-input
-                                    v-model="collab.profitPercent.$model"
-                                    :state="!collab.profitPercent.$error"
+                                    v-model="collab.profit.$model"
+                                    :state="!collab.profit.$error"
                                 ></b-form-input>
                             </b-form-group>
                         </div>
@@ -110,8 +110,8 @@
                             </div>
                             <b-form-group>
                                 <b-form-input
-                                    v-model="collab.pubPercent.$model"
-                                    :state="!collab.pubPercent.$error"
+                                    v-model="collab.publishing.$model"
+                                    :state="!collab.publishing.$error"
                                 ></b-form-input>
                             </b-form-group>
                         </div>
@@ -141,7 +141,6 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators'
-import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
 import { cloneDeep } from 'lodash'
 
@@ -158,21 +157,37 @@ export default {
         },
     },
     data() {
+        const {
+            trackType,
+            title,
+            genre,
+            tags,
+            bpm,
+            key,
+            trackPack,
+            collabs,
+        } = this.$store.getters['trackAddWizard/form']
+
         return {
             tag: '',
-            form: cloneDeep(
-                this.$store.getters['trackAddWizard/form'].trackInfo
-            ),
+            form: {
+                trackType,
+                title,
+                genre: { ...genre },
+                tags: [...tags],
+                bpm,
+                key: { ...key },
+                trackPack,
+                collabs: [...collabs],
+            },
         }
     },
     computed: {
         ...mapGetters({
             genres: 'common/genres',
             audioKeys: 'common/audioKeys',
+            isSong: 'trackAddWizard/isSong',
         }),
-        isSong() {
-            return this.form.trackType == appConstants.tracks.types.song
-        },
     },
     watch: {
         form: {
@@ -189,10 +204,10 @@ export default {
             },
             collabs: {
                 $each: {
-                    profitPercent: {
+                    profit: {
                         required,
                     },
-                    pubPercent: {
+                    publishing: {
                         required,
                     },
                 },
@@ -210,11 +225,7 @@ export default {
     methods: {
         updateWizardForm() {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                trackInfo: {
-                    ...this.form,
-                    imageBase64: this.$store.getters['trackAddWizard/form']
-                        .trackInfo.imageBase64,
-                },
+                ...this.form,
             })
         },
         showCollabSearchModal() {
@@ -236,8 +247,8 @@ export default {
             }
             collabs.push({
                 user,
-                profitPercent: null,
-                pubPercent: null,
+                profit: null,
+                publishing: null,
             })
         },
         handleBlockValidate({ onSuccess }) {

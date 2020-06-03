@@ -8,12 +8,12 @@
                 class="edit-btn"
                 @click="handleEditClick('trackInfo')"
             />
-            <p>Title: {{ trackInfo.title }}</p>
+            <p>Title: {{ form.title }}</p>
             <p>Type: {{ isSong ? 'Song' : 'Beat' }}</p>
-            <p>Genre: {{ trackInfo.genre.genre || '' }}</p>
+            <p>Genre: {{ form.genre.genre || '' }}</p>
             <p>Tags: {{ tags }}</p>
-            <p>BPM: {{ trackInfo.bpm }}</p>
-            <p>Key: {{ trackInfo.key.name || '' }}</p>
+            <p>BPM: {{ form.bpm }}</p>
+            <p>Key: {{ form.key.name || '' }}</p>
             <p>Collaborators: {{ collabs }}</p>
         </div>
 
@@ -114,7 +114,6 @@ import TrackInfoEditModal from '../Modal/TrackInfoEditModal'
 import LicensesEditModal from '../Modal/LicensesEditModal'
 import FilesEditModal from '../Modal/FilesEditModal'
 import MarketingEditModal from '../Modal/MarketingEditModal'
-import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -143,12 +142,10 @@ export default {
     computed: {
         ...mapGetters({
             filesValidations: 'trackAddWizard/filesValidations',
+            isSong: 'trackAddWizard/isSong',
         }),
         form() {
             return this.$store.getters['trackAddWizard/form']
-        },
-        trackInfo() {
-            return this.form.trackInfo
         },
         selectedLicenses() {
             return this.form.selectedLicenses
@@ -160,15 +157,10 @@ export default {
             return this.form.files
         },
         collabs() {
-            return this.trackInfo.collabs.map(c => c.user.name).join(', ')
+            return this.form.collabs.map(c => c.user.name).join(', ')
         },
         tags() {
-            return this.trackInfo.tags.map(t => t.text).join(', ')
-        },
-        isSong() {
-            return (
-                this.form.trackInfo.trackType === appConstants.tracks.types.song
-            )
+            return this.form.tags.map(t => t.text).join(', ')
         },
     },
     methods: {

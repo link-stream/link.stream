@@ -57,11 +57,11 @@
             <div class="step-sidebar">
                 <DropImage
                     msgLong="Drag artwork here or<br><u>browse for file</u>"
-                    :src="form.trackInfo.imageBase64"
+                    :src="form.imageBase64"
                     @file-add="handleImageAdded"
                     @file-remove="handleImageRemoved"
                 />
-                <div class="text-muted" v-if="!form.trackInfo.imageBase64">
+                <div class="text-muted" v-if="!form.imageBase64">
                     Suggested Dimensions: 1000x1000
                 </div>
             </div>
@@ -106,7 +106,7 @@
             <div class="step-sidebar">
                 <DropImage
                     msgLong="Drag artwork here or<br><u>browse for file</u>"
-                    :src="form.trackInfo.imageBase64"
+                    :src="form.imageBase64"
                     @file-add="handleImageAdded"
                     @file-remove="handleImageRemoved"
                 />
@@ -118,9 +118,13 @@
             <ls-button variant="secondary" class="fwz-prev-btn" @click="prev">
                 Back
             </ls-button>
-            <ls-button class="fwz-next-btn" @click="handleNextClick">
+            <ls-spinner-button
+                class="fwz-next-btn"
+                :loading="saving"
+                @click="handleNextClick"
+            >
                 {{ isStepReview ? 'Save' : 'Next' }}
-            </ls-button>
+            </ls-spinner-button>
         </footer>
     </div>
 </template>
@@ -135,6 +139,7 @@ import MarketingBlock from './Block/MarketingBlock'
 import ReviewBlock from './Block/ReviewBlock'
 import { DropImage } from '~/components/Uploader'
 import { appConstants } from '~/constants'
+import { api } from '~/services/api'
 import { mapGetters } from 'vuex'
 
 const STEP_TRACK_TYPE = 'trackType'
@@ -191,13 +196,16 @@ export default {
     data() {
         return {
             stepIndex: 0,
+            saving: false,
         }
     },
     computed: {
         ...mapGetters({
             user: 'me/user',
             form: 'trackAddWizard/form',
-            filesMissing: 'trackAddWizard/filesMissing',
+            isMissingFiles: 'trackAddWizard/isMissingFiles',
+            isSong: 'trackAddWizard/isSong',
+            tags: 'trackAddWizard/tags',
         }),
         step() {
             return steps[this.stepIndex]
@@ -208,11 +216,6 @@ export default {
         tabs() {
             tabs[0].text = this.isSong ? 'Song info' : 'Beat info'
             return tabs
-        },
-        isSong() {
-            return (
-                this.form.trackInfo.trackType === appConstants.tracks.types.song
-            )
         },
         isStepTrackType() {
             return this.step === STEP_TRACK_TYPE
@@ -235,20 +238,17 @@ export default {
     },
     beforeMount() {
         this.$store.dispatch('trackAddWizard/updateForm', {
-            trackInfo: {
-                ...this.form.trackInfo,
-                collabs: [
-                    {
-                        profitPercent: 100,
-                        pubPercent: 100,
-                        user: {
-                            id: this.user.id,
-                            name: this.user.user_name,
-                            photo: this.user.photo,
-                        },
+            collabs: [
+                {
+                    profit: 100,
+                    publishing: 100,
+                    user: {
+                        id: this.user.id,
+                        name: this.user.user_name,
+                        photo: this.user.photo,
                     },
-                ],
-            },
+                },
+            ],
         })
     },
     methods: {
@@ -265,18 +265,85 @@ export default {
                 this.goToStep(this.stepIndex - 1)
             }
         },
+        async save() {
+            if (this.isMissingFiles) {
+                this.$toast.error(
+                    `Missing required files. Please review the required information and try submitting again.`
+                )
+                return
+            }
+
+            this.saving = true
+
+            const form = this.form
+
+            const collabs = form.collabs.map(c => {
+                return {
+                    user_id: c.user.id,
+                    profit: c.profit,
+                    publishing: c.publishing,
+                }
+            })
+
+            const licenses = form.selectedLicenses.map(l => {
+                return {
+                    license_id: l.id,
+                    price: l.prize,
+                    status_id: l.status_id,
+                }
+            })
+
+            const params = {
+                user_id: this.user.id,
+                title: form.title,
+                bpm: form.bpm,
+                key: form.key ? form.key.id : '',
+                image: form.imageBase64,
+                track_type: form.trackType,
+                genre_id: form.genre ? form.genre.id : '',
+                tags: form.tags.map(t => t.text).join(', '),
+            }
+
+            if (collabs.length) {
+                params.collaborators = JSON.stringify(collabs)
+            }
+
+            if (licenses.length) {
+                params.licenses = JSON.stringify(licenses)
+            }
+
+            if (form.files.untagged) {
+                params.untagged_file = form.files.untagged.base64
+            }
+
+            if (form.files.tagged) {
+                params.tagged_file = form.files.tagged.base64
+            }
+
+            if (form.files.stems) {
+                params.track_stems = form.files.stems.base64
+            }
+
+            const { status, message, error } = await api.audios.createAudio(
+                params
+            )
+
+            if (status === 'success') {
+                this.$toast.success(message)
+                this.$router.push({ name: 'userAccountTracks' })
+            } else {
+                this.$toast.error(error)
+            }
+
+            this.saving = false
+        },
         handleTabClick(tab) {
-            //this.goToStep(steps.indexOf(tab.step))
+            // this.goToStep(steps.indexOf(tab.step))
         },
         handleNextClick() {
             switch (this.step) {
                 case STEP_REVIEW:
-                    if (this.filesMissing) {
-                        this.$toast.error(
-                            `Missing required files. Please review the required information and try submitting again.`
-                        )
-                        return
-                    }
+                    this.save()
                     return
                 case STEP_TRACK_INFO:
                 case STEP_FILES:
@@ -292,36 +359,24 @@ export default {
         },
         handleAddBeatClick() {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                trackInfo: {
-                    ...this.form.trackInfo,
-                    trackType: appConstants.tracks.types.beat,
-                },
+                trackType: appConstants.tracks.types.beat,
             })
             this.next()
         },
         handleAddSongClick() {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                trackInfo: {
-                    ...this.form.trackInfo,
-                    trackType: appConstants.tracks.types.song,
-                },
+                trackType: appConstants.tracks.types.song,
             })
             this.next()
         },
         handleImageAdded(file) {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                trackInfo: {
-                    ...this.form.trackInfo,
-                    imageBase64: file.base64,
-                },
+                imageBase64: file.base64,
             })
         },
         handleImageRemoved() {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                trackInfo: {
-                    ...this.form.trackInfo,
-                    imageBase64: null,
-                },
+                imageBase64: null,
             })
         },
     },

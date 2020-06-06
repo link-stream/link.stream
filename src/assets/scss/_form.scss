@@ -181,7 +181,7 @@
     }
 }
 
-.input-group-datetime {
+.dt-input-group {
     .LsTimePicker,
     .LsDatePicker {
         width: 50%;
@@ -228,5 +228,17 @@
     }
     .search-input {
         padding-left: 37px;
+    }
+}
+
+.LsToggleButton {
+    margin-bottom: 0;
+    .v-switch-core {
+        background-color: $linkstream-120 !important;
+    }
+    &.toggled {
+        .v-switch-core {
+            background-color: $linkstream-150 !important;
+        }
     }
 }

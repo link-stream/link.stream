@@ -1,7 +1,7 @@
 <template>
     <div class="Card LinkCard" :class="{ 'is-private': link.isPrivate }">
-        <LsSpinnerMask v-show="loading" />
-        <section class="view-block" v-show="!editing">
+        <LsSpinnerMask v-show="saving" />
+        <section class="block-view" v-show="!editing">
             <LsIcon class="drag-icon" icon="drag" />
             <div class="Card-media" @click="handleEditClick">
                 <img class="Card-img" :src="link.artwork" :alt="link.title" />
@@ -25,7 +25,7 @@
                 @click="handleEditClick"
             />
         </section>
-        <section class="edit-block" v-if="editing">
+        <section class="block-edit" v-if="editing">
             <LsIconButton
                 icon="close"
                 class="close-btn"
@@ -37,8 +37,8 @@
                     :src="link.data_image"
                     msg-long="Drag image here&nbsp;or&nbsp;<u>browse</u>"
                     msg-short=""
-                    @file-add="handleImageAdded"
-                    @file-remove="handleImageRemoved"
+                    @file-added="handleImageAdded"
+                    @file-removed="handleImageRemoved"
                 />
                 <form class="edit-form">
                     <b-form-group>
@@ -132,7 +132,7 @@ export default {
     },
     methods: {
         async toggleVisibility() {
-            this.loading = true
+            this.saving = true
             const { status, error } = await this.$store.dispatch(
                 'me/updateLink',
                 {
@@ -145,7 +145,7 @@ export default {
                 }
             )
             status !== 'success' && this.$toast.error(error)
-            this.loading = false
+            this.saving = false
         },
         closeEditMode() {
             this.editing = false
@@ -161,7 +161,7 @@ export default {
                 title: 'Delete link?',
                 message: 'This link and its data will be permanently deleted.',
                 onOk: async () => {
-                    this.loading = true
+                    this.saving = true
                     const {
                         status,
                         message,
@@ -172,12 +172,12 @@ export default {
                     status === 'success'
                         ? this.$toast.success(message)
                         : this.$toast.error(error)
-                    this.loading = false
+                    this.saving = false
                 },
             })
         },
         async handleRemoveScheduleClick() {
-            this.loading = true
+            this.saving = true
             const { status, message, error } = await this.$store.dispatch(
                 'me/updateLink',
                 {
@@ -194,7 +194,7 @@ export default {
             status === 'success'
                 ? this.$toast.success(message)
                 : this.$toast.error(error)
-            this.loading = false
+            this.saving = false
         },
         handleVisibilityToggleClick() {
             if (this.link.isPrivate) {

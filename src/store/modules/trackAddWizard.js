@@ -1,4 +1,4 @@
-import { trackAddWizardTypes } from '../mutationTypes'
+import { types, trackAddWizardTypes } from '../mutationTypes'
 import { cloneDeep } from 'lodash'
 import { required } from 'vuelidate/lib/validators'
 import { appConstants } from '~/constants'
@@ -8,6 +8,18 @@ const initialState = () => ({
     form: {
         selectedLicenses: [],
         selectedPromos: [],
+        trackType: null,
+        coverArtBase64: null,
+        title: null,
+        genre: {},
+        tags: [],
+        bpm: '',
+        key: {},
+        trackPack: null,
+        time: null,
+        date: null,
+        scheduled: false,
+        isPublic: true,
         files: {
             /**
              * e.g.
@@ -20,14 +32,6 @@ const initialState = () => ({
             untagged: null,
             stems: null,
         },
-        trackType: null,
-        imageBase64: null,
-        title: null,
-        genre: {},
-        tags: [],
-        bpm: 0,
-        key: {},
-        trackPack: null,
         collabs: [
             /**
              * e.g.
@@ -48,36 +52,51 @@ const initialState = () => ({
 const state = initialState()
 
 const mutations = {
-    [trackAddWizardTypes.UPDATE_FORM](state, { values }) {
-        for (let k in values) {
-            state.form
-        }
-        state.form = {
-            ...state.form,
-            ...cloneDeep(values),
+    [types.RESET](state) {
+        const s = initialState()
+        for (let key in state) {
+            state[key] = s[key]
         }
     },
+
+    [trackAddWizardTypes.UPDATE_FORM](state, { values }) {
+        const form = { ...state.form }
+        for (let k in values) {
+            if (k in form) {
+                form[k] = cloneDeep(values[k])
+            }
+        }
+        state.form = form
+    },
+
     [trackAddWizardTypes.SET_LICENSES](state, { licenses }) {
         state.licenses = cloneDeep(licenses)
     },
+
     [trackAddWizardTypes.UPDATE_LICENSE](state, { index, license }) {
         state.licenses.splice(index, 1, cloneDeep(license))
     },
 }
 
 const actions = {
+    reset({ commit }) {
+        commit(types.RESET)
+    },
+
     async updateForm({ commit }, values) {
         commit({
             type: trackAddWizardTypes.UPDATE_FORM,
             values,
         })
     },
+
     async setLicenses({ commit }, { licenses }) {
         commit({
             type: trackAddWizardTypes.SET_LICENSES,
             licenses,
         })
     },
+
     async updateLicense({ state, commit }, { license }) {
         const index = state.licenses.map(l => l.id).indexOf(license.id)
         commit({
@@ -93,38 +112,38 @@ const getters = {
     licenses: ({ licenses }) => licenses,
     isSong: ({ form }) => form.trackType === appConstants.tracks.types.song,
     isMissingFiles: ({ form }, getters) => {
-        const validations = getters.filesValidations
+        const rules = getters.filesValidationRules
         const { files } = form
-        if (validations.untagged.required && !files.untagged) {
+        if (rules.untagged.required && !files.untagged) {
             return true
         }
-        if (validations.tagged.required && !files.tagged) {
+        if (rules.tagged.required && !files.tagged) {
             return true
         }
-        if (validations.stems.required && !files.stems) {
+        if (rules.stems.required && !files.stems) {
             return true
         }
         return false
     },
-    filesValidations: ({ form }) => {
+    filesValidationRules: ({ form }) => {
         const { selectedLicenses } = form
-        const validations = {
+        const rules = {
             untagged: {},
             tagged: {},
             stems: {},
         }
         selectedLicenses.forEach(license => {
             if (license.mp3 == '1') {
-                validations.untagged.required = required
+                rules.untagged = { required }
             }
             if (license.wav == '1') {
-                validations.tagged.required = required
+                rules.tagged = { required }
             }
             if (license.trackout_stems == '1') {
-                validations.stems.required = required
+                rules.stems = { required }
             }
         })
-        return validations
+        return rules
     },
 }
 

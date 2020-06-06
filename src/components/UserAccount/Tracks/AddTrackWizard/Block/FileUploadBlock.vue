@@ -5,12 +5,9 @@
             :class="{ 'is-invalid': $v.files.untagged.$error }"
             :src="files.untagged && files.untagged.base64"
             :filename="files.untagged && files.untagged.name"
-            @file-add="handleUntaggedFileAdded"
-            @file-remove="handleUntaggedFileRemoved"
+            @file-added="handleUntaggedFileAdded"
+            @file-removed="handleUntaggedFileRemoved"
         />
-        <div class="invalid-feedback" v-show="$v.files.untagged.$error">
-            Untagged file is required
-        </div>
 
         <DropFile
             title="Track Stems .ZIP (or .RAR)"
@@ -19,12 +16,9 @@
             :acceptTypes="['.rar', '.zip']"
             :src="files.stems && files.stems.base64"
             :filename="files.stems && files.stems.name"
-            @file-add="handleStemsFileAdded"
-            @file-remove="handleStemsFileRemoved"
+            @file-added="handleStemsFileAdded"
+            @file-removed="handleStemsFileRemoved"
         />
-        <div class="invalid-feedback" v-show="$v.files.stems.$error">
-            Track Stems file is required
-        </div>
 
         <DropAudio
             title="Tagged Streaming File (.MP3 or .WAV)"
@@ -32,18 +26,14 @@
             :class="{ 'is-invalid': $v.files.tagged.$error }"
             :src="files.tagged && files.tagged.base64"
             :filename="files.tagged && files.tagged.name"
-            @file-add="handleTaggedFileAdded"
-            @file-remove="handleTaggedFileRemoved"
+            @file-added="handleTaggedFileAdded"
+            @file-removed="handleTaggedFileRemoved"
         />
-        <div class="invalid-feedback" v-show="$v.files.tagged.$error">
-            Tagged file is required
-        </div>
     </div>
 </template>
 
 <script>
 import { DropAudio, DropFile } from '~/components/Uploader'
-import { required } from 'vuelidate/lib/validators'
 
 export default {
     name: 'FileUploadBlock',
@@ -69,7 +59,7 @@ export default {
     },
     validations() {
         return {
-            files: this.$store.getters['trackAddWizard/filesValidations'],
+            files: this.$store.getters['trackAddWizard/filesValidationRules'],
         }
     },
     created() {
@@ -87,7 +77,7 @@ export default {
         handleBlockValidate({ onSuccess }) {
             this.$v.files.$touch()
             if (this.$v.files.$invalid) {
-                this.$toast.error('Please upload required files.')
+                this.$toast.error('Please add required files.')
                 return
             }
             this.updateWizardForm()

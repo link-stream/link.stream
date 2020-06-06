@@ -8,7 +8,7 @@
         <template v-slot:default>
             <div class="form-group">
                 <b-form-group label="Start Date">
-                    <b-input-group class="input-group-datetime">
+                    <b-input-group class="dt-input-group">
                         <LsDatePicker v-model="form.date" />
                         <LsTimePicker v-model="form.time" />
                     </b-input-group>
@@ -30,13 +30,15 @@
                 </b-form-group>
 
                 <b-form-group label="End Date" v-show="endDateEnabled">
-                    <b-input-group class="input-group-datetime">
+                    <b-input-group class="dt-input-group">
                         <LsDatePicker v-model="form.endDate" />
                         <LsTimePicker v-model="form.endTime" />
                     </b-input-group>
                     <div
                         class="invalid-feedback"
-                        v-if="$v.form.endDate.$error || $v.form.endTime.$error"
+                        v-show="
+                            $v.form.endDate.$error || $v.form.endTime.$error
+                        "
                     >
                         Select end date and time
                     </div>
@@ -99,7 +101,7 @@ export default {
         },
     },
     created() {
-        this.$bus.$on('modal.linkSchedule.show', this.handleShow)
+        this.$bus.$on('modal.linkSchedule.open', this.handleOpen)
     },
     methods: {
         close() {
@@ -110,7 +112,7 @@ export default {
             this.$v.form.endTime.$reset()
             this.endDateEnabled = !this.endDateEnabled
         },
-        handleShow(link) {
+        handleOpen(link) {
             this.$v.form.$reset()
             this.link = { ...link }
             this.endDateEnabled = false

@@ -1,7 +1,6 @@
 import { mapGetters } from 'vuex'
 import { DropImage } from '~/components/Uploader'
 import { required, url } from 'vuelidate/lib/validators'
-import { appConstants } from '~/constants'
 import moment from 'moment'
 
 export const linkAddEditForm = {
@@ -11,13 +10,13 @@ export const linkAddEditForm = {
     data() {
         return {
             editing: false,
-            loading: false,
+            saving: false,
             endDateEnabled: false,
             form: {
                 url: null,
                 title: null,
-                imageBase64: null,
-                visibility: appConstants.visibilities.public,
+                coverArtBase64: null,
+                visibility: 1,
                 scheduled: null,
                 date: new Date(),
                 time: '00:00:00',
@@ -54,16 +53,16 @@ export const linkAddEditForm = {
                 ...this.form,
                 url,
                 title,
-                imageBase64: data_image,
+                coverArtBase64: data_image,
             }
         },
     },
     methods: {
         handleImageAdded(file) {
-            this.form.imageBase64 = file.base64
+            this.form.coverArtBase64 = file.base64
         },
         handleImageRemoved() {
-            this.form.imageBase64 = null
+            this.form.coverArtBase64 = null
         },
         async handleSaveClick() {
             this.$v.form.$touch()
@@ -72,12 +71,12 @@ export const linkAddEditForm = {
                 return
             }
 
-            this.loading = true
+            this.saving = true
 
             const {
                 url,
                 title,
-                imageBase64,
+                coverArtBase64,
                 visibility,
                 scheduled,
                 date,
@@ -93,12 +92,12 @@ export const linkAddEditForm = {
             }
 
             if (this.editing) {
-                const didImageChange = imageBase64 !== this.link.data_image
-                if (didImageChange) {
-                    params.image = imageBase64
+                const coverArtChanged = coverArtBase64 !== this.link.data_image
+                if (coverArtChanged) {
+                    params.image = coverArtBase64
                 }
             } else {
-                params.image = imageBase64
+                params.image = coverArtBase64
                 params.public = visibility
                 if (scheduled) {
                     params.scheduled = 1
@@ -129,7 +128,7 @@ export const linkAddEditForm = {
                 this.$toast.error(error)
             }
 
-            this.loading = false
+            this.saving = false
         },
     },
 }

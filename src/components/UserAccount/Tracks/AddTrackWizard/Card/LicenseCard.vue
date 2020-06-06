@@ -6,8 +6,7 @@
             title="Close"
             @click="handleCancelClick"
         />
-
-        <div class="view-block">
+        <div class="block-view">
             <b-form-checkbox
                 :checked="checked"
                 @change="handleCheckChange"
@@ -23,18 +22,6 @@
                         {{ license.descripcion }}
                     </small>
                 </div>
-                <div class="price-field">
-                    <b-form-group label="Adjust price">
-                        <b-form-input
-                            type="number"
-                            v-model="$v.form.price.$model"
-                            :state="!$v.form.price.$error"
-                        />
-                        <b-form-invalid-feedback>
-                            Price can't be blank
-                        </b-form-invalid-feedback>
-                    </b-form-group>
-                </div>
             </div>
             <LsButton
                 variant="icon-bg"
@@ -43,24 +30,41 @@
                 @click="handleEditClick"
             />
         </div>
-
-        <div class="edit-actions">
-            <div class="col-left">
-                To customize your default license terms, go to
-                <ls-button variant="link">Licenses</ls-button>
+        <div class="block-edit">
+            <div class="edit-form">
+                <b-form-group label="Adjust price">
+                    <b-form-input
+                        type="number"
+                        v-model="$v.form.price.$model"
+                        :state="!$v.form.price.$error"
+                    />
+                    <b-form-invalid-feedback>
+                        Price can't be blank
+                    </b-form-invalid-feedback>
+                </b-form-group>
             </div>
-            <div class="col-right">
-                <ls-button
-                    class="cancel-btn"
-                    size="xs"
-                    variant="secondary"
-                    @click="handleCancelClick"
-                >
-                    Cancel
-                </ls-button>
-                <ls-button size="xs" variant="black" @click="handleSaveClick">
-                    Save
-                </ls-button>
+            <div class="edit-actions">
+                <div class="col-left">
+                    To customize your default license terms, go to
+                    <ls-button variant="link">Licenses</ls-button>
+                </div>
+                <div class="col-right">
+                    <ls-button
+                        class="cancel-btn"
+                        size="xs"
+                        variant="secondary"
+                        @click="handleCancelClick"
+                    >
+                        Cancel
+                    </ls-button>
+                    <ls-button
+                        size="xs"
+                        variant="black"
+                        @click="handleSaveClick"
+                    >
+                        Save
+                    </ls-button>
+                </div>
             </div>
         </div>
     </div>
@@ -110,6 +114,9 @@ export default {
             this.close()
             this.resetForm()
         },
+        handleCheckChange(checked) {
+            this.$emit(checked ? 'check' : 'uncheck', this.license)
+        },
         handleSaveClick() {
             this.$v.form.$touch()
             if (this.$v.form.$invalid) {
@@ -119,9 +126,6 @@ export default {
                 license: { ...this.license, prize: this.form.price },
             })
             this.close()
-        },
-        handleCheckChange(checked) {
-            this.$emit(checked ? 'check' : 'uncheck', this.license)
         },
     },
 }

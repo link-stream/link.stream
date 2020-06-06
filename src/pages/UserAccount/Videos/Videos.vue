@@ -94,7 +94,7 @@ export default {
     },
     methods: {
         handleEditClick(video) {
-            this.$bus.$emit('modal.videoEdit.show', video)
+            this.$bus.$emit('modal.videoEdit.open', video)
         },
         handleDeleteClick(video) {
             this.$alert.confirm({
@@ -111,7 +111,7 @@ export default {
                     })
                     if (status === 'success') {
                         this.$toast.success(message)
-                        this.$bus.$emit('modal.videoEdit.hide')
+                        this.$bus.$emit('modal.videoEdit.close')
                     } else {
                         this.$toast.error(error)
                     }

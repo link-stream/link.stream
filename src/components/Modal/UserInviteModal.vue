@@ -47,7 +47,7 @@ export default {
         },
     },
     created() {
-        this.$bus.$on('modal.userInvite.show', this.handleShow)
+        this.$bus.$on('modal.userInvite.open', this.handleOpen)
     },
     methods: {
         close() {
@@ -60,7 +60,7 @@ export default {
             }
             this.$alert.ok('Todo')
         },
-        handleShow() {
+        handleOpen() {
             this.$v.email.$reset()
             this.email = null
             this.open = true

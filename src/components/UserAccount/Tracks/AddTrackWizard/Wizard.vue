@@ -1,15 +1,15 @@
 <template>
-    <div class="fwz">
+    <div class="fwz" :class="`--step-${step}`">
+        <div class="fwz-counter">Step {{ stepIndex }} / {{ numSteps - 1 }}</div>
         <WizardTabs
             v-show="stepIndex > 0"
             :tabs="tabs"
             :activeStepName="step"
             :activeStepIndex="stepIndex"
-            @tab-click="handleTabClick"
         />
 
         <!-- STEP - TRACK TYPE -->
-        <wizard-step v-show="isStepTrackType" class="step-track-type">
+        <wizard-step v-show="isStepTrackType" class="step-trackType">
             <div class="Card">
                 <LsIcon icon="beat" />
                 <h2 class="Card-title">Upload a Beat</h2>
@@ -51,21 +51,21 @@
         <!-- STEP - TRACK INFO -->
         <wizard-step
             v-if="isStepTrackInfo"
-            class="step-track-info"
+            class="step-trackInfo"
             :title="isSong ? 'Song info' : 'Beat info'"
         >
-            <div class="step-sidebar">
+            <div class="col-image">
                 <DropImage
                     msgLong="Drag artwork here or<br><u>browse for file</u>"
-                    :src="form.imageBase64"
-                    @file-add="handleImageAdded"
-                    @file-remove="handleImageRemoved"
+                    :src="form.coverArtBase64"
+                    @file-added="handleImageAdded"
+                    @file-removed="handleImageRemoved"
                 />
-                <div class="text-muted" v-if="!form.imageBase64">
+                <div class="text-muted" v-if="!form.coverArtBase64">
                     Suggested Dimensions: 1000x1000
                 </div>
             </div>
-            <TrackInfoBlock class="step-main" no-track-type-field />
+            <TrackInfoBlock class="col-fields" no-track-type-field />
         </wizard-step>
 
         <!-- STEP - LICENSE TYPES -->
@@ -103,15 +103,15 @@
             class="step-review"
             v-if="isStepReview"
         >
-            <div class="step-sidebar">
+            <div class="col-image">
                 <DropImage
                     msgLong="Drag artwork here or<br><u>browse for file</u>"
-                    :src="form.imageBase64"
-                    @file-add="handleImageAdded"
-                    @file-remove="handleImageRemoved"
+                    :src="form.coverArtBase64"
+                    @file-added="handleImageAdded"
+                    @file-removed="handleImageRemoved"
                 />
             </div>
-            <ReviewBlock class="step-main" />
+            <ReviewBlock class="col-summary" />
         </wizard-step>
 
         <footer class="fwz-pager" v-show="stepIndex > 0">
@@ -141,6 +141,7 @@ import { DropImage } from '~/components/Uploader'
 import { appConstants } from '~/constants'
 import { api } from '~/services/api'
 import { mapGetters } from 'vuex'
+import moment from 'moment'
 
 const STEP_TRACK_TYPE = 'trackType'
 const STEP_TRACK_INFO = 'trackInfo'
@@ -203,7 +204,6 @@ export default {
         ...mapGetters({
             user: 'me/user',
             form: 'trackAddWizard/form',
-            isMissingFiles: 'trackAddWizard/isMissingFiles',
             isSong: 'trackAddWizard/isSong',
             tags: 'trackAddWizard/tags',
         }),
@@ -266,16 +266,38 @@ export default {
             }
         },
         async save() {
-            if (this.isMissingFiles) {
-                this.$toast.error(
-                    `Missing required files. Please review the required information and try submitting again.`
-                )
-                return
-            }
-
             this.saving = true
 
             const form = this.form
+
+            const params = {
+                user_id: this.user.id,
+                track_type: form.trackType,
+                title: form.title,
+                bpm: form.bpm,
+                key: form.key ? form.key.id : '',
+                image: form.coverArtBase64,
+                genre_id: form.genre ? form.genre.id : '',
+                tags: form.tags.map(t => t.text).join(', '),
+                public: form.isPublic ? 1 : 2,
+                scheduled: false,
+            }
+
+            if (form.scheduled) {
+                params.date = moment(form.date).format('YYYY-MM-DD')
+                params.time = form.time
+            }
+
+            const marketing = form.selectedPromos.map(p => {
+                return {
+                    marketing_id: p.id,
+                    connect_id: '',
+                }
+            })
+
+            if (marketing.length) {
+                params.marketing = JSON.stringify(marketing)
+            }
 
             const collabs = form.collabs.map(c => {
                 return {
@@ -285,6 +307,10 @@ export default {
                 }
             })
 
+            if (collabs.length) {
+                params.collaborators = JSON.stringify(collabs)
+            }
+
             const licenses = form.selectedLicenses.map(l => {
                 return {
                     license_id: l.id,
@@ -292,21 +318,6 @@ export default {
                     status_id: l.status_id,
                 }
             })
-
-            const params = {
-                user_id: this.user.id,
-                title: form.title,
-                bpm: form.bpm,
-                key: form.key ? form.key.id : '',
-                image: form.imageBase64,
-                track_type: form.trackType,
-                genre_id: form.genre ? form.genre.id : '',
-                tags: form.tags.map(t => t.text).join(', '),
-            }
-
-            if (collabs.length) {
-                params.collaborators = JSON.stringify(collabs)
-            }
 
             if (licenses.length) {
                 params.licenses = JSON.stringify(licenses)
@@ -331,26 +342,26 @@ export default {
             if (status === 'success') {
                 this.$toast.success(message)
                 this.$router.push({ name: 'userAccountTracks' })
+                //this.$store.dispatch('trackAddWizard/reset')
             } else {
                 this.$toast.error(error)
             }
 
             this.saving = false
         },
-        handleTabClick(tab) {
-            // this.goToStep(steps.indexOf(tab.step))
-        },
         handleNextClick() {
             switch (this.step) {
-                case STEP_REVIEW:
-                    this.save()
-                    return
                 case STEP_TRACK_INFO:
-                case STEP_FILES:
                 case STEP_LICENSES:
+                case STEP_FILES:
                 case STEP_MARKETING:
                     this.$bus.$emit(`wz.validateBlock.${this.step}`, {
                         onSuccess: this.next,
+                    })
+                    return
+                case STEP_REVIEW:
+                    this.$bus.$emit(`wz.validateBlock.${this.step}`, {
+                        onSuccess: this.save,
                     })
                     return
                 default:
@@ -371,12 +382,12 @@ export default {
         },
         handleImageAdded(file) {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                imageBase64: file.base64,
+                coverArtBase64: file.base64,
             })
         },
         handleImageRemoved() {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                imageBase64: null,
+                coverArtBase64: null,
             })
         },
     },

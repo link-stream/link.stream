@@ -73,19 +73,18 @@
 
             <b-form-group label="Visibility">
                 <b-form-radio-group v-model="form.visibility">
-                    <b-form-radio
-                        :value="v.id"
-                        v-for="v in visibilities"
-                        :key="v.id"
-                    >
-                        {{ v.title }}
+                    <b-form-radio value="1">
+                        Public
+                    </b-form-radio>
+                    <b-form-radio value="2">
+                        Private
                     </b-form-radio>
                 </b-form-radio-group>
             </b-form-group>
 
             <template v-if="form.scheduled">
                 <b-form-group label="Publish Date">
-                    <b-input-group class="input-group-datetime">
+                    <b-input-group class="dt-input-group">
                         <LsDatePicker v-model="form.date" />
                         <LsTimePicker v-model="form.time" />
                     </b-input-group>
@@ -110,14 +109,14 @@
             <ls-button
                 class="action-btn cancel-btn"
                 variant="secondary"
-                :disabled="loading"
+                :disabled="saving"
                 @click="close"
             >
                 Cancel
             </ls-button>
             <ls-spinner-button
                 class="action-btn"
-                :loading="loading"
+                :loading="saving"
                 @click="handleSaveClick"
             >
                 Save
@@ -128,7 +127,6 @@
 
 <script>
 import { videoAddEditForm } from '~/mixins/videos/videoAddEditForm'
-import { appConstants } from '~/constants'
 
 export default {
     name: 'VideoEditModal',
@@ -140,8 +138,8 @@ export default {
         }
     },
     created() {
-        this.$bus.$on('modal.videoEdit.show', this.handleShow)
-        this.$bus.$on('modal.videoEdit.hide', this.handleHide)
+        this.$bus.$on('modal.videoEdit.open', this.handleOpen)
+        this.$bus.$on('modal.videoEdit.close', this.handleClose)
     },
     methods: {
         close() {
@@ -153,10 +151,10 @@ export default {
         handleDeleteClick() {
             this.$emit('delete-click', this.video)
         },
-        handleHide() {
+        handleClose() {
             this.open = false
         },
-        handleShow(video) {
+        handleOpen(video) {
             this.video = { ...video }
 
             const {

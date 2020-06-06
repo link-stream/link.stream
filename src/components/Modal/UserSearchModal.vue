@@ -98,7 +98,7 @@ export default {
         },
     },
     created() {
-        this.$bus.$on('modal.userSearch.show', this.handleShow)
+        this.$bus.$on('modal.userSearch.open', this.handleOpen)
         this.debounceSeach = debounce(() => {
             this.searching = true
             this.search()
@@ -146,13 +146,13 @@ export default {
         },
         handleInviteClick() {
             this.close()
-            this.$bus.$emit('modal.userInvite.show')
+            this.$bus.$emit('modal.userInvite.open')
         },
         handleUserClick(user) {
             this.close()
             this.$bus.$emit('modal.userSearch.userClick', user)
         },
-        handleShow() {
+        handleOpen() {
             this.open = true
         },
     },

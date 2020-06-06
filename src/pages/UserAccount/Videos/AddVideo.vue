@@ -1,7 +1,7 @@
 <template>
     <div class="page page-ua-vid-add">
-        <div class="fwz" :class="`step-${step}`">
-            <h6 class="fwz-cnt">Step {{ step }} / 2</h6>
+        <div class="fwz" :class="`--step-${step}`">
+            <h6 class="fwz-counter">Step {{ step }} / 2</h6>
 
             <section class="fwz-step" v-show="step === 1">
                 <header class="step-header">
@@ -10,7 +10,7 @@
                     </h2>
                 </header>
                 <main class="step-body">
-                    <div class="step-fields">
+                    <div class="fieldset">
                         <b-form-group
                             label="YouTube Video URL"
                             label-for="urlInput"
@@ -44,7 +44,7 @@
                     </h4>
                 </header>
                 <main class="step-body">
-                    <div class="step-fields">
+                    <div class="fieldset">
                         <youtube
                             class="video-wrapper"
                             :video-id="ytVidId"
@@ -98,12 +98,11 @@
 
                         <b-form-group label="Visibility">
                             <b-form-radio-group v-model="form.visibility">
-                                <b-form-radio
-                                    :value="v.id"
-                                    v-for="v in visibilities"
-                                    :key="v.id"
-                                >
-                                    {{ v.title }}
+                                <b-form-radio value="1">
+                                    Public
+                                </b-form-radio>
+                                <b-form-radio value="2">
+                                    Private
                                 </b-form-radio>
                             </b-form-radio-group>
                         </b-form-group>
@@ -112,23 +111,20 @@
             </section>
 
             <footer class="fwz-pager">
-                <ls-button class="fwz-next-btn" @click="goToStep(2)">
-                    Next
-                </ls-button>
                 <ls-button
                     class="fwz-prev-btn"
                     variant="secondary"
-                    :disabled="loading"
+                    :disabled="saving"
                     @click="goToStep(1)"
                 >
                     Back
                 </ls-button>
                 <ls-spinner-button
-                    class="fwz-submit-btn"
-                    :loading="loading"
-                    @click="handleSaveClick"
+                    class="fwz-next-btn"
+                    :loading="saving"
+                    @click="handleNextClick"
                 >
-                    Add Video
+                    {{ step === 1 ? 'Next' : 'Add Video' }}
                 </ls-spinner-button>
             </footer>
         </div>
@@ -155,6 +151,13 @@ export default {
                 }
             }
             this.step = step
+        },
+        handleNextClick() {
+            if (this.step === 1) {
+                this.goToStep(2)
+            } else {
+                this.save()
+            }
         },
     },
 }

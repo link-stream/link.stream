@@ -77,7 +77,7 @@ export const uploaderMixin = {
                     name: file.name,
                     src: base64,
                 }
-                this.$emit('file-add', {
+                this.$emit('file-added', {
                     name: file.name,
                     base64,
                 })
@@ -90,7 +90,7 @@ export const uploaderMixin = {
                 src: null,
                 name: null,
             }
-            this.$emit('file-remove')
+            this.$emit('file-removed')
         },
         handleRemoveClick() {
             this.removeFile()

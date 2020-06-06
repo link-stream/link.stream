@@ -1,6 +1,6 @@
 <template>
     <div class="TrackInfoBlock">
-        <div class="step-fields">
+        <div class="fieldset">
             <b-form-group label="Track Type" v-if="!noTrackTypeField">
                 <b-form-radio-group v-model="form.trackType">
                     <b-form-radio value="2">
@@ -83,7 +83,7 @@
                         v-for="(collab, index) in $v.form.collabs.$each.$iter"
                         :key="collab.id"
                     >
-                        <div class="cell cell--name">
+                        <div class="cell --user">
                             <div class="cell-title">
                                 Collaborator
                             </div>
@@ -93,35 +93,45 @@
                                 {{ index == 0 ? '(you)' : '' }}
                             </div>
                         </div>
-                        <div class="cell cell--profit">
+                        <div class="cell --profit">
                             <div class="cell-title">
                                 Profit %
                             </div>
                             <b-form-group>
                                 <b-form-input
+                                    type="number"
                                     v-model="collab.profit.$model"
                                     :state="!collab.profit.$error"
                                 ></b-form-input>
                             </b-form-group>
                         </div>
-                        <div class="cell cell--pub">
+                        <div class="cell --pub">
                             <div class="cell-title">
                                 Publishing %
                             </div>
                             <b-form-group>
                                 <b-form-input
+                                    type="number"
                                     v-model="collab.publishing.$model"
                                     :state="!collab.publishing.$error"
                                 ></b-form-input>
                             </b-form-group>
                         </div>
-                        <div class="cell cell--action">
+                        <div class="cell --remove">
                             <LsIconButton
                                 icon="close"
-                                class="remove-btn"
+                                class="remove-ibtn"
                                 v-if="index > 0"
                                 @click="handleCollabRemoveClick(index)"
                             />
+                            <ls-button
+                                variant="link"
+                                class="remove-btn"
+                                v-if="index > 0"
+                                @click="handleCollabRemoveClick(index)"
+                            >
+                                Remove Collaborator
+                            </ls-button>
                         </div>
                     </li>
                 </ul>
@@ -142,7 +152,6 @@
 <script>
 import { required } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
-import { cloneDeep } from 'lodash'
 
 export default {
     name: 'TrackInfoBlock',
@@ -229,7 +238,7 @@ export default {
             })
         },
         showCollabSearchModal() {
-            this.$bus.$emit('modal.userSearch.show')
+            this.$bus.$emit('modal.userSearch.open')
         },
         handleTagsChange(tags) {
             this.form.tags = tags

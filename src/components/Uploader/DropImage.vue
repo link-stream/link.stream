@@ -66,7 +66,7 @@
 
 <script>
 import { uploaderMixin } from '~/mixins/uploader'
-import { Doka, DokaModal } from 'vue-doka'
+import { DokaModal } from 'vue-doka'
 import { blobToBase64 } from 'base64-blob'
 
 export default {
@@ -125,7 +125,7 @@ export default {
                     name: file.name,
                     src: base64,
                 }
-                this.$emit('file-add', {
+                this.$emit('file-added', {
                     name: file.name,
                     base64,
                 })

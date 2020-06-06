@@ -4,7 +4,7 @@
         v-model="open"
         size="lg"
         centered
-        @hidden="handleHidden"
+        @hidden="handleClosed"
     >
         <template v-slot:modal-header>
             <LsButton variant="icon-bg" class="modal-close" @click="close" />
@@ -52,8 +52,8 @@ export default {
                 onSuccess: this.close,
             })
         },
-        handleHidden() {
-            this.$emit('hidden', { section: 'marketing' })
+        handleClosed() {
+            this.$emit('closed', { section: 'marketing' })
         },
     },
 }

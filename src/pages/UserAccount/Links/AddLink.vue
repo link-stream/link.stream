@@ -16,8 +16,8 @@
                     <h2 class="step-title">Add a link</h2>
                 </header>
                 <main class="step-body">
-                    <div class="step-main">
-                        <div class="step-fields">
+                    <div class="col-info">
+                        <div class="fieldset">
                             <b-form-group
                                 label="Copy &amp; Paste Your Link URL"
                                 label-for="urlInput"
@@ -61,7 +61,7 @@
 
                             <div v-if="form.scheduled">
                                 <b-form-group label="Start Date">
-                                    <b-input-group class="input-group-datetime">
+                                    <b-input-group class="dt-input-group">
                                         <LsDatePicker v-model="form.date" />
                                         <LsTimePicker v-model="form.time" />
                                     </b-input-group>
@@ -75,7 +75,7 @@
                                     label="End Date"
                                     v-if="endDateEnabled"
                                 >
-                                    <b-input-group class="input-group-datetime">
+                                    <b-input-group class="dt-input-group">
                                         <LsDatePicker v-model="form.endDate" />
                                         <LsTimePicker v-model="form.endTime" />
                                     </b-input-group>
@@ -94,10 +94,10 @@
                             </ls-button>
                         </div>
                     </div>
-                    <div class="step-sidebar">
+                    <div class="col-image">
                         <DropImage
-                            @file-add="handleImageAdded"
-                            @file-remove="handleImageRemoved"
+                            @file-added="handleImageAdded"
+                            @file-removed="handleImageRemoved"
                         />
                     </div>
                 </main>
@@ -107,13 +107,13 @@
                     class="fwz-prev-btn"
                     variant="secondary"
                     :to="{ name: 'userAccountLinks' }"
-                    :disabled="loading"
+                    :disabled="saving"
                 >
                     Cancel
                 </ls-button>
                 <ls-spinner-button
-                    class="fwz-submit-btn"
-                    :loading="loading"
+                    class="fwz-next-btn"
+                    :loading="saving"
                     @click="handleSaveClick"
                 >
                     Add Link

@@ -1,6 +1,6 @@
-.fwz-cnt {
+.fwz-counter {
     color: $linkstream-70;
-    font-size: px2rem(11);
+    font-size: px2rem(12);
     font-weight: bold;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -26,15 +26,6 @@
         font-weight: normal;
         font-size: px2rem(14);
     }
-
-    .step-body {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .step-sidebar {
-        margin-top: 20px;
-    }
 }
 
 .fwz-pager {
@@ -49,29 +40,14 @@
     color: $linkstream-70;
 }
 
-.fwz-submit-btn {
+.fwz-next-btn {
     margin-bottom: 10px;
 }
 
 @include media-breakpoint-up(md) {
     .fwz {
-        .step-fields {
+        .fieldset {
             max-width: 500px;
-        }
-
-        .step-sidebar {
-            margin-top: 0;
-        }
-
-        .step-main {
-            flex-grow: 1;
-        }
-
-        .step-body {
-            flex-direction: row;
-            > .step-fields {
-                flex-grow: 1;
-            }
         }
     }
 
@@ -80,7 +56,7 @@
         justify-content: space-between;
     }
 
-    .fwz-submit-btn {
+    .fwz-next-btn {
         margin-bottom: 0;
     }
 }

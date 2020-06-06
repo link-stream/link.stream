@@ -108,11 +108,8 @@ const mutations = {
 }
 
 const actions = {
-    reset: {
-        root: true,
-        handler({ commit }) {
-            commit(types.RESET)
-        },
+    reset({ commit }) {
+        commit(types.RESET)
     },
 
     /**

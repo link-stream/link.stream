@@ -87,7 +87,7 @@ export default {
     },
     methods: {
         handleScheduleClick(link) {
-            this.$bus.$emit('modal.linkSchedule.show', link)
+            this.$bus.$emit('modal.linkSchedule.open', link)
         },
         handleReorder(dropResult) {
             const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult

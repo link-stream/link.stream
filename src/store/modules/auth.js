@@ -6,7 +6,7 @@ import {
     setAuthCookie,
     getPendingUserCookie,
     setPendingUserCookie,
-    destroySessionStorage,
+    destroySession,
 } from '~/utils/auth'
 
 const initialState = () => ({
@@ -50,12 +50,10 @@ const mutations = {
 }
 
 const actions = {
-    reset: {
-        root: true,
-        handler({ commit }) {
-            commit(types.RESET)
-        },
+    reset({ commit }) {
+        commit(types.RESET)
     },
+
     signup({ commit }, { user }) {
         if (!isEmpty(user)) {
             commit(authTypes.SIGNUP, { user })
@@ -74,8 +72,9 @@ const actions = {
 
     async logout({ commit, dispatch }) {
         commit(authTypes.LOGOUT)
-        dispatch('reset', null, { root: true })
-        destroySessionStorage()
+        dispatch('reset')
+        dispatch('me/reset', null, { root: true })
+        destroySession()
     },
 }
 

@@ -48,6 +48,7 @@ import {
     LsButton,
     LsSpinnerButton,
     LsIconButton,
+    LsToggleButton,
     PreviewPillButton,
 } from '~/components/Button'
 import { LsSpinner } from '~/components/Loading'
@@ -147,6 +148,7 @@ Vue.use(eventBus)
 Vue.component('LsButton', LsButton)
 Vue.component('LsSpinnerButton', LsSpinnerButton)
 Vue.component('LsIconButton', LsIconButton)
+Vue.component('LsToggleButton', LsToggleButton)
 Vue.component('PreviewPillButton', PreviewPillButton)
 Vue.component('LsSelect', LsSelect)
 Vue.component('LsDatePicker', LsDatePicker)

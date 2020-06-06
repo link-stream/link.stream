@@ -8,12 +8,12 @@
                 class="edit-btn"
                 @click="handleEditClick('trackInfo')"
             />
-            <p>Title: {{ form.title }}</p>
+            <p>Title: {{ title }}</p>
             <p>Type: {{ isSong ? 'Song' : 'Beat' }}</p>
-            <p>Genre: {{ form.genre.genre || '' }}</p>
+            <p>Genre: {{ genre }}</p>
             <p>Tags: {{ tags }}</p>
-            <p>BPM: {{ form.bpm }}</p>
-            <p>Key: {{ form.key.name || '' }}</p>
+            <p>BPM: {{ bpm }}</p>
+            <p>Key: {{ key }}</p>
             <p>Collaborators: {{ collabs }}</p>
         </div>
 
@@ -25,13 +25,11 @@
                 class="edit-btn"
                 @click="handleEditClick('licenses')"
             />
-            <p v-if="!selectedLicenses.length">No licenses selected</p>
             <ul v-for="license in selectedLicenses" :key="license.id">
                 <li>
-                    <p>
-                        ${{ license.prize | trimZeroDecimal }} -
-                        {{ license.title }}
-                    </p>
+                    ${{ license.prize | trimZeroDecimal }} -
+                    {{ license.title }}
+                    <br />
                     {{ license.descripcion }}
                 </li>
             </ul>
@@ -79,7 +77,7 @@
                 class="edit-btn"
                 @click="handleEditClick('marketing')"
             />
-            <p v-if="!selectedPromos.length">No promotions selected</p>
+            <p v-if="!selectedPromos.length">No free downloads</p>
             <ul>
                 <li v-for="m in selectedPromos" :key="m.id">
                     {{ m.title }}
@@ -87,24 +85,50 @@
             </ul>
         </div>
 
+        <div class="Card --vis">
+            <div class="row-vis">
+                <h4 class="Card-title">Visibility</h4>
+                <div>
+                    <small>{{ form.isPublic ? 'Public' : 'Private' }}</small>
+                    <LsToggleButton v-model="form.isPublic" />
+                </div>
+            </div>
+            <div>
+                <b-form-group v-show="form.scheduled">
+                    <b-input-group class="dt-input-group">
+                        <LsDatePicker v-model="form.date" />
+                        <LsTimePicker v-model="form.time" />
+                    </b-input-group>
+                    <div class="invalid-feedback" v-show="$v.form.$error">
+                        Select date and time
+                    </div>
+                </b-form-group>
+                <ls-button variant="link" @click="handleScheduleToggleClick">
+                    {{
+                        form.scheduled ? 'Remove schedule' : 'Schedule release'
+                    }}
+                </ls-button>
+            </div>
+        </div>
+
         <TrackInfoEditModal
-            v-if="edit.trackInfo"
-            @hidden="handleEditModalHidden"
+            v-if="editModal.trackInfo"
+            @closed="handleEditModalClosed"
         />
 
         <LicensesEditModal
-            v-else-if="edit.licenses"
-            @hidden="handleEditModalHidden"
+            v-else-if="editModal.licenses"
+            @closed="handleEditModalClosed"
         />
 
         <FilesEditModal
-            v-else-if="edit.files"
-            @hidden="handleEditModalHidden"
+            v-else-if="editModal.files"
+            @closed="handleEditModalClosed"
         />
 
         <MarketingEditModal
-            v-else-if="edit.marketing"
-            @hidden="handleEditModalHidden"
+            v-else-if="editModal.marketing"
+            @closed="handleEditModalClosed"
         />
     </div>
 </template>
@@ -114,6 +138,7 @@ import TrackInfoEditModal from '../Modal/TrackInfoEditModal'
 import LicensesEditModal from '../Modal/LicensesEditModal'
 import FilesEditModal from '../Modal/FilesEditModal'
 import MarketingEditModal from '../Modal/MarketingEditModal'
+import { required, requiredIf } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -125,8 +150,17 @@ export default {
         MarketingEditModal,
     },
     data() {
+        const { time, date, scheduled, isPublic } = this.$store.getters[
+            'trackAddWizard/form'
+        ]
         return {
-            edit: {
+            form: {
+                time,
+                date,
+                scheduled,
+                isPublic,
+            },
+            editModal: {
                 trackInfo: false,
                 licenses: false,
                 files: false,
@@ -136,39 +170,100 @@ export default {
     },
     validations() {
         return {
-            files: this.filesValidations,
+            files: this.filesValidationRules,
+            form: {
+                time: {
+                    required: requiredIf(function() {
+                        return this.form.scheduled
+                    }),
+                },
+                date: {
+                    required: requiredIf(function() {
+                        return this.form.scheduled
+                    }),
+                },
+            },
         }
+    },
+    watch: {
+        form: {
+            deep: true,
+            handler() {
+                this.updateWizardForm()
+            },
+        },
     },
     computed: {
         ...mapGetters({
-            filesValidations: 'trackAddWizard/filesValidations',
             isSong: 'trackAddWizard/isSong',
+            isMissingFiles: 'trackAddWizard/isMissingFiles',
+            filesValidationRules: 'trackAddWizard/filesValidationRules',
         }),
-        form() {
+        summary() {
             return this.$store.getters['trackAddWizard/form']
         },
+        title() {
+            return this.summary.title
+        },
+        genre() {
+            return this.summary.genre ? this.summary.genre.genre : ''
+        },
+        bpm() {
+            return this.summary.bpm
+        },
+        key() {
+            return this.summary.key ? this.summary.key.name : ''
+        },
         selectedLicenses() {
-            return this.form.selectedLicenses
+            return this.summary.selectedLicenses
         },
         selectedPromos() {
-            return this.form.selectedPromos
+            return this.summary.selectedPromos
         },
         files() {
-            return this.form.files
+            return this.summary.files
         },
         collabs() {
-            return this.form.collabs.map(c => c.user.name).join(', ')
+            return this.summary.collabs.map(c => c.user.name).join(', ')
         },
         tags() {
-            return this.form.tags.map(t => t.text).join(', ')
+            return this.summary.tags.map(t => t.text).join(', ')
         },
     },
+    created() {
+        this.$bus.$on('wz.validateBlock.review', this.handleBlockValidate)
+    },
+    destroyed() {
+        this.$bus.$off('wz.validateBlock.review')
+    },
     methods: {
-        handleEditClick(section) {
-            this.edit[section] = true
+        updateWizardForm() {
+            this.$store.dispatch('trackAddWizard/updateForm', {
+                ...this.form,
+            })
         },
-        handleEditModalHidden({ section }) {
-            this.edit[section] = false
+        handleBlockValidate({ onSuccess }) {
+            this.$v.form.$touch()
+            if (this.$v.form.$invalid) {
+                this.$toast.error('Please add schedule date and time.')
+                return
+            }
+            if (this.isMissingFiles) {
+                this.$toast.error('Please add required files.')
+                return
+            }
+            this.updateWizardForm()
+            onSuccess()
+        },
+        handleScheduleToggleClick() {
+            this.$v.form.$reset()
+            this.form.scheduled = !this.form.scheduled
+        },
+        handleEditClick(section) {
+            this.editModal[section] = true
+        },
+        handleEditModalClosed({ section }) {
+            this.editModal[section] = false
         },
     },
 }

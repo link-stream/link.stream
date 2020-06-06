@@ -16,4 +16,24 @@
             left: 0;
         }
     }
+
+    .step-body {
+        display: flex;
+        flex-direction: column;
+        .col-image {
+            margin-top: 20px;
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        .step-body {
+            flex-direction: row;
+            .col-info {
+                flex-grow: 1;
+            }
+            .col-image {
+                margin-top: 0;
+            }
+        }
+    }
 }

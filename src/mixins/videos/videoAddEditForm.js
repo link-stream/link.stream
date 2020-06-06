@@ -1,24 +1,22 @@
 import { mapGetters } from 'vuex'
 import { required, minLength } from 'vuelidate/lib/validators'
 import { helpers } from 'vuelidate/lib/validators'
-import { appConstants } from '~/constants'
 import moment from 'moment'
 
 export const videoAddEditForm = {
     created() {
         this.$store.dispatch('common/loadGenres')
         this.$store.dispatch('me/loadTracks')
-        this.$store.dispatch('me/loadVisibilities')
     },
     data() {
         return {
-            loading: false,
+            saving: false,
             form: {
                 url: null,
                 title: null,
                 genre: null,
                 relatedTrack: null,
-                visibility: appConstants.visibilities.private,
+                visibility: 2,
                 scheduled: null,
                 date: null,
                 time: null,
@@ -46,7 +44,6 @@ export const videoAddEditForm = {
         ...mapGetters({
             user: ['me/user'],
             relatedTracks: ['me/tracks'],
-            visibilities: ['me/visibilities'],
             genres: ['common/genres'],
         }),
         ytVidId() {
@@ -54,14 +51,17 @@ export const videoAddEditForm = {
         },
     },
     methods: {
-        async handleSaveClick() {
+        handleSaveClick() {
+            this.save()
+        },
+        async save() {
             this.$v.form.$touch()
 
             if (this.$v.form.$invalid) {
                 return
             }
 
-            this.loading = true
+            this.saving = true
 
             const {
                 url,
@@ -106,7 +106,7 @@ export const videoAddEditForm = {
                 this.$toast.error(error)
             }
 
-            this.loading = false
+            this.saving = false
         },
     },
 }

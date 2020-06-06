@@ -20,7 +20,7 @@ export const setPendingUserCookie = value => {
     })
 }
 
-export function destroySessionStorage() {
+export function destroySession() {
     Cookies.remove(appConstants.cookies.auth.name)
     Cookies.remove(appConstants.cookies.pendingUser.name)
     window.localStorage &&

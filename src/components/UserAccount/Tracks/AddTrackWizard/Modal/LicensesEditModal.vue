@@ -1,5 +1,5 @@
 <template>
-    <b-modal v-model="open" size="lg" centered @hidden="handleHidden">
+    <b-modal v-model="open" size="lg" centered @hidden="handleClosed">
         <template v-slot:modal-header>
             <LsButton variant="icon-bg" class="modal-close" @click="close" />
             <h2 class="modal-title">Licenses</h2>
@@ -46,8 +46,8 @@ export default {
                 onSuccess: this.close,
             })
         },
-        handleHidden() {
-            this.$emit('hidden', { section: 'licenses' })
+        handleClosed() {
+            this.$emit('closed', { section: 'licenses' })
         },
     },
 }

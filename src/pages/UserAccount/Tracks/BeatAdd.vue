@@ -16,7 +16,7 @@ import Wizard from '~/components/UserAccount/Tracks/AddTrackWizard/Wizard'
 import { UserInviteModal, UserSearchModal } from '~/components/Modal'
 
 export default {
-    name: 'AddBeat',
+    name: 'BeatAdd',
     components: {
         Wizard,
         UserInviteModal,

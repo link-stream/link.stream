@@ -135,7 +135,7 @@
 import { videoAddEditForm } from '~/mixins/videos/videoAddEditForm'
 
 export default {
-    name: 'AddVideo',
+    name: 'VideoAdd',
     mixins: [videoAddEditForm],
     data() {
         return {

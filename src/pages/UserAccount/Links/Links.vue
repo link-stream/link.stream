@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="col-right">
-                <ls-button :to="{ name: 'userAccountLinksAdd' }">
+                <ls-button :to="{ name: 'userAccountLinkAdd' }">
                     Add New Link
                 </ls-button>
             </div>

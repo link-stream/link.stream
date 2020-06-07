@@ -127,7 +127,7 @@
 import { linkAddEditForm } from '~/mixins/links/linkAddEditForm'
 
 export default {
-    name: 'AddLink',
+    name: 'LinkAdd',
     mixins: [linkAddEditForm],
     methods: {
         handleScheduleToggleClick() {

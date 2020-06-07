@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="col-right">
-                <ls-button :to="{ name: 'userAccountBeatsAdd' }">
+                <ls-button :to="{ name: 'userAccountBeatAdd' }">
                     Add a Beat
                 </ls-button>
             </div>
@@ -34,7 +34,7 @@
                     <ls-button
                         variant="link"
                         :to="{
-                            name: 'userAccountBeatsAdd',
+                            name: 'userAccountBeatAdd',
                         }"
                     >
                         Add a beat

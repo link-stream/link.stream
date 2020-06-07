@@ -13,11 +13,11 @@ import {
     UserAccountDashboard,
     UserAccountProfileEdit,
     UserAccountVideos,
-    UserAccountVideosAdd,
+    UserAccountVideoAdd,
     UserAccountLinks,
-    UserAccountLinksAdd,
+    UserAccountLinkAdd,
     UserAccountBeats,
-    UserAccountBeatsAdd,
+    UserAccountBeatAdd,
 } from '~/pages/UserAccount'
 
 const routes = [
@@ -107,8 +107,8 @@ const routes = [
     },
     {
         path: '/app/videos/add',
-        name: 'userAccountVideosAdd',
-        component: UserAccountVideosAdd,
+        name: 'userAccountVideoAdd',
+        component: UserAccountVideoAdd,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
     {
@@ -119,8 +119,8 @@ const routes = [
     },
     {
         path: '/app/links/add',
-        name: 'userAccountLinksAdd',
-        component: UserAccountLinksAdd,
+        name: 'userAccountLinkAdd',
+        component: UserAccountLinkAdd,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
     {
@@ -131,8 +131,8 @@ const routes = [
     },
     {
         path: '/app/beats/add',
-        name: 'userAccountBeatsAdd',
-        component: UserAccountBeatsAdd,
+        name: 'userAccountBeatAdd',
+        component: UserAccountBeatAdd,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
 

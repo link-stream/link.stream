@@ -82,50 +82,53 @@ export default {
     },
     data() {
         return {
-            audioObject: null,
+            player: null,
             playing: false,
         }
     },
     watch: {
         file() {
             if (this.fileAdded) {
-                this.loadAudio()
+                this.loadPlayer()
             } else {
-                this.pauseAudio()
+                this.pause()
             }
         },
     },
     created() {
-        this.audioObject = new Audio()
-        this.audioObject.addEventListener('loadstart', this.handleAudioPause)
-        this.audioObject.addEventListener('playing', this.handleAudioPlaying)
-        this.audioObject.addEventListener('pause', this.handleAudioPause)
-        this.audioObject.addEventListener('ended', this.handleAudioPause)
-        this.fileAdded && this.loadAudio()
+        this.initPlayer()
+        this.fileAdded && this.loadPlayer()
     },
     destroyed() {
-        this.pauseAudio()
+        this.pause()
     },
     methods: {
-        loadAudio() {
-            this.audioObject.src = this.file.src
-            this.audioObject.load()
+        initPlayer() {
+            this.player = new Audio()
+            this.player.addEventListener('loadstart', this.handleAudioPause)
+            this.player.addEventListener('playing', this.handleAudioPlaying)
+            this.player.addEventListener('pause', this.handleAudioPause)
+            this.player.addEventListener('ended', this.handleAudioPause)
         },
-        playAudio() {
-            this.audioObject.play()
+        loadPlayer() {
+            this.player.src = this.file.src
+            this.player.load()
         },
-        pauseAudio() {
-            this.playing && this.audioObject.pause()
+        play() {
+            this.player.play()
+        },
+        pause() {
+            this.playing && this.player.pause()
         },
         handlePlayClick() {
             if (this.playing) {
-                this.pauseAudio()
+                this.pause()
             } else {
-                this.playAudio()
+                this.play()
             }
         },
         handleRemoveClick() {
-            this.pauseAudio()
+            this.pause()
             this.removeFile()
         },
         handleAudioPlaying() {

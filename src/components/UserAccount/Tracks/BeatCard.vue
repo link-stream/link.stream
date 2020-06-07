@@ -66,18 +66,18 @@ export default {
         fileBadges() {
             const badges = {}
             const { licenses } = this.beat
-            for (let k in licenses) {
-                if (licenses.wav === '1') {
+            licenses.forEach(license => {
+                if (license.wav === '1') {
                     badges.wav = true
                 }
-                if (licenses.mp3 === '1') {
+                if (license.mp3 === '1') {
                     badges.mp3 = true
                 }
-                if (licenses.trackout_stems === '1') {
+                if (license.trackout_stems === '1') {
                     badges.stems = true
                 }
-            }
-            return true
+            })
+            return badges
         },
     },
     methods: {

@@ -8,19 +8,18 @@
         </div>
         <h2 class="Card-title">
             {{ beat.title }}
-            <span class="private-badge badge badge-pill" v-if="isPrivate">
+            <span class="private-badge badge badge-pill" v-if="!beat.isPrivate">
                 Private
             </span>
         </h2>
         <div class="file-badges">
-            <span class="badge badge-pill" v-if="fileBadges.mp3">
-                MP3
-            </span>
-            <span class="badge badge-pill" v-if="fileBadges.wav">
-                WAV
-            </span>
-            <span class="badge badge-pill" v-if="fileBadges.stems">
-                ZIP
+            <span
+                class="badge badge-pill"
+                :class="{ hidden: !badge.show }"
+                v-for="(badge, index) in fileBadges"
+                :key="index"
+            >
+                {{ badge.text }}
             </span>
         </div>
         <LsButton
@@ -64,18 +63,24 @@ export default {
     },
     computed: {
         fileBadges() {
-            const badges = {}
-            const { licenses } = this.beat
-            licenses.forEach(license => {
-                if (license.wav === '1') {
-                    badges.wav = true
+            const badges = [
+                { text: 'MP3', show: false },
+                { text: 'WAV', show: false },
+                { text: 'ZIP', show: false },
+            ]
+            this.beat.licenses.forEach(({ mp3, wav, trackout_stems }) => {
+                if (mp3 === '1') {
+                    badges[0].show = true
                 }
-                if (license.mp3 === '1') {
-                    badges.mp3 = true
+                if (wav === '1') {
+                    badges[1].show = true
                 }
-                if (license.trackout_stems === '1') {
-                    badges.stems = true
+                if (trackout_stems === '1') {
+                    badges[2].show = true
                 }
+            })
+            badges.sort(function(a, b) {
+                return b.show - a.show
             })
             return badges
         },

@@ -94,10 +94,10 @@ export default {
             const link = this.sortableLinks[oldIndex]
             this.sortableLinks.splice(oldIndex, 1)
             this.sortableLinks.splice(newIndex, 0, link)
-            const sorts = this.sortableLinks.map((v, idx) => {
+            const sorts = this.sortableLinks.map(({ id }, index) => {
                 return {
-                    id: v.id,
-                    sort: (idx + 1).toString(),
+                    id,
+                    sort: (index + 1).toString(),
                 }
             })
             this.$store.dispatch('me/reorderLink', {

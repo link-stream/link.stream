@@ -49,7 +49,7 @@ const mutations = {
 
     [meTypes.DELETE_BEAT](state, { beat }) {
         const { beats } = state
-        const index = beats.map(b => b.id).indexOf(beat.id)
+        const index = beats.map(({ id }) => id).indexOf(beat.id)
         beats.splice(index, 1)
     },
 
@@ -70,13 +70,13 @@ const mutations = {
 
     [meTypes.UPDATE_VIDEO](state, { video }) {
         const { videos } = state
-        const index = videos.map(v => v.id).indexOf(video.id)
+        const index = videos.map(({ id }) => id).indexOf(video.id)
         index > -1 && videos.splice(index, 1, video)
     },
 
     [meTypes.DELETE_VIDEO](state, { video }) {
         const { videos } = state
-        const index = videos.map(v => v.id).indexOf(video.id)
+        const index = videos.map(({ id }) => id).indexOf(video.id)
         videos.splice(index, 1)
     },
 
@@ -97,13 +97,13 @@ const mutations = {
 
     [meTypes.UPDATE_LINK](state, { link }) {
         const { links } = state
-        const index = links.map(l => l.id).indexOf(link.id)
+        const index = links.map(({ id }) => id).indexOf(link.id)
         index > -1 && links.splice(index, 1, link)
     },
 
     [meTypes.DELETE_LINK](state, { link }) {
         const { links } = state
-        const index = links.map(l => l.id).indexOf(link.id)
+        const index = links.map(({ id }) => id).indexOf(link.id)
         links.splice(index, 1)
     },
 

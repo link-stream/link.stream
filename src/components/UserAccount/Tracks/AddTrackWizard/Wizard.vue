@@ -278,7 +278,7 @@ export default {
                 key: form.key ? form.key.id : '',
                 image: form.coverArtBase64,
                 genre_id: form.genre ? form.genre.id : '',
-                tags: form.tags.map(t => t.text).join(', '),
+                tags: form.tags.map(({ text }) => text).join(', '),
                 public: form.isPublic ? 1 : 2,
                 scheduled: false,
             }
@@ -288,9 +288,9 @@ export default {
                 params.time = form.time
             }
 
-            const marketing = form.selectedPromos.map(p => {
+            const marketing = form.selectedPromos.map(({ id }) => {
                 return {
-                    marketing_id: p.id,
+                    marketing_id: id,
                     connect_id: '',
                 }
             })
@@ -299,11 +299,11 @@ export default {
                 params.marketing = JSON.stringify(marketing)
             }
 
-            const collabs = form.collabs.map(c => {
+            const collabs = form.collabs.map(({ user, profit, publishing }) => {
                 return {
-                    user_id: c.user.id,
-                    profit: c.profit,
-                    publishing: c.publishing,
+                    user_id: user.id,
+                    profit: profit,
+                    publishing: publishing,
                 }
             })
 
@@ -311,13 +311,15 @@ export default {
                 params.collaborators = JSON.stringify(collabs)
             }
 
-            const licenses = form.selectedLicenses.map(l => {
-                return {
-                    license_id: l.id,
-                    price: l.price,
-                    status_id: l.status_id,
+            const licenses = form.selectedLicenses.map(
+                ({ id, price, status_id }) => {
+                    return {
+                        license_id: id,
+                        price,
+                        status_id,
+                    }
                 }
-            })
+            )
 
             if (licenses.length) {
                 params.licenses = JSON.stringify(licenses)

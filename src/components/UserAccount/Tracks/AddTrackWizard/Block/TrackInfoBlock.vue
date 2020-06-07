@@ -248,9 +248,7 @@ export default {
         },
         handleCollabAdd(user) {
             const { collabs } = this.form
-            const alreadyAdded = collabs.find(
-                collab => collab.user.id == user.id
-            )
+            const alreadyAdded = collabs.find(({ user }) => user.id == user.id)
             if (alreadyAdded) {
                 return
             }

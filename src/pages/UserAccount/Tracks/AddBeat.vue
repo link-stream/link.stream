@@ -1,5 +1,5 @@
 <template>
-    <div class="page page-ua-track-add">
+    <div class="page page-ua-beat-add">
         <div class="page-body">
             <div class="page-spinner" v-if="loading">
                 <LsSpinner />

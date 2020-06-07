@@ -122,10 +122,10 @@ export default {
             const video = this.sortableVideos[oldIndex]
             this.sortableVideos.splice(oldIndex, 1)
             this.sortableVideos.splice(newIndex, 0, video)
-            const sorts = this.sortableVideos.map((v, idx) => {
+            const sorts = this.sortableVideos.map(({ id }, index) => {
                 return {
-                    id: v.id,
-                    sort: (idx + 1).toString(),
+                    id,
+                    sort: (index + 1).toString(),
                 }
             })
             this.$store.dispatch('me/reorderVideo', {

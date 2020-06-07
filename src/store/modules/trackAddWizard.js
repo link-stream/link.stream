@@ -99,7 +99,7 @@ const actions = {
     },
 
     async updateLicense({ state, commit }, { license }) {
-        const index = state.licenses.map(l => l.id).indexOf(license.id)
+        const index = state.licenses.map(({ id }) => id).indexOf(license.id)
         commit({
             type: trackAddWizardTypes.UPDATE_LICENSE,
             index,
@@ -133,14 +133,14 @@ const getters = {
             untaggedMp3: {},
             untaggedWav: {},
         }
-        selectedLicenses.forEach(license => {
-            if (license.mp3 === '1') {
+        selectedLicenses.forEach(({ mp3, wav, trackout_stems }) => {
+            if (mp3 === '1') {
                 rules.untaggedMp3 = { required }
             }
-            if (license.wav == '1') {
+            if (wav === '1') {
                 rules.untaggedWav = { required }
             }
-            if (license.trackout_stems == '1') {
+            if (trackout_stems === '1') {
                 rules.stems = { required }
             }
         })

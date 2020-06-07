@@ -343,10 +343,10 @@ export default {
             user: 'me/user',
         }),
         allCountries() {
-            return csc.getAllCountries().map(obj => {
+            return csc.getAllCountries().map(({ sortname, name }) => {
                 return {
-                    code: obj.sortname,
-                    country: obj.name,
+                    code: sortname,
+                    country: name,
                 }
             })
         },

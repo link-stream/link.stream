@@ -97,10 +97,10 @@ export default {
             const beat = this.sortableBeats[oldIndex]
             this.sortableBeats.splice(oldIndex, 1)
             this.sortableBeats.splice(newIndex, 0, beat)
-            const sorts = this.sortableBeats.map((v, idx) => {
+            const sorts = this.sortableBeats.map(({ id }, index) => {
                 return {
-                    id: v.id,
-                    sort: (idx + 1).toString(),
+                    id,
+                    sort: (index + 1).toString(),
                 }
             })
             this.$store.dispatch('me/reorderBeat', {

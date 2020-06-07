@@ -6,6 +6,12 @@
     margin: 15px 0;
     padding: 15px;
 
+    .Card-title {
+        color: $linkstream-110;
+        font-size: px2rem(12);
+        font-weight: bold;
+    }
+
     .drag-icon {
         cursor: move;
     }
@@ -54,6 +60,10 @@
                 visibility: visible;
                 opacity: 1;
             }
+        }
+
+        .Card-title {
+            font-size: px2rem(13);
         }
 
         .trash-btn,

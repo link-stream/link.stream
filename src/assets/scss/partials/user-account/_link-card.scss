@@ -3,7 +3,7 @@
 
     &.is-private {
         .Card-title,
-        .Card-subtitle {
+        .private-badge {
             color: $linkstream-40;
         }
     }
@@ -28,15 +28,7 @@
         height: 60px;
     }
 
-    .Card-title {
-        color: $linkstream-110;
-        font-size: px2rem(12);
-        font-weight: bold;
-        letter-spacing: 0;
-        line-height: 16px;
-    }
-
-    .Card-subtitle {
+    .private-badge {
         font-size: px2rem(11);
         color: $black;
     }
@@ -132,10 +124,6 @@
         .Card-img {
             width: 68px;
             height: 68px;
-        }
-
-        .Card-title {
-            font-size: px2rem(13);
         }
 
         .edit-form {

@@ -1,4 +1,4 @@
-.page.page-ua-track-add {
+.page.page-ua-beat-add {
     .page-spinner {
         margin-top: 200px;
     }
@@ -79,7 +79,6 @@
             }
         }
         .Card-title {
-            color: $black;
             font-size: px2rem(18);
             font-weight: 800;
             letter-spacing: 0;
@@ -139,7 +138,6 @@
         }
         .Card-title {
             font-size: px2rem(14);
-            font-weight: bold;
             margin-bottom: 5px;
         }
         .edit-btn {
@@ -260,7 +258,6 @@
             }
             .Card-title {
                 font-size: px2rem(18);
-                font-weight: bold;
                 margin-bottom: 10px;
             }
             .DropImage {
@@ -375,7 +372,6 @@
         }
 
         .Card-title {
-            font-weight: bold;
             line-height: 15px;
         }
 
@@ -465,10 +461,6 @@
         padding: 15px;
         margin: 0 0 15px 0;
         padding: 28px 20px;
-    }
-    .Card-title {
-        font-size: px2rem(12px);
-        font-weight: bold;
     }
 }
 

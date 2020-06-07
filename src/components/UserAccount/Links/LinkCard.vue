@@ -8,7 +8,7 @@
             </div>
             <main class="Card-body" @click="handleEditClick">
                 <h2 class="Card-title">{{ link.title }}</h2>
-                <small class="Card-subtitle" v-if="link.isPrivate">
+                <small class="private-badge" v-if="link.isPrivate">
                     Hidden
                 </small>
             </main>

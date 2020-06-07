@@ -12,16 +12,12 @@
                 @change="handleCheckChange"
             ></b-form-checkbox>
             <div class="Card-body">
-                <div>
-                    <div class="Card-title">
-                        {{ license.title }} - ${{
-                            license.price | trimZeroDecimal
-                        }}
-                    </div>
-                    <small class="Card-subtitle">
-                        {{ license.descripcion }}
-                    </small>
+                <div class="Card-title">
+                    {{ license.title }} - ${{ license.price | trimZeroDecimal }}
                 </div>
+                <small>
+                    {{ license.descripcion }}
+                </small>
             </div>
             <LsButton
                 variant="icon-bg"

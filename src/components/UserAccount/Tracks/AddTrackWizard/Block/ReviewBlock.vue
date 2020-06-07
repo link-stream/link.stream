@@ -225,10 +225,10 @@ export default {
             return this.summary.files
         },
         collabs() {
-            return this.summary.collabs.map(c => c.user.name).join(', ')
+            return this.summary.collabs.map(({ user }) => user.name).join(', ')
         },
         tags() {
-            return this.summary.tags.map(t => t.text).join(', ')
+            return this.summary.tags.map(({ text }) => text).join(', ')
         },
     },
     created() {

@@ -31,7 +31,7 @@ export default {
         const { selectedLicenses } = this.$store.getters['trackAddWizard/form']
 
         return {
-            selectedIds: [...selectedLicenses.map(license => license.id)],
+            selectedIds: [...selectedLicenses.map(({ id }) => id)],
         }
     },
     computed: {
@@ -60,7 +60,7 @@ export default {
         updateWizardForm() {
             this.$store.dispatch('trackAddWizard/updateForm', {
                 selectedLicenses: this.availableLicenses.filter(
-                    license => this.selectedIds.indexOf(license.id) !== -1
+                    ({ id }) => this.selectedIds.indexOf(id) !== -1
                 ),
             })
         },

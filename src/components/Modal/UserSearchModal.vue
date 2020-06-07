@@ -129,13 +129,15 @@ export default {
             }
 
             if (status === 'success') {
-                this.results = data.slice(0, MAX_RESULTS).map(user => {
-                    return {
-                        id: user.id,
-                        name: user.user_name,
-                        photo: user.data_image,
-                    }
-                })
+                this.results = data
+                    .slice(0, MAX_RESULTS)
+                    .map(({ id, user_name, data_image }) => {
+                        return {
+                            id,
+                            name: user_name,
+                            photo: data_image,
+                        }
+                    })
             }
 
             this.showResults = true

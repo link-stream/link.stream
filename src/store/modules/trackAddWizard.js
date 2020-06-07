@@ -129,9 +129,9 @@ const getters = {
     filesValidationRules: ({ form }) => {
         const { selectedLicenses } = form
         const rules = {
+            stems: {},
             untaggedMp3: {},
             untaggedWav: {},
-            stems: {},
         }
         selectedLicenses.forEach(license => {
             if (license.mp3 === '1') {

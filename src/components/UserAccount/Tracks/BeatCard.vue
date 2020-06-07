@@ -8,7 +8,7 @@
         </div>
         <h2 class="Card-title">
             {{ beat.title }}
-            <span class="private-badge badge badge-pill">
+            <span class="private-badge badge badge-pill" v-if="isPrivate">
                 Private
             </span>
         </h2>

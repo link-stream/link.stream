@@ -1,5 +1,5 @@
 <template>
-    <div class="TrackInfoBlock">
+    <div class="InfoBlock">
         <div class="fieldset">
             <b-form-group label="Track Type" v-if="!noTrackTypeField">
                 <b-form-radio-group v-model="form.trackType">
@@ -45,7 +45,10 @@
             <b-form-row>
                 <b-col md="6">
                     <b-form-group label="BPM">
-                        <b-form-input v-model="form.bpm"></b-form-input>
+                        <b-form-input
+                            type="number"
+                            v-model="form.bpm"
+                        ></b-form-input>
                     </b-form-group>
                 </b-col>
                 <b-col md="6">
@@ -61,10 +64,7 @@
                 </b-col>
             </b-form-row>
 
-            <b-form-group
-                class="input-track-pack"
-                :label="`Add to ${isSong ? 'Song' : 'Beat'} Pack`"
-            >
+            <b-form-group :label="`Add to ${isSong ? 'Song' : 'Beat'} Pack`">
                 <div class="search-box">
                     <LsIcon class="search-icon" icon="search" />
                     <b-form-input
@@ -154,7 +154,7 @@ import { required } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 
 export default {
-    name: 'TrackInfoBlock',
+    name: 'InfoBlock',
     props: {
         isEditMode: {
             type: Boolean,

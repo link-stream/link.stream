@@ -138,6 +138,12 @@ export const api = {
             const method = METHOD_POST
             return await call({ endpoint, method, params })
         },
+        async getBeat(id, userId) {
+            const trackType = 2
+            const endpoint = `/audios/${userId}/${trackType}/${id}`
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
         async deleteBeat(id) {
             const endpoint = '/audios/' + id
             const method = METHOD_DELETE

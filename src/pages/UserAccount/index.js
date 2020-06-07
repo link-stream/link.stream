@@ -11,3 +11,4 @@ export { default as UserAccountLinkAdd } from './Links/LinkAdd'
 // Tracks
 export { default as UserAccountBeats } from './Tracks/Beats'
 export { default as UserAccountBeatAdd } from './Tracks/BeatAdd'
+export { default as UserAccountBeatEdit } from './Tracks/BeatEdit'

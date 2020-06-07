@@ -6,7 +6,7 @@
         </template>
 
         <template v-slot:default>
-            <FileUploadBlock :is-edit-mode="true" />
+            <FilesBlock :is-edit-mode="true" />
         </template>
 
         <template v-slot:modal-footer>
@@ -25,12 +25,12 @@
 </template>
 
 <script>
-import FileUploadBlock from '../Block/FileUploadBlock'
+import FilesBlock from '../Block/FilesBlock'
 
 export default {
     name: 'FilesEditModal',
     components: {
-        FileUploadBlock,
+        FilesBlock,
     },
     data() {
         return {

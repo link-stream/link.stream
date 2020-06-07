@@ -18,6 +18,7 @@ import {
     UserAccountLinkAdd,
     UserAccountBeats,
     UserAccountBeatAdd,
+    UserAccountBeatEdit,
 } from '~/pages/UserAccount'
 
 const routes = [
@@ -133,6 +134,12 @@ const routes = [
         path: '/app/beats/add',
         name: 'userAccountBeatAdd',
         component: UserAccountBeatAdd,
+        meta: { requiresAuth: true, layout: 'UserAccount' },
+    },
+    {
+        path: '/app/beats/:id/edit',
+        name: 'userAccountBeatEdit',
+        component: UserAccountBeatEdit,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
 

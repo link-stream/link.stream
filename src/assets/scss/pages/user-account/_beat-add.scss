@@ -301,7 +301,7 @@
                 font-size: px2rem(14px);
             }
         }
-        .TrackInfoBlock {
+        .InfoBlock {
             .collabs {
                 .form-group {
                     margin-bottom: 0;
@@ -411,7 +411,7 @@
     }
 }
 
-.TrackInfoBlock {
+.InfoBlock {
     .collabs {
         ul {
             margin-bottom: 12px;
@@ -464,7 +464,7 @@
     }
 }
 
-.FileUploadBlock {
+.FilesBlock {
     .DropFile:not(:last-child) {
         margin-bottom: 15px;
     }

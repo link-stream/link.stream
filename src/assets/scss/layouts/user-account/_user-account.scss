@@ -22,6 +22,22 @@
         }
     }
 
+    .page-nav {
+        margin-bottom: 15px;
+        .back-btn {
+            color: $linkstream-70;
+            font-size: px2rem(11);
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            i {
+                position: relative;
+                top: 5px;
+                left: 0;
+            }
+        }
+    }
+
     .page-preview {
         color: $black;
         font-size: px2rem(12);

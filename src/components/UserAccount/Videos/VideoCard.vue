@@ -1,14 +1,14 @@
 <template>
-    <div class="Card VideoCard">
+    <div class="Card VideoCard" :class="{ 'is-private': video.isPrivate }">
         <LsIcon class="drag-icon" icon="drag" />
         <main class="video-content" @click="handleEditClick">
             <div class="Card-media">
-                <div class="lock-overlay" v-if="video.isPrivate"></div>
+                <div class="lock-thumb"></div>
                 <img class="Card-img" :src="thumbUrl" :alt="video.title" />
             </div>
             <div class="Card-body">
                 <h2 class="Card-title">{{ video.title }}</h2>
-                <small class="private-badge" v-if="video.isPrivate">
+                <small class="private-badge">
                     Private
                 </small>
             </div>

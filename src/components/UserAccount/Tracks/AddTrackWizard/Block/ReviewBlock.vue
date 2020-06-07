@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        <TrackInfoEditModal
+        <InfoEditModal
             v-if="editModal.trackInfo"
             @closed="handleEditModalClosed"
         />
@@ -135,7 +135,7 @@
 </template>
 
 <script>
-import TrackInfoEditModal from '../Modal/TrackInfoEditModal'
+import InfoEditModal from '../Modal/InfoEditModal'
 import LicensesEditModal from '../Modal/LicensesEditModal'
 import FilesEditModal from '../Modal/FilesEditModal'
 import MarketingEditModal from '../Modal/MarketingEditModal'
@@ -145,7 +145,7 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'ReviewBlock',
     components: {
-        TrackInfoEditModal,
+        InfoEditModal,
         LicensesEditModal,
         FilesEditModal,
         MarketingEditModal,

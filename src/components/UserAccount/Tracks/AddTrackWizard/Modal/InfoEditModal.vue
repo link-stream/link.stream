@@ -6,7 +6,7 @@
         </template>
 
         <template v-slot:default>
-            <TrackInfoBlock :is-edit-mode="true" />
+            <InfoBlock :is-edit-mode="true" />
         </template>
 
         <template v-slot:modal-footer>
@@ -25,12 +25,12 @@
 </template>
 
 <script>
-import TrackInfoBlock from '../Block/TrackInfoBlock'
+import InfoBlock from '../Block/InfoBlock'
 
 export default {
-    name: 'TrackInfoEditModal',
+    name: 'InfoEditModal',
     components: {
-        TrackInfoBlock,
+        InfoBlock,
     },
     data() {
         return {

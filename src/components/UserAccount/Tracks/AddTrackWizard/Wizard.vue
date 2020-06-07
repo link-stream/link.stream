@@ -65,7 +65,7 @@
                     Suggested Dimensions: 1000x1000
                 </div>
             </div>
-            <TrackInfoBlock class="col-fields" no-track-type-field />
+            <InfoBlock class="col-fields" no-track-type-field />
         </wizard-step>
 
         <!-- STEP - LICENSE TYPES -->
@@ -84,7 +84,7 @@
             subtitle="Add files to deliver when the license for this track is purchased"
             class="step-files"
         >
-            <FileUploadBlock />
+            <FilesBlock />
         </wizard-step>
 
         <!-- STEP - MARKETING -->
@@ -132,9 +132,9 @@
 <script>
 import WizardStep from './WizardStep'
 import WizardTabs from './WizardTabs'
-import TrackInfoBlock from './Block/TrackInfoBlock'
+import InfoBlock from './Block/InfoBlock'
 import LicensesBlock from './Block/LicensesBlock'
-import FileUploadBlock from './Block/FileUploadBlock'
+import FilesBlock from './Block/FilesBlock'
 import MarketingBlock from './Block/MarketingBlock'
 import ReviewBlock from './Block/ReviewBlock'
 import { DropImage } from '~/components/Uploader'
@@ -187,9 +187,9 @@ export default {
     components: {
         WizardTabs,
         WizardStep,
-        TrackInfoBlock,
+        InfoBlock,
         LicensesBlock,
-        FileUploadBlock,
+        FilesBlock,
         MarketingBlock,
         ReviewBlock,
         DropImage,

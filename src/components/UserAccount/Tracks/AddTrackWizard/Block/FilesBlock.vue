@@ -1,5 +1,5 @@
 <template>
-    <div class="FileUploadBlock">
+    <div class="FilesBlock">
         <DropAudio
             title="Untagged .MP3"
             :class="{ 'is-invalid': $v.files.untaggedMp3.$error }"
@@ -44,7 +44,7 @@
 import { DropAudio, DropFile } from '~/components/Uploader'
 
 export default {
-    name: 'FileUploadBlock',
+    name: 'FilesBlock',
     components: {
         DropAudio,
         DropFile,

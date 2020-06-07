@@ -4,19 +4,6 @@
         align-items: flex-start;
     }
 
-    .page-back {
-        color: $linkstream-70;
-        font-size: px2rem(11);
-        font-weight: bold;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        i {
-            position: relative;
-            top: 5px;
-            left: 0;
-        }
-    }
-
     .step-body {
         display: flex;
         flex-direction: column;

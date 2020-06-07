@@ -1,14 +1,14 @@
 <template>
-    <div class="Card BeatCard">
+    <div class="Card BeatCard" :class="{ 'is-private': beat.isPrivate }">
         <LsSpinnerMask v-if="processing" />
         <LsIcon class="drag-icon" icon="drag" />
         <div class="Card-media">
-            <div class="lock-overlay" v-if="beat.isPrivate"></div>
+            <div class="lock-thumb"></div>
             <img class="Card-img" :src="beat.coverart" :alt="beat.title" />
         </div>
         <h2 class="Card-title">
             {{ beat.title }}
-            <span class="private-badge badge badge-pill" v-if="!beat.isPrivate">
+            <span class="private-badge badge badge-pill">
                 Private
             </span>
         </h2>
@@ -63,6 +63,14 @@ export default {
     },
     computed: {
         fileBadges() {
+            /*
+            const { untagged_mp3, untagged_wav, trackout_stems } = this.beat
+            const badges = [
+                { text: 'MP3', show: !!untagged_mp3 },
+                { text: 'WAV', show: !!untagged_wav },
+                { text: 'ZIP', show: !!trackout_stems },
+            ]
+            */
             const badges = [
                 { text: 'MP3', show: false },
                 { text: 'WAV', show: false },
@@ -86,7 +94,12 @@ export default {
         },
     },
     methods: {
-        handleEditClick() {},
+        handleEditClick() {
+            this.$router.push({
+                name: 'userAccountBeatEdit',
+                params: { id: this.beat.id },
+            })
+        },
         handleDeleteClick() {
             this.$alert.confirm({
                 title: 'Delete beat?',

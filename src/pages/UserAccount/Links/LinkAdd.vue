@@ -1,8 +1,8 @@
 <template>
     <div class="page page-ua-link-add">
-        <div class="page-header">
+        <div class="page-nav">
             <ls-button
-                class="page-back"
+                class="back-btn"
                 variant="text"
                 :to="{ name: 'userAccountLinks' }"
             >

@@ -6,6 +6,15 @@
     margin: 15px 0;
     padding: 15px;
 
+    &.is-private {
+        .lock-thumb {
+            display: block;
+        }
+        .private-badge {
+            display: inline;
+        }
+    }
+
     .Card-title {
         color: $linkstream-110;
         font-size: px2rem(12);
@@ -16,9 +25,14 @@
         cursor: move;
     }
 
-    .lock-overlay {
+    .private-badge {
+        display: none;
+    }
+
+    .lock-thumb {
+        display: none;
         position: absolute;
-        background-image: url(~@/../public/static/img/lock-overlay.svg);
+        background-image: url(~@/../public/static/img/lock-thumb.svg);
         background-repeat: no-repeat;
         background-size: cover;
     }

@@ -1,0 +1,24 @@
+.page-ua-beat-edit {
+    .page-header {
+        .cancel-btn {
+            margin-right: 10px;
+        }
+    }
+
+    .Card-title {
+        font-size: px2rem(14);
+        margin-bottom: 15px;
+    }
+
+    .FilesCard {
+        .DropFile:not(:last-child) {
+            margin-bottom: 15px;
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        .Card-title {
+            font-size: px2rem(18);
+        }
+    }
+}

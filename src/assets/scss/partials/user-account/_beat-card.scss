@@ -13,13 +13,13 @@
     }
 
     .Card-img,
-    .lock-overlay {
+    .lock-thumb {
         width: 60px;
         height: 60px;
     }
 
-    .lock-overlay {
-        background-image: url(~@/../public/static/img/lock-overlay-square.svg);
+    .lock-thumb {
+        background-image: url(~@/../public/static/img/lock-thumb-square.svg);
     }
 
     .private-badge {
@@ -53,7 +53,7 @@
 
     @include media-breakpoint-up(md) {
         .Card-img,
-        .lock-overlay {
+        .lock-thumb {
             width: 68px;
             height: 68px;
         }

@@ -19,7 +19,7 @@ const initialState = () => ({
         time: null,
         date: null,
         scheduled: false,
-        isPublic: true,
+        isPublic: false,
         files: {
             /**
              * e.g.

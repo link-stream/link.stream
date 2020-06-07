@@ -3,7 +3,7 @@
         <LsSpinnerMask v-if="processing" />
         <LsIcon class="drag-icon" icon="drag" />
         <div class="Card-media">
-            <div class="lock-overlay" v-if="beat.isPublic"></div>
+            <div class="lock-overlay" v-if="beat.isPrivate"></div>
             <img class="Card-img" :src="beat.coverart" :alt="beat.title" />
         </div>
         <h2 class="Card-title">

@@ -69,8 +69,6 @@
 <script>
 import { uploaderMixin } from '~/mixins/uploader'
 
-const audioObject = new Audio()
-
 export default {
     name: 'DropAudio',
     mixins: [uploaderMixin],
@@ -84,6 +82,7 @@ export default {
     },
     data() {
         return {
+            audioObject: null,
             playing: false,
         }
     },
@@ -97,10 +96,11 @@ export default {
         },
     },
     created() {
-        audioObject.addEventListener('loadstart', this.handleAudioPause)
-        audioObject.addEventListener('playing', this.handleAudioPlaying)
-        audioObject.addEventListener('pause', this.handleAudioPause)
-        audioObject.addEventListener('ended', this.handleAudioPause)
+        this.audioObject = new Audio()
+        this.audioObject.addEventListener('loadstart', this.handleAudioPause)
+        this.audioObject.addEventListener('playing', this.handleAudioPlaying)
+        this.audioObject.addEventListener('pause', this.handleAudioPause)
+        this.audioObject.addEventListener('ended', this.handleAudioPause)
         this.fileAdded && this.loadAudio()
     },
     destroyed() {
@@ -108,14 +108,14 @@ export default {
     },
     methods: {
         loadAudio() {
-            audioObject.src = this.file.src
-            audioObject.load()
+            this.audioObject.src = this.file.src
+            this.audioObject.load()
         },
         playAudio() {
-            audioObject.play()
+            this.audioObject.play()
         },
         pauseAudio() {
-            this.playing && audioObject.pause()
+            this.playing && this.audioObject.pause()
         },
         handlePlayClick() {
             if (this.playing) {

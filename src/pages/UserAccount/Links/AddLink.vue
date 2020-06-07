@@ -107,13 +107,13 @@
                     class="fwz-prev-btn"
                     variant="secondary"
                     :to="{ name: 'userAccountLinks' }"
-                    :disabled="saving"
+                    :disabled="processing"
                 >
                     Cancel
                 </ls-button>
                 <ls-spinner-button
                     class="fwz-next-btn"
-                    :loading="saving"
+                    :loading="processing"
                     @click="handleSaveClick"
                 >
                     Add Link

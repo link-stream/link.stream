@@ -3,7 +3,7 @@
         <LsIcon class="drag-icon" icon="drag" />
         <main @click="handleEditClick">
             <div class="Card-media">
-                <div class="lock-img" v-if="video.isPrivate"></div>
+                <div class="lock-overlay" v-if="video.isPrivate"></div>
                 <img class="Card-img" :src="thumbUrl" :alt="video.title" />
             </div>
             <div class="Card-body">

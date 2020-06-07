@@ -70,38 +70,38 @@
 
         <!-- STEP - LICENSE TYPES -->
         <wizard-step
+            v-if="isStepLicenses"
             title="License types"
             class="step-licenses"
-            v-if="isStepLicenses"
         >
             <LicensesBlock />
         </wizard-step>
 
         <!-- STEP - UPLOAD FILES -->
         <wizard-step
+            v-if="isStepFiles"
             title="Upload files"
             subtitle="Add files to deliver when the license for this track is purchased"
             class="step-files"
-            v-if="isStepFiles"
         >
             <FileUploadBlock />
         </wizard-step>
 
         <!-- STEP - MARKETING -->
         <wizard-step
+            v-if="isStepMarketing"
             title="Free downloads"
             subtitle="Build your audience by allowing free MP3 downloads for social follows, email and SMS subscribes"
             class="step-marketing"
-            v-if="isStepMarketing"
         >
             <MarketingBlock />
         </wizard-step>
 
         <!-- STEP - REVIEW -->
         <wizard-step
+            v-if="isStepReview"
             :title="isSong ? 'Review song' : 'Review beat'"
             class="step-review"
-            v-if="isStepReview"
         >
             <div class="col-image">
                 <DropImage
@@ -314,7 +314,7 @@ export default {
             const licenses = form.selectedLicenses.map(l => {
                 return {
                     license_id: l.id,
-                    price: l.prize,
+                    price: l.price,
                     status_id: l.status_id,
                 }
             })
@@ -341,8 +341,8 @@ export default {
 
             if (status === 'success') {
                 this.$toast.success(message)
-                this.$router.push({ name: 'userAccountTracks' })
-                //this.$store.dispatch('trackAddWizard/reset')
+                this.$router.push({ name: 'userAccountBeats' })
+                this.$store.dispatch('trackAddWizard/reset')
             } else {
                 this.$toast.error(error)
             }

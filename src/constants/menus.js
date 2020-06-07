@@ -25,19 +25,11 @@ export const menus = [
         id: 'tracks',
         icon: ['fas', 'music'],
         label: 'Tracks',
-        to: '/app/tracks',
+        to: '/app/beats',
         subs: [
             {
-                label: 'Add new track',
-                to: '/app/tracks/add',
-            },
-            {
-                label: 'Manage tracks',
-                to: '/app/tracks/manage',
-            },
-            {
-                label: 'Promote',
-                to: '/app/tracks/promote',
+                label: 'Beats',
+                to: '/app/beats',
             },
         ],
     },

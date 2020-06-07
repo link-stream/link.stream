@@ -1,10 +1,10 @@
 <template>
     <div class="Card LinkCard" :class="{ 'is-private': link.isPrivate }">
-        <LsSpinnerMask v-show="saving" />
+        <LsSpinnerMask v-show="processing" />
         <section class="block-view" v-show="!editing">
             <LsIcon class="drag-icon" icon="drag" />
             <div class="Card-media" @click="handleEditClick">
-                <img class="Card-img" :src="link.artwork" :alt="link.title" />
+                <img class="Card-img" :src="link.coverart" :alt="link.title" />
             </div>
             <main class="Card-body" @click="handleEditClick">
                 <h2 class="Card-title">{{ link.title }}</h2>
@@ -114,16 +114,12 @@
 </template>
 
 <script>
-import { LsSpinnerMask } from '~/components/Loading'
 import { linkAddEditForm } from '~/mixins/links/linkAddEditForm'
 import { appConstants } from '~/constants'
 
 export default {
     name: 'VideoCard',
     mixins: [linkAddEditForm],
-    components: {
-        LsSpinnerMask,
-    },
     props: {
         link: {
             type: Object,
@@ -132,7 +128,7 @@ export default {
     },
     methods: {
         async toggleVisibility() {
-            this.saving = true
+            this.processing = true
             const { status, error } = await this.$store.dispatch(
                 'me/updateLink',
                 {
@@ -145,7 +141,7 @@ export default {
                 }
             )
             status !== 'success' && this.$toast.error(error)
-            this.saving = false
+            this.processing = false
         },
         closeEditMode() {
             this.editing = false
@@ -161,7 +157,7 @@ export default {
                 title: 'Delete link?',
                 message: 'This link and its data will be permanently deleted.',
                 onOk: async () => {
-                    this.saving = true
+                    this.processing = true
                     const {
                         status,
                         message,
@@ -172,12 +168,12 @@ export default {
                     status === 'success'
                         ? this.$toast.success(message)
                         : this.$toast.error(error)
-                    this.saving = false
+                    this.processing = false
                 },
             })
         },
         async handleRemoveScheduleClick() {
-            this.saving = true
+            this.processing = true
             const { status, message, error } = await this.$store.dispatch(
                 'me/updateLink',
                 {
@@ -194,7 +190,7 @@ export default {
             status === 'success'
                 ? this.$toast.success(message)
                 : this.$toast.error(error)
-            this.saving = false
+            this.processing = false
         },
         handleVisibilityToggleClick() {
             if (this.link.isPrivate) {

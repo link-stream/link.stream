@@ -123,8 +123,8 @@ export const api = {
         },
     },
     audios: {
-        async getTracksByUser(userId) {
-            const endpoint = '/audios/related_track/' + userId
+        async getBeatsByUser(userId) {
+            const endpoint = `/audios/${userId}`
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
         },
@@ -137,6 +137,16 @@ export const api = {
             const endpoint = '/audios'
             const method = METHOD_POST
             return await call({ endpoint, method, params })
+        },
+        async deleteBeat(id) {
+            const endpoint = '/audios/' + id
+            const method = METHOD_DELETE
+            return await call({ endpoint, method })
+        },
+        async sortAudios(params) {
+            const endpoint = '/audios/sort_audios/'
+            const method = METHOD_POST
+            return await call({ endpoint, params, method })
         },
     },
     videos: {

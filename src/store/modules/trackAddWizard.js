@@ -28,9 +28,10 @@ const initialState = () => ({
              *   base64: null
              * }
              */
-            tagged: null,
-            untagged: null,
             stems: null,
+            tagged: null,
+            untaggedMp3: null,
+            untaggedWav: null,
         },
         collabs: [
             /**
@@ -114,10 +115,10 @@ const getters = {
     isMissingFiles: ({ form }, getters) => {
         const rules = getters.filesValidationRules
         const { files } = form
-        if (rules.untagged.required && !files.untagged) {
+        if (rules.untaggedMp3.required && !files.untaggedMp3) {
             return true
         }
-        if (rules.tagged.required && !files.tagged) {
+        if (rules.untaggedWav.required && !files.untaggedWav) {
             return true
         }
         if (rules.stems.required && !files.stems) {
@@ -128,16 +129,16 @@ const getters = {
     filesValidationRules: ({ form }) => {
         const { selectedLicenses } = form
         const rules = {
-            untagged: {},
-            tagged: {},
+            untaggedMp3: {},
+            untaggedWav: {},
             stems: {},
         }
         selectedLicenses.forEach(license => {
-            if (license.mp3 == '1') {
-                rules.untagged = { required }
+            if (license.mp3 === '1') {
+                rules.untaggedMp3 = { required }
             }
             if (license.wav == '1') {
-                rules.tagged = { required }
+                rules.untaggedWav = { required }
             }
             if (license.trackout_stems == '1') {
                 rules.stems = { required }

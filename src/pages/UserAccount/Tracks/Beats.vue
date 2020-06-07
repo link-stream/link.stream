@@ -1,17 +1,14 @@
 <template>
-    <div class="page page-ua-links">
+    <div class="page page-ua-beats">
         <header class="page-header">
             <div class="col-left">
-                <h1 class="page-title">Your links</h1>
-                <h4 class="page-subtitle">
-                    Add, remove, edit &amp; order links anyway you'd like.
-                </h4>
+                <h1 class="page-title">Your beats</h1>
                 <div class="page-preview">
                     <span class="text-light">link.stream/</span>
-                    <span>{{ user.user_name }}/links</span>
+                    <span>{{ user.user_name }}/beats</span>
                     <preview-pill-button
                         :to="{
-                            name: 'userLinks',
+                            name: 'userBeats',
                             params: { username: user.user_name },
                         }"
                     >
@@ -20,8 +17,8 @@
                 </div>
             </div>
             <div class="col-right">
-                <ls-button :to="{ name: 'userAccountLinksAdd' }">
-                    Add New Link
+                <ls-button :to="{ name: 'userAccountBeatsAdd' }">
+                    Add a Beat
                 </ls-button>
             </div>
         </header>
@@ -29,78 +26,84 @@
             <div class="page-spinner" v-if="loading">
                 <LsSpinner />
             </div>
+            <div class="page-empty" v-if="!loading && !sortableBeats.length">
+                <div class="col-text">
+                    Your beats will appear here.
+                </div>
+                <div class="col-link">
+                    <ls-button
+                        variant="link"
+                        :to="{
+                            name: 'userAccountBeatsAdd',
+                        }"
+                    >
+                        Add a beat
+                    </ls-button>
+                </div>
+            </div>
             <Container
                 v-else
-                @drop="handleReorder"
                 drag-handle-selector=".drag-icon"
+                @drop="handleReorder"
             >
-                <Draggable v-for="link in sortableLinks" :key="link.id">
-                    <LinkCard
-                        :link="link"
-                        @schedule-click="handleScheduleClick"
-                    />
+                <Draggable v-for="beat in sortableBeats" :key="beat.id">
+                    <BeatCard :beat="beat" />
                 </Draggable>
             </Container>
         </main>
-        <LinkScheduleModal />
     </div>
 </template>
 
 <script>
-import { LinkCard } from '~/components/UserAccount/Links'
-import { LinkScheduleModal } from '~/components/Modal'
+import { BeatCard } from '~/components/UserAccount/Tracks'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import { mapGetters } from 'vuex'
 
 export default {
-    name: 'Links',
+    name: 'Beats',
     components: {
-        LinkCard,
+        BeatCard,
         Container,
         Draggable,
-        LinkScheduleModal,
     },
     data() {
         return {
             loading: false,
-            sortableLinks: [],
+            sortableBeats: [],
         }
     },
     computed: {
         ...mapGetters({
             user: 'me/user',
-            links: 'me/links',
+            beats: 'me/beats',
         }),
     },
     watch: {
-        links: {
-            immediate: true,
+        beats: {
+            deep: true,
             handler() {
-                this.sortableLinks = [...this.links]
+                this.sortableBeats = [...this.beats]
             },
         },
     },
     async created() {
         this.loading = true
-        await this.$store.dispatch('me/loadLinks')
+        await this.$store.dispatch('me/loadBeats')
         this.loading = false
     },
     methods: {
-        handleScheduleClick(link) {
-            this.$bus.$emit('modal.linkSchedule.open', link)
-        },
         handleReorder(dropResult) {
             const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
-            const link = this.sortableLinks[oldIndex]
-            this.sortableLinks.splice(oldIndex, 1)
-            this.sortableLinks.splice(newIndex, 0, link)
-            const sorts = this.sortableLinks.map((v, idx) => {
+            const beat = this.sortableBeats[oldIndex]
+            this.sortableBeats.splice(oldIndex, 1)
+            this.sortableBeats.splice(newIndex, 0, beat)
+            const sorts = this.sortableBeats.map((v, idx) => {
                 return {
                     id: v.id,
                     sort: (idx + 1).toString(),
                 }
             })
-            this.$store.dispatch('me/reorderLink', {
+            this.$store.dispatch('me/reorderBeat', {
                 oldIndex,
                 newIndex,
                 sorts,

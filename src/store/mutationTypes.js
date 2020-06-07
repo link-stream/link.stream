@@ -13,15 +13,23 @@ export const authTypes = {
     LOGOUT: 'LOGOUT',
 }
 
-// Logged In User
+// Track Add Wizard
+export const trackAddWizardTypes = {
+    UPDATE_FORM: 'UPDATE_FORM',
+    SET_LICENSES: 'SET_LICENSES',
+    UPDATE_LICENSE: 'UPDATE_LICENSE',
+}
+
+// User Account
 export const meTypes = {
     // User
     SET_USER: 'SET_USER',
-    SET_VISIBILITIES: 'SET_VISIBILITIES',
     SET_LICENSES: 'SET_LICENSES',
 
-    // Tracks
-    SET_TRACKS: 'SET_TRACKS',
+    // Beats
+    SET_BEATS: 'SET_BEATS',
+    DELETE_BEAT: 'DELETE_BEAT',
+    REORDER_BEAT: 'REORDER_BEAT',
 
     // Videos
     SET_VIDEOS: 'SET_VIDEOS',
@@ -34,11 +42,4 @@ export const meTypes = {
     UPDATE_LINK: 'UPDATE_LINK',
     DELETE_LINK: 'DELETE_LINK',
     REORDER_LINK: 'REORDER_LINK',
-}
-
-// Track Add Wizard
-export const trackAddWizardTypes = {
-    UPDATE_FORM: 'UPDATE_FORM',
-    SET_LICENSES: 'SET_LICENSES',
-    UPDATE_LICENSE: 'UPDATE_LICENSE',
 }

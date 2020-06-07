@@ -11,13 +11,13 @@ import {
 } from '~/pages/Auth'
 import {
     UserAccountDashboard,
-    UserAccountEditProfile,
+    UserAccountProfileEdit,
     UserAccountVideos,
-    UserAccountAddVideo,
+    UserAccountVideosAdd,
     UserAccountLinks,
-    UserAccountAddLink,
-    UserAccountTracks,
-    UserAccountAddTrack,
+    UserAccountLinksAdd,
+    UserAccountBeats,
+    UserAccountBeatsAdd,
 } from '~/pages/UserAccount'
 
 const routes = [
@@ -96,7 +96,7 @@ const routes = [
     {
         path: '/app/profile/edit',
         name: 'userAccountProfileEdit',
-        component: UserAccountEditProfile,
+        component: UserAccountProfileEdit,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
     {
@@ -108,7 +108,7 @@ const routes = [
     {
         path: '/app/videos/add',
         name: 'userAccountVideosAdd',
-        component: UserAccountAddVideo,
+        component: UserAccountVideosAdd,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
     {
@@ -120,19 +120,19 @@ const routes = [
     {
         path: '/app/links/add',
         name: 'userAccountLinksAdd',
-        component: UserAccountAddLink,
+        component: UserAccountLinksAdd,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
     {
-        path: '/app/tracks/manage',
-        name: 'userAccountTracks',
-        component: UserAccountTracks,
+        path: '/app/beats',
+        name: 'userAccountBeats',
+        component: UserAccountBeats,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
     {
-        path: '/app/tracks/add',
-        name: 'userAccountTracksAdd',
-        component: UserAccountAddTrack,
+        path: '/app/beats/add',
+        name: 'userAccountBeatsAdd',
+        component: UserAccountBeatsAdd,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
 

@@ -1,33 +1,41 @@
 <template>
     <div class="FileUploadBlock">
         <DropAudio
-            title="Untagged .WAV (or .MP3)"
-            :class="{ 'is-invalid': $v.files.untagged.$error }"
-            :src="files.untagged && files.untagged.base64"
-            :filename="files.untagged && files.untagged.name"
-            @file-added="handleUntaggedFileAdded"
-            @file-removed="handleUntaggedFileRemoved"
+            title="Untagged .MP3"
+            :class="{ 'is-invalid': $v.files.untaggedMp3.$error }"
+            :src="files.untaggedMp3 && files.untaggedMp3.base64"
+            :filename="files.untaggedMp3 && files.untaggedMp3.name"
+            :acceptTypes="['.mp3']"
+            @file-added="handleUntaggeMp3Added"
+            @file-removed="handleUntaggedMp3Removed"
         />
 
-        <DropFile
-            title="Track Stems .ZIP (or .RAR)"
-            class="stems-file"
-            :class="{ 'is-invalid': $v.files.stems.$error }"
-            :acceptTypes="['.rar', '.zip']"
-            :src="files.stems && files.stems.base64"
-            :filename="files.stems && files.stems.name"
-            @file-added="handleStemsFileAdded"
-            @file-removed="handleStemsFileRemoved"
+        <DropAudio
+            title="Untagged .WAV"
+            :class="{ 'is-invalid': $v.files.untaggedWav.$error }"
+            :src="files.untaggedWav && files.untaggedWav.base64"
+            :filename="files.untaggedWav && files.untaggedWav.name"
+            :acceptTypes="['.wav']"
+            @file-added="handleUntaggedWavAdded"
+            @file-removed="handleUntaggedWavRemoved"
         />
 
         <DropAudio
             title="Tagged Streaming File (.MP3 or .WAV)"
-            class="tagged-file"
-            :class="{ 'is-invalid': $v.files.tagged.$error }"
             :src="files.tagged && files.tagged.base64"
             :filename="files.tagged && files.tagged.name"
-            @file-added="handleTaggedFileAdded"
-            @file-removed="handleTaggedFileRemoved"
+            @file-added="handleTaggedAdded"
+            @file-removed="handleTaggedRemoved"
+        />
+
+        <DropFile
+            title="Track Stems .ZIP (or .RAR)"
+            :class="{ 'is-invalid': $v.files.stems.$error }"
+            :acceptTypes="['.rar', '.zip']"
+            :src="files.stems && files.stems.base64"
+            :filename="files.stems && files.stems.name"
+            @file-added="handleStemsAdded"
+            @file-removed="handleStemsRemoved"
         />
     </div>
 </template>
@@ -83,22 +91,37 @@ export default {
             this.updateWizardForm()
             onSuccess()
         },
-        handleUntaggedFileAdded({ name, base64 }) {
+        handleUntaggeMp3Added({ name, base64 }) {
             this.files = {
                 ...this.files,
-                untagged: {
+                untaggedMp3: {
                     name,
                     base64,
                 },
             }
         },
-        handleUntaggedFileRemoved() {
+        handleUntaggedMp3Removed() {
             this.files = {
                 ...this.files,
-                untagged: null,
+                untaggedMp3: null,
             }
         },
-        handleStemsFileAdded({ name, base64 }) {
+        handleUntaggedWavAdded({ name, base64 }) {
+            this.files = {
+                ...this.files,
+                untaggedWav: {
+                    name,
+                    base64,
+                },
+            }
+        },
+        handleUntaggedWavRemoved() {
+            this.files = {
+                ...this.files,
+                untaggedWav: null,
+            }
+        },
+        handleStemsAdded({ name, base64 }) {
             this.files = {
                 ...this.files,
                 stems: {
@@ -107,13 +130,13 @@ export default {
                 },
             }
         },
-        handleStemsFileRemoved() {
+        handleStemsRemoved() {
             this.files = {
                 ...this.files,
                 stems: null,
             }
         },
-        handleTaggedFileAdded({ name, base64 }) {
+        handleTaggedAdded({ name, base64 }) {
             this.files = {
                 ...this.files,
                 tagged: {
@@ -122,7 +145,7 @@ export default {
                 },
             }
         },
-        handleTaggedFileRemoved() {
+        handleTaggedRemoved() {
             this.files = {
                 ...this.files,
                 tagged: null,

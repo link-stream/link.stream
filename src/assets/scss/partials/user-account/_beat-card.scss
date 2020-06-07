@@ -1,0 +1,145 @@
+.BeatCard {
+    display: flex;
+    align-items: center;
+
+    .lock-overlay {
+        background-image: url(~@/../public/static/img/lock-overlay-square.svg);
+    }
+
+    .private-badge {
+        background-color: $linkstream-190;
+        color: $linkstream-180;
+        font-size: px2rem(11);
+        font-weight: 500;
+        letter-spacing: 0;
+        padding: 5px 10px;
+    }
+
+    .lock-overlay,
+    .Card-img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .Card-media {
+        position: relative;
+        margin: 0 5px;
+    }
+
+    .Card-title {
+        flex-grow: 1;
+        color: $black;
+        font-size: px2rem(12);
+        font-weight: bold;
+        line-height: inherit;
+        .badge {
+            margin-left: 5px;
+        }
+    }
+
+    .trash-btn,
+    .edit-btn {
+        display: none;
+    }
+
+    .file-badges {
+        display: none;
+        .badge {
+            background-color: $linkstream-80;
+            color: $linkstream-170 !important;
+            margin-right: 10px;
+            padding: 5px 10px;
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        .lock-overlay,
+        .Card-img {
+            width: 68px;
+            height: 68px;
+        }
+
+        .Card-title {
+            font-size: px2rem(13);
+        }
+
+        .trash-btn,
+        .edit-btn {
+            display: block;
+        }
+
+        .actions-menu {
+            display: none;
+        }
+
+        .file-badges {
+            display: block;
+        }
+    }
+    /*
+    main {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        margin-left: 15px;
+        cursor: pointer;
+    }
+
+    .Card-media {
+        margin-bottom: 10px;
+    }
+
+    .lock-overlay {
+        position: absolute;
+        background-image: url(~@/../public/static/img/lock-overlay.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .lock-overlay,
+    .Card-img {
+        width: 190px;
+        height: 107px;
+    }
+
+    .Card-title {
+        color: $linkstream-110;
+        font-size: px2rem(12);
+        font-weight: bold;
+        letter-spacing: 0;
+        line-height: 16px;
+    }
+
+    .Card-subtitle {
+        font-size: px2rem(11);
+        color: $black;
+    }
+
+    @include media-breakpoint-up(md) {
+        align-items: center;
+
+        .drag-icon {
+            top: auto;
+        }
+
+        main {
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .Card-media {
+            margin: 0 15px 0 0;
+        }
+
+        .lock-overlay,
+        .Card-img {
+            width: 123px;
+            height: 69px;
+        }
+
+        .Card-title {
+            font-size: px2rem(13);
+            line-height: 20px;
+        }
+    }*/
+}

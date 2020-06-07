@@ -51,7 +51,7 @@ import {
     LsToggleButton,
     PreviewPillButton,
 } from '~/components/Button'
-import { LsSpinner } from '~/components/Loading'
+import { LsSpinner, LsSpinnerMask } from '~/components/Loading'
 import { LsSelect, LsDatePicker, LsTimePicker } from '~/components/Form'
 import { LsIcon } from '~/components/Icon'
 import UserAvatar from '~/components/Avatar/UserAvatar'
@@ -155,4 +155,5 @@ Vue.component('LsDatePicker', LsDatePicker)
 Vue.component('LsTimePicker', LsTimePicker)
 Vue.component('LsIcon', LsIcon)
 Vue.component('LsSpinner', LsSpinner)
+Vue.component('LsSpinnerMask', LsSpinnerMask)
 Vue.component('UserAvatar', UserAvatar)

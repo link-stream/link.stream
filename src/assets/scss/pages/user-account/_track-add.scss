@@ -473,9 +473,8 @@
 }
 
 .FileUploadBlock {
-    .tagged-file,
-    .stems-file {
-        margin-top: 15px;
+    .DropFile:not(:last-child) {
+        margin-bottom: 15px;
     }
 }
 

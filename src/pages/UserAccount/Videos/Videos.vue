@@ -6,7 +6,7 @@
                 <h4 class="page-subtitle">
                     Add, remove, edit &amp; order videos anyway you'd like.
                 </h4>
-                <div class="perma-url">
+                <div class="page-preview">
                     <span class="text-light">link.stream/</span>
                     <span>{{ user.user_name }}/videos</span>
                     <preview-pill-button
@@ -31,8 +31,8 @@
             </div>
             <Container
                 v-else
-                @drop="handleReorder"
                 drag-handle-selector=".drag-icon"
+                @drop="handleReorder"
             >
                 <Draggable v-for="video in sortableVideos" :key="video.id">
                     <VideoCard
@@ -48,11 +48,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { Container, Draggable } from 'vue-smooth-dnd'
 import { VideoEditModal } from '~/components/Modal'
 import { VideoCard } from '~/components/UserAccount/Videos'
 import { appConstants } from '~/constants'
+import { Container, Draggable } from 'vue-smooth-dnd'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'Videos',
@@ -99,8 +99,7 @@ export default {
         handleDeleteClick(video) {
             this.$alert.confirm({
                 title: 'Delete video?',
-                message:
-                    'This video and its data will be permaurlnently deleted.',
+                message: 'This video and its data will be permanently deleted.',
                 onOk: async () => {
                     const {
                         status,

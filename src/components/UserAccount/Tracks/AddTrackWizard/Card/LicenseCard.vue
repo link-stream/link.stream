@@ -15,7 +15,7 @@
                 <div>
                     <div class="Card-title">
                         {{ license.title }} - ${{
-                            license.prize | trimZeroDecimal
+                            license.price | trimZeroDecimal
                         }}
                     </div>
                     <small class="Card-subtitle">
@@ -89,7 +89,7 @@ export default {
         return {
             editing: false,
             form: {
-                price: this.license.prize,
+                price: this.license.price,
             },
         }
     },
@@ -105,7 +105,7 @@ export default {
             this.editing = false
         },
         resetForm() {
-            this.form.price = this.license.prize
+            this.form.price = this.license.price
         },
         handleEditClick() {
             this.editing = true
@@ -123,7 +123,7 @@ export default {
                 return
             }
             this.$store.dispatch('trackAddWizard/updateLicense', {
-                license: { ...this.license, prize: this.form.price },
+                license: { ...this.license, price: this.form.price },
             })
             this.close()
         },

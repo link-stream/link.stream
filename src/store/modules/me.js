@@ -11,8 +11,7 @@ const initialState = () => ({
      * @type {object}
      */
     user: null,
-    visibilities: [],
-    tracks: [],
+    beats: [],
     videos: [],
     links: [],
     licenses: [],
@@ -36,20 +35,29 @@ const mutations = {
         state.user = user
     },
 
-    [meTypes.SET_VISIBILITIES](state, { visibilities }) {
-        state.visibilities = visibilities
-    },
-
     [meTypes.SET_LICENSES](state, { licenses }) {
         state.licenses = licenses
     },
 
     /**
-     * Tracks
+     * Beats
      */
 
-    [meTypes.SET_TRACKS](state, { tracks }) {
-        state.tracks = tracks
+    [meTypes.SET_BEATS](state, { beats }) {
+        state.beats = beats
+    },
+
+    [meTypes.DELETE_BEAT](state, { beat }) {
+        const { beats } = state
+        const index = beats.map(b => b.id).indexOf(beat.id)
+        beats.splice(index, 1)
+    },
+
+    [meTypes.REORDER_BEAT](state, { oldIndex, newIndex }) {
+        const { beats } = state
+        const beat = beats[oldIndex]
+        beats.splice(oldIndex, 1)
+        beats.splice(newIndex, 0, beat)
     },
 
     /**
@@ -116,17 +124,6 @@ const actions = {
      * User
      */
 
-    async loadVisibilities({ commit, rootGetters }) {
-        const authUser = rootGetters['auth/user']
-        const { status, data } = await api.common.getVisibilitiesByUser(
-            authUser.id
-        )
-        commit({
-            type: meTypes.SET_VISIBILITIES,
-            visibilities: status === 'success' ? data : [],
-        })
-    },
-
     loadAccount({ dispatch }) {
         dispatch('loadProfile')
     },
@@ -153,15 +150,30 @@ const actions = {
     },
 
     /**
-     * Tracks
+     * Beats
      */
 
-    async loadTracks({ commit, rootGetters }) {
+    async loadBeats({ commit, rootGetters }) {
         const authUser = rootGetters['auth/user']
-        const { status, data } = await api.audios.getTracksByUser(authUser.id)
+        const { status, data } = await api.audios.getBeatsByUser(authUser.id)
         commit({
-            type: meTypes.SET_TRACKS,
-            tracks: status === 'success' ? data : [],
+            type: meTypes.SET_BEATS,
+            beats: status === 'success' ? data : [],
+        })
+    },
+
+    async deleteBeat({ commit }, { beat }) {
+        const response = await api.audios.deleteBeat(beat.id)
+        const { status } = response
+        status === 'success' && commit(meTypes.DELETE_BEAT, { beat })
+        return response
+    },
+
+    reorderBeat({ state, commit }, { oldIndex, newIndex, sorts }) {
+        commit(meTypes.REORDER_BEAT, { oldIndex, newIndex })
+        api.audios.sortAudios({
+            user_id: state.user.id,
+            list: JSON.stringify(sorts),
         })
     },
 
@@ -243,8 +255,6 @@ const actions = {
 }
 
 const getters = {
-    visibilities: ({ visibilities }) => visibilities,
-    tracks: ({ tracks }) => tracks,
     licenses: ({ licenses }) => licenses,
     user: ({ user }) => {
         if (!user) {
@@ -265,11 +275,21 @@ const getters = {
             }
         })
     },
+    beats: ({ beats }) => {
+        return beats.map(beat => {
+            return {
+                ...beat,
+                coverart: beat.data_image || appConstants.coverartDefault,
+                isPublic: beat.public == '1',
+                isPrivate: beat.public == '2',
+            }
+        })
+    },
     links: ({ links }) => {
         return links.map(link => {
             return {
                 ...link,
-                artwork: link.data_image || appConstants.defaultArtwork,
+                coverart: link.data_image || appConstants.coverartDefault,
                 isPublic: link.public == '1',
                 isPrivate: link.public == '2',
             }

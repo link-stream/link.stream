@@ -1,13 +1,13 @@
 // Dashboard
 export { default as UserAccountDashboard } from './Dashboard/Dashboard'
 // Profile
-export { default as UserAccountEditProfile } from './Profile/EditProfile'
+export { default as UserAccountProfileEdit } from './Profile/EditProfile'
 // Videos
 export { default as UserAccountVideos } from './Videos/Videos'
-export { default as UserAccountAddVideo } from './Videos/AddVideo'
+export { default as UserAccountVideosAdd } from './Videos/AddVideo'
 // Links
 export { default as UserAccountLinks } from './Links/Links'
-export { default as UserAccountAddLink } from './Links/AddLink'
+export { default as UserAccountLinksAdd } from './Links/AddLink'
 // Tracks
-export { default as UserAccountTracks } from './Tracks/Tracks'
-export { default as UserAccountAddTrack } from './Tracks/AddTrack'
+export { default as UserAccountBeats } from './Tracks/Beats'
+export { default as UserAccountBeatsAdd } from './Tracks/AddBeat'

@@ -10,7 +10,7 @@ export const linkAddEditForm = {
     data() {
         return {
             editing: false,
-            saving: false,
+            processing: false,
             endDateEnabled: false,
             form: {
                 url: null,
@@ -71,7 +71,7 @@ export const linkAddEditForm = {
                 return
             }
 
-            this.saving = true
+            this.processing = true
 
             const {
                 url,
@@ -128,7 +128,7 @@ export const linkAddEditForm = {
                 this.$toast.error(error)
             }
 
-            this.saving = false
+            this.processing = false
         },
     },
 }

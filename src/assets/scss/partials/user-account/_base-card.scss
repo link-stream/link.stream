@@ -6,6 +6,17 @@
     margin: 15px 0;
     padding: 15px;
 
+    .drag-icon {
+        cursor: move;
+    }
+
+    .lock-overlay {
+        position: absolute;
+        background-image: url(~@/../public/static/img/lock-overlay.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
     .close-btn {
         position: absolute;
         top: 0;
@@ -35,10 +46,6 @@
         border-top: 1px solid $linkstream-30;
         padding-top: 16px;
         margin-top: 16px;
-    }
-
-    .drag-icon {
-        cursor: move;
     }
 
     @include media-breakpoint-up(md) {

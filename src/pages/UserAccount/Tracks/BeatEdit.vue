@@ -32,19 +32,32 @@
                     <ls-button
                         class="cancel-btn"
                         variant="secondary"
+                        size="sm"
                         :to="{ name: 'userAccountBeats' }"
                     >
                         Cancel
                     </ls-button>
-                    <ls-spinner-button>
+                    <ls-spinner-button size="sm">
                         Save
                     </ls-spinner-button>
                 </div>
             </header>
-
-            <InfoCard />
-            <FilesCard />
-            <BeatPackCard />
+            <main class="page-body">
+                <div class="row">
+                    <div class="col col-md-8">
+                        <InfoCard />
+                        <FilesCard />
+                        <LicensesCard />
+                        <BeatPackCard />
+                        <MarketingCard />
+                        <CollabsCard />
+                    </div>
+                    <div class="col col-md-4">
+                        <VisibilityCard />
+                        <ImageCard />
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
 </template>
@@ -54,6 +67,11 @@ import {
     InfoCard,
     FilesCard,
     BeatPackCard,
+    LicensesCard,
+    MarketingCard,
+    CollabsCard,
+    VisibilityCard,
+    ImageCard,
 } from '~/components/UserAccount/Tracks/Beats/Edit'
 import { api } from '~/services/api'
 import { mapGetters } from 'vuex'
@@ -64,6 +82,11 @@ export default {
         InfoCard,
         FilesCard,
         BeatPackCard,
+        LicensesCard,
+        MarketingCard,
+        CollabsCard,
+        VisibilityCard,
+        ImageCard,
     },
     data() {
         return {

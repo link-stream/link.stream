@@ -16,16 +16,10 @@
 <script>
 export default {
     name: 'MarketingBlock',
-    props: {
-        isEditMode: {
-            type: Boolean,
-            default: false,
-        },
-    },
     data() {
         return {
             selected: [
-                ...this.$store.getters['trackAddWizard/form'].selectedPromos,
+                ...this.$store.getters['trackAddWizard/form'].selectedMarketing,
             ],
             options: [
                 {
@@ -61,24 +55,18 @@ export default {
             ],
         }
     },
-    watch: {
-        selected() {
-            !this.isEditMode && this.updateWizardForm()
-        },
-    },
     created() {
-        this.$bus.$on('wz.validateBlock.marketing', this.handleBlockValidate)
-    },
-    destroyed() {
-        this.$bus.$off('wz.validateBlock.marketing')
+        this.$bus.$on('wz.nextClick', this.handleValidate)
+        this.$bus.$on('wz.prevClick', this.updateWizardForm)
+        this.$bus.$on('wz.modal.saveClick', this.handleValidate)
     },
     methods: {
         updateWizardForm() {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                selectedPromos: [...this.selected],
+                selectedMarketing: [...this.selected],
             })
         },
-        handleBlockValidate({ onSuccess }) {
+        handleValidate({ onSuccess }) {
             this.updateWizardForm()
             onSuccess()
         },

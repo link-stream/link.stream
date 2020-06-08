@@ -50,8 +50,8 @@
 
         <!-- STEP - TRACK INFO -->
         <wizard-step
-            v-if="isStepTrackInfo"
-            class="step-trackInfo"
+            v-show="isStepInfo"
+            class="step-info"
             :title="isSong ? 'Song info' : 'Beat info'"
         >
             <div class="col-image">
@@ -65,41 +65,41 @@
                     Suggested Dimensions: 1000x1000
                 </div>
             </div>
-            <InfoBlock class="col-fields" no-track-type-field />
+            <InfoBlock class="col-fields" v-if="isStepInfo" />
         </wizard-step>
 
         <!-- STEP - LICENSE TYPES -->
         <wizard-step
-            v-if="isStepLicenses"
+            v-show="isStepLicenses"
             title="License types"
             class="step-licenses"
         >
-            <LicensesBlock />
+            <LicensesBlock v-if="isStepLicenses" />
         </wizard-step>
 
         <!-- STEP - UPLOAD FILES -->
         <wizard-step
-            v-if="isStepFiles"
+            v-show="isStepFiles"
             title="Upload files"
             subtitle="Add files to deliver when the license for this track is purchased"
             class="step-files"
         >
-            <FilesBlock />
+            <FilesBlock v-if="isStepFiles" />
         </wizard-step>
 
         <!-- STEP - MARKETING -->
         <wizard-step
-            v-if="isStepMarketing"
+            v-show="isStepMarketing"
             title="Free downloads"
             subtitle="Build your audience by allowing free MP3 downloads for social follows, email and SMS subscribes"
             class="step-marketing"
         >
-            <MarketingBlock />
+            <MarketingBlock v-if="isStepMarketing" />
         </wizard-step>
 
         <!-- STEP - REVIEW -->
         <wizard-step
-            v-if="isStepReview"
+            v-show="isStepReview"
             :title="isSong ? 'Review song' : 'Review beat'"
             class="step-review"
         >
@@ -111,11 +111,15 @@
                     @file-removed="handleImageRemoved"
                 />
             </div>
-            <ReviewBlock class="col-summary" />
+            <ReviewBlock v-if="isStepReview" class="col-summary" />
         </wizard-step>
 
         <footer class="fwz-pager" v-show="stepIndex > 0">
-            <ls-button variant="secondary" class="fwz-prev-btn" @click="prev">
+            <ls-button
+                variant="secondary"
+                class="fwz-prev-btn"
+                @click="handlePrevClick"
+            >
                 Back
             </ls-button>
             <ls-spinner-button
@@ -144,7 +148,7 @@ import { mapGetters } from 'vuex'
 import moment from 'moment'
 
 const STEP_TRACK_TYPE = 'trackType'
-const STEP_TRACK_INFO = 'trackInfo'
+const STEP_INFO = 'info'
 const STEP_LICENSES = 'licenses'
 const STEP_FILES = 'files'
 const STEP_MARKETING = 'marketing'
@@ -152,7 +156,7 @@ const STEP_REVIEW = 'review'
 
 const steps = [
     STEP_TRACK_TYPE,
-    STEP_TRACK_INFO,
+    STEP_INFO,
     STEP_LICENSES,
     STEP_FILES,
     STEP_MARKETING,
@@ -162,7 +166,7 @@ const steps = [
 const tabs = [
     {
         text: 'Beat Info',
-        step: STEP_TRACK_INFO,
+        step: STEP_INFO,
     },
     {
         text: 'Licenses',
@@ -205,7 +209,6 @@ export default {
             user: 'me/user',
             form: 'trackAddWizard/form',
             isSong: 'trackAddWizard/isSong',
-            tags: 'trackAddWizard/tags',
         }),
         step() {
             return steps[this.stepIndex]
@@ -220,8 +223,8 @@ export default {
         isStepTrackType() {
             return this.step === STEP_TRACK_TYPE
         },
-        isStepTrackInfo() {
-            return this.step === STEP_TRACK_INFO
+        isStepInfo() {
+            return this.step === STEP_INFO
         },
         isStepLicenses() {
             return this.step === STEP_LICENSES
@@ -236,7 +239,14 @@ export default {
             return this.step === STEP_REVIEW
         },
     },
-    beforeMount() {
+    watch: {
+        step() {
+            this.$bus.$off('wz.nextClick')
+            this.$bus.$off('wz.prevClick')
+            this.$bus.$off('wz.saveClick')
+        },
+    },
+    created() {
         this.$store.dispatch('trackAddWizard/updateForm', {
             collabs: [
                 {
@@ -288,7 +298,7 @@ export default {
                 params.time = form.time
             }
 
-            const marketing = form.selectedPromos.map(({ id }) => {
+            const marketing = form.selectedMarketing.map(({ id }) => {
                 return {
                     marketing_id: id,
                     connect_id: '',
@@ -351,18 +361,22 @@ export default {
 
             this.saving = false
         },
+        handlePrevClick() {
+            this.$bus.$emit('wz.prevClick')
+            this.prev()
+        },
         handleNextClick() {
             switch (this.step) {
-                case STEP_TRACK_INFO:
+                case STEP_INFO:
                 case STEP_LICENSES:
                 case STEP_FILES:
                 case STEP_MARKETING:
-                    this.$bus.$emit(`wz.validateBlock.${this.step}`, {
+                    this.$bus.$emit('wz.nextClick', {
                         onSuccess: this.next,
                     })
                     return
                 case STEP_REVIEW:
-                    this.$bus.$emit(`wz.validateBlock.${this.step}`, {
+                    this.$bus.$emit('wz.saveClick', {
                         onSuccess: this.save,
                     })
                     return

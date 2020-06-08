@@ -49,32 +49,20 @@ export default {
         DropAudio,
         DropFile,
     },
-    props: {
-        isEditMode: {
-            type: Boolean,
-            default: false,
-        },
-    },
     data() {
         return {
             files: { ...this.$store.getters['trackAddWizard/form'].files },
         }
     },
-    watch: {
-        files() {
-            !this.isEditMode && this.updateWizardForm()
-        },
-    },
     validations() {
         return {
-            files: this.$store.getters['trackAddWizard/filesValidationRules'],
+            files: this.$store.getters['trackAddWizard/validations'].files,
         }
     },
     created() {
-        this.$bus.$on('wz.validateBlock.files', this.handleBlockValidate)
-    },
-    destroyed() {
-        this.$bus.$off('wz.validateBlock.files')
+        this.$bus.$on('wz.nextClick', this.handleValidate)
+        this.$bus.$on('wz.prevClick', this.updateWizardForm)
+        this.$bus.$on('wz.modal.saveClick', this.handleValidate)
     },
     methods: {
         updateWizardForm() {
@@ -82,7 +70,7 @@ export default {
                 files: { ...this.files },
             })
         },
-        handleBlockValidate({ onSuccess }) {
+        handleValidate({ onSuccess }) {
             this.$v.files.$touch()
             if (this.$v.files.$invalid) {
                 this.$toast.error('Please add required files.')

@@ -1,12 +1,12 @@
 <template>
-    <b-modal v-model="open" size="lg" centered @hidden="handleClosed">
+    <b-modal v-model="open" size="lg" centered>
         <template v-slot:modal-header>
             <LsButton variant="icon-bg" class="modal-close" @click="close" />
             <h2 class="modal-title">Track Info</h2>
         </template>
 
         <template v-slot:default>
-            <InfoBlock :is-edit-mode="true" />
+            <InfoBlock />
         </template>
 
         <template v-slot:modal-footer>
@@ -34,20 +34,23 @@ export default {
     },
     data() {
         return {
-            open: true,
+            open: false,
         }
+    },
+    created() {
+        this.$bus.$on('wz.modal.info.open', this.handleOpen)
     },
     methods: {
         close() {
             this.open = false
         },
         handleSaveClick() {
-            this.$bus.$emit('wz.validateBlock.trackInfo', {
+            this.$bus.$emit('wz.modal.saveClick', {
                 onSuccess: this.close,
             })
         },
-        handleClosed() {
-            this.$emit('closed', { section: 'trackInfo' })
+        handleOpen() {
+            this.open = true
         },
     },
 }

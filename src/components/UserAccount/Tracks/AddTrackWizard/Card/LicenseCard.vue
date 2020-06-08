@@ -119,7 +119,8 @@ export default {
                 return
             }
             this.$store.dispatch('trackAddWizard/updateLicense', {
-                license: { ...this.license, price: this.form.price },
+                ...this.license,
+                price: this.form.price,
             })
             this.close()
         },

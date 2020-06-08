@@ -6,7 +6,7 @@
                 variant="icon-bg"
                 title="Edit"
                 class="edit-btn"
-                @click="handleEditClick('trackInfo')"
+                @click="handleEditClick('info')"
             />
             <p>Title: {{ title }}</p>
             <p>Type: {{ isSong ? 'Song' : 'Beat' }}</p>
@@ -78,9 +78,9 @@
                 class="edit-btn"
                 @click="handleEditClick('marketing')"
             />
-            <p v-if="!selectedPromos.length">No free downloads</p>
+            <p v-if="!selectedMarketing.length">No marketing selected</p>
             <ul>
-                <li v-for="m in selectedPromos" :key="m.id">
+                <li v-for="m in selectedMarketing" :key="m.id">
                     {{ m.title }}
                 </li>
             </ul>
@@ -111,45 +111,15 @@
                 </ls-button>
             </div>
         </div>
-
-        <InfoEditModal
-            v-if="editModal.trackInfo"
-            @closed="handleEditModalClosed"
-        />
-
-        <LicensesEditModal
-            v-else-if="editModal.licenses"
-            @closed="handleEditModalClosed"
-        />
-
-        <FilesEditModal
-            v-else-if="editModal.files"
-            @closed="handleEditModalClosed"
-        />
-
-        <MarketingEditModal
-            v-else-if="editModal.marketing"
-            @closed="handleEditModalClosed"
-        />
     </div>
 </template>
 
 <script>
-import InfoEditModal from '../Modal/InfoEditModal'
-import LicensesEditModal from '../Modal/LicensesEditModal'
-import FilesEditModal from '../Modal/FilesEditModal'
-import MarketingEditModal from '../Modal/MarketingEditModal'
 import { requiredIf } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 
 export default {
     name: 'ReviewBlock',
-    components: {
-        InfoEditModal,
-        LicensesEditModal,
-        FilesEditModal,
-        MarketingEditModal,
-    },
     data() {
         const { time, date, scheduled, isPublic } = this.$store.getters[
             'trackAddWizard/form'
@@ -161,17 +131,11 @@ export default {
                 scheduled,
                 isPublic,
             },
-            editModal: {
-                trackInfo: false,
-                licenses: false,
-                files: false,
-                marketing: false,
-            },
         }
     },
     validations() {
         return {
-            files: this.filesValidationRules,
+            files: this.validations.files,
             form: {
                 time: {
                     required: requiredIf(function() {
@@ -186,19 +150,11 @@ export default {
             },
         }
     },
-    watch: {
-        form: {
-            deep: true,
-            handler() {
-                this.updateWizardForm()
-            },
-        },
-    },
     computed: {
         ...mapGetters({
             isSong: 'trackAddWizard/isSong',
             isMissingFiles: 'trackAddWizard/isMissingFiles',
-            filesValidationRules: 'trackAddWizard/filesValidationRules',
+            validations: 'trackAddWizard/validations',
         }),
         summary() {
             return this.$store.getters['trackAddWizard/form']
@@ -218,8 +174,8 @@ export default {
         selectedLicenses() {
             return this.summary.selectedLicenses
         },
-        selectedPromos() {
-            return this.summary.selectedPromos
+        selectedMarketing() {
+            return this.summary.selectedMarketing
         },
         files() {
             return this.summary.files
@@ -232,10 +188,8 @@ export default {
         },
     },
     created() {
-        this.$bus.$on('wz.validateBlock.review', this.handleBlockValidate)
-    },
-    destroyed() {
-        this.$bus.$off('wz.validateBlock.review')
+        this.$bus.$on('wz.saveClick', this.handleValidate)
+        this.$bus.$on('wz.prevClick', this.updateWizardForm)
     },
     methods: {
         updateWizardForm() {
@@ -243,14 +197,14 @@ export default {
                 ...this.form,
             })
         },
-        handleBlockValidate({ onSuccess }) {
+        handleValidate({ onSuccess }) {
             this.$v.form.$touch()
             if (this.$v.form.$invalid) {
-                this.$toast.error('Please add schedule date and time.')
+                this.$toast.error('Please add a schedule date and time.')
                 return
             }
             if (this.isMissingFiles) {
-                this.$toast.error('Please add required files.')
+                this.$toast.error('Please review and add required files.')
                 return
             }
             this.updateWizardForm()
@@ -261,10 +215,8 @@ export default {
             this.form.scheduled = !this.form.scheduled
         },
         handleEditClick(section) {
-            this.editModal[section] = true
-        },
-        handleEditModalClosed({ section }) {
-            this.editModal[section] = false
+            this.$bus.$off('wz.modal.saveClick')
+            this.$bus.$emit(`wz.modal.${section}.open`)
         },
     },
 }

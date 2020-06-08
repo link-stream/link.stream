@@ -8,12 +8,23 @@
         </div>
         <UserInviteModal />
         <UserSearchModal />
+        <InfoEditModal />
+        <LicensesEditModal />
+        <FilesEditModal />
+        <MarketingEditModal />
     </div>
 </template>
 
 <script>
-import Wizard from '~/components/UserAccount/Tracks/AddTrackWizard/Wizard'
 import { UserInviteModal, UserSearchModal } from '~/components/Modal'
+
+import {
+    Wizard,
+    InfoEditModal,
+    LicensesEditModal,
+    FilesEditModal,
+    MarketingEditModal,
+} from '~/components/UserAccount/Tracks/AddTrackWizard'
 
 export default {
     name: 'BeatAdd',
@@ -21,6 +32,10 @@ export default {
         Wizard,
         UserInviteModal,
         UserSearchModal,
+        InfoEditModal,
+        LicensesEditModal,
+        FilesEditModal,
+        MarketingEditModal,
     },
     data() {
         return {
@@ -32,9 +47,10 @@ export default {
         await this.$store.dispatch('common/loadGenres')
         await this.$store.dispatch('common/loadAudioKeys')
         await this.$store.dispatch('me/loadLicenses')
-        this.$store.dispatch('trackAddWizard/setLicenses', {
-            licenses: this.$store.getters['me/licenses'],
-        })
+        this.$store.dispatch(
+            'trackAddWizard/setLicenses',
+            this.$store.getters['me/licenses']
+        )
         this.loading = false
     },
 }

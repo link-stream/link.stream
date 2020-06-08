@@ -1,18 +1,12 @@
 <template>
-    <b-modal
-        modal-class="MarketingEditModal"
-        v-model="open"
-        size="lg"
-        centered
-        @hidden="handleClosed"
-    >
+    <b-modal modal-class="MarketingEditModal" v-model="open" size="lg" centered>
         <template v-slot:modal-header>
             <LsButton variant="icon-bg" class="modal-close" @click="close" />
             <h2 class="modal-title">Marketing</h2>
         </template>
 
         <template v-slot:default>
-            <MarketingBlock :is-edit-mode="true" />
+            <MarketingBlock />
         </template>
 
         <template v-slot:modal-footer>
@@ -40,20 +34,23 @@ export default {
     },
     data() {
         return {
-            open: true,
+            open: false,
         }
+    },
+    created() {
+        this.$bus.$on('wz.modal.marketing.open', this.handleOpen)
     },
     methods: {
         close() {
             this.open = false
         },
         handleSaveClick() {
-            this.$bus.$emit('wz.validateBlock.marketing', {
+            this.$bus.$emit('wz.modal.saveClick', {
                 onSuccess: this.close,
             })
         },
-        handleClosed() {
-            this.$emit('closed', { section: 'marketing' })
+        handleOpen() {
+            this.open = true
         },
     },
 }

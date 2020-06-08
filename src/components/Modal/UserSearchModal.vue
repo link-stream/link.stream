@@ -152,7 +152,7 @@ export default {
         },
         handleUserClick(user) {
             this.close()
-            this.$bus.$emit('modal.userSearch.userClick', user)
+            this.$bus.$emit('modal.userSearch.userSelected', user)
         },
         handleOpen() {
             this.open = true

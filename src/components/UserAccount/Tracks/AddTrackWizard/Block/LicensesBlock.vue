@@ -21,28 +21,17 @@ export default {
     components: {
         LicenseCard,
     },
-    props: {
-        isEditMode: {
-            type: Boolean,
-            default: false,
-        },
-    },
     data() {
         const { selectedLicenses } = this.$store.getters['trackAddWizard/form']
 
         return {
-            selectedIds: [...selectedLicenses.map(({ id }) => id)],
+            selectedIds: selectedLicenses.map(({ id }) => id),
         }
     },
     computed: {
         ...mapGetters({
             availableLicenses: 'trackAddWizard/licenses',
         }),
-    },
-    watch: {
-        selectedIds() {
-            !this.isEditMode && this.updateWizardForm()
-        },
     },
     validations: {
         selectedIds: {
@@ -51,10 +40,9 @@ export default {
         },
     },
     created() {
-        this.$bus.$on('wz.validateBlock.licenses', this.handleBlockValidate)
-    },
-    destroyed() {
-        this.$bus.$off('wz.validateBlock.licenses')
+        this.$bus.$on('wz.nextClick', this.handleValidate)
+        this.$bus.$on('wz.prevClick', this.updateWizardForm)
+        this.$bus.$on('wz.modal.saveClick', this.handleValidate)
     },
     methods: {
         updateWizardForm() {
@@ -64,15 +52,7 @@ export default {
                 ),
             })
         },
-        handleLicenseCheck(license) {
-            const index = this.selectedIds.indexOf(license.id)
-            index === -1 && this.selectedIds.push(license.id)
-        },
-        handleLicenseUncheck(license) {
-            const index = this.selectedIds.indexOf(license.id)
-            this.selectedIds.splice(index, 1)
-        },
-        handleBlockValidate({ onSuccess }) {
+        handleValidate({ onSuccess }) {
             this.$v.selectedIds.$touch()
             if (this.$v.selectedIds.$invalid) {
                 this.$toast.error('Please select at least one license.')
@@ -80,6 +60,14 @@ export default {
             }
             this.updateWizardForm()
             onSuccess()
+        },
+        handleLicenseCheck(license) {
+            const index = this.selectedIds.indexOf(license.id)
+            index === -1 && this.selectedIds.push(license.id)
+        },
+        handleLicenseUncheck(license) {
+            const index = this.selectedIds.indexOf(license.id)
+            this.selectedIds.splice(index, 1)
         },
     },
 }

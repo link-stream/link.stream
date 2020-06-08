@@ -1,17 +1,6 @@
 <template>
     <div class="InfoBlock">
         <div class="fieldset">
-            <b-form-group label="Track Type" v-if="!noTrackTypeField">
-                <b-form-radio-group v-model="form.trackType">
-                    <b-form-radio value="2">
-                        Beat
-                    </b-form-radio>
-                    <b-form-radio value="1">
-                        Song
-                    </b-form-radio>
-                </b-form-radio-group>
-            </b-form-group>
-
             <b-form-group :label="isSong ? 'Song Title*' : 'Beat Title*'">
                 <b-form-input
                     placeholder="Enter a title"
@@ -155,16 +144,6 @@ import { mapGetters } from 'vuex'
 
 export default {
     name: 'InfoBlock',
-    props: {
-        isEditMode: {
-            type: Boolean,
-            default: false,
-        },
-        noTrackTypeField: {
-            type: Boolean,
-            default: false,
-        },
-    },
     data() {
         const {
             trackType,
@@ -187,7 +166,7 @@ export default {
                 bpm,
                 key: { ...key },
                 trackPack,
-                collabs: [...collabs],
+                collabs: collabs.map(collab => ({ ...collab })),
             },
         }
     },
@@ -197,14 +176,6 @@ export default {
             audioKeys: 'common/audioKeys',
             isSong: 'trackAddWizard/isSong',
         }),
-    },
-    watch: {
-        form: {
-            deep: true,
-            handler() {
-                !this.isEditMode && this.updateWizardForm()
-            },
-        },
     },
     validations: {
         form: {
@@ -224,12 +195,13 @@ export default {
         },
     },
     created() {
-        this.$bus.$on('wz.validateBlock.trackInfo', this.handleBlockValidate)
-        this.$bus.$on('modal.userSearch.userClick', this.handleCollabAdd)
+        this.$bus.$on('wz.nextClick', this.handleValidate)
+        this.$bus.$on('wz.prevClick', this.updateWizardForm)
+        this.$bus.$on('wz.modal.saveClick', this.handleValidate)
+        this.$bus.$on('modal.userSearch.userSelected', this.handleCollabAdd)
     },
     destroyed() {
-        this.$bus.$off('wz.validateBlock.trackInfo')
-        this.$bus.$off('modal.userSearch.userClick')
+        this.$bus.$off('modal.userSearch.userSelected')
     },
     methods: {
         updateWizardForm() {
@@ -240,6 +212,14 @@ export default {
         showCollabSearchModal() {
             this.$bus.$emit('modal.userSearch.open')
         },
+        handleValidate({ onSuccess }) {
+            this.$v.form.$touch()
+            if (this.$v.form.$invalid) {
+                return
+            }
+            this.updateWizardForm()
+            onSuccess()
+        },
         handleTagsChange(tags) {
             this.form.tags = tags
         },
@@ -248,7 +228,7 @@ export default {
         },
         handleCollabAdd(user) {
             const { collabs } = this.form
-            const alreadyAdded = collabs.find(({ user }) => user.id == user.id)
+            const alreadyAdded = collabs.find(({ id }) => id == user.id)
             if (alreadyAdded) {
                 return
             }
@@ -257,14 +237,6 @@ export default {
                 profit: null,
                 publishing: null,
             })
-        },
-        handleBlockValidate({ onSuccess }) {
-            this.$v.form.$touch()
-            if (this.$v.form.$invalid) {
-                return
-            }
-            this.updateWizardForm()
-            onSuccess()
         },
     },
 }

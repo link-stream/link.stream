@@ -4,10 +4,18 @@ import { required } from 'vuelidate/lib/validators'
 import { appConstants } from '~/constants'
 
 const initialState = () => ({
+    /**
+     * Available licenses.
+     * @type {array}
+     */
     licenses: [],
+    /**
+     * Form values.
+     * @type {object}
+     */
     form: {
         selectedLicenses: [],
-        selectedPromos: [],
+        selectedMarketing: [],
         trackType: null,
         coverArtBase64: null,
         title: null,
@@ -91,14 +99,14 @@ const actions = {
         })
     },
 
-    async setLicenses({ commit }, { licenses }) {
+    async setLicenses({ commit }, licenses) {
         commit({
             type: trackAddWizardTypes.SET_LICENSES,
             licenses,
         })
     },
 
-    async updateLicense({ state, commit }, { license }) {
+    async updateLicense({ state, commit }, license) {
         const index = state.licenses.map(({ id }) => id).indexOf(license.id)
         commit({
             type: trackAddWizardTypes.UPDATE_LICENSE,
@@ -113,7 +121,7 @@ const getters = {
     licenses: ({ licenses }) => licenses,
     isSong: ({ form }) => form.trackType === appConstants.tracks.types.song,
     isMissingFiles: ({ form }, getters) => {
-        const rules = getters.filesValidationRules
+        const rules = getters.validations.files
         const { files } = form
         if (rules.untaggedMp3.required && !files.untaggedMp3) {
             return true
@@ -126,22 +134,24 @@ const getters = {
         }
         return false
     },
-    filesValidationRules: ({ form }) => {
+    validations: ({ form }) => {
         const { selectedLicenses } = form
         const rules = {
-            stems: {},
-            untaggedMp3: {},
-            untaggedWav: {},
+            files: {
+                stems: {},
+                untaggedMp3: {},
+                untaggedWav: {},
+            },
         }
         selectedLicenses.forEach(({ mp3, wav, trackout_stems }) => {
             if (mp3 === '1') {
-                rules.untaggedMp3 = { required }
+                rules.files.untaggedMp3 = { required }
             }
             if (wav === '1') {
-                rules.untaggedWav = { required }
+                rules.files.untaggedWav = { required }
             }
             if (trackout_stems === '1') {
-                rules.stems = { required }
+                rules.files.stems = { required }
             }
         })
         return rules

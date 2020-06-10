@@ -383,7 +383,6 @@ import { UserInviteModal, UserSearchModal } from '~/components/Modal'
 import { api } from '~/services/api'
 import { mapGetters } from 'vuex'
 import { required, requiredIf } from 'vuelidate/lib/validators'
-import moment from 'moment'
 
 export default {
     name: 'BeatEdit',

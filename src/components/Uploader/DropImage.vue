@@ -42,8 +42,8 @@
                 @click="showFileDialog"
             >
                 <i class="upload-icon"></i>
-                <div class="upload-msg --sm" v-html="msgShort"></div>
-                <div class="upload-msg --lg" v-html="msgLong"></div>
+                <div class="upload-msg upload-msg-sm" v-html="msgShort"></div>
+                <div class="upload-msg upload-msg-lg" v-html="msgLong"></div>
             </div>
             <ls-button
                 class="file-add-btn"

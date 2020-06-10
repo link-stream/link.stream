@@ -29,19 +29,18 @@
 @import 'components/drop-audio';
 @import 'components/drop-file';
 @import 'components/user-avatar';
+@import 'components/user-account/form-wizard';
+@import 'components/user-account/base-card';
+@import 'components/user-account/video-card';
+@import 'components/user-account/link-card';
+@import 'components/user-account/beat-card';
+@import 'components/user-account/license-card';
 
 // Modals
 @import 'modals/base-modal';
 @import 'modals/video-edit-modal';
 @import 'modals/link-schedule-modal';
 @import 'modals/user-search-modal';
-
-// User Account
-@import 'partials/user-account/form-wizard';
-@import 'partials/user-account/base-card';
-@import 'partials/user-account/video-card';
-@import 'partials/user-account/link-card';
-@import 'partials/user-account/beat-card';
 
 // Layouts
 @import 'layouts/error';

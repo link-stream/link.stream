@@ -5,20 +5,161 @@
         }
     }
 
-    .Card-title {
+    .page-preview {
+        margin-top: 0;
+    }
+
+    .form-block {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .EditCard {
+        margin-bottom: 20px;
+    }
+
+    .EditCard-title {
         font-size: px2rem(14);
         margin-bottom: 15px;
     }
 
-    .FilesCard {
-        .DropFile:not(:last-child) {
-            margin-bottom: 15px;
+    .DropFile:not(:last-child) {
+        margin-bottom: 15px;
+    }
+
+    .info-card,
+    .vis-card {
+        margin-top: 0;
+    }
+
+    .marketing-card {
+        .custom-control-label {
+            padding-left: 10px;
+        }
+    }
+
+    .vis-card {
+        small {
+            font-size: px2rem(12);
+        }
+        .LsToggleButton {
+            margin-left: 10px;
+        }
+        .row-title {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .collabs {
+        ul {
+            margin-bottom: 12px;
+        }
+        .user-cell {
+            margin-bottom: 10px;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            color: $black;
+            font-size: px2rem(13);
+            font-weight: 600;
+            letter-spacing: 0;
+            border: 1px solid $input-border-color;
+            height: 42.6px;
+            padding-left: 7px;
+            .UserAvatar {
+                margin-right: 5px;
+            }
+        }
+        .remove-ibtn {
+            display: none;
+        }
+        .add-btn {
+            color: $black;
+            font-size: px2rem(14);
+            font-weight: bold;
+            .LsIcon {
+                position: relative;
+                top: 2px;
+                margin-right: 2px;
+            }
         }
     }
 
     @include media-breakpoint-up(md) {
-        .Card-title {
+        .form-block {
+            display: flex;
+            flex-direction: row;
+            .col-left {
+                flex-grow: 1;
+                margin-right: 20px;
+            }
+        }
+
+        .EditCard-title {
             font-size: px2rem(18);
+        }
+
+        .LicenseCard {
+            .Card-title {
+                font-size: px2rem(14);
+            }
+        }
+
+        .marketing-card {
+            .Card-body {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .custom-checkbox {
+                width: 50%;
+            }
+        }
+
+        .LsDatePicker input,
+        .LsTimePicker .vs__dropdown-toggle {
+            font-size: px2rem(12);
+        }
+
+        .collabs {
+            .form-group {
+                margin-bottom: 0;
+            }
+            .cell-title {
+                display: none;
+            }
+            .user-cell {
+                width: 55%;
+            }
+            .profit-cell {
+                width: 15%;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            .pub-cell {
+                width: 20%;
+            }
+            .remove-cell {
+                position: relative;
+            }
+            .remove-btn {
+                display: none;
+            }
+            .remove-ibtn {
+                display: block;
+                position: absolute;
+                top: 16px;
+                right: -25px;
+            }
+            li {
+                display: flex;
+                &:first-child {
+                    .cell-title {
+                        display: block;
+                    }
+                }
+            }
         }
     }
 }

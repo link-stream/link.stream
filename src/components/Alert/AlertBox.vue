@@ -1,6 +1,6 @@
 <template>
     <b-modal
-        :modal-class="`AlertBox --${type}`"
+        :modal-class="`AlertBox AlertBox-${type}`"
         size="sm"
         v-model="open"
         centered

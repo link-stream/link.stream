@@ -1,5 +1,5 @@
 <template>
-    <div class="FilesBlock">
+    <div>
         <DropAudio
             title="Untagged .MP3"
             :class="{ 'is-invalid': $v.files.untaggedMp3.$error }"
@@ -9,7 +9,6 @@
             @file-added="handleUntaggeMp3Added"
             @file-removed="handleUntaggedMp3Removed"
         />
-
         <DropAudio
             title="Untagged .WAV"
             :class="{ 'is-invalid': $v.files.untaggedWav.$error }"
@@ -19,7 +18,6 @@
             @file-added="handleUntaggedWavAdded"
             @file-removed="handleUntaggedWavRemoved"
         />
-
         <DropAudio
             title="Tagged Streaming File (.MP3 or .WAV)"
             :src="files.tagged && files.tagged.base64"
@@ -27,7 +25,6 @@
             @file-added="handleTaggedAdded"
             @file-removed="handleTaggedRemoved"
         />
-
         <DropFile
             title="Track Stems .ZIP (or .RAR)"
             :class="{ 'is-invalid': $v.files.stems.$error }"
@@ -51,7 +48,7 @@ export default {
     },
     data() {
         return {
-            files: { ...this.$store.getters['trackAddWizard/form'].files },
+            files: { ...this.$store.state.trackAddWizard.form.files },
         }
     },
     validations() {
@@ -60,9 +57,9 @@ export default {
         }
     },
     created() {
-        this.$bus.$on('wz.nextClick', this.handleValidate)
+        this.$bus.$on('wz.nextClick', this.validate)
         this.$bus.$on('wz.prevClick', this.updateWizardForm)
-        this.$bus.$on('wz.modal.saveClick', this.handleValidate)
+        this.$bus.$on('wz.editModal.saveClick', this.validate)
     },
     methods: {
         updateWizardForm() {
@@ -70,7 +67,7 @@ export default {
                 files: { ...this.files },
             })
         },
-        handleValidate({ onSuccess }) {
+        validate({ onSuccess }) {
             this.$v.files.$touch()
             if (this.$v.files.$invalid) {
                 this.$toast.error('Please add required files.')

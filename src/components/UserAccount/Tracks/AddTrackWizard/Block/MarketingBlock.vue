@@ -1,72 +1,47 @@
 <template>
     <div class="MarketingBlock">
-        <div class="Card" v-for="option in options" :key="option.id">
+        <div class="Card" v-for="offer in allOffers" :key="offer.id">
             <b-form-checkbox
-                :value="option"
-                v-model="selected"
+                :value="offer.id"
+                v-model="selectedOfferIds"
             ></b-form-checkbox>
-            <LsIcon class="logo" :icon="option.icon" />
+            <LsIcon class="logo" :icon="offer.icon" />
             <div class="Card-title">
-                {{ option.title }}
+                {{ offer.title }}
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
     name: 'MarketingBlock',
     data() {
         return {
-            selected: [
-                ...this.$store.getters['trackAddWizard/form'].selectedMarketing,
-            ],
-            options: [
-                {
-                    id: 1,
-                    title: 'Follow on LinkStream',
-                    icon: 'logo-streamy',
-                },
-                {
-                    id: 2,
-                    title: 'Follow on SoundCloud',
-                    icon: 'logo-sc',
-                },
-                {
-                    id: 3,
-                    title: 'Follow on Twitter',
-                    icon: 'logo-twitter',
-                },
-                {
-                    id: 4,
-                    title: 'Follow on Instagram',
-                    icon: 'logo-ig',
-                },
-                {
-                    id: 5,
-                    title: 'Subscribe to SMS',
-                    icon: 'envelope-open',
-                },
-                {
-                    id: 7,
-                    title: 'Subscribe to Emails',
-                    icon: 'envelope-open',
-                },
+            selectedOfferIds: [
+                ...this.$store.state.trackAddWizard.form.selectedOfferIds,
             ],
         }
     },
+    computed: {
+        ...mapGetters({
+            allOffers: 'trackAddWizard/allOffers',
+        }),
+    },
     created() {
-        this.$bus.$on('wz.nextClick', this.handleValidate)
+        this.$bus.$on('wz.nextClick', this.validate)
         this.$bus.$on('wz.prevClick', this.updateWizardForm)
-        this.$bus.$on('wz.modal.saveClick', this.handleValidate)
+        this.$bus.$on('wz.editModal.saveClick', this.validate)
     },
     methods: {
         updateWizardForm() {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                selectedMarketing: [...this.selected],
+                selectedOfferIds: this.selectedOfferIds,
             })
         },
-        handleValidate({ onSuccess }) {
+        validate({ onSuccess }) {
             this.updateWizardForm()
             onSuccess()
         },

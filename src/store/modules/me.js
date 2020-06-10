@@ -133,16 +133,14 @@ const actions = {
     },
 
     async loadProfile({ commit, rootGetters }) {
-        const authUser = rootGetters['auth/user']
-        const { status, data } = await api.users.getUser(authUser.id)
+        const user = rootGetters['auth/user']
+        const { status, data } = await api.users.getUser(user.id)
         status === 'success' && commit(meTypes.SET_USER, { user: data })
     },
 
     async loadLicenses({ commit, rootGetters }) {
-        const authUser = rootGetters['auth/user']
-        const { status, data } = await api.licenses.getLicensesByUser(
-            authUser.id
-        )
+        const user = rootGetters['auth/user']
+        const { status, data } = await api.licenses.getLicensesByUser(user.id)
         commit({
             type: meTypes.SET_LICENSES,
             licenses: status === 'success' ? data : [],
@@ -154,8 +152,8 @@ const actions = {
      */
 
     async loadBeats({ commit, rootGetters }) {
-        const authUser = rootGetters['auth/user']
-        const { status, data } = await api.audios.getBeatsByUser(authUser.id)
+        const user = rootGetters['auth/user']
+        const { status, data } = await api.audios.getBeatsByUser(user.id)
         commit({
             type: meTypes.SET_BEATS,
             beats: status === 'success' ? data : [],

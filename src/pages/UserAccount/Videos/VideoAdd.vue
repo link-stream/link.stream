@@ -1,6 +1,6 @@
 <template>
     <div class="page page-ua-vid-add">
-        <div class="fwz" :class="`--step-${step}`">
+        <div class="fwz" :data-current-step="step">
             <h6 class="fwz-counter">Step {{ step }} / 2</h6>
 
             <section class="fwz-step" v-show="step === 1">

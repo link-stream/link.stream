@@ -10,6 +10,7 @@ export const uploaderMixin = {
         },
         filename: {
             type: String,
+            default: '',
         },
         acceptTypes: {
             type: Array,
@@ -37,7 +38,7 @@ export const uploaderMixin = {
             this.file.src = this.src
         },
         filename() {
-            this.file.name = this.filename
+            this.file.name = this.filename || ''
         },
     },
     methods: {

@@ -45,7 +45,7 @@ export default {
             this.open = false
         },
         handleSaveClick() {
-            this.$bus.$emit('wz.modal.saveClick', {
+            this.$bus.$emit('wz.editModal.saveClick', {
                 onSuccess: this.close,
             })
         },

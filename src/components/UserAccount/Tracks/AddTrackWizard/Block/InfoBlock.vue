@@ -72,7 +72,7 @@
                         v-for="(collab, index) in $v.form.collabs.$each.$iter"
                         :key="collab.id"
                     >
-                        <div class="cell --user">
+                        <div class="cell user-cell">
                             <div class="cell-title">
                                 Collaborator
                             </div>
@@ -82,7 +82,7 @@
                                 {{ index == 0 ? '(you)' : '' }}
                             </div>
                         </div>
-                        <div class="cell --profit">
+                        <div class="cell profit-cell">
                             <div class="cell-title">
                                 Profit %
                             </div>
@@ -94,7 +94,7 @@
                                 ></b-form-input>
                             </b-form-group>
                         </div>
-                        <div class="cell --pub">
+                        <div class="cell">
                             <div class="cell-title">
                                 Publishing %
                             </div>
@@ -106,7 +106,7 @@
                                 ></b-form-input>
                             </b-form-group>
                         </div>
-                        <div class="cell --remove">
+                        <div class="cell remove-cell">
                             <LsIconButton
                                 icon="close"
                                 class="remove-ibtn"
@@ -154,8 +154,7 @@ export default {
             key,
             trackPack,
             collabs,
-        } = this.$store.getters['trackAddWizard/form']
-
+        } = this.$store.state.trackAddWizard.form
         return {
             tag: '',
             form: {
@@ -195,9 +194,9 @@ export default {
         },
     },
     created() {
-        this.$bus.$on('wz.nextClick', this.handleValidate)
+        this.$bus.$on('wz.nextClick', this.validate)
         this.$bus.$on('wz.prevClick', this.updateWizardForm)
-        this.$bus.$on('wz.modal.saveClick', this.handleValidate)
+        this.$bus.$on('wz.editModal.saveClick', this.validate)
         this.$bus.$on('modal.userSearch.userSelected', this.handleCollabAdd)
     },
     destroyed() {
@@ -212,7 +211,7 @@ export default {
         showCollabSearchModal() {
             this.$bus.$emit('modal.userSearch.open')
         },
-        handleValidate({ onSuccess }) {
+        validate({ onSuccess }) {
             this.$v.form.$touch()
             if (this.$v.form.$invalid) {
                 return
@@ -228,7 +227,7 @@ export default {
         },
         handleCollabAdd(user) {
             const { collabs } = this.form
-            const alreadyAdded = collabs.find(({ id }) => id == user.id)
+            const alreadyAdded = collabs.find(c => c.user.id == user.id)
             if (alreadyAdded) {
                 return
             }

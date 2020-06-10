@@ -1,5 +1,5 @@
 .UserSearchModal {
-    &.--search-done {
+    &.show-results {
         .modal-content {
             padding-bottom: 30px;
         }
@@ -18,7 +18,7 @@
         }
     }
     .search-box {
-        &.--searching {
+        &.is-searching {
             .LsSpinner {
                 display: block;
             }

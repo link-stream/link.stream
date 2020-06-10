@@ -3,7 +3,7 @@
         margin-top: 200px;
     }
 
-    .fwz.--step-trackType {
+    .fwz[data-current-step='type'] {
         .fwz-counter {
             display: none;
         }
@@ -53,15 +53,15 @@
         }
     }
 
-    .step-licenses,
-    .step-files,
-    .step-marketing {
+    .licenses-step,
+    .files-step,
+    .marketing-step {
         .step-body {
             flex-direction: column;
         }
     }
 
-    .step-trackType {
+    .type-step {
         .step-body {
             display: flex;
             flex-direction: column;
@@ -96,7 +96,7 @@
         }
     }
 
-    .step-info {
+    .info-step {
         .step-body {
             display: flex;
             flex-direction: column;
@@ -111,7 +111,7 @@
         }
     }
 
-    .step-review {
+    .review-step {
         .step-body {
             display: flex;
             flex-direction: column;
@@ -146,8 +146,6 @@
             right: 15px;
         }
         .DropImage {
-            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
-            padding: 15px;
             .preview {
                 flex-direction: row;
             }
@@ -182,14 +180,14 @@
                 display: none;
             }
         }
-        .Card.--vis {
+        .vis-card {
             small {
                 font-size: px2rem(12);
             }
             .LsToggleButton {
                 margin-left: 10px;
             }
-            .row-vis {
+            .row-title {
                 display: flex;
                 justify-content: space-between;
             }
@@ -211,7 +209,7 @@
             display: none;
         }
 
-        .step-trackType {
+        .type-step {
             padding-top: 48px;
             .step-body {
                 flex-direction: row;
@@ -225,34 +223,26 @@
             }
         }
 
-        .step-info,
-        .step-review {
+        .info-step,
+        .review-step {
             .step-body {
                 flex-direction: row;
                 .col-image {
                     margin: 0 30px 0 0;
                 }
-                .col-summary {
-                    flex-grow: 1;
-                }
             }
         }
 
-        .LicenseCard {
-            .edit-form {
-                margin: 0 37px;
-            }
-            .edit-actions {
-                flex-direction: row;
-                .col-left {
-                    text-align: left;
-                    order: 0;
-                    margin-top: 0;
-                }
+        .info-step {
+            .col-fields {
+                flex-grow: 1;
             }
         }
 
-        .step-review {
+        .review-step {
+            .col-summary {
+                flex-grow: 1;
+            }
             .Card {
                 padding: 20px;
             }
@@ -261,8 +251,6 @@
                 margin-bottom: 10px;
             }
             .DropImage {
-                box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
-                padding: 20px;
                 .img-box,
                 .drop-box {
                     width: 215px;
@@ -282,14 +270,12 @@
                 .file-replace-btn {
                     display: block;
                 }
-                .upload-msg.--lg {
+                .upload-msg-lg {
                     display: block;
                 }
             }
         }
-    }
 
-    @include media-breakpoint-up(md) {
         .MarketingBlock {
             flex-wrap: wrap;
             flex-direction: row;
@@ -301,39 +287,38 @@
                 font-size: px2rem(14px);
             }
         }
-        .InfoBlock {
-            .collabs {
-                .form-group {
-                    margin-bottom: 0;
-                }
-                .cell-title {
-                    display: none;
-                }
-                .cell.--user {
-                    width: 80%;
-                }
-                .cell.--profit {
-                    margin-left: 10px;
-                    margin-right: 10px;
-                }
-                .cell.--remove {
-                    position: relative;
-                }
-                .remove-btn {
-                    display: none;
-                }
-                .remove-ibtn {
-                    display: block;
-                    position: absolute;
-                    top: 16px;
-                    right: -25px;
-                }
-                li {
-                    display: flex;
-                    &:first-child {
-                        .cell-title {
-                            display: block;
-                        }
+
+        .collabs {
+            .form-group {
+                margin-bottom: 0;
+            }
+            .cell-title {
+                display: none;
+            }
+            .user-cell {
+                width: 80%;
+            }
+            .profit-cell {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            .remove-cell {
+                position: relative;
+            }
+            .remove-btn {
+                display: none;
+            }
+            .remove-ibtn {
+                display: block;
+                position: absolute;
+                top: 16px;
+                right: -25px;
+            }
+            li {
+                display: flex;
+                &:first-child {
+                    .cell-title {
+                        display: block;
                     }
                 }
             }
@@ -345,79 +330,13 @@
 // Styles shared by steps and modals
 //------------------------------------------------------------------------
 
-.LicensesBlock {
-    .LicenseCard {
-        padding: 15px 20px;
-
-        .block-view {
-            display: flex;
-            align-items: center;
-            .form-group {
-                margin-bottom: 0;
-            }
-        }
-
-        .block-edit {
-            display: none;
-            margin-top: 5px;
-        }
-
-        .edit-form {
-            margin-top: 15px;
-        }
-
-        .Card-body {
-            flex: 1;
-            margin-left: 10px;
-        }
-
-        .Card-title {
-            line-height: 15px;
-        }
-
-        .close-btn {
-            display: none;
-        }
-
-        .edit-actions {
-            flex-direction: column;
-            margin-top: 30px;
-            .col-left {
-                order: 1;
-                text-align: center;
-                margin-top: 20px;
-            }
-            .col-right {
-                display: flex;
-                .btn {
-                    margin: 0;
-                    width: 50%;
-                }
-                .cancel-btn {
-                    margin-right: 10px;
-                }
-            }
-        }
-
-        &.is-editing {
-            .edit-btn {
-                visibility: hidden;
-            }
-            .close-btn,
-            .block-edit {
-                display: block;
-            }
-        }
-    }
-}
-
 .InfoBlock {
     .collabs {
         ul {
             margin-bottom: 12px;
         }
-        .cell.--user {
-            margin-bottom: $form-group-margin-bottom;
+        .user-cell {
+            margin-bottom: 10px;
         }
         .user-profile {
             display: flex;
@@ -464,10 +383,8 @@
     }
 }
 
-.FilesBlock {
-    .DropFile:not(:last-child) {
-        margin-bottom: 15px;
-    }
+.DropFile:not(:last-child) {
+    margin-bottom: 15px;
 }
 
 .MarketingEditModal {

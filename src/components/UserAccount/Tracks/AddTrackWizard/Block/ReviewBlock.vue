@@ -78,16 +78,16 @@
                 class="edit-btn"
                 @click="handleEditClick('marketing')"
             />
-            <p v-if="!selectedMarketing.length">No marketing selected</p>
+            <p v-if="!selectedOffers.length">No marketing selected</p>
             <ul>
-                <li v-for="m in selectedMarketing" :key="m.id">
+                <li v-for="m in selectedOffers" :key="m.id">
                     {{ m.title }}
                 </li>
             </ul>
         </div>
 
-        <div class="Card --vis">
-            <div class="row-vis">
+        <div class="Card vis-card">
+            <div class="row-title">
                 <h4 class="Card-title">Visibility</h4>
                 <div>
                     <small>{{ form.isPublic ? 'Public' : 'Private' }}</small>
@@ -121,9 +121,12 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'ReviewBlock',
     data() {
-        const { time, date, scheduled, isPublic } = this.$store.getters[
-            'trackAddWizard/form'
-        ]
+        const {
+            time,
+            date,
+            scheduled,
+            isPublic,
+        } = this.$store.state.trackAddWizard.form
         return {
             form: {
                 time,
@@ -155,9 +158,11 @@ export default {
             isSong: 'trackAddWizard/isSong',
             isMissingFiles: 'trackAddWizard/isMissingFiles',
             validations: 'trackAddWizard/validations',
+            selectedLicenses: 'trackAddWizard/selectedLicenses',
+            selectedOffers: 'trackAddWizard/selectedOffers',
         }),
         summary() {
-            return this.$store.getters['trackAddWizard/form']
+            return this.$store.state.trackAddWizard.form
         },
         title() {
             return this.summary.title
@@ -171,12 +176,6 @@ export default {
         key() {
             return this.summary.key ? this.summary.key.name : ''
         },
-        selectedLicenses() {
-            return this.summary.selectedLicenses
-        },
-        selectedMarketing() {
-            return this.summary.selectedMarketing
-        },
         files() {
             return this.summary.files
         },
@@ -188,7 +187,7 @@ export default {
         },
     },
     created() {
-        this.$bus.$on('wz.saveClick', this.handleValidate)
+        this.$bus.$on('wz.saveClick', this.validate)
         this.$bus.$on('wz.prevClick', this.updateWizardForm)
     },
     methods: {
@@ -197,7 +196,7 @@ export default {
                 ...this.form,
             })
         },
-        handleValidate({ onSuccess }) {
+        validate({ onSuccess }) {
             this.$v.form.$touch()
             if (this.$v.form.$invalid) {
                 this.$toast.error('Please add a schedule date and time.')
@@ -215,7 +214,7 @@ export default {
             this.form.scheduled = !this.form.scheduled
         },
         handleEditClick(section) {
-            this.$bus.$off('wz.modal.saveClick')
+            this.$bus.$off('wz.editModal.saveClick')
             this.$bus.$emit(`wz.modal.${section}.open`)
         },
     },

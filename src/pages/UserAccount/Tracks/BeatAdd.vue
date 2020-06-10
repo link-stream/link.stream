@@ -44,13 +44,7 @@ export default {
     },
     async created() {
         this.loading = true
-        await this.$store.dispatch('common/loadGenres')
-        await this.$store.dispatch('common/loadAudioKeys')
-        await this.$store.dispatch('me/loadLicenses')
-        this.$store.dispatch(
-            'trackAddWizard/setLicenses',
-            this.$store.getters['me/licenses']
-        )
+        await this.$store.dispatch('trackAddWizard/loadWizard')
         this.loading = false
     },
 }

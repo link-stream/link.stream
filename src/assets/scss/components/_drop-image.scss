@@ -71,14 +71,15 @@
     .upload-msg {
         font-size: px2rem(12);
         text-align: center;
-        &.--lg {
-            display: none;
-        }
         u {
             color: $primary;
             text-decoration: none;
             font-weight: normal;
         }
+    }
+
+    .upload-msg-lg {
+        display: none;
     }
 
     @include media-breakpoint-up(md) {
@@ -97,12 +98,14 @@
 
         .upload-msg {
             font-size: px2rem(13);
-            &.--sm {
-                display: none;
-            }
-            &.--lg {
-                display: block;
-            }
+        }
+
+        .upload-msg-sm {
+            display: none;
+        }
+
+        .upload-msg-lg {
+            display: block;
         }
     }
 }

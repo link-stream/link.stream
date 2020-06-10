@@ -9,7 +9,7 @@
 
 /** Pulse */
 
-.LsSpinner.--pulse {
+.LsSpinner-pulse {
     > span {
         width: 4px;
         height: 35px;
@@ -34,7 +34,7 @@
 
 /** Bounce */
 
-.LsSpinner.--bounce {
+.LsSpinner-bounce {
     > span {
         width: 20px;
         height: 20px;
@@ -54,7 +54,7 @@
 
 /** Bars */
 
-.LsSpinner.--bars {
+.LsSpinner-bars {
     > span {
         height: 60px;
         width: 6px;
@@ -82,7 +82,7 @@
 
 /** Scale */
 
-.LsSpinner.--scale {
+.LsSpinner-scale {
     > span {
         width: 4px;
         height: 35px;

@@ -1,21 +1,50 @@
 import { types, trackAddWizardTypes } from '../mutationTypes'
+import { api } from '~/services/api'
+import { appConstants } from '~/constants'
 import { cloneDeep } from 'lodash'
 import { required } from 'vuelidate/lib/validators'
-import { appConstants } from '~/constants'
 
 const initialState = () => ({
-    /**
-     * Available licenses.
-     * @type {array}
-     */
-    licenses: [],
+    allLicenses: [],
+    allOffers: [
+        {
+            id: '1',
+            title: 'Follow on LinkStream',
+            icon: 'logo-streamy',
+        },
+        {
+            id: '2',
+            title: 'Follow on SoundCloud',
+            icon: 'logo-sc',
+        },
+        {
+            id: '3',
+            title: 'Follow on Twitter',
+            icon: 'logo-twitter',
+        },
+        {
+            id: '4',
+            title: 'Follow on Instagram',
+            icon: 'logo-ig',
+        },
+        {
+            id: '5',
+            title: 'Subscribe to SMS',
+            icon: 'envelope-open',
+        },
+        {
+            id: '6',
+            title: 'Subscribe to Emails',
+            icon: 'envelope-open',
+        },
+    ],
     /**
      * Form values.
      * @type {object}
      */
     form: {
-        selectedLicenses: [],
-        selectedMarketing: [],
+        selectedLicenseIds: [],
+        selectedOfferIds: [],
         trackType: null,
         coverArtBase64: null,
         title: null,
@@ -79,11 +108,11 @@ const mutations = {
     },
 
     [trackAddWizardTypes.SET_LICENSES](state, { licenses }) {
-        state.licenses = cloneDeep(licenses)
+        state.allLicenses = cloneDeep(licenses)
     },
 
     [trackAddWizardTypes.UPDATE_LICENSE](state, { index, license }) {
-        state.licenses.splice(index, 1, cloneDeep(license))
+        state.allLicenses.splice(index, 1, cloneDeep(license))
     },
 }
 
@@ -99,27 +128,45 @@ const actions = {
         })
     },
 
-    async setLicenses({ commit }, licenses) {
-        commit({
-            type: trackAddWizardTypes.SET_LICENSES,
-            licenses,
-        })
-    },
-
     async updateLicense({ state, commit }, license) {
-        const index = state.licenses.map(({ id }) => id).indexOf(license.id)
+        const index = state.allLicenses.map(({ id }) => id).indexOf(license.id)
         commit({
             type: trackAddWizardTypes.UPDATE_LICENSE,
             index,
             license,
         })
     },
+
+    async loadAllLicenses({ commit, rootGetters }) {
+        const user = rootGetters['auth/user']
+        const { status, data } = await api.licenses.getLicensesByUser(user.id)
+        commit({
+            type: trackAddWizardTypes.SET_LICENSES,
+            licenses: status === 'success' ? data : [],
+        })
+    },
+
+    async loadWizard({ dispatch }) {
+        await dispatch('loadAllLicenses')
+        await dispatch('common/loadGenres', null, { root: true })
+        await dispatch('common/loadAudioKeys', null, { root: true })
+    },
 }
 
 const getters = {
-    form: ({ form }) => form,
-    licenses: ({ licenses }) => licenses,
+    allLicenses: ({ allLicenses }) => allLicenses,
+    allOffers: ({ allOffers }) => allOffers,
     isSong: ({ form }) => form.trackType === appConstants.tracks.types.song,
+    selectedLicenses: ({ form, allLicenses }) => {
+        return allLicenses.filter(
+            ({ id }) => form.selectedLicenseIds.indexOf(id) !== -1
+        )
+    },
+    selectedOffers: ({ form, allOffers }) => {
+        return allOffers.filter(
+            ({ id }) => form.selectedOfferIds.indexOf(id) !== -1
+        )
+    },
     isMissingFiles: ({ form }, getters) => {
         const rules = getters.validations.files
         const { files } = form
@@ -134,8 +181,7 @@ const getters = {
         }
         return false
     },
-    validations: ({ form }) => {
-        const { selectedLicenses } = form
+    validations: (state, getters) => {
         const rules = {
             files: {
                 stems: {},
@@ -143,7 +189,7 @@ const getters = {
                 untaggedWav: {},
             },
         }
-        selectedLicenses.forEach(({ mp3, wav, trackout_stems }) => {
+        getters.selectedLicenses.forEach(({ mp3, wav, trackout_stems }) => {
             if (mp3 === '1') {
                 rules.files.untaggedMp3 = { required }
             }

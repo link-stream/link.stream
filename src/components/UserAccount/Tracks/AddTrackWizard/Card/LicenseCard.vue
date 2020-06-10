@@ -111,14 +111,14 @@ export default {
             this.resetForm()
         },
         handleCheckChange(checked) {
-            this.$emit(checked ? 'check' : 'uncheck', this.license)
+            this.$emit(checked ? 'checked' : 'unchecked', this.license)
         },
         handleSaveClick() {
             this.$v.form.$touch()
             if (this.$v.form.$invalid) {
                 return
             }
-            this.$store.dispatch('trackAddWizard/updateLicense', {
+            this.$emit('updated', {
                 ...this.license,
                 price: this.form.price,
             })

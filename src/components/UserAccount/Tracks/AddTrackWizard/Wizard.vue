@@ -1,5 +1,5 @@
 <template>
-    <div class="fwz" :class="`--step-${step}`">
+    <div class="fwz" :data-current-step="step">
         <div class="fwz-counter">Step {{ stepIndex }} / {{ numSteps - 1 }}</div>
         <WizardTabs
             v-show="stepIndex > 0"
@@ -9,7 +9,7 @@
         />
 
         <!-- STEP - TRACK TYPE -->
-        <wizard-step v-show="isStepTrackType" class="step-trackType">
+        <wizard-step v-show="isStepType" class="type-step">
             <div class="Card">
                 <LsIcon icon="beat" />
                 <h2 class="Card-title">Upload a Beat</h2>
@@ -51,17 +51,17 @@
         <!-- STEP - TRACK INFO -->
         <wizard-step
             v-show="isStepInfo"
-            class="step-info"
+            class="info-step"
             :title="isSong ? 'Song info' : 'Beat info'"
         >
             <div class="col-image">
                 <DropImage
                     msgLong="Drag artwork here or<br><u>browse for file</u>"
-                    :src="form.coverArtBase64"
+                    :src="coverArtBase64"
                     @file-added="handleImageAdded"
                     @file-removed="handleImageRemoved"
                 />
-                <div class="text-muted" v-if="!form.coverArtBase64">
+                <div class="text-muted" v-if="!coverArtBase64">
                     Suggested Dimensions: 1000x1000
                 </div>
             </div>
@@ -72,7 +72,7 @@
         <wizard-step
             v-show="isStepLicenses"
             title="License types"
-            class="step-licenses"
+            class="licenses-step"
         >
             <LicensesBlock v-if="isStepLicenses" />
         </wizard-step>
@@ -82,7 +82,7 @@
             v-show="isStepFiles"
             title="Upload files"
             subtitle="Add files to deliver when the license for this track is purchased"
-            class="step-files"
+            class="files-step"
         >
             <FilesBlock v-if="isStepFiles" />
         </wizard-step>
@@ -92,7 +92,7 @@
             v-show="isStepMarketing"
             title="Free downloads"
             subtitle="Build your audience by allowing free MP3 downloads for social follows, email and SMS subscribes"
-            class="step-marketing"
+            class="marketing-step"
         >
             <MarketingBlock v-if="isStepMarketing" />
         </wizard-step>
@@ -101,15 +101,17 @@
         <wizard-step
             v-show="isStepReview"
             :title="isSong ? 'Review song' : 'Review beat'"
-            class="step-review"
+            class="review-step"
         >
             <div class="col-image">
-                <DropImage
-                    msgLong="Drag artwork here or<br><u>browse for file</u>"
-                    :src="form.coverArtBase64"
-                    @file-added="handleImageAdded"
-                    @file-removed="handleImageRemoved"
-                />
+                <div class="Card">
+                    <DropImage
+                        msgLong="Drag artwork here or<br><u>browse for file</u>"
+                        :src="coverArtBase64"
+                        @file-added="handleImageAdded"
+                        @file-removed="handleImageRemoved"
+                    />
+                </div>
             </div>
             <ReviewBlock v-if="isStepReview" class="col-summary" />
         </wizard-step>
@@ -147,7 +149,7 @@ import { api } from '~/services/api'
 import { mapGetters } from 'vuex'
 import moment from 'moment'
 
-const STEP_TRACK_TYPE = 'trackType'
+const STEP_TYPE = 'type'
 const STEP_INFO = 'info'
 const STEP_LICENSES = 'licenses'
 const STEP_FILES = 'files'
@@ -155,7 +157,7 @@ const STEP_MARKETING = 'marketing'
 const STEP_REVIEW = 'review'
 
 const steps = [
-    STEP_TRACK_TYPE,
+    STEP_TYPE,
     STEP_INFO,
     STEP_LICENSES,
     STEP_FILES,
@@ -202,12 +204,12 @@ export default {
         return {
             stepIndex: 0,
             saving: false,
+            coverArtBase64: null,
         }
     },
     computed: {
         ...mapGetters({
             user: 'me/user',
-            form: 'trackAddWizard/form',
             isSong: 'trackAddWizard/isSong',
         }),
         step() {
@@ -220,8 +222,8 @@ export default {
             tabs[0].text = this.isSong ? 'Song info' : 'Beat info'
             return tabs
         },
-        isStepTrackType() {
-            return this.step === STEP_TRACK_TYPE
+        isStepType() {
+            return this.step === STEP_TYPE
         },
         isStepInfo() {
             return this.step === STEP_INFO
@@ -278,7 +280,7 @@ export default {
         async save() {
             this.saving = true
 
-            const form = this.form
+            const { form } = this.$store.state.trackAddWizard
 
             const params = {
                 user_id: this.user.id,
@@ -298,15 +300,17 @@ export default {
                 params.time = form.time
             }
 
-            const marketing = form.selectedMarketing.map(({ id }) => {
+            const selectedOffers = this.$store.getters[
+                'trackAddWizard/selectedOffers'
+            ].map(({ id }) => {
                 return {
                     marketing_id: id,
                     connect_id: '',
                 }
             })
 
-            if (marketing.length) {
-                params.marketing = JSON.stringify(marketing)
+            if (selectedOffers.length) {
+                params.marketing = JSON.stringify(selectedOffers)
             }
 
             const collabs = form.collabs.map(({ user, profit, publishing }) => {
@@ -321,30 +325,38 @@ export default {
                 params.collaborators = JSON.stringify(collabs)
             }
 
-            const licenses = form.selectedLicenses.map(
-                ({ id, price, status_id }) => {
-                    return {
-                        license_id: id,
-                        price,
-                        status_id,
-                    }
+            const selectedLicenses = this.$store.getters[
+                'trackAddWizard/selectedLicenses'
+            ].map(({ id, price, status_id }) => {
+                return {
+                    license_id: id,
+                    price,
+                    status_id,
                 }
-            )
+            })
 
-            if (licenses.length) {
-                params.licenses = JSON.stringify(licenses)
-            }
-
-            if (form.files.untagged) {
-                params.untagged_file = form.files.untagged.base64
+            if (selectedLicenses.length) {
+                params.licenses = JSON.stringify(selectedLicenses)
             }
 
             if (form.files.tagged) {
+                params.tagged_file_name = form.files.tagged.name
                 params.tagged_file = form.files.tagged.base64
             }
 
             if (form.files.stems) {
+                params.track_stems_name = form.files.stems.name
                 params.track_stems = form.files.stems.base64
+            }
+
+            if (form.files.untaggedMp3) {
+                params.untagged_mp3_name = form.files.untaggedMp3.name
+                params.untagged_mp3 = form.files.untaggedMp3.base64
+            }
+
+            if (form.files.untaggedWav) {
+                params.untagged_wav_name = form.files.untaggedWav.name
+                params.untagged_wav = form.files.untaggedWav.base64
             }
 
             const { status, message, error } = await api.audios.createAudio(
@@ -397,11 +409,13 @@ export default {
             this.next()
         },
         handleImageAdded(file) {
+            this.coverArtBase64 = file.base64
             this.$store.dispatch('trackAddWizard/updateForm', {
                 coverArtBase64: file.base64,
             })
         },
         handleImageRemoved() {
+            this.coverArtBase64 = null
             this.$store.dispatch('trackAddWizard/updateForm', {
                 coverArtBase64: null,
             })

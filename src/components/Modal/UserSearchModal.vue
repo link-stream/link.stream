@@ -2,7 +2,7 @@
     <b-modal
         :modal-class="{
             UserSearchModal: true,
-            '--search-done': showResults,
+            'show-results': showResults,
         }"
         size="lg"
         centered
@@ -15,7 +15,7 @@
         </template>
 
         <template v-slot:default>
-            <div class="search-box" :class="{ '--searching': searching }">
+            <div class="search-box" :class="{ 'is-searching': searching }">
                 <LsIcon class="search-icon" icon="search" />
                 <input
                     type="text"

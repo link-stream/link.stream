@@ -1,4 +1,5 @@
 export { default as Wizard } from './Wizard'
+export { default as LicenseCard } from './Card/LicenseCard'
 export { default as InfoEditModal } from './Modal/InfoEditModal'
 export { default as LicensesEditModal } from './Modal/LicensesEditModal'
 export { default as FilesEditModal } from './Modal/FilesEditModal'

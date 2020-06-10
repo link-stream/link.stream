@@ -193,7 +193,10 @@
                         </edit-card>
 
                         <!-- Marketing Card -->
-                        <edit-card title="Free downloads" class="MarketingCard">
+                        <edit-card
+                            title="Free downloads"
+                            class="marketing-card"
+                        >
                             <div
                                 class="custom-control custom-checkbox"
                                 v-for="offer in allOffers"

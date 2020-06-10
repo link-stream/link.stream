@@ -195,27 +195,27 @@
 .vue-tags-input {
     max-width: none !important;
     .ti-input {
-        min-height: $input-height;
+        min-height: $input-height !important;
     }
     .ti-new-tag-input {
-        font-size: $input-btn-font-size;
+        font-size: $input-btn-font-size !important;
         &::placeholder {
-            color: $input-placeholder-color;
+            color: $input-placeholder-color !important;
         }
     }
     .ti-tags {
-        line-height: inherit;
+        line-height: inherit !important;
     }
     .ti-tag {
-        background-color: $black;
-        border-radius: 100px;
-        padding: 0 10px;
-        color: $gray-200;
-        font-size: px2rem(11);
-        font-weight: 500;
-        letter-spacing: 0;
-        margin: 4px 2px;
-        padding: 3px 12px;
+        background-color: $black !important;
+        border-radius: 100px !important;
+        padding: 0 10px !important;
+        color: $gray-200 !important;
+        font-size: px2rem(11) !important;
+        font-weight: 500 !important;
+        letter-spacing: 0 !important;
+        margin: 4px 2px !important;
+        padding: 3px 12px !important;
     }
 }
 

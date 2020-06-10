@@ -68,9 +68,16 @@
 }
 
 @include media-breakpoint-up(md) {
-    .modal-lg {
+    .modal-md {
         max-width: 460px !important;
+    }
 
+    .modal-lg {
+        max-width: 600px !important;
+    }
+
+    .modal-md,
+    .modal-lg {
         .modal-content {
             padding-bottom: 30px;
         }

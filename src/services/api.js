@@ -144,7 +144,12 @@ export const api = {
             const method = METHOD_GET
             return await call({ endpoint, method })
         },
-        async deleteBeat(id) {
+        async updateAudio(id, params) {
+            const endpoint = '/audios/' + id
+            const method = METHOD_PUT
+            return await call({ endpoint, params, method })
+        },
+        async deleteAudio(id) {
             const endpoint = '/audios/' + id
             const method = METHOD_DELETE
             return await call({ endpoint, method })

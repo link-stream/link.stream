@@ -13,7 +13,7 @@
             @change="handleFileSelected"
         />
 
-        <div class="preview" v-if="fileAdded">
+        <div class="preview" v-if="isFileAdded">
             <div class="player-controls">
                 <LsButton
                     variant="icon-bg"
@@ -88,16 +88,12 @@ export default {
     },
     watch: {
         file() {
-            if (this.fileAdded) {
-                this.loadPlayer()
-            } else {
-                this.pause()
-            }
+            this.isFileAdded ? this.loadPlayer() : this.pause()
         },
     },
-    created() {
+    mounted() {
         this.initPlayer()
-        this.fileAdded && this.loadPlayer()
+        this.isFileAdded && this.loadPlayer()
     },
     destroyed() {
         this.pause()

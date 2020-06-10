@@ -119,9 +119,6 @@
                 margin-bottom: 15px;
             }
         }
-        .invalid-feedback {
-            display: block;
-        }
         .Card {
             position: relative;
             padding: 15px;
@@ -149,7 +146,7 @@
             .preview {
                 flex-direction: row;
             }
-            .file-remove-ibtn,
+            .file-remove-icon,
             .file-replace-btn {
                 display: none;
             }
@@ -270,7 +267,7 @@
                 .file-replace-btn {
                     display: block;
                 }
-                .upload-msg-lg {
+                .upload-msg-l {
                     display: block;
                 }
             }
@@ -308,7 +305,7 @@
             .remove-btn {
                 display: none;
             }
-            .remove-ibtn {
+            .remove-icon {
                 display: block;
                 position: absolute;
                 top: 16px;
@@ -329,6 +326,12 @@
 //------------------------------------------------------------------------
 // Styles shared by steps and modals
 //------------------------------------------------------------------------
+
+.FilesBlock {
+    .DropFile:not(:last-child) {
+        margin-bottom: 15px;
+    }
+}
 
 .InfoBlock {
     .collabs {
@@ -352,7 +355,7 @@
                 margin-right: 5px;
             }
         }
-        .remove-ibtn {
+        .remove-icon {
             display: none;
         }
         .add-btn {
@@ -383,18 +386,14 @@
     }
 }
 
-.DropFile:not(:last-child) {
-    margin-bottom: 15px;
+.ReviewBlock {
+    .text-danger {
+        font-weight: bold;
+    }
 }
 
 .MarketingEditModal {
     .Card {
         flex-basis: 100%;
-    }
-}
-
-.ReviewBlock {
-    .text-danger {
-        font-weight: bold;
     }
 }

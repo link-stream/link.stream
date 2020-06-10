@@ -8,7 +8,7 @@
             @change="handleFileSelected"
         />
 
-        <div class="preview" v-if="fileAdded">
+        <div class="preview" v-if="isFileAdded">
             <div class="file-info">
                 <div class="file-desc" v-html="title"></div>
                 <div class="file-name">{{ file.name | truncate(200) }}</div>

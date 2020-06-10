@@ -8,11 +8,11 @@
             @change="handleFileSelected"
         />
 
-        <section class="preview" v-if="fileAdded">
+        <section class="preview" v-if="isFileAdded">
             <div class="img-box">
                 <img :src="file.src" @click="showFileDialog" />
                 <LsIconButton
-                    class="file-remove-ibtn"
+                    class="file-remove-icon"
                     icon="dropimg-remove"
                     @click="handleRemoveClick"
                 />
@@ -42,8 +42,8 @@
                 @click="showFileDialog"
             >
                 <i class="upload-icon"></i>
-                <div class="upload-msg upload-msg-sm" v-html="msgShort"></div>
-                <div class="upload-msg upload-msg-lg" v-html="msgLong"></div>
+                <div class="upload-msg upload-msg-s" v-html="msgShort"></div>
+                <div class="upload-msg upload-msg-l" v-html="msgLong"></div>
             </div>
             <ls-button
                 class="file-add-btn"

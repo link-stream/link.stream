@@ -78,9 +78,11 @@
                 class="edit-btn"
                 @click="handleEditClick('marketing')"
             />
-            <p v-if="!selectedOffers.length">No marketing selected</p>
+            <p v-if="!selectedFreeDownloadOffers.length">
+                No free downloads
+            </p>
             <ul>
-                <li v-for="m in selectedOffers" :key="m.id">
+                <li v-for="m in selectedFreeDownloadOffers" :key="m.id">
                     {{ m.title }}
                 </li>
             </ul>
@@ -100,9 +102,9 @@
                         <LsDatePicker v-model="form.date" />
                         <LsTimePicker v-model="form.time" />
                     </b-input-group>
-                    <div class="invalid-feedback" v-show="$v.form.$error">
+                    <b-form-invalid-feedback :state="!$v.form.$error">
                         Select date and time
-                    </div>
+                    </b-form-invalid-feedback>
                 </b-form-group>
                 <ls-button variant="link" @click="handleScheduleToggleClick">
                     {{
@@ -156,10 +158,10 @@ export default {
     computed: {
         ...mapGetters({
             isSong: 'trackAddWizard/isSong',
-            isMissingFiles: 'trackAddWizard/isMissingFiles',
             validations: 'trackAddWizard/validations',
             selectedLicenses: 'trackAddWizard/selectedLicenses',
-            selectedOffers: 'trackAddWizard/selectedOffers',
+            selectedFreeDownloadOffers:
+                'trackAddWizard/selectedFreeDownloadOffers',
         }),
         summary() {
             return this.$store.state.trackAddWizard.form
@@ -198,12 +200,12 @@ export default {
         },
         validate({ onSuccess }) {
             this.$v.form.$touch()
-            if (this.$v.form.$invalid) {
-                this.$toast.error('Please add a schedule date and time.')
+            if (this.$v.files.$invalid) {
+                this.$toast.error('Please add required files.')
                 return
             }
-            if (this.isMissingFiles) {
-                this.$toast.error('Please review and add required files.')
+            if (this.$v.form.$invalid) {
+                this.$toast.error('Please select schedule date and time.')
                 return
             }
             this.updateWizardForm()

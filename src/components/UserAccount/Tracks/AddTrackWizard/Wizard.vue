@@ -287,7 +287,7 @@ export default {
                 track_type: form.trackType,
                 title: form.title,
                 bpm: form.bpm,
-                key: form.key ? form.key.id : '',
+                key_id: form.key ? form.key.id : '',
                 image: form.coverArtBase64,
                 genre_id: form.genre ? form.genre.id : '',
                 tags: form.tags.map(({ text }) => text).join(', '),
@@ -300,18 +300,7 @@ export default {
                 params.time = form.time
             }
 
-            const selectedOffers = this.$store.getters[
-                'trackAddWizard/selectedOffers'
-            ].map(({ id }) => {
-                return {
-                    marketing_id: id,
-                    connect_id: '',
-                }
-            })
-
-            if (selectedOffers.length) {
-                params.marketing = JSON.stringify(selectedOffers)
-            }
+            // Collabs
 
             const collabs = form.collabs.map(({ user, profit, publishing }) => {
                 return {
@@ -321,9 +310,9 @@ export default {
                 }
             })
 
-            if (collabs.length) {
-                params.collaborators = JSON.stringify(collabs)
-            }
+            params.collaborators = JSON.stringify(collabs)
+
+            // Licenses
 
             const selectedLicenses = this.$store.getters[
                 'trackAddWizard/selectedLicenses'
@@ -335,18 +324,33 @@ export default {
                 }
             })
 
-            if (selectedLicenses.length) {
-                params.licenses = JSON.stringify(selectedLicenses)
+            params.licenses = JSON.stringify(selectedLicenses)
+
+            // Free downloads
+
+            const selectedOffers = this.$store.getters[
+                'trackAddWizard/selectedFreeDownloadOffers'
+            ].map(({ id }) => {
+                return {
+                    marketing_id: id,
+                    connect_id: '',
+                }
+            })
+
+            if (selectedOffers.length) {
+                params.marketing = JSON.stringify(selectedOffers)
+            }
+
+            // Files
+
+            if (form.files.stems) {
+                params.track_stems_name = form.files.stems.name
+                params.track_stems = form.files.stems.base64
             }
 
             if (form.files.tagged) {
                 params.tagged_file_name = form.files.tagged.name
                 params.tagged_file = form.files.tagged.base64
-            }
-
-            if (form.files.stems) {
-                params.track_stems_name = form.files.stems.name
-                params.track_stems = form.files.stems.base64
             }
 
             if (form.files.untaggedMp3) {

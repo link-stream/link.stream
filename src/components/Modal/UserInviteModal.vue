@@ -1,5 +1,5 @@
 <template>
-    <b-modal modal-class="UserInviteModal" size="lg" centered v-model="open">
+    <b-modal modal-class="UserInviteModal" size="md" centered v-model="open">
         <template v-slot:modal-header>
             <LsButton variant="icon-bg" class="modal-close" @click="close" />
             <h2 class="modal-title">Invite collaborator</h2>

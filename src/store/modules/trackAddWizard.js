@@ -1,50 +1,20 @@
 import { types, trackAddWizardTypes } from '../mutationTypes'
-import { api } from '~/services/api'
 import { appConstants } from '~/constants'
 import { cloneDeep } from 'lodash'
 import { required } from 'vuelidate/lib/validators'
 
 const initialState = () => ({
-    allLicenses: [],
-    allOffers: [
-        {
-            id: '1',
-            title: 'Follow on LinkStream',
-            icon: 'logo-streamy',
-        },
-        {
-            id: '2',
-            title: 'Follow on SoundCloud',
-            icon: 'logo-sc',
-        },
-        {
-            id: '3',
-            title: 'Follow on Twitter',
-            icon: 'logo-twitter',
-        },
-        {
-            id: '4',
-            title: 'Follow on Instagram',
-            icon: 'logo-ig',
-        },
-        {
-            id: '5',
-            title: 'Subscribe to SMS',
-            icon: 'envelope-open',
-        },
-        {
-            id: '6',
-            title: 'Subscribe to Emails',
-            icon: 'envelope-open',
-        },
-    ],
+    userLicenses: [],
+    freeDownloadOffers: [...appConstants.marketingOptions],
     /**
      * Form values.
      * @type {object}
      */
     form: {
-        selectedLicenseIds: [],
-        selectedOfferIds: [],
+        // Selected options
+        licenseIds: [],
+        // Selected options
+        freeDownloadOfferIds: [],
         trackType: null,
         coverArtBase64: null,
         title: null,
@@ -107,12 +77,12 @@ const mutations = {
         state.form = form
     },
 
-    [trackAddWizardTypes.SET_LICENSES](state, { licenses }) {
-        state.allLicenses = cloneDeep(licenses)
+    [trackAddWizardTypes.SET_USER_LICENSES](state, { licenses }) {
+        state.userLicenses = cloneDeep(licenses)
     },
 
-    [trackAddWizardTypes.UPDATE_LICENSE](state, { index, license }) {
-        state.allLicenses.splice(index, 1, cloneDeep(license))
+    [trackAddWizardTypes.UPDATE_USER_LICENSE](state, { index, license }) {
+        state.userLicenses.splice(index, 1, cloneDeep(license))
     },
 }
 
@@ -129,57 +99,42 @@ const actions = {
     },
 
     async updateLicense({ state, commit }, license) {
-        const index = state.allLicenses.map(({ id }) => id).indexOf(license.id)
+        const index = state.userLicenses.findIndex(({ id }) => id == license.id)
         commit({
-            type: trackAddWizardTypes.UPDATE_LICENSE,
+            type: trackAddWizardTypes.UPDATE_USER_LICENSE,
             index,
             license,
         })
     },
 
-    async loadAllLicenses({ commit, rootGetters }) {
-        const user = rootGetters['auth/user']
-        const { status, data } = await api.licenses.getLicensesByUser(user.id)
+    async loadUserLicenses({ commit, dispatch, rootGetters }) {
+        await dispatch('me/loadLicenses', null, { root: true })
         commit({
-            type: trackAddWizardTypes.SET_LICENSES,
-            licenses: status === 'success' ? data : [],
+            type: trackAddWizardTypes.SET_USER_LICENSES,
+            licenses: rootGetters['me/licenses'],
         })
     },
 
     async loadWizard({ dispatch }) {
-        await dispatch('loadAllLicenses')
+        await dispatch('loadUserLicenses')
         await dispatch('common/loadGenres', null, { root: true })
         await dispatch('common/loadAudioKeys', null, { root: true })
     },
 }
 
 const getters = {
-    allLicenses: ({ allLicenses }) => allLicenses,
-    allOffers: ({ allOffers }) => allOffers,
     isSong: ({ form }) => form.trackType === appConstants.tracks.types.song,
-    selectedLicenses: ({ form, allLicenses }) => {
-        return allLicenses.filter(
-            ({ id }) => form.selectedLicenseIds.indexOf(id) !== -1
+    userLicenses: ({ userLicenses }) => userLicenses,
+    freeDownloadOffers: ({ freeDownloadOffers }) => freeDownloadOffers,
+    selectedLicenses: ({ form, userLicenses }) => {
+        return userLicenses.filter(
+            ({ id }) => form.licenseIds.indexOf(id) !== -1
         )
     },
-    selectedOffers: ({ form, allOffers }) => {
-        return allOffers.filter(
-            ({ id }) => form.selectedOfferIds.indexOf(id) !== -1
+    selectedFreeDownloadOffers: ({ form, freeDownloadOffers }) => {
+        return freeDownloadOffers.filter(
+            ({ id }) => form.freeDownloadOfferIds.indexOf(id) !== -1
         )
-    },
-    isMissingFiles: ({ form }, getters) => {
-        const rules = getters.validations.files
-        const { files } = form
-        if (rules.untaggedMp3.required && !files.untaggedMp3) {
-            return true
-        }
-        if (rules.untaggedWav.required && !files.untaggedWav) {
-            return true
-        }
-        if (rules.stems.required && !files.stems) {
-            return true
-        }
-        return false
     },
     validations: (state, getters) => {
         const rules = {

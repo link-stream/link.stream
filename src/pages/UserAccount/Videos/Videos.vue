@@ -105,9 +105,7 @@ export default {
                         status,
                         message,
                         error,
-                    } = await this.$store.dispatch('me/deleteVideo', {
-                        video,
-                    })
+                    } = await this.$store.dispatch('me/deleteVideo', video)
                     if (status === 'success') {
                         this.$toast.success(message)
                         this.$bus.$emit('modal.videoEdit.close')

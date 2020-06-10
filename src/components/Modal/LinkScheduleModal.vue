@@ -12,12 +12,11 @@
                         <LsDatePicker v-model="form.date" />
                         <LsTimePicker v-model="form.time" />
                     </b-input-group>
-                    <div
-                        class="invalid-feedback"
-                        v-if="$v.form.date.$error || $v.form.time.$error"
+                    <b-form-invalid-feedback
+                        :state="!($v.form.date.$error || $v.form.time.$error)"
                     >
                         Select start date and time
-                    </div>
+                    </b-form-invalid-feedback>
                 </b-form-group>
 
                 <b-form-group>
@@ -34,14 +33,13 @@
                         <LsDatePicker v-model="form.endDate" />
                         <LsTimePicker v-model="form.endTime" />
                     </b-input-group>
-                    <div
-                        class="invalid-feedback"
-                        v-show="
-                            $v.form.endDate.$error || $v.form.endTime.$error
+                    <b-form-invalid-feedback
+                        :state="
+                            !($v.form.endDate.$error || $v.form.endTime.$error)
                         "
                     >
                         Select end date and time
-                    </div>
+                    </b-form-invalid-feedback>
                 </b-form-group>
             </div>
         </template>

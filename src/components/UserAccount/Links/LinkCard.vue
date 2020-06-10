@@ -162,9 +162,7 @@ export default {
                         status,
                         message,
                         error,
-                    } = await this.$store.dispatch('me/deleteLink', {
-                        link: this.link,
-                    })
+                    } = await this.$store.dispatch('me/deleteLink', this.link)
                     status === 'success'
                         ? this.$toast.success(message)
                         : this.$toast.error(error)

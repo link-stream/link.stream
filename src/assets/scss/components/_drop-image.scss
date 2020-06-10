@@ -26,7 +26,7 @@
         padding: 5px;
     }
 
-    .file-remove-ibtn {
+    .file-remove-icon {
         position: absolute;
         top: -8px;
         right: -8px;
@@ -78,7 +78,7 @@
         }
     }
 
-    .upload-msg-lg {
+    .upload-msg-l {
         display: none;
     }
 
@@ -100,11 +100,11 @@
             font-size: px2rem(13);
         }
 
-        .upload-msg-sm {
+        .upload-msg-s {
             display: none;
         }
 
-        .upload-msg-lg {
+        .upload-msg-l {
             display: block;
         }
     }

@@ -47,9 +47,15 @@ const mutations = {
         state.beats = beats
     },
 
+    [meTypes.UPDATE_BEAT](state, { beat }) {
+        const { beats } = state
+        const index = beats.findIndex(({ id }) => id == beat.id)
+        index > -1 && beats.splice(index, 1, beat)
+    },
+
     [meTypes.DELETE_BEAT](state, { beat }) {
         const { beats } = state
-        const index = beats.map(({ id }) => id).indexOf(beat.id)
+        const index = beats.findIndex(({ id }) => id == beat.id)
         beats.splice(index, 1)
     },
 
@@ -70,13 +76,13 @@ const mutations = {
 
     [meTypes.UPDATE_VIDEO](state, { video }) {
         const { videos } = state
-        const index = videos.map(({ id }) => id).indexOf(video.id)
+        const index = videos.findIndex(({ id }) => id == video.id)
         index > -1 && videos.splice(index, 1, video)
     },
 
     [meTypes.DELETE_VIDEO](state, { video }) {
         const { videos } = state
-        const index = videos.map(({ id }) => id).indexOf(video.id)
+        const index = videos.findIndex(({ id }) => id == video.id)
         videos.splice(index, 1)
     },
 
@@ -97,13 +103,13 @@ const mutations = {
 
     [meTypes.UPDATE_LINK](state, { link }) {
         const { links } = state
-        const index = links.map(({ id }) => id).indexOf(link.id)
+        const index = links.findIndex(({ id }) => id == link.id)
         index > -1 && links.splice(index, 1, link)
     },
 
     [meTypes.DELETE_LINK](state, { link }) {
         const { links } = state
-        const index = links.map(({ id }) => id).indexOf(link.id)
+        const index = links.findIndex(({ id }) => id == link.id)
         links.splice(index, 1)
     },
 
@@ -138,7 +144,10 @@ const actions = {
         status === 'success' && commit(meTypes.SET_USER, { user: data })
     },
 
-    async loadLicenses({ commit, rootGetters }) {
+    async loadLicenses({ state, commit, rootGetters }) {
+        if (state.licenses.length) {
+            return
+        }
         const user = rootGetters['auth/user']
         const { status, data } = await api.licenses.getLicensesByUser(user.id)
         commit({
@@ -160,8 +169,15 @@ const actions = {
         })
     },
 
-    async deleteBeat({ commit }, { beat }) {
-        const response = await api.audios.deleteBeat(beat.id)
+    async updateBeat({ commit }, { id, params }) {
+        const response = await api.audios.updateAudio(id, params)
+        const { status, data } = response
+        status === 'success' && commit(meTypes.UPDATE_BEAT, { beat: data })
+        return response
+    },
+
+    async deleteBeat({ commit }, beat) {
+        const response = await api.audios.deleteAudio(beat.id)
         const { status } = response
         status === 'success' && commit(meTypes.DELETE_BEAT, { beat })
         return response
@@ -201,7 +217,7 @@ const actions = {
         return response
     },
 
-    async deleteVideo({ commit }, { video }) {
+    async deleteVideo({ commit }, video) {
         const response = await api.videos.deleteVideo(video.id)
         const { status } = response
         status === 'success' && commit(meTypes.DELETE_VIDEO, { video })
@@ -236,7 +252,7 @@ const actions = {
         return response
     },
 
-    async deleteLink({ commit }, { link }) {
+    async deleteLink({ commit }, link) {
         const response = await api.links.deleteLink(link.id)
         const { status } = response
         status === 'success' && commit(meTypes.DELETE_LINK, { link })
@@ -254,6 +270,11 @@ const actions = {
 
 const getters = {
     licenses: ({ licenses }) => licenses,
+    findBeatById: ({ beats }) => {
+        return id => {
+            return beats.find(beat => beat.id == id)
+        }
+    },
     user: ({ user }) => {
         if (!user) {
             return null

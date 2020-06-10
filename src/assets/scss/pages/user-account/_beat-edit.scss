@@ -1,5 +1,8 @@
 .page-ua-beat-edit {
     .page-header {
+        .col-right {
+            display: none;
+        }
         .cancel-btn {
             margin-right: 10px;
         }
@@ -7,6 +10,24 @@
 
     .page-preview {
         margin-top: 0;
+    }
+
+    .page-body {
+        padding: 0 3px;
+    }
+
+    .page-footer {
+        display: flex;
+        justify-content: space-between;
+        position: sticky;
+        z-index: 1000;
+        border-top: 1px solid $linkstream-30;
+        padding: 20px 0;
+        background-color: $white;
+        bottom: 0;
+        .btn-secondary {
+            margin-right: 15px;
+        }
     }
 
     .form-block {
@@ -78,7 +99,7 @@
                 margin-right: 5px;
             }
         }
-        .remove-ibtn {
+        .remove-icon {
             display: none;
         }
         .add-btn {
@@ -94,6 +115,12 @@
     }
 
     @include media-breakpoint-up(md) {
+        .page-header {
+            .col-right {
+                display: block;
+            }
+        }
+
         .form-block {
             display: flex;
             flex-direction: row;
@@ -154,7 +181,7 @@
             .remove-btn {
                 display: none;
             }
-            .remove-ibtn {
+            .remove-icon {
                 display: block;
                 position: absolute;
                 top: 16px;

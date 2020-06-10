@@ -1,7 +1,7 @@
 <template>
     <div>
         <LicenseCard
-            v-for="license in allLicenses"
+            v-for="license in userLicenses"
             :key="license.id"
             :license="license"
             :checked="selectedIds.indexOf(license.id) > -1"
@@ -15,7 +15,6 @@
 <script>
 import LicenseCard from '../Card/LicenseCard'
 import { mapGetters } from 'vuex'
-import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
     name: 'LicensesBlock',
@@ -24,21 +23,13 @@ export default {
     },
     data() {
         return {
-            selectedIds: [
-                ...this.$store.state.trackAddWizard.form.selectedLicenseIds,
-            ],
+            selectedIds: [...this.$store.state.trackAddWizard.form.licenseIds],
         }
     },
     computed: {
         ...mapGetters({
-            allLicenses: 'trackAddWizard/allLicenses',
+            userLicenses: 'trackAddWizard/userLicenses',
         }),
-    },
-    validations: {
-        selectedIds: {
-            required,
-            minLength: minLength(1),
-        },
     },
     created() {
         this.$bus.$on('wz.nextClick', this.validate)
@@ -48,12 +39,11 @@ export default {
     methods: {
         updateWizardForm() {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                selectedLicenseIds: this.selectedIds,
+                licenseIds: this.selectedIds,
             })
         },
         validate({ onSuccess }) {
-            this.$v.selectedIds.$touch()
-            if (this.$v.selectedIds.$invalid) {
+            if (!this.selectedIds.length) {
                 this.$toast.error('Please select at least one license.')
                 return
             }

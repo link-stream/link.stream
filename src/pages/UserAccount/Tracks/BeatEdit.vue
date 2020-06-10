@@ -1,7 +1,7 @@
 <template>
     <div class="page page-ua-beat-edit">
         <LsSpinner v-if="loading" />
-        <div v-else>
+        <div class="page-content" v-else>
             <div class="page-nav">
                 <ls-button
                     class="back-btn"
@@ -17,11 +17,16 @@
                     <h1 class="page-title">Your beats</h1>
                     <div class="page-preview">
                         <span class="text-light">link.stream/</span>
-                        <span>{{ user.user_name }}/beats/</span>
+                        <span>
+                            {{ beat.url_user }}/beats/{{ beat.url_title }}
+                        </span>
                         <preview-pill-button
                             :to="{
                                 name: 'userBeats',
-                                params: { username: user.user_name },
+                                params: {
+                                    username: beat.url_user,
+                                    title: beat.url_title,
+                                },
                             }"
                         >
                             Preview
@@ -37,7 +42,11 @@
                     >
                         Cancel
                     </ls-button>
-                    <ls-spinner-button size="sm">
+                    <ls-spinner-button
+                        size="sm"
+                        :loading="saving"
+                        @click="handleSaveClick"
+                    >
                         Save
                     </ls-spinner-button>
                 </div>
@@ -50,7 +59,8 @@
                             <b-form-group label="Title">
                                 <b-form-input
                                     placeholder="Enter a title"
-                                    v-model="form.title"
+                                    v-model="$v.form.title.$model"
+                                    :state="!$v.form.title.$error"
                                 ></b-form-input>
                                 <b-form-invalid-feedback>
                                     Title can't be blank
@@ -165,13 +175,11 @@
                         <!-- Licenses Card -->
                         <edit-card title="Licensing">
                             <LicenseCard
-                                v-for="license in allLicenses"
+                                v-for="license in userLicenses"
                                 :license="license"
                                 :key="license.id"
                                 :checked="
-                                    form.selectedLicenseIds.indexOf(
-                                        license.id
-                                    ) > -1
+                                    form.licenseIds.indexOf(license.id) > -1
                                 "
                                 @updated="handleLicenseUpdated"
                                 @checked="handleLicenseChecked"
@@ -199,22 +207,24 @@
                         >
                             <div
                                 class="custom-control custom-checkbox"
-                                v-for="offer in allOffers"
+                                v-for="offer in freeDownloadOffers"
                                 :key="offer.id"
                             >
                                 <input
                                     type="checkbox"
                                     class="custom-control-input"
+                                    v-model="form.freeDownloadOfferIds"
+                                    :value="offer.id"
                                     :checked="
-                                        form.selectedOfferIds.indexOf(
+                                        form.freeDownloadOfferIds.indexOf(
                                             offer.id
                                         ) !== -1
                                     "
-                                    :id="`marketingCheck${offer.id}`"
+                                    :id="`fdCheck${offer.id}`"
                                 />
                                 <label
                                     class="custom-control-label"
-                                    :for="`marketingCheck${offer.id}`"
+                                    :for="`fdCheck${offer.id}`"
                                 >
                                     {{ offer.title }}
                                 </label>
@@ -228,7 +238,7 @@
                                     <li
                                         v-for="(collab, index) in $v.form
                                             .collabs.$each.$iter"
-                                        :key="collab.id"
+                                        :key="index"
                                     >
                                         <div class="cell user-cell">
                                             <div class="cell-title">
@@ -242,7 +252,12 @@
                                                     collab.$model.user.name
                                                         | truncate(14)
                                                 }}
-                                                {{ index == 0 ? '(you)' : '' }}
+                                                {{
+                                                    collab.$model.user.id ==
+                                                    user.id
+                                                        ? '(you)'
+                                                        : ''
+                                                }}
                                             </div>
                                         </div>
                                         <div class="cell profit-cell">
@@ -281,7 +296,7 @@
                                         <div class="cell remove-cell">
                                             <LsIconButton
                                                 icon="close"
-                                                class="remove-ibtn"
+                                                class="remove-icon"
                                                 v-if="index > 0"
                                                 @click="
                                                     handleCollabRemoveClick(
@@ -340,12 +355,16 @@
                                         <LsDatePicker v-model="form.date" />
                                         <LsTimePicker v-model="form.time" />
                                     </b-input-group>
-                                    <div
-                                        class="invalid-feedback"
-                                        v-show="$v.form.$error"
+                                    <b-form-invalid-feedback
+                                        :state="
+                                            !(
+                                                $v.form.date.$error ||
+                                                $v.form.time.$error
+                                            )
+                                        "
                                     >
                                         Select date and time
-                                    </div>
+                                    </b-form-invalid-feedback>
                                 </b-form-group>
                                 <ls-button
                                     variant="link"
@@ -372,6 +391,32 @@
                     </div>
                 </div>
             </main>
+            <footer class="page-footer">
+                <div class="col-left">
+                    <LsIconButton
+                        icon="trash-sm"
+                        title="Delete"
+                        @click="handleDeleteClick"
+                    />
+                </div>
+                <div class="col-right">
+                    <ls-button
+                        class="cancel-btn"
+                        variant="secondary"
+                        size="sm"
+                        :to="{ name: 'userAccountBeats' }"
+                    >
+                        Cancel
+                    </ls-button>
+                    <ls-spinner-button
+                        size="sm"
+                        :loading="saving"
+                        @click="handleSaveClick"
+                    >
+                        Save
+                    </ls-spinner-button>
+                </div>
+            </footer>
         </div>
         <UserInviteModal />
         <UserSearchModal />
@@ -384,8 +429,10 @@ import { LicenseCard } from '~/components/UserAccount/Tracks/AddTrackWizard'
 import { DropAudio, DropFile, DropImage } from '~/components/Uploader'
 import { UserInviteModal, UserSearchModal } from '~/components/Modal'
 import { api } from '~/services/api'
+import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
 import { required, requiredIf } from 'vuelidate/lib/validators'
+import moment from 'moment'
 
 export default {
     name: 'BeatEdit',
@@ -403,8 +450,10 @@ export default {
             tag: '',
             loading: false,
             saving: false,
-            beat: null,
+            beat: {},
             form: {},
+            userLicenses: [],
+            freeDownloadOffers: [...appConstants.marketingOptions],
         }
     },
     computed: {
@@ -412,13 +461,45 @@ export default {
             user: 'me/user',
             genres: 'common/genres',
             audioKeys: 'common/audioKeys',
-            allLicenses: 'trackAddWizard/allLicenses',
-            allOffers: 'trackAddWizard/allOffers',
         }),
+        selectedLicenses() {
+            return this.userLicenses.filter(
+                ({ id }) => this.form.licenseIds.indexOf(id) !== -1
+            )
+        },
+        selectedFreeDownloadOffers() {
+            return this.freeDownloadOffers.filter(
+                ({ id }) => this.form.freeDownloadOfferIds.indexOf(id) !== -1
+            )
+        },
+    },
+    watch: {
+        form() {
+            this.$v.form.$touch()
+        },
     },
     validations() {
+        const files = {
+            stems: {},
+            untaggedMp3: {},
+            untaggedWav: {},
+        }
+
+        this.selectedLicenses.forEach(({ mp3, wav, trackout_stems }) => {
+            if (mp3 === '1') {
+                files.untaggedMp3 = { required }
+            }
+            if (wav === '1') {
+                files.untaggedWav = { required }
+            }
+            if (trackout_stems === '1') {
+                files.stems = { required }
+            }
+        })
+
         return {
             form: {
+                files,
                 title: {
                     required,
                 },
@@ -431,11 +512,6 @@ export default {
                     required: requiredIf(function() {
                         return this.form.scheduled
                     }),
-                },
-                files: {
-                    stems: {},
-                    untaggedMp3: {},
-                    untaggedWav: {},
                 },
                 collabs: {
                     $each: {
@@ -456,29 +532,41 @@ export default {
     async created() {
         this.loading = true
 
-        const id = this.$route.params.id
-        const { status, data } = await api.audios.getBeat(id, this.user.id)
+        const beatId = this.$route.params.id
+        const beatResponse = await api.audios.getBeat(beatId, this.user.id)
+        let beat = null
 
-        if (!(status === 'success' && data.length)) {
+        if (beatResponse.status === 'success' && beatResponse.data.length) {
+            beat = beatResponse.data[0]
+        } else {
             this.$router.push({ name: 'userAccountBeats' })
             this.$toast.error('Beat not found.')
             return
         }
 
-        await this.$store.dispatch('trackAddWizard/loadWizard')
+        await this.$store.dispatch('common/loadGenres')
+        await this.$store.dispatch('common/loadAudioKeys')
+        await this.$store.dispatch('me/loadLicenses')
 
-        const { allLicenses } = this.$store.state.trackAddWizard
-        const beat = data[0]
-        // Merge beat licenses into license options
-        beat.licenses.forEach(({ license_id, price }) => {
-            const license = allLicenses.find(
-                license => license.id == license_id
+        const userLicenses = this.$store.getters['me/licenses']
+
+        if (!userLicenses.length) {
+            this.$router.push({ name: 'userAccountBeats' })
+            this.$toast.error('Licenses not found.')
+            return
+        }
+
+        this.userLicenses = userLicenses.map(userLicense => {
+            const beatLicense = beat.licenses.find(
+                ({ license_id }) => license_id == userLicense.id
             )
-            if (license) {
-                this.$store.dispatch('trackAddWizard/updateLicense', {
-                    ...license,
-                    price,
-                })
+            if (beatLicense) {
+                return {
+                    ...userLicense,
+                    price: beatLicense.price,
+                }
+            } else {
+                return userLicense
             }
         })
 
@@ -524,11 +612,11 @@ export default {
                     : null,
             },
 
-            selectedOfferIds: Array.isArray(beat.marketing)
+            freeDownloadOfferIds: Array.isArray(beat.marketing)
                 ? beat.marketing.map(({ marketing_id }) => marketing_id)
                 : [],
 
-            selectedLicenseIds: Array.isArray(beat.licenses)
+            licenseIds: Array.isArray(beat.licenses)
                 ? beat.licenses.map(({ license_id }) => license_id)
                 : [],
 
@@ -552,6 +640,7 @@ export default {
                   )
                 : [],
         }
+
         this.form = form
         this.beat = beat
         this.loading = false
@@ -589,15 +678,18 @@ export default {
             })
         },
         handleLicenseChecked(license) {
-            const index = this.form.selectedLicenseIds.indexOf(license.id)
-            index === -1 && this.form.selectedLicenseIds.push(license)
+            const index = this.form.licenseIds.indexOf(license.id)
+            index === -1 && this.form.licenseIds.push(license.id)
         },
         handleLicenseUnchecked(license) {
-            const index = this.form.selectedLicenseIds.indexOf(license.id)
-            this.form.selectedLicenseIds.splice(index, 1)
+            const index = this.form.licenseIds.indexOf(license.id)
+            this.form.licenseIds.splice(index, 1)
         },
         handleLicenseUpdated(license) {
-            this.$store.dispatch('trackAddWizard/updateLicense', license)
+            const licenseIndex = this.userLicenses.findIndex(
+                ({ id }) => id == license.id
+            )
+            this.userLicenses.splice(licenseIndex, 1, license)
         },
         handleUntaggeMp3Added({ name, base64 }) {
             this.form.files.untaggedMp3 = {
@@ -634,6 +726,169 @@ export default {
         },
         handleTaggedRemoved() {
             this.form.files.tagged = null
+        },
+        async handleDeleteClick() {
+            this.$alert.confirm({
+                title: 'Delete beat?',
+                message: 'This beat and its data will be permanently deleted.',
+                onOk: async () => {
+                    const {
+                        status,
+                        message,
+                        error,
+                    } = await this.$store.dispatch('me/deleteBeat', this.beat)
+                    if (status === 'success') {
+                        this.$router.push({ name: 'userAccountBeats' })
+                        this.$toast.success(message)
+                    } else {
+                        this.$toast.error(error)
+                    }
+                },
+            })
+        },
+        async handleSaveClick() {
+            this.$v.form.$touch()
+
+            if (this.$v.form.title.$invalid) {
+                this.$toast.error('Please enter a title.')
+                return
+            }
+
+            if (!this.form.licenseIds.length) {
+                this.$toast.error('Please select at least one license.')
+                return
+            }
+
+            if (this.$v.form.files.$invalid) {
+                this.$toast.error('Please add required files.')
+                return
+            }
+
+            if (this.$v.form.collabs.$invalid) {
+                this.$toast.error('Please enter collaborator revenue shares.')
+                return
+            }
+
+            if (this.$v.form.date.$invalid || this.$v.form.time.$invalid) {
+                this.$toast.error('Please select schedule date and time.')
+                return
+            }
+
+            this.saving = true
+
+            const form = this.form
+
+            const params = {
+                user_id: this.user.id,
+                title: form.title,
+                bpm: form.bpm,
+                key: form.keyId,
+                genre_id: form.genreId,
+                tags: form.tags.map(({ text }) => text).join(', '),
+                public: form.isPublic ? 1 : 2,
+                scheduled: false,
+            }
+
+            if (this.beat.image !== form.coverArtBase64) {
+                params.image = form.coverArtBase64
+            }
+
+            if (form.scheduled) {
+                params.date = moment(form.date).format('YYYY-MM-DD')
+                params.time = form.time
+            }
+
+            // Collabs
+
+            const collabs = form.collabs.map(({ user, profit, publishing }) => {
+                return {
+                    user_id: user.id,
+                    profit: profit,
+                    publishing: publishing,
+                }
+            })
+
+            params.collaborators = JSON.stringify(collabs)
+
+            // Licenses
+
+            const selectedLicenses = this.selectedLicenses.map(
+                ({ id, price, status_id }) => {
+                    return {
+                        license_id: id,
+                        price,
+                        status_id,
+                    }
+                }
+            )
+
+            params.licenses = JSON.stringify(selectedLicenses)
+
+            // Free downloads
+
+            const selectedOffers = this.selectedFreeDownloadOffers.map(
+                ({ id }) => {
+                    return {
+                        marketing_id: id,
+                        connect_id: '',
+                    }
+                }
+            )
+
+            if (selectedOffers.length) {
+                params.marketing = JSON.stringify(selectedOffers)
+            }
+
+            // Files
+
+            if (
+                form.files.stems &&
+                this.beat.track_stems !== form.files.stems.base64
+            ) {
+                params.track_stems_name = form.files.stems.name
+                params.track_stems = form.files.stems.base64
+            }
+
+            if (
+                form.files.tagged &&
+                this.beat.tagged_file !== form.files.tagged.base64
+            ) {
+                params.tagged_file_name = form.files.tagged.name
+                params.tagged_file = form.files.tagged.base64
+            }
+
+            if (
+                form.files.untaggedMp3 &&
+                this.beat.untagged_mp3 !== form.files.untaggedMp3.base64
+            ) {
+                params.untagged_mp3_name = form.files.untaggedMp3.name
+                params.untagged_mp3 = form.files.untaggedMp3.base64
+            }
+
+            if (
+                form.files.untaggedWav &&
+                this.beat.untagged_wav !== form.files.untaggedWav.base64
+            ) {
+                params.untagged_wav_name = form.files.untaggedWav.name
+                params.untagged_wav = form.files.untaggedWav.base64
+            }
+
+            const { status, message, error } = await this.$store.dispatch(
+                'me/updateBeat',
+                {
+                    id: this.beat.id,
+                    params,
+                }
+            )
+
+            if (status === 'success') {
+                this.$toast.success(message)
+                this.$router.push({ name: 'userAccountBeats' })
+            } else {
+                this.$toast.error(error)
+            }
+
+            this.saving = false
         },
     },
 }

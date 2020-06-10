@@ -29,7 +29,7 @@ export const uploaderMixin = {
         }
     },
     computed: {
-        fileAdded() {
+        isFileAdded() {
             return this.file.src ? true : false
         },
     },

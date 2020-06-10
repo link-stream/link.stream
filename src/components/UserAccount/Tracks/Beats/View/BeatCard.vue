@@ -110,9 +110,7 @@ export default {
                         status,
                         message,
                         error,
-                    } = await this.$store.dispatch('me/deleteBeat', {
-                        beat: this.beat,
-                    })
+                    } = await this.$store.dispatch('me/deleteBeat', this.beat)
                     status === 'success'
                         ? this.$toast.success(message)
                         : this.$toast.error(error)

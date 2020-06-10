@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="FilesBlock">
         <DropAudio
             title="Untagged .MP3"
             :class="{ 'is-invalid': $v.files.untaggedMp3.$error }"

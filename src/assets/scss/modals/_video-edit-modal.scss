@@ -5,15 +5,17 @@
         margin-bottom: 20px;
     }
 
+    .cancel-btn {
+        margin-right: 10px;
+    }
+
+    .modal-footer {
+        justify-content: space-between;
+    }
+
     @include media-breakpoint-down(sm) {
         .action-btn {
             width: 110px;
-        }
-    }
-
-    @include media-breakpoint-up(md) {
-        .delete-btn {
-            flex-grow: 1;
         }
     }
 }

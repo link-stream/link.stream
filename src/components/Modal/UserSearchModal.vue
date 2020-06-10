@@ -4,7 +4,7 @@
             UserSearchModal: true,
             'show-results': showResults,
         }"
-        size="lg"
+        size="md"
         centered
         hide-footer
         v-model="open"

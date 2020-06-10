@@ -70,7 +70,7 @@
                 <ul>
                     <li
                         v-for="(collab, index) in $v.form.collabs.$each.$iter"
-                        :key="collab.id"
+                        :key="index"
                     >
                         <div class="cell user-cell">
                             <div class="cell-title">
@@ -79,7 +79,11 @@
                             <div class="user-profile">
                                 <UserAvatar :user="collab.$model.user" />
                                 {{ collab.$model.user.name | truncate(14) }}
-                                {{ index == 0 ? '(you)' : '' }}
+                                {{
+                                    collab.$model.user.id == user.id
+                                        ? '(you)'
+                                        : ''
+                                }}
                             </div>
                         </div>
                         <div class="cell profit-cell">
@@ -109,7 +113,7 @@
                         <div class="cell remove-cell">
                             <LsIconButton
                                 icon="close"
-                                class="remove-ibtn"
+                                class="remove-icon"
                                 v-if="index > 0"
                                 @click="handleCollabRemoveClick(index)"
                             />
@@ -171,6 +175,7 @@ export default {
     },
     computed: {
         ...mapGetters({
+            user: 'me/user',
             genres: 'common/genres',
             audioKeys: 'common/audioKeys',
             isSong: 'trackAddWizard/isSong',
@@ -213,7 +218,12 @@ export default {
         },
         validate({ onSuccess }) {
             this.$v.form.$touch()
-            if (this.$v.form.$invalid) {
+            if (this.$v.form.title.$invalid) {
+                this.$toast.error('Please enter a title.')
+                return
+            }
+            if (this.$v.form.collabs.$invalid) {
+                this.$toast.error('Please enter collaborator revenue shares.')
                 return
             }
             this.updateWizardForm()

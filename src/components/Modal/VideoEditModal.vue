@@ -1,7 +1,7 @@
 <template>
     <b-modal
         modal-class="VideoEditModal"
-        size="lg"
+        size="md"
         v-model="open"
         centered
         no-close-on-backdrop
@@ -99,28 +99,30 @@
         </template>
 
         <template v-slot:modal-footer>
-            <div class="delete-btn">
+            <div class="col-left">
                 <LsIconButton
                     icon="trash-sm"
                     title="Delete"
                     @click="handleDeleteClick"
                 />
             </div>
-            <ls-button
-                class="action-btn cancel-btn"
-                variant="secondary"
-                :disabled="saving"
-                @click="close"
-            >
-                Cancel
-            </ls-button>
-            <ls-spinner-button
-                class="action-btn"
-                :loading="saving"
-                @click="handleSaveClick"
-            >
-                Save
-            </ls-spinner-button>
+            <div class="col-right">
+                <ls-button
+                    class="action-btn cancel-btn"
+                    variant="secondary"
+                    :disabled="saving"
+                    @click="close"
+                >
+                    Cancel
+                </ls-button>
+                <ls-spinner-button
+                    class="action-btn"
+                    :loading="saving"
+                    @click="handleSaveClick"
+                >
+                    Save
+                </ls-spinner-button>
+            </div>
         </template>
     </b-modal>
 </template>

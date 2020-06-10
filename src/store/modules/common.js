@@ -24,7 +24,10 @@ const mutations = {
 }
 
 const actions = {
-    async loadTimezones({ commit }) {
+    async loadTimezones({ state, commit }) {
+        if (state.timezones.length) {
+            return
+        }
         const { status, data } = await api.common.getTimezones()
         commit({
             type: types.SET_TIMEZONES,
@@ -32,7 +35,10 @@ const actions = {
         })
     },
 
-    async loadGenres({ commit }) {
+    async loadGenres({ state, commit }) {
+        if (state.genres.length) {
+            return
+        }
         const { status, data } = await api.common.getGenres()
         commit({
             type: types.SET_GENRES,
@@ -40,7 +46,10 @@ const actions = {
         })
     },
 
-    async loadAudioKeys({ commit }) {
+    async loadAudioKeys({ state, commit }) {
+        if (state.audioKeys.length) {
+            return
+        }
         const { status, data } = await api.audios.getKeys()
         commit({
             type: types.SET_AUDIO_KEYS,

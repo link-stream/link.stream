@@ -16,11 +16,17 @@
 
     .EditCard {
         margin-bottom: 20px;
+        .Card-title {
+            font-size: px2rem(14);
+            margin-bottom: 15px;
+        }
     }
 
-    .EditCard-title {
-        font-size: px2rem(14);
-        margin-bottom: 15px;
+    .LicenseCard {
+        .Card-title {
+            font-size: px2rem(12);
+            margin-bottom: 0;
+        }
     }
 
     .DropFile:not(:last-child) {
@@ -97,8 +103,10 @@
             }
         }
 
-        .EditCard-title {
-            font-size: px2rem(18);
+        .EditCard {
+            .Card-title {
+                font-size: px2rem(18);
+            }
         }
 
         .LicenseCard {

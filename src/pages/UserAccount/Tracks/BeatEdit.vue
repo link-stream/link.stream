@@ -319,7 +319,7 @@
                         <!-- Visibility Card -->
                         <div class="Card EditCard vis-card">
                             <div class="row-title">
-                                <h4 class="Card-title EditCard-title">
+                                <h4 class="Card-title">
                                     Visibility
                                 </h4>
                                 <div>
@@ -499,16 +499,28 @@ export default {
                 : [],
             files: {
                 stems: beat.data_track_stems
-                    ? { base64: beat.data_track_stems }
+                    ? {
+                          name: beat.track_stems_name,
+                          base64: beat.data_track_stems,
+                      }
                     : null,
                 tagged: beat.data_tagged_file
-                    ? { base64: beat.data_tagged_file }
+                    ? {
+                          name: beat.tagged_file_name,
+                          base64: beat.data_tagged_file,
+                      }
                     : null,
                 untaggedMp3: beat.data_untagged_mp3
-                    ? { base64: beat.data_untagged_mp3 }
+                    ? {
+                          name: beat.untagged_mp3_name,
+                          base64: beat.data_untagged_mp3,
+                      }
                     : null,
                 untaggedWav: beat.data_untagged_wav
-                    ? { base64: beat.data_untagged_wav }
+                    ? {
+                          name: beat.untagged_wav_name,
+                          base64: beat.data_untagged_wav,
+                      }
                     : null,
             },
 

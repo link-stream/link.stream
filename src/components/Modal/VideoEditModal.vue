@@ -26,7 +26,7 @@
                         Enter a YouTube URL
                     </template>
                     <template v-else-if="!$v.form.url.valid">
-                        Invalid YouTube URL
+                        That's not a valid YouTube URL
                     </template>
                 </b-form-invalid-feedback>
             </b-form-group>
@@ -40,10 +40,10 @@
                 ></b-form-input>
                 <b-form-invalid-feedback>
                     <template v-if="!$v.form.title.required">
-                        Title can't be blank
+                        Enter a title
                     </template>
                     <template v-else-if="!$v.form.title.minLength">
-                        Title must be at least
+                        Title should be at least
                         {{ $v.form.title.$params.minLength.min }} characters
                     </template>
                 </b-form-invalid-feedback>

@@ -31,11 +31,12 @@
                 <b-form-group label="Adjust price">
                     <b-form-input
                         type="number"
+                        placeholder="e.g. 25.00"
                         v-model="$v.form.price.$model"
                         :state="!$v.form.price.$error"
                     />
                     <b-form-invalid-feedback>
-                        Price can't be blank
+                        Enter a price
                     </b-form-invalid-feedback>
                 </b-form-group>
             </div>

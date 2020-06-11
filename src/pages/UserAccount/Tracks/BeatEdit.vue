@@ -63,7 +63,7 @@
                                     :state="!$v.form.title.$error"
                                 ></b-form-input>
                                 <b-form-invalid-feedback>
-                                    Title can't be blank
+                                    Enter a title
                                 </b-form-invalid-feedback>
                             </b-form-group>
                             <b-form-group label="Primary Genre">
@@ -801,7 +801,7 @@ export default {
             }
 
             if (this.$v.form.date.$invalid || this.$v.form.time.$invalid) {
-                this.$toast.error('Pick schedule date and time.')
+                this.$toast.error('Pick release date and time.')
                 return
             }
 

@@ -97,7 +97,7 @@
                 </div>
             </div>
             <div>
-                <b-form-group v-show="form.scheduled">
+                <b-form-group label="Set Release Date" v-show="form.scheduled">
                     <b-input-group class="dt-input-group">
                         <LsDatePicker v-model="form.date" />
                         <LsTimePicker v-model="form.time" />
@@ -204,7 +204,7 @@ export default {
                 return
             }
             if (this.$v.form.$invalid) {
-                this.$toast.error('Pick schedule date and time.')
+                this.$toast.error('Pick release date and time.')
                 return
             }
             this.updateWizardForm()

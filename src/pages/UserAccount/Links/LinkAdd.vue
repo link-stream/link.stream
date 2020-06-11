@@ -29,7 +29,12 @@
                                     id="urlInput"
                                 />
                                 <b-form-invalid-feedback>
-                                    Enter a valid URL
+                                    <template v-if="!$v.form.url.required">
+                                        Enter a URL
+                                    </template>
+                                    <template v-else>
+                                        That's not a valid URL
+                                    </template>
                                 </b-form-invalid-feedback>
                             </b-form-group>
 

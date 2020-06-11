@@ -1,6 +1,6 @@
 <template>
     <div class="Card EditCard">
-        <div class="Card-title" v-html="title"></div>
+        <h4 class="Card-title" v-html="title"></h4>
         <div class="Card-body">
             <slot></slot>
         </div>

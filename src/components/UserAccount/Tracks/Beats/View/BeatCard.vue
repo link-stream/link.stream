@@ -6,12 +6,12 @@
             <div class="lock-thumb"></div>
             <img class="Card-img" :src="beat.coverart" :alt="beat.title" />
         </div>
-        <h2 class="Card-title">
+        <h4 class="Card-title">
             {{ beat.title }}
             <span class="private-badge badge badge-pill">
                 Private
             </span>
-        </h2>
+        </h4>
         <div class="file-badges">
             <span
                 class="badge badge-pill"
@@ -63,33 +63,18 @@ export default {
     },
     computed: {
         fileBadges() {
-            /*
             const { untagged_mp3, untagged_wav, trackout_stems } = this.beat
+
             const badges = [
                 { text: 'MP3', show: !!untagged_mp3 },
                 { text: 'WAV', show: !!untagged_wav },
                 { text: 'ZIP', show: !!trackout_stems },
             ]
-            */
-            const badges = [
-                { text: 'MP3', show: false },
-                { text: 'WAV', show: false },
-                { text: 'ZIP', show: false },
-            ]
-            this.beat.licenses.forEach(({ mp3, wav, trackout_stems }) => {
-                if (mp3 === '1') {
-                    badges[0].show = true
-                }
-                if (wav === '1') {
-                    badges[1].show = true
-                }
-                if (trackout_stems === '1') {
-                    badges[2].show = true
-                }
-            })
+
             badges.sort(function(a, b) {
                 return b.show - a.show
             })
+
             return badges
         },
     },

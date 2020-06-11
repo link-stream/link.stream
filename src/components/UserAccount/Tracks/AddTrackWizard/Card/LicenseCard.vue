@@ -12,9 +12,9 @@
                 @change="handleCheckChange"
             ></b-form-checkbox>
             <div class="Card-body">
-                <div class="Card-title">
+                <h4 class="Card-title">
                     {{ license.title }} - ${{ license.price | trimZeroDecimal }}
-                </div>
+                </h4>
                 <small>
                     {{ license.descripcion }}
                 </small>

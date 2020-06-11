@@ -1,0 +1,52 @@
+<template>
+    <div class="page page-ua-licenses">
+        <h1 class="page-title">Licenses</h1>
+        <LsSpinner v-if="loading" />
+        <div v-else class="page-body">
+            <div class="Card" v-for="license in licenses" :key="license.id">
+                <div class="Card-body">
+                    <h4 class="Card-title">
+                        {{ license.title }} - ${{
+                            license.price | trimZeroDecimal
+                        }}
+                    </h4>
+                    <small>
+                        {{ license.descripcion }}
+                    </small>
+                </div>
+                <LsButton
+                    variant="icon-bg"
+                    class="edit-btn"
+                    title="Edit"
+                    :to="{
+                        name: 'userAccountTracksLicenseEdit',
+                        params: { id: license.id },
+                    }"
+                />
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+    name: 'Licenses',
+    data() {
+        return {
+            loading: false,
+        }
+    },
+    computed: {
+        ...mapGetters({
+            licenses: 'me/licenses',
+        }),
+    },
+    async created() {
+        this.loading = true
+        await this.$store.dispatch('me/loadLicenses')
+        this.loading = false
+    },
+}
+</script>

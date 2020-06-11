@@ -3,7 +3,7 @@
         <div class="fieldset">
             <b-form-group :label="isSong ? 'Song Title*' : 'Beat Title*'">
                 <b-form-input
-                    placeholder="Enter a title"
+                    placeholder="Title"
                     v-model="$v.form.title.$model"
                     :state="!$v.form.title.$error"
                 ></b-form-input>

@@ -58,7 +58,7 @@
                         <edit-card title="Beat Details" class="info-card">
                             <b-form-group label="Title">
                                 <b-form-input
-                                    placeholder="Enter a title"
+                                    placeholder="Title"
                                     v-model="$v.form.title.$model"
                                     :state="!$v.form.title.$error"
                                 ></b-form-input>

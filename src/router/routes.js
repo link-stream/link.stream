@@ -19,6 +19,8 @@ import {
     UserAccountBeats,
     UserAccountBeatAdd,
     UserAccountBeatEdit,
+    UserAccountTracksLicenses,
+    UserAccountTracksLicenseEdit,
 } from '~/pages/UserAccount'
 
 const routes = [
@@ -140,6 +142,18 @@ const routes = [
         path: '/app/beats/:id/edit',
         name: 'userAccountBeatEdit',
         component: UserAccountBeatEdit,
+        meta: { requiresAuth: true, layout: 'UserAccount' },
+    },
+    {
+        path: '/app/licenses',
+        name: 'userAccountTracksLicenses',
+        component: UserAccountTracksLicenses,
+        meta: { requiresAuth: true, layout: 'UserAccount' },
+    },
+    {
+        path: '/app/licenses/:id/edit',
+        name: 'userAccountTracksLicenseEdit',
+        component: UserAccountTracksLicenseEdit,
         meta: { requiresAuth: true, layout: 'UserAccount' },
     },
 

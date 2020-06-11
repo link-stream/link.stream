@@ -12,7 +12,7 @@
         <wizard-step v-show="isStepType" class="type-step">
             <div class="Card">
                 <LsIcon icon="beat" />
-                <h2 class="Card-title">Upload a Beat</h2>
+                <h4 class="Card-title">Upload a Beat</h4>
                 <div class="Card-text">
                     Generally short music tracks created
                     <br />
@@ -30,7 +30,7 @@
             </div>
             <div class="Card">
                 <LsIcon icon="song" />
-                <h2 class="Card-title">Upload a Song</h2>
+                <h4 class="Card-title">Upload a Song</h4>
                 <div class="Card-text">
                     Commonly released by recording
                     <br />

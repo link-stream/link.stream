@@ -6,9 +6,9 @@
                 v-model="selectedIds"
             ></b-form-checkbox>
             <LsIcon class="logo" :icon="option.icon" />
-            <div class="Card-title">
+            <h4 class="Card-title">
                 {{ option.title }}
-            </div>
+            </h4>
         </div>
     </div>
 </template>

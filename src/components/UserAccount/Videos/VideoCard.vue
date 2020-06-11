@@ -7,7 +7,7 @@
                 <img class="Card-img" :src="thumbUrl" :alt="video.title" />
             </div>
             <div class="Card-body">
-                <h2 class="Card-title">{{ video.title }}</h2>
+                <h4 class="Card-title">{{ video.title }}</h4>
                 <small class="private-badge">
                     Private
                 </small>

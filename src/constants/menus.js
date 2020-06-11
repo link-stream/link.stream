@@ -31,6 +31,10 @@ export const menus = [
                 label: 'Beats',
                 to: '/app/beats',
             },
+            {
+                label: 'Licenses',
+                to: '/app/licenses',
+            },
         ],
     },
     {

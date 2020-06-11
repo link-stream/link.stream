@@ -7,7 +7,7 @@
                 <img class="Card-img" :src="link.coverart" :alt="link.title" />
             </div>
             <main class="Card-body" @click="handleEditClick">
-                <h2 class="Card-title">{{ link.title }}</h2>
+                <h4 class="Card-title">{{ link.title }}</h4>
                 <small class="private-badge" v-if="link.isPrivate">
                     Hidden
                 </small>

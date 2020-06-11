@@ -34,7 +34,7 @@
             <b-form-group label="Video Title" label-for="titleInput">
                 <b-form-input
                     id="titleInput"
-                    placeholder="Enter a title"
+                    placeholder="Title"
                     v-model="$v.form.title.$model"
                     :state="!$v.form.title.$error"
                 ></b-form-input>

@@ -30,7 +30,7 @@
                                 />
                                 <b-form-invalid-feedback>
                                     <template v-if="!$v.form.url.required">
-                                        Enter a URL
+                                        Enter the URL
                                     </template>
                                     <template v-else>
                                         That's not a valid URL

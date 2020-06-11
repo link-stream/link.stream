@@ -200,7 +200,7 @@ export default {
         validate({ onSuccess }) {
             this.$v.form.$touch()
             if (this.$v.files.$invalid) {
-                this.$toast.error('Please review and upload missing files.')
+                this.$toast.error('Please review and upload required files.')
                 return
             }
             if (this.$v.form.$invalid) {

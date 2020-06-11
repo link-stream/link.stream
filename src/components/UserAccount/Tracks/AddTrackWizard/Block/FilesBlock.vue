@@ -70,7 +70,7 @@ export default {
         validate({ onSuccess }) {
             this.$v.files.$touch()
             if (this.$v.files.$invalid) {
-                this.$toast.error('Upload track files.')
+                this.$toast.error('Add required files.')
                 return
             }
             this.updateWizardForm()

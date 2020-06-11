@@ -3,7 +3,7 @@
         <div class="fieldset">
             <b-form-group :label="isSong ? 'Song Title*' : 'Beat Title*'">
                 <b-form-input
-                    placeholder="Title"
+                    placeholder="e.g. My Beat"
                     v-model="$v.form.title.$model"
                     :state="!$v.form.title.$error"
                 ></b-form-input>
@@ -33,7 +33,7 @@
                     @tags-changed="handleTagsChange"
                 />
                 <b-form-invalid-feedback :state="!$v.form.tags.$error">
-                    Enter at least 3 tags
+                    Add 3 or more tags to describe your beat
                 </b-form-invalid-feedback>
             </b-form-group>
 
@@ -229,15 +229,15 @@ export default {
         validate({ onSuccess }) {
             this.$v.form.$touch()
             if (this.$v.form.title.$invalid) {
-                this.$toast.error("Enter the track's title.")
+                this.$toast.error('Your beat needs a title.')
                 return
             }
             if (this.$v.form.tags.$invalid) {
-                this.$toast.error('Enter at least 3 tags.')
+                this.$toast.error('Your beat needs 3 or more tags.')
                 return
             }
             if (this.$v.form.collabs.$invalid) {
-                this.$toast.error('Enter collaborator profit shares.')
+                this.$toast.error('Enter collaborators profit share.')
                 return
             }
             this.updateWizardForm()

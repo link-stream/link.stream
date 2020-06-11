@@ -23,7 +23,7 @@
                 ></b-form-input>
                 <b-form-invalid-feedback>
                     <template v-if="!$v.form.url.required">
-                        Enter a YouTube URL
+                        Enter the YouTube URL
                     </template>
                     <template v-else-if="!$v.form.url.valid">
                         That's not a valid YouTube URL
@@ -34,7 +34,7 @@
             <b-form-group label="Video Title" label-for="titleInput">
                 <b-form-input
                     id="titleInput"
-                    placeholder="Title"
+                    placeholder="e.g. My Video"
                     v-model="$v.form.title.$model"
                     :state="!$v.form.title.$error"
                 ></b-form-input>

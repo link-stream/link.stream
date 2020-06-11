@@ -15,7 +15,7 @@
                     <b-form-invalid-feedback
                         :state="!($v.form.date.$error || $v.form.time.$error)"
                     >
-                        Select start date and time
+                        Pick start date and time
                     </b-form-invalid-feedback>
                 </b-form-group>
 
@@ -38,7 +38,7 @@
                             !($v.form.endDate.$error || $v.form.endTime.$error)
                         "
                     >
-                        Select end date and time
+                        Pick end date and time
                     </b-form-invalid-feedback>
                 </b-form-group>
             </div>

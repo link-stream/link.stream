@@ -1,34 +1,32 @@
 .UserSearchModal {
-    &.show-results {
+    &.is-done {
         .modal-content {
             padding-bottom: 30px;
         }
+        .search-results {
+            display: block;
+        }
+        .LsSpinner {
+            display: none;
+        }
     }
+
+    &.is-searching {
+        .LsSpinner {
+            display: block;
+        }
+    }
+
     .modal-content {
         padding-bottom: 60px;
     }
+
     .LsSpinner {
         display: none;
-        position: absolute;
-        top: 17px;
-        right: 15px;
-        & > span {
-            width: 10px;
-            height: 10px;
-        }
+        margin-top: 30px;
     }
+
     .search-box {
-        &.is-searching {
-            .LsSpinner {
-                display: block;
-            }
-            .search-input {
-                padding-right: 50px;
-            }
-            .search-clear {
-                display: none;
-            }
-        }
         .search-input {
             padding-right: 35px;
         }
@@ -38,10 +36,13 @@
             right: 15px;
         }
     }
+
     .search-results {
+        display: none;
         .UserAvatar {
             margin-right: 8px;
         }
+
         li {
             display: flex;
             padding: 15px 0;

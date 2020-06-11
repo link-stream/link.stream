@@ -78,11 +78,11 @@
                 class="edit-btn"
                 @click="handleEditClick('marketing')"
             />
-            <p v-if="!selectedFreeDownloadOffers.length">
+            <p v-if="!selectedFreeOptions.length">
                 No free downloads
             </p>
             <ul>
-                <li v-for="m in selectedFreeDownloadOffers" :key="m.id">
+                <li v-for="m in selectedFreeOptions" :key="m.id">
                     {{ m.title }}
                 </li>
             </ul>
@@ -103,7 +103,7 @@
                         <LsTimePicker v-model="form.time" />
                     </b-input-group>
                     <b-form-invalid-feedback :state="!$v.form.$error">
-                        Select date and time
+                        Pick date and time
                     </b-form-invalid-feedback>
                 </b-form-group>
                 <ls-button variant="link" @click="handleScheduleToggleClick">
@@ -160,8 +160,7 @@ export default {
             isSong: 'trackAddWizard/isSong',
             validations: 'trackAddWizard/validations',
             selectedLicenses: 'trackAddWizard/selectedLicenses',
-            selectedFreeDownloadOffers:
-                'trackAddWizard/selectedFreeDownloadOffers',
+            selectedFreeOptions: 'trackAddWizard/selectedFreeOptions',
         }),
         summary() {
             return this.$store.state.trackAddWizard.form
@@ -201,11 +200,11 @@ export default {
         validate({ onSuccess }) {
             this.$v.form.$touch()
             if (this.$v.files.$invalid) {
-                this.$toast.error('Please add required files.')
+                this.$toast.error('Please review and upload missing files.')
                 return
             }
             if (this.$v.form.$invalid) {
-                this.$toast.error('Please select schedule date and time.')
+                this.$toast.error('Pick schedule date and time.')
                 return
             }
             this.updateWizardForm()

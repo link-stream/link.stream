@@ -1,6 +1,6 @@
 <template>
     <div class="page page-ua-beat-edit">
-        <LsSpinner v-if="loading" />
+        <LsSpinner v-if="isLoading" />
         <div class="page-content" v-else>
             <div class="page-nav">
                 <ls-button
@@ -44,7 +44,7 @@
                     </ls-button>
                     <ls-spinner-button
                         size="sm"
-                        :loading="saving"
+                        :loading="isSaving"
                         @click="handleSaveClick"
                     >
                         Save
@@ -78,9 +78,20 @@
                             <b-form-group label="Tags(3)">
                                 <VueTagsInput
                                     v-model="tag"
+                                    :class="{
+                                        'is-invalid': $v.form.tags.$error,
+                                    }"
+                                    :placeholder="
+                                        form.tags.length ? '' : 'Tags'
+                                    "
                                     :tags="form.tags"
                                     @tags-changed="handleTagsChange"
                                 />
+                                <b-form-invalid-feedback
+                                    :state="!$v.form.tags.$error"
+                                >
+                                    Enter at least 3 tags
+                                </b-form-invalid-feedback>
                             </b-form-group>
                             <b-form-row>
                                 <b-col md="6">
@@ -179,7 +190,9 @@
                                 :license="license"
                                 :key="license.id"
                                 :checked="
-                                    form.licenseIds.indexOf(license.id) > -1
+                                    form.selectedLicenseIds.indexOf(
+                                        license.id
+                                    ) > -1
                                 "
                                 @updated="handleLicenseUpdated"
                                 @checked="handleLicenseChecked"
@@ -207,26 +220,26 @@
                         >
                             <div
                                 class="custom-control custom-checkbox"
-                                v-for="offer in freeDownloadOffers"
-                                :key="offer.id"
+                                v-for="option in freeOptions"
+                                :key="option.id"
                             >
                                 <input
                                     type="checkbox"
                                     class="custom-control-input"
-                                    v-model="form.freeDownloadOfferIds"
-                                    :value="offer.id"
+                                    v-model="form.selectedFreeOptionIds"
+                                    :value="option.id"
                                     :checked="
-                                        form.freeDownloadOfferIds.indexOf(
-                                            offer.id
+                                        form.selectedFreeOptionIds.indexOf(
+                                            option.id
                                         ) !== -1
                                     "
-                                    :id="`fdCheck${offer.id}`"
+                                    :id="`freeCheck${option.id}`"
                                 />
                                 <label
                                     class="custom-control-label"
-                                    :for="`fdCheck${offer.id}`"
+                                    :for="`freeCheck${option.id}`"
                                 >
-                                    {{ offer.title }}
+                                    {{ option.title }}
                                 </label>
                             </div>
                         </edit-card>
@@ -363,7 +376,7 @@
                                             )
                                         "
                                     >
-                                        Select date and time
+                                        Pick date and time
                                     </b-form-invalid-feedback>
                                 </b-form-group>
                                 <ls-button
@@ -410,7 +423,7 @@
                     </ls-button>
                     <ls-spinner-button
                         size="sm"
-                        :loading="saving"
+                        :loading="isSaving"
                         @click="handleSaveClick"
                     >
                         Save
@@ -431,8 +444,12 @@ import { UserInviteModal, UserSearchModal } from '~/components/Modal'
 import { api } from '~/services/api'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
-import { required, requiredIf } from 'vuelidate/lib/validators'
+import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
 import moment from 'moment'
+
+const STATUS_IDLE = 'idle'
+const STATUS_LOADING = 'loading'
+const STATUS_SAVING = 'saving'
 
 export default {
     name: 'BeatEdit',
@@ -448,12 +465,11 @@ export default {
     data() {
         return {
             tag: '',
-            loading: false,
-            saving: false,
+            status: STATUS_IDLE,
             beat: {},
             form: {},
             userLicenses: [],
-            freeDownloadOffers: [...appConstants.marketingOptions],
+            freeOptions: [...appConstants.marketingOptions],
         }
     },
     computed: {
@@ -462,14 +478,20 @@ export default {
             genres: 'common/genres',
             audioKeys: 'common/audioKeys',
         }),
+        isLoading() {
+            return this.status === STATUS_LOADING
+        },
+        isSaving() {
+            return this.status === STATUS_SAVING
+        },
         selectedLicenses() {
             return this.userLicenses.filter(
-                ({ id }) => this.form.licenseIds.indexOf(id) !== -1
+                ({ id }) => this.form.selectedLicenseIds.indexOf(id) !== -1
             )
         },
-        selectedFreeDownloadOffers() {
-            return this.freeDownloadOffers.filter(
-                ({ id }) => this.form.freeDownloadOfferIds.indexOf(id) !== -1
+        selectedFreeOptions() {
+            return this.freeOptions.filter(
+                ({ id }) => this.form.selectedFreeOptionIds.indexOf(id) !== -1
             )
         },
     },
@@ -503,6 +525,10 @@ export default {
                 title: {
                     required,
                 },
+                tags: {
+                    required,
+                    minLength: minLength(3),
+                },
                 time: {
                     required: requiredIf(function() {
                         return this.form.scheduled
@@ -530,7 +556,7 @@ export default {
         this.$bus.$on('modal.userSearch.userSelected', this.handleCollabAdd)
     },
     async created() {
-        this.loading = true
+        this.status = STATUS_LOADING
 
         const beatId = this.$route.params.id
         const beatResponse = await api.audios.getBeat(beatId, this.user.id)
@@ -612,11 +638,11 @@ export default {
                     : null,
             },
 
-            freeDownloadOfferIds: Array.isArray(beat.marketing)
+            selectedFreeOptionIds: Array.isArray(beat.marketing)
                 ? beat.marketing.map(({ marketing_id }) => marketing_id)
                 : [],
 
-            licenseIds: Array.isArray(beat.licenses)
+            selectedLicenseIds: Array.isArray(beat.licenses)
                 ? beat.licenses.map(({ license_id }) => license_id)
                 : [],
 
@@ -643,7 +669,7 @@ export default {
 
         this.form = form
         this.beat = beat
-        this.loading = false
+        this.status = STATUS_IDLE
     },
     methods: {
         showCollabSearchModal() {
@@ -678,12 +704,12 @@ export default {
             })
         },
         handleLicenseChecked(license) {
-            const index = this.form.licenseIds.indexOf(license.id)
-            index === -1 && this.form.licenseIds.push(license.id)
+            const index = this.form.selectedLicenseIds.indexOf(license.id)
+            index === -1 && this.form.selectedLicenseIds.push(license.id)
         },
         handleLicenseUnchecked(license) {
-            const index = this.form.licenseIds.indexOf(license.id)
-            this.form.licenseIds.splice(index, 1)
+            const index = this.form.selectedLicenseIds.indexOf(license.id)
+            this.form.selectedLicenseIds.splice(index, 1)
         },
         handleLicenseUpdated(license) {
             const licenseIndex = this.userLicenses.findIndex(
@@ -750,31 +776,36 @@ export default {
             this.$v.form.$touch()
 
             if (this.$v.form.title.$invalid) {
-                this.$toast.error('Please enter a title.')
+                this.$toast.error("Enter the track's title.")
                 return
             }
 
-            if (!this.form.licenseIds.length) {
-                this.$toast.error('Please select at least one license.')
+            if (this.$v.form.tags.$invalid) {
+                this.$toast.error('Enter at least 3 tags.')
+                return
+            }
+
+            if (!this.form.selectedLicenseIds.length) {
+                this.$toast.error('Pick one or more licenses.')
                 return
             }
 
             if (this.$v.form.files.$invalid) {
-                this.$toast.error('Please add required files.')
+                this.$toast.error('Upload missing files.')
                 return
             }
 
             if (this.$v.form.collabs.$invalid) {
-                this.$toast.error('Please enter collaborator revenue shares.')
+                this.$toast.error('Enter collaborator profit shares.')
                 return
             }
 
             if (this.$v.form.date.$invalid || this.$v.form.time.$invalid) {
-                this.$toast.error('Please select schedule date and time.')
+                this.$toast.error('Pick schedule date and time.')
                 return
             }
 
-            this.saving = true
+            this.status = STATUS_SAVING
 
             const form = this.form
 
@@ -826,7 +857,7 @@ export default {
 
             // Free downloads
 
-            const selectedOffers = this.selectedFreeDownloadOffers.map(
+            const selectedFreeOptions = this.selectedFreeOptions.map(
                 ({ id }) => {
                     return {
                         marketing_id: id,
@@ -835,8 +866,8 @@ export default {
                 }
             )
 
-            if (selectedOffers.length) {
-                params.marketing = JSON.stringify(selectedOffers)
+            if (selectedFreeOptions.length) {
+                params.marketing = JSON.stringify(selectedFreeOptions)
             }
 
             // Files
@@ -888,7 +919,7 @@ export default {
                 this.$toast.error(error)
             }
 
-            this.saving = false
+            this.status = STATUS_IDLE
         },
     },
 }

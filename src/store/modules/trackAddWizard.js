@@ -5,16 +5,14 @@ import { required } from 'vuelidate/lib/validators'
 
 const initialState = () => ({
     userLicenses: [],
-    freeDownloadOffers: [...appConstants.marketingOptions],
+    freeOptions: [...appConstants.marketingOptions],
     /**
      * Form values.
      * @type {object}
      */
     form: {
-        // Selected options
-        licenseIds: [],
-        // Selected options
-        freeDownloadOfferIds: [],
+        selectedLicenseIds: [],
+        selectedFreeOptionIds: [],
         trackType: null,
         coverArtBase64: null,
         title: null,
@@ -125,15 +123,15 @@ const actions = {
 const getters = {
     isSong: ({ form }) => form.trackType === appConstants.tracks.types.song,
     userLicenses: ({ userLicenses }) => userLicenses,
-    freeDownloadOffers: ({ freeDownloadOffers }) => freeDownloadOffers,
+    freeOptions: ({ freeOptions }) => freeOptions,
     selectedLicenses: ({ form, userLicenses }) => {
         return userLicenses.filter(
-            ({ id }) => form.licenseIds.indexOf(id) !== -1
+            ({ id }) => form.selectedLicenseIds.indexOf(id) !== -1
         )
     },
-    selectedFreeDownloadOffers: ({ form, freeDownloadOffers }) => {
-        return freeDownloadOffers.filter(
-            ({ id }) => form.freeDownloadOfferIds.indexOf(id) !== -1
+    selectedFreeOptions: ({ form, freeOptions }) => {
+        return freeOptions.filter(
+            ({ id }) => form.selectedFreeOptionIds.indexOf(id) !== -1
         )
     },
     validations: (state, getters) => {

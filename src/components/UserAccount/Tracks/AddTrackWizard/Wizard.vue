@@ -1,5 +1,5 @@
 <template>
-    <div class="fwz" :data-current-step="step">
+    <div class="fwz" :class="`is-step-${step}`">
         <div class="fwz-counter">Step {{ stepIndex }} / {{ numSteps - 1 }}</div>
         <WizardTabs
             v-show="stepIndex > 0"
@@ -328,8 +328,8 @@ export default {
 
             // Free downloads
 
-            const selectedOffers = this.$store.getters[
-                'trackAddWizard/selectedFreeDownloadOffers'
+            const selectedFreeOptions = this.$store.getters[
+                'trackAddWizard/selectedFreeOptions'
             ].map(({ id }) => {
                 return {
                     marketing_id: id,
@@ -337,8 +337,8 @@ export default {
                 }
             })
 
-            if (selectedOffers.length) {
-                params.marketing = JSON.stringify(selectedOffers)
+            if (selectedFreeOptions.length) {
+                params.marketing = JSON.stringify(selectedFreeOptions)
             }
 
             // Files

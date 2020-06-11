@@ -23,7 +23,9 @@ export default {
     },
     data() {
         return {
-            selectedIds: [...this.$store.state.trackAddWizard.form.licenseIds],
+            selectedIds: [
+                ...this.$store.state.trackAddWizard.form.selectedLicenseIds,
+            ],
         }
     },
     computed: {
@@ -39,12 +41,12 @@ export default {
     methods: {
         updateWizardForm() {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                licenseIds: this.selectedIds,
+                selectedLicenseIds: this.selectedIds,
             })
         },
         validate({ onSuccess }) {
             if (!this.selectedIds.length) {
-                this.$toast.error('Please select at least one license.')
+                this.$toast.error('Pick one or more licenses.')
                 return
             }
             this.updateWizardForm()

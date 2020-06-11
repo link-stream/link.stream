@@ -194,6 +194,11 @@
 
 .vue-tags-input {
     max-width: none !important;
+    &.is-invalid {
+        .ti-input {
+            border-color: $danger !important;
+        }
+    }
     .ti-input {
         min-height: $input-height !important;
     }

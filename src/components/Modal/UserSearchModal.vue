@@ -2,7 +2,8 @@
     <b-modal
         :modal-class="{
             UserSearchModal: true,
-            'show-results': showResults,
+            'is-done': isDone,
+            'is-searching': isSearching,
         }"
         size="md"
         centered
@@ -15,25 +16,26 @@
         </template>
 
         <template v-slot:default>
-            <div class="search-box" :class="{ 'is-searching': searching }">
+            <div class="search-box">
                 <LsIcon class="search-icon" icon="search" />
                 <input
                     type="text"
                     class="search-input form-control"
                     placeholder="Username or email"
                     maxlength="35"
-                    v-model="query"
+                    v-model="searchText"
                 />
                 <LsIconButton
                     icon="close"
                     class="search-clear"
                     @click="handleClearClick"
-                    v-show="query ? true : false"
+                    v-show="searchText ? true : false"
                 />
-                <LsSpinner animation="bounce" />
             </div>
 
-            <ul class="search-results" v-show="showResults">
+            <LsSpinner animation="bounce" />
+
+            <ul class="search-results">
                 <li
                     v-for="user in results"
                     :key="user.id"
@@ -60,71 +62,81 @@ import { api } from '~/services/api'
 import { mapGetters } from 'vuex'
 import { debounce } from 'lodash'
 
-const MIN_QUERY_LENGTH = 2
+const MIN_SEARCH_LENGTH = 3
 const MAX_RESULTS = 5
+const STATUS_IDLE = 'idle'
+const STATUS_SEARCHING = 'searching'
+const STATUS_DONE = 'done'
 
 export default {
     name: 'UserSearchModal',
     data() {
         return {
             open: false,
-            showResults: false,
-            searching: false,
-            query: null,
-            /**
-             * @type {array}
-             * e.g. [{ id: null, name: null, photo: null }]
-             */
-            results: [],
+            status: STATUS_IDLE,
+            searchText: '',
+            results: [
+                // e.g.
+                // {
+                //     id: null,
+                //     name: null,
+                //     photo: null,
+                // },
+            ],
         }
     },
     computed: {
         ...mapGetters({
             user: 'me/user',
         }),
-        isValidQuery() {
-            return this.query && this.query.length >= MIN_QUERY_LENGTH
-                ? true
-                : false
+        cleanedSearchText() {
+            return this.searchText.trim()
+        },
+        isIdle() {
+            return this.status === STATUS_IDLE
+        },
+        isSearching() {
+            return this.status === STATUS_SEARCHING
+        },
+        isDone() {
+            return this.status === STATUS_DONE
         },
     },
     watch: {
-        query() {
-            if (this.isValidQuery) {
+        cleanedSearchText(value) {
+            if (value) {
+                this.status = STATUS_SEARCHING
                 this.debounceSeach()
             } else {
-                this.reset()
+                this.status = STATUS_IDLE
             }
         },
     },
     created() {
         this.$bus.$on('modal.userSearch.open', this.handleOpen)
-        this.debounceSeach = debounce(() => {
-            this.searching = true
-            this.search()
-        }, 500)
+        this.debounceSeach = debounce(this.search, 500)
     },
     methods: {
-        reset() {
-            this.showResults = false
-            this.searching = false
-        },
         close() {
             this.open = false
         },
         async search() {
-            if (!this.isValidQuery) {
-                this.reset()
+            if (!this.cleanedSearchText) {
+                return
+            }
+
+            if (this.cleanedSearchText.length < MIN_SEARCH_LENGTH) {
+                this.status = STATUS_DONE
                 return
             }
 
             const { status, data } = await api.users.searchCollab({
                 userId: this.user.id,
-                search: this.query,
+                search: this.cleanedSearchText,
             })
 
-            if (!this.isValidQuery) {
-                this.reset()
+            if (!this.cleanedSearchText) {
+                this.status = STATUS_IDLE
                 return
             }
 
@@ -140,11 +152,10 @@ export default {
                     })
             }
 
-            this.showResults = true
-            this.searching = false
+            this.status = STATUS_DONE
         },
         handleClearClick() {
-            this.query = null
+            this.searchText = ''
         },
         handleInviteClick() {
             this.close()

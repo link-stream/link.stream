@@ -8,7 +8,7 @@
                     :state="!$v.form.title.$error"
                 ></b-form-input>
                 <b-form-invalid-feedback>
-                    Title can't be blank
+                    Enter a title
                 </b-form-invalid-feedback>
             </b-form-group>
 
@@ -25,10 +25,16 @@
             <b-form-group label="Tags(3)">
                 <VueTagsInput
                     v-model="tag"
+                    :class="{
+                        'is-invalid': $v.form.tags.$error,
+                    }"
                     :placeholder="form.tags.length ? '' : 'Tags'"
                     :tags="form.tags"
                     @tags-changed="handleTagsChange"
                 />
+                <b-form-invalid-feedback :state="!$v.form.tags.$error">
+                    Enter at least 3 tags
+                </b-form-invalid-feedback>
             </b-form-group>
 
             <b-form-row>
@@ -143,7 +149,7 @@
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators'
+import { required, minLength } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -186,6 +192,10 @@ export default {
             title: {
                 required,
             },
+            tags: {
+                required,
+                minLength: minLength(3),
+            },
             collabs: {
                 $each: {
                     profit: {
@@ -219,11 +229,15 @@ export default {
         validate({ onSuccess }) {
             this.$v.form.$touch()
             if (this.$v.form.title.$invalid) {
-                this.$toast.error('Please enter a title.')
+                this.$toast.error("Enter the track's title.")
+                return
+            }
+            if (this.$v.form.tags.$invalid) {
+                this.$toast.error('Enter at least 3 tags.')
                 return
             }
             if (this.$v.form.collabs.$invalid) {
-                this.$toast.error('Please enter collaborator revenue shares.')
+                this.$toast.error('Enter collaborator profit shares.')
                 return
             }
             this.updateWizardForm()

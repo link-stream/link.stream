@@ -1,13 +1,13 @@
 <template>
     <div class="MarketingBlock">
-        <div class="Card" v-for="offer in freeDownloadOffers" :key="offer.id">
+        <div class="Card" v-for="option in freeOptions" :key="option.id">
             <b-form-checkbox
-                :value="offer.id"
+                :value="option.id"
                 v-model="selectedIds"
             ></b-form-checkbox>
-            <LsIcon class="logo" :icon="offer.icon" />
+            <LsIcon class="logo" :icon="option.icon" />
             <div class="Card-title">
-                {{ offer.title }}
+                {{ option.title }}
             </div>
         </div>
     </div>
@@ -21,13 +21,13 @@ export default {
     data() {
         return {
             selectedIds: [
-                ...this.$store.state.trackAddWizard.form.freeDownloadOfferIds,
+                ...this.$store.state.trackAddWizard.form.selectedFreeOptionIds,
             ],
         }
     },
     computed: {
         ...mapGetters({
-            freeDownloadOffers: 'trackAddWizard/freeDownloadOffers',
+            freeOptions: 'trackAddWizard/freeOptions',
         }),
     },
     created() {
@@ -38,7 +38,7 @@ export default {
     methods: {
         updateWizardForm() {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                freeDownloadOfferIds: this.selectedIds,
+                selectedFreeOptionIds: this.selectedIds,
             })
         },
         validate({ onSuccess }) {

@@ -145,7 +145,7 @@ import MarketingBlock from './Block/MarketingBlock'
 import ReviewBlock from './Block/ReviewBlock'
 import { DropImage } from '~/components/Uploader'
 import { appConstants } from '~/constants'
-import { api } from '~/services/api'
+import { api } from '~/services'
 import { mapGetters } from 'vuex'
 import moment from 'moment'
 

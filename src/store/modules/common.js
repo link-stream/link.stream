@@ -1,5 +1,5 @@
 import { types } from '../mutationTypes'
-import { api } from '~/services/api'
+import { api } from '~/services'
 
 const initialState = () => ({
     timezones: [],

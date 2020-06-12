@@ -3,7 +3,7 @@
  */
 
 import { types, meTypes } from '../mutationTypes'
-import { api } from '~/services/api'
+import { api } from '~/services'
 import { appConstants } from '~/constants'
 
 const initialState = () => ({

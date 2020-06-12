@@ -257,7 +257,7 @@ import { DokaModal, DokaOverlay, toURL } from 'vue-doka'
 import { blobToBase64 } from 'base64-blob'
 import csc from 'country-state-city'
 import { setStatusChange } from '~/utils'
-import { api } from '~/services/api'
+import { api } from '~/services'
 import { appConstants } from '~/constants'
 
 export default {

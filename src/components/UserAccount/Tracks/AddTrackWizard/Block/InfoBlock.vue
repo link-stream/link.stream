@@ -155,7 +155,7 @@
 
 <script>
 import { required, minLength } from 'vuelidate/lib/validators'
-import { api } from '~/services/api'
+import { api } from '~/services'
 import { mapGetters } from 'vuex'
 
 export default {

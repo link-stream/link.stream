@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { api } from '~/services/api'
+import { api } from '~/services'
 import { mapGetters } from 'vuex'
 import { debounce } from 'lodash'
 

@@ -193,7 +193,7 @@
 <script>
 import { Validator } from 'vee-validate'
 import { setStatusChange } from '~/utils'
-import { api } from '~/services/api'
+import { api } from '~/services'
 import { authentication } from '~/mixins'
 
 export default {

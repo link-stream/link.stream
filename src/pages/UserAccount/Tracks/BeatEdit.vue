@@ -63,7 +63,15 @@
                                     :state="!$v.form.title.$error"
                                 ></b-form-input>
                                 <b-form-invalid-feedback>
-                                    Enter a title
+                                    <template v-if="!$v.form.title.required">
+                                        Enter a title
+                                    </template>
+                                    <template
+                                        v-else-if="!$v.form.title.isUnique"
+                                    >
+                                        You already have a beat with this title,
+                                        pick a new one.
+                                    </template>
                                 </b-form-invalid-feedback>
                             </b-form-group>
                             <b-form-group label="Primary Genre">
@@ -90,7 +98,7 @@
                                 <b-form-invalid-feedback
                                     :state="!$v.form.tags.$error"
                                 >
-                                    Add 3 or more tags to describe your beat
+                                    Add 3 or more tags that describe the beat
                                 </b-form-invalid-feedback>
                             </b-form-group>
                             <b-form-row>
@@ -524,6 +532,18 @@ export default {
                 files,
                 title: {
                     required,
+                    async isUnique(value) {
+                        if (!value) {
+                            return true
+                        }
+                        const {
+                            status,
+                        } = await api.audios.getTitleAvailability({
+                            userId: this.user.id,
+                            title: value,
+                        })
+                        return status === 'success'
+                    },
                 },
                 tags: {
                     required,
@@ -775,13 +795,20 @@ export default {
         async handleSaveClick() {
             this.$v.form.$touch()
 
-            if (this.$v.form.title.$invalid) {
+            if (!this.$v.form.title.required) {
                 this.$toast.error('Your beat needs a title.')
                 return
             }
 
+            if (!this.$v.form.title.isUnique) {
+                this.$toast.error(
+                    'You already have a beat with that title, pick a new one.'
+                )
+                return
+            }
+
             if (this.$v.form.tags.$invalid) {
-                this.$toast.error('Your beat needs 3 or more tags.')
+                this.$toast.error('Add 3 or more tags that describe the beat.')
                 return
             }
 

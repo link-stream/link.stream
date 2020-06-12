@@ -13,7 +13,7 @@ const initialState = () => ({
     form: {
         selectedLicenseIds: [],
         selectedFreeOptionIds: [],
-        trackType: null,
+        trackType: 2, // 1=Song, 2=Beat
         coverArtBase64: null,
         title: null,
         genre: {},
@@ -121,7 +121,7 @@ const actions = {
 }
 
 const getters = {
-    isSong: ({ form }) => form.trackType === appConstants.tracks.types.song,
+    isSong: ({ form }) => form.trackType == appConstants.tracks.types.song,
     userLicenses: ({ userLicenses }) => userLicenses,
     freeOptions: ({ freeOptions }) => freeOptions,
     selectedLicenses: ({ form, userLicenses }) => {

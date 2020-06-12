@@ -202,7 +202,7 @@ export default {
     },
     data() {
         return {
-            stepIndex: 0,
+            stepIndex: 1,
             saving: false,
             coverArtBase64: null,
         }

@@ -110,6 +110,7 @@ export const api = {
             return await call({ endpoint, params, method })
         },
         async searchCollab({ userId, search }) {
+            search = encodeURIComponent(search)
             const endpoint = `/users/collaborator/${userId}?search=${search}`
             const method = METHOD_GET
             return await call({ endpoint, method })
@@ -158,6 +159,12 @@ export const api = {
             const endpoint = '/audios/sort_audios/'
             const method = METHOD_POST
             return await call({ endpoint, params, method })
+        },
+        async getTitleAvailability({ userId, title }) {
+            title = encodeURIComponent(title)
+            const endpoint = `/audios/availability/${userId}/title?value=${title}`
+            const method = METHOD_GET
+            return await call({ endpoint, method })
         },
     },
     videos: {

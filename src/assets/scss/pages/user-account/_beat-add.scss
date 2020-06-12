@@ -9,6 +9,12 @@
         }
     }
 
+    .fwz.is-step-info {
+        .fwz-prev-btn {
+            visibility: hidden;
+        }
+    }
+
     .fwz-tabs {
         display: none;
     }

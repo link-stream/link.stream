@@ -56,12 +56,13 @@
         >
             <div class="col-image">
                 <DropImage
-                    msgLong="Drag artwork here or<br><u>browse for file</u>"
+                    msg-long="Drag artwork here or<br><u>browse for file</u>"
+                    msg-short="Add Artwork"
                     :src="coverArtBase64"
                     @file-added="handleImageAdded"
                     @file-removed="handleImageRemoved"
                 />
-                <div class="text-muted" v-if="!coverArtBase64">
+                <div class="hint" v-if="!coverArtBase64">
                     Suggested Dimensions: 1000x1000
                 </div>
             </div>
@@ -106,7 +107,8 @@
             <div class="col-image">
                 <div class="Card">
                     <DropImage
-                        msgLong="Drag artwork here or<br><u>browse for file</u>"
+                        variant="inline"
+                        msg-long="Drag artwork here or<br><u>browse for file</u>"
                         :src="coverArtBase64"
                         @file-added="handleImageAdded"
                         @file-removed="handleImageRemoved"

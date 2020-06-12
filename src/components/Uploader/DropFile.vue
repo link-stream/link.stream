@@ -13,7 +13,7 @@
                 <div class="file-desc" v-html="title"></div>
                 <div class="file-name">{{ file.name | truncate(200) }}</div>
             </div>
-            <div class="file-controls">
+            <div class="preview-controls">
                 <ls-button
                     class="file-remove-btn"
                     variant="link"
@@ -37,7 +37,7 @@
 
         <div
             v-else
-            class="upload"
+            class="drop"
             :class="{ highlight: isDraggingFile }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
@@ -49,7 +49,7 @@
                 <div class="file-desc" v-html="title"></div>
                 <div class="file-name">No File Added</div>
             </div>
-            <i class="upload-icon"></i>
+            <i class="drop-icon"></i>
         </div>
     </div>
 </template>

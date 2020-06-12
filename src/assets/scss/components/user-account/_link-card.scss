@@ -8,7 +8,7 @@
         }
     }
 
-    .view-block {
+    .view-box {
         display: flex;
         align-items: center;
         padding: 15px;
@@ -33,7 +33,7 @@
         color: $black;
     }
 
-    .edit-block {
+    .edit-box {
         position: relative;
         padding: 20px;
         .Card-body {
@@ -71,7 +71,7 @@
         margin-bottom: 10px;
 
         .drop-box,
-        .img-box {
+        .preview-box {
             width: 65px;
             height: 65px;
         }
@@ -83,13 +83,13 @@
             font-size: px2rem(11);
         }
 
-        .upload-icon:before {
+        .drop-icon:before {
             background-image: url(~@/../public/static/ico/drop-image/cam-plus-sm.svg);
             width: 34px;
             height: 31px;
         }
 
-        .upload-msg {
+        .drop-msg {
             font-size: px2rem(10);
         }
 
@@ -104,14 +104,13 @@
 
         .file-remove-btn {
             margin-left: 10px;
-            align-self: center;
             color: $black;
             font-size: px2rem(11);
         }
     }
 
     @include media-breakpoint-up(md) {
-        .edit-block {
+        .edit-box {
             .Card-body {
                 flex-direction: row;
             }
@@ -140,7 +139,7 @@
             margin-bottom: 0;
 
             .drop-box,
-            .img-box {
+            .preview-box {
                 width: 120px;
                 height: 120px;
             }
@@ -152,10 +151,9 @@
 
             .file-remove-btn {
                 margin-left: 0;
-                align-self: flex-start;
             }
 
-            .upload-msg {
+            .drop-msg {
                 font-size: px2rem(12);
             }
 

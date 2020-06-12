@@ -1,6 +1,6 @@
 .DropFile {
     .preview,
-    .upload {
+    .drop {
         display: flex;
         align-items: center;
         border-radius: 4px;
@@ -9,7 +9,7 @@
     }
 
     &.is-invalid {
-        .upload {
+        .drop {
             border-color: $danger;
             border-width: 2px;
         }
@@ -19,7 +19,7 @@
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.22);
     }
 
-    .upload {
+    .drop {
         border: 1px dashed $linkstream-130;
         cursor: pointer;
         &.highlight,
@@ -28,7 +28,7 @@
         }
     }
 
-    .upload-icon {
+    .drop-icon {
         @extend .LsIcon;
         &:before {
             @extend .LsIcon:before;
@@ -65,7 +65,7 @@
             font-size: px2rem(12);
         }
 
-        .upload-icon:before {
+        .drop-icon:before {
             background-image: url(~@/../public/static/ico/cloud-upload-lg.svg);
             width: 43px;
             height: 34px;

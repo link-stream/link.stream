@@ -106,14 +106,18 @@
         .step-body {
             display: flex;
             flex-direction: column;
-            .col-image {
-                margin-bottom: 10px;
-            }
         }
-        .text-muted {
-            color: $linkstream-70 !important;
-            font-size: px2rem(12);
-            line-height: 30px;
+        .col-image {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            .hint {
+                color: $linkstream-70;
+                font-size: px2rem(12);
+                line-height: 30px;
+                margin-left: 15px;
+                line-height: normal;
+            }
         }
     }
 
@@ -147,41 +151,6 @@
             position: absolute;
             top: 15px;
             right: 15px;
-        }
-        .DropImage {
-            .preview {
-                flex-direction: row;
-            }
-            .file-remove-icon,
-            .file-replace-btn {
-                display: none;
-            }
-            .file-remove-btn {
-                align-self: center;
-            }
-            .file-add-btn {
-                display: block;
-            }
-            .file-remove-btn,
-            .file-add-btn {
-                margin-left: 15px;
-            }
-            .img-box,
-            .drop-box {
-                width: 60px;
-                height: 60px;
-                margin-bottom: 0;
-            }
-            .upload-icon {
-                &:before {
-                    background-image: url(~@/../public/static/ico/drop-image/cam-plus-sm.svg);
-                    width: 34px;
-                    height: 30px;
-                }
-            }
-            .upload-msg {
-                display: none;
-            }
         }
         .vis-card {
             small {
@@ -237,6 +206,13 @@
         }
 
         .info-step {
+            .col-image {
+                flex-direction: column;
+                align-items: flex-start;
+                .hint {
+                    margin: 10px 0 0 0;
+                }
+            }
             .col-fields {
                 flex-grow: 1;
             }
@@ -252,30 +228,6 @@
             .Card-title {
                 font-size: px2rem(18);
                 margin-bottom: 10px;
-            }
-            .DropImage {
-                .img-box,
-                .drop-box {
-                    width: 215px;
-                    height: 215px;
-                    margin-bottom: 0;
-                }
-                .preview {
-                    flex-direction: column;
-                }
-                .file-remove-btn {
-                    align-self: flex-start;
-                    margin: 10px 0 0 0;
-                }
-                .file-add-btn {
-                    display: none;
-                }
-                .file-replace-btn {
-                    display: block;
-                }
-                .upload-msg-l {
-                    display: block;
-                }
             }
         }
 

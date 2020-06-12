@@ -403,7 +403,8 @@
                         <!-- Image Card -->
                         <div class="Card EditCard">
                             <DropImage
-                                msgLong="Drag artwork here or<br><u>browse for file</u>"
+                                variant="inline"
+                                msg-long="Drag artwork here or<br><u>browse for file</u>"
                                 :src="form.coverArtBase64"
                                 @file-added="handleImageAdded"
                                 @file-removed="handleImageRemoved"

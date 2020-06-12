@@ -261,7 +261,7 @@ import { api } from '~/services/api'
 import { appConstants } from '~/constants'
 
 export default {
-    name: 'EditProfile',
+    name: 'ProfileEdit',
     directives: {
         resize,
     },

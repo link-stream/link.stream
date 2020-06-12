@@ -1,7 +1,7 @@
 // Dashboard
 export { default as UserAccountDashboard } from './Dashboard/Dashboard'
 // Profile
-export { default as UserAccountProfileEdit } from './Profile/EditProfile'
+export { default as UserAccountProfileEdit } from './Profile/ProfileEdit'
 // Videos
 export { default as UserAccountVideos } from './Videos/Videos'
 export { default as UserAccountVideoAdd } from './Videos/VideoAdd'

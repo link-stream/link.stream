@@ -540,8 +540,9 @@ export default {
                         const {
                             status,
                         } = await api.audios.getTitleAvailability({
-                            userId: this.user.id,
                             title: value,
+                            userId: this.user.id,
+                            audioId: this.beat.id,
                         })
                         return status === 'success'
                     },

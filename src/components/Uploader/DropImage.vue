@@ -27,7 +27,7 @@
                     @click="showFileDialog"
                 />
             </div>
-            <div class="preview-title">Artwork</div>
+            <div class="preview-text">Artwork</div>
             <div class="preview-controls">
                 <ls-button
                     class="file-remove-btn"

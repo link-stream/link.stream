@@ -79,47 +79,42 @@
 
             <div class="collabs">
                 <ul>
-                    <li
-                        v-for="(collab, index) in $v.form.collabs.$each.$iter"
-                        :key="index"
-                    >
+                    <li v-for="(collab, index) in form.collabs" :key="index">
                         <div class="cell user-cell">
                             <div class="cell-title">
                                 Collaborator
                             </div>
                             <div class="user-profile">
-                                <UserAvatar :user="collab.$model.user" />
-                                {{ collab.$model.user.name | truncate(14) }}
-                                {{
-                                    collab.$model.user.id == user.id
-                                        ? '(you)'
-                                        : ''
-                                }}
+                                <UserAvatar :user="collab.user" />
+                                {{ collab.user.name | truncate(14) }}
+                                {{ collab.user.id == user.id ? '(you)' : '' }}
                             </div>
                         </div>
                         <div class="cell profit-cell">
                             <div class="cell-title">
                                 Profit %
                             </div>
-                            <b-form-group>
-                                <b-form-input
-                                    type="number"
-                                    v-model="collab.profit.$model"
-                                    :state="!collab.profit.$error"
-                                ></b-form-input>
-                            </b-form-group>
+                            <input
+                                type="text"
+                                class="form-control"
+                                :readonly="index == 0"
+                                :value="collab.profit"
+                                @keyup="handleCollabProfitInput(collab, $event)"
+                            />
                         </div>
                         <div class="cell">
                             <div class="cell-title">
                                 Publishing %
                             </div>
-                            <b-form-group>
-                                <b-form-input
-                                    type="number"
-                                    v-model="collab.publishing.$model"
-                                    :state="!collab.publishing.$error"
-                                ></b-form-input>
-                            </b-form-group>
+                            <input
+                                type="text"
+                                class="form-control"
+                                :readonly="index === 0"
+                                :value="collab.publishing"
+                                @keyup="
+                                    handleCollabPublishingInput(collab, $event)
+                                "
+                            />
                         </div>
                         <div class="cell remove-cell">
                             <LsIconButton
@@ -154,12 +149,15 @@
 </template>
 
 <script>
+import { collabsProfitFormMixin } from '~/mixins/tracks/collabsProfitForm'
 import { required, minLength } from 'vuelidate/lib/validators'
 import { api } from '~/services'
 import { mapGetters } from 'vuex'
+import { cloneDeep } from 'lodash'
 
 export default {
     name: 'InfoBlock',
+    mixins: [collabsProfitFormMixin],
     data() {
         const {
             trackType,
@@ -181,7 +179,7 @@ export default {
                 bpm,
                 key: { ...key },
                 trackPack,
-                collabs: collabs.map(collab => ({ ...collab })),
+                collabs: cloneDeep(collabs),
             },
         }
     },
@@ -212,16 +210,6 @@ export default {
                 required,
                 minLength: minLength(3),
             },
-            collabs: {
-                $each: {
-                    profit: {
-                        required,
-                    },
-                    publishing: {
-                        required,
-                    },
-                },
-            },
         },
     },
     created() {
@@ -246,7 +234,7 @@ export default {
             this.$v.form.$touch()
 
             if (!this.$v.form.title.required) {
-                this.$toast.error('Your beat needs a title.')
+                this.$toast.error('Enter a title.')
                 return
             }
 
@@ -261,30 +249,12 @@ export default {
                 this.$toast.error('Add 3 or more tags that describe the beat.')
                 return
             }
-            if (this.$v.form.collabs.$invalid) {
-                this.$toast.error('Enter collaborators profit share.')
-                return
-            }
+
             this.updateWizardForm()
             onSuccess()
         },
         handleTagsChange(tags) {
             this.form.tags = tags
-        },
-        handleCollabRemoveClick(index) {
-            this.form.collabs.splice(index, 1)
-        },
-        handleCollabAdd(user) {
-            const { collabs } = this.form
-            const alreadyAdded = collabs.find(c => c.user.id == user.id)
-            if (alreadyAdded) {
-                return
-            }
-            collabs.push({
-                user,
-                profit: null,
-                publishing: null,
-            })
         },
     },
 }

@@ -111,6 +111,10 @@
                 margin-right: 2px;
             }
         }
+        .form-control[readonly] {
+            background-color: $white;
+            cursor: default;
+        }
     }
 
     @include media-breakpoint-up(md) {

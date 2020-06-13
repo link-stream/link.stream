@@ -23,7 +23,7 @@
                     class="search-input form-control"
                     placeholder="Username or email"
                     maxlength="35"
-                    v-model="searchText"
+                    v-model.trim="searchText"
                 />
                 <LsIconButton
                     icon="close"
@@ -89,9 +89,6 @@ export default {
         ...mapGetters({
             user: 'me/user',
         }),
-        cleanedSearchText() {
-            return this.searchText.trim()
-        },
         isIdle() {
             return this.status === STATUS_IDLE
         },
@@ -103,7 +100,7 @@ export default {
         },
     },
     watch: {
-        cleanedSearchText(value) {
+        searchText(value) {
             if (value) {
                 this.status = STATUS_SEARCHING
                 this.debounceSeach()
@@ -121,21 +118,21 @@ export default {
             this.open = false
         },
         async search() {
-            if (!this.cleanedSearchText) {
+            if (!this.searchText) {
                 return
             }
 
-            if (this.cleanedSearchText.length < MIN_SEARCH_LENGTH) {
+            if (this.searchText.length < MIN_SEARCH_LENGTH) {
                 this.status = STATUS_DONE
                 return
             }
 
             const { status, data } = await api.users.searchCollab({
                 userId: this.user.id,
-                search: this.cleanedSearchText,
+                search: this.searchText,
             })
 
-            if (!this.cleanedSearchText) {
+            if (!this.searchText) {
                 this.status = STATUS_IDLE
                 return
             }

@@ -10,7 +10,7 @@
         flex-direction: column;
     }
 
-    .preview-title {
+    .preview-text {
         display: none;
         flex-grow: 1;
         font-size: px2rem(14);
@@ -105,7 +105,7 @@
             flex-direction: row;
             align-items: center;
         }
-        .preview-title,
+        .preview-text,
         .file-menu {
             display: block;
         }
@@ -170,7 +170,7 @@
             .drop-msg-l {
                 display: block;
             }
-            .preview-title,
+            .preview-text,
             .file-menu,
             .file-add-btn {
                 display: none;

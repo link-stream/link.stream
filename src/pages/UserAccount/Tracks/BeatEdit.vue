@@ -257,8 +257,7 @@
                             <div class="collabs">
                                 <ul>
                                     <li
-                                        v-for="(collab, index) in $v.form
-                                            .collabs.$each.$iter"
+                                        v-for="(collab, index) in form.collabs"
                                         :key="index"
                                     >
                                         <div class="cell user-cell">
@@ -267,15 +266,14 @@
                                             </div>
                                             <div class="user-profile">
                                                 <UserAvatar
-                                                    :user="collab.$model.user"
+                                                    :user="collab.user"
                                                 />
                                                 {{
-                                                    collab.$model.user.name
+                                                    collab.user.name
                                                         | truncate(14)
                                                 }}
                                                 {{
-                                                    collab.$model.user.id ==
-                                                    user.id
+                                                    collab.user.id == user.id
                                                         ? '(you)'
                                                         : ''
                                                 }}
@@ -285,34 +283,35 @@
                                             <div class="cell-title">
                                                 Profit %
                                             </div>
-                                            <b-form-group>
-                                                <b-form-input
-                                                    type="number"
-                                                    v-model="
-                                                        collab.profit.$model
-                                                    "
-                                                    :state="
-                                                        !collab.profit.$error
-                                                    "
-                                                ></b-form-input>
-                                            </b-form-group>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                :readonly="index == 0"
+                                                :value="collab.profit"
+                                                @keyup="
+                                                    handleCollabProfitInput(
+                                                        collab,
+                                                        $event
+                                                    )
+                                                "
+                                            />
                                         </div>
                                         <div class="cell pub-cell">
                                             <div class="cell-title">
                                                 Publishing %
                                             </div>
-                                            <b-form-group>
-                                                <b-form-input
-                                                    type="number"
-                                                    v-model="
-                                                        collab.publishing.$model
-                                                    "
-                                                    :state="
-                                                        !collab.publishing
-                                                            .$error
-                                                    "
-                                                ></b-form-input>
-                                            </b-form-group>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                :readonly="index === 0"
+                                                :value="collab.publishing"
+                                                @keyup="
+                                                    handleCollabPublishingInput(
+                                                        collab,
+                                                        $event
+                                                    )
+                                                "
+                                            />
                                         </div>
                                         <div class="cell remove-cell">
                                             <LsIconButton
@@ -450,6 +449,7 @@ import { EditCard } from '~/components/UserAccount/Tracks/Beats/Edit'
 import { LicenseCard } from '~/components/UserAccount/Tracks/AddTrackWizard'
 import { DropAudio, DropFile, DropImage } from '~/components/Uploader'
 import { UserInviteModal, UserSearchModal } from '~/components/Modal'
+import { collabsProfitFormMixin } from '~/mixins/tracks/collabsProfitForm'
 import { api } from '~/services'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
@@ -462,6 +462,7 @@ const STATUS_SAVING = 'saving'
 
 export default {
     name: 'BeatEdit',
+    mixins: [collabsProfitFormMixin],
     components: {
         EditCard,
         DropAudio,
@@ -560,16 +561,6 @@ export default {
                     required: requiredIf(function() {
                         return this.form.scheduled
                     }),
-                },
-                collabs: {
-                    $each: {
-                        profit: {
-                            required,
-                        },
-                        publishing: {
-                            required,
-                        },
-                    },
                 },
             },
         }
@@ -710,21 +701,6 @@ export default {
         handleTagsChange(tags) {
             this.form.tags = tags
         },
-        handleCollabRemoveClick(index) {
-            this.form.collabs.splice(index, 1)
-        },
-        handleCollabAdd(user) {
-            const { collabs } = this.form
-            const alreadyAdded = collabs.find(c => c.user.id == user.id)
-            if (alreadyAdded) {
-                return
-            }
-            collabs.push({
-                user,
-                profit: null,
-                publishing: null,
-            })
-        },
         handleLicenseChecked(license) {
             const index = this.form.selectedLicenseIds.indexOf(license.id)
             index === -1 && this.form.selectedLicenseIds.push(license.id)
@@ -798,7 +774,7 @@ export default {
             this.$v.form.$touch()
 
             if (!this.$v.form.title.required) {
-                this.$toast.error('Your beat needs a title.')
+                this.$toast.error('Enter a title.')
                 return
             }
 
@@ -821,11 +797,6 @@ export default {
 
             if (this.$v.form.files.$invalid) {
                 this.$toast.error('Upload required files.')
-                return
-            }
-
-            if (this.$v.form.collabs.$invalid) {
-                this.$toast.error('Enter collaborators profit share.')
                 return
             }
 

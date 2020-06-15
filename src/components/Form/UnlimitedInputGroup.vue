@@ -17,9 +17,6 @@
             class="form-control"
             ref="input"
             :value="localValue"
-            v-cleave="{
-                numeral: true,
-            }"
             @input="handleInputInput"
             @focusin="handleInputFocusIn"
             @focusout="handleInputFocusOut"
@@ -28,6 +25,7 @@
 </template>
 
 <script>
+import Cleave from 'cleave.js'
 import { stripCommas } from '~/utils'
 
 const VALUE_UNLIMITED = 'Unlimited'
@@ -39,29 +37,19 @@ export default {
             type: [String, Number],
         },
     },
-    directives: {
-        cleave: {
-            inserted(el, binding) {
-                el.cleave = new Cleave(el, binding.value || {})
-            },
-        },
-    },
     data() {
-        return { localValue: null }
+        return { localValue: this.value }
     },
     computed: {
         isUnlimited() {
             return this.localValue === VALUE_UNLIMITED
         },
     },
-    watch: {
-        value(value) {
-            if (stripCommas(value) !== stripCommas(this.localValue)) {
-                this.localValue = value
-            }
-        },
+    mounted() {
+        const inputEl = this.$refs.input
+        new Cleave(inputEl, { numeral: true })
+        inputEl.value = this.localValue
     },
-
     methods: {
         updateValue() {
             this.$emit('input', stripCommas(this.localValue))
@@ -72,17 +60,17 @@ export default {
                 this.updateValue()
             }
         },
-        handleInputInput(evt) {
-            this.localValue = evt.target.value
+        handleInputInput(e) {
+            this.localValue = e.target.value
             this.updateValue()
         },
         handleInputFocusIn() {
             if (this.isUnlimited) {
-                this.localValue = ''
+                this.localValue = null
             }
         },
         handleInputFocusOut() {
-            if (!this.localValue.length) {
+            if (!this.localValue || !this.localValue.trim()) {
                 this.localValue = VALUE_UNLIMITED
                 this.updateValue()
             }

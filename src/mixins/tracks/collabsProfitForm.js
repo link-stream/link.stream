@@ -32,8 +32,8 @@ export const collabsProfitFormMixin = {
                 publishing: 0,
             })
         },
-        handleCollabProfitInput(collab, evt) {
-            const el = evt.target
+        handleCollabProfitInput(collab, e) {
+            const el = e.target
             const oldValue = collab.profit
             const newValue = Math.abs(Number(el.value))
 
@@ -61,8 +61,8 @@ export const collabsProfitFormMixin = {
                 collab.profit = newValue
             }
         },
-        handleCollabPublishingInput(collab, evt) {
-            const el = evt.target
+        handleCollabPublishingInput(collab, e) {
+            const el = e.target
             const oldValue = collab.publishing
             const newValue = Math.abs(Number(el.value))
 

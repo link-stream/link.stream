@@ -100,7 +100,7 @@ export default {
                         popup.close()
                         _this.onInstagramSuccess({ code })
                     }
-                } catch (evt) {
+                } catch (e) {
                     // Permission denied
                 }
             }, 100)

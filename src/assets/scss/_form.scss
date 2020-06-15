@@ -224,18 +224,6 @@
     }
 }
 
-.LsToggleButton {
-    margin-bottom: 0;
-    .v-switch-core {
-        background-color: $linkstream-120 !important;
-    }
-    &.toggled {
-        .v-switch-core {
-            background-color: $linkstream-150 !important;
-        }
-    }
-}
-
 .search-input {
     position: relative;
     input {

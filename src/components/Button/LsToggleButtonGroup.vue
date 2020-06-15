@@ -1,11 +1,17 @@
 <template>
     <div class="LsToggleButtonGroup btn-group btn-group-toggle">
-        <label class="btn btn-purple" :class="{ active: localValue === true }">
-            <input type="radio" :value="true" v-model="localValue" />
+        <label
+            class="btn btn-purple"
+            :class="{ active: toggled }"
+            @click="handleClick"
+        >
             Yes
         </label>
-        <label class="btn btn-purple" :class="{ active: localValue === false }">
-            <input type="radio" :value="false" v-model="localValue" />
+        <label
+            class="btn btn-purple"
+            :class="{ active: !toggled }"
+            @click="handleClick"
+        >
             No
         </label>
     </div>
@@ -22,15 +28,13 @@ export default {
     },
     data() {
         return {
-            localValue: this.value,
+            toggled: !!this.value,
         }
     },
-    watch: {
-        value(value) {
-            this.localValue = value
-        },
-        localValue() {
-            this.$emit('input', this.localValue)
+    methods: {
+        handleClick() {
+            this.toggled = !this.toggled
+            this.$emit('input', this.toggled)
         },
     },
 }

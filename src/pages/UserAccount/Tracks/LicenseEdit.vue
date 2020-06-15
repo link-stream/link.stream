@@ -1,7 +1,7 @@
 <template>
     <div class="page page-ua-license-edit">
         <LsSpinner v-if="loading" />
-        <div class="page-content">
+        <div v-else class="page-content">
             <nav class="page-nav">
                 <ls-button
                     class="back-btn"
@@ -202,7 +202,7 @@ export default {
             },
         },
     },
-    async mounted() {
+    async created() {
         this.loading = true
         const licenseId = this.$route.params.id
 

@@ -1,7 +1,7 @@
 <template>
     <ToggleButton
         class="LsToggleButton"
-        v-model="localValue"
+        :value="toggled"
         :width="42"
         :height="26"
         :margin="2"
@@ -25,16 +25,12 @@ export default {
     },
     data() {
         return {
-            localValue: this.value,
+            toggled: !!this.value,
         }
-    },
-    watch: {
-        value() {
-            this.localValue = this.value
-        },
     },
     methods: {
         handleInput(value) {
+            this.toggled = value
             this.$emit('input', value)
         },
     },

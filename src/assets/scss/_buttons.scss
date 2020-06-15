@@ -141,3 +141,23 @@
     color: $white;
     background-color: $primary;
 }
+
+.LsToggleButtonGroup {
+    .btn {
+        padding: 17px 15px;
+        font-size: px2rem(13);
+        text-transform: none;
+        border-radius: 4px 0 0 4px;
+        font-weight: 500;
+        letter-spacing: 0;
+        &.active {
+            box-shadow: inset 1px 2px 3px 0 rgba(0, 0, 0, 0.5);
+        }
+        &:first-child {
+            border-radius: 4px 0 0 4px;
+        }
+        &:last-child {
+            border-radius: 0 4px 4px 0;
+        }
+    }
+}

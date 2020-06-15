@@ -153,11 +153,9 @@
             right: 15px;
         }
         .vis-card {
-            small {
+            label {
                 font-size: px2rem(12);
-            }
-            .LsToggleButton {
-                margin-left: 10px;
+                margin: 0 10px 0 0;
             }
             .row-title {
                 display: flex;

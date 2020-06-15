@@ -4,12 +4,15 @@ export const collabsProfitFormMixin = {
             const { collabs } = this.form
             collabs.splice(index, 1)
             const subCollabs = collabs.slice(1)
-            const subCollabsTotalProfit = subCollabs.reduce((acc, collab) => {
-                return acc + Number(collab.profit)
-            }, 0)
+            const subCollabsTotalProfit = subCollabs.reduce(
+                (total, { profit }) => {
+                    return total + Number(profit)
+                },
+                0
+            )
             const subCollabsTotalPublishing = subCollabs.reduce(
-                (acc, collab) => {
-                    return acc + Number(collab.publishing)
+                (total, { publishing }) => {
+                    return total + Number(publishing)
                 },
                 0
             )
@@ -29,61 +32,63 @@ export const collabsProfitFormMixin = {
                 publishing: 0,
             })
         },
-        handleCollabProfitInput(changedCollab, evt) {
+        handleCollabProfitInput(collab, evt) {
+            const el = evt.target
+            const oldValue = collab.profit
+            const newValue = Math.abs(Number(el.value))
+
+            if (isNaN(newValue)) {
+                el.value = oldValue
+                return
+            }
+
             const { collabs } = this.form
             const subCollabs = collabs.slice(1)
-            const mainCollab = collabs[0]
-            let newValue = Number(evt.target.value)
-            newValue = isNaN(newValue) ? 0 : Math.abs(newValue)
-
-            const subCollabsNewTotal = subCollabs.reduce((acc, collab) => {
-                return collab.user.id == changedCollab.user.id
-                    ? acc + newValue
-                    : acc + Number(collab.profit)
-            }, 0)
+            const subCollabsOldTotal = subCollabs.reduce(
+                (total, { profit }) => total + Number(profit),
+                0
+            )
+            const subCollabsNewTotal = subCollabsOldTotal - oldValue + newValue
 
             if (subCollabsNewTotal > 100) {
-                changedCollab.profit = 0
+                el.value = oldValue
                 this.$toast.error(
                     'Main collaborator profit share cannot be less than 0%.'
                 )
             } else {
-                changedCollab.profit = newValue || ''
+                const mainCollab = collabs[0]
+                mainCollab.profit = 100 - subCollabsNewTotal
+                collab.profit = newValue
+            }
+        },
+        handleCollabPublishingInput(collab, evt) {
+            const el = evt.target
+            const oldValue = collab.publishing
+            const newValue = Math.abs(Number(el.value))
+
+            if (isNaN(newValue)) {
+                el.value = oldValue
+                return
             }
 
-            const subCollabsTotal = subCollabs.reduce((acc, collab) => {
-                return acc + Number(collab.profit)
-            }, 0)
-
-            mainCollab.profit = 100 - subCollabsTotal
-        },
-        handleCollabPublishingInput(changedCollab, evt) {
             const { collabs } = this.form
             const subCollabs = collabs.slice(1)
-            const mainCollab = collabs[0]
-            let newValue = Number(evt.target.value)
-            newValue = isNaN(newValue) ? 0 : Math.abs(newValue)
-
-            const subCollabsNewTotal = subCollabs.reduce((acc, collab) => {
-                return collab.user.id == changedCollab.user.id
-                    ? acc + newValue
-                    : acc + Number(collab.publishing)
-            }, 0)
+            const subCollabsOldTotal = subCollabs.reduce(
+                (total, { publishing }) => total + Number(publishing),
+                0
+            )
+            const subCollabsNewTotal = subCollabsOldTotal - oldValue + newValue
 
             if (subCollabsNewTotal > 100) {
-                changedCollab.publishing = 0
+                el.value = oldValue
                 this.$toast.error(
                     'Main collaborator publishing share cannot be less than 0%.'
                 )
             } else {
-                changedCollab.publishing = newValue || ''
+                const mainCollab = collabs[0]
+                mainCollab.publishing = 100 - subCollabsNewTotal
+                collab.publishing = newValue
             }
-
-            const subCollabsTotal = subCollabs.reduce((acc, collab) => {
-                return acc + Number(collab.publishing)
-            }, 0)
-
-            mainCollab.publishing = 100 - subCollabsTotal
         },
     },
 }

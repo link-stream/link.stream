@@ -1,6 +1,6 @@
 <template>
     <div class="page page-ua-link-add">
-        <div class="page-nav">
+        <nav class="page-nav">
             <ls-button
                 class="back-btn"
                 variant="text"
@@ -9,7 +9,7 @@
                 <i class="LsIcon LsIcon-back"></i>
                 <span>Links</span>
             </ls-button>
-        </div>
+        </nav>
         <div class="fwz">
             <section class="fwz-step">
                 <header class="step-header">

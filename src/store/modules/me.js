@@ -35,8 +35,18 @@ const mutations = {
         state.user = user
     },
 
+    /**
+     * Licenses
+     */
+
     [meTypes.SET_LICENSES](state, { licenses }) {
         state.licenses = licenses
+    },
+
+    [meTypes.UPDATE_LICENSE](state, { license }) {
+        const { licenses } = state
+        const index = licenses.findIndex(({ id }) => id == license.id)
+        index > -1 && licenses.splice(index, 1, license)
     },
 
     /**
@@ -144,6 +154,10 @@ const actions = {
         status === 'success' && commit(meTypes.SET_USER, { user: data })
     },
 
+    /**
+     * Licenses
+     */
+
     async loadLicenses({ state, commit, rootGetters }) {
         if (state.licenses.length) {
             return
@@ -154,6 +168,14 @@ const actions = {
             type: meTypes.SET_LICENSES,
             licenses: status === 'success' ? data : [],
         })
+    },
+
+    async updateLicense({ commit }, { id, params }) {
+        const response = await api.licenses.updateLicense(id, params)
+        const { status, data } = response
+        status === 'success' &&
+            commit(meTypes.UPDATE_LICENSE, { license: data })
+        return response
     },
 
     /**
@@ -270,7 +292,12 @@ const actions = {
 
 const getters = {
     licenses: ({ licenses }) => licenses,
-    findBeatById: ({ beats }) => {
+    licenseById: ({ licenses }) => {
+        return id => {
+            return licenses.find(license => license.id == id)
+        }
+    },
+    beatById: ({ beats }) => {
         return id => {
             return beats.find(beat => beat.id == id)
         }

@@ -58,3 +58,12 @@ export const generateTimePickerOptions = function() {
     }
     return options
 }
+
+/**
+ * Strip commas from thousands numeric string.
+ * @param {string} value
+ * @return {string}
+ */
+export const stripCommas = function(value) {
+    return value ? value.toString().replace(/,/g, '') : ''
+}

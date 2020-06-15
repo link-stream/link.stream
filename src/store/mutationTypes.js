@@ -24,7 +24,10 @@ export const trackAddWizardTypes = {
 export const meTypes = {
     // User
     SET_USER: 'SET_USER',
+
+    // Licenses
     SET_LICENSES: 'SET_LICENSES',
+    UPDATE_LICENSE: 'UPDATE_LICENSE',
 
     // Beats
     SET_BEATS: 'SET_BEATS',

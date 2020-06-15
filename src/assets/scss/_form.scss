@@ -224,18 +224,6 @@
     }
 }
 
-.search-box {
-    position: relative;
-    .search-icon {
-        position: absolute;
-        top: 13px;
-        left: 13px;
-    }
-    .search-input {
-        padding-left: 37px;
-    }
-}
-
 .LsToggleButton {
     margin-bottom: 0;
     .v-switch-core {
@@ -245,5 +233,59 @@
         .v-switch-core {
             background-color: $linkstream-150 !important;
         }
+    }
+}
+
+.search-input {
+    position: relative;
+    input {
+        padding-left: 37px;
+    }
+    .input-icon {
+        position: absolute;
+        top: 13px;
+        left: 13px;
+    }
+}
+
+.dollar-input {
+    position: relative;
+    input {
+        padding-left: 30px;
+        width: 100px;
+    }
+    .input-icon {
+        position: absolute;
+        top: 15px;
+        left: 13px;
+    }
+}
+
+.UnlimitedInputGroup {
+    &.is-unlimited {
+        .btn,
+        .form-control {
+            background-color: $linkstream-80;
+        }
+        .btn {
+            box-shadow: inset -1px 1px 3px 0 rgba(0, 0, 0, 0.18);
+        }
+    }
+    .btn {
+        &,
+        &:active {
+            border-color: $linkstream-30 !important;
+        }
+        &:hover {
+            background-color: $linkstream-80;
+        }
+        font-size: px2rem(13);
+        font-weight: 500;
+        border-radius: 4px 0 0 4px;
+        letter-spacing: 0;
+        text-transform: none;
+        color: $linkstream-110;
+        background-color: $white;
+        padding: 0 15px;
     }
 }

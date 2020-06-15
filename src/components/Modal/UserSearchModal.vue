@@ -16,11 +16,11 @@
         </template>
 
         <template v-slot:default>
-            <div class="search-box">
-                <LsIcon class="search-icon" icon="search" />
+            <div class="search-input">
+                <LsIcon class="input-icon" icon="search" />
                 <input
                     type="text"
-                    class="search-input form-control"
+                    class="form-control"
                     placeholder="Username or email"
                     maxlength="35"
                     v-model.trim="searchText"

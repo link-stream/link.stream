@@ -65,11 +65,10 @@
             </b-form-row>
 
             <b-form-group :label="`Add to ${isSong ? 'Song' : 'Beat'} Pack`">
-                <div class="search-box">
-                    <LsIcon class="search-icon" icon="search" />
+                <div class="search-input">
+                    <LsIcon class="input-icon" icon="search" />
                     <b-form-input
                         v-model="form.trackPack"
-                        class="search-input"
                         :placeholder="
                             `Search for ${isSong ? 'song' : 'beat'} pack`
                         "

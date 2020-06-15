@@ -2,7 +2,7 @@
     <div class="page page-ua-beat-edit">
         <LsSpinner v-if="isLoading" />
         <div class="page-content" v-else>
-            <div class="page-nav">
+            <nav class="page-nav">
                 <ls-button
                     class="back-btn"
                     variant="text"
@@ -11,14 +11,14 @@
                     <i class="LsIcon LsIcon-back"></i>
                     <span>Beats</span>
                 </ls-button>
-            </div>
+            </nav>
             <header class="page-header">
                 <div class="col-left">
-                    <h1 class="page-title">Your beats</h1>
+                    <h1 class="page-title">{{ beat.title }}</h1>
                     <div class="page-preview">
-                        <span class="text-light">link.stream/</span>
                         <span>
-                            {{ beat.url_user }}/beats/{{ beat.url_title }}
+                            <span class="text-light">link.stream/</span
+                            >{{ beat.url_user }}/beats/{{ beat.url_title }}
                         </span>
                         <preview-pill-button
                             :to="{
@@ -210,15 +210,12 @@
 
                         <!-- Beat Pack Card -->
                         <edit-card title="Add to Beat Pack">
-                            <b-form-group>
-                                <div class="search-box">
-                                    <LsIcon class="search-icon" icon="search" />
-                                    <b-form-input
-                                        class="search-input"
-                                        placeholder="Search for beat packs"
-                                    ></b-form-input>
-                                </div>
-                            </b-form-group>
+                            <div class="search-input">
+                                <LsIcon class="input-icon" icon="search" />
+                                <b-form-input
+                                    placeholder="Search for beat packs"
+                                ></b-form-input>
+                            </div>
                         </edit-card>
 
                         <!-- Marketing Card -->
@@ -358,11 +355,11 @@
                                     Visibility
                                 </h4>
                                 <div>
-                                    <small>
+                                    <label>
                                         {{
                                             form.isPublic ? 'Public' : 'Private'
                                         }}
-                                    </small>
+                                    </label>
                                     <LsToggleButton v-model="form.isPublic" />
                                 </div>
                             </div>

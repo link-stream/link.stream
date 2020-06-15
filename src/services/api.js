@@ -118,14 +118,19 @@ export const api = {
     },
     licenses: {
         async getLicensesByUser(userId) {
-            const endpoint = `/licenses/${userId}`
+            const endpoint = '/licenses/' + userId
             const method = METHOD_GET
             return await call({ endpoint, method })
+        },
+        async updateLicense(id, params) {
+            const endpoint = '/licenses/' + id
+            const method = METHOD_PUT
+            return await call({ endpoint, method, params })
         },
     },
     audios: {
         async getBeatsByUser(userId) {
-            const endpoint = `/audios/${userId}`
+            const endpoint = '/audios/' + userId
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
         },

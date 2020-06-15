@@ -1,0 +1,91 @@
+.page-ua-license-edit {
+    .page-header {
+        border-bottom: 1px solid $linkstream-130;
+        padding-bottom: 15px;
+        .col-right {
+            margin-top: 15px;
+            label {
+                font-size: px3rem(12);
+                margin: 0 10px 0 0;
+            }
+        }
+        label {
+            font-size: px2rem(12);
+            font-weight: 500;
+            letter-spacing: 0;
+        }
+    }
+
+    .page-body {
+        label {
+            font-size: px2rem(14);
+            font-weight: 600;
+            letter-spacing: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    .page-footer {
+        text-align: right;
+        border-top: 1px solid $linkstream-30;
+        padding-top: 20px;
+        margin-top: 30px;
+    }
+
+    .Row {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+        &.no-break {
+            flex-direction: row;
+            .Col:first-child {
+                flex-grow: 1;
+            }
+        }
+    }
+
+    .form-text {
+        color: $black;
+        font-size: px2rem(12);
+        letter-spacing: 0;
+    }
+
+    .default-text {
+        color: $linkstream-40;
+        font-size: px2rem(14);
+        font-style: italic;
+        letter-spacing: 0;
+    }
+
+    .dollar-input {
+        input {
+            width: 125px;
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        .page-header {
+            .col-right {
+                margin-top: 0;
+            }
+        }
+
+        .Row {
+            flex-direction: row;
+            &.no-break {
+                .Col:first-child {
+                    flex-grow: 0;
+                }
+            }
+            .Col:first-child {
+                width: 315px;
+            }
+        }
+
+        .UnlimitedInputGroup {
+            .form-control {
+                width: 185px;
+            }
+        }
+    }
+}

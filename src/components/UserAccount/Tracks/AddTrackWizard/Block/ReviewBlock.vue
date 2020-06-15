@@ -92,7 +92,7 @@
             <div class="row-title">
                 <h4 class="Card-title">Visibility</h4>
                 <div>
-                    <small>{{ form.isPublic ? 'Public' : 'Private' }}</small>
+                    <label>{{ form.isPublic ? 'Public' : 'Private' }}</label>
                     <LsToggleButton v-model="form.isPublic" />
                 </div>
             </div>

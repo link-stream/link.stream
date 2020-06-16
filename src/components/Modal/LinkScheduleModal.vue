@@ -45,7 +45,11 @@
         </template>
 
         <template v-slot:modal-footer>
-            <ls-button class="action-btn" variant="secondary" @click="close">
+            <ls-button
+                class="action-btn cancel-btn"
+                variant="secondary"
+                @click="close"
+            >
                 Cancel
             </ls-button>
             <ls-spinner-button

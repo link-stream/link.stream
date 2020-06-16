@@ -75,8 +75,8 @@ export default {
     watch: {
         links: {
             immediate: true,
-            handler() {
-                this.sortableLinks = [...this.links]
+            handler(newValue) {
+                this.sortableLinks = [...newValue]
             },
         },
     },

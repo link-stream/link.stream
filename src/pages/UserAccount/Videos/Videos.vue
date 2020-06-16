@@ -77,8 +77,8 @@ export default {
     watch: {
         videos: {
             immediate: true,
-            handler() {
-                this.sortableVideos = [...this.videos]
+            handler(newValue) {
+                this.sortableVideos = [...newValue]
             },
         },
     },

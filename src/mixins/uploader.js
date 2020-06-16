@@ -34,11 +34,11 @@ export const uploaderMixin = {
         },
     },
     watch: {
-        src() {
-            this.file.src = this.src
+        src(newValue) {
+            this.file.src = newValue
         },
-        filename() {
-            this.file.name = this.filename || ''
+        filename(newValue) {
+            this.file.name = newValue || ''
         },
     },
     methods: {

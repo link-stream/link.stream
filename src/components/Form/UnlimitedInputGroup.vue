@@ -7,7 +7,7 @@
             <button
                 type="button"
                 class="btn btn-outline-secondary"
-                @click="handleButtonClick"
+                @click="handleUnlimitedClick"
             >
                 Unlimited
             </button>
@@ -17,9 +17,9 @@
             class="form-control"
             ref="input"
             :value="localValue"
-            @input="handleInputInput"
-            @focusin="handleInputFocusIn"
-            @focusout="handleInputFocusOut"
+            @input="handleCustomInput"
+            @focusin="handleCustomFocusIn"
+            @focusout="handleCustomFocusOut"
         />
     </div>
 </template>
@@ -34,7 +34,8 @@ export default {
     name: 'UnlimitedInputGroup',
     props: {
         value: {
-            type: [String, Number],
+            type: String,
+            default: '',
         },
     },
     data() {
@@ -46,34 +47,30 @@ export default {
         },
     },
     mounted() {
-        const inputEl = this.$refs.input
-        new Cleave(inputEl, { numeral: true })
-        inputEl.value = this.localValue
+        const el = this.$refs.input
+        new Cleave(el, { numeral: true })
+        if (this.isUnlimited) {
+            el.value = VALUE_UNLIMITED
+        }
     },
     methods: {
-        updateValue() {
-            this.$emit('input', stripCommas(this.localValue))
+        updateValue(value) {
+            this.localValue = value
+            this.$emit('input', stripCommas(value))
         },
-        handleButtonClick() {
-            if (!this.isUnlimited) {
-                this.localValue = VALUE_UNLIMITED
-                this.updateValue()
-            }
+        handleUnlimitedClick() {
+            !this.isUnlimited && this.updateValue(VALUE_UNLIMITED)
         },
-        handleInputInput(e) {
-            this.localValue = e.target.value
-            this.updateValue()
+        handleCustomInput(e) {
+            this.updateValue(e.target.value)
         },
-        handleInputFocusIn() {
+        handleCustomFocusIn() {
             if (this.isUnlimited) {
-                this.localValue = null
+                this.localValue = ''
             }
         },
-        handleInputFocusOut() {
-            if (!this.localValue || !this.localValue.trim()) {
-                this.localValue = VALUE_UNLIMITED
-                this.updateValue()
-            }
+        handleCustomFocusOut() {
+            !this.localValue.trim() && this.updateValue(VALUE_UNLIMITED)
         },
     },
 }

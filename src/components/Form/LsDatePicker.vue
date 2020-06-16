@@ -19,12 +19,12 @@
 export default {
     name: 'LsDatePicker',
     props: {
+        value: {
+            type: Date,
+        },
         placeholder: {
             type: String,
             default: 'Select Date',
-        },
-        value: {
-            type: Date,
         },
         state: {
             type: Boolean,
@@ -35,11 +35,6 @@ export default {
         return {
             localValue: this.value,
         }
-    },
-    watch: {
-        value() {
-            this.localValue = this.value
-        },
     },
     methods: {
         handleInput(value) {

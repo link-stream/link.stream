@@ -81,8 +81,8 @@ export default {
     watch: {
         beats: {
             deep: true,
-            handler() {
-                this.sortableBeats = [...this.beats]
+            handler(newValue) {
+                this.sortableBeats = [...newValue]
             },
         },
     },

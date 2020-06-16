@@ -42,8 +42,8 @@ export const linkAddEditForm = {
         }),
     },
     watch: {
-        editing() {
-            if (!this.editing) {
+        editing(newValue) {
+            if (!newValue) {
                 return
             }
 

@@ -100,8 +100,8 @@ export default {
         },
     },
     watch: {
-        searchText(value) {
-            if (value) {
+        searchText(newValue) {
+            if (newValue) {
                 this.status = STATUS_SEARCHING
                 this.debounceSeach()
             } else {

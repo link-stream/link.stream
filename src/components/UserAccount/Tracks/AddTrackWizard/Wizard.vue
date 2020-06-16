@@ -248,6 +248,7 @@ export default {
             this.$bus.$off('wz.nextClick')
             this.$bus.$off('wz.prevClick')
             this.$bus.$off('wz.saveClick')
+            window.scrollTo({ top: 0, behavior: 'smooth' })
         },
     },
     created() {

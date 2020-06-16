@@ -43,7 +43,6 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import Vuelidate from 'vuelidate'
 import { alertBox, eventBus } from '~/plugins'
-import VueTagsInput from '@johmun/vue-tags-input'
 import {
     PreviewPillButton,
     LsButton,
@@ -53,7 +52,12 @@ import {
     LsToggleButtonGroup,
 } from '~/components/Button'
 import { LsSpinner, LsSpinnerMask } from '~/components/Loading'
-import { LsSelect, LsDatePicker, LsTimePicker } from '~/components/Form'
+import {
+    LsSelect,
+    LsDatePicker,
+    LsTimePicker,
+    LsTagsInput,
+} from '~/components/Form'
 import { LsIcon } from '~/components/Icon'
 import UserAvatar from '~/components/Avatar/UserAvatar'
 
@@ -140,21 +144,19 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 // Install Vuelidate
 Vue.use(Vuelidate)
 
-// Install VueTagsInput
-Vue.use(VueTagsInput)
-
 // Install LS components
 Vue.use(alertBox)
 Vue.use(eventBus)
 Vue.component('UserAvatar', UserAvatar)
+Vue.component('PreviewPillButton', PreviewPillButton)
 Vue.component('LsButton', LsButton)
 Vue.component('LsSpinnerButton', LsSpinnerButton)
 Vue.component('LsIconButton', LsIconButton)
 Vue.component('LsToggleButton', LsToggleButton)
-Vue.component('PreviewPillButton', PreviewPillButton)
 Vue.component('LsSelect', LsSelect)
 Vue.component('LsDatePicker', LsDatePicker)
 Vue.component('LsTimePicker', LsTimePicker)
+Vue.component('LsTagsInput', LsTagsInput)
 Vue.component('LsIcon', LsIcon)
 Vue.component('LsSpinner', LsSpinner)
 Vue.component('LsSpinnerMask', LsSpinnerMask)

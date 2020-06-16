@@ -84,14 +84,11 @@
                                 />
                             </b-form-group>
                             <b-form-group label="Tags(3)">
-                                <VueTagsInput
+                                <LsTagsInput
                                     v-model="tag"
                                     :class="{
                                         'is-invalid': $v.form.tags.$error,
                                     }"
-                                    :placeholder="
-                                        form.tags.length ? '' : 'Tags'
-                                    "
                                     :tags="form.tags"
                                     @tags-changed="handleTagsChange"
                                 />

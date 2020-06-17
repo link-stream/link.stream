@@ -43,7 +43,12 @@
             <div class="edit-actions">
                 <div class="col-left">
                     To customize your default license terms, go to
-                    <ls-button variant="link">Licenses</ls-button>
+                    <ls-button
+                        variant="link"
+                        :to="{ name: 'userAccountTracksLicenses' }"
+                    >
+                        Licenses
+                    </ls-button>
                 </div>
                 <div class="col-right">
                     <ls-button

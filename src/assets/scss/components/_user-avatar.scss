@@ -1,12 +1,16 @@
 .UserAvatar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 32.25px;
-    height: 32.25px;
-    background-size: 32.25px 32.25px;
-    background-color: $linkstream-30;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: normal;
-    @include border-radius(50%);
+    .avatar {
+        @include border-radius(50%);
+        width: 32.25px;
+        height: 32.25px;
+    }
+    .avatar-letter {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $linkstream-30;
+        font-size: px2rem(16);
+        font-weight: normal;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
 }

@@ -1,9 +1,8 @@
 <template>
-    <div
-        class="UserAvatar"
-        :style="user.photo ? `background-image: url('${user.photo}')` : ''"
-        v-text="!user.photo && user.name ? user.name[0].toUpperCase() : ''"
-    ></div>
+    <div class="UserAvatar">
+        <img class="avatar avatar-image" :src="image" v-if="image" />
+        <div class="avatar avatar-letter" v-text="letter" v-else></div>
+    </div>
 </template>
 
 <script>
@@ -12,12 +11,23 @@ export default {
     props: {
         user: {
             type: Object,
+            required: true,
             default() {
                 return {
-                    photo: null,
-                    name: null,
+                    photo: '',
+                    name: '',
                 }
             },
+        },
+    },
+    computed: {
+        image() {
+            return this.user.photo || ''
+        },
+        letter() {
+            return typeof this.user.name === 'string'
+                ? this.user.name.charAt(0).toUpperCase()
+                : ''
         },
     },
 }

@@ -240,46 +240,6 @@
                 font-size: px2rem(14px);
             }
         }
-
-        .collabs {
-            .form-group {
-                margin-bottom: 0;
-            }
-            .cell-title {
-                display: none;
-            }
-            .user-cell {
-                width: 80%;
-            }
-            .profit-cell {
-                margin-left: 10px;
-                margin-right: 10px;
-            }
-            .remove-cell {
-                position: relative;
-            }
-            .remove-btn {
-                display: none;
-            }
-            .remove-icon {
-                display: block;
-                position: absolute;
-                top: 16px;
-                right: -25px;
-            }
-            li {
-                display: flex;
-                &:first-child {
-                    .cell-title {
-                        display: block;
-                    }
-                }
-            }
-            .form-control[readonly] {
-                background-color: $white;
-                cursor: default;
-            }
-        }
     }
 }
 
@@ -295,13 +255,13 @@
 
 .InfoBlock {
     .collabs {
-        ul {
-            margin-bottom: 12px;
+        .fr {
+            flex-direction: column;
         }
-        .user-cell {
+        .fc {
             margin-bottom: 10px;
         }
-        .user-profile {
+        .mini-profile {
             display: flex;
             align-items: center;
             color: $black;
@@ -326,6 +286,50 @@
                 position: relative;
                 top: 2px;
                 margin-right: 2px;
+            }
+        }
+        .form-control[readonly] {
+            background-color: $white;
+            cursor: default;
+        }
+        @include media-breakpoint-up(md) {
+            .fr {
+                flex-direction: row;
+                margin-bottom: 10px;
+                &:first-child {
+                    label {
+                        display: block;
+                    }
+                }
+            }
+            .fc {
+                margin-bottom: 0;
+            }
+            label {
+                display: none;
+            }
+            .user-col {
+                width: 60%;
+            }
+            .profit-col {
+                width: 20%;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            .pub-col {
+                width: 20%;
+            }
+            .remove-col {
+                position: relative;
+            }
+            .remove-btn {
+                display: none;
+            }
+            .remove-icon {
+                display: block;
+                position: absolute;
+                top: 16px;
+                right: -25px;
             }
         }
     }
@@ -355,5 +359,15 @@
 .MarketingEditModal {
     .ls-card {
         flex-basis: 100%;
+    }
+}
+
+.InfoEditModal {
+    .collabs {
+        @include media-breakpoint-up(md) {
+            .remove-icon {
+                right: -20px;
+            }
+        }
     }
 }

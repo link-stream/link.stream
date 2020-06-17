@@ -5,6 +5,7 @@
     padding-top: $navbar-height;
     height: calc(100% - #{$navbar-height});
     transition: border-radius $menu-collapse-time;
+    z-index: 3;
 
     .main-menu {
         position: fixed;

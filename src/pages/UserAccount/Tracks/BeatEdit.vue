@@ -249,16 +249,15 @@
                         <!-- Collabs Card -->
                         <edit-card title="Collaborators">
                             <div class="collabs">
-                                <ul>
-                                    <li
+                                <div class="collabs-grid">
+                                    <div
+                                        class="fr"
                                         v-for="(collab, index) in form.collabs"
                                         :key="index"
                                     >
-                                        <div class="cell user-cell">
-                                            <div class="cell-title">
-                                                Collaborator
-                                            </div>
-                                            <div class="user-profile">
+                                        <div class="fc user-col">
+                                            <label>Collaborator</label>
+                                            <div class="mini-profile">
                                                 <UserAvatar
                                                     :user="collab.user"
                                                 />
@@ -273,10 +272,8 @@
                                                 }}
                                             </div>
                                         </div>
-                                        <div class="cell profit-cell">
-                                            <div class="cell-title">
-                                                Profit %
-                                            </div>
+                                        <div class="fc profit-col">
+                                            <label>Profit %</label>
                                             <input
                                                 type="text"
                                                 class="form-control"
@@ -290,10 +287,8 @@
                                                 "
                                             />
                                         </div>
-                                        <div class="cell pub-cell">
-                                            <div class="cell-title">
-                                                Publishing %
-                                            </div>
+                                        <div class="fc pub-col">
+                                            <label>Publishing %</label>
                                             <input
                                                 type="text"
                                                 class="form-control"
@@ -307,11 +302,13 @@
                                                 "
                                             />
                                         </div>
-                                        <div class="cell remove-cell">
+                                        <div
+                                            class="fc remove-col"
+                                            v-if="index > 0"
+                                        >
                                             <LsIconButton
                                                 icon="close"
                                                 class="remove-icon"
-                                                v-if="index > 0"
                                                 @click="
                                                     handleCollabRemoveClick(
                                                         index
@@ -321,7 +318,6 @@
                                             <ls-button
                                                 variant="link"
                                                 class="remove-btn"
-                                                v-if="index > 0"
                                                 @click="
                                                     handleCollabRemoveClick(
                                                         index
@@ -331,8 +327,8 @@
                                                 Remove Collaborator
                                             </ls-button>
                                         </div>
-                                    </li>
-                                </ul>
+                                    </div>
+                                </div>
                                 <ls-button
                                     variant="text"
                                     class="add-btn"
@@ -348,9 +344,9 @@
                         <!-- Visibility Card -->
                         <div class="ls-card EditCard vis-card">
                             <div class="row-title">
-                                <h4 class="card-title">
+                                <label class="card-title">
                                     Visibility
-                                </h4>
+                                </label>
                                 <div>
                                     <label>
                                         {{

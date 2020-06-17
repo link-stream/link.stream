@@ -24,6 +24,7 @@
         padding: 20px 0;
         background-color: $white;
         bottom: 0;
+        z-index: 2;
         .btn-secondary {
             margin-right: 15px;
         }
@@ -76,13 +77,13 @@
     }
 
     .collabs {
-        ul {
-            margin-bottom: 12px;
+        .fr {
+            flex-direction: column;
         }
-        .user-cell {
+        .fc {
             margin-bottom: 10px;
         }
-        .user-profile {
+        .mini-profile {
             display: flex;
             align-items: center;
             color: $black;
@@ -159,24 +160,33 @@
         }
 
         .collabs {
-            .form-group {
+            .fr {
+                flex-direction: row;
+                margin-bottom: 10px;
+                &:first-child {
+                    label {
+                        display: block;
+                    }
+                }
+            }
+            .fc {
                 margin-bottom: 0;
             }
-            .cell-title {
+            label {
                 display: none;
             }
-            .user-cell {
-                width: 55%;
+            .user-col {
+                width: 50%;
             }
-            .profit-cell {
-                width: 15%;
+            .profit-col {
+                width: 20%;
                 margin-left: 10px;
                 margin-right: 10px;
             }
-            .pub-cell {
+            .pub-col {
                 width: 20%;
             }
-            .remove-cell {
+            .remove-col {
                 position: relative;
             }
             .remove-btn {
@@ -187,14 +197,6 @@
                 position: absolute;
                 top: 16px;
                 right: -25px;
-            }
-            li {
-                display: flex;
-                &:first-child {
-                    .cell-title {
-                        display: block;
-                    }
-                }
             }
         }
     }

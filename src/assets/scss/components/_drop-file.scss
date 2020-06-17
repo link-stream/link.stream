@@ -29,9 +29,9 @@
     }
 
     .drop-icon {
-        @extend .LsIcon;
+        @extend .ico;
         &:before {
-            @extend .LsIcon:before;
+            @extend .ico:before;
             background-image: url(~@/../public/static/ico/cloud-upload-sm.svg);
             width: 35px;
             height: 28px;

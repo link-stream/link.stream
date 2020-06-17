@@ -1,17 +1,17 @@
 <template>
     <v-date-picker
-        v-model="localValue"
         mode="single"
         class="LsDatePicker"
+        :value="value"
         :class="{ 'is-invalid': !state }"
         :min-date="new Date()"
         :popover="{ visibility: 'click' }"
-        @input="handleInput"
         :input-props="{
             class: 'form-control',
             placeholder,
             readonly: true,
         }"
+        @input="handleInput"
     ></v-date-picker>
 </template>
 
@@ -30,11 +30,6 @@ export default {
             type: Boolean,
             default: true,
         },
-    },
-    data() {
-        return {
-            localValue: this.value,
-        }
     },
     methods: {
         handleInput(value) {

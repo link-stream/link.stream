@@ -1,7 +1,7 @@
 <template>
     <div class="ReviewBlock">
-        <div class="Card">
-            <h4 class="Card-title">Track Info</h4>
+        <div class="ls-card">
+            <h4 class="card-title">Track Info</h4>
             <LsButton
                 variant="icon-bg"
                 title="Edit"
@@ -17,8 +17,8 @@
             <p>Collaborators: {{ collabs }}</p>
         </div>
 
-        <div class="Card">
-            <h4 class="Card-title">Licensing</h4>
+        <div class="ls-card">
+            <h4 class="card-title">Licensing</h4>
             <LsButton
                 variant="icon-bg"
                 title="Edit"
@@ -35,8 +35,8 @@
             </ul>
         </div>
 
-        <div class="Card">
-            <h4 class="Card-title">Files</h4>
+        <div class="ls-card">
+            <h4 class="card-title">Files</h4>
             <LsButton
                 variant="icon-bg"
                 title="Edit"
@@ -70,8 +70,8 @@
             </p>
         </div>
 
-        <div class="Card">
-            <h4 class="Card-title">Marketing</h4>
+        <div class="ls-card">
+            <h4 class="card-title">Marketing</h4>
             <LsButton
                 variant="icon-bg"
                 title="Edit"
@@ -88,9 +88,9 @@
             </ul>
         </div>
 
-        <div class="Card vis-card">
+        <div class="ls-card vis-card">
             <div class="row-title">
-                <h4 class="Card-title">Visibility</h4>
+                <h4 class="card-title">Visibility</h4>
                 <div>
                     <label>{{ form.isPublic ? 'Public' : 'Private' }}</label>
                     <LsToggleButton v-model="form.isPublic" />

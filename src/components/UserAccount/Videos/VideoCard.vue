@@ -1,13 +1,13 @@
 <template>
-    <div class="Card VideoCard" :class="{ 'is-private': video.isPrivate }">
+    <div class="ls-card VideoCard" :class="{ 'is-private': video.isPrivate }">
         <LsIcon class="drag-icon" icon="drag" />
         <main class="video-content" @click="handleEditClick">
-            <div class="Card-media">
+            <div class="card-media">
                 <div class="lock-thumb"></div>
-                <img class="Card-img" :src="thumbUrl" :alt="video.title" />
+                <img class="card-img" :src="thumbUrl" :alt="video.title" />
             </div>
-            <div class="Card-body">
-                <h4 class="Card-title">{{ video.title }}</h4>
+            <div class="card-body">
+                <h4 class="card-title">{{ video.title }}</h4>
                 <small class="private-badge">
                     Private
                 </small>

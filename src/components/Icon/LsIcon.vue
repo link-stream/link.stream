@@ -1,5 +1,5 @@
 <template>
-    <i :class="`LsIcon LsIcon-${icon}`"></i>
+    <i :class="`ico ico-${icon}`"></i>
 </template>
 
 <script>

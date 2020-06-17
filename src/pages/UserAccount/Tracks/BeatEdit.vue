@@ -8,7 +8,7 @@
                     variant="text"
                     :to="{ name: 'userAccountBeats' }"
                 >
-                    <i class="LsIcon LsIcon-back"></i>
+                    <i class="ico ico-back"></i>
                     <span>Beats</span>
                 </ls-button>
             </nav>
@@ -346,9 +346,9 @@
                     </div>
                     <div class="col-right">
                         <!-- Visibility Card -->
-                        <div class="Card EditCard vis-card">
+                        <div class="ls-card EditCard vis-card">
                             <div class="row-title">
-                                <h4 class="Card-title">
+                                <h4 class="card-title">
                                     Visibility
                                 </h4>
                                 <div>
@@ -394,7 +394,7 @@
                         </div>
 
                         <!-- Image Card -->
-                        <div class="Card EditCard">
+                        <div class="ls-card EditCard">
                             <DropImage
                                 variant="inline"
                                 msg-long="Drag artwork here or<br><u>browse for file</u>"

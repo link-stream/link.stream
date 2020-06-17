@@ -1,5 +1,5 @@
 <template>
-    <div class="Card LicenseCard" :class="{ 'is-editing': editing }">
+    <div class="ls-card LicenseCard" :class="{ 'is-editing': editing }">
         <LsIconButton
             icon="close"
             class="close-btn"
@@ -11,8 +11,8 @@
                 :checked="checked"
                 @change="handleCheckChange"
             ></b-form-checkbox>
-            <div class="Card-body">
-                <h4 class="Card-title">
+            <div class="card-body">
+                <h4 class="card-title">
                     {{ license.title }} - ${{ license.price | trimZeroDecimal }}
                 </h4>
                 <small>

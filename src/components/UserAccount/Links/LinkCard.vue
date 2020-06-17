@@ -1,13 +1,13 @@
 <template>
-    <div class="Card LinkCard" :class="{ 'is-private': link.isPrivate }">
+    <div class="ls-card LinkCard" :class="{ 'is-private': link.isPrivate }">
         <LsSpinnerMask v-show="processing" />
         <section class="view-box" v-show="!editing">
             <LsIcon class="drag-icon" icon="drag" />
-            <div class="Card-media" @click="handleEditClick">
-                <img class="Card-img" :src="link.coverart" :alt="link.title" />
+            <div class="card-media" @click="handleEditClick">
+                <img class="card-img" :src="link.coverart" :alt="link.title" />
             </div>
-            <main class="Card-body" @click="handleEditClick">
-                <h4 class="Card-title">{{ link.title }}</h4>
+            <main class="card-body" @click="handleEditClick">
+                <h4 class="card-title">{{ link.title }}</h4>
                 <small class="private-badge" v-if="link.isPrivate">
                     Hidden
                 </small>
@@ -32,7 +32,7 @@
                 title="Close"
                 @click="closeEditMode"
             />
-            <main class="Card-body">
+            <main class="card-body">
                 <DropImage
                     :src="link.data_image"
                     msg-long="Drag image here&nbsp;or&nbsp;<u>browse</u>"

@@ -3,7 +3,7 @@
         class="LsSelect"
         :class="{ 'is-invalid': !state }"
         :label="label"
-        :value="localValue"
+        :value="value"
         :placeholder="placeholder"
         :options="options"
         :reduce="reduce"
@@ -48,11 +48,6 @@ export default {
             type: String,
             default: 'select-arrow',
         },
-    },
-    data() {
-        return {
-            localValue: this.value,
-        }
     },
     methods: {
         handleInput(value) {

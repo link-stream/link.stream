@@ -3,9 +3,9 @@
         <h1 class="page-title">Licenses</h1>
         <LsSpinner v-if="loading" />
         <div v-else class="page-body">
-            <div class="Card" v-for="license in licenses" :key="license.id">
-                <div class="Card-body">
-                    <h4 class="Card-title">
+            <div class="ls-card" v-for="license in licenses" :key="license.id">
+                <div class="card-body">
+                    <h4 class="card-title">
                         {{ license.title }} - ${{
                             license.price | trimZeroDecimal
                         }}

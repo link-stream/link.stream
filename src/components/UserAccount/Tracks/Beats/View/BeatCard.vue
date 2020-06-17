@@ -1,12 +1,12 @@
 <template>
-    <div class="Card BeatCard" :class="{ 'is-private': beat.isPrivate }">
+    <div class="ls-card BeatCard" :class="{ 'is-private': beat.isPrivate }">
         <LsSpinnerMask v-if="processing" />
         <LsIcon class="drag-icon" icon="drag" />
-        <div class="Card-media">
+        <div class="card-media">
             <div class="lock-thumb"></div>
-            <img class="Card-img" :src="beat.coverart" :alt="beat.title" />
+            <img class="card-img" :src="beat.coverart" :alt="beat.title" />
         </div>
-        <h4 class="Card-title">
+        <h4 class="card-title">
             {{ beat.title }}
             <span class="private-badge badge badge-pill">
                 Private

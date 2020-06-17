@@ -2,17 +2,17 @@
     display: flex;
     align-items: center;
 
-    .Card-media {
+    .card-media {
         position: relative;
         margin: 0 5px;
     }
 
-    .Card-title {
+    .card-title {
         flex-grow: 1;
         line-height: inherit;
     }
 
-    .Card-img,
+    .card-img,
     .lock-thumb {
         width: 60px;
         height: 60px;
@@ -52,7 +52,7 @@
     }
 
     @include media-breakpoint-up(md) {
-        .Card-img,
+        .card-img,
         .lock-thumb {
             width: 68px;
             height: 68px;

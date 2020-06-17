@@ -1,7 +1,7 @@
 <template>
     <ToggleButton
         class="LsToggleButton"
-        :value="toggled"
+        :value="value"
         :width="42"
         :height="26"
         :margin="2"
@@ -23,14 +23,8 @@ export default {
             default: false,
         },
     },
-    data() {
-        return {
-            toggled: !!this.value,
-        }
-    },
     methods: {
         handleInput(value) {
-            this.toggled = value
             this.$emit('input', value)
         },
     },

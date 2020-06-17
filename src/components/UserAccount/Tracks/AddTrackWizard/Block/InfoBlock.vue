@@ -22,7 +22,6 @@
                     v-model="form.genre"
                     placeholder="Select Genre"
                     :options="genres"
-                    :reduce="genre => genre"
                     label="genre"
                 />
             </b-form-group>
@@ -56,7 +55,6 @@
                             v-model="form.key"
                             placeholder="Select"
                             :options="audioKeys"
-                            :reduce="key => key"
                             label="name"
                         />
                     </b-form-group>

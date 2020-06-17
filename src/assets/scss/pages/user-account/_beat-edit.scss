@@ -36,14 +36,14 @@
 
     .EditCard {
         margin-bottom: 20px;
-        .Card-title {
+        .card-title {
             font-size: px2rem(14);
             margin-bottom: 15px;
         }
     }
 
     .LicenseCard {
-        .Card-title {
+        .card-title {
             font-size: px2rem(12);
             margin-bottom: 0;
         }
@@ -103,7 +103,7 @@
             color: $black;
             font-size: px2rem(14);
             font-weight: bold;
-            .LsIcon {
+            .ico {
                 position: relative;
                 top: 2px;
                 margin-right: 2px;
@@ -132,19 +132,19 @@
         }
 
         .EditCard {
-            .Card-title {
+            .card-title {
                 font-size: px2rem(18);
             }
         }
 
         .LicenseCard {
-            .Card-title {
+            .card-title {
                 font-size: px2rem(14);
             }
         }
 
         .marketing-card {
-            .Card-body {
+            .card-body {
                 display: flex;
                 flex-wrap: wrap;
             }

@@ -73,7 +73,7 @@
 
     .drop-icon {
         &:before {
-            @extend .LsIcon:before;
+            @extend .ico:before;
             background-image: url(~@/../public/static/ico/drop-image/cam-plus-md.svg);
             width: 40px;
             height: 36px;

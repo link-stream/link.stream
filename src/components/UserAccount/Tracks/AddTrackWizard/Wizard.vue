@@ -10,10 +10,10 @@
 
         <!-- STEP - TRACK TYPE -->
         <wizard-step v-show="isStepType" class="type-step">
-            <div class="Card">
+            <div class="ls-card">
                 <LsIcon icon="beat" />
-                <h4 class="Card-title">Upload a Beat</h4>
-                <div class="Card-text">
+                <h4 class="card-title">Upload a Beat</h4>
+                <div class="card-text">
                     Generally short music tracks created
                     <br />
                     by producers. Usually intended to be
@@ -28,10 +28,10 @@
                 </div>
                 <ls-button @click="handleAddBeatClick">Get Started</ls-button>
             </div>
-            <div class="Card">
+            <div class="ls-card">
                 <LsIcon icon="song" />
-                <h4 class="Card-title">Upload a Song</h4>
-                <div class="Card-text">
+                <h4 class="card-title">Upload a Song</h4>
+                <div class="card-text">
                     Commonly released by recording
                     <br />
                     artists and songwriters and are
@@ -105,7 +105,7 @@
             class="review-step"
         >
             <div class="col-image">
-                <div class="Card">
+                <div class="ls-card">
                     <DropImage
                         variant="inline"
                         msg-long="Drag artwork here or<br><u>browse for file</u>"

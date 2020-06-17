@@ -1,4 +1,4 @@
-.Card {
+.ls-card {
     @include border-radius(4px);
     position: relative;
     background-color: $white;
@@ -15,10 +15,19 @@
         }
     }
 
-    .Card-title {
+    .card-title {
         color: $linkstream-110;
         font-size: px2rem(12);
         font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .card-body {
+        padding: 0;
+    }
+
+    .card-img {
+        border-radius: 0;
     }
 
     .drag-icon {
@@ -76,7 +85,7 @@
             }
         }
 
-        .Card-title {
+        .card-title {
             font-size: px2rem(14);
         }
 

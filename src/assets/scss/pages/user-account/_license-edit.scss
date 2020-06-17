@@ -32,13 +32,12 @@
         margin-top: 30px;
     }
 
-    .Row {
-        display: flex;
+    .fr {
         flex-direction: column;
         margin-bottom: 30px;
         &.no-break {
             flex-direction: row;
-            .Col:first-child {
+            .fc:first-child {
                 flex-grow: 1;
             }
         }
@@ -70,14 +69,14 @@
             }
         }
 
-        .Row {
+        .fr {
             flex-direction: row;
             &.no-break {
-                .Col:first-child {
+                .fc:first-child {
                     flex-grow: 0;
                 }
             }
-            .Col:first-child {
+            .fc:first-child {
                 width: 315px;
             }
         }

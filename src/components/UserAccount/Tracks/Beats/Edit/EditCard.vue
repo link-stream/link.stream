@@ -1,7 +1,7 @@
 <template>
-    <div class="Card EditCard">
-        <h4 class="Card-title" v-html="title"></h4>
-        <div class="Card-body">
+    <div class="ls-card EditCard">
+        <h4 class="card-title" v-html="title"></h4>
+        <div class="card-body">
             <slot></slot>
         </div>
     </div>

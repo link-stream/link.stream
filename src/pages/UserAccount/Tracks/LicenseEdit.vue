@@ -8,7 +8,7 @@
                     variant="text"
                     :to="{ name: 'userAccountTracksLicenses' }"
                 >
-                    <i class="LsIcon LsIcon-back"></i>
+                    <i class="ico ico-back"></i>
                     <span>Licenses</span>
                 </ls-button>
             </nav>
@@ -27,9 +27,9 @@
                 </div>
             </header>
             <main class="page-body">
-                <div class="Row no-break">
-                    <div class="Col"><label>Default Price</label></div>
-                    <div class="Col">
+                <div class="fr no-break">
+                    <div class="fc"><label>Default Price</label></div>
+                    <div class="fc">
                         <div class="dollar-input">
                             <LsIcon class="input-icon" icon="dollar" />
                             <input
@@ -49,120 +49,120 @@
                         </b-form-invalid-feedback>
                     </div>
                 </div>
-                <div class="Row">
-                    <div class="Col">
+                <div class="fr">
+                    <div class="fc">
                         <label>MP3 File</label>
                         <small class="form-text">
                             An untagged MP3 will be Included
                         </small>
                     </div>
-                    <div class="Col">
+                    <div class="fc">
                         <div class="default-text">
                             Always included with license
                         </div>
                     </div>
                 </div>
-                <div class="Row no-break">
-                    <div class="Col">
+                <div class="fr no-break">
+                    <div class="fc">
                         <label>WAV File</label>
                         <small class="form-text">
                             Include a WAV file?
                         </small>
                     </div>
-                    <div class="Col">
+                    <div class="fc">
                         <LsToggleButtonGroup v-model="form.wav" />
                     </div>
                 </div>
-                <div class="Row no-break">
-                    <div class="Col">
+                <div class="fr no-break">
+                    <div class="fc">
                         <label>Trackout stems</label>
                         <small class="form-text">
                             Include trackout stems?
                         </small>
                     </div>
-                    <div class="Col">
+                    <div class="fc">
                         <LsToggleButtonGroup v-model="form.stems" />
                     </div>
                 </div>
-                <div class="Row">
-                    <div class="Col">
+                <div class="fr">
+                    <div class="fc">
                         <label>Number of distribution copies</label>
                     </div>
-                    <div class="Col">
+                    <div class="fc">
                         <UnlimitedInputGroup
                             v-model="form.distributionCopies"
                         />
                     </div>
                 </div>
-                <div class="Row">
-                    <div class="Col">
+                <div class="fr">
+                    <div class="fc">
                         <label>Number of free downloads</label>
                     </div>
-                    <div class="Col">
+                    <div class="fc">
                         <UnlimitedInputGroup v-model="form.freeDownloads" />
                     </div>
                 </div>
-                <div class="Row">
-                    <div class="Col">
+                <div class="fr">
+                    <div class="fc">
                         <label>Number of audio streams</label>
                     </div>
-                    <div class="Col">
+                    <div class="fc">
                         <UnlimitedInputGroup v-model="form.audioStreams" />
                     </div>
                 </div>
-                <div class="Row">
-                    <div class="Col">
+                <div class="fr">
+                    <div class="fc">
                         <label>Number of music videos</label>
                     </div>
-                    <div class="Col">
+                    <div class="fc">
                         <UnlimitedInputGroup v-model="form.musicVideos" />
                     </div>
                 </div>
-                <div class="Row">
-                    <div class="Col">
+                <div class="fr">
+                    <div class="fc">
                         <label>Number of video streams</label>
                     </div>
-                    <div class="Col">
+                    <div class="fc">
                         <UnlimitedInputGroup v-model="form.videoStreams" />
                     </div>
                 </div>
-                <div class="Row no-break">
-                    <div class="Col">
+                <div class="fr no-break">
+                    <div class="fc">
                         <label>Broadcasting Rights</label>
                         <small class="form-text">
                             Can this license be used for broadcasting?
                         </small>
                     </div>
-                    <div class="Col">
+                    <div class="fc">
                         <LsToggleButtonGroup
                             v-model="form.broadcastingRights"
                         />
                     </div>
                 </div>
-                <div class="Row">
-                    <div class="Col">
+                <div class="fr">
+                    <div class="fc">
                         <label>Number of radio stations</label>
                     </div>
-                    <div class="Col">
+                    <div class="fc">
                         <UnlimitedInputGroup v-model="form.radioStation" />
                     </div>
                 </div>
-                <div class="Row no-break">
-                    <div class="Col">
+                <div class="fr no-break">
+                    <div class="fc">
                         <label>Paid Performances </label>
                         <small class="form-text">
                             Allow for paid performances?
                         </small>
                     </div>
-                    <div class="Col">
+                    <div class="fc">
                         <LsToggleButtonGroup v-model="form.paidPerformances" />
                     </div>
                 </div>
-                <div class="Row">
-                    <div class="Col">
+                <div class="fr">
+                    <div class="fc">
                         <label>Non-profit Performances</label>
                     </div>
-                    <div class="Col">
+                    <div class="fc">
                         <UnlimitedInputGroup
                             v-model="form.nonProfitPerformances"
                         />

@@ -1,5 +1,5 @@
 <template>
-    <div class="ls-card BeatCard" :class="{ 'is-private': beat.isPrivate }">
+    <div class="Card BeatCard" :class="{ 'is-private': beat.isPrivate }">
         <LsSpinnerMask v-if="processing" />
         <LsIcon class="drag-icon" icon="drag" />
         <div class="card-media">

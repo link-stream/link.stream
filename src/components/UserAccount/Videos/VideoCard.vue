@@ -1,5 +1,5 @@
 <template>
-    <div class="ls-card VideoCard" :class="{ 'is-private': video.isPrivate }">
+    <div class="Card VideoCard" :class="{ 'is-private': video.isPrivate }">
         <LsIcon class="drag-icon" icon="drag" />
         <main class="video-content" @click="handleEditClick">
             <div class="card-media">

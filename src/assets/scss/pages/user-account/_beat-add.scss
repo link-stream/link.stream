@@ -73,7 +73,7 @@
             flex-direction: column;
             justify-content: center;
         }
-        .ls-card {
+        .Card {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -129,7 +129,7 @@
                 margin-bottom: 15px;
             }
         }
-        .ls-card {
+        .Card {
             position: relative;
             padding: 15px;
             margin-top: 0;
@@ -152,7 +152,7 @@
             top: 15px;
             right: 15px;
         }
-        .vis-card {
+        .viz-card {
             label {
                 font-size: px2rem(12);
                 margin: 0 10px 0 0;
@@ -184,7 +184,7 @@
             .step-body {
                 flex-direction: row;
             }
-            .ls-card {
+            .Card {
                 padding: 60px 50px;
                 &:first-child {
                     margin-right: 30px;
@@ -220,7 +220,7 @@
             .col-summary {
                 flex-grow: 1;
             }
-            .ls-card {
+            .Card {
                 padding: 20px;
             }
             .card-title {
@@ -233,7 +233,7 @@
             flex-wrap: wrap;
             flex-direction: row;
             justify-content: space-between;
-            .ls-card {
+            .Card {
                 flex-basis: 49%;
             }
             .card-title {
@@ -348,7 +348,7 @@
     .logo {
         margin: 0 20px 0 15px;
     }
-    .ls-card {
+    .Card {
         display: flex;
         align-items: center;
         padding: 15px;
@@ -364,7 +364,7 @@
 }
 
 .MarketingEditModal {
-    .ls-card {
+    .Card {
         flex-basis: 100%;
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="ls-card LinkCard" :class="{ 'is-private': link.isPrivate }">
+    <div class="Card LinkCard" :class="{ 'is-private': link.isPrivate }">
         <LsSpinnerMask v-show="processing" />
         <section class="view-box" v-show="!editing">
             <LsIcon class="drag-icon" icon="drag" />

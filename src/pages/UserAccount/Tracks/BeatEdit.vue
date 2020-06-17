@@ -54,7 +54,7 @@
             <main class="page-body">
                 <div class="col-left">
                     <!-- Info Card -->
-                    <edit-card title="Beat Details" class="info-card">
+                    <base-card title="Beat Details" class="info-card">
                         <b-form-group label="Title">
                             <b-form-input
                                 placeholder="e.g. My Beat"
@@ -116,10 +116,10 @@
                                 </b-form-group>
                             </b-col>
                         </b-form-row>
-                    </edit-card>
+                    </base-card>
 
                     <!-- Files Card -->
-                    <edit-card title="Files">
+                    <base-card title="Files">
                         <DropAudio
                             title="Untagged .MP3"
                             :class="{
@@ -176,10 +176,10 @@
                             @file-added="handleStemsAdded"
                             @file-removed="handleStemsRemoved"
                         />
-                    </edit-card>
+                    </base-card>
 
                     <!-- Licenses Card -->
-                    <edit-card title="Licensing">
+                    <base-card title="Licensing">
                         <LicenseCard
                             v-for="license in userLicenses"
                             :license="license"
@@ -191,20 +191,20 @@
                             @checked="handleLicenseChecked"
                             @unchecked="handleLicenseUnchecked"
                         />
-                    </edit-card>
+                    </base-card>
 
                     <!-- Beat Pack Card -->
-                    <edit-card title="Add to Beat Pack">
+                    <base-card title="Add to Beat Pack">
                         <div class="search-input">
                             <LsIcon class="input-icon" icon="search" />
                             <b-form-input
                                 placeholder="Search for beat packs"
                             ></b-form-input>
                         </div>
-                    </edit-card>
+                    </base-card>
 
                     <!-- Marketing Card -->
-                    <edit-card title="Free downloads" class="marketing-card">
+                    <base-card title="Free downloads" class="marketing-card">
                         <div
                             class="custom-control custom-checkbox"
                             v-for="option in freeOptions"
@@ -229,10 +229,10 @@
                                 {{ option.title }}
                             </label>
                         </div>
-                    </edit-card>
+                    </base-card>
 
                     <!-- Collabs Card -->
-                    <edit-card title="Collaborators">
+                    <base-card title="Collaborators">
                         <div class="collabs">
                             <div class="collabs-grid">
                                 <div
@@ -313,11 +313,11 @@
                                 Add Collaborator
                             </ls-button>
                         </div>
-                    </edit-card>
+                    </base-card>
                 </div>
                 <div class="col-right">
                     <!-- Visibility Card -->
-                    <div class="ls-card EditCard vis-card">
+                    <div class="Card viz-card">
                         <div class="row-title">
                             <label class="card-title">
                                 Visibility
@@ -363,7 +363,7 @@
                     </div>
 
                     <!-- Image Card -->
-                    <div class="ls-card EditCard">
+                    <div class="Card">
                         <DropImage
                             variant="inline"
                             msg-long="Drag artwork here or<br><u>browse for file</u>"
@@ -407,7 +407,6 @@
 </template>
 
 <script>
-import { EditCard } from '~/components/UserAccount/Tracks/Beats/Edit'
 import { LicenseCard } from '~/components/UserAccount/Tracks/AddTrackWizard'
 import { DropAudio, DropFile, DropImage } from '~/components/Uploader'
 import { UserInviteModal, UserSearchModal } from '~/components/Modal'
@@ -426,7 +425,6 @@ export default {
     name: 'BeatEdit',
     mixins: [collabsProfitFormMixin],
     components: {
-        EditCard,
         DropAudio,
         DropFile,
         DropImage,

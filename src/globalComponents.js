@@ -60,6 +60,7 @@ import {
 } from '~/components/Form'
 import { LsIcon } from '~/components/Icon'
 import UserAvatar from '~/components/Avatar/UserAvatar'
+import { BaseCard } from '~/components/Card'
 
 // Install BootstrapVue components
 Vue.use(ModalPlugin)
@@ -147,6 +148,7 @@ Vue.use(Vuelidate)
 // Install LS components
 Vue.use(alertBox)
 Vue.use(eventBus)
+Vue.component('BaseCard', BaseCard)
 Vue.component('UserAvatar', UserAvatar)
 Vue.component('PreviewPillButton', PreviewPillButton)
 Vue.component('LsButton', LsButton)

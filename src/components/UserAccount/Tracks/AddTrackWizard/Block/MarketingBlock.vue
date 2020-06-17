@@ -1,6 +1,6 @@
 <template>
     <div class="MarketingBlock">
-        <div class="ls-card" v-for="option in freeOptions" :key="option.id">
+        <div class="Card" v-for="option in freeOptions" :key="option.id">
             <b-form-checkbox
                 :value="option.id"
                 v-model="selectedIds"

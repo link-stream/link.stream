@@ -1,5 +1,5 @@
 <template>
-    <div class="ls-card EditCard">
+    <div class="Card">
         <h4 class="card-title" v-html="title"></h4>
         <div class="card-body">
             <slot></slot>
@@ -9,7 +9,7 @@
 
 <script>
 export default {
-    name: 'EditCard',
+    name: 'BaseCard',
     props: {
         title: {
             type: String,

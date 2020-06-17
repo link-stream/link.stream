@@ -32,7 +32,7 @@
         }
     }
 
-    .EditCard {
+    .Card {
         margin-bottom: 20px;
         .card-title {
             font-size: px2rem(14);
@@ -52,7 +52,7 @@
     }
 
     .info-card,
-    .vis-card {
+    .viz-card {
         margin-top: 0;
     }
 
@@ -62,7 +62,7 @@
         }
     }
 
-    .vis-card {
+    .viz-card {
         label {
             font-size: px2rem(12);
             margin: 0 10px 0 0;
@@ -135,7 +135,7 @@
             }
         }
 
-        .EditCard {
+        .Card {
             .card-title {
                 font-size: px2rem(18);
             }

@@ -1,6 +1,6 @@
 <template>
     <div class="ReviewBlock">
-        <div class="ls-card">
+        <div class="Card">
             <h4 class="card-title">Track Info</h4>
             <LsButton
                 variant="icon-bg"
@@ -17,7 +17,7 @@
             <p>Collaborators: {{ collabs }}</p>
         </div>
 
-        <div class="ls-card">
+        <div class="Card">
             <h4 class="card-title">Licensing</h4>
             <LsButton
                 variant="icon-bg"
@@ -35,7 +35,7 @@
             </ul>
         </div>
 
-        <div class="ls-card">
+        <div class="Card">
             <h4 class="card-title">Files</h4>
             <LsButton
                 variant="icon-bg"
@@ -70,7 +70,7 @@
             </p>
         </div>
 
-        <div class="ls-card">
+        <div class="Card">
             <h4 class="card-title">Marketing</h4>
             <LsButton
                 variant="icon-bg"
@@ -88,7 +88,7 @@
             </ul>
         </div>
 
-        <div class="ls-card vis-card">
+        <div class="Card viz-card">
             <div class="row-title">
                 <h4 class="card-title">Visibility</h4>
                 <div>

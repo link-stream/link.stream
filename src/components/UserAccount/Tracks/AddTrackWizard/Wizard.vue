@@ -10,7 +10,7 @@
 
         <!-- STEP - TRACK TYPE -->
         <wizard-step v-show="isStepType" class="type-step">
-            <div class="ls-card">
+            <div class="Card">
                 <LsIcon icon="beat" />
                 <h4 class="card-title">Upload a Beat</h4>
                 <div class="card-text">
@@ -28,7 +28,7 @@
                 </div>
                 <ls-button @click="handleAddBeatClick">Get Started</ls-button>
             </div>
-            <div class="ls-card">
+            <div class="Card">
                 <LsIcon icon="song" />
                 <h4 class="card-title">Upload a Song</h4>
                 <div class="card-text">
@@ -105,7 +105,7 @@
             class="review-step"
         >
             <div class="col-image">
-                <div class="ls-card">
+                <div class="Card">
                     <DropImage
                         variant="inline"
                         msg-long="Drag artwork here or<br><u>browse for file</u>"

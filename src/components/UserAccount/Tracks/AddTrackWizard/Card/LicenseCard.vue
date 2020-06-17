@@ -1,5 +1,5 @@
 <template>
-    <div class="ls-card LicenseCard" :class="{ 'is-editing': editing }">
+    <div class="Card LicenseCard" :class="{ 'is-editing': editing }">
         <LsIconButton
             icon="close"
             class="close-btn"

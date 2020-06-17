@@ -35,6 +35,10 @@ export const menus = [
                 label: 'Licenses',
                 to: '/app/licenses',
             },
+            {
+                label: 'Sound Kits',
+                to: '/app/kits',
+            },
         ],
     },
     {

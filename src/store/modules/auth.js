@@ -66,7 +66,7 @@ const actions = {
             commit(types.RESET)
             commit(authTypes.LOGIN, { user })
             await dispatch('me/loadAccount', null, { root: true })
-            router.push({ name: 'userAccountDashboard' })
+            router.push({ name: 'accountDashboard' })
         }
     },
 

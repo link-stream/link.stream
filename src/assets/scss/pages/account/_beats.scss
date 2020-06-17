@@ -1,0 +1,32 @@
+.page-beats {
+    .page-preview {
+        margin-top: 0;
+    }
+
+    .page-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: $linkstream-160;
+        padding: 38px 0;
+        color: $linkstream-170 !important;
+        &,
+        .btn-link {
+            font-size: px2rem(13);
+            font-weight: 600;
+        }
+        .btn-link {
+            text-decoration: none;
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        .page-empty {
+            flex-direction: row;
+            justify-content: center;
+            .col-text {
+                margin-right: 5px;
+            }
+        }
+    }
+}

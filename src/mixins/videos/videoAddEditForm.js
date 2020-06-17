@@ -98,7 +98,7 @@ export const videoAddEditForm = {
                 if (this.video) {
                     this.close()
                 } else {
-                    this.$router.push({ name: 'userAccountVideos' })
+                    this.$router.push({ name: 'accountVideos' })
                 }
             } else {
                 this.$toast.error(error)

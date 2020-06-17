@@ -122,7 +122,7 @@ export const linkAddEditForm = {
                 if (this.editing) {
                     this.closeEditMode()
                 } else {
-                    this.$router.push({ name: 'userAccountLinks' })
+                    this.$router.push({ name: 'accountLinks' })
                 }
             } else {
                 this.$toast.error(error)

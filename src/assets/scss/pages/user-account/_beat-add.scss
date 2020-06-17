@@ -257,9 +257,16 @@
     .collabs {
         .fr {
             flex-direction: column;
+            margin-bottom: 20px;
         }
         .fc {
             margin-bottom: 10px;
+        }
+        .pub-col {
+            margin-bottom: 0;
+        }
+        .remove-col {
+            margin: 5px 0 0 0;
         }
         .mini-profile {
             display: flex;
@@ -328,7 +335,7 @@
             .remove-icon {
                 display: block;
                 position: absolute;
-                top: 16px;
+                top: 11px;
                 right: -25px;
             }
         }

@@ -13,6 +13,8 @@
     }
 
     .page-body {
+        display: flex;
+        flex-direction: column;
         padding: 0 3px;
     }
 
@@ -28,11 +30,6 @@
         .btn-secondary {
             margin-right: 15px;
         }
-    }
-
-    .form-block {
-        display: flex;
-        flex-direction: column;
     }
 
     .EditCard {
@@ -79,9 +76,16 @@
     .collabs {
         .fr {
             flex-direction: column;
+            margin-bottom: 20px;
         }
         .fc {
             margin-bottom: 10px;
+        }
+        .pub-col {
+            margin-bottom: 0;
+        }
+        .remove-col {
+            margin: 5px 0 0 0;
         }
         .mini-profile {
             display: flex;
@@ -123,8 +127,7 @@
             }
         }
 
-        .form-block {
-            display: flex;
+        .page-body {
             flex-direction: row;
             .col-left {
                 flex-grow: 1;
@@ -195,7 +198,7 @@
             .remove-icon {
                 display: block;
                 position: absolute;
-                top: 16px;
+                top: 11px;
                 right: -25px;
             }
         }

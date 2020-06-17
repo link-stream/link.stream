@@ -52,353 +52,325 @@
                 </div>
             </header>
             <main class="page-body">
-                <div class="form-block">
-                    <div class="col-left">
-                        <!-- Info Card -->
-                        <edit-card title="Beat Details" class="info-card">
-                            <b-form-group label="Title">
-                                <b-form-input
-                                    placeholder="e.g. My Beat"
-                                    v-model="$v.form.title.$model"
-                                    :state="!$v.form.title.$error"
-                                ></b-form-input>
-                                <b-form-invalid-feedback>
-                                    <template v-if="!$v.form.title.required">
-                                        Enter a title
-                                    </template>
-                                    <template
-                                        v-else-if="!$v.form.title.isUnique"
-                                    >
-                                        You already have a beat with this title,
-                                        pick a new one.
-                                    </template>
-                                </b-form-invalid-feedback>
-                            </b-form-group>
-                            <b-form-group label="Primary Genre">
-                                <LsSelect
-                                    v-model="form.genreId"
-                                    placeholder="Select Genre"
-                                    :options="genres"
-                                    :reduce="genre => genre.id"
-                                    label="genre"
-                                />
-                            </b-form-group>
-                            <b-form-group label="Tags(3)">
-                                <LsTagsInput
-                                    v-model="tag"
-                                    :class="{
-                                        'is-invalid': $v.form.tags.$error,
-                                    }"
-                                    :tags="form.tags"
-                                    @tags-changed="handleTagsChange"
-                                />
-                                <b-form-invalid-feedback
-                                    :state="!$v.form.tags.$error"
-                                >
-                                    Add 3 or more tags that describe the beat
-                                </b-form-invalid-feedback>
-                            </b-form-group>
-                            <b-form-row>
-                                <b-col md="6">
-                                    <b-form-group label="BPM">
-                                        <b-form-input
-                                            type="number"
-                                            v-model="form.bpm"
-                                        ></b-form-input>
-                                    </b-form-group>
-                                </b-col>
-                                <b-col md="6">
-                                    <b-form-group label="Key">
-                                        <LsSelect
-                                            v-model="form.keyId"
-                                            placeholder="Select"
-                                            :options="audioKeys"
-                                            :reduce="key => key.id"
-                                            label="name"
-                                        />
-                                    </b-form-group>
-                                </b-col>
-                            </b-form-row>
-                        </edit-card>
-
-                        <!-- Files Card -->
-                        <edit-card title="Files">
-                            <DropAudio
-                                title="Untagged .MP3"
+                <div class="col-left">
+                    <!-- Info Card -->
+                    <edit-card title="Beat Details" class="info-card">
+                        <b-form-group label="Title">
+                            <b-form-input
+                                placeholder="e.g. My Beat"
+                                v-model="$v.form.title.$model"
+                                :state="!$v.form.title.$error"
+                            ></b-form-input>
+                            <b-form-invalid-feedback>
+                                <template v-if="!$v.form.title.required">
+                                    Enter a title
+                                </template>
+                                <template v-else-if="!$v.form.title.isUnique">
+                                    You already have a beat with this title,
+                                    pick a new one.
+                                </template>
+                            </b-form-invalid-feedback>
+                        </b-form-group>
+                        <b-form-group label="Primary Genre">
+                            <LsSelect
+                                v-model="form.genreId"
+                                placeholder="Select Genre"
+                                :options="genres"
+                                :reduce="genre => genre.id"
+                                label="genre"
+                            />
+                        </b-form-group>
+                        <b-form-group label="Tags(3)">
+                            <LsTagsInput
+                                v-model="tag"
                                 :class="{
-                                    'is-invalid':
-                                        $v.form.files.untaggedMp3.$error,
+                                    'is-invalid': $v.form.tags.$error,
                                 }"
-                                :src="
-                                    form.files.untaggedMp3 &&
-                                        form.files.untaggedMp3.base64
-                                "
-                                :filename="
-                                    form.files.untaggedMp3 &&
-                                        form.files.untaggedMp3.name
-                                "
-                                :acceptTypes="['.mp3']"
-                                @file-added="handleUntaggeMp3Added"
-                                @file-removed="handleUntaggedMp3Removed"
+                                :tags="form.tags"
+                                @tags-changed="handleTagsChange"
                             />
-                            <DropAudio
-                                title="Untagged .WAV"
-                                :class="{
-                                    'is-invalid':
-                                        $v.form.files.untaggedWav.$error,
-                                }"
-                                :src="
-                                    form.files.untaggedWav &&
-                                        form.files.untaggedWav.base64
-                                "
-                                :filename="
-                                    form.files.untaggedWav &&
-                                        form.files.untaggedWav.name
-                                "
-                                :acceptTypes="['.wav']"
-                                @file-added="handleUntaggedWavAdded"
-                                @file-removed="handleUntaggedWavRemoved"
-                            />
-                            <DropAudio
-                                title="Tagged Streaming File (.MP3 or .WAV)"
-                                :src="
-                                    form.files.tagged &&
-                                        form.files.tagged.base64
-                                "
-                                :filename="
-                                    form.files.tagged && form.files.tagged.name
-                                "
-                                @file-added="handleTaggedAdded"
-                                @file-removed="handleTaggedRemoved"
-                            />
-                            <DropFile
-                                title="Track Stems .ZIP (or .RAR)"
-                                :class="{
-                                    'is-invalid': $v.form.files.stems.$error,
-                                }"
-                                :acceptTypes="['.rar', '.zip']"
-                                :src="
-                                    form.files.stems && form.files.stems.base64
-                                "
-                                :filename="
-                                    form.files.stems && form.files.stems.name
-                                "
-                                @file-added="handleStemsAdded"
-                                @file-removed="handleStemsRemoved"
-                            />
-                        </edit-card>
-
-                        <!-- Licenses Card -->
-                        <edit-card title="Licensing">
-                            <LicenseCard
-                                v-for="license in userLicenses"
-                                :license="license"
-                                :key="license.id"
-                                :checked="
-                                    form.selectedLicenseIds.indexOf(
-                                        license.id
-                                    ) > -1
-                                "
-                                @updated="handleLicenseUpdated"
-                                @checked="handleLicenseChecked"
-                                @unchecked="handleLicenseUnchecked"
-                            />
-                        </edit-card>
-
-                        <!-- Beat Pack Card -->
-                        <edit-card title="Add to Beat Pack">
-                            <div class="search-input">
-                                <LsIcon class="input-icon" icon="search" />
-                                <b-form-input
-                                    placeholder="Search for beat packs"
-                                ></b-form-input>
-                            </div>
-                        </edit-card>
-
-                        <!-- Marketing Card -->
-                        <edit-card
-                            title="Free downloads"
-                            class="marketing-card"
-                        >
-                            <div
-                                class="custom-control custom-checkbox"
-                                v-for="option in freeOptions"
-                                :key="option.id"
+                            <b-form-invalid-feedback
+                                :state="!$v.form.tags.$error"
                             >
-                                <input
-                                    type="checkbox"
-                                    class="custom-control-input"
-                                    v-model="form.selectedFreeOptionIds"
-                                    :value="option.id"
-                                    :checked="
-                                        form.selectedFreeOptionIds.indexOf(
-                                            option.id
-                                        ) !== -1
-                                    "
-                                    :id="`freeCheck${option.id}`"
-                                />
-                                <label
-                                    class="custom-control-label"
-                                    :for="`freeCheck${option.id}`"
-                                >
-                                    {{ option.title }}
-                                </label>
-                            </div>
-                        </edit-card>
+                                Add 3 or more tags that describe the beat
+                            </b-form-invalid-feedback>
+                        </b-form-group>
+                        <b-form-row>
+                            <b-col md="6">
+                                <b-form-group label="BPM">
+                                    <b-form-input
+                                        type="number"
+                                        v-model="form.bpm"
+                                    ></b-form-input>
+                                </b-form-group>
+                            </b-col>
+                            <b-col md="6">
+                                <b-form-group label="Key">
+                                    <LsSelect
+                                        v-model="form.keyId"
+                                        placeholder="Select"
+                                        :options="audioKeys"
+                                        :reduce="key => key.id"
+                                        label="name"
+                                    />
+                                </b-form-group>
+                            </b-col>
+                        </b-form-row>
+                    </edit-card>
 
-                        <!-- Collabs Card -->
-                        <edit-card title="Collaborators">
-                            <div class="collabs">
-                                <div class="collabs-grid">
-                                    <div
-                                        class="fr"
-                                        v-for="(collab, index) in form.collabs"
-                                        :key="index"
-                                    >
-                                        <div class="fc user-col">
-                                            <label>Collaborator</label>
-                                            <div class="mini-profile">
-                                                <UserAvatar
-                                                    :user="collab.user"
-                                                />
-                                                {{
-                                                    collab.user.name
-                                                        | truncate(14)
-                                                }}
-                                                {{
-                                                    collab.user.id == user.id
-                                                        ? '(you)'
-                                                        : ''
-                                                }}
-                                            </div>
-                                        </div>
-                                        <div class="fc profit-col">
-                                            <label>Profit %</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                :readonly="index == 0"
-                                                :value="collab.profit"
-                                                @keyup="
-                                                    handleCollabProfitInput(
-                                                        collab,
-                                                        $event
-                                                    )
-                                                "
-                                            />
-                                        </div>
-                                        <div class="fc pub-col">
-                                            <label>Publishing %</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                :readonly="index === 0"
-                                                :value="collab.publishing"
-                                                @keyup="
-                                                    handleCollabPublishingInput(
-                                                        collab,
-                                                        $event
-                                                    )
-                                                "
-                                            />
-                                        </div>
-                                        <div
-                                            class="fc remove-col"
-                                            v-if="index > 0"
-                                        >
-                                            <LsIconButton
-                                                icon="close"
-                                                class="remove-icon"
-                                                @click="
-                                                    handleCollabRemoveClick(
-                                                        index
-                                                    )
-                                                "
-                                            />
-                                            <ls-button
-                                                variant="link"
-                                                class="remove-btn"
-                                                @click="
-                                                    handleCollabRemoveClick(
-                                                        index
-                                                    )
-                                                "
-                                            >
-                                                Remove Collaborator
-                                            </ls-button>
+                    <!-- Files Card -->
+                    <edit-card title="Files">
+                        <DropAudio
+                            title="Untagged .MP3"
+                            :class="{
+                                'is-invalid': $v.form.files.untaggedMp3.$error,
+                            }"
+                            :src="
+                                form.files.untaggedMp3 &&
+                                    form.files.untaggedMp3.base64
+                            "
+                            :filename="
+                                form.files.untaggedMp3 &&
+                                    form.files.untaggedMp3.name
+                            "
+                            :acceptTypes="['.mp3']"
+                            @file-added="handleUntaggeMp3Added"
+                            @file-removed="handleUntaggedMp3Removed"
+                        />
+                        <DropAudio
+                            title="Untagged .WAV"
+                            :class="{
+                                'is-invalid': $v.form.files.untaggedWav.$error,
+                            }"
+                            :src="
+                                form.files.untaggedWav &&
+                                    form.files.untaggedWav.base64
+                            "
+                            :filename="
+                                form.files.untaggedWav &&
+                                    form.files.untaggedWav.name
+                            "
+                            :acceptTypes="['.wav']"
+                            @file-added="handleUntaggedWavAdded"
+                            @file-removed="handleUntaggedWavRemoved"
+                        />
+                        <DropAudio
+                            title="Tagged Streaming File (.MP3 or .WAV)"
+                            :src="form.files.tagged && form.files.tagged.base64"
+                            :filename="
+                                form.files.tagged && form.files.tagged.name
+                            "
+                            @file-added="handleTaggedAdded"
+                            @file-removed="handleTaggedRemoved"
+                        />
+                        <DropFile
+                            title="Track Stems .ZIP (or .RAR)"
+                            :class="{
+                                'is-invalid': $v.form.files.stems.$error,
+                            }"
+                            :acceptTypes="['.rar', '.zip']"
+                            :src="form.files.stems && form.files.stems.base64"
+                            :filename="
+                                form.files.stems && form.files.stems.name
+                            "
+                            @file-added="handleStemsAdded"
+                            @file-removed="handleStemsRemoved"
+                        />
+                    </edit-card>
+
+                    <!-- Licenses Card -->
+                    <edit-card title="Licensing">
+                        <LicenseCard
+                            v-for="license in userLicenses"
+                            :license="license"
+                            :key="license.id"
+                            :checked="
+                                form.selectedLicenseIds.indexOf(license.id) > -1
+                            "
+                            @updated="handleLicenseUpdated"
+                            @checked="handleLicenseChecked"
+                            @unchecked="handleLicenseUnchecked"
+                        />
+                    </edit-card>
+
+                    <!-- Beat Pack Card -->
+                    <edit-card title="Add to Beat Pack">
+                        <div class="search-input">
+                            <LsIcon class="input-icon" icon="search" />
+                            <b-form-input
+                                placeholder="Search for beat packs"
+                            ></b-form-input>
+                        </div>
+                    </edit-card>
+
+                    <!-- Marketing Card -->
+                    <edit-card title="Free downloads" class="marketing-card">
+                        <div
+                            class="custom-control custom-checkbox"
+                            v-for="option in freeOptions"
+                            :key="option.id"
+                        >
+                            <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                v-model="form.selectedFreeOptionIds"
+                                :value="option.id"
+                                :checked="
+                                    form.selectedFreeOptionIds.indexOf(
+                                        option.id
+                                    ) !== -1
+                                "
+                                :id="`freeCheck${option.id}`"
+                            />
+                            <label
+                                class="custom-control-label"
+                                :for="`freeCheck${option.id}`"
+                            >
+                                {{ option.title }}
+                            </label>
+                        </div>
+                    </edit-card>
+
+                    <!-- Collabs Card -->
+                    <edit-card title="Collaborators">
+                        <div class="collabs">
+                            <div class="collabs-grid">
+                                <div
+                                    class="fr"
+                                    v-for="(collab, index) in form.collabs"
+                                    :key="index"
+                                >
+                                    <div class="fc user-col">
+                                        <label>Collaborator</label>
+                                        <div class="mini-profile">
+                                            <UserAvatar :user="collab.user" />
+                                            {{
+                                                collab.user.name | truncate(14)
+                                            }}
+                                            {{
+                                                collab.user.id == user.id
+                                                    ? '(you)'
+                                                    : ''
+                                            }}
                                         </div>
                                     </div>
+                                    <div class="fc profit-col">
+                                        <label>Profit %</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            :readonly="index == 0"
+                                            :value="collab.profit"
+                                            @keyup="
+                                                handleCollabProfitInput(
+                                                    collab,
+                                                    $event
+                                                )
+                                            "
+                                        />
+                                    </div>
+                                    <div class="fc pub-col">
+                                        <label>Publishing %</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            :readonly="index === 0"
+                                            :value="collab.publishing"
+                                            @keyup="
+                                                handleCollabPublishingInput(
+                                                    collab,
+                                                    $event
+                                                )
+                                            "
+                                        />
+                                    </div>
+                                    <div class="fc remove-col" v-if="index > 0">
+                                        <LsIconButton
+                                            icon="close"
+                                            class="remove-icon"
+                                            @click="
+                                                handleCollabRemoveClick(index)
+                                            "
+                                        />
+                                        <ls-button
+                                            variant="link"
+                                            class="remove-btn"
+                                            @click="
+                                                handleCollabRemoveClick(index)
+                                            "
+                                        >
+                                            Remove Collaborator
+                                        </ls-button>
+                                    </div>
                                 </div>
-                                <ls-button
-                                    variant="text"
-                                    class="add-btn"
-                                    @click="showCollabSearchModal"
-                                >
-                                    <LsIcon icon="plus" />
-                                    Add Collaborator
-                                </ls-button>
                             </div>
-                        </edit-card>
-                    </div>
-                    <div class="col-right">
-                        <!-- Visibility Card -->
-                        <div class="ls-card EditCard vis-card">
-                            <div class="row-title">
-                                <label class="card-title">
-                                    Visibility
-                                </label>
-                                <div>
-                                    <label>
-                                        {{
-                                            form.isPublic ? 'Public' : 'Private'
-                                        }}
-                                    </label>
-                                    <LsToggleButton v-model="form.isPublic" />
-                                </div>
-                            </div>
+                            <ls-button
+                                variant="text"
+                                class="add-btn"
+                                @click="showCollabSearchModal"
+                            >
+                                <LsIcon icon="plus" />
+                                Add Collaborator
+                            </ls-button>
+                        </div>
+                    </edit-card>
+                </div>
+                <div class="col-right">
+                    <!-- Visibility Card -->
+                    <div class="ls-card EditCard vis-card">
+                        <div class="row-title">
+                            <label class="card-title">
+                                Visibility
+                            </label>
                             <div>
-                                <b-form-group
-                                    v-show="form.scheduled"
-                                    label="Set Release Date"
-                                >
-                                    <b-input-group class="dt-input-group">
-                                        <LsDatePicker v-model="form.date" />
-                                        <LsTimePicker v-model="form.time" />
-                                    </b-input-group>
-                                    <b-form-invalid-feedback
-                                        :state="
-                                            !(
-                                                $v.form.date.$error ||
-                                                $v.form.time.$error
-                                            )
-                                        "
-                                    >
-                                        Pick date and time
-                                    </b-form-invalid-feedback>
-                                </b-form-group>
-                                <ls-button
-                                    variant="link"
-                                    @click="handleScheduleToggleClick"
-                                >
-                                    {{
-                                        form.scheduled
-                                            ? 'Remove schedule'
-                                            : 'Schedule release'
-                                    }}
-                                </ls-button>
+                                <label>
+                                    {{ form.isPublic ? 'Public' : 'Private' }}
+                                </label>
+                                <LsToggleButton v-model="form.isPublic" />
                             </div>
                         </div>
-
-                        <!-- Image Card -->
-                        <div class="ls-card EditCard">
-                            <DropImage
-                                variant="inline"
-                                msg-long="Drag artwork here or<br><u>browse for file</u>"
-                                :src="form.coverArtBase64"
-                                @file-added="handleImageAdded"
-                                @file-removed="handleImageRemoved"
-                            />
+                        <div>
+                            <b-form-group
+                                v-show="form.scheduled"
+                                label="Set Release Date"
+                            >
+                                <b-input-group class="dt-input-group">
+                                    <LsDatePicker v-model="form.date" />
+                                    <LsTimePicker v-model="form.time" />
+                                </b-input-group>
+                                <b-form-invalid-feedback
+                                    :state="
+                                        !(
+                                            $v.form.date.$error ||
+                                            $v.form.time.$error
+                                        )
+                                    "
+                                >
+                                    Pick date and time
+                                </b-form-invalid-feedback>
+                            </b-form-group>
+                            <ls-button
+                                variant="link"
+                                @click="handleScheduleToggleClick"
+                            >
+                                {{
+                                    form.scheduled
+                                        ? 'Remove schedule'
+                                        : 'Schedule release'
+                                }}
+                            </ls-button>
                         </div>
+                    </div>
+
+                    <!-- Image Card -->
+                    <div class="ls-card EditCard">
+                        <DropImage
+                            variant="inline"
+                            msg-long="Drag artwork here or<br><u>browse for file</u>"
+                            :src="form.coverArtBase64"
+                            @file-added="handleImageAdded"
+                            @file-removed="handleImageRemoved"
+                        />
                     </div>
                 </div>
             </main>

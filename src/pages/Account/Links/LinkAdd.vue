@@ -4,7 +4,7 @@
             <ls-button
                 class="back-btn"
                 variant="text"
-                :to="{ name: 'userAccountLinks' }"
+                :to="{ name: 'accountLinks' }"
             >
                 <i class="ico ico-back"></i>
                 <span>Links</span>
@@ -111,7 +111,7 @@
                 <ls-button
                     class="fwz-prev-btn"
                     variant="secondary"
-                    :to="{ name: 'userAccountLinks' }"
+                    :to="{ name: 'accountLinks' }"
                     :disabled="processing"
                 >
                     Cancel

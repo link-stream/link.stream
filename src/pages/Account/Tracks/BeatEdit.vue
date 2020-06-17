@@ -6,7 +6,7 @@
                 <ls-button
                     class="back-btn"
                     variant="text"
-                    :to="{ name: 'userAccountBeats' }"
+                    :to="{ name: 'accountBeats' }"
                 >
                     <i class="ico ico-back"></i>
                     <span>Beats</span>
@@ -38,7 +38,7 @@
                         class="cancel-btn"
                         variant="secondary"
                         size="sm"
-                        :to="{ name: 'userAccountBeats' }"
+                        :to="{ name: 'accountBeats' }"
                     >
                         Cancel
                     </ls-button>
@@ -387,7 +387,7 @@
                         class="cancel-btn"
                         variant="secondary"
                         size="sm"
-                        :to="{ name: 'userAccountBeats' }"
+                        :to="{ name: 'accountBeats' }"
                     >
                         Cancel
                     </ls-button>
@@ -538,7 +538,7 @@ export default {
         if (beatResponse.status === 'success' && beatResponse.data.length) {
             beat = beatResponse.data[0]
         } else {
-            this.$router.push({ name: 'userAccountBeats' })
+            this.$router.push({ name: 'accountBeats' })
             this.$toast.error('Beat not found.')
             return
         }
@@ -550,7 +550,7 @@ export default {
         const userLicenses = this.$store.getters['me/licenses']
 
         if (!userLicenses.length) {
-            this.$router.push({ name: 'userAccountBeats' })
+            this.$router.push({ name: 'accountBeats' })
             this.$toast.error('Licenses not found.')
             return
         }
@@ -722,7 +722,7 @@ export default {
                         error,
                     } = await this.$store.dispatch('me/deleteBeat', this.beat)
                     if (status === 'success') {
-                        this.$router.push({ name: 'userAccountBeats' })
+                        this.$router.push({ name: 'accountBeats' })
                         this.$toast.success(message)
                     } else {
                         this.$toast.error(error)
@@ -874,7 +874,7 @@ export default {
 
             if (status === 'success') {
                 this.$toast.success(message)
-                this.$router.push({ name: 'userAccountBeats' })
+                this.$router.push({ name: 'accountBeats' })
             } else {
                 this.$toast.error(error)
             }

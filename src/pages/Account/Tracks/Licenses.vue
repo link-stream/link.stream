@@ -19,7 +19,7 @@
                     class="edit-btn"
                     title="Edit"
                     :to="{
-                        name: 'userAccountTracksLicenseEdit',
+                        name: 'accountTracksLicenseEdit',
                         params: { id: license.id },
                     }"
                 />

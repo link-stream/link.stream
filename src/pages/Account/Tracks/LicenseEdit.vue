@@ -6,7 +6,7 @@
                 <ls-button
                     class="back-btn"
                     variant="text"
-                    :to="{ name: 'userAccountTracksLicenses' }"
+                    :to="{ name: 'accountTracksLicenses' }"
                 >
                     <i class="ico ico-back"></i>
                     <span>Licenses</span>
@@ -212,7 +212,7 @@ export default {
             await this.$store.dispatch('me/loadLicenses')
             license = this.$store.getters['me/licenseById'](licenseId)
             if (!license) {
-                this.$router.push({ name: 'userAccountTracksLicenses' })
+                this.$router.push({ name: 'accountTracksLicenses' })
                 this.$toast.error('License not found.')
                 return
             }
@@ -276,7 +276,7 @@ export default {
 
             if (status === 'success') {
                 this.$toast.success(message)
-                this.$router.push({ name: 'userAccountTracksLicenses' })
+                this.$router.push({ name: 'accountTracksLicenses' })
             } else {
                 this.$toast.error(error)
             }

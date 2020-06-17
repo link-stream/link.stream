@@ -129,7 +129,7 @@ const routes = [
         meta: { requiresAuth: true, layout: 'Account' },
     },
     {
-        path: '/app/beats',
+        path: '/app/beats/manage',
         name: 'accountBeats',
         component: AccountBeats,
         meta: { requiresAuth: true, layout: 'Account' },
@@ -147,7 +147,7 @@ const routes = [
         meta: { requiresAuth: true, layout: 'Account' },
     },
     {
-        path: '/app/licenses',
+        path: '/app/licenses/manage',
         name: 'accountTracksLicenses',
         component: AccountTracksLicenses,
         meta: { requiresAuth: true, layout: 'Account' },
@@ -159,7 +159,7 @@ const routes = [
         meta: { requiresAuth: true, layout: 'Account' },
     },
     {
-        path: '/app/kits',
+        path: '/app/kits/manage',
         name: 'accountSoundKits',
         component: AccountSoundKits,
         meta: { requiresAuth: true, layout: 'Account' },

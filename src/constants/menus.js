@@ -29,15 +29,15 @@ export const menus = [
         subs: [
             {
                 label: 'Beats',
-                to: '/app/beats',
+                to: '/app/beats/manage',
             },
             {
                 label: 'Licenses',
-                to: '/app/licenses',
+                to: '/app/licenses/manage',
             },
             {
                 label: 'Sound Kits',
-                to: '/app/kits',
+                to: '/app/kits/manage',
             },
         ],
     },

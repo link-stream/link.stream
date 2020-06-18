@@ -4,15 +4,6 @@
         padding-bottom: 15px;
         .col-right {
             margin-top: 15px;
-            label {
-                font-size: px3rem(12);
-                margin: 0 10px 0 0;
-            }
-        }
-        label {
-            font-size: px2rem(12);
-            font-weight: 500;
-            letter-spacing: 0;
         }
     }
 
@@ -30,6 +21,18 @@
         border-top: 1px solid $linkstream-30;
         padding-top: 20px;
         margin-top: 30px;
+    }
+
+    .viz-toggle {
+        display: flex;
+        align-items: center;
+        .toggle-label {
+            order: 2;
+            font-size: px2rem(12);
+            font-weight: 500;
+            letter-spacing: 0;
+            margin-left: 10px;
+        }
     }
 
     .fr {
@@ -54,6 +57,7 @@
         font-size: px2rem(14);
         font-style: italic;
         letter-spacing: 0;
+        margin-top: 10px;
     }
 
     .dollar-input {
@@ -62,10 +66,21 @@
         }
     }
 
+    .UnlimitedInputGroup {
+        margin-top: 10px;
+    }
+
     @include media-breakpoint-up(md) {
         .page-header {
             .col-right {
                 margin-top: 0;
+            }
+        }
+
+        .viz-toggle {
+            .toggle-label {
+                order: 0;
+                margin: 0 10px 0 0;
             }
         }
 
@@ -82,9 +97,14 @@
         }
 
         .UnlimitedInputGroup {
+            margin-top: 0;
             .form-control {
                 width: 185px;
             }
+        }
+
+        .default-text {
+            margin-top: 0;
         }
     }
 }

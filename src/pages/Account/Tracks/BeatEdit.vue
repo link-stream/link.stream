@@ -318,48 +318,36 @@
                 <div class="col-right">
                     <!-- Visibility Card -->
                     <div class="Card viz-card">
-                        <div class="row-title">
-                            <label class="card-title">
+                        <div class="fr">
+                            <div class="card-title">
                                 Visibility
-                            </label>
-                            <div>
-                                <label>
+                            </div>
+                            <div class="viz-toggle">
+                                <span class="toggle-label">
                                     {{ form.isPublic ? 'Public' : 'Private' }}
-                                </label>
+                                </span>
                                 <LsToggleButton v-model="form.isPublic" />
                             </div>
                         </div>
-                        <div>
-                            <b-form-group
-                                v-show="form.scheduled"
-                                label="Set Release Date"
-                            >
-                                <b-input-group class="dt-input-group">
-                                    <LsDatePicker v-model="form.date" />
-                                    <LsTimePicker v-model="form.time" />
-                                </b-input-group>
-                                <b-form-invalid-feedback
-                                    :state="
-                                        !(
-                                            $v.form.date.$error ||
-                                            $v.form.time.$error
-                                        )
-                                    "
-                                >
-                                    Pick date and time
-                                </b-form-invalid-feedback>
-                            </b-form-group>
-                            <ls-button
-                                variant="link"
-                                @click="handleScheduleToggleClick"
-                            >
-                                {{
-                                    form.scheduled
-                                        ? 'Remove schedule'
-                                        : 'Schedule release'
-                                }}
-                            </ls-button>
-                        </div>
+                        <b-form-group
+                            v-show="form.scheduled"
+                            label="Set Release Date"
+                        >
+                            <b-input-group class="date-input-group">
+                                <LsDatePicker v-model="form.date" />
+                                <LsTimePicker v-model="form.time" />
+                            </b-input-group>
+                        </b-form-group>
+                        <ls-button
+                            variant="link"
+                            @click="handleScheduleToggleClick"
+                        >
+                            {{
+                                form.scheduled
+                                    ? 'Remove schedule'
+                                    : 'Schedule release'
+                            }}
+                        </ls-button>
                     </div>
 
                     <!-- Image Card -->
@@ -414,7 +402,7 @@ import { collabsProfitFormMixin } from '~/mixins/tracks/collabsProfitForm'
 import { api } from '~/services'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
-import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
+import { required, minLength } from 'vuelidate/lib/validators'
 import moment from 'moment'
 
 const STATUS_IDLE = 'idle'
@@ -492,35 +480,23 @@ export default {
         return {
             form: {
                 files,
+                tags: {
+                    required,
+                    minLength: minLength(3),
+                },
                 title: {
                     required,
                     async isUnique(value) {
                         if (!value) {
                             return true
                         }
-                        const {
-                            status,
-                        } = await api.audios.getTitleAvailability({
-                            title: value,
+                        const { status } = await api.audios.getAvailability({
+                            value,
                             userId: this.user.id,
                             audioId: this.beat.id,
                         })
                         return status === 'success'
                     },
-                },
-                tags: {
-                    required,
-                    minLength: minLength(3),
-                },
-                time: {
-                    required: requiredIf(function() {
-                        return this.form.scheduled
-                    }),
-                },
-                date: {
-                    required: requiredIf(function() {
-                        return this.form.scheduled
-                    }),
                 },
             },
         }
@@ -577,8 +553,10 @@ export default {
             coverArtBase64: beat.data_image,
             isPublic: beat.public === '1',
             scheduled: beat.scheduled,
-            date: beat.scheduled ? new Date(beat.date + ' 00:00:00') : null,
-            time: beat.scheduled ? beat.time : null,
+            date: beat.scheduled
+                ? new Date(beat.date + ' 00:00:00')
+                : new Date(),
+            time: beat.scheduled ? beat.time : '00:00:00',
             tags: beat.tags
                 ? beat.tags.split(', ').map(tag => ({
                       text: tag,
@@ -757,11 +735,6 @@ export default {
 
             if (this.$v.form.files.$invalid) {
                 this.$toast.error('Upload required files.')
-                return
-            }
-
-            if (this.$v.form.date.$invalid || this.$v.form.time.$invalid) {
-                this.$toast.error('Pick release date and time.')
                 return
             }
 

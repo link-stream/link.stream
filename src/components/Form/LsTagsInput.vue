@@ -1,5 +1,6 @@
 <template>
     <VueTagsInput
+        class="LsTagsInput"
         v-model="tag"
         :separators="[';', ',']"
         :add-on-key="[13, ',', ';']"

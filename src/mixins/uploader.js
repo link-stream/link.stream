@@ -57,6 +57,9 @@ export const uploaderMixin = {
         },
         validateFile(file) {
             const acceptTypes = this.acceptTypes
+            if (!acceptTypes.length) {
+                return true
+            }
             if (acceptTypes.indexOf(file.type) !== -1) {
                 return true
             }

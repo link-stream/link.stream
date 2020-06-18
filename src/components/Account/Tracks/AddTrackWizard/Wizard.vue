@@ -55,16 +55,19 @@
             :title="isSong ? 'Song info' : 'Beat info'"
         >
             <div class="col-image">
-                <DropImage
+                <drop-image
                     msg-long="Drag artwork here or<br><u>browse for file</u>"
                     msg-short="Add Artwork"
                     :src="coverArtBase64"
                     @file-added="handleImageAdded"
                     @file-removed="handleImageRemoved"
-                />
-                <div class="hint" v-if="!coverArtBase64">
-                    Suggested Dimensions: 1000x1000
-                </div>
+                >
+                    <template v-slot:upload-body>
+                        <small class="text-hint" v-if="!coverArtBase64">
+                            Suggested Dimensions: 1000x1000
+                        </small>
+                    </template>
+                </drop-image>
             </div>
             <InfoBlock class="col-fields" v-if="isStepInfo" />
         </wizard-step>

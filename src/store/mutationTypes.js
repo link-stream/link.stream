@@ -20,7 +20,7 @@ export const trackAddWizardTypes = {
     UPDATE_USER_LICENSE: 'UPDATE_USER_LICENSE',
 }
 
-// User Account
+// Account
 export const meTypes = {
     // User
     SET_USER: 'SET_USER',

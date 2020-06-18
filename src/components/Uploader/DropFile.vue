@@ -8,10 +8,12 @@
             @change="handleFileSelected"
         />
 
-        <div class="preview" v-if="isFileAdded">
-            <div class="file-info">
-                <div class="file-desc" v-html="title"></div>
-                <div class="file-name">{{ file.name | truncate(200) }}</div>
+        <div class="preview-container" v-if="isFileAdded">
+            <div class="preview-body">
+                <div class="preview-title" v-html="title"></div>
+                <div class="preview-subtitle">{{
+                    file.name | truncate(200)
+                }}</div>
             </div>
             <div class="preview-controls">
                 <ls-button
@@ -21,7 +23,12 @@
                 >
                     Remove File
                 </ls-button>
-                <b-dropdown class="file-menu" variant="icon" dropleft no-caret>
+                <b-dropdown
+                    class="preview-dropdown"
+                    variant="icon"
+                    dropleft
+                    no-caret
+                >
                     <template v-slot:button-content>
                         <LsIcon icon="dot-menu-v" />
                     </template>
@@ -37,7 +44,7 @@
 
         <div
             v-else
-            class="drop"
+            class="upload-container"
             :class="{ highlight: isDraggingFile }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
@@ -45,11 +52,13 @@
             @dragenter="handleDragEnter"
             @click="showFileDialog"
         >
-            <div class="file-info">
-                <div class="file-desc" v-html="title"></div>
-                <div class="file-name">No File Added</div>
-            </div>
-            <i class="drop-icon"></i>
+            <slot name="upload-container" :showFileDialog="showFileDialog">
+                <div class="upload-body">
+                    <div class="upload-title" v-html="title"></div>
+                    <div class="upload-subtitle">No File Added</div>
+                </div>
+                <i class="upload-icon"></i>
+            </slot>
         </div>
     </div>
 </template>

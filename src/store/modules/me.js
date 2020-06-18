@@ -1,5 +1,5 @@
 /**
- * User Account Module
+ * Account Module
  */
 
 import { types, meTypes } from '../mutationTypes'

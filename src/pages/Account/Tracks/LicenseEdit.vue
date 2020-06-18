@@ -22,8 +22,10 @@
                     </h4>
                 </div>
                 <div class="col-right">
-                    <label>Enabled</label>
-                    <LsToggleButton v-model="form.enabled" />
+                    <div class="viz-toggle">
+                        <span class="toggle-label">Enabled</span>
+                        <LsToggleButton v-model="form.enabled" />
+                    </div>
                 </div>
             </header>
             <main class="page-body">

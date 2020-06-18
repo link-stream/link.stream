@@ -5,12 +5,12 @@
         width: 140px;
     }
 
-    .preview {
+    .preview-container {
         display: flex;
         flex-direction: column;
     }
 
-    .preview-text {
+    .preview-body {
         display: none;
         flex-grow: 1;
         font-size: px2rem(14);
@@ -21,14 +21,13 @@
 
     .preview-box {
         position: relative;
-        margin-bottom: 7px;
         img {
             max-width: 100%;
             max-height: 100%;
         }
     }
 
-    .file-menu {
+    .preview-dropdown {
         display: none;
     }
 
@@ -49,8 +48,12 @@
         font-size: px2rem(12);
     }
 
-    .drop {
+    .upload-container {
         display: flex;
+    }
+
+    .upload-body {
+        align-self: center;
     }
 
     .drop-box {
@@ -71,16 +74,16 @@
         display: none;
     }
 
-    .drop-icon {
+    .upload-icon {
         &:before {
             @extend .ico:before;
-            background-image: url(~@/../public/static/ico/drop-image/cam-plus-md.svg);
+            background-image: url(~@/../public/static/ico/cam-plus-md.svg);
             width: 40px;
             height: 36px;
         }
     }
 
-    .drop-msg {
+    .upload-msg {
         font-size: px2rem(12);
         text-align: center;
         u {
@@ -90,23 +93,23 @@
         }
     }
 
-    .drop-msg-l {
+    .upload-msg-l {
         display: none;
     }
 
-    &.DropImage--inline {
+    &.--inline {
         .preview-box,
         .drop-box {
             width: 60px;
             height: 60px;
             margin-bottom: 0;
         }
-        .preview {
+        .preview-container {
             flex-direction: row;
             align-items: center;
         }
-        .preview-text,
-        .file-menu {
+        .preview-body,
+        .preview-dropdown {
             display: block;
         }
         .file-add-btn {
@@ -116,12 +119,12 @@
         .file-remove-icon,
         .file-remove-btn,
         .file-replace-icon,
-        .drop-msg {
+        .upload-msg {
             display: none;
         }
-        .drop-icon {
+        .upload-icon {
             &:before {
-                background-image: url(~@/../public/static/ico/drop-image/cam-plus-sm.svg);
+                background-image: url(~@/../public/static/ico/cam-plus-sm.svg);
                 width: 34px;
                 height: 30px;
             }
@@ -135,49 +138,49 @@
             height: 215px;
             cursor: pointer;
         }
-
-        .drop-icon:before {
-            background-image: url(~@/../public/static/ico/drop-image/cam-plus-lg.svg);
+        .upload-icon:before {
+            background-image: url(~@/../public/static/ico/cam-plus-lg.svg);
             width: 49px;
             height: 44px;
         }
-
-        .drop-msg {
+        .upload-msg {
             font-size: px2rem(13);
         }
-
-        .drop-msg-s {
+        .upload-msg-s {
             display: none;
         }
-
-        .drop-msg-l {
+        .upload-msg-l {
             display: block;
         }
-
-        &.DropImage--inline {
+        &.--inline {
             .preview-box,
             .drop-box {
                 width: 215px;
                 height: 215px;
                 margin-bottom: 0;
             }
-            .preview {
+            .preview-container {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            .file-menu,
+            .preview-dropdown,
             .file-replace-icon,
-            .drop-msg-l {
+            .upload-msg-l {
                 display: block;
             }
-            .preview-text,
-            .file-menu,
+            .preview-body,
+            .preview-dropdown,
             .file-add-btn {
                 display: none;
             }
             .file-remove-btn {
                 display: block;
                 margin: 10px 0 0 0;
+            }
+            .upload-icon:before {
+                background-image: url(~@/../public/static/ico/cam-plus-lg.svg);
+                width: 49px;
+                height: 44px;
             }
         }
     }

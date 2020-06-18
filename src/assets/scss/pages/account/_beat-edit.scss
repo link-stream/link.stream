@@ -63,12 +63,11 @@
     }
 
     .viz-card {
-        label {
+        .toggle-label {
             font-size: px2rem(12);
-            margin: 0 10px 0 0;
+            margin-right: 10px;
         }
-        .row-title {
-            display: flex;
+        .fr {
             justify-content: space-between;
         }
     }
@@ -130,8 +129,11 @@
         .page-body {
             flex-direction: row;
             .col-left {
-                flex-grow: 1;
+                flex-basis: 70%;
                 margin-right: 20px;
+            }
+            .col-right {
+                flex-basis: 30%;
             }
         }
 

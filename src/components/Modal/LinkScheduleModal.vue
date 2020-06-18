@@ -8,7 +8,7 @@
         <template v-slot:default>
             <div class="form-group">
                 <b-form-group label="Start Date">
-                    <b-input-group class="dt-input-group">
+                    <b-input-group class="date-input-group">
                         <LsDatePicker v-model="form.date" />
                         <LsTimePicker v-model="form.time" />
                     </b-input-group>
@@ -29,7 +29,7 @@
                 </b-form-group>
 
                 <b-form-group label="End Date" v-show="endDateEnabled">
-                    <b-input-group class="dt-input-group">
+                    <b-input-group class="date-input-group">
                         <LsDatePicker v-model="form.endDate" />
                         <LsTimePicker v-model="form.endTime" />
                     </b-input-group>
@@ -76,9 +76,9 @@ export default {
             endDateEnabled: false,
             form: {
                 date: null,
-                time: null,
+                time: '',
                 endDate: null,
-                endTime: null,
+                endTime: '',
             },
         }
     },
@@ -120,26 +120,24 @@ export default {
             this.endDateEnabled = false
             this.form = {
                 date: null,
-                time: null,
+                time: '',
                 endDate: null,
-                endTime: null,
+                endTime: '',
             }
-            if (!this.link.scheduled) {
-                this.open = true
-                return
-            }
-            const { date, time, end_date, end_time } = this.link
-            this.endDateEnabled = end_date && end_time ? true : false
-            this.form = {
-                ...this.form,
-                date: new Date(date + ' 00:00:00'),
-                time,
-            }
-            if (this.endDateEnabled) {
+            if (this.link.scheduled) {
+                const { date, time, end_date, end_time } = this.link
+                this.endDateEnabled = end_date && end_time ? true : false
                 this.form = {
                     ...this.form,
-                    endDate: new Date(end_date + ' 00:00:00'),
-                    endTime: end_time,
+                    date: new Date(date + ' 00:00:00'),
+                    time,
+                }
+                if (this.endDateEnabled) {
+                    this.form = {
+                        ...this.form,
+                        endDate: new Date(end_date + ' 00:00:00'),
+                        endTime: end_time,
+                    }
                 }
             }
             this.open = true

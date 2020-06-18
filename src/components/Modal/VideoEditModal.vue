@@ -84,7 +84,7 @@
 
             <template v-if="form.scheduled">
                 <b-form-group label="Publish Date">
-                    <b-input-group class="dt-input-group">
+                    <b-input-group class="date-input-group">
                         <LsDatePicker v-model="form.date" />
                         <LsTimePicker v-model="form.time" />
                     </b-input-group>

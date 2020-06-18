@@ -6,7 +6,7 @@
             title="Close"
             @click="handleCancelClick"
         />
-        <div class="view-box">
+        <div class="view-container">
             <b-form-checkbox
                 :checked="checked"
                 @change="handleCheckChange"
@@ -26,7 +26,7 @@
                 @click="handleEditClick"
             />
         </div>
-        <div class="edit-box">
+        <div class="edit-container">
             <div class="edit-form">
                 <b-form-group label="Adjust price">
                     <b-form-input

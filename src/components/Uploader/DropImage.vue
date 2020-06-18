@@ -2,7 +2,7 @@
     <div
         class="DropImage"
         :class="{
-            'DropImage--inline': variant === 'inline',
+            '--inline': variant === 'inline',
         }"
     >
         <input
@@ -13,21 +13,21 @@
             @change="handleFileSelected"
         />
 
-        <section class="preview" v-if="isFileAdded">
+        <section class="preview-container" v-if="isFileAdded">
             <div class="preview-box">
                 <img :src="file.src" @click="showFileDialog" />
                 <LsIconButton
                     class="file-remove-icon"
-                    icon="dropimg-remove"
+                    icon="remove"
                     @click="handleRemoveClick"
                 />
                 <LsIconButton
                     class="file-replace-icon"
-                    icon="dropimg-cam"
+                    icon="cam"
                     @click="showFileDialog"
                 />
             </div>
-            <div class="preview-text">Artwork</div>
+            <div class="preview-body">Artwork</div>
             <div class="preview-controls">
                 <ls-button
                     class="file-remove-btn"
@@ -36,7 +36,12 @@
                 >
                     Remove artwork
                 </ls-button>
-                <b-dropdown class="file-menu" variant="icon" dropleft no-caret>
+                <b-dropdown
+                    class="preview-dropdown"
+                    variant="icon"
+                    dropleft
+                    no-caret
+                >
                     <template v-slot:button-content>
                         <LsIcon icon="dot-menu-v" />
                     </template>
@@ -50,7 +55,7 @@
             </div>
         </section>
 
-        <section class="drop" v-else>
+        <section class="upload-container" v-else>
             <div
                 class="drop-box"
                 :class="{ highlight: isDraggingFile }"
@@ -60,17 +65,21 @@
                 @dragenter="handleDragEnter"
                 @click="showFileDialog"
             >
-                <i class="drop-icon"></i>
-                <div class="drop-msg drop-msg-s" v-html="msgShort"></div>
-                <div class="drop-msg drop-msg-l" v-html="msgLong"></div>
+                <i class="upload-icon"></i>
+                <div class="upload-msg upload-msg-s" v-html="msgShort"></div>
+                <div class="upload-msg upload-msg-l" v-html="msgLong"></div>
             </div>
-            <ls-button
-                class="file-add-btn"
-                variant="link"
-                @click="showFileDialog"
-            >
-                Add artwork
-            </ls-button>
+            <div class="upload-body">
+                <slot name="upload-body" :showFileDialog="showFileDialog">
+                    <ls-button
+                        class="file-add-btn"
+                        variant="link"
+                        @click="showFileDialog"
+                    >
+                        Add artwork
+                    </ls-button>
+                </slot>
+            </div>
         </section>
 
         <DokaModal

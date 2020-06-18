@@ -22,3 +22,10 @@
 .fr {
     display: flex;
 }
+
+.text-hint {
+    color: $linkstream-70;
+    font-size: px2rem(12);
+    line-height: 30px;
+    line-height: normal;
+}

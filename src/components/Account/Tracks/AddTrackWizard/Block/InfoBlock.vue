@@ -184,22 +184,22 @@ export default {
     },
     validations: {
         form: {
+            tags: {
+                required,
+                minLength: minLength(3),
+            },
             title: {
                 required,
                 async isUnique(value) {
                     if (!value) {
                         return true
                     }
-                    const { status } = await api.audios.getTitleAvailability({
+                    const { status } = await api.audios.getAvailability({
                         userId: this.user.id,
-                        title: value,
+                        value,
                     })
                     return status === 'success'
                 },
-            },
-            tags: {
-                required,
-                minLength: minLength(3),
             },
         },
     },

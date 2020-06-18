@@ -89,35 +89,29 @@
         </div>
 
         <div class="Card viz-card">
-            <div class="row-title">
+            <div class="fr">
                 <h4 class="card-title">Visibility</h4>
-                <div>
-                    <label>{{ form.isPublic ? 'Public' : 'Private' }}</label>
+                <div class="viz-toggle">
+                    <span class="toggle-label">
+                        {{ form.isPublic ? 'Public' : 'Private' }}
+                    </span>
                     <LsToggleButton v-model="form.isPublic" />
                 </div>
             </div>
-            <div>
-                <b-form-group label="Set Release Date" v-show="form.scheduled">
-                    <b-input-group class="dt-input-group">
-                        <LsDatePicker v-model="form.date" />
-                        <LsTimePicker v-model="form.time" />
-                    </b-input-group>
-                    <b-form-invalid-feedback :state="!$v.form.$error">
-                        Pick date and time
-                    </b-form-invalid-feedback>
-                </b-form-group>
-                <ls-button variant="link" @click="handleScheduleToggleClick">
-                    {{
-                        form.scheduled ? 'Remove schedule' : 'Schedule release'
-                    }}
-                </ls-button>
-            </div>
+            <b-form-group label="Set Release Date" v-show="form.scheduled">
+                <b-input-group class="date-input-group">
+                    <LsDatePicker v-model="form.date" />
+                    <LsTimePicker v-model="form.time" />
+                </b-input-group>
+            </b-form-group>
+            <ls-button variant="link" @click="handleScheduleToggleClick">
+                {{ form.scheduled ? 'Remove schedule' : 'Schedule release' }}
+            </ls-button>
         </div>
     </div>
 </template>
 
 <script>
-import { requiredIf } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -131,28 +125,16 @@ export default {
         } = this.$store.state.trackAddWizard.form
         return {
             form: {
-                time,
-                date,
-                scheduled,
                 isPublic,
+                scheduled,
+                date: new Date(),
+                time: '00:00:00',
             },
         }
     },
     validations() {
         return {
             files: this.validations.files,
-            form: {
-                time: {
-                    required: requiredIf(function() {
-                        return this.form.scheduled
-                    }),
-                },
-                date: {
-                    required: requiredIf(function() {
-                        return this.form.scheduled
-                    }),
-                },
-            },
         }
     },
     computed: {
@@ -198,20 +180,14 @@ export default {
             })
         },
         validate({ onSuccess }) {
-            this.$v.form.$touch()
             if (this.$v.files.$invalid) {
                 this.$toast.error('Please review and upload required files.')
-                return
-            }
-            if (this.$v.form.$invalid) {
-                this.$toast.error('Pick release date and time.')
                 return
             }
             this.updateWizardForm()
             onSuccess()
         },
         handleScheduleToggleClick() {
-            this.$v.form.$reset()
             this.form.scheduled = !this.form.scheduled
         },
         handleEditClick(section) {

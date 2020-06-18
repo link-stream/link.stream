@@ -165,10 +165,15 @@ export const api = {
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
-        async getTitleAvailability({ userId, title, audioId = '' }) {
-            title = encodeURIComponent(title)
-            const audioIdParam = audioId ? '/' + audioId : ''
-            const endpoint = `/audios/availability/${userId}/title${audioIdParam}?value=${title}`
+        async getAvailability({
+            userId,
+            value,
+            audioId = '',
+            field = 'title',
+            trackType = '2',
+        }) {
+            value = encodeURIComponent(value)
+            const endpoint = `/audios/availability/${userId}/${field}/${trackType}/${audioId}?value=${value}`
             const method = METHOD_GET
             return await call({ endpoint, method })
         },

@@ -89,7 +89,7 @@ const routes = [
     },
 
     /**
-     * User Account
+     * Account
      */
     {
         path: '/app',

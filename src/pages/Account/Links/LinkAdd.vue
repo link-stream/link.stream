@@ -66,7 +66,7 @@
 
                             <div v-if="form.scheduled">
                                 <b-form-group label="Start Date">
-                                    <b-input-group class="dt-input-group">
+                                    <b-input-group class="date-input-group">
                                         <LsDatePicker v-model="form.date" />
                                         <LsTimePicker v-model="form.time" />
                                     </b-input-group>
@@ -80,7 +80,7 @@
                                     label="End Date"
                                     v-if="endDateEnabled"
                                 >
-                                    <b-input-group class="dt-input-group">
+                                    <b-input-group class="date-input-group">
                                         <LsDatePicker v-model="form.endDate" />
                                         <LsTimePicker v-model="form.endTime" />
                                     </b-input-group>

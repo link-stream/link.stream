@@ -1,7 +1,7 @@
 <template>
     <div class="Card LinkCard" :class="{ 'is-private': link.isPrivate }">
         <LsSpinnerMask v-show="processing" />
-        <section class="view-box" v-show="!editing">
+        <section class="view-container" v-show="!editing">
             <LsIcon class="drag-icon" icon="drag" />
             <div class="card-media" @click="handleEditClick">
                 <img class="card-img" :src="link.coverart" :alt="link.title" />
@@ -25,7 +25,7 @@
                 @click="handleEditClick"
             />
         </section>
-        <section class="edit-box" v-if="editing">
+        <section class="edit-container" v-if="editing">
             <LsIconButton
                 icon="close"
                 class="close-btn"

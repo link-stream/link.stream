@@ -1,6 +1,13 @@
 .DropFile {
-    .preview,
-    .drop {
+    &.is-invalid {
+        .upload-container {
+            border-color: $danger;
+            border-width: 2px;
+        }
+    }
+
+    .preview-container,
+    .upload-container {
         display: flex;
         align-items: center;
         border-radius: 4px;
@@ -8,18 +15,11 @@
         height: 80px;
     }
 
-    &.is-invalid {
-        .drop {
-            border-color: $danger;
-            border-width: 2px;
-        }
-    }
-
-    .preview {
+    .preview-container {
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.22);
     }
 
-    .drop {
+    .upload-container {
         border: 2px dashed $linkstream-130;
         cursor: pointer;
         &.highlight,
@@ -28,7 +28,28 @@
         }
     }
 
-    .drop-icon {
+    .preview-body,
+    .upload-body {
+        flex-grow: 1;
+    }
+
+    .preview-title,
+    .upload-title {
+        font-size: px2rem(12);
+        font-weight: bold;
+    }
+
+    .preview-subtitle,
+    .upload-subtitle {
+        font-size: px2rem(11);
+    }
+
+    .file-remove-btn {
+        display: none;
+        text-decoration: none;
+    }
+
+    .upload-icon {
         @extend .ico;
         &:before {
             @extend .ico:before;
@@ -38,34 +59,18 @@
         }
     }
 
-    .file-info {
-        flex-grow: 1;
-    }
-
-    .file-desc {
-        font-size: px2rem(12);
-        font-weight: bold;
-    }
-
-    .file-name {
-        font-size: px2rem(11);
-    }
-
-    .file-remove-btn {
-        display: none;
-        text-decoration: none;
-    }
-
     @include media-breakpoint-up(md) {
-        .file-desc {
+        .preview-title,
+        .upload-title {
             font-size: px2rem(14);
         }
 
-        .file-name {
+        .preview-subtitle,
+        .upload-subtitle {
             font-size: px2rem(12);
         }
 
-        .drop-icon:before {
+        .upload-icon:before {
             background-image: url(~@/../public/static/ico/cloud-upload-lg.svg);
             width: 43px;
             height: 34px;
@@ -75,7 +80,7 @@
             display: block;
         }
 
-        .file-menu {
+        .preview-dropdown {
             display: none;
         }
     }

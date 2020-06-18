@@ -181,7 +181,7 @@
     }
 }
 
-.dt-input-group {
+.date-input-group {
     .LsTimePicker,
     .LsDatePicker {
         width: 50%;
@@ -192,7 +192,7 @@
     }
 }
 
-.vue-tags-input {
+.LsTagsInput {
     max-width: none !important;
     &.is-invalid {
         .ti-input {
@@ -210,6 +210,9 @@
     }
     .ti-tags {
         line-height: inherit !important;
+    }
+    .ti-icon-close {
+        line-height: normal !important;
     }
     .ti-tag {
         background-color: $black !important;
@@ -239,12 +242,12 @@
 .dollar-input {
     position: relative;
     input {
-        padding-left: 30px;
+        padding-left: 27px;
         width: 100px;
     }
     .input-icon {
         position: absolute;
-        top: 15px;
+        top: 13px;
         left: 13px;
     }
 }

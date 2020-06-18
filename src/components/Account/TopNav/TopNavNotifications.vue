@@ -2,7 +2,7 @@
     <div class="notifs position-relative d-inline-block">
         <b-dropdown
             variant="link"
-            size="sm"
+            size="md"
             right
             toggle-class="text-decoration-none"
             menu-class="position-absolute notifs-menu px-3 py-0"

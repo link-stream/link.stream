@@ -15,6 +15,7 @@
     "base64-blob": "^1.4.1",
     "cleave.js": "^1.6.0",
     "core-js": "^3.6.4",
+    "jszip": "^3.5.0",
     "v-calendar": "^1.0.1",
     "vue": "^2.6.11",
     "vue-doka": "https://github.com/link-stream/vue-doka.git",

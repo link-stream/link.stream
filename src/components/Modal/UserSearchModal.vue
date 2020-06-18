@@ -2,8 +2,8 @@
     <b-modal
         :modal-class="{
             UserSearchModal: true,
-            'is-done': isDone,
             'is-searching': isSearching,
+            'show-results': isSearchDone,
         }"
         size="md"
         centered
@@ -66,7 +66,7 @@ const MIN_SEARCH_LENGTH = 3
 const MAX_RESULTS = 5
 const STATUS_IDLE = 'idle'
 const STATUS_SEARCHING = 'searching'
-const STATUS_DONE = 'done'
+const STATUS_SEARCH_DONE = 'done'
 
 export default {
     name: 'UserSearchModal',
@@ -95,8 +95,8 @@ export default {
         isSearching() {
             return this.status === STATUS_SEARCHING
         },
-        isDone() {
-            return this.status === STATUS_DONE
+        isSearchDone() {
+            return this.status === STATUS_SEARCH_DONE
         },
     },
     watch: {
@@ -123,7 +123,7 @@ export default {
             }
 
             if (this.searchText.length < MIN_SEARCH_LENGTH) {
-                this.status = STATUS_DONE
+                this.status = STATUS_SEARCH_DONE
                 return
             }
 
@@ -149,7 +149,7 @@ export default {
                     })
             }
 
-            this.status = STATUS_DONE
+            this.status = STATUS_SEARCH_DONE
         },
         handleClearClick() {
             this.searchText = ''

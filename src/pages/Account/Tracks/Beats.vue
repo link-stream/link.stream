@@ -6,14 +6,16 @@
                 <div class="page-preview">
                     <span class="text-light">link.stream/</span>
                     <span>{{ user.user_name }}/beats</span>
-                    <preview-pill-button
+                    <ls-button
+                        variant="outline-light"
+                        size="xs"
                         :to="{
                             name: 'userBeats',
                             params: { username: user.user_name },
                         }"
                     >
                         Preview
-                    </preview-pill-button>
+                    </ls-button>
                 </div>
             </div>
             <div class="col-right">

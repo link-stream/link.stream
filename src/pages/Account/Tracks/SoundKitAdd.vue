@@ -20,12 +20,12 @@
                     <ls-button
                         class="cancel-btn"
                         variant="secondary"
-                        size="sm"
+                        size="md"
                         :to="{ name: 'accountSoundKits' }"
                     >
                         Cancel
                     </ls-button>
-                    <ls-spinner-button size="sm">
+                    <ls-spinner-button size="md">
                         Save
                     </ls-spinner-button>
                 </div>
@@ -101,15 +101,91 @@
                             ></textarea>
                         </b-form-group>
                     </base-card>
-                    <base-card title="Sound Kit ZIP File">
-                        <drop-file>
-                            <template v-slot:upload-container>xxx</template>
+                    <base-card class="zip-card" title="Sound Kit ZIP File">
+                        <drop-file
+                            class="is-zip"
+                            :acceptTypes="['.zip', '.rar']"
+                            @file-added="handleZipAdded"
+                            @file-removed="handleZipRemoved"
+                        >
+                            <template v-slot:preview-body>
+                                <div
+                                    v-if="form.zip"
+                                    class="preview-title"
+                                    v-html="form.zip.name"
+                                ></div>
+                            </template>
+                            <template v-slot:upload-container>
+                                <i class="upload-icon"></i>
+                                <div class="upload-msg">
+                                    <div class="upload-msg-s">
+                                        Add Zip File
+                                    </div>
+                                    <div class="upload-msg-l">
+                                        Drop a ZIP file here or
+                                        <u>browse for file</u>
+                                    </div>
+                                </div>
+                            </template>
                         </drop-file>
+                        <div class="file-entries" v-if="zipEntriesCount">
+                            <div class="entry-count">
+                                {{ zipEntriesCount }} samples
+                            </div>
+                            <ul class="entry-list">
+                                <li
+                                    v-for="(entry,
+                                    index) in zipEntriesPaginated"
+                                    :key="index"
+                                >
+                                    {{ entry.name }}
+                                </li>
+                            </ul>
+                            <ls-button
+                                v-if="showLoadMoreZipEntriesButton"
+                                class="load-more-btn"
+                                variant="outline-light"
+                                size="sm"
+                                @click="handleLoadMoreZipEntriesClick"
+                            >
+                                Load More Samples
+                            </ls-button>
+                        </div>
+                    </base-card>
+                    <base-card class="mp3-card" title="Demo MP3 File">
+                        <drop-audio
+                            @file-added="handleMp3Added"
+                            @file-removed="handleMp3Removed"
+                        >
+                            <template v-slot:preview-body>
+                                <div
+                                    v-if="form.mp3"
+                                    class="preview-title"
+                                    v-html="form.mp3.name"
+                                ></div>
+                            </template>
+                            <template v-slot:upload-container>
+                                <i class="upload-icon"></i>
+                                <div class="upload-msg">
+                                    <div class="upload-msg-s">
+                                        Add MP3 Preview File
+                                    </div>
+                                    <div class="upload-msg-l">
+                                        Drop a preview MP3 here or
+                                        <u>browse for file</u>
+                                    </div>
+                                </div>
+                            </template>
+                        </drop-audio>
+                        <div class="text-hint upload-hint" v-if="!form.mp3">
+                            Optional: Add a demo of your kit for customers to
+                            preview prior to purchase.
+                        </div>
                     </base-card>
                 </div>
                 <div class="col-right">
                     <div class="Card viz-card">
-                        <div class="fr">
+                        <header class="card-header">
                             <div class="card-title">
                                 Visibility
                             </div>
@@ -119,7 +195,7 @@
                                 </span>
                                 <LsToggleButton v-model="form.isPublic" />
                             </div>
-                        </div>
+                        </header>
                         <b-form-group
                             v-show="form.scheduled"
                             label="Set Release Date"
@@ -160,37 +236,87 @@
                     </div>
                 </div>
             </main>
+            <footer class="page-footer">
+                <ls-button
+                    class="cancel-btn"
+                    variant="secondary"
+                    size="md"
+                    :to="{ name: 'accountSoundKits' }"
+                >
+                    Cancel
+                </ls-button>
+                <ls-spinner-button
+                    size="md"
+                    :loading="saving"
+                    @click="handleSaveClick"
+                >
+                    Save
+                </ls-spinner-button>
+            </footer>
         </div>
     </div>
 </template>
 
 <script>
-import { DropImage, DropFile } from '~/components/Uploader'
+import { DropImage, DropFile, DropAudio } from '~/components/Uploader'
+import { api } from '~/services'
 import { mapGetters } from 'vuex'
 import { required, minLength } from 'vuelidate/lib/validators'
+import jszip from 'jszip'
+
+const ZIP_ENTRIES_PAGE_SIZE = 5
 
 export default {
     name: 'SoundKitAdd',
     components: {
         DropImage,
         DropFile,
+        DropAudio,
     },
     data() {
         return {
             loading: false,
+            saving: false,
             tag: '',
+            zipEntries: [],
+            zipEntriesCurrentPage: 0,
+            zipEntriesTotalPages: 0,
             form: {
+                isPublic: false,
                 title: '',
                 price: '',
                 genreId: '',
                 desc: '',
                 coverArtBase64: '',
+                mp3: '',
+                zip: null,
+                tags: [],
+                scheduled: false,
                 date: new Date(),
                 time: '00:00:00',
-                scheduled: false,
-                tags: [],
             },
         }
+    },
+    computed: {
+        ...mapGetters({
+            user: 'me/user',
+            genres: 'common/genres',
+        }),
+        zipEntriesCount() {
+            return this.zipEntries.length
+        },
+        zipEntriesPaginated() {
+            return this.zipEntries.slice(
+                0,
+                this.zipEntriesCurrentPage * ZIP_ENTRIES_PAGE_SIZE
+            )
+        },
+        showLoadMoreZipEntriesButton() {
+            return (
+                this.zipEntriesTotalPages > 1 &&
+                this.zipEntriesCurrentPage < this.zipEntriesTotalPages
+            )
+        },
     },
     validations: {
         form: {
@@ -205,11 +331,6 @@ export default {
                 minLength: minLength(3),
             },
         },
-    },
-    computed: {
-        ...mapGetters({
-            genres: 'common/genres',
-        }),
     },
     async created() {
         this.loading = true
@@ -229,6 +350,104 @@ export default {
         },
         handleImageRemoved() {
             this.form.coverArtBase64 = null
+        },
+        handleLoadMoreZipEntriesClick() {
+            this.zipEntriesCurrentPage++
+        },
+        handleMp3Added(file) {
+            this.form.mp3 = file
+        },
+        handleMp3Removed() {
+            this.form.mp3 = null
+        },
+        handleZipRemoved() {
+            this.form.zip = null
+            this.zipEntries = []
+        },
+        async handleZipAdded(file) {
+            try {
+                const zip = await jszip.loadAsync(file.blob)
+                const zipEntries = []
+                zip.forEach((relativePath, zipEntry) => {
+                    zipEntries.push({
+                        name: zipEntry.name,
+                    })
+                })
+                this.form.zip = file
+                this.zipEntries = zipEntries
+                this.zipEntriesCurrentPage = 1
+                this.zipEntriesTotalPages = Math.ceil(
+                    zipEntries.length / ZIP_ENTRIES_PAGE_SIZE
+                )
+            } catch (e) {
+                this.$toast.error("Can't read ZIP file.")
+            }
+        },
+        async handleSaveClick() {
+            this.$v.form.$touch()
+
+            if (this.$v.form.title.$invalid) {
+                this.$toast.error('Enter a title.')
+                return
+            }
+
+            if (this.$v.form.price.$invalid) {
+                this.$toast.error('Enter a price.')
+                return
+            }
+
+            if (this.$v.form.tags.$invalid) {
+                this.$toast.error('Add 3 or more tags that describe the beat.')
+                return
+            }
+
+            this.saving = true
+
+            const form = this.form
+
+            const params = {
+                user_id: this.user.id,
+                title: form.title,
+                price: form.price,
+                genre_id: form.genreId,
+                tags: form.tags.map(({ text }) => text).join(', '),
+                description: form.description,
+                track_type: 3,
+                public: form.isPublic ? 1 : 2,
+                scheduled: form.scheduled,
+            }
+
+            if (form.scheduled) {
+                params.date = moment(form.date).format('YYYY-MM-DD')
+                params.time = form.time
+            }
+
+            if (form.coverArtBase64) {
+                params.image = form.coverArtBase64
+            }
+
+            if (form.zip) {
+                params.track_stems_name = form.zip.name
+                params.track_stems = form.zip.base64
+            }
+
+            if (form.mp3) {
+                params.tagged_file_name = form.mp3.name
+                params.tagged_file = form.mp3.base64
+            }
+
+            const { status, message, error } = await api.audios.createAudio(
+                params
+            )
+
+            if (status === 'success') {
+                this.$toast.success(message)
+                this.$router.push({ name: 'accountSoundKits' })
+            } else {
+                this.$toast.error(error)
+            }
+
+            this.saving = false
         },
     },
 }

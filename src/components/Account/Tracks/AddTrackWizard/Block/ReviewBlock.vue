@@ -89,7 +89,7 @@
         </div>
 
         <div class="Card viz-card">
-            <div class="fr">
+            <header class="card-header">
                 <h4 class="card-title">Visibility</h4>
                 <div class="viz-toggle">
                     <span class="toggle-label">
@@ -97,7 +97,7 @@
                     </span>
                     <LsToggleButton v-model="form.isPublic" />
                 </div>
-            </div>
+            </header>
             <b-form-group label="Set Release Date" v-show="form.scheduled">
                 <b-input-group class="date-input-group">
                     <LsDatePicker v-model="form.date" />

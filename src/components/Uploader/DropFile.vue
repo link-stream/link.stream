@@ -7,13 +7,15 @@
             ref="fileInput"
             @change="handleFileSelected"
         />
-
-        <div class="preview-container" v-if="isFileAdded">
+        <section class="preview-container" v-if="isFileAdded">
+            <i class="preview-icon"></i>
             <div class="preview-body">
-                <div class="preview-title" v-html="title"></div>
-                <div class="preview-subtitle">{{
-                    file.name | truncate(200)
-                }}</div>
+                <slot name="preview-body">
+                    <div class="preview-title" v-html="title"></div>
+                    <div class="preview-subtitle">
+                        {{ file.name | truncate(200) }}
+                    </div>
+                </slot>
             </div>
             <div class="preview-controls">
                 <ls-button
@@ -40,9 +42,8 @@
                     </b-dropdown-item>
                 </b-dropdown>
             </div>
-        </div>
-
-        <div
+        </section>
+        <section
             v-else
             class="upload-container"
             :class="{ highlight: isDraggingFile }"
@@ -59,7 +60,7 @@
                 </div>
                 <i class="upload-icon"></i>
             </slot>
-        </div>
+        </section>
     </div>
 </template>
 

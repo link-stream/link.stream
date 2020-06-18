@@ -12,8 +12,7 @@
             ref="fileInput"
             @change="handleFileSelected"
         />
-
-        <div class="preview-container" v-if="isFileAdded">
+        <section class="preview-container" v-if="isFileAdded">
             <div class="player-controls">
                 <LsButton
                     variant="icon-bg"
@@ -22,8 +21,10 @@
                 />
             </div>
             <div class="preview-body">
-                <div class="preview-title" v-html="title"></div>
-                <div class="preview-subtitle">{{ file.name }}</div>
+                <slot name="preview-body">
+                    <div class="preview-title" v-html="title"></div>
+                    <div class="preview-subtitle">{{ file.name }}</div>
+                </slot>
             </div>
             <div class="preview-controls">
                 <ls-button
@@ -50,9 +51,8 @@
                     </b-dropdown-item>
                 </b-dropdown>
             </div>
-        </div>
-
-        <div
+        </section>
+        <section
             v-else
             class="upload-container"
             :class="{ highlight: isDraggingFile }"
@@ -62,12 +62,14 @@
             @dragenter="handleDragEnter"
             @click="showFileDialog"
         >
-            <div class="upload-body">
-                <div class="upload-title" v-html="title"></div>
-                <div class="upload-subtitle">No File Added</div>
-            </div>
-            <i class="upload-icon"></i>
-        </div>
+            <slot name="upload-container">
+                <div class="upload-body">
+                    <div class="upload-title" v-html="title"></div>
+                    <div class="upload-subtitle">No File Added</div>
+                </div>
+                <i class="upload-icon"></i>
+            </slot>
+        </section>
     </div>
 </template>
 

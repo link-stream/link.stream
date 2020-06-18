@@ -44,7 +44,6 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import Vuelidate from 'vuelidate'
 import { alertBox, eventBus } from '~/plugins'
 import {
-    PreviewPillButton,
     LsButton,
     LsSpinnerButton,
     LsIconButton,
@@ -150,7 +149,6 @@ Vue.use(alertBox)
 Vue.use(eventBus)
 Vue.component('BaseCard', BaseCard)
 Vue.component('UserAvatar', UserAvatar)
-Vue.component('PreviewPillButton', PreviewPillButton)
 Vue.component('LsButton', LsButton)
 Vue.component('LsSpinnerButton', LsSpinnerButton)
 Vue.component('LsIconButton', LsIconButton)

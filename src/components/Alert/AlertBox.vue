@@ -1,7 +1,7 @@
 <template>
     <b-modal
         :modal-class="`AlertBox AlertBox-${type}`"
-        size="sm"
+        size="md"
         v-model="open"
         centered
         hide-header
@@ -25,7 +25,7 @@
             <ls-button
                 class="action-btn"
                 variant="secondary"
-                size="sm"
+                size="md"
                 v-if="opts.cancelShow"
                 @click="handleCancelClick"
             >
@@ -33,7 +33,7 @@
             </ls-button>
             <ls-spinner-button
                 class="action-btn"
-                size="sm"
+                size="md"
                 v-if="opts.okShow"
                 @click="handleOkClick"
             >

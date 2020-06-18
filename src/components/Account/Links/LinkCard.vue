@@ -96,7 +96,7 @@
                     />
                     <ls-button
                         variant="tertiary"
-                        size="xs"
+                        size="sm"
                         @click="handleSaveClick"
                     >
                         Save

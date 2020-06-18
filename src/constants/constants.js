@@ -25,6 +25,7 @@ export const constants = {
         types: {
             song: 1,
             beat: 2,
+            soundKit: 3,
         },
     },
     user: {

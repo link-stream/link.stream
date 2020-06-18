@@ -53,14 +53,14 @@
                 <div class="col-right">
                     <ls-button
                         class="cancel-btn"
-                        size="xs"
+                        size="sm"
                         variant="secondary"
                         @click="handleCancelClick"
                     >
                         Cancel
                     </ls-button>
                     <ls-button
-                        size="xs"
+                        size="sm"
                         variant="black"
                         @click="handleSaveClick"
                     >

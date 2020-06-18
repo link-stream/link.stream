@@ -84,6 +84,7 @@ export const uploaderMixin = {
                 this.$emit('file-added', {
                     name: file.name,
                     base64,
+                    blob: file,
                 })
             } else {
                 this.$toast.error('Something went wrong, please try again.')

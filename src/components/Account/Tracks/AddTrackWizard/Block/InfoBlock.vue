@@ -76,11 +76,11 @@
             <div class="collabs">
                 <div class="collabs-grid">
                     <div
-                        class="fr"
+                        class="collab-row"
                         v-for="(collab, index) in form.collabs"
                         :key="index"
                     >
-                        <div class="fc user-col">
+                        <div class="collab-col user-col">
                             <label>Collaborator</label>
                             <div class="mini-profile">
                                 <UserAvatar :user="collab.user" />
@@ -88,7 +88,7 @@
                                 {{ collab.user.id == user.id ? '(you)' : '' }}
                             </div>
                         </div>
-                        <div class="fc profit-col">
+                        <div class="collab-col profit-col">
                             <label>Profit %</label>
                             <input
                                 type="text"
@@ -98,7 +98,7 @@
                                 @keyup="handleCollabProfitInput(collab, $event)"
                             />
                         </div>
-                        <div class="fc pub-col">
+                        <div class="collab-col pub-col">
                             <label>Publishing %</label>
                             <input
                                 type="text"
@@ -110,7 +110,7 @@
                                 "
                             />
                         </div>
-                        <div class="fc remove-col" v-if="index > 0">
+                        <div class="collab-col remove-col" v-if="index > 0">
                             <LsIconButton
                                 icon="close"
                                 class="remove-icon"

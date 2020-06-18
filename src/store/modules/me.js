@@ -11,10 +11,11 @@ const initialState = () => ({
      * @type {object}
      */
     user: null,
-    beats: [],
+    licenses: [],
     videos: [],
     links: [],
-    licenses: [],
+    beats: [],
+    soundKits: [],
 })
 
 const state = initialState()

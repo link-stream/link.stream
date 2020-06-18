@@ -6,6 +6,19 @@
         }
     }
 
+    &.is-zip {
+        .preview-icon {
+            @extend .ico;
+            display: none;
+            &:before {
+                @extend .ico:before;
+                background-image: url(~@/../public/static/ico/zip-file.svg);
+                width: 18px;
+                height: 24px;
+            }
+        }
+    }
+
     .preview-container,
     .upload-container {
         display: flex;
@@ -17,6 +30,10 @@
 
     .preview-container {
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.22);
+    }
+
+    .preview-icon {
+        display: none;
     }
 
     .upload-container {

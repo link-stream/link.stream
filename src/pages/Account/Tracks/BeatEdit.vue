@@ -20,7 +20,9 @@
                             <span class="text-light">link.stream/</span
                             >{{ beat.url_user }}/beats/{{ beat.url_title }}
                         </span>
-                        <preview-pill-button
+                        <ls-button
+                            variant="outline-light"
+                            size="xs"
                             :to="{
                                 name: 'userBeats',
                                 params: {
@@ -30,20 +32,20 @@
                             }"
                         >
                             Preview
-                        </preview-pill-button>
+                        </ls-button>
                     </div>
                 </div>
                 <div class="col-right">
                     <ls-button
                         class="cancel-btn"
                         variant="secondary"
-                        size="sm"
+                        size="md"
                         :to="{ name: 'accountBeats' }"
                     >
                         Cancel
                     </ls-button>
                     <ls-spinner-button
-                        size="sm"
+                        size="md"
                         :loading="isSaving"
                         @click="handleSaveClick"
                     >
@@ -236,11 +238,11 @@
                         <div class="collabs">
                             <div class="collabs-grid">
                                 <div
-                                    class="fr"
+                                    class="collab-row"
                                     v-for="(collab, index) in form.collabs"
                                     :key="index"
                                 >
-                                    <div class="fc user-col">
+                                    <div class="collab-col user-col">
                                         <label>Collaborator</label>
                                         <div class="mini-profile">
                                             <UserAvatar :user="collab.user" />
@@ -254,7 +256,7 @@
                                             }}
                                         </div>
                                     </div>
-                                    <div class="fc profit-col">
+                                    <div class="collab-col profit-col">
                                         <label>Profit %</label>
                                         <input
                                             type="text"
@@ -269,7 +271,7 @@
                                             "
                                         />
                                     </div>
-                                    <div class="fc pub-col">
+                                    <div class="collab-col pub-col">
                                         <label>Publishing %</label>
                                         <input
                                             type="text"
@@ -284,7 +286,10 @@
                                             "
                                         />
                                     </div>
-                                    <div class="fc remove-col" v-if="index > 0">
+                                    <div
+                                        class="collab-col remove-col"
+                                        v-if="index > 0"
+                                    >
                                         <LsIconButton
                                             icon="close"
                                             class="remove-icon"
@@ -318,7 +323,7 @@
                 <div class="col-right">
                     <!-- Visibility Card -->
                     <div class="Card viz-card">
-                        <div class="fr">
+                        <header class="card-header">
                             <div class="card-title">
                                 Visibility
                             </div>
@@ -328,7 +333,7 @@
                                 </span>
                                 <LsToggleButton v-model="form.isPublic" />
                             </div>
-                        </div>
+                        </header>
                         <b-form-group
                             v-show="form.scheduled"
                             label="Set Release Date"
@@ -374,13 +379,13 @@
                     <ls-button
                         class="cancel-btn"
                         variant="secondary"
-                        size="sm"
+                        size="md"
                         :to="{ name: 'accountBeats' }"
                     >
                         Cancel
                     </ls-button>
                     <ls-spinner-button
-                        size="sm"
+                        size="md"
                         :loading="isSaving"
                         @click="handleSaveClick"
                     >

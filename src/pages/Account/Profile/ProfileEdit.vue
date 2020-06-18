@@ -150,7 +150,9 @@
                                 <template v-else>
                                     <label class="small">{{ form.url }}</label>
                                 </template>
-                                <preview-pill-button
+                                <ls-button
+                                    variant="outline-light"
+                                    size="xs"
                                     class="ml-3"
                                     @click="handleCustomizeUrl"
                                 >
@@ -158,7 +160,7 @@
                                         Done
                                     </template>
                                     <template v-else>Customize</template>
-                                </preview-pill-button>
+                                </ls-button>
                             </b-form-group>
                         </b-col>
                         <b-col sm="6">

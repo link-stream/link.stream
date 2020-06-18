@@ -12,7 +12,6 @@
             ref="fileInput"
             @change="handleFileSelected"
         />
-
         <section class="preview-container" v-if="isFileAdded">
             <div class="preview-box">
                 <img :src="file.src" @click="showFileDialog" />
@@ -54,7 +53,6 @@
                 </b-dropdown>
             </div>
         </section>
-
         <section class="upload-container" v-else>
             <div
                 class="drop-box"
@@ -66,8 +64,10 @@
                 @click="showFileDialog"
             >
                 <i class="upload-icon"></i>
-                <div class="upload-msg upload-msg-s" v-html="msgShort"></div>
-                <div class="upload-msg upload-msg-l" v-html="msgLong"></div>
+                <div class="upload-msg">
+                    <div class="upload-msg-s" v-html="msgShort"></div>
+                    <div class="upload-msg-l" v-html="msgLong"></div>
+                </div>
             </div>
             <div class="upload-body">
                 <slot name="upload-body" :showFileDialog="showFileDialog">
@@ -159,6 +159,7 @@ export default {
                 this.$emit('file-added', {
                     name: file.name,
                     base64,
+                    blob: file,
                 })
             } else {
                 this.$toast.error('Something went wrong, please try again.')

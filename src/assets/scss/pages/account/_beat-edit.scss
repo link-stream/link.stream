@@ -34,16 +34,10 @@
 
     .Card {
         margin-bottom: 20px;
-        .card-title {
+        &.viz-card .card-title,
+        > .card-title {
             font-size: px2rem(14);
             margin-bottom: 15px;
-        }
-    }
-
-    .LicenseCard {
-        .card-title {
-            font-size: px2rem(12);
-            margin-bottom: 0;
         }
     }
 
@@ -67,17 +61,18 @@
             font-size: px2rem(12);
             margin-right: 10px;
         }
-        .fr {
+        .card-header {
             justify-content: space-between;
         }
     }
 
     .collabs {
-        .fr {
+        .collab-row {
+            display: flex;
             flex-direction: column;
             margin-bottom: 20px;
         }
-        .fc {
+        .collab-col {
             margin-bottom: 10px;
         }
         .pub-col {
@@ -138,14 +133,9 @@
         }
 
         .Card {
-            .card-title {
+            &.viz-card .card-title,
+            > .card-title {
                 font-size: px2rem(18);
-            }
-        }
-
-        .LicenseCard {
-            .card-title {
-                font-size: px2rem(14);
             }
         }
 
@@ -165,7 +155,7 @@
         }
 
         .collabs {
-            .fr {
+            .collab-row {
                 flex-direction: row;
                 margin-bottom: 10px;
                 &:first-child {
@@ -174,7 +164,7 @@
                     }
                 }
             }
-            .fc {
+            .collab-col {
                 margin-bottom: 0;
             }
             label {

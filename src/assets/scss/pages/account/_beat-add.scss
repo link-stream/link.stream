@@ -153,7 +153,7 @@
                 font-size: px2rem(12);
                 margin-right: 10px;
             }
-            .fr {
+            .card-header {
                 justify-content: space-between;
             }
             .form-group {
@@ -251,11 +251,12 @@
 
 .InfoBlock {
     .collabs {
-        .fr {
+        .collab-row {
+            display: flex;
             flex-direction: column;
             margin-bottom: 20px;
         }
-        .fc {
+        .collab-col {
             margin-bottom: 10px;
         }
         .pub-col {
@@ -296,7 +297,7 @@
             cursor: default;
         }
         @include media-breakpoint-up(md) {
-            .fr {
+            .collab-row {
                 flex-direction: row;
                 margin-bottom: 10px;
                 &:first-child {
@@ -305,7 +306,7 @@
                     }
                 }
             }
-            .fc {
+            .collab-col {
                 margin-bottom: 0;
             }
             label {

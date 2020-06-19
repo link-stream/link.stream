@@ -2,7 +2,7 @@ export const constants = {
     vuexLocalStorage: {
         key: 'ls',
     },
-    coverartDefault: '/static/img/no-coverart.jpg',
+    defaultCoverArt: '/static/img/no-coverart.jpg',
     cookies: {
         auth: {
             name: 'ls',

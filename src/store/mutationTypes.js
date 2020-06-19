@@ -29,11 +29,12 @@ export const meTypes = {
     SET_LICENSES: 'SET_LICENSES',
     UPDATE_LICENSE: 'UPDATE_LICENSE',
 
-    // Beats
+    // Tracks
     SET_BEATS: 'SET_BEATS',
     UPDATE_BEAT: 'UPDATE_BEAT',
     DELETE_BEAT: 'DELETE_BEAT',
     REORDER_BEAT: 'REORDER_BEAT',
+    SET_SOUND_KITS: 'SET_SOUND_KITS',
 
     // Videos
     SET_VIDEOS: 'SET_VIDEOS',

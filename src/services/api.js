@@ -130,7 +130,12 @@ export const api = {
     },
     audios: {
         async getBeatsByUser(userId) {
-            const endpoint = '/audios/' + userId
+            const endpoint = `/audios/${userId}/2`
+            const method = METHOD_GET
+            return await call({ endpoint, method, showProgress: false })
+        },
+        async getSoundKitsByUser(userId) {
+            const endpoint = `/audios/${userId}/3`
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
         },

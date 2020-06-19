@@ -97,13 +97,15 @@
                             <textarea
                                 class="form-control"
                                 rows="4"
-                                v-model="form.desc"
+                                v-model="form.description"
                             ></textarea>
                         </b-form-group>
                     </base-card>
                     <base-card class="zip-card" title="Sound Kit ZIP File">
                         <drop-file
                             class="is-zip"
+                            :filename="form.zip ? form.zip.name : null"
+                            :src="form.zip ? form.zip.base64 : null"
                             :acceptTypes="['.zip', '.rar']"
                             @file-added="handleZipAdded"
                             @file-removed="handleZipRemoved"
@@ -262,6 +264,7 @@ import { DropImage, DropFile, DropAudio } from '~/components/Uploader'
 import { api } from '~/services'
 import { mapGetters } from 'vuex'
 import { required, minLength } from 'vuelidate/lib/validators'
+import moment from 'moment'
 import jszip from 'jszip'
 
 const ZIP_ENTRIES_PAGE_SIZE = 5
@@ -286,7 +289,7 @@ export default {
                 title: '',
                 price: '',
                 genreId: '',
-                desc: '',
+                description: '',
                 coverArtBase64: '',
                 mp3: '',
                 zip: null,
@@ -380,6 +383,8 @@ export default {
                     zipEntries.length / ZIP_ENTRIES_PAGE_SIZE
                 )
             } catch (e) {
+                this.form.zip = null
+                this.zipEntries = []
                 this.$toast.error("Can't read ZIP file.")
             }
         },

@@ -78,6 +78,14 @@ const mutations = {
     },
 
     /**
+     * Sound Kits
+     */
+
+    [meTypes.SET_SOUND_KITS](state, { soundKits }) {
+        state.soundKits = soundKits
+    },
+
+    /**
      * Videos
      */
 
@@ -215,6 +223,19 @@ const actions = {
     },
 
     /**
+     * Sound Kits
+     */
+
+    async loadSoundKits({ commit, rootGetters }) {
+        const user = rootGetters['auth/user']
+        const { status, data } = await api.audios.getSoundKitsByUser(user.id)
+        commit({
+            type: meTypes.SET_SOUND_KITS,
+            soundKits: status === 'success' ? data : [],
+        })
+    },
+
+    /**
      * Videos
      */
 
@@ -322,23 +343,33 @@ const getters = {
             }
         })
     },
+    links: ({ links }) => {
+        return links.map(link => {
+            return {
+                ...link,
+                coverart: link.data_image || appConstants.defaultCoverArt,
+                isPublic: link.public == '1',
+                isPrivate: link.public == '2',
+            }
+        })
+    },
     beats: ({ beats }) => {
         return beats.map(beat => {
             return {
                 ...beat,
-                coverart: beat.data_image || appConstants.coverartDefault,
+                coverart: beat.data_image || appConstants.defaultCoverArt,
                 isPublic: beat.public == '1',
                 isPrivate: beat.public == '2',
             }
         })
     },
-    links: ({ links }) => {
-        return links.map(link => {
+    soundKits: ({ soundKits }) => {
+        return soundKits.map(sk => {
             return {
-                ...link,
-                coverart: link.data_image || appConstants.coverartDefault,
-                isPublic: link.public == '1',
-                isPrivate: link.public == '2',
+                ...sk,
+                coverart: sk.data_image || appConstants.defaultCoverArt,
+                isPublic: sk.public == '1',
+                isPrivate: sk.public == '2',
             }
         })
     },

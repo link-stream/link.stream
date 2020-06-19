@@ -323,15 +323,26 @@ export default {
     },
     validations: {
         form: {
-            title: {
-                required,
-            },
             price: {
                 required,
             },
             tags: {
                 required,
                 minLength: minLength(3),
+            },
+            title: {
+                required,
+                async isUnique(value) {
+                    if (!value) {
+                        return true
+                    }
+                    const { status } = await api.audios.getAvailability({
+                        value,
+                        userId: this.user.id,
+                        trackType: 3,
+                    })
+                    return status === 'success'
+                },
             },
         },
     },

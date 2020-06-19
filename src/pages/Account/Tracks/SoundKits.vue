@@ -4,6 +4,7 @@
         <ls-button :to="{ name: 'accountSoundKitAdd' }"
             >Add Sound Kit</ls-button
         >
+        <LsSpinner v-if="loading" />
 
         <base-card v-for="sk in soundKits" :key="sk.id" :title="sk.title">
             <p>Price: {{ sk.price }}</p>
@@ -34,9 +35,9 @@ export default {
             soundKits: 'me/soundKits',
         }),
     },
-    created() {
+    async created() {
         this.loading = true
-        this.$store.dispatch('me/loadSoundKits')
+        await this.$store.dispatch('me/loadSoundKits')
         this.loading = false
     },
 }

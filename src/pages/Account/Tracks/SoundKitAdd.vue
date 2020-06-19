@@ -25,7 +25,11 @@
                     >
                         Cancel
                     </ls-button>
-                    <ls-spinner-button size="md">
+                    <ls-spinner-button
+                        size="md"
+                        :loading="saving"
+                        @click="handleSaveClick"
+                    >
                         Save
                     </ls-spinner-button>
                 </div>

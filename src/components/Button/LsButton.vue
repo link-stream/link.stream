@@ -1,9 +1,10 @@
 <template>
     <b-button
+        pill
         :type="type"
         :to="to"
         :size="size"
-        pill
+        :disabled="disabled"
         :variant="variant"
         @click="handleClick"
     >
@@ -28,6 +29,10 @@ export default {
         },
         to: {
             type: Object,
+        },
+        disabled: {
+            type: Boolean,
+            default: false,
         },
     },
     methods: {

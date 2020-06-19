@@ -41,8 +41,11 @@
     }
 
     .zip-card {
-        .file-entries {
+        .zip-entries {
             margin-top: 20px;
+        }
+        footer {
+            margin-top: 15px;
         }
         .entry-count {
             color: $linkstream-140;
@@ -59,9 +62,6 @@
                 border-bottom: 1px solid $linkstream-210;
                 padding: 18px 10px;
             }
-        }
-        .load-more-btn {
-            margin-top: 15px;
         }
     }
 

@@ -1,7 +1,7 @@
 .btn-spinner {
     transition: opacity 500ms;
 
-    &.--ig {
+    &.is-ig {
         background: linear-gradient(
             135deg,
             #a624d2 0%,
@@ -18,15 +18,15 @@
         }
     }
 
-    &.--g {
+    &.is-g {
         background-color: #d44c4c;
         &:not(:disabled):not(.disabled):active {
             background-color: #d44c4c;
         }
     }
 
-    &.--g .label,
-    &.--ig .label {
+    &.is-g .label,
+    &.is-ig .label {
         text-transform: none;
         font-size: 1rem;
         font-weight: 500;

@@ -40,6 +40,7 @@
                         class="cancel-btn"
                         variant="secondary"
                         size="md"
+                        :disabled="isSaving"
                         :to="{ name: 'accountBeats' }"
                     >
                         Cancel
@@ -380,6 +381,7 @@
                         class="cancel-btn"
                         variant="secondary"
                         size="md"
+                        :disabled="isSaving"
                         :to="{ name: 'accountBeats' }"
                     >
                         Cancel

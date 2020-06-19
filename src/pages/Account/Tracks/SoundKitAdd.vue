@@ -21,6 +21,7 @@
                         class="cancel-btn"
                         variant="secondary"
                         size="md"
+                        :disabled="saving"
                         :to="{ name: 'accountSoundKits' }"
                     >
                         Cancel
@@ -134,7 +135,7 @@
                                 </div>
                             </template>
                         </drop-file>
-                        <div class="file-entries" v-if="zipEntriesCount">
+                        <div class="zip-entries" v-if="zipEntriesCount">
                             <div class="entry-count">
                                 {{ zipEntriesCount }} samples
                             </div>
@@ -147,15 +148,16 @@
                                     {{ entry.name }}
                                 </li>
                             </ul>
-                            <ls-button
-                                v-if="showLoadMoreZipEntriesButton"
-                                class="load-more-btn"
-                                variant="outline-light"
-                                size="sm"
-                                @click="handleLoadMoreZipEntriesClick"
-                            >
-                                Load More Samples
-                            </ls-button>
+                            <footer>
+                                <ls-button
+                                    v-if="showLoadMoreZipEntriesButton"
+                                    variant="outline-light"
+                                    size="sm"
+                                    @click="handleLoadMoreZipEntriesClick"
+                                >
+                                    Load More Samples
+                                </ls-button>
+                            </footer>
                         </div>
                     </base-card>
                     <base-card class="mp3-card" title="Demo MP3 File">
@@ -247,6 +249,7 @@
                     class="cancel-btn"
                     variant="secondary"
                     size="md"
+                    :disabled="saving"
                     :to="{ name: 'accountSoundKits' }"
                 >
                     Cancel

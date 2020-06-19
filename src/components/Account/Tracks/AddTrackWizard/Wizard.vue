@@ -125,6 +125,7 @@
             <ls-button
                 variant="secondary"
                 class="fwz-prev-btn"
+                :disabled="saving"
                 @click="handlePrevClick"
             >
                 Back

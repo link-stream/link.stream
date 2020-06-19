@@ -11,8 +11,8 @@
             'show-spinner': loading,
             'show-success': !loading && error === false,
             'show-fail': !loading && error,
-            '--ig': instagram,
-            '--g': google,
+            'is-ig': instagram,
+            'is-g': google,
         }"
     >
         <span class="spinner">

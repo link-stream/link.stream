@@ -11,13 +11,17 @@
         <div class="mb-4">
             <ls-button>Add Video</ls-button>
             &nbsp;
+            <ls-button size="md">Add Video</ls-button>
+            &nbsp;
             <ls-button size="sm">Add Video</ls-button>
             &nbsp;
-            <ls-button size="xs">Close</ls-button>
+            <ls-button size="xs">Add Video</ls-button>
         </div>
 
         <div class="mb-4">
             <ls-button variant="secondary">Add Video</ls-button>
+            &nbsp;
+            <ls-button variant="secondary" size="md">Add Video</ls-button>
             &nbsp;
             <ls-button variant="secondary" size="sm">Add Video</ls-button>
             &nbsp;
@@ -27,9 +31,11 @@
         <div class="mb-4">
             <ls-button variant="tertiary">Add Video</ls-button>
             &nbsp;
+            <ls-button variant="secondary" size="md">Add Video</ls-button>
+            &nbsp;
             <ls-button variant="tertiary" size="sm">Add Video</ls-button>
             &nbsp;
-            <ls-button variant="tertiary" size="xs">Close</ls-button>
+            <ls-button variant="tertiary" size="xs">Add Video</ls-button>
         </div>
 
         <div class="mb-4">

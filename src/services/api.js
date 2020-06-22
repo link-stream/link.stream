@@ -126,6 +126,11 @@ export const api = {
             const method = METHOD_GET
             return await call({ endpoint, method })
         },
+        async inviteCollab({ user_id, email }) {
+            const endpoint = `/users/invite_collaborator/${user_id}/${email}`
+            const method = METHOD_POST
+            return await call({ endpoint, method })
+        },
     },
     licenses: {
         async getLicensesByUser(userId) {

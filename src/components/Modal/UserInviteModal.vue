@@ -22,14 +22,20 @@
         </template>
 
         <template v-slot:modal-footer>
-            <ls-button size="md" @click="handleSendClick">
+            <ls-spinner-button
+                size="md"
+                :loading="processing"
+                @click="handleSendClick"
+            >
                 Send Invite
-            </ls-button>
+            </ls-spinner-button>
         </template>
     </b-modal>
 </template>
 
 <script>
+import { api } from '~/services'
+import { mapGetters } from 'vuex'
 import { required, email } from 'vuelidate/lib/validators'
 
 export default {
@@ -37,8 +43,12 @@ export default {
     data() {
         return {
             open: false,
+            processing: false,
             email: null,
         }
+    },
+    computed: {
+        ...mapGetters({ user: 'me/user' }),
     },
     validations: {
         email: {
@@ -53,12 +63,26 @@ export default {
         close() {
             this.open = false
         },
-        handleSendClick() {
+        async handleSendClick() {
             this.$v.email.$touch()
             if (this.$v.email.$invalid) {
                 return
             }
-            this.$alert.ok('Todo')
+            this.processing = true
+            const { status, data } = await api.users.inviteCollab({
+                user_id: this.user.id,
+                email: this.email,
+            })
+            if (status === 'success') {
+                const { id, user_name: name, data_image: photo } = data
+                this.$bus.$emit('modal.userInvite.userInvited', {
+                    id,
+                    name,
+                    photo,
+                })
+            }
+            this.open = false
+            this.processing = false
         },
         handleOpen() {
             this.$v.email.$reset()

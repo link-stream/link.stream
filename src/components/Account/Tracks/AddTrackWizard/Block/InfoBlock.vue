@@ -208,6 +208,7 @@ export default {
         this.$bus.$on('wz.prevClick', this.updateWizardForm)
         this.$bus.$on('wz.editModal.saveClick', this.validate)
         this.$bus.$on('modal.userSearch.userSelected', this.handleCollabAdd)
+        this.$bus.$on('modal.userInvite.userInvited', this.handleCollabAdd)
     },
     destroyed() {
         this.$bus.$off('modal.userSearch.userSelected')

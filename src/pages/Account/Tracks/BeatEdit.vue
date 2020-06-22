@@ -510,6 +510,7 @@ export default {
     },
     mounted() {
         this.$bus.$on('modal.userSearch.userSelected', this.handleCollabAdd)
+        this.$bus.$on('modal.userInvite.userInvited', this.handleCollabAdd)
     },
     async created() {
         this.status = STATUS_LOADING

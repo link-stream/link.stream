@@ -75,11 +75,8 @@ export default {
         }),
     },
     watch: {
-        links: {
-            immediate: true,
-            handler(newValue) {
-                this.sortableLinks = [...newValue]
-            },
+        links(newValue) {
+            this.sortableLinks = [...newValue]
         },
     },
     async created() {

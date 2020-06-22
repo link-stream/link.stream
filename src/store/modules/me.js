@@ -85,6 +85,19 @@ const mutations = {
         state.soundKits = soundKits
     },
 
+    [meTypes.DELETE_SOUND_KIT](state, { soundKit }) {
+        const { soundKits } = state
+        const index = soundKits.findIndex(({ id }) => id == soundKit.id)
+        soundKits.splice(index, 1)
+    },
+
+    [meTypes.REORDER_SOUND_KIT](state, { oldIndex, newIndex }) {
+        const { soundKits } = state
+        const soundKit = soundKits[oldIndex]
+        soundKits.splice(oldIndex, 1)
+        soundKits.splice(newIndex, 0, soundKit)
+    },
+
     /**
      * Videos
      */
@@ -232,6 +245,21 @@ const actions = {
         commit({
             type: meTypes.SET_SOUND_KITS,
             soundKits: status === 'success' ? data : [],
+        })
+    },
+
+    async deleteSoundKit({ commit }, soundKit) {
+        const response = await api.audios.deleteAudio(soundKit.id)
+        const { status } = response
+        status === 'success' && commit(meTypes.DELETE_SOUND_KIT, { soundKit })
+        return response
+    },
+
+    reorderSoundKit({ state, commit }, { oldIndex, newIndex, sorts }) {
+        commit(meTypes.REORDER_SOUND_KIT, { oldIndex, newIndex })
+        api.audios.sortAudios({
+            user_id: state.user.id,
+            list: JSON.stringify(sorts),
         })
     },
 

@@ -81,11 +81,8 @@ export default {
         }),
     },
     watch: {
-        beats: {
-            deep: true,
-            handler(newValue) {
-                this.sortableBeats = [...newValue]
-            },
+        beats(newValue) {
+            this.sortableBeats = [...newValue]
         },
     },
     async created() {

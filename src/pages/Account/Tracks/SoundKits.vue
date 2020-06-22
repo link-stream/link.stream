@@ -1,44 +1,113 @@
 <template>
-    <div>
-        <h1>Sound Kits</h1>
-        <ls-button :to="{ name: 'accountSoundKitAdd' }"
-            >Add Sound Kit</ls-button
-        >
-        <LsSpinner v-if="loading" />
-
-        <base-card v-for="sk in soundKits" :key="sk.id" :title="sk.title">
-            <p>Price: {{ sk.price }}</p>
-            <p>Description: {{ sk.description }}</p>
-            <p>Genre: {{ sk.genre_id }}</p>
-            <p>Public: {{ sk.public }}</p>
-            <p>Scheduled: {{ sk.scheduled }}</p>
-            <p>Date: {{ sk.date }}</p>
-            <p>Time: {{ sk.time }}</p>
-            <img :src="sk.image" v-if="sk.image" width="45" />
-        </base-card>
+    <div class="page page-sk">
+        <header class="page-header">
+            <div class="col-left">
+                <h1 class="page-title">Your Sound Kits</h1>
+                <div class="page-preview">
+                    <span class="text-light">link.stream/</span>
+                    <span>{{ user.user_name }}/kits</span>
+                    <ls-button
+                        variant="outline-light"
+                        size="xs"
+                        :to="{
+                            name: 'userSoundKits',
+                            params: { username: user.user_name },
+                        }"
+                    >
+                        Preview
+                    </ls-button>
+                </div>
+            </div>
+            <div class="col-right">
+                <ls-button :to="{ name: 'accountSoundKitAdd' }">
+                    Add New Kit
+                </ls-button>
+            </div>
+        </header>
+        <main class="page-body">
+            <div class="page-spinner" v-if="loading">
+                <LsSpinner />
+            </div>
+            <div class="page-empty" v-if="!loading && !sortableKits.length">
+                <div class="col-text">
+                    Your Sound Kits will appear here.
+                </div>
+                <div class="col-link">
+                    <ls-button
+                        variant="link"
+                        :to="{
+                            name: 'accountSoundKitAdd',
+                        }"
+                    >
+                        Add a kit
+                    </ls-button>
+                </div>
+            </div>
+            <Container
+                v-else
+                drag-handle-selector=".drag-icon"
+                @drop="handleReorder"
+            >
+                <Draggable v-for="kit in sortableKits" :key="kit.id">
+                    <SoundKitCard :soundKit="kit" />
+                </Draggable>
+            </Container>
+        </main>
     </div>
 </template>
 
 <script>
+import { SoundKitCard } from '~/components/Account/Tracks'
+import { Container, Draggable } from 'vue-smooth-dnd'
 import { mapGetters } from 'vuex'
 
 export default {
     name: 'SoundKits',
+    components: {
+        SoundKitCard,
+        Container,
+        Draggable,
+    },
     data() {
         return {
             loading: false,
-            sortedSoundKits: [],
+            sortableKits: [],
         }
     },
     computed: {
         ...mapGetters({
-            soundKits: 'me/soundKits',
+            user: 'me/user',
+            kits: 'me/soundKits',
         }),
+    },
+    watch: {
+        kits(newValue) {
+            this.sortableKits = [...newValue]
+        },
     },
     async created() {
         this.loading = true
         await this.$store.dispatch('me/loadSoundKits')
         this.loading = false
+    },
+    methods: {
+        handleReorder() {
+            const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
+            const soundKit = this.sortableKits[oldIndex]
+            this.sortableKits.splice(oldIndex, 1)
+            this.sortableKits.splice(newIndex, 0, soundKit)
+            const sorts = this.sortableKits.map(({ id }, index) => {
+                return {
+                    id,
+                    sort: (index + 1).toString(),
+                }
+            })
+            this.$store.dispatch('me/reorderSoundKit', {
+                oldIndex,
+                newIndex,
+                sorts,
+            })
+        },
     },
 }
 </script>

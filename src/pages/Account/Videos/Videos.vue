@@ -77,11 +77,8 @@ export default {
         }),
     },
     watch: {
-        videos: {
-            immediate: true,
-            handler(newValue) {
-                this.sortableVideos = [...newValue]
-            },
+        videos(newValue) {
+            this.sortableVideos = [...newValue]
         },
     },
     async created() {

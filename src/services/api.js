@@ -7,6 +7,8 @@ const METHOD_POST = 'POST'
 const METHOD_PUT = 'PUT'
 const METHOD_DELETE = 'DELETE'
 
+let authCookie = null
+
 const call = async function({
     endpoint,
     params = {},
@@ -18,8 +20,8 @@ const call = async function({
         'Content-Type': 'application/x-www-form-urlencoded',
     }
 
-    const authCookie = getAuthCookie()
-    if (authCookie && authCookie.token) {
+    authCookie = authCookie || getAuthCookie()
+    if (authCookie) {
         headers.Token = authCookie.token
     }
 

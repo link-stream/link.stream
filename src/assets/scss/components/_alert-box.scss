@@ -1,10 +1,4 @@
 .AlertBox {
-    &.AlertBox-alert {
-        .actions {
-            justify-content: center;
-        }
-    }
-
     .modal-dialog {
         max-width: 300px !important;
         margin-left: auto;
@@ -12,12 +6,24 @@
     }
 
     .modal-content {
-        border: 0;
-        padding: 0;
+        border: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
     .modal-body {
-        padding: 20px 15px 15px 15px;
+        padding: 20px 40px !important;
+        text-align: center;
+    }
+
+    .modal-footer {
+        justify-content: space-around !important;
+        margin: 0 !important;
+        padding: 0 10px 20px 10px !important;
+        border: 0;
+        .action-btn {
+            width: 130px;
+        }
     }
 
     .close-btn {
@@ -28,34 +34,18 @@
         z-index: 1;
     }
 
-    .body {
-        text-align: center;
-        padding: 0 30px;
-    }
-
-    .title {
+    .alert-title {
         color: $black;
         font-size: px2rem(14);
         font-weight: bold;
         letter-spacing: 0;
+        margin-bottom: 10px;
     }
 
-    .message {
+    .alert-message {
         color: $linkstream-100;
         font-size: px2rem(13);
         line-height: 20px;
-        margin: 10px 0 0 0;
-    }
-
-    .actions {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-    }
-
-    .action-btn {
-        width: 128px !important;
-        height: 40px;
-        padding: 0 !important;
+        margin: 0 !important;
     }
 }

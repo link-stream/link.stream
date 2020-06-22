@@ -93,9 +93,9 @@ export default {
     methods: {
         handleReorder() {
             const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
-            const soundKit = this.sortableKits[oldIndex]
+            const kit = this.sortableKits[oldIndex]
             this.sortableKits.splice(oldIndex, 1)
-            this.sortableKits.splice(newIndex, 0, soundKit)
+            this.sortableKits.splice(newIndex, 0, kit)
             const sorts = this.sortableKits.map(({ id }, index) => {
                 return {
                     id,

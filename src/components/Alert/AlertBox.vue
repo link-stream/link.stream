@@ -1,27 +1,15 @@
 <template>
     <b-modal
-        :modal-class="`AlertBox AlertBox-${type}`"
+        modal-class="AlertBox"
         size="md"
         v-model="open"
         centered
         hide-header
-        hide-footer
     >
         <LsIconButton class="close-btn" icon="close" @click="close" />
-        <div class="body">
-            <template v-if="opts.title && opts.message">
-                <h2 class="title" v-if="opts.title" v-html="opts.title"></h2>
-                <p
-                    class="message"
-                    v-show="opts.message"
-                    v-html="opts.message"
-                ></p>
-            </template>
-            <template v-else>
-                <h2 class="title" v-html="opts.title || opts.message"></h2>
-            </template>
-        </div>
-        <footer class="actions">
+        <h2 class="alert-title" v-html="opts.title" v-if="opts.title"></h2>
+        <p class="alert-message" v-html="opts.message" v-if="opts.message"></p>
+        <template v-slot:modal-footer>
             <ls-button
                 class="action-btn"
                 variant="secondary"
@@ -39,7 +27,7 @@
             >
                 {{ opts.okText }}
             </ls-spinner-button>
-        </footer>
+        </template>
     </b-modal>
 </template>
 

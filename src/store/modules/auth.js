@@ -1,5 +1,6 @@
-import router from '~/router'
 import { types, authTypes } from '../mutationTypes'
+import { api } from '~/services/api'
+import router from '~/router'
 import { isEmpty } from 'lodash'
 import {
     getAuthCookie,
@@ -41,11 +42,11 @@ const mutations = {
     [authTypes.LOGIN](state, { user }) {
         const { id, token } = user
         state.user = { id, token }
-        setAuthCookie(state.user)
+        setAuthCookie({ id, token })
     },
 
     [authTypes.LOGOUT]() {
-        // TODO
+        // Do nothing
     },
 }
 
@@ -70,7 +71,8 @@ const actions = {
         }
     },
 
-    async logout({ commit, dispatch }) {
+    logout({ commit, dispatch }) {
+        api.users.logout()
         commit(authTypes.LOGOUT)
         dispatch('reset')
         dispatch('me/reset', null, { root: true })

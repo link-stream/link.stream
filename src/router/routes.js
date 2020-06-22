@@ -2,7 +2,6 @@ import { NotFound } from '~/pages/Error'
 import { Legal, ComingSoon } from '~/pages/Others'
 import {
     Login,
-    Logout,
     Signup,
     SignupConfirm,
     EmailConfirm,
@@ -54,7 +53,6 @@ const routes = [
     {
         path: '/logout',
         name: 'logout',
-        component: Logout,
         meta: { requiresAuth: true },
     },
     {

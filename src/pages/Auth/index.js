@@ -1,5 +1,4 @@
 export { default as Login } from './Login'
-export { default as Logout } from './Logout'
 export { default as Signup } from './Signup'
 export { default as SignupConfirm } from './SignupConfirm'
 export { default as EmailConfirm } from './EmailConfirm'

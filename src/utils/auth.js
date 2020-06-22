@@ -1,14 +1,18 @@
-import Cookies from 'js-cookie'
 import { appConstants } from '~/constants'
+import Cookies from 'js-cookie'
 
 export const getAuthCookie = () =>
     Cookies.getJSON(appConstants.cookies.auth.name)
 
-export const setAuthCookie = value => {
-    Cookies.set(appConstants.cookies.auth.name, value, {
-        expires: appConstants.cookies.auth.expires,
-        secure: process.env === 'production',
-    })
+export const setAuthCookie = ({ id, token }) => {
+    Cookies.set(
+        appConstants.cookies.auth.name,
+        { id, token },
+        {
+            expires: appConstants.cookies.auth.expires,
+            secure: process.env === 'production',
+        }
+    )
 }
 
 export const getPendingUserCookie = () =>

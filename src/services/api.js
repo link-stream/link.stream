@@ -1,3 +1,4 @@
+import { getAuthCookie } from '~/utils/auth'
 import qs from 'qs'
 import axios from '~/plugins/axios'
 
@@ -15,6 +16,11 @@ const call = async function({
     const headers = {
         'X-API-KEY': process.env.VUE_APP_API_KEY,
         'Content-Type': 'application/x-www-form-urlencoded',
+    }
+
+    const authCookie = getAuthCookie()
+    if (authCookie && authCookie.token) {
+        headers.Token = authCookie.token
     }
 
     const auth = {
@@ -83,6 +89,11 @@ export const api = {
             const endpoint = '/users/login'
             const method = METHOD_POST
             return await call({ endpoint, params, method })
+        },
+        async logout() {
+            const endpoint = '/users/logout'
+            const method = METHOD_POST
+            return await call({ endpoint, method })
         },
         async registration(params) {
             const endpoint = '/users/registration'

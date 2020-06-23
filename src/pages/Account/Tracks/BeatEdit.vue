@@ -729,8 +729,8 @@ export default {
 
             this.status = STATUS_SAVING
 
+            const beat = this.beat
             const form = this.form
-
             const params = {
                 user_id: this.user.id,
                 title: form.title,
@@ -740,98 +740,86 @@ export default {
                 tags: form.tags.map(({ text }) => text).join(', '),
                 public: form.isPublic ? 1 : 2,
                 scheduled: form.scheduled,
+                collaborators: form.collabs.map(
+                    ({ user, profit, publishing }) => {
+                        return {
+                            user_id: user.id,
+                            profit,
+                            publishing,
+                        }
+                    }
+                ),
+                licenses: this.selectedLicenses.map(
+                    ({ id, price, status_id }) => {
+                        return {
+                            license_id: id,
+                            price,
+                            status_id,
+                        }
+                    }
+                ),
+                marketing: this.selectedFreeOptions.map(({ id }) => {
+                    return {
+                        marketing_id: id,
+                        connect_id: '',
+                    }
+                }),
             }
 
+            // Schedule
             if (form.scheduled) {
                 params.date = moment(form.date).format('YYYY-MM-DD')
                 params.time = form.time
             }
 
-            if (form.coverArtBase64 !== this.beat.data_image) {
+            // Cover art
+            if (form.coverArtBase64 !== beat.data_image) {
                 params.image = form.coverArtBase64
             }
 
-            // Collaborators
-
-            const collabs = form.collabs.map(({ user, profit, publishing }) => {
-                return {
-                    user_id: user.id,
-                    profit,
-                    publishing,
-                }
-            })
-
-            params.collaborators = JSON.stringify(collabs)
-
-            // Licenses
-
-            const selectedLicenses = this.selectedLicenses.map(
-                ({ id, price, status_id }) => {
-                    return {
-                        license_id: id,
-                        price,
-                        status_id,
-                    }
-                }
-            )
-
-            params.licenses = JSON.stringify(selectedLicenses)
-
-            // Free downloads
-
-            const selectedFreeOptions = this.selectedFreeOptions.map(
-                ({ id }) => {
-                    return {
-                        marketing_id: id,
-                        connect_id: '',
-                    }
-                }
-            )
-
-            if (selectedFreeOptions.length) {
-                params.marketing = JSON.stringify(selectedFreeOptions)
-            }
-
             // Files
-
             const { stems, tagged, untaggedMp3, untaggedWav } = form.files
 
             if (
-                stems.name !== this.beat.track_stems_name ||
-                stems.base64 !== this.beat.data_track_stems
+                stems.name !== beat.track_stems_name ||
+                stems.base64 !== beat.data_track_stems
             ) {
                 params.track_stems = stems.base64 || null
                 params.track_stems_name = stems.name || null
             }
 
             if (
-                tagged.name !== this.beat.tagged_file_name ||
-                tagged.base64 !== this.beat.data_tagged_file
+                tagged.name !== beat.tagged_file_name ||
+                tagged.base64 !== beat.data_tagged_file
             ) {
                 params.tagged_file = tagged.base64 || null
                 params.tagged_file_name = tagged.name || null
             }
 
             if (
-                untaggedMp3.name !== this.beat.untagged_mp3_name ||
-                untaggedMp3.base64 !== this.beat.data_untagged_mp3
+                untaggedMp3.name !== beat.untagged_mp3_name ||
+                untaggedMp3.base64 !== beat.data_untagged_mp3
             ) {
                 params.untagged_mp3 = untaggedMp3.base64 || null
                 params.untagged_mp3_name = untaggedMp3.name || null
             }
 
             if (
-                untaggedWav.name !== this.beat.untagged_wav_name ||
-                untaggedWav.base64 !== this.beat.data_untagged_wav
+                untaggedWav.name !== beat.untagged_wav_name ||
+                untaggedWav.base64 !== beat.data_untagged_wav
             ) {
                 params.untagged_wav = untaggedWav.base64 || null
                 params.untagged_wav_name = untaggedWav.name || null
             }
 
+            params.licenses = JSON.stringify(params.licenses)
+            params.collaborators = JSON.stringify(params.collaborators)
+            params.marketing = JSON.stringify(params.marketing)
+
             const { status, message, error } = await this.$store.dispatch(
                 'me/updateBeat',
                 {
-                    id: this.beat.id,
+                    id: beat.id,
                     params,
                 }
             )

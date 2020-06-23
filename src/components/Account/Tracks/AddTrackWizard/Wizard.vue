@@ -299,56 +299,41 @@ export default {
                 tags: form.tags.map(({ text }) => text).join(', '),
                 public: form.isPublic ? 1 : 2,
                 scheduled: form.scheduled,
+                collaborators: form.collabs.map(
+                    ({ user, profit, publishing }) => {
+                        return {
+                            user_id: user.id,
+                            profit,
+                            publishing,
+                        }
+                    }
+                ),
+                licenses: this.$store.getters[
+                    'trackAddWizard/selectedLicenses'
+                ].map(({ id, price, status_id }) => {
+                    return {
+                        license_id: id,
+                        price,
+                        status_id,
+                    }
+                }),
+                marketing: this.$store.getters[
+                    'trackAddWizard/selectedFreeOptions'
+                ].map(({ id }) => {
+                    return {
+                        marketing_id: id,
+                        connect_id: '',
+                    }
+                }),
             }
 
+            // Schedule
             if (form.scheduled) {
                 params.date = moment(form.date).format('YYYY-MM-DD')
                 params.time = form.time
             }
 
-            // Collaborators
-
-            const collabs = form.collabs.map(({ user, profit, publishing }) => {
-                return {
-                    user_id: user.id,
-                    profit,
-                    publishing,
-                }
-            })
-
-            params.collaborators = JSON.stringify(collabs)
-
-            // Licenses
-
-            const selectedLicenses = this.$store.getters[
-                'trackAddWizard/selectedLicenses'
-            ].map(({ id, price, status_id }) => {
-                return {
-                    license_id: id,
-                    price,
-                    status_id,
-                }
-            })
-
-            params.licenses = JSON.stringify(selectedLicenses)
-
-            // Free downloads
-
-            const selectedFreeOptions = this.$store.getters[
-                'trackAddWizard/selectedFreeOptions'
-            ].map(({ id }) => {
-                return {
-                    marketing_id: id,
-                    connect_id: '',
-                }
-            })
-
-            if (selectedFreeOptions.length) {
-                params.marketing = JSON.stringify(selectedFreeOptions)
-            }
-
             // Files
-
             const { stems, tagged, untaggedMp3, untaggedWav } = form.files
 
             if (stems) {
@@ -370,6 +355,10 @@ export default {
                 params.untagged_wav = untaggedWav.base64
                 params.untagged_wav_name = untaggedWav.name
             }
+
+            params.licenses = JSON.stringify(params.licenses)
+            params.collaborators = JSON.stringify(params.collaborators)
+            params.marketing = JSON.stringify(params.marketing)
 
             const {
                 status,

@@ -15,6 +15,7 @@
                 :class="{ 'is-invalid': $v.email.$error }"
                 placeholder="Email Address"
                 v-model="$v.email.$model"
+                @keyup.enter="handleSubmit"
             />
             <div class="invalid-feedback">
                 Enter a valid email
@@ -25,7 +26,7 @@
             <ls-spinner-button
                 size="md"
                 :loading="processing"
-                @click="handleSendClick"
+                @click="handleSubmit"
             >
                 Send Invite
             </ls-spinner-button>
@@ -63,7 +64,7 @@ export default {
         close() {
             this.open = false
         },
-        async handleSendClick() {
+        async handleSubmit() {
             this.$v.email.$touch()
             if (this.$v.email.$invalid) {
                 return

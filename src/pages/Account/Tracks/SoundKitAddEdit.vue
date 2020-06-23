@@ -476,7 +476,7 @@ export default {
             }
 
             if (this.$v.form.tags.$invalid) {
-                this.$toast.error('Add 3 or more tags that describe the beat.')
+                this.$toast.error('Add 3 or more tags that describe the kit.')
                 return
             }
 
@@ -487,8 +487,8 @@ export default {
 
             this.saving = true
 
+            const soundKit = this.soundKit
             const form = this.form
-
             const params = {
                 user_id: this.user.id,
                 title: form.title,
@@ -501,29 +501,27 @@ export default {
                 scheduled: form.scheduled,
             }
 
+            // Schedule
             if (form.scheduled) {
                 params.date = moment(form.date).format('YYYY-MM-DD')
                 params.time = form.time
             }
 
             // Cover art
-
-            if (this.isEditMode) {
-                if (form.coverArtBase64 !== this.soundKit.data_image) {
-                    params.image = form.coverArtBase64
-                }
-            } else {
+            if (
+                !this.isEditMode ||
+                form.coverArtBase64 !== soundKit.data_image
+            ) {
                 params.image = form.coverArtBase64
             }
 
             // Files
-
             const { zipFile, mp3File } = form
 
             if (
                 !this.isEditMode ||
-                zipFile.name !== this.soundKit.track_stems_name ||
-                zipFile.base64 !== this.soundKit.data_track_stems
+                zipFile.name !== soundKit.track_stems_name ||
+                zipFile.base64 !== soundKit.data_track_stems
             ) {
                 params.track_stems = zipFile.base64 || null
                 params.track_stems_name = zipFile.name || null
@@ -531,8 +529,8 @@ export default {
 
             if (
                 !this.isEditMode ||
-                mp3File.name !== this.soundKit.tagged_file_name ||
-                mp3File.base64 !== this.soundKit.data_tagged_file
+                mp3File.name !== soundKit.tagged_file_name ||
+                mp3File.base64 !== soundKit.data_tagged_file
             ) {
                 params.tagged_file = mp3File.base64 || null
                 params.tagged_file_name = mp3File.name || null
@@ -540,7 +538,7 @@ export default {
 
             const { status, message, error } = this.isEditMode
                 ? await this.$store.dispatch('me/updateSoundKit', {
-                      id: this.soundKit.id,
+                      id: soundKit.id,
                       params,
                   })
                 : await this.$store.dispatch('me/createSoundKit', { params })

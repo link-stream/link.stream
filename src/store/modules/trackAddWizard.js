@@ -4,15 +4,17 @@ import { cloneDeep } from 'lodash'
 import { required } from 'vuelidate/lib/validators'
 
 const initialState = () => ({
-    userLicenses: [],
-    freeOptions: [...appConstants.marketingOptions],
+    licenses: [],
+    /**
+     * Free download options.
+     */
+    freeDls: [...appConstants.marketingOptions],
     /**
      * Form values.
-     * @type {object}
      */
     form: {
         selectedLicenseIds: [],
-        selectedFreeOptionIds: [],
+        selectedFreeDlIds: [],
         trackType: 2, // 1=Song, 2=Beat
         coverArtBase64: null,
         title: null,
@@ -75,12 +77,12 @@ const mutations = {
         state.form = form
     },
 
-    [trackAddWizardTypes.SET_USER_LICENSES](state, { licenses }) {
-        state.userLicenses = cloneDeep(licenses)
+    [trackAddWizardTypes.SET_LICENSES](state, { licenses }) {
+        state.licenses = cloneDeep(licenses)
     },
 
-    [trackAddWizardTypes.UPDATE_USER_LICENSE](state, { index, license }) {
-        state.userLicenses.splice(index, 1, cloneDeep(license))
+    [trackAddWizardTypes.UPDATE_LICENSE](state, { index, license }) {
+        state.licenses.splice(index, 1, cloneDeep(license))
     },
 }
 
@@ -97,9 +99,9 @@ const actions = {
     },
 
     async updateLicense({ state, commit }, license) {
-        const index = state.userLicenses.findIndex(({ id }) => id == license.id)
+        const index = state.licenses.findIndex(({ id }) => id == license.id)
         commit({
-            type: trackAddWizardTypes.UPDATE_USER_LICENSE,
+            type: trackAddWizardTypes.UPDATE_LICENSE,
             index,
             license,
         })
@@ -108,7 +110,7 @@ const actions = {
     async loadUserLicenses({ commit, dispatch, rootGetters }) {
         await dispatch('me/loadLicenses', null, { root: true })
         commit({
-            type: trackAddWizardTypes.SET_USER_LICENSES,
+            type: trackAddWizardTypes.SET_LICENSES,
             licenses: rootGetters['me/licenses'],
         })
     },
@@ -122,16 +124,16 @@ const actions = {
 
 const getters = {
     isSong: ({ form }) => form.trackType == appConstants.tracks.types.song,
-    userLicenses: ({ userLicenses }) => userLicenses,
-    freeOptions: ({ freeOptions }) => freeOptions,
-    selectedLicenses: ({ form, userLicenses }) => {
-        return userLicenses.filter(
+    licenses: ({ licenses }) => licenses,
+    freeDls: ({ freeDls }) => freeDls,
+    selectedLicenses: ({ form, licenses }) => {
+        return licenses.filter(
             ({ id }) => form.selectedLicenseIds.indexOf(id) !== -1
         )
     },
-    selectedFreeOptions: ({ form, freeOptions }) => {
-        return freeOptions.filter(
-            ({ id }) => form.selectedFreeOptionIds.indexOf(id) !== -1
+    selectedFreeDls: ({ form, freeDls }) => {
+        return freeDls.filter(
+            ({ id }) => form.selectedFreeDlIds.indexOf(id) !== -1
         )
     },
     validations: (state, getters) => {

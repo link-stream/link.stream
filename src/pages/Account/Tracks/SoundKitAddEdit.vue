@@ -487,8 +487,8 @@ export default {
 
             this.saving = true
 
-            const soundKit = this.soundKit
-            const form = this.form
+            const { soundKit, form } = this
+
             const params = {
                 user_id: this.user.id,
                 title: form.title,

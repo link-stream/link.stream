@@ -16,8 +16,8 @@ export const authTypes = {
 // Track Add Wizard
 export const trackAddWizardTypes = {
     UPDATE_FORM: 'UPDATE_FORM',
-    SET_USER_LICENSES: 'SET_USER_LICENSES',
-    UPDATE_USER_LICENSE: 'UPDATE_USER_LICENSE',
+    SET_LICENSES: 'SET_LICENSES',
+    UPDATE_LICENSE: 'UPDATE_LICENSE',
 }
 
 // Account

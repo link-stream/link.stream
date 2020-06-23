@@ -318,7 +318,7 @@ export default {
                     }
                 }),
                 marketing: this.$store.getters[
-                    'trackAddWizard/selectedFreeOptions'
+                    'trackAddWizard/selectedFreeDls'
                 ].map(({ id }) => {
                     return {
                         marketing_id: id,

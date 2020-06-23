@@ -168,7 +168,7 @@
                     <!-- Licenses Card -->
                     <base-card title="Licensing">
                         <LicenseCard
-                            v-for="license in userLicenses"
+                            v-for="license in licenses"
                             :license="license"
                             :key="license.id"
                             :checked="
@@ -194,16 +194,16 @@
                     <base-card title="Free downloads" class="marketing-card">
                         <div
                             class="custom-control custom-checkbox"
-                            v-for="option in freeOptions"
+                            v-for="option in freeDls"
                             :key="option.id"
                         >
                             <input
                                 type="checkbox"
                                 class="custom-control-input"
-                                v-model="form.selectedFreeOptionIds"
+                                v-model="form.selectedFreeDlIds"
                                 :value="option.id"
                                 :checked="
-                                    form.selectedFreeOptionIds.indexOf(
+                                    form.selectedFreeDlIds.indexOf(
                                         option.id
                                     ) !== -1
                                 "
@@ -417,8 +417,8 @@ export default {
             status: STATUS_IDLE,
             beat: {},
             form: {},
-            userLicenses: [],
-            freeOptions: [...appConstants.marketingOptions],
+            licenses: [],
+            freeDls: [...appConstants.marketingOptions],
         }
     },
     computed: {
@@ -434,13 +434,13 @@ export default {
             return this.status === STATUS_SAVING
         },
         selectedLicenses() {
-            return this.userLicenses.filter(
+            return this.licenses.filter(
                 ({ id }) => this.form.selectedLicenseIds.indexOf(id) !== -1
             )
         },
-        selectedFreeOptions() {
-            return this.freeOptions.filter(
-                ({ id }) => this.form.selectedFreeOptionIds.indexOf(id) !== -1
+        selectedFreeDls() {
+            return this.freeDls.filter(
+                ({ id }) => this.form.selectedFreeDlIds.indexOf(id) !== -1
             )
         },
     },
@@ -514,28 +514,13 @@ export default {
         await this.$store.dispatch('common/loadAudioKeys')
         await this.$store.dispatch('me/loadLicenses')
 
-        const userLicenses = this.$store.getters['me/licenses']
+        const licenses = this.$store.getters['me/licenses']
 
-        if (!userLicenses.length) {
+        if (!licenses.length) {
             this.$router.push({ name: 'accountBeats' })
             this.$toast.error('Licenses not found.')
             return
         }
-
-        // Merge beat licenses into user licenses
-        this.userLicenses = userLicenses.map(userLicense => {
-            const beatLicense = beat.licenses.find(
-                ({ license_id }) => license_id == userLicense.id
-            )
-            if (beatLicense) {
-                return {
-                    ...userLicense,
-                    price: beatLicense.price,
-                }
-            } else {
-                return userLicense
-            }
-        })
 
         const form = {
             title: beat.title,
@@ -553,6 +538,29 @@ export default {
                 ? beat.tags.split(', ').map(tag => ({
                       text: tag,
                   }))
+                : [],
+            selectedLicenseIds: [],
+            selectedFreeDlIds: Array.isArray(beat.marketing)
+                ? beat.marketing.map(({ marketing_id }) => marketing_id)
+                : [],
+            collabs: Array.isArray(beat.collaborators)
+                ? beat.collaborators.map(
+                      ({
+                          user_id,
+                          user_name,
+                          data_image,
+                          profit,
+                          publishing,
+                      }) => ({
+                          profit,
+                          publishing,
+                          user: {
+                              id: user_id,
+                              name: user_name,
+                              photo: data_image,
+                          },
+                      })
+                  )
                 : [],
             files: {
                 stems: beat.data_track_stems
@@ -580,35 +588,27 @@ export default {
                       }
                     : {},
             },
-            selectedFreeOptionIds: Array.isArray(beat.marketing)
-                ? beat.marketing.map(({ marketing_id }) => marketing_id)
-                : [],
-            selectedLicenseIds: Array.isArray(beat.licenses)
-                ? beat.licenses.map(({ license_id }) => license_id)
-                : [],
-            collabs: Array.isArray(beat.collaborators)
-                ? beat.collaborators.map(
-                      ({
-                          user_id,
-                          user_name,
-                          data_image,
-                          profit,
-                          publishing,
-                      }) => ({
-                          profit,
-                          publishing,
-                          user: {
-                              id: user_id,
-                              name: user_name,
-                              photo: data_image,
-                          },
-                      })
-                  )
-                : [],
         }
 
         this.form = form
         this.beat = beat
+        this.licenses = licenses
+
+        // Merge beat licenses into licenses
+        if (Array.isArray(beat.licenses) && beat.licenses.length) {
+            this.licenses = licenses.map(license => {
+                const beatLicense = beat.licenses.find(
+                    ({ license_id }) => license_id == license.id
+                )
+                beatLicense &&
+                    form.selectedLicenseIds.push(beatLicense.license_id)
+                return {
+                    ...license,
+                    price: beatLicense ? beatLicense.price : license.price,
+                }
+            })
+        }
+
         this.status = STATUS_IDLE
     },
     methods: {
@@ -637,10 +637,10 @@ export default {
             this.form.selectedLicenseIds.splice(index, 1)
         },
         handleLicenseUpdated(license) {
-            const licenseIndex = this.userLicenses.findIndex(
+            const licenseIndex = this.licenses.findIndex(
                 ({ id }) => id == license.id
             )
-            this.userLicenses.splice(licenseIndex, 1, license)
+            this.licenses.splice(licenseIndex, 1, license)
         },
         handleUntaggeMp3Add({ name, base64 }) {
             this.form.files.untaggedMp3 = {
@@ -729,8 +729,8 @@ export default {
 
             this.status = STATUS_SAVING
 
-            const beat = this.beat
-            const form = this.form
+            const { beat, form } = this
+
             const params = {
                 user_id: this.user.id,
                 title: form.title,
@@ -758,7 +758,7 @@ export default {
                         }
                     }
                 ),
-                marketing: this.selectedFreeOptions.map(({ id }) => {
+                marketing: this.selectedFreeDls.map(({ id }) => {
                     return {
                         marketing_id: id,
                         connect_id: '',

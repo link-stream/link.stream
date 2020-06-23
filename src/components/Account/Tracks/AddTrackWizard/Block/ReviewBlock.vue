@@ -78,11 +78,11 @@
                 class="edit-btn"
                 @click="handleEditClick('marketing')"
             />
-            <p v-if="!selectedFreeOptions.length">
+            <p v-if="!selectedFreeDls.length">
                 No free downloads
             </p>
             <ul>
-                <li v-for="m in selectedFreeOptions" :key="m.id">
+                <li v-for="m in selectedFreeDls" :key="m.id">
                     {{ m.title }}
                 </li>
             </ul>
@@ -137,7 +137,7 @@ export default {
             isSong: 'trackAddWizard/isSong',
             validations: 'trackAddWizard/validations',
             selectedLicenses: 'trackAddWizard/selectedLicenses',
-            selectedFreeOptions: 'trackAddWizard/selectedFreeOptions',
+            selectedFreeDls: 'trackAddWizard/selectedFreeDls',
         }),
         summary() {
             return this.$store.state.trackAddWizard.form

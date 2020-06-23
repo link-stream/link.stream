@@ -1,7 +1,7 @@
 <template>
     <div>
         <LicenseCard
-            v-for="license in userLicenses"
+            v-for="license in licenses"
             :key="license.id"
             :license="license"
             :checked="selectedIds.indexOf(license.id) > -1"
@@ -30,7 +30,7 @@ export default {
     },
     computed: {
         ...mapGetters({
-            userLicenses: 'trackAddWizard/userLicenses',
+            licenses: 'trackAddWizard/licenses',
         }),
     },
     created() {

@@ -1,6 +1,6 @@
 <template>
     <div class="MarketingBlock">
-        <div class="Card" v-for="option in freeOptions" :key="option.id">
+        <div class="Card" v-for="option in freeDls" :key="option.id">
             <b-form-checkbox
                 :value="option.id"
                 v-model="selectedIds"
@@ -21,13 +21,13 @@ export default {
     data() {
         return {
             selectedIds: [
-                ...this.$store.state.trackAddWizard.form.selectedFreeOptionIds,
+                ...this.$store.state.trackAddWizard.form.selectedFreeDlIds,
             ],
         }
     },
     computed: {
         ...mapGetters({
-            freeOptions: 'trackAddWizard/freeOptions',
+            freeDls: 'trackAddWizard/freeDls',
         }),
     },
     created() {
@@ -38,7 +38,7 @@ export default {
     methods: {
         updateWizardForm() {
             this.$store.dispatch('trackAddWizard/updateForm', {
-                selectedFreeOptionIds: this.selectedIds,
+                selectedFreeDlIds: this.selectedIds,
             })
         },
         validate({ onSuccess }) {

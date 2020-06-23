@@ -85,6 +85,12 @@ const mutations = {
         state.soundKits = soundKits
     },
 
+    [meTypes.UPDATE_SOUND_KIT](state, { soundKit }) {
+        const { soundKits } = state
+        const index = soundKits.findIndex(({ id }) => id == soundKit.id)
+        index > -1 && soundKits.splice(index, 1, soundKit)
+    },
+
     [meTypes.DELETE_SOUND_KIT](state, { soundKit }) {
         const { soundKits } = state
         const index = soundKits.findIndex(({ id }) => id == soundKit.id)
@@ -213,6 +219,10 @@ const actions = {
         })
     },
 
+    async createBeat(context, { params }) {
+        return await api.audios.createAudio(params)
+    },
+
     async updateBeat({ commit }, { id, params }) {
         const response = await api.audios.updateAudio(id, params)
         const { status, data } = response
@@ -246,6 +256,18 @@ const actions = {
             type: meTypes.SET_SOUND_KITS,
             soundKits: status === 'success' ? data : [],
         })
+    },
+
+    async createSoundKit(context, { params }) {
+        return await api.audios.createAudio(params)
+    },
+
+    async updateSoundKit({ commit }, { id, params }) {
+        const response = await api.audios.updateAudio(id, params)
+        const { status, data } = response
+        status === 'success' &&
+            commit(meTypes.UPDATE_SOUND_KIT, { soundKit: data })
+        return response
     },
 
     async deleteSoundKit({ commit }, soundKit) {

@@ -23,7 +23,7 @@
             <div class="preview-body">
                 <slot name="preview-body">
                     <div class="preview-title" v-html="title"></div>
-                    <div class="preview-subtitle">{{ file.name }}</div>
+                    <div class="preview-subtitle">{{ filename }}</div>
                 </slot>
             </div>
             <div class="preview-controls">
@@ -94,7 +94,7 @@ export default {
         }
     },
     watch: {
-        file() {
+        src() {
             this.isFileAdded ? this.loadPlayer() : this.pause()
         },
     },
@@ -114,7 +114,7 @@ export default {
             this.player.addEventListener('ended', this.handleAudioPause)
         },
         loadPlayer() {
-            this.player.src = this.file.src
+            this.player.src = this.src
             this.player.load()
         },
         play() {

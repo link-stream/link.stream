@@ -101,8 +101,9 @@
                     </div>
                     <div class="col-image">
                         <DropImage
-                            @file-added="handleImageAdded"
-                            @file-removed="handleImageRemoved"
+                            :src="form.coverArtBase64"
+                            @file-add="handleImageAdd"
+                            @file-remove="handleImageRemove"
                         />
                     </div>
                 </main>

@@ -132,11 +132,6 @@ export default {
             },
         }
     },
-    validations() {
-        return {
-            files: this.validations.files,
-        }
-    },
     computed: {
         ...mapGetters({
             isSong: 'trackAddWizard/isSong',
@@ -169,6 +164,11 @@ export default {
             return this.summary.tags.map(({ text }) => text).join(', ')
         },
     },
+    validations() {
+        return {
+            files: this.validations.files,
+        }
+    },
     created() {
         this.$bus.$on('wz.saveClick', this.validate)
         this.$bus.$on('wz.prevClick', this.updateWizardForm)
@@ -181,7 +181,7 @@ export default {
         },
         validate({ onSuccess }) {
             if (this.$v.files.$invalid) {
-                this.$toast.error('Please review and upload required files.')
+                this.$toast.error('Please review and add required files.')
                 return
             }
             this.updateWizardForm()

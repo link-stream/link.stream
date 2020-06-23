@@ -14,7 +14,7 @@
         />
         <section class="preview-container" v-if="isFileAdded">
             <div class="preview-box">
-                <img :src="file.src" @click="showFileDialog" />
+                <img :src="src" @click="showFileDialog" />
                 <LsIconButton
                     class="file-remove-icon"
                     icon="remove"
@@ -152,14 +152,10 @@ export default {
             const base64 = await blobToBase64(file)
             this.tmpFile = null
             if (base64) {
-                this.file = {
+                this.$emit('file-add', {
                     name: file.name,
-                    src: base64,
-                }
-                this.$emit('file-added', {
-                    name: file.name,
-                    base64,
                     blob: file,
+                    base64,
                 })
             } else {
                 this.$toast.error('Something went wrong, please try again.')

@@ -22,23 +22,11 @@ export const uploaderMixin = {
     data() {
         return {
             isDraggingFile: false,
-            file: {
-                name: this.filename,
-                src: this.src,
-            },
         }
     },
     computed: {
         isFileAdded() {
-            return this.file.src ? true : false
-        },
-    },
-    watch: {
-        src(newValue) {
-            this.file.src = newValue
-        },
-        filename(newValue) {
-            this.file.name = newValue || ''
+            return this.src ? true : false
         },
     },
     methods: {
@@ -77,25 +65,17 @@ export const uploaderMixin = {
             }
             const base64 = await blobToBase64(file)
             if (base64) {
-                this.file = {
+                this.$emit('file-add', {
                     name: file.name,
-                    src: base64,
-                }
-                this.$emit('file-added', {
-                    name: file.name,
-                    base64,
                     blob: file,
+                    base64,
                 })
             } else {
                 this.$toast.error('Something went wrong, please try again.')
             }
         },
         removeFile() {
-            this.file = {
-                src: null,
-                name: null,
-            }
-            this.$emit('file-removed')
+            this.$emit('file-remove')
         },
         handleRemoveClick() {
             this.removeFile()

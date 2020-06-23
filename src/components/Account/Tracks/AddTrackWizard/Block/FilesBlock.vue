@@ -6,8 +6,8 @@
             :src="files.untaggedMp3 && files.untaggedMp3.base64"
             :filename="files.untaggedMp3 && files.untaggedMp3.name"
             :acceptTypes="['.mp3']"
-            @file-added="handleUntaggeMp3Added"
-            @file-removed="handleUntaggedMp3Removed"
+            @file-add="handleUntaggeMp3Add"
+            @file-remove="handleUntaggedMp3Remove"
         />
         <DropAudio
             title="Untagged .WAV"
@@ -15,15 +15,15 @@
             :src="files.untaggedWav && files.untaggedWav.base64"
             :filename="files.untaggedWav && files.untaggedWav.name"
             :acceptTypes="['.wav']"
-            @file-added="handleUntaggedWavAdded"
-            @file-removed="handleUntaggedWavRemoved"
+            @file-add="handleUntaggedWavAdd"
+            @file-remove="handleUntaggedWavRemove"
         />
         <DropAudio
             title="Tagged Streaming File (.MP3 or .WAV)"
             :src="files.tagged && files.tagged.base64"
             :filename="files.tagged && files.tagged.name"
-            @file-added="handleTaggedAdded"
-            @file-removed="handleTaggedRemoved"
+            @file-add="handleTaggedAdd"
+            @file-remove="handleTaggedRemove"
         />
         <DropFile
             title="Track Stems .ZIP (or .RAR)"
@@ -31,8 +31,8 @@
             :acceptTypes="['.rar', '.zip']"
             :src="files.stems && files.stems.base64"
             :filename="files.stems && files.stems.name"
-            @file-added="handleStemsAdded"
-            @file-removed="handleStemsRemoved"
+            @file-add="handleStemsAdd"
+            @file-remove="handleStemsRemove"
         />
     </div>
 </template>
@@ -76,7 +76,7 @@ export default {
             this.updateWizardForm()
             onSuccess()
         },
-        handleUntaggeMp3Added({ name, base64 }) {
+        handleUntaggeMp3Add({ name, base64 }) {
             this.files = {
                 ...this.files,
                 untaggedMp3: {
@@ -85,13 +85,13 @@ export default {
                 },
             }
         },
-        handleUntaggedMp3Removed() {
+        handleUntaggedMp3Remove() {
             this.files = {
                 ...this.files,
                 untaggedMp3: null,
             }
         },
-        handleUntaggedWavAdded({ name, base64 }) {
+        handleUntaggedWavAdd({ name, base64 }) {
             this.files = {
                 ...this.files,
                 untaggedWav: {
@@ -100,13 +100,13 @@ export default {
                 },
             }
         },
-        handleUntaggedWavRemoved() {
+        handleUntaggedWavRemove() {
             this.files = {
                 ...this.files,
                 untaggedWav: null,
             }
         },
-        handleStemsAdded({ name, base64 }) {
+        handleStemsAdd({ name, base64 }) {
             this.files = {
                 ...this.files,
                 stems: {
@@ -115,13 +115,13 @@ export default {
                 },
             }
         },
-        handleStemsRemoved() {
+        handleStemsRemove() {
             this.files = {
                 ...this.files,
                 stems: null,
             }
         },
-        handleTaggedAdded({ name, base64 }) {
+        handleTaggedAdd({ name, base64 }) {
             this.files = {
                 ...this.files,
                 tagged: {
@@ -130,7 +130,7 @@ export default {
                 },
             }
         },
-        handleTaggedRemoved() {
+        handleTaggedRemove() {
             this.files = {
                 ...this.files,
                 tagged: null,

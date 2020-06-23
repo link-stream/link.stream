@@ -59,8 +59,8 @@
                     msg-long="Drag artwork here or<br><u>browse for file</u>"
                     msg-short="Add Artwork"
                     :src="coverArtBase64"
-                    @file-added="handleImageAdded"
-                    @file-removed="handleImageRemoved"
+                    @file-add="handleImageAdd"
+                    @file-remove="handleImageRemove"
                 >
                     <template v-slot:upload-body>
                         <small class="text-hint" v-if="!coverArtBase64">
@@ -113,8 +113,8 @@
                         variant="inline"
                         msg-long="Drag artwork here or<br><u>browse for file</u>"
                         :src="coverArtBase64"
-                        @file-added="handleImageAdded"
-                        @file-removed="handleImageRemoved"
+                        @file-add="handleImageAdd"
+                        @file-remove="handleImageRemove"
                     />
                 </div>
             </div>
@@ -151,7 +151,6 @@ import MarketingBlock from './Block/MarketingBlock'
 import ReviewBlock from './Block/ReviewBlock'
 import { DropImage } from '~/components/Uploader'
 import { appConstants } from '~/constants'
-import { api } from '~/services'
 import { mapGetters } from 'vuex'
 import moment from 'moment'
 
@@ -299,7 +298,7 @@ export default {
                 genre_id: form.genre ? form.genre.id : '',
                 tags: form.tags.map(({ text }) => text).join(', '),
                 public: form.isPublic ? 1 : 2,
-                scheduled: false,
+                scheduled: form.scheduled,
             }
 
             if (form.scheduled) {
@@ -307,13 +306,13 @@ export default {
                 params.time = form.time
             }
 
-            // Collabs
+            // Collaborators
 
             const collabs = form.collabs.map(({ user, profit, publishing }) => {
                 return {
                     user_id: user.id,
-                    profit: profit,
-                    publishing: publishing,
+                    profit,
+                    publishing,
                 }
             })
 
@@ -350,29 +349,33 @@ export default {
 
             // Files
 
-            if (form.files.stems) {
-                params.track_stems_name = form.files.stems.name
-                params.track_stems = form.files.stems.base64
+            const { stems, tagged, untaggedMp3, untaggedWav } = form.files
+
+            if (stems) {
+                params.track_stems = stems.base64
+                params.track_stems_name = stems.name
             }
 
-            if (form.files.tagged) {
-                params.tagged_file_name = form.files.tagged.name
-                params.tagged_file = form.files.tagged.base64
+            if (tagged) {
+                params.tagged_file = tagged.base64
+                params.tagged_file_name = tagged.name
             }
 
-            if (form.files.untaggedMp3) {
-                params.untagged_mp3_name = form.files.untaggedMp3.name
-                params.untagged_mp3 = form.files.untaggedMp3.base64
+            if (untaggedMp3) {
+                params.untagged_mp3 = untaggedMp3.base64
+                params.untagged_mp3_name = untaggedMp3.name
             }
 
-            if (form.files.untaggedWav) {
-                params.untagged_wav_name = form.files.untaggedWav.name
-                params.untagged_wav = form.files.untaggedWav.base64
+            if (untaggedWav) {
+                params.untagged_wav = untaggedWav.base64
+                params.untagged_wav_name = untaggedWav.name
             }
 
-            const { status, message, error } = await api.audios.createAudio(
-                params
-            )
+            const {
+                status,
+                message,
+                error,
+            } = await this.$store.dispatch('me/createBeat', { params })
 
             if (status === 'success') {
                 this.$toast.success(message)
@@ -419,13 +422,13 @@ export default {
             })
             this.next()
         },
-        handleImageAdded(file) {
-            this.coverArtBase64 = file.base64
+        handleImageAdd({ base64 }) {
+            this.coverArtBase64 = base64
             this.$store.dispatch('trackAddWizard/updateForm', {
-                coverArtBase64: file.base64,
+                coverArtBase64: base64,
             })
         },
-        handleImageRemoved() {
+        handleImageRemove() {
             this.coverArtBase64 = null
             this.$store.dispatch('trackAddWizard/updateForm', {
                 coverArtBase64: null,

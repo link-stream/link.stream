@@ -128,43 +128,29 @@
                             :class="{
                                 'is-invalid': $v.form.files.untaggedMp3.$error,
                             }"
-                            :src="
-                                form.files.untaggedMp3 &&
-                                    form.files.untaggedMp3.base64
-                            "
-                            :filename="
-                                form.files.untaggedMp3 &&
-                                    form.files.untaggedMp3.name
-                            "
+                            :src="form.files.untaggedMp3.base64"
+                            :filename="form.files.untaggedMp3.name"
                             :acceptTypes="['.mp3']"
-                            @file-added="handleUntaggeMp3Added"
-                            @file-removed="handleUntaggedMp3Removed"
+                            @file-add="handleUntaggeMp3Add"
+                            @file-remove="handleUntaggedMp3Remove"
                         />
                         <DropAudio
                             title="Untagged .WAV"
                             :class="{
                                 'is-invalid': $v.form.files.untaggedWav.$error,
                             }"
-                            :src="
-                                form.files.untaggedWav &&
-                                    form.files.untaggedWav.base64
-                            "
-                            :filename="
-                                form.files.untaggedWav &&
-                                    form.files.untaggedWav.name
-                            "
+                            :src="form.files.untaggedWav.base64"
+                            :filename="form.files.untaggedWav.name"
                             :acceptTypes="['.wav']"
-                            @file-added="handleUntaggedWavAdded"
-                            @file-removed="handleUntaggedWavRemoved"
+                            @file-add="handleUntaggedWavAdd"
+                            @file-remove="handleUntaggedWavRemove"
                         />
                         <DropAudio
                             title="Tagged Streaming File (.MP3 or .WAV)"
-                            :src="form.files.tagged && form.files.tagged.base64"
-                            :filename="
-                                form.files.tagged && form.files.tagged.name
-                            "
-                            @file-added="handleTaggedAdded"
-                            @file-removed="handleTaggedRemoved"
+                            :src="form.files.tagged.base64"
+                            :filename="form.files.tagged.name"
+                            @file-add="handleTaggedAdd"
+                            @file-remove="handleTaggedRemove"
                         />
                         <DropFile
                             title="Track Stems .ZIP (or .RAR)"
@@ -172,12 +158,10 @@
                                 'is-invalid': $v.form.files.stems.$error,
                             }"
                             :acceptTypes="['.rar', '.zip']"
-                            :src="form.files.stems && form.files.stems.base64"
-                            :filename="
-                                form.files.stems && form.files.stems.name
-                            "
-                            @file-added="handleStemsAdded"
-                            @file-removed="handleStemsRemoved"
+                            :src="form.files.stems.base64"
+                            :filename="form.files.stems.name"
+                            @file-add="handleStemsAdd"
+                            @file-remove="handleStemsRemove"
                         />
                     </base-card>
 
@@ -362,8 +346,8 @@
                             variant="inline"
                             msg-long="Drag artwork here or<br><u>browse for file</u>"
                             :src="form.coverArtBase64"
-                            @file-added="handleImageAdded"
-                            @file-removed="handleImageRemoved"
+                            @file-add="handleImageAdd"
+                            @file-remove="handleImageRemove"
                         />
                     </div>
                 </div>
@@ -517,15 +501,14 @@ export default {
 
         const beatId = this.$route.params.id
         const beatResponse = await api.audios.getBeat(beatId, this.user.id)
-        let beat = null
 
-        if (beatResponse.status === 'success' && beatResponse.data.length) {
-            beat = beatResponse.data[0]
-        } else {
+        if (beatResponse.status !== 'success' || !beatResponse.data.length) {
             this.$router.push({ name: 'accountBeats' })
             this.$toast.error('Beat not found.')
             return
         }
+
+        const beat = beatResponse.data[0]
 
         await this.$store.dispatch('common/loadGenres')
         await this.$store.dispatch('common/loadAudioKeys')
@@ -539,6 +522,7 @@ export default {
             return
         }
 
+        // Merge beat licenses into user licenses
         this.userLicenses = userLicenses.map(userLicense => {
             const beatLicense = beat.licenses.find(
                 ({ license_id }) => license_id == userLicense.id
@@ -559,7 +543,7 @@ export default {
             bpm: beat.bpm,
             keyId: beat.key_id || null,
             coverArtBase64: beat.data_image,
-            isPublic: beat.public === '1',
+            isPublic: beat.public == appConstants.visibilities.public,
             scheduled: beat.scheduled,
             date: beat.scheduled
                 ? new Date(beat.date + ' 00:00:00')
@@ -576,35 +560,32 @@ export default {
                           name: beat.track_stems_name,
                           base64: beat.data_track_stems,
                       }
-                    : null,
+                    : {},
                 tagged: beat.data_tagged_file
                     ? {
                           name: beat.tagged_file_name,
                           base64: beat.data_tagged_file,
                       }
-                    : null,
+                    : {},
                 untaggedMp3: beat.data_untagged_mp3
                     ? {
                           name: beat.untagged_mp3_name,
                           base64: beat.data_untagged_mp3,
                       }
-                    : null,
+                    : {},
                 untaggedWav: beat.data_untagged_wav
                     ? {
                           name: beat.untagged_wav_name,
                           base64: beat.data_untagged_wav,
                       }
-                    : null,
+                    : {},
             },
-
             selectedFreeOptionIds: Array.isArray(beat.marketing)
                 ? beat.marketing.map(({ marketing_id }) => marketing_id)
                 : [],
-
             selectedLicenseIds: Array.isArray(beat.licenses)
                 ? beat.licenses.map(({ license_id }) => license_id)
                 : [],
-
             collabs: Array.isArray(beat.collaborators)
                 ? beat.collaborators.map(
                       ({
@@ -638,10 +619,10 @@ export default {
             this.$v.form.$reset()
             this.form.scheduled = !this.form.scheduled
         },
-        handleImageAdded(file) {
+        handleImageAdd(file) {
             this.form.coverArtBase64 = file.base64
         },
-        handleImageRemoved() {
+        handleImageRemove() {
             this.form.coverArtBase64 = null
         },
         handleTagsChange(tags) {
@@ -661,41 +642,41 @@ export default {
             )
             this.userLicenses.splice(licenseIndex, 1, license)
         },
-        handleUntaggeMp3Added({ name, base64 }) {
+        handleUntaggeMp3Add({ name, base64 }) {
             this.form.files.untaggedMp3 = {
                 name,
                 base64,
             }
         },
-        handleUntaggedMp3Removed() {
-            this.form.files.untaggedMp3 = null
+        handleUntaggedMp3Remove() {
+            this.form.files.untaggedMp3 = {}
         },
-        handleUntaggedWavAdded({ name, base64 }) {
+        handleUntaggedWavAdd({ name, base64 }) {
             this.form.files.untaggedWav = {
                 name,
                 base64,
             }
         },
-        handleUntaggedWavRemoved() {
-            this.form.files.untaggedWav = null
+        handleUntaggedWavRemove() {
+            this.form.files.untaggedWav = {}
         },
-        handleStemsAdded({ name, base64 }) {
+        handleStemsAdd({ name, base64 }) {
             this.form.files.stems = {
                 name,
                 base64,
             }
         },
-        handleStemsRemoved() {
-            this.form.files.stems = null
+        handleStemsRemove() {
+            this.form.files.stems = {}
         },
-        handleTaggedAdded({ name, base64 }) {
+        handleTaggedAdd({ name, base64 }) {
             this.form.files.tagged = {
                 name,
                 base64,
             }
         },
-        handleTaggedRemoved() {
-            this.form.files.tagged = null
+        handleTaggedRemove() {
+            this.form.files.tagged = {}
         },
         async handleDeleteClick() {
             this.$alert.confirm({
@@ -742,7 +723,7 @@ export default {
             }
 
             if (this.$v.form.files.$invalid) {
-                this.$toast.error('Upload required files.')
+                this.$toast.error('Add required files.')
                 return
             }
 
@@ -758,11 +739,7 @@ export default {
                 genre_id: form.genreId,
                 tags: form.tags.map(({ text }) => text).join(', '),
                 public: form.isPublic ? 1 : 2,
-                scheduled: false,
-            }
-
-            if (this.beat.image !== form.coverArtBase64) {
-                params.image = form.coverArtBase64
+                scheduled: form.scheduled,
             }
 
             if (form.scheduled) {
@@ -770,13 +747,17 @@ export default {
                 params.time = form.time
             }
 
-            // Collabs
+            if (form.coverArtBase64 !== this.beat.data_image) {
+                params.image = form.coverArtBase64
+            }
+
+            // Collaborators
 
             const collabs = form.collabs.map(({ user, profit, publishing }) => {
                 return {
                     user_id: user.id,
-                    profit: profit,
-                    publishing: publishing,
+                    profit,
+                    publishing,
                 }
             })
 
@@ -813,36 +794,38 @@ export default {
 
             // Files
 
+            const { stems, tagged, untaggedMp3, untaggedWav } = form.files
+
             if (
-                form.files.stems &&
-                this.beat.track_stems !== form.files.stems.base64
+                stems.name !== this.beat.track_stems_name ||
+                stems.base64 !== this.beat.data_track_stems
             ) {
-                params.track_stems_name = form.files.stems.name
-                params.track_stems = form.files.stems.base64
+                params.track_stems = stems.base64 || null
+                params.track_stems_name = stems.name || null
             }
 
             if (
-                form.files.tagged &&
-                this.beat.tagged_file !== form.files.tagged.base64
+                tagged.name !== this.beat.tagged_file_name ||
+                tagged.base64 !== this.beat.data_tagged_file
             ) {
-                params.tagged_file_name = form.files.tagged.name
-                params.tagged_file = form.files.tagged.base64
+                params.tagged_file = tagged.base64 || null
+                params.tagged_file_name = tagged.name || null
             }
 
             if (
-                form.files.untaggedMp3 &&
-                this.beat.untagged_mp3 !== form.files.untaggedMp3.base64
+                untaggedMp3.name !== this.beat.untagged_mp3_name ||
+                untaggedMp3.base64 !== this.beat.data_untagged_mp3
             ) {
-                params.untagged_mp3_name = form.files.untaggedMp3.name
-                params.untagged_mp3 = form.files.untaggedMp3.base64
+                params.untagged_mp3 = untaggedMp3.base64 || null
+                params.untagged_mp3_name = untaggedMp3.name || null
             }
 
             if (
-                form.files.untaggedWav &&
-                this.beat.untagged_wav !== form.files.untaggedWav.base64
+                untaggedWav.name !== this.beat.untagged_wav_name ||
+                untaggedWav.base64 !== this.beat.data_untagged_wav
             ) {
-                params.untagged_wav_name = form.files.untaggedWav.name
-                params.untagged_wav = form.files.untaggedWav.base64
+                params.untagged_wav = untaggedWav.base64 || null
+                params.untagged_wav_name = untaggedWav.name || null
             }
 
             const { status, message, error } = await this.$store.dispatch(

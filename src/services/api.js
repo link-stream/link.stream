@@ -41,7 +41,15 @@ const call = async function({
             auth,
             showProgress,
         })
+
         payload = response.data
+
+        if (typeof payload !== 'object') {
+            payload = {
+                status: 'false',
+                error: 'Unexpected error.',
+            }
+        }
     } catch (e) {
         const response =
             typeof e === 'object' && typeof e.response === 'object'
@@ -53,7 +61,7 @@ const call = async function({
         } else {
             payload = {
                 status: 'false',
-                error: response.statusText || 'Unexpected error',
+                error: response.statusText || 'Unexpected error.',
             }
         }
     }
@@ -169,6 +177,12 @@ export const api = {
         },
         async getBeat(id, userId) {
             const trackType = 2
+            const endpoint = `/audios/${userId}/${trackType}/${id}`
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
+        async getSoundKit(id, userId) {
+            const trackType = 3
             const endpoint = `/audios/${userId}/${trackType}/${id}`
             const method = METHOD_GET
             return await call({ endpoint, method })

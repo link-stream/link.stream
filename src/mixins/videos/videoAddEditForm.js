@@ -22,6 +22,15 @@ export const videoAddEditForm = {
             },
         }
     },
+    computed: {
+        ...mapGetters({
+            user: ['me/user'],
+            genres: ['common/genres'],
+        }),
+        ytVidId() {
+            return this.$youtube.getIdFromUrl(this.form.url)
+        },
+    },
     validations: {
         form: {
             url: {
@@ -37,15 +46,6 @@ export const videoAddEditForm = {
                 required,
                 minLength: minLength(10),
             },
-        },
-    },
-    computed: {
-        ...mapGetters({
-            user: ['me/user'],
-            genres: ['common/genres'],
-        }),
-        ytVidId() {
-            return this.$youtube.getIdFromUrl(this.form.url)
         },
     },
     methods: {

@@ -1,5 +1,5 @@
 <template>
-    <div class="Card LicenseCard" :class="{ 'is-editing': editing }">
+    <div class="Card LicenseCard" :class="{ 'is-editing': isEditMode }">
         <LsIconButton
             icon="close"
             class="close-btn"
@@ -89,7 +89,7 @@ export default {
     },
     data() {
         return {
-            editing: false,
+            isEditMode: false,
             form: {
                 price: this.license.price,
             },
@@ -104,13 +104,13 @@ export default {
     },
     methods: {
         close() {
-            this.editing = false
+            this.isEditMode = false
         },
         resetForm() {
             this.form.price = this.license.price
         },
         handleEditClick() {
-            this.editing = true
+            this.isEditMode = true
         },
         handleCancelClick() {
             this.close()

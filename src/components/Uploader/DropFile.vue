@@ -13,7 +13,7 @@
                 <slot name="preview-body">
                     <div class="preview-title" v-html="title"></div>
                     <div class="preview-subtitle">
-                        {{ file.name | truncate(200) }}
+                        {{ filename | truncate(200) }}
                     </div>
                 </slot>
             </div>

@@ -9,7 +9,7 @@ export const linkAddEditForm = {
     },
     data() {
         return {
-            editing: false,
+            isEditMode: false,
             processing: false,
             endDateEnabled: false,
             form: {
@@ -25,24 +25,13 @@ export const linkAddEditForm = {
             },
         }
     },
-    validations: {
-        form: {
-            url: {
-                required,
-                url,
-            },
-            title: {
-                required,
-            },
-        },
-    },
     computed: {
         ...mapGetters({
             user: 'me/user',
         }),
     },
     watch: {
-        editing(newValue) {
+        isEditMode(newValue) {
             if (!newValue) {
                 return
             }
@@ -57,11 +46,22 @@ export const linkAddEditForm = {
             }
         },
     },
+    validations: {
+        form: {
+            url: {
+                required,
+                url,
+            },
+            title: {
+                required,
+            },
+        },
+    },
     methods: {
-        handleImageAdded(file) {
+        handleImageAdd(file) {
             this.form.coverArtBase64 = file.base64
         },
-        handleImageRemoved() {
+        handleImageRemove() {
             this.form.coverArtBase64 = null
         },
         async handleSaveClick() {
@@ -91,9 +91,8 @@ export const linkAddEditForm = {
                 title,
             }
 
-            if (this.editing) {
-                const coverArtChanged = coverArtBase64 !== this.link.data_image
-                if (coverArtChanged) {
+            if (this.isEditMode) {
+                if (coverArtBase64 !== this.link.data_image) {
                     params.image = coverArtBase64
                 }
             } else {
@@ -110,7 +109,7 @@ export const linkAddEditForm = {
                 }
             }
 
-            const { status, message, error } = this.editing
+            const { status, message, error } = this.isEditMode
                 ? await this.$store.dispatch('me/updateLink', {
                       id: this.link.id,
                       params,
@@ -119,7 +118,7 @@ export const linkAddEditForm = {
 
             if (status === 'success') {
                 this.$toast.success(message)
-                if (this.editing) {
+                if (this.isEditMode) {
                     this.closeEditMode()
                 } else {
                     this.$router.push({ name: 'accountLinks' })

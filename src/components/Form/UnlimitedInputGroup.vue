@@ -16,8 +16,7 @@
             type="text"
             class="form-control"
             ref="input"
-            :value="localValue"
-            @input="handleCustomInput"
+            v-model.lazy="localValue"
             @focusin="handleCustomFocusIn"
             @focusout="handleCustomFocusOut"
         />
@@ -39,7 +38,7 @@ export default {
         },
     },
     data() {
-        return { localValue: this.value }
+        return { localValue: this.value.trim() }
     },
     computed: {
         isUnlimited() {
@@ -47,10 +46,10 @@ export default {
         },
     },
     mounted() {
-        const el = this.$refs.input
-        new Cleave(el, { numeral: true })
+        const { input } = this.$refs
+        new Cleave(input, { numeral: true })
         if (this.isUnlimited) {
-            el.value = VALUE_UNLIMITED
+            input.value = VALUE_UNLIMITED
         }
     },
     methods: {
@@ -61,16 +60,13 @@ export default {
         handleUnlimitedClick() {
             !this.isUnlimited && this.updateValue(VALUE_UNLIMITED)
         },
-        handleCustomInput(e) {
-            this.updateValue(e.target.value)
-        },
         handleCustomFocusIn() {
             if (this.isUnlimited) {
                 this.localValue = ''
             }
         },
         handleCustomFocusOut() {
-            !this.localValue.trim() && this.updateValue(VALUE_UNLIMITED)
+            this.updateValue(this.localValue || VALUE_UNLIMITED)
         },
     },
 }

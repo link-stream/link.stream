@@ -54,7 +54,12 @@ export default {
     },
     methods: {
         handleEditClick() {
-            this.$toast.error('Coming soon!')
+            this.$router.push({
+                name: 'accountSoundKitEdit',
+                params: {
+                    id: this.soundKit.id,
+                },
+            })
         },
         handleDeleteClick() {
             this.$alert.confirm({

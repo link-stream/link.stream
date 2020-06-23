@@ -1,7 +1,7 @@
 <template>
     <div class="Card LinkCard" :class="{ 'is-private': link.isPrivate }">
         <LsSpinnerMask v-show="processing" />
-        <section class="view-container" v-show="!editing">
+        <section class="view-container" v-show="!isEditMode">
             <LsIcon class="drag-icon" icon="drag" />
             <div class="card-media" @click="handleEditClick">
                 <img class="card-img" :src="link.coverart" :alt="link.title" />
@@ -25,7 +25,7 @@
                 @click="handleEditClick"
             />
         </section>
-        <section class="edit-container" v-if="editing">
+        <section class="edit-container" v-if="isEditMode">
             <LsIconButton
                 icon="close"
                 class="close-btn"
@@ -34,11 +34,11 @@
             />
             <main class="card-body">
                 <DropImage
-                    :src="link.data_image"
+                    :src="form.coverArtBase64"
                     msg-long="Drag image here&nbsp;or&nbsp;<u>browse</u>"
                     msg-short=""
-                    @file-added="handleImageAdded"
-                    @file-removed="handleImageRemoved"
+                    @file-add="handleImageAdd"
+                    @file-remove="handleImageRemove"
                 />
                 <form class="edit-form">
                     <b-form-group>
@@ -149,10 +149,10 @@ export default {
             this.processing = false
         },
         closeEditMode() {
-            this.editing = false
+            this.isEditMode = false
         },
         handleEditClick() {
-            this.editing = true
+            this.isEditMode = true
         },
         handleChangeScheduleClick() {
             this.$emit('schedule-click', this.link)

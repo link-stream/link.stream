@@ -24,6 +24,11 @@
         }
     }
 
+    .info-card,
+    .viz-card {
+        margin-top: 0;
+    }
+
     .card-title {
         font-size: px2rem(14);
         font-weight: bold;

@@ -21,7 +21,7 @@ import {
     AccountTracksLicenses,
     AccountTracksLicenseEdit,
     AccountSoundKits,
-    AccountSoundKitAdd,
+    AccountSoundKitAddEdit,
 } from '~/pages/Account'
 
 const routes = [
@@ -165,7 +165,13 @@ const routes = [
     {
         path: '/app/kits/add',
         name: 'accountSoundKitAdd',
-        component: AccountSoundKitAdd,
+        component: AccountSoundKitAddEdit,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/kits/:id/edit',
+        name: 'accountSoundKitEdit',
+        component: AccountSoundKitAddEdit,
         meta: { requiresAuth: true, layout: 'account' },
     },
 

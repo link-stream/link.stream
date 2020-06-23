@@ -112,6 +112,7 @@
                     <base-card class="zip-card" title="Sound Kit ZIP File">
                         <drop-file
                             class="is-zip"
+                            :class="{ 'is-invalid': $v.form.zipFile.$error }"
                             :filename="form.zipFile.name"
                             :src="form.zipFile.base64"
                             :acceptTypes="['.zip', '.rar']"
@@ -351,6 +352,9 @@ export default {
                 required,
                 minLength: minLength(3),
             },
+            zipFile: {
+                required,
+            },
             title: {
                 required,
                 async isUnique(value) {
@@ -473,6 +477,11 @@ export default {
 
             if (this.$v.form.tags.$invalid) {
                 this.$toast.error('Add 3 or more tags that describe the beat.')
+                return
+            }
+
+            if (this.$v.form.zipFile.$invalid) {
+                this.$toast.error('Add ZIP file.')
                 return
             }
 

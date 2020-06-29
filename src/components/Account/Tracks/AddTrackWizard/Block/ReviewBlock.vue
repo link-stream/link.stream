@@ -3,7 +3,7 @@
         <div class="Card">
             <h4 class="card-title">Track Info</h4>
             <LsButton
-                variant="icon-bg"
+                variant="icon"
                 title="Edit"
                 class="edit-btn"
                 @click="handleEditClick('info')"
@@ -20,7 +20,7 @@
         <div class="Card">
             <h4 class="card-title">Licensing</h4>
             <LsButton
-                variant="icon-bg"
+                variant="icon"
                 title="Edit"
                 class="edit-btn"
                 @click="handleEditClick('licenses')"
@@ -38,7 +38,7 @@
         <div class="Card">
             <h4 class="card-title">Files</h4>
             <LsButton
-                variant="icon-bg"
+                variant="icon"
                 title="Edit"
                 class="edit-btn"
                 @click="handleEditClick('files')"
@@ -73,7 +73,7 @@
         <div class="Card">
             <h4 class="card-title">Marketing</h4>
             <LsButton
-                variant="icon-bg"
+                variant="icon"
                 title="Edit"
                 class="edit-btn"
                 @click="handleEditClick('marketing')"

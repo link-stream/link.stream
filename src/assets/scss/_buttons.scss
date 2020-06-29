@@ -21,11 +21,6 @@
     font-size: px2rem(11);
     letter-spacing: 1.5px;
     padding: 9px 32px;
-    &.btn-outline-light {
-        font-size: px2rem(12);
-        letter-spacing: 0;
-        padding: 9px 17px;
-    }
 }
 
 .btn.btn-xs {
@@ -56,6 +51,14 @@
 }
 
 .btn-outline-light {
+    &.btn-sm {
+        font-size: px2rem(12);
+        letter-spacing: 0;
+        padding: 9px 17px;
+    }
+    &.btn-md {
+        font-size: px2rem(13);
+    }
     border: 1px solid $linkstream-90;
     background-color: $white;
     color: $black;
@@ -78,20 +81,16 @@
     border: 0;
     margin: 0;
     line-height: 0;
+    @extend .ico;
+    &:before {
+        @extend .ico:before;
+    }
     &:focus {
         outline: 0;
         box-shadow: none;
     }
     &:active {
         transform: scale(0.9);
-    }
-}
-
-.btn-icon-bg {
-    @extend .btn-icon;
-    @extend .ico;
-    &:before {
-        @extend .ico:before;
     }
 }
 

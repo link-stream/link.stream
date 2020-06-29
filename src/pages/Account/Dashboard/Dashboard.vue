@@ -39,6 +39,16 @@
         </div>
 
         <div class="mb-4">
+            <ls-button variant="outline-light">Add Video</ls-button>
+            &nbsp;
+            <ls-button variant="outline-light" size="md">Add Video</ls-button>
+            &nbsp;
+            <ls-button variant="outline-light" size="sm">Add Video</ls-button>
+            &nbsp;
+            <ls-button variant="outline-light" size="xs">Add Video</ls-button>
+        </div>
+
+        <div class="mb-4">
             <div class="custom-control custom-radio custom-control-inline">
                 <input
                     type="radio"

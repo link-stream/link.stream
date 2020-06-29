@@ -11,7 +11,7 @@
         v-model="open"
     >
         <template v-slot:modal-header>
-            <LsButton variant="icon-bg" class="modal-close" @click="close" />
+            <LsButton variant="icon" class="modal-close" @click="close" />
             <h2 class="modal-title">Search for collaborator</h2>
         </template>
 

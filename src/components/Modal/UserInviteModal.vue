@@ -1,9 +1,9 @@
 <template>
     <b-modal modal-class="UserInviteModal" size="md" centered v-model="open">
         <template v-slot:modal-header>
-            <LsButton variant="icon-bg" class="modal-close" @click="close" />
+            <LsButton variant="icon" class="modal-close" @click="close" />
             <h2 class="modal-title">Invite collaborator</h2>
-            <h4 class="subtitle">
+            <h4 class="modal-subtitle">
                 Send an invitation to join and collaborate
             </h4>
         </template>
@@ -63,6 +63,7 @@ export default {
     methods: {
         close() {
             this.open = false
+            this.$v.email.$reset()
         },
         async handleSubmit() {
             this.$v.email.$touch()
@@ -86,7 +87,6 @@ export default {
             this.processing = false
         },
         handleOpen() {
-            this.$v.email.$reset()
             this.email = null
             this.open = true
         },

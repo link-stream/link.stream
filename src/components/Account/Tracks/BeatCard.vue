@@ -23,13 +23,13 @@
             </span>
         </div>
         <LsButton
-            variant="icon-bg"
+            variant="icon"
             class="trash-btn"
             title="Delete"
             @click="handleDeleteClick"
         />
         <LsButton
-            variant="icon-bg"
+            variant="icon"
             class="edit-btn"
             title="Edit"
             @click="handleEditClick"

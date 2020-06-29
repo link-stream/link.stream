@@ -1,7 +1,7 @@
 <template>
     <b-modal v-model="open" size="lg" centered>
         <template v-slot:modal-header>
-            <LsButton variant="icon-bg" class="modal-close" @click="close" />
+            <LsButton variant="icon" class="modal-close" @click="close" />
             <h2 class="modal-title">Licenses</h2>
         </template>
 

@@ -13,13 +13,13 @@
                 </small>
             </main>
             <LsButton
-                variant="icon-bg"
+                variant="icon"
                 title="Delete"
                 class="trash-btn"
                 @click="handleDeleteClick"
             />
             <LsButton
-                variant="icon-bg"
+                variant="icon"
                 title="Edit"
                 class="edit-btn"
                 @click="handleEditClick"

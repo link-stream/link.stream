@@ -1,3 +1,12 @@
+.modal {
+    .action-btn {
+        padding: 0;
+        width: 135px;
+        height: 40px;
+        font-size: px2rem(11);
+    }
+}
+
 .modal-dialog {
     max-width: 320px !important;
     margin-left: auto;
@@ -20,22 +29,6 @@
     border-radius: 0;
     padding: 0 0 20px 0;
     margin: 0;
-
-    .action-btn {
-        padding: 0;
-        width: 135px;
-        height: 40px;
-        font-size: px2rem(11);
-    }
-
-    .subtitle {
-        color: $black;
-        font-size: px2rem(14);
-        letter-spacing: 0;
-        line-height: 20px;
-        margin-top: 5px;
-        font-weight: 400;
-    }
 }
 
 .modal-header {
@@ -50,6 +43,15 @@
     color: $black;
     font-size: px2rem(18);
     font-weight: bold;
+}
+
+.modal-subtitle {
+    color: $black;
+    font-size: px2rem(14);
+    letter-spacing: 0;
+    line-height: 20px;
+    margin-top: 5px;
+    font-weight: 400;
 }
 
 .modal-body {

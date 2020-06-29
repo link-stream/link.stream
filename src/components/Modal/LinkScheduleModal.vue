@@ -1,7 +1,7 @@
 <template>
     <b-modal modal-class="LinkScheduleModal" centered v-model="open">
         <template v-slot:modal-header>
-            <LsButton variant="icon-bg" class="modal-close" @click="close" />
+            <LsButton variant="icon" class="modal-close" @click="close" />
             <h2 class="modal-title">Schedule link</h2>
         </template>
 

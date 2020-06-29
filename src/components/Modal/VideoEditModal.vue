@@ -8,7 +8,7 @@
         no-close-on-esc
     >
         <template v-slot:modal-header>
-            <LsButton variant="icon-bg" class="modal-close" @click="close" />
+            <LsButton variant="icon" class="modal-close" @click="close" />
             <h2 class="modal-title">Edit video info</h2>
         </template>
 

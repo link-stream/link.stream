@@ -20,7 +20,7 @@
                 </small>
             </div>
             <LsButton
-                variant="icon-bg"
+                variant="icon"
                 class="edit-btn"
                 title="Edit"
                 @click="handleEditClick"

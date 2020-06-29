@@ -8,7 +8,7 @@
     >
         <span class="player-spinner spinner-border"></span>
         <LsButton
-            variant="icon-bg"
+            variant="icon"
             class="player-play-btn"
             :disabled="loading"
             @click="handlePlayClick"

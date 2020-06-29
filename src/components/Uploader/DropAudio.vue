@@ -1,10 +1,5 @@
 <template>
-    <div
-        class="DropAudio DropFile"
-        :class="{
-            'is-playing': playing,
-        }"
-    >
+    <div class="DropAudio DropFile">
         <input
             type="file"
             v-show="false"
@@ -13,13 +8,7 @@
             @change="handleFileSelected"
         />
         <section class="preview-container" v-if="isFileAdded">
-            <div class="player-controls">
-                <LsButton
-                    variant="icon-bg"
-                    class="play-btn"
-                    @click="handlePlayClick"
-                />
-            </div>
+            <MiniAudioPlayer :src="src" />
             <div class="preview-body">
                 <slot name="preview-body">
                     <div class="preview-title" v-html="title"></div>
@@ -74,71 +63,21 @@
 </template>
 
 <script>
+import { MiniAudioPlayer } from '~/components/Player'
 import { uploaderMixin } from '~/mixins/uploader'
 
 export default {
     name: 'DropAudio',
     mixins: [uploaderMixin],
+    components: {
+        MiniAudioPlayer,
+    },
     props: {
         acceptTypes: {
             type: Array,
             default() {
                 return ['.wav', '.mp3']
             },
-        },
-    },
-    data() {
-        return {
-            player: null,
-            playing: false,
-        }
-    },
-    watch: {
-        src() {
-            this.isFileAdded ? this.loadPlayer() : this.pause()
-        },
-    },
-    mounted() {
-        this.initPlayer()
-        this.isFileAdded && this.loadPlayer()
-    },
-    destroyed() {
-        this.pause()
-    },
-    methods: {
-        initPlayer() {
-            this.player = new Audio()
-            this.player.addEventListener('loadstart', this.handleAudioPause)
-            this.player.addEventListener('playing', this.handleAudioPlaying)
-            this.player.addEventListener('pause', this.handleAudioPause)
-            this.player.addEventListener('ended', this.handleAudioPause)
-        },
-        loadPlayer() {
-            this.player.src = this.src
-            this.player.load()
-        },
-        play() {
-            this.player.play()
-        },
-        pause() {
-            this.playing && this.player.pause()
-        },
-        handlePlayClick() {
-            if (this.playing) {
-                this.pause()
-            } else {
-                this.play()
-            }
-        },
-        handleRemoveClick() {
-            this.pause()
-            this.removeFile()
-        },
-        handleAudioPlaying() {
-            this.playing = true
-        },
-        handleAudioPause() {
-            this.playing = false
         },
     },
 }

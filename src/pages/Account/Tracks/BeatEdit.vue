@@ -131,8 +131,8 @@
                             :src="form.files.untaggedMp3.base64"
                             :filename="form.files.untaggedMp3.name"
                             :acceptTypes="['.mp3']"
-                            @file-add="handleUntaggeMp3Add"
-                            @file-remove="handleUntaggedMp3Remove"
+                            @add-file="handleUntaggeMp3Add"
+                            @remove-file="handleUntaggedMp3Remove"
                         />
                         <DropAudio
                             title="Untagged .WAV"
@@ -142,15 +142,15 @@
                             :src="form.files.untaggedWav.base64"
                             :filename="form.files.untaggedWav.name"
                             :acceptTypes="['.wav']"
-                            @file-add="handleUntaggedWavAdd"
-                            @file-remove="handleUntaggedWavRemove"
+                            @add-file="handleUntaggedWavAdd"
+                            @remove-file="handleUntaggedWavRemove"
                         />
                         <DropAudio
                             title="Tagged Streaming File (.MP3 or .WAV)"
                             :src="form.files.tagged.base64"
                             :filename="form.files.tagged.name"
-                            @file-add="handleTaggedAdd"
-                            @file-remove="handleTaggedRemove"
+                            @add-file="handleTaggedAdd"
+                            @remove-file="handleTaggedRemove"
                         />
                         <DropFile
                             title="Track Stems .ZIP (or .RAR)"
@@ -160,8 +160,8 @@
                             :acceptTypes="['.rar', '.zip']"
                             :src="form.files.stems.base64"
                             :filename="form.files.stems.name"
-                            @file-add="handleStemsAdd"
-                            @file-remove="handleStemsRemove"
+                            @add-file="handleStemsAdd"
+                            @remove-file="handleStemsRemove"
                         />
                     </base-card>
 
@@ -346,8 +346,8 @@
                             variant="inline"
                             msg-long="Drag artwork here or<br><u>browse for file</u>"
                             :src="form.coverArtBase64"
-                            @file-add="handleImageAdd"
-                            @file-remove="handleImageRemove"
+                            @add-file="handleImageAdd"
+                            @remove-file="handleImageRemove"
                         />
                     </div>
                 </div>

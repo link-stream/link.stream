@@ -70,6 +70,7 @@ const call = async function({
 }
 
 export const api = {
+    call,
     users: {
         async getUser(id) {
             const endpoint = '/users/' + id

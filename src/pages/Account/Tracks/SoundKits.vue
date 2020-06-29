@@ -49,7 +49,7 @@
                 @drop="handleReorder"
             >
                 <Draggable v-for="kit in sortableKits" :key="kit.id">
-                    <SoundKitCard :soundKit="kit" />
+                    <SoundKitCard :kit="kit" />
                 </Draggable>
             </Container>
         </main>

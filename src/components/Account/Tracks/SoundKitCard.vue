@@ -1,17 +1,13 @@
 <template>
-    <div class="Card BeatCard" :class="{ 'is-private': soundKit.isPrivate }">
+    <div class="Card BeatCard" :class="{ 'is-private': kit.isPrivate }">
         <LsSpinnerMask v-if="processing" />
         <LsIcon class="drag-icon" icon="drag" />
         <div class="card-media">
             <div class="lock-thumb"></div>
-            <img
-                class="card-img"
-                :src="soundKit.coverart"
-                :alt="soundKit.title"
-            />
+            <img class="card-img" :src="kit.coverart" :alt="kit.title" />
         </div>
         <h4 class="card-title">
-            {{ soundKit.title }}
+            {{ kit.title }}
         </h4>
         <LsButton
             variant="icon-bg"
@@ -43,7 +39,7 @@
 export default {
     name: 'SoundKitCard',
     props: {
-        soundKit: {
+        kit: {
             type: Object,
         },
     },
@@ -57,7 +53,7 @@ export default {
             this.$router.push({
                 name: 'accountSoundKitEdit',
                 params: {
-                    id: this.soundKit.id,
+                    id: this.kit.id,
                 },
             })
         },
@@ -73,7 +69,7 @@ export default {
                         error,
                     } = await this.$store.dispatch(
                         'me/deleteSoundKit',
-                        this.soundKit
+                        this.kit
                     )
                     status === 'success'
                         ? this.$toast.success(message)

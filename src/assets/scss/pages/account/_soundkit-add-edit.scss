@@ -1,4 +1,4 @@
-.page-sk-add {
+.page-kit-add-edit {
     .page-header {
         .col-right {
             display: none;
@@ -46,26 +46,31 @@
     }
 
     .zip-card {
-        .zip-entries {
-            margin-top: 20px;
-        }
         footer {
             margin-top: 15px;
         }
-        .entry-count {
-            color: $linkstream-140;
-            font-size: px2rem(11);
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .entry-list {
-            li {
-                color: $black;
-                font-size: px2rem(12);
-                letter-spacing: 0;
-                border-bottom: 1px solid $linkstream-210;
-                padding: 18px 10px;
+        .files {
+            margin-top: 20px;
+            .file-count {
+                color: $linkstream-140;
+                font-size: px2rem(11);
+                font-weight: bold;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+            .file-list {
+                li {
+                    display: flex;
+                    align-items: center;
+                    color: $black;
+                    font-size: px2rem(12);
+                    letter-spacing: 0;
+                    border-bottom: 1px solid $linkstream-210;
+                    padding: 18px 10px;
+                    .MiniAudioPlayer {
+                        margin-right: 15px;
+                    }
+                }
             }
         }
     }

@@ -65,7 +65,7 @@ export const uploaderMixin = {
             }
             const base64 = await blobToBase64(file)
             if (base64) {
-                this.$emit('file-add', {
+                this.$emit('add-file', {
                     name: file.name,
                     blob: file,
                     base64,
@@ -75,7 +75,7 @@ export const uploaderMixin = {
             }
         },
         removeFile() {
-            this.$emit('file-remove')
+            this.$emit('remove-file')
         },
         handleRemoveClick() {
             this.removeFile()

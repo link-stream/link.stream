@@ -6,8 +6,8 @@
             :src="files.untaggedMp3 && files.untaggedMp3.base64"
             :filename="files.untaggedMp3 && files.untaggedMp3.name"
             :acceptTypes="['.mp3']"
-            @file-add="handleUntaggeMp3Add"
-            @file-remove="handleUntaggedMp3Remove"
+            @add-file="handleUntaggeMp3Add"
+            @remove-file="handleUntaggedMp3Remove"
         />
         <DropAudio
             title="Untagged .WAV"
@@ -15,15 +15,15 @@
             :src="files.untaggedWav && files.untaggedWav.base64"
             :filename="files.untaggedWav && files.untaggedWav.name"
             :acceptTypes="['.wav']"
-            @file-add="handleUntaggedWavAdd"
-            @file-remove="handleUntaggedWavRemove"
+            @add-file="handleUntaggedWavAdd"
+            @remove-file="handleUntaggedWavRemove"
         />
         <DropAudio
             title="Tagged Streaming File (.MP3 or .WAV)"
             :src="files.tagged && files.tagged.base64"
             :filename="files.tagged && files.tagged.name"
-            @file-add="handleTaggedAdd"
-            @file-remove="handleTaggedRemove"
+            @add-file="handleTaggedAdd"
+            @remove-file="handleTaggedRemove"
         />
         <DropFile
             title="Track Stems .ZIP (or .RAR)"
@@ -31,8 +31,8 @@
             :acceptTypes="['.rar', '.zip']"
             :src="files.stems && files.stems.base64"
             :filename="files.stems && files.stems.name"
-            @file-add="handleStemsAdd"
-            @file-remove="handleStemsRemove"
+            @add-file="handleStemsAdd"
+            @remove-file="handleStemsRemove"
         />
     </div>
 </template>

@@ -152,7 +152,7 @@ export default {
             const base64 = await blobToBase64(file)
             this.tmpFile = null
             if (base64) {
-                this.$emit('file-add', {
+                this.$emit('add-file', {
                     name: file.name,
                     blob: file,
                     base64,

@@ -1,5 +1,5 @@
 <template>
-    <div class="page page-sk-add">
+    <div class="page page-kit-add-edit">
         <LsSpinner v-if="loading" />
         <div class="page-content" v-else>
             <nav class="page-nav">
@@ -12,10 +12,20 @@
                     <span>Sound Kits</span>
                 </ls-button>
             </nav>
+            <div class="alert alert-success" v-if="showCreatedSuccess">
+                <strong>Created {{ kit.title }}!</strong>!
+                <ls-button variant="link">
+                    View it
+                </ls-button>
+                or
+                <ls-button variant="link" :to="{ name: 'accountSoundKitAdd' }">
+                    create another sound kit
+                </ls-button>
+            </div>
             <header class="page-header">
                 <div class="col-left">
                     <h1 class="page-title">{{
-                        isEditMode ? soundKit.title : 'Create Sound Kit'
+                        isEditMode ? kit.title : 'Create Sound Kit'
                     }}</h1>
                 </div>
                 <div class="col-right">
@@ -116,8 +126,8 @@
                             :filename="form.zipFile.name"
                             :src="form.zipFile.base64"
                             :acceptTypes="['.zip', '.rar']"
-                            @file-add="handleZipAdd"
-                            @file-remove="handleZipRemove"
+                            @add-file="handleZipFileAdd"
+                            @remove-file="handleZipFileRemove"
                         >
                             <template v-slot:preview-body>
                                 <div
@@ -139,25 +149,29 @@
                                 </div>
                             </template>
                         </drop-file>
-                        <div class="zip-entries" v-if="zipEntriesCount">
-                            <div class="entry-count">
-                                {{ zipEntriesCount }} samples
+                        <div class="files" v-if="fileCount">
+                            <div class="file-count">
+                                {{ fileCount }} samples
                             </div>
-                            <ul class="entry-list">
+                            <ul class="file-list">
                                 <li
-                                    v-for="(entry,
-                                    index) in zipEntriesPaginated"
+                                    v-for="(filename, index) in filesPaginated"
                                     :key="index"
                                 >
-                                    {{ entry.name }}
+                                    <MiniAudioPlayer
+                                        :src="
+                                            `/audios/sound_kit_file/${user.id}/${kit.id}/${filename}`
+                                        "
+                                    />
+                                    {{ filename }}
                                 </li>
                             </ul>
                             <footer>
                                 <ls-button
-                                    v-if="showLoadMoreZipEntriesButton"
+                                    v-if="showLoadMoreFilesBtn"
                                     variant="outline-light"
                                     size="sm"
-                                    @click="handleLoadMoreZipEntriesClick"
+                                    @click="handleLoadMoreFilesClick"
                                 >
                                     Load More Samples
                                 </ls-button>
@@ -168,12 +182,13 @@
                         <drop-audio
                             :filename="form.mp3File.name"
                             :src="form.mp3File.base64"
-                            @file-add="handleMp3Add"
-                            @file-remove="handleMp3Remove"
+                            :acceptTypes="['.mp3']"
+                            @add-file="handleDemoFileAdd"
+                            @remove-file="handleDemoFileRemove"
                         >
                             <template v-slot:preview-body>
                                 <div
-                                    v-if="isMp3FileAdded"
+                                    v-if="isDemoFileAdded"
                                     class="preview-title"
                                     v-html="form.mp3File.name"
                                 ></div>
@@ -193,7 +208,7 @@
                         </drop-audio>
                         <div
                             class="text-hint upload-hint"
-                            v-if="!isMp3FileAdded"
+                            v-if="!isDemoFileAdded"
                         >
                             Optional: Add a demo of your kit for customers to
                             preview prior to purchase.
@@ -238,8 +253,8 @@
                             variant="inline"
                             msg-long="Drag artwork here or<br><u>browse for file</u>"
                             :src="form.coverArtBase64"
-                            @file-add="handleImageAdd"
-                            @file-remove="handleImageRemove"
+                            @add-file="handleImageAdd"
+                            @remove-file="handleImageRemove"
                         >
                             <template v-slot:upload-body>
                                 <small
@@ -277,13 +292,14 @@
 
 <script>
 import { DropImage, DropFile, DropAudio } from '~/components/Uploader'
+import { MiniAudioPlayer } from '~/components/Player'
 import { api } from '~/services'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
 import { required, minLength } from 'vuelidate/lib/validators'
 import moment from 'moment'
 
-const ZIP_ENTRIES_PAGE_SIZE = 5
+const FILES_PAGE_SIZE = 5
 
 export default {
     name: 'SoundKitAddEdit',
@@ -291,15 +307,17 @@ export default {
         DropImage,
         DropFile,
         DropAudio,
+        MiniAudioPlayer,
     },
     data() {
         return {
             loading: false,
             saving: false,
+            showCreatedSuccess: false,
             tag: '',
-            zipEntries: [],
-            zipEntriesCurrentPage: 0,
-            soundKit: null,
+            files: [],
+            filesCurrentPage: 1,
+            kit: null,
             form: {
                 isPublic: false,
                 title: '',
@@ -322,24 +340,21 @@ export default {
             genres: 'common/genres',
         }),
         isEditMode() {
-            return !!this.soundKit
+            return !!this.kit
         },
-        zipEntriesCount() {
-            return this.zipEntries.length
+        fileCount() {
+            return this.files.length
         },
-        zipEntriesPaginated() {
-            return this.zipEntries.slice(
-                0,
-                this.zipEntriesCurrentPage * ZIP_ENTRIES_PAGE_SIZE
-            )
+        filesPaginated() {
+            return this.files.slice(0, this.filesCurrentPage * FILES_PAGE_SIZE)
         },
-        showLoadMoreZipEntriesButton() {
-            return this.zipEntriesPaginated.length < this.zipEntriesCount
+        showLoadMoreFilesBtn() {
+            return this.filesPaginated.length < this.fileCount
         },
         isZipFileAdded() {
             return !!this.form.zipFile.base64
         },
-        isMp3FileAdded() {
+        isDemoFileAdded() {
             return !!this.form.mp3File.base64
         },
     },
@@ -367,7 +382,7 @@ export default {
                         userId: this.user.id,
                     }
                     if (this.isEditMode) {
-                        params.audioId = this.soundKit.id
+                        params.audioId = this.kit.id
                     }
                     const { status } = await api.audios.getAvailability(params)
                     return status === 'success'
@@ -381,51 +396,63 @@ export default {
         const route = this.$route
 
         if (route.name === 'accountSoundKitEdit') {
-            const skId = route.params.id
-            const skResponse = await api.audios.getSoundKit(skId, this.user.id)
-            if (skResponse.status !== 'success' || !skResponse.data.length) {
+            const kitId = route.params.id
+            const kitResponse = await api.audios.getSoundKit(
+                kitId,
+                this.user.id
+            )
+            if (kitResponse.status !== 'success' || !kitResponse.data.length) {
                 this.$router.push({ name: 'accountSoundKits' })
                 this.$toast.error('Sound kit not found.')
                 return
             }
-            const sk = skResponse.data[0]
+            const kit = kitResponse.data[0]
             const form = {
-                isPublic: sk.public == appConstants.visibilities.public,
-                title: sk.title,
-                price: sk.price,
-                genreId: sk.genre_id,
-                description: sk.description,
-                coverArtBase64: sk.data_image,
-                scheduled: sk.scheduled,
-                date: sk.scheduled
-                    ? new Date(sk.date + ' 00:00:00')
+                isPublic: kit.public == appConstants.visibilities.public,
+                title: kit.title,
+                price: kit.price,
+                genreId: kit.genre_id,
+                description: kit.description,
+                coverArtBase64: kit.data_image,
+                scheduled: kit.scheduled,
+                date: kit.scheduled
+                    ? new Date(kit.date + ' 00:00:00')
                     : new Date(),
-                time: sk.scheduled ? sk.time : '00:00:00',
-                tags: sk.tags
-                    ? sk.tags.split(', ').map(tag => ({
+                time: kit.scheduled ? kit.time : '00:00:00',
+                tags: kit.tags
+                    ? kit.tags.split(', ').map(tag => ({
                           text: tag,
                       }))
                     : [],
-                mp3File: sk.tagged_file
+                mp3File: kit.tagged_file
                     ? {
-                          name: sk.tagged_file_name,
-                          base64: sk.tagged_file,
+                          name: kit.tagged_file_name,
+                          base64: kit.data_tagged_file,
                       }
                     : {},
-                zipFile: sk.track_stems
+                zipFile: kit.track_stems
                     ? {
-                          name: sk.track_stems_name,
-                          base64: sk.track_stems,
+                          name: kit.track_stems_name,
+                          base64: kit.data_track_stems,
                       }
                     : {},
             }
             this.form = { ...this.form, ...form }
-            this.soundKit = sk
+            this.kit = kit
+            this.files = [...kit.kit_files_name]
         }
 
         await this.$store.dispatch('common/loadGenres')
 
         this.loading = false
+    },
+    mounted() {
+        const rouetParams = this.$route.params
+        if (rouetParams.createdSuccess) {
+            this.showCreatedSuccess = true
+        } else if (rouetParams.updatedSuccess) {
+            this.$toast.success(rouetParams.updatedSuccess)
+        }
     },
     methods: {
         handleTagsChange(tags) {
@@ -435,34 +462,35 @@ export default {
             this.$v.form.$reset()
             this.form.scheduled = !this.form.scheduled
         },
+        handleLoadMoreFilesClick() {
+            this.filesCurrentPage++
+        },
         handleImageAdd(file) {
             this.form.coverArtBase64 = file.base64
         },
         handleImageRemove() {
             this.form.coverArtBase64 = null
         },
-        handleLoadMoreZipEntriesClick() {
-            this.zipEntriesCurrentPage++
-        },
-        handleMp3Add({ name, base64 }) {
+        handleDemoFileAdd({ name, base64 }) {
             this.form.mp3File = {
                 name,
                 base64,
             }
         },
-        handleMp3Remove() {
+        handleDemoFileRemove() {
             this.form.mp3File = {}
         },
-        async handleZipAdd({ name, base64 }) {
+        async handleZipFileAdd({ name, base64 }) {
             this.form.zipFile = {
                 name,
                 base64,
             }
         },
-        handleZipRemove() {
+        handleZipFileRemove() {
             this.form.zipFile = {}
+            this.files = []
         },
-        async handleSaveClick() {
+        handleSaveClick() {
             this.$v.form.$touch()
 
             if (this.$v.form.title.$invalid) {
@@ -487,7 +515,10 @@ export default {
 
             this.saving = true
 
-            const { soundKit, form } = this
+            setTimeout(this.save, 500)
+        },
+        async save() {
+            const { kit, form } = this
 
             const params = {
                 user_id: this.user.id,
@@ -508,10 +539,7 @@ export default {
             }
 
             // Cover art
-            if (
-                !this.isEditMode ||
-                form.coverArtBase64 !== soundKit.data_image
-            ) {
+            if (!this.isEditMode || form.coverArtBase64 !== kit.data_image) {
                 params.image = form.coverArtBase64
             }
 
@@ -520,8 +548,8 @@ export default {
 
             if (
                 !this.isEditMode ||
-                zipFile.name !== soundKit.track_stems_name ||
-                zipFile.base64 !== soundKit.data_track_stems
+                zipFile.name !== kit.track_stems_name ||
+                zipFile.base64 !== kit.data_track_stems
             ) {
                 params.track_stems = zipFile.base64 || null
                 params.track_stems_name = zipFile.name || null
@@ -529,28 +557,45 @@ export default {
 
             if (
                 !this.isEditMode ||
-                mp3File.name !== soundKit.tagged_file_name ||
-                mp3File.base64 !== soundKit.data_tagged_file
+                mp3File.name !== kit.tagged_file_name ||
+                mp3File.base64 !== kit.data_tagged_file
             ) {
                 params.tagged_file = mp3File.base64 || null
                 params.tagged_file_name = mp3File.name || null
             }
 
-            const { status, message, error } = this.isEditMode
+            const { status, message, error, data } = this.isEditMode
                 ? await this.$store.dispatch('me/updateSoundKit', {
-                      id: soundKit.id,
+                      id: kit.id,
                       params,
                   })
                 : await this.$store.dispatch('me/createSoundKit', { params })
 
             if (status === 'success') {
-                this.$toast.success(message)
-                this.$router.push({ name: 'accountSoundKits' })
+                if (this.isEditMode) {
+                    this.$router.push({
+                        name: 'accountSoundKitEdit',
+                        params: {
+                            id: data.id,
+                            updatedSuccess: message,
+                        },
+                        query: {
+                            u: Date.now(),
+                        },
+                    })
+                } else {
+                    this.$router.push({
+                        name: 'accountSoundKitEdit',
+                        params: {
+                            id: data.id,
+                            createdSuccess: message,
+                        },
+                    })
+                }
             } else {
                 this.$toast.error(error)
+                this.saving = false
             }
-
-            this.saving = false
         },
     },
 }

@@ -37,8 +37,8 @@
                     :src="form.coverArtBase64"
                     msg-long="Drag image here&nbsp;or&nbsp;<u>browse</u>"
                     msg-short=""
-                    @file-add="handleImageAdd"
-                    @file-remove="handleImageRemove"
+                    @add-file="handleImageAdd"
+                    @remove-file="handleImageRemove"
                 />
                 <form class="edit-form">
                     <b-form-group>

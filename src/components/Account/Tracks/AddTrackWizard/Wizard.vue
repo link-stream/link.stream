@@ -59,8 +59,8 @@
                     msg-long="Drag artwork here or<br><u>browse for file</u>"
                     msg-short="Add Artwork"
                     :src="coverArtBase64"
-                    @file-add="handleImageAdd"
-                    @file-remove="handleImageRemove"
+                    @add-file="handleImageAdd"
+                    @remove-file="handleImageRemove"
                 >
                     <template v-slot:upload-body>
                         <small class="text-hint" v-if="!coverArtBase64">
@@ -113,8 +113,8 @@
                         variant="inline"
                         msg-long="Drag artwork here or<br><u>browse for file</u>"
                         :src="coverArtBase64"
-                        @file-add="handleImageAdd"
-                        @file-remove="handleImageRemove"
+                        @add-file="handleImageAdd"
+                        @remove-file="handleImageRemove"
                     />
                 </div>
             </div>

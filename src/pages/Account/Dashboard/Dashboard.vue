@@ -65,21 +65,42 @@
         </div>
 
         <div class="mb-4">
-            <DropAudio />
-            <DropImage />
+            <DropAudio
+                :src="audioFile && audioFile.base64"
+                @add-file="handleAudioAdd"
+                @remove-file="handleAudioRemove"
+            />
             <DropFile />
+            <DropImage />
         </div>
+
+        <MiniAudioPlayer />
     </div>
 </template>
 
 <script>
 import { DropAudio, DropImage, DropFile } from '~/components/Uploader'
+import { MiniAudioPlayer } from '~/components/Player'
 export default {
     name: 'Dashboard',
     components: {
         DropAudio,
         DropFile,
         DropImage,
+        MiniAudioPlayer,
+    },
+    data() {
+        return {
+            audioFile: null,
+        }
+    },
+    methods: {
+        handleAudioAdd(file) {
+            this.audioFile = file
+        },
+        handleAudioRemove() {
+            this.audioFile = null
+        },
     },
 }
 </script>

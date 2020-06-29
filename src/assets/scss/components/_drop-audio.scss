@@ -1,31 +1,5 @@
 .DropAudio.DropFile {
-    &.is-playing {
-        .play-icon:before {
-            background-image: url(~@/../public/static/ico/pause-sm.svg);
-        }
-    }
-
-    .player-controls {
+    .MiniAudioPlayer {
         margin-right: 10px;
-    }
-
-    .play-btn:before {
-        background-image: url(~@/../public/static/ico/play-sm.svg);
-        width: 24px;
-        height: 24px;
-    }
-
-    @include media-breakpoint-up(sm) {
-        &.is-playing {
-            .play-btn:before {
-                background-image: url(~@/../public/static/ico/pause-lg.svg);
-            }
-        }
-
-        .play-btn:before {
-            background-image: url(~@/../public/static/ico/play-lg.svg);
-            width: 35px;
-            height: 35px;
-        }
     }
 }

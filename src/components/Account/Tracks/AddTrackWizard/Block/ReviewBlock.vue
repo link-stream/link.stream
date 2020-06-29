@@ -104,7 +104,7 @@
                     <LsTimePicker v-model="form.time" />
                 </b-input-group>
             </b-form-group>
-            <ls-button variant="link" @click="handleScheduleToggleClick">
+            <ls-button variant="link" @click="handleScheduleToggle">
                 {{ form.scheduled ? 'Remove schedule' : 'Schedule release' }}
             </ls-button>
         </div>
@@ -187,7 +187,7 @@ export default {
             this.updateWizardForm()
             onSuccess()
         },
-        handleScheduleToggleClick() {
+        handleScheduleToggle() {
             this.form.scheduled = !this.form.scheduled
         },
         handleEditClick(section) {

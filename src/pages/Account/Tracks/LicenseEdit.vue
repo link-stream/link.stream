@@ -283,9 +283,8 @@ export default {
                 this.$router.push({ name: 'accountTracksLicenses' })
             } else {
                 this.$toast.error(error)
+                this.saving = false
             }
-
-            this.saving = false
         },
     },
 }

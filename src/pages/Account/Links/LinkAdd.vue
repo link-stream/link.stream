@@ -89,7 +89,7 @@
 
                             <ls-button
                                 variant="link"
-                                @click="handleScheduleToggleClick"
+                                @click="handleScheduleToggle"
                             >
                                 {{
                                     form.scheduled
@@ -136,7 +136,7 @@ export default {
     name: 'LinkAdd',
     mixins: [linkAddEditForm],
     methods: {
-        handleScheduleToggleClick() {
+        handleScheduleToggle() {
             this.form.scheduled = !this.form.scheduled
         },
     },

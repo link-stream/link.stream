@@ -36,7 +36,7 @@
                     @tags-changed="handleTagsChange"
                 />
                 <b-form-invalid-feedback :state="!$v.form.tags.$error">
-                    Add 3 or more tags that describe the beat
+                    Add 3 or more tags to help people find this beat
                 </b-form-invalid-feedback>
             </b-form-group>
 
@@ -238,7 +238,9 @@ export default {
             }
 
             if (this.$v.form.tags.$invalid) {
-                this.$toast.error('Add 3 or more tags that describe the beat.')
+                this.$toast.error(
+                    'Add 3 or more tags to help people find this beat.'
+                )
                 return
             }
 

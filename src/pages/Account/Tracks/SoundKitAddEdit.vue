@@ -13,7 +13,7 @@
                 </ls-button>
             </nav>
             <div class="alert alert-success" v-if="showCreatedSuccess">
-                <strong>Created {{ kit.title }}!</strong>!
+                <strong>Created {{ kit.title }}!&nbsp;</strong>
                 <ls-button variant="link">
                     View it
                 </ls-button>
@@ -108,7 +108,7 @@
                             <b-form-invalid-feedback
                                 :state="!$v.form.tags.$error"
                             >
-                                Add 3 or more tags that describe the kit
+                                Add 3 or more tags to help people find this kit
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group label="Description">
@@ -237,10 +237,7 @@
                                 <LsTimePicker v-model="form.time" />
                             </b-input-group>
                         </b-form-group>
-                        <ls-button
-                            variant="link"
-                            @click="handleScheduleToggleClick"
-                        >
+                        <ls-button variant="link" @click="handleScheduleToggle">
                             {{
                                 form.scheduled
                                     ? 'Remove release date'
@@ -458,7 +455,7 @@ export default {
         handleTagsChange(tags) {
             this.form.tags = tags
         },
-        handleScheduleToggleClick() {
+        handleScheduleToggle() {
             this.$v.form.$reset()
             this.form.scheduled = !this.form.scheduled
         },
@@ -504,7 +501,9 @@ export default {
             }
 
             if (this.$v.form.tags.$invalid) {
-                this.$toast.error('Add 3 or more tags that describe the kit.')
+                this.$toast.error(
+                    'Add 3 or more tags to help people find this kit.'
+                )
                 return
             }
 

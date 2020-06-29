@@ -102,9 +102,8 @@ export const videoAddEditForm = {
                 }
             } else {
                 this.$toast.error(error)
+                this.saving = false
             }
-
-            this.saving = false
         },
     },
 }

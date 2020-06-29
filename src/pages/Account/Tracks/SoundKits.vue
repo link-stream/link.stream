@@ -91,7 +91,7 @@ export default {
         this.loading = false
     },
     methods: {
-        handleReorder() {
+        handleReorder(dropResult) {
             const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
             const kit = this.sortableKits[oldIndex]
             this.sortableKits.splice(oldIndex, 1)

@@ -283,9 +283,58 @@ export default {
                 this.goToStep(this.stepIndex - 1)
             }
         },
-        async save() {
+        handlePrevClick() {
+            this.$bus.$emit('wz.prevClick')
+            this.prev()
+        },
+        handleNextClick() {
+            switch (this.step) {
+                case STEP_INFO:
+                case STEP_LICENSES:
+                case STEP_FILES:
+                case STEP_MARKETING:
+                    this.$bus.$emit('wz.nextClick', {
+                        onSuccess: this.next,
+                    })
+                    return
+                case STEP_REVIEW:
+                    this.$bus.$emit('wz.saveClick', {
+                        onSuccess: this.handleSaveClick,
+                    })
+                    return
+                default:
+                    this.next()
+            }
+        },
+        handleAddBeatClick() {
+            this.$store.dispatch('trackAddWizard/updateForm', {
+                trackType: appConstants.tracks.types.beat,
+            })
+            this.next()
+        },
+        handleAddSongClick() {
+            this.$store.dispatch('trackAddWizard/updateForm', {
+                trackType: appConstants.tracks.types.song,
+            })
+            this.next()
+        },
+        handleImageAdd({ base64 }) {
+            this.coverArtBase64 = base64
+            this.$store.dispatch('trackAddWizard/updateForm', {
+                coverArtBase64: base64,
+            })
+        },
+        handleImageRemove() {
+            this.coverArtBase64 = null
+            this.$store.dispatch('trackAddWizard/updateForm', {
+                coverArtBase64: null,
+            })
+        },
+        handleSaveClick() {
             this.saving = true
-
+            setTimeout(this.save, 500)
+        },
+        async save() {
             const { form } = this.$store.state.trackAddWizard
 
             const params = {
@@ -372,56 +421,8 @@ export default {
                 this.$store.dispatch('trackAddWizard/reset')
             } else {
                 this.$toast.error(error)
+                this.saving = false
             }
-
-            this.saving = false
-        },
-        handlePrevClick() {
-            this.$bus.$emit('wz.prevClick')
-            this.prev()
-        },
-        handleNextClick() {
-            switch (this.step) {
-                case STEP_INFO:
-                case STEP_LICENSES:
-                case STEP_FILES:
-                case STEP_MARKETING:
-                    this.$bus.$emit('wz.nextClick', {
-                        onSuccess: this.next,
-                    })
-                    return
-                case STEP_REVIEW:
-                    this.$bus.$emit('wz.saveClick', {
-                        onSuccess: this.save,
-                    })
-                    return
-                default:
-                    this.next()
-            }
-        },
-        handleAddBeatClick() {
-            this.$store.dispatch('trackAddWizard/updateForm', {
-                trackType: appConstants.tracks.types.beat,
-            })
-            this.next()
-        },
-        handleAddSongClick() {
-            this.$store.dispatch('trackAddWizard/updateForm', {
-                trackType: appConstants.tracks.types.song,
-            })
-            this.next()
-        },
-        handleImageAdd({ base64 }) {
-            this.coverArtBase64 = base64
-            this.$store.dispatch('trackAddWizard/updateForm', {
-                coverArtBase64: base64,
-            })
-        },
-        handleImageRemove() {
-            this.coverArtBase64 = null
-            this.$store.dispatch('trackAddWizard/updateForm', {
-                coverArtBase64: null,
-            })
         },
     },
 }

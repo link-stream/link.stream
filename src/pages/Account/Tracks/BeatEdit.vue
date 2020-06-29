@@ -95,7 +95,7 @@
                             <b-form-invalid-feedback
                                 :state="!$v.form.tags.$error"
                             >
-                                Add 3 or more tags that describe the beat
+                                Add 3 or more tags to help people find this beat
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-row>
@@ -328,10 +328,7 @@
                                 <LsTimePicker v-model="form.time" />
                             </b-input-group>
                         </b-form-group>
-                        <ls-button
-                            variant="link"
-                            @click="handleScheduleToggleClick"
-                        >
+                        <ls-button variant="link" @click="handleScheduleToggle">
                             {{
                                 form.scheduled
                                     ? 'Remove schedule'
@@ -615,7 +612,7 @@ export default {
         showCollabSearchModal() {
             this.$bus.$emit('modal.userSearch.open')
         },
-        handleScheduleToggleClick() {
+        handleScheduleToggle() {
             this.$v.form.$reset()
             this.form.scheduled = !this.form.scheduled
         },
@@ -697,7 +694,7 @@ export default {
                 },
             })
         },
-        async handleSaveClick() {
+        handleSaveClick() {
             this.$v.form.$touch()
 
             if (!this.$v.form.title.required) {
@@ -713,7 +710,9 @@ export default {
             }
 
             if (this.$v.form.tags.$invalid) {
-                this.$toast.error('Add 3 or more tags that describe the beat.')
+                this.$toast.error(
+                    'Add 3 or more tags to help people find this beat.'
+                )
                 return
             }
 
@@ -729,6 +728,9 @@ export default {
 
             this.status = STATUS_SAVING
 
+            setTimeout(this.save, 500)
+        },
+        async save() {
             const { beat, form } = this
 
             const params = {
@@ -829,9 +831,8 @@ export default {
                 this.$router.push({ name: 'accountBeats' })
             } else {
                 this.$toast.error(error)
+                this.status = STATUS_IDLE
             }
-
-            this.status = STATUS_IDLE
         },
     },
 }

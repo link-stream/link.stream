@@ -91,7 +91,7 @@
                 </b-form-group>
             </template>
 
-            <ls-button variant="link" @click="handleScheduleToggleClick">
+            <ls-button variant="link" @click="handleScheduleToggle">
                 {{
                     form.scheduled ? 'Clear scheduling ' : 'Schedule this video'
                 }}
@@ -147,7 +147,7 @@ export default {
         close() {
             this.open = false
         },
-        handleScheduleToggleClick() {
+        handleScheduleToggle() {
             this.form.scheduled = !this.form.scheduled
         },
         handleDeleteClick() {

@@ -3,15 +3,16 @@
         class="MiniAudioPlayer"
         :class="{
             'is-playing': playing,
+            'is-loading': loading,
         }"
     >
+        <span class="player-spinner spinner-border"></span>
         <LsButton
             variant="icon-bg"
             class="player-play-btn"
             :disabled="loading"
             @click="handlePlayClick"
         />
-        <span class="player-spinner spinner-border" v-if="loading"></span>
     </div>
 </template>
 

@@ -2,7 +2,7 @@
     <div class="ReviewBlock">
         <div class="Card">
             <h4 class="card-title">Track Info</h4>
-            <LsButton
+            <BasicButton
                 variant="icon"
                 title="Edit"
                 class="edit-btn"
@@ -19,7 +19,7 @@
 
         <div class="Card">
             <h4 class="card-title">Licensing</h4>
-            <LsButton
+            <BasicButton
                 variant="icon"
                 title="Edit"
                 class="edit-btn"
@@ -37,7 +37,7 @@
 
         <div class="Card">
             <h4 class="card-title">Files</h4>
-            <LsButton
+            <BasicButton
                 variant="icon"
                 title="Edit"
                 class="edit-btn"
@@ -72,7 +72,7 @@
 
         <div class="Card">
             <h4 class="card-title">Marketing</h4>
-            <LsButton
+            <BasicButton
                 variant="icon"
                 title="Edit"
                 class="edit-btn"
@@ -95,18 +95,18 @@
                     <span class="toggle-label">
                         {{ form.isPublic ? 'Public' : 'Private' }}
                     </span>
-                    <LsToggleButton v-model="form.isPublic" />
+                    <TogglerButton v-model="form.isPublic" />
                 </div>
             </header>
             <b-form-group label="Set Release Date" v-show="form.scheduled">
                 <b-input-group class="date-input-group">
-                    <LsDatePicker v-model="form.date" />
-                    <LsTimePicker v-model="form.time" />
+                    <DatePicker v-model="form.date" />
+                    <TimePicker v-model="form.time" />
                 </b-input-group>
             </b-form-group>
-            <ls-button variant="link" @click="handleScheduleToggle">
+            <basic-button variant="link" @click="handleScheduleToggle">
                 {{ form.scheduled ? 'Remove schedule' : 'Schedule release' }}
-            </ls-button>
+            </basic-button>
         </div>
     </div>
 </template>
@@ -117,12 +117,7 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'ReviewBlock',
     data() {
-        const {
-            time,
-            date,
-            scheduled,
-            isPublic,
-        } = this.$store.state.trackAddWizard.form
+        const { scheduled, isPublic } = this.$store.state.trackAddWizard.form
         return {
             form: {
                 isPublic,

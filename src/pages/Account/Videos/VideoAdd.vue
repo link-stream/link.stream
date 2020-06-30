@@ -72,7 +72,7 @@
                         </b-form-group>
 
                         <b-form-group label="Genre" label-for="genreInput">
-                            <LsSelect
+                            <BaseSelect
                                 v-model="form.genre"
                                 id="genreInput"
                                 placeholder="Select Genre"
@@ -86,7 +86,7 @@
                             label="Related Track"
                             label-for="trackInput"
                         >
-                            <LsSelect
+                            <BaseSelect
                                 v-model="form.relatedTrack"
                                 id="trackInput"
                                 placeholder="Select Related Track"
@@ -111,21 +111,21 @@
             </section>
 
             <footer class="fwz-pager">
-                <ls-button
+                <basic-button
                     class="fwz-prev-btn"
                     variant="secondary"
                     :disabled="saving"
                     @click="goToStep(1)"
                 >
                     Back
-                </ls-button>
-                <ls-spinner-button
+                </basic-button>
+                <spinner-button
                     class="fwz-next-btn"
                     :loading="saving"
                     @click="handleNextClick"
                 >
                     {{ step === 1 ? 'Next' : 'Add Video' }}
-                </ls-spinner-button>
+                </spinner-button>
             </footer>
         </div>
     </div>

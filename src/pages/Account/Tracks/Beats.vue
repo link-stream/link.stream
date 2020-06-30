@@ -6,7 +6,7 @@
                 <div class="page-preview">
                     <span class="text-light">link.stream/</span>
                     <span>{{ user.user_name }}/beats</span>
-                    <ls-button
+                    <basic-button
                         variant="outline-light"
                         size="xs"
                         :to="{
@@ -15,32 +15,32 @@
                         }"
                     >
                         Preview
-                    </ls-button>
+                    </basic-button>
                 </div>
             </div>
             <div class="col-right">
-                <ls-button :to="{ name: 'accountBeatAdd' }">
+                <basic-button :to="{ name: 'accountBeatAdd' }">
                     Add a Beat
-                </ls-button>
+                </basic-button>
             </div>
         </header>
         <main class="page-body">
             <div class="page-spinner" v-if="loading">
-                <LsSpinner />
+                <LoadingSpinner />
             </div>
             <div class="page-empty" v-if="!loading && !sortableBeats.length">
                 <div class="col-text">
                     Your beats will appear here.
                 </div>
                 <div class="col-link">
-                    <ls-button
+                    <basic-button
                         variant="link"
                         :to="{
                             name: 'accountBeatAdd',
                         }"
                     >
                         Add a beat
-                    </ls-button>
+                    </basic-button>
                 </div>
             </div>
             <Container

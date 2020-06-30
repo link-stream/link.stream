@@ -1,4 +1,4 @@
-.LsSpinnerMask {
+.LoadingMask {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -9,7 +9,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    .LsSpinner {
+    .LoadingSpinner {
         margin-top: 0 !important;
     }
 }

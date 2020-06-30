@@ -3,7 +3,7 @@
         <b-container>
             <b-row class="text-center">
                 <b-col cols="12" class="my-2">
-                    <ls-spinner-button
+                    <spinner-button
                         instagram
                         class="auth-btn"
                         :loading="status.loading.instagram"
@@ -12,7 +12,7 @@
                     >
                         <i class="ig-ico fab fa-instagram fa-lg"></i>
                         Signin with Instagram
-                    </ls-spinner-button>
+                    </spinner-button>
                 </b-col>
                 <b-col cols="12" class="my-2">
                     <GoogleLogin
@@ -20,7 +20,7 @@
                         :params="google"
                         :onSuccess="onGoogleSuccess"
                     >
-                        <ls-spinner-button
+                        <spinner-button
                             google
                             class="auth-btn"
                             :loading="status.loading.google"
@@ -28,7 +28,7 @@
                         >
                             <i class="g-ico fab fa-google fa-1x"></i>
                             Signin with Google
-                        </ls-spinner-button>
+                        </spinner-button>
                     </GoogleLogin>
                 </b-col>
                 <b-col cols="12" class="mt-4">
@@ -96,14 +96,14 @@
                                 {{ veeErrors.first('input_password') }}
                             </b-form-invalid-feedback>
                         </b-form-group>
-                        <ls-spinner-button
+                        <spinner-button
                             type="submit"
                             class="auth-btn mt-5"
                             :loading="status.loading.signin"
                             :error="status.error.signin"
                         >
                             Sign In
-                        </ls-spinner-button>
+                        </spinner-button>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="my-3">

@@ -44,20 +44,20 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import Vuelidate from 'vuelidate'
 import { alertBox, eventBus } from '~/plugins'
 import {
-    LsButton,
-    LsSpinnerButton,
-    LsIconButton,
-    LsToggleButton,
-    LsToggleButtonGroup,
+    BasicButton,
+    SpinnerButton,
+    IconButton,
+    TogglerButton,
+    TogglerButtonGroup,
 } from '~/components/Button'
-import { LsSpinner, LsSpinnerMask } from '~/components/Loading'
+import { LoadingSpinner, LoadingMask } from '~/components/Loading'
 import {
-    LsSelect,
-    LsDatePicker,
-    LsTimePicker,
-    LsTagsInput,
+    BaseSelect,
+    DatePicker,
+    TimePicker,
+    TaggerInput,
 } from '~/components/Form'
-import { LsIcon } from '~/components/Icon'
+import { BaseIcon } from '~/components/Icon'
 import UserAvatar from '~/components/Avatar/UserAvatar'
 import { BaseCard } from '~/components/Card'
 
@@ -149,15 +149,15 @@ Vue.use(alertBox)
 Vue.use(eventBus)
 Vue.component('BaseCard', BaseCard)
 Vue.component('UserAvatar', UserAvatar)
-Vue.component('LsButton', LsButton)
-Vue.component('LsSpinnerButton', LsSpinnerButton)
-Vue.component('LsIconButton', LsIconButton)
-Vue.component('LsToggleButton', LsToggleButton)
-Vue.component('LsSelect', LsSelect)
-Vue.component('LsDatePicker', LsDatePicker)
-Vue.component('LsTimePicker', LsTimePicker)
-Vue.component('LsTagsInput', LsTagsInput)
-Vue.component('LsIcon', LsIcon)
-Vue.component('LsSpinner', LsSpinner)
-Vue.component('LsSpinnerMask', LsSpinnerMask)
-Vue.component('LsToggleButtonGroup', LsToggleButtonGroup)
+Vue.component('BasicButton', BasicButton)
+Vue.component('SpinnerButton', SpinnerButton)
+Vue.component('IconButton', IconButton)
+Vue.component('TogglerButton', TogglerButton)
+Vue.component('TogglerButtonGroup', TogglerButtonGroup)
+Vue.component('BaseSelect', BaseSelect)
+Vue.component('DatePicker', DatePicker)
+Vue.component('TimePicker', TimePicker)
+Vue.component('TaggerInput', TaggerInput)
+Vue.component('BaseIcon', BaseIcon)
+Vue.component('LoadingSpinner', LoadingSpinner)
+Vue.component('LoadingMask', LoadingMask)

@@ -1,7 +1,7 @@
 <template>
     <b-modal modal-class="UserInviteModal" size="md" centered v-model="open">
         <template v-slot:modal-header>
-            <LsButton variant="icon" class="modal-close" @click="close" />
+            <BasicButton variant="icon" class="modal-close" @click="close" />
             <h2 class="modal-title">Invite collaborator</h2>
             <h4 class="modal-subtitle">
                 Send an invitation to join and collaborate
@@ -23,13 +23,13 @@
         </template>
 
         <template v-slot:modal-footer>
-            <ls-spinner-button
+            <spinner-button
                 size="md"
                 :loading="processing"
                 @click="handleSubmit"
             >
                 Send Invite
-            </ls-spinner-button>
+            </spinner-button>
         </template>
     </b-modal>
 </template>

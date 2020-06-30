@@ -1,7 +1,7 @@
 <template>
     <div class="page page-licenses">
         <h1 class="page-title">Licenses</h1>
-        <LsSpinner v-if="loading" />
+        <LoadingSpinner v-if="loading" />
         <div v-else class="page-body">
             <div class="Card" v-for="license in licenses" :key="license.id">
                 <div class="card-body">
@@ -14,7 +14,7 @@
                         {{ license.descripcion }}
                     </small>
                 </div>
-                <LsButton
+                <BasicButton
                     variant="icon"
                     class="edit-btn"
                     title="Edit"

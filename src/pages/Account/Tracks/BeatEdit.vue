@@ -1,16 +1,16 @@
 <template>
     <div class="page page-beat-edit">
-        <LsSpinner v-if="isLoading" />
+        <LoadingSpinner v-if="isLoading" />
         <div class="page-content" v-else>
             <nav class="page-nav">
-                <ls-button
+                <basic-button
                     class="back-btn"
                     variant="text"
                     :to="{ name: 'accountBeats' }"
                 >
                     <i class="ico ico-back"></i>
                     <span>Beats</span>
-                </ls-button>
+                </basic-button>
             </nav>
             <header class="page-header">
                 <div class="col-left">
@@ -20,7 +20,7 @@
                             <span class="text-light">link.stream/</span
                             >{{ beat.url_user }}/beats/{{ beat.url_title }}
                         </span>
-                        <ls-button
+                        <basic-button
                             variant="outline-light"
                             size="xs"
                             :to="{
@@ -32,11 +32,11 @@
                             }"
                         >
                             Preview
-                        </ls-button>
+                        </basic-button>
                     </div>
                 </div>
                 <div class="col-right">
-                    <ls-button
+                    <basic-button
                         class="cancel-btn"
                         variant="secondary"
                         size="md"
@@ -44,14 +44,14 @@
                         :to="{ name: 'accountBeats' }"
                     >
                         Cancel
-                    </ls-button>
-                    <ls-spinner-button
+                    </basic-button>
+                    <spinner-button
                         size="md"
                         :loading="isSaving"
                         @click="handleSaveClick"
                     >
                         Save
-                    </ls-spinner-button>
+                    </spinner-button>
                 </div>
             </header>
             <main class="page-body">
@@ -75,7 +75,7 @@
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group label="Primary Genre">
-                            <LsSelect
+                            <BaseSelect
                                 v-model="form.genreId"
                                 placeholder="Select Genre"
                                 :options="genres"
@@ -84,7 +84,7 @@
                             />
                         </b-form-group>
                         <b-form-group label="Tags(3)">
-                            <LsTagsInput
+                            <TaggerInput
                                 v-model="tag"
                                 :class="{
                                     'is-invalid': $v.form.tags.$error,
@@ -109,7 +109,7 @@
                             </b-col>
                             <b-col md="6">
                                 <b-form-group label="Key">
-                                    <LsSelect
+                                    <BaseSelect
                                         v-model="form.keyId"
                                         placeholder="Select"
                                         :options="audioKeys"
@@ -183,7 +183,7 @@
                     <!-- Beat Pack Card -->
                     <base-card title="Add to Beat Pack">
                         <div class="search-input">
-                            <LsIcon class="input-icon" icon="search" />
+                            <BaseIcon class="input-icon" icon="search" />
                             <b-form-input
                                 placeholder="Search for beat packs"
                             ></b-form-input>
@@ -275,14 +275,14 @@
                                         class="collab-col remove-col"
                                         v-if="index > 0"
                                     >
-                                        <LsIconButton
+                                        <IconButton
                                             icon="close"
                                             class="remove-icon"
                                             @click="
                                                 handleCollabRemoveClick(index)
                                             "
                                         />
-                                        <ls-button
+                                        <basic-button
                                             variant="link"
                                             class="remove-btn"
                                             @click="
@@ -290,18 +290,18 @@
                                             "
                                         >
                                             Remove Collaborator
-                                        </ls-button>
+                                        </basic-button>
                                     </div>
                                 </div>
                             </div>
-                            <ls-button
+                            <basic-button
                                 variant="text"
                                 class="add-btn"
                                 @click="showCollabSearchModal"
                             >
-                                <LsIcon icon="plus" />
+                                <BaseIcon icon="plus" />
                                 Add Collaborator
-                            </ls-button>
+                            </basic-button>
                         </div>
                     </base-card>
                 </div>
@@ -316,7 +316,7 @@
                                 <span class="toggle-label">
                                     {{ form.isPublic ? 'Public' : 'Private' }}
                                 </span>
-                                <LsToggleButton v-model="form.isPublic" />
+                                <TogglerButton v-model="form.isPublic" />
                             </div>
                         </header>
                         <b-form-group
@@ -324,17 +324,20 @@
                             label="Set Release Date"
                         >
                             <b-input-group class="date-input-group">
-                                <LsDatePicker v-model="form.date" />
-                                <LsTimePicker v-model="form.time" />
+                                <DatePicker v-model="form.date" />
+                                <TimePicker v-model="form.time" />
                             </b-input-group>
                         </b-form-group>
-                        <ls-button variant="link" @click="handleScheduleToggle">
+                        <basic-button
+                            variant="link"
+                            @click="handleScheduleToggle"
+                        >
                             {{
                                 form.scheduled
                                     ? 'Remove schedule'
                                     : 'Schedule release'
                             }}
-                        </ls-button>
+                        </basic-button>
                     </div>
 
                     <!-- Image Card -->
@@ -351,14 +354,14 @@
             </main>
             <footer class="page-footer">
                 <div class="col-left">
-                    <LsIconButton
+                    <IconButton
                         icon="trash-sm"
                         title="Delete"
                         @click="handleDeleteClick"
                     />
                 </div>
                 <div class="col-right">
-                    <ls-button
+                    <basic-button
                         class="cancel-btn"
                         variant="secondary"
                         size="md"
@@ -366,14 +369,14 @@
                         :to="{ name: 'accountBeats' }"
                     >
                         Cancel
-                    </ls-button>
-                    <ls-spinner-button
+                    </basic-button>
+                    <spinner-button
                         size="md"
                         :loading="isSaving"
                         @click="handleSaveClick"
                     >
                         Save
-                    </ls-spinner-button>
+                    </spinner-button>
                 </div>
             </footer>
         </div>

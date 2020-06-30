@@ -1,6 +1,6 @@
 <template>
-    <LsSelect
-        class="LsTimePicker"
+    <BaseSelect
+        class="TimePicker"
         icon="timepicker"
         :value="value"
         :state="state"
@@ -16,7 +16,7 @@
 import { generateTimePickerOptions } from '~/utils'
 
 export default {
-    name: 'LsTimePicker',
+    name: 'TimePicker',
     props: {
         value: {
             type: String,

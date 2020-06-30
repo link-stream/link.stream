@@ -1,7 +1,7 @@
 <template>
     <b-modal v-model="open" size="lg" centered>
         <template v-slot:modal-header>
-            <LsButton variant="icon" class="modal-close" @click="close" />
+            <BasicButton variant="icon" class="modal-close" @click="close" />
             <h2 class="modal-title">Licenses</h2>
         </template>
 
@@ -10,16 +10,16 @@
         </template>
 
         <template v-slot:modal-footer>
-            <ls-button
+            <basic-button
                 class="action-btn cancel-btn"
                 variant="secondary"
                 @click="close"
             >
                 Cancel
-            </ls-button>
-            <ls-button class="action-btn" @click="handleSaveClick">
+            </basic-button>
+            <basic-button class="action-btn" @click="handleSaveClick">
                 Save
-            </ls-button>
+            </basic-button>
         </template>
     </b-modal>
 </template>

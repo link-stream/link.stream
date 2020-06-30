@@ -1,14 +1,14 @@
 <template>
     <div class="page page-link-add">
         <nav class="page-nav">
-            <ls-button
+            <basic-button
                 class="back-btn"
                 variant="text"
                 :to="{ name: 'accountLinks' }"
             >
                 <i class="ico ico-back"></i>
                 <span>Links</span>
-            </ls-button>
+            </basic-button>
         </nav>
         <div class="fwz">
             <section class="fwz-step">
@@ -67,8 +67,8 @@
                             <div v-if="form.scheduled">
                                 <b-form-group label="Start Date">
                                     <b-input-group class="date-input-group">
-                                        <LsDatePicker v-model="form.date" />
-                                        <LsTimePicker v-model="form.time" />
+                                        <DatePicker v-model="form.date" />
+                                        <TimePicker v-model="form.time" />
                                     </b-input-group>
                                 </b-form-group>
                                 <b-form-group>
@@ -81,13 +81,13 @@
                                     v-if="endDateEnabled"
                                 >
                                     <b-input-group class="date-input-group">
-                                        <LsDatePicker v-model="form.endDate" />
-                                        <LsTimePicker v-model="form.endTime" />
+                                        <DatePicker v-model="form.endDate" />
+                                        <TimePicker v-model="form.endTime" />
                                     </b-input-group>
                                 </b-form-group>
                             </div>
 
-                            <ls-button
+                            <basic-button
                                 variant="link"
                                 @click="handleScheduleToggle"
                             >
@@ -96,7 +96,7 @@
                                         ? 'Clear scheduling '
                                         : 'Schedule this link'
                                 }}
-                            </ls-button>
+                            </basic-button>
                         </div>
                     </div>
                     <div class="col-image">
@@ -109,21 +109,21 @@
                 </main>
             </section>
             <footer class="fwz-pager">
-                <ls-button
+                <basic-button
                     class="fwz-prev-btn"
                     variant="secondary"
                     :to="{ name: 'accountLinks' }"
                     :disabled="processing"
                 >
                     Cancel
-                </ls-button>
-                <ls-spinner-button
+                </basic-button>
+                <spinner-button
                     class="fwz-next-btn"
                     :loading="processing"
                     @click="handleSaveClick"
                 >
                     Add Link
-                </ls-spinner-button>
+                </spinner-button>
             </footer>
         </div>
     </div>

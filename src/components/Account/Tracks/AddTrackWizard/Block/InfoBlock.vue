@@ -18,7 +18,7 @@
             </b-form-group>
 
             <b-form-group label="Primary Genre">
-                <LsSelect
+                <BaseSelect
                     v-model="form.genre"
                     placeholder="Select Genre"
                     :options="genres"
@@ -27,7 +27,7 @@
             </b-form-group>
 
             <b-form-group label="Tags(3)">
-                <LsTagsInput
+                <TaggerInput
                     v-model="tag"
                     :class="{
                         'is-invalid': $v.form.tags.$error,
@@ -51,7 +51,7 @@
                 </b-col>
                 <b-col md="6">
                     <b-form-group label="Key">
-                        <LsSelect
+                        <BaseSelect
                             v-model="form.key"
                             placeholder="Select"
                             :options="audioKeys"
@@ -63,7 +63,7 @@
 
             <b-form-group :label="`Add to ${isSong ? 'Song' : 'Beat'} Pack`">
                 <div class="search-input">
-                    <LsIcon class="input-icon" icon="search" />
+                    <BaseIcon class="input-icon" icon="search" />
                     <b-form-input
                         v-model="form.trackPack"
                         :placeholder="
@@ -111,29 +111,29 @@
                             />
                         </div>
                         <div class="collab-col remove-col" v-if="index > 0">
-                            <LsIconButton
+                            <IconButton
                                 icon="close"
                                 class="remove-icon"
                                 @click="handleCollabRemoveClick(index)"
                             />
-                            <ls-button
+                            <basic-button
                                 variant="link"
                                 class="remove-btn"
                                 @click="handleCollabRemoveClick(index)"
                             >
                                 Remove Collaborator
-                            </ls-button>
+                            </basic-button>
                         </div>
                     </div>
                 </div>
-                <ls-button
+                <basic-button
                     variant="text"
                     class="add-btn"
                     @click="showCollabSearchModal"
                 >
-                    <LsIcon icon="plus" />
+                    <BaseIcon icon="plus" />
                     Add Collaborator
-                </ls-button>
+                </basic-button>
             </div>
         </div>
     </div>

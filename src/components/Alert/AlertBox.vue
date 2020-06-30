@@ -6,11 +6,11 @@
         centered
         hide-header
     >
-        <LsIconButton class="close-btn" icon="close" @click="close" />
+        <IconButton class="close-btn" icon="close" @click="close" />
         <h2 class="alert-title" v-html="opts.title" v-if="opts.title"></h2>
         <p class="alert-message" v-html="opts.message" v-if="opts.message"></p>
         <template v-slot:modal-footer>
-            <ls-button
+            <basic-button
                 class="action-btn"
                 variant="secondary"
                 size="md"
@@ -18,15 +18,15 @@
                 @click="handleCancelClick"
             >
                 {{ opts.cancelText }}
-            </ls-button>
-            <ls-spinner-button
+            </basic-button>
+            <spinner-button
                 class="action-btn"
                 size="md"
                 v-if="opts.okShow"
                 @click="handleOkClick"
             >
                 {{ opts.okText }}
-            </ls-spinner-button>
+            </spinner-button>
         </template>
     </b-modal>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <div class="LsToggleButtonGroup btn-group btn-group-toggle">
+    <div class="TogglerButtonGroup btn-group btn-group-toggle">
         <label
             class="btn btn-purple"
             :class="{ active: toggled }"
@@ -19,7 +19,7 @@
 
 <script>
 export default {
-    name: 'LsToggleButtonGroup',
+    name: 'TogglerButtonGroup',
     props: {
         value: {
             type: Boolean,

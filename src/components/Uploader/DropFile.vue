@@ -18,13 +18,13 @@
                 </slot>
             </div>
             <div class="preview-controls">
-                <ls-button
+                <basic-button
                     class="file-remove-btn"
                     variant="link"
                     @click="handleRemoveClick"
                 >
                     Remove File
-                </ls-button>
+                </basic-button>
                 <b-dropdown
                     class="preview-dropdown"
                     variant="icon"
@@ -32,7 +32,7 @@
                     no-caret
                 >
                     <template v-slot:button-content>
-                        <LsIcon icon="dot-menu-v" />
+                        <BaseIcon icon="dot-menu-v" />
                     </template>
                     <b-dropdown-item @click="showFileDialog">
                         Replace File

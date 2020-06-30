@@ -66,14 +66,14 @@
                                 {{ veeErrors.first('input_password_confirm') }}
                             </b-form-invalid-feedback>
                         </b-form-group>
-                        <ls-spinner-button
+                        <spinner-button
                             type="submit"
                             class="text-uppercase mt-5"
                             :loading="status.loading.reset"
                             :error="status.error.reset"
                         >
                             Reset
-                        </ls-spinner-button>
+                        </spinner-button>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-2">

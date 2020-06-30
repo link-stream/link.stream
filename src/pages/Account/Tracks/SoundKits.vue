@@ -6,7 +6,7 @@
                 <div class="page-preview">
                     <span class="text-light">link.stream/</span>
                     <span>{{ user.user_name }}/kits</span>
-                    <ls-button
+                    <basic-button
                         variant="outline-light"
                         size="xs"
                         :to="{
@@ -15,32 +15,32 @@
                         }"
                     >
                         Preview
-                    </ls-button>
+                    </basic-button>
                 </div>
             </div>
             <div class="col-right">
-                <ls-button :to="{ name: 'accountSoundKitAdd' }">
+                <basic-button :to="{ name: 'accountSoundKitAdd' }">
                     Add New Kit
-                </ls-button>
+                </basic-button>
             </div>
         </header>
         <main class="page-body">
             <div class="page-spinner" v-if="loading">
-                <LsSpinner />
+                <LoadingSpinner />
             </div>
             <div class="page-empty" v-if="!loading && !sortableKits.length">
                 <div class="col-text">
                     Your Sound Kits will appear here.
                 </div>
                 <div class="col-link">
-                    <ls-button
+                    <basic-button
                         variant="link"
                         :to="{
                             name: 'accountSoundKitAdd',
                         }"
                     >
                         Add a kit
-                    </ls-button>
+                    </basic-button>
                 </div>
             </div>
             <Container

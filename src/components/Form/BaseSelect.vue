@@ -1,6 +1,6 @@
 <template>
     <v-select
-        class="LsSelect"
+        class="BaseSelect"
         :class="{ 'is-invalid': !state }"
         :label="label"
         :value="value"
@@ -11,7 +11,7 @@
         @input="handleInput"
     >
         <template v-slot:open-indicator>
-            <LsIcon :icon="icon" class="arrow-icon" />
+            <BaseIcon :icon="icon" class="arrow-icon" />
         </template>
     </v-select>
 </template>
@@ -20,7 +20,7 @@
 import vSelect from 'vue-select'
 
 export default {
-    name: 'LsSelect',
+    name: 'BaseSelect',
     components: {
         vSelect,
     },

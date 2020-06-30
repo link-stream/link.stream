@@ -9,7 +9,7 @@
                 <div class="page-preview">
                     <span class="text-light">link.stream/</span>
                     <span>{{ user.user_name }}/links</span>
-                    <ls-button
+                    <basic-button
                         variant="outline-light"
                         size="xs"
                         :to="{
@@ -18,18 +18,18 @@
                         }"
                     >
                         Preview
-                    </ls-button>
+                    </basic-button>
                 </div>
             </div>
             <div class="col-right">
-                <ls-button :to="{ name: 'accountLinkAdd' }">
+                <basic-button :to="{ name: 'accountLinkAdd' }">
                     Add New Link
-                </ls-button>
+                </basic-button>
             </div>
         </header>
         <main class="page-body">
             <div class="page-spinner" v-if="loading">
-                <LsSpinner />
+                <LoadingSpinner />
             </div>
             <Container
                 v-else

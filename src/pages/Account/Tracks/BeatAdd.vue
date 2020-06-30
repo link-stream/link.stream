@@ -2,7 +2,7 @@
     <div class="page page-beat-add">
         <div class="page-body">
             <div class="page-spinner" v-if="loading">
-                <LsSpinner />
+                <LoadingSpinner />
             </div>
             <Wizard v-else />
         </div>

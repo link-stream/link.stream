@@ -1,7 +1,7 @@
 <template>
     <b-modal modal-class="LinkScheduleModal" centered v-model="open">
         <template v-slot:modal-header>
-            <LsButton variant="icon" class="modal-close" @click="close" />
+            <BasicButton variant="icon" class="modal-close" @click="close" />
             <h2 class="modal-title">Schedule link</h2>
         </template>
 
@@ -9,8 +9,8 @@
             <div class="form-group">
                 <b-form-group label="Start Date">
                     <b-input-group class="date-input-group">
-                        <LsDatePicker v-model="form.date" />
-                        <LsTimePicker v-model="form.time" />
+                        <DatePicker v-model="form.date" />
+                        <TimePicker v-model="form.time" />
                     </b-input-group>
                     <b-form-invalid-feedback
                         :state="!($v.form.date.$error || $v.form.time.$error)"
@@ -30,8 +30,8 @@
 
                 <b-form-group label="End Date" v-show="endDateEnabled">
                     <b-input-group class="date-input-group">
-                        <LsDatePicker v-model="form.endDate" />
-                        <LsTimePicker v-model="form.endTime" />
+                        <DatePicker v-model="form.endDate" />
+                        <TimePicker v-model="form.endTime" />
                     </b-input-group>
                     <b-form-invalid-feedback
                         :state="
@@ -45,20 +45,20 @@
         </template>
 
         <template v-slot:modal-footer>
-            <ls-button
+            <basic-button
                 class="action-btn cancel-btn"
                 variant="secondary"
                 @click="close"
             >
                 Cancel
-            </ls-button>
-            <ls-spinner-button
+            </basic-button>
+            <spinner-button
                 class="action-btn"
                 :loading="loading"
                 @click="handleSaveClick"
             >
                 Save
-            </ls-spinner-button>
+            </spinner-button>
         </template>
     </b-modal>
 </template>

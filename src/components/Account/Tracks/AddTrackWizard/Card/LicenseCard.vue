@@ -1,6 +1,6 @@
 <template>
     <div class="Card LicenseCard" :class="{ 'is-editing': isEditMode }">
-        <LsIconButton
+        <IconButton
             icon="close"
             class="close-btn"
             title="Close"
@@ -19,7 +19,7 @@
                     {{ license.descripcion }}
                 </small>
             </div>
-            <LsButton
+            <BasicButton
                 variant="icon"
                 class="edit-btn"
                 title="Edit"
@@ -43,29 +43,29 @@
             <div class="edit-actions">
                 <div class="col-left">
                     To customize your default license terms, go to
-                    <ls-button
+                    <basic-button
                         variant="link"
                         :to="{ name: 'accountTracksLicenses' }"
                     >
                         Licenses
-                    </ls-button>
+                    </basic-button>
                 </div>
                 <div class="col-right">
-                    <ls-button
+                    <basic-button
                         class="cancel-btn"
                         size="sm"
                         variant="secondary"
                         @click="handleCancelClick"
                     >
                         Cancel
-                    </ls-button>
-                    <ls-button
+                    </basic-button>
+                    <basic-button
                         size="sm"
                         variant="black"
                         @click="handleSaveClick"
                     >
                         Save
-                    </ls-button>
+                    </basic-button>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@
         }"
     >
         <span class="player-spinner spinner-border"></span>
-        <LsButton
+        <BasicButton
             variant="icon"
             class="player-play-btn"
             :disabled="loading"

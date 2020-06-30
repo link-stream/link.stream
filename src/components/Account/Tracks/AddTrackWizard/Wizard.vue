@@ -11,7 +11,7 @@
         <!-- STEP - TRACK TYPE -->
         <wizard-step v-show="isStepType" class="type-step">
             <div class="Card">
-                <LsIcon icon="beat" />
+                <BaseIcon icon="beat" />
                 <h4 class="card-title">Upload a Beat</h4>
                 <div class="card-text">
                     Generally short music tracks created
@@ -26,10 +26,12 @@
                     <br />
                     individually or as part of a beat pack.
                 </div>
-                <ls-button @click="handleAddBeatClick">Get Started</ls-button>
+                <basic-button @click="handleAddBeatClick">
+                    Get Started
+                </basic-button>
             </div>
             <div class="Card">
-                <LsIcon icon="song" />
+                <BaseIcon icon="song" />
                 <h4 class="card-title">Upload a Song</h4>
                 <div class="card-text">
                     Commonly released by recording
@@ -44,7 +46,9 @@
                     <br />
                     or part of an album or playlist.
                 </div>
-                <ls-button @click="handleAddSongClick">Get Started</ls-button>
+                <basic-button @click="handleAddSongClick">
+                    Get Started
+                </basic-button>
             </div>
         </wizard-step>
 
@@ -122,21 +126,21 @@
         </wizard-step>
 
         <footer class="fwz-pager" v-show="stepIndex > 0">
-            <ls-button
+            <basic-button
                 variant="secondary"
                 class="fwz-prev-btn"
                 :disabled="saving"
                 @click="handlePrevClick"
             >
                 Back
-            </ls-button>
-            <ls-spinner-button
+            </basic-button>
+            <spinner-button
                 class="fwz-next-btn"
                 :loading="saving"
                 @click="handleNextClick"
             >
                 {{ isStepReview ? 'Save' : 'Next' }}
-            </ls-spinner-button>
+            </spinner-button>
         </footer>
     </div>
 </template>

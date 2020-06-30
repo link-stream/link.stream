@@ -15,12 +15,12 @@
         <section class="preview-container" v-if="isFileAdded">
             <div class="preview-box">
                 <img :src="src" @click="showFileDialog" />
-                <LsIconButton
+                <IconButton
                     class="file-remove-icon"
                     icon="remove"
                     @click="handleRemoveClick"
                 />
-                <LsIconButton
+                <IconButton
                     class="file-replace-icon"
                     icon="cam"
                     @click="showFileDialog"
@@ -28,13 +28,13 @@
             </div>
             <div class="preview-body">Artwork</div>
             <div class="preview-controls">
-                <ls-button
+                <basic-button
                     class="file-remove-btn"
                     variant="link"
                     @click="handleRemoveClick"
                 >
                     Remove artwork
-                </ls-button>
+                </basic-button>
                 <b-dropdown
                     class="preview-dropdown"
                     variant="icon"
@@ -42,7 +42,7 @@
                     no-caret
                 >
                     <template v-slot:button-content>
-                        <LsIcon icon="dot-menu-v" />
+                        <BaseIcon icon="dot-menu-v" />
                     </template>
                     <b-dropdown-item @click="showFileDialog">
                         Replace
@@ -71,13 +71,13 @@
             </div>
             <div class="upload-body">
                 <slot name="upload-body" :showFileDialog="showFileDialog">
-                    <ls-button
+                    <basic-button
                         class="file-add-btn"
                         variant="link"
                         @click="showFileDialog"
                     >
                         Add artwork
-                    </ls-button>
+                    </basic-button>
                 </slot>
             </div>
         </section>

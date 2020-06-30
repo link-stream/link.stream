@@ -1,16 +1,16 @@
 <template>
     <div class="page page-license-edit">
-        <LsSpinner v-if="loading" />
+        <LoadingSpinner v-if="loading" />
         <div v-else class="page-content">
             <nav class="page-nav">
-                <ls-button
+                <basic-button
                     class="back-btn"
                     variant="text"
                     :to="{ name: 'accountTracksLicenses' }"
                 >
                     <i class="ico ico-back"></i>
                     <span>Licenses</span>
-                </ls-button>
+                </basic-button>
             </nav>
             <header class="page-header">
                 <div class="col-left">
@@ -24,7 +24,7 @@
                 <div class="col-right">
                     <div class="viz-toggle">
                         <span class="toggle-label">Enabled</span>
-                        <LsToggleButton v-model="form.enabled" />
+                        <TogglerButton v-model="form.enabled" />
                     </div>
                 </div>
             </header>
@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-col">
                         <div class="dollar-input">
-                            <LsIcon class="input-icon" icon="dollar" />
+                            <BaseIcon class="input-icon" icon="dollar" />
                             <input
                                 type="text"
                                 v-model="form.price"
@@ -74,7 +74,7 @@
                         </small>
                     </div>
                     <div class="form-col">
-                        <LsToggleButtonGroup v-model="form.wav" />
+                        <TogglerButtonGroup v-model="form.wav" />
                     </div>
                 </div>
                 <div class="form-row no-wrap">
@@ -85,7 +85,7 @@
                         </small>
                     </div>
                     <div class="form-col">
-                        <LsToggleButtonGroup v-model="form.stems" />
+                        <TogglerButtonGroup v-model="form.stems" />
                     </div>
                 </div>
                 <div class="form-row">
@@ -138,9 +138,7 @@
                         </small>
                     </div>
                     <div class="form-col">
-                        <LsToggleButtonGroup
-                            v-model="form.broadcastingRights"
-                        />
+                        <TogglerButtonGroup v-model="form.broadcastingRights" />
                     </div>
                 </div>
                 <div class="form-row">
@@ -159,7 +157,7 @@
                         </small>
                     </div>
                     <div class="form-col">
-                        <LsToggleButtonGroup v-model="form.paidPerformances" />
+                        <TogglerButtonGroup v-model="form.paidPerformances" />
                     </div>
                 </div>
                 <div class="form-row">
@@ -174,8 +172,8 @@
                 </div>
             </main>
             <footer class="page-footer">
-                <ls-spinner-button :loading="saving" @click="handleSaveClick"
-                    >Save</ls-spinner-button
+                <spinner-button :loading="saving" @click="handleSaveClick"
+                    >Save</spinner-button
                 >
             </footer>
         </div>

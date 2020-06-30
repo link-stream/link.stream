@@ -1,6 +1,6 @@
 <template>
     <ToggleButton
-        class="LsToggleButton"
+        class="TogglerButton"
         :value="value"
         :width="42"
         :height="26"
@@ -13,7 +13,7 @@
 import { ToggleButton } from 'vue-js-toggle-button'
 
 export default {
-    name: 'LsToggleButton',
+    name: 'TogglerButton',
     components: {
         ToggleButton,
     },

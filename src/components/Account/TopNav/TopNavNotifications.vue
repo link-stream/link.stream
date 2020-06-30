@@ -35,9 +35,9 @@
                     />
                     <div class="pl-3 pr-2">{{ notification.title }}</div>
                     <div class="d-flex justify-content-center">
-                        <ls-spinner-button class="pink">
+                        <spinner-button class="pink">
                             Follow
-                        </ls-spinner-button>
+                        </spinner-button>
                     </div>
                 </div>
             </vue-perfect-scrollbar>

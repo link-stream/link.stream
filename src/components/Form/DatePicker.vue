@@ -1,7 +1,7 @@
 <template>
     <v-date-picker
         mode="single"
-        class="LsDatePicker"
+        class="DatePicker"
         :value="value"
         :class="{ 'is-invalid': !state }"
         :min-date="new Date()"
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    name: 'LsDatePicker',
+    name: 'DatePicker',
     props: {
         value: {
             type: Date,

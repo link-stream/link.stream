@@ -1,14 +1,14 @@
 <template>
     <button class="btn btn-icon" :type="type" @click="handleClick">
         <slot>
-            <LsIcon :icon="icon" />
+            <BaseIcon :icon="icon" />
         </slot>
     </button>
 </template>
 
 <script>
 export default {
-    name: 'LsIconButton',
+    name: 'IconButton',
     props: {
         type: {
             type: String,

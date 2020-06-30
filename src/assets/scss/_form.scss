@@ -71,7 +71,7 @@
     }
 }
 
-.LsSelect {
+.BaseSelect {
     cursor: pointer;
 
     .arrow-icon {
@@ -147,14 +147,14 @@
     }
 }
 
-.LsTimePicker {
+.TimePicker {
     .arrow-icon {
         top: 0px;
         left: 1px;
     }
 }
 
-.LsDatePicker {
+.DatePicker {
     .vc-bg-blue-600,
     .vc-day-content:active,
     .vc-day-content:hover,
@@ -182,17 +182,17 @@
 }
 
 .date-input-group {
-    .LsTimePicker,
-    .LsDatePicker {
+    .TimePicker,
+    .DatePicker {
         width: 50%;
     }
 
-    .LsDatePicker input {
+    .DatePicker input {
         border-right-width: 0px;
     }
 }
 
-.LsTagsInput {
+.TaggerInput {
     max-width: none !important;
     &.is-invalid {
         .ti-input {

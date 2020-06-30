@@ -1,2 +1,2 @@
-export { default as LsSpinner } from './LsSpinner'
-export { default as LsSpinnerMask } from './LsSpinnerMask'
+export { default as LoadingSpinner } from './LoadingSpinner'
+export { default as LoadingMask } from './LoadingMask'

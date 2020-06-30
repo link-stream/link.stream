@@ -1,6 +1,6 @@
 <template>
     <VueTagsInput
-        class="LsTagsInput"
+        class="TaggerInput"
         v-model="tag"
         :separators="[';', ',']"
         :add-on-key="[13, ',', ';']"
@@ -14,7 +14,7 @@
 import VueTagsInput from '@johmun/vue-tags-input'
 
 export default {
-    name: 'LsTagsInput',
+    name: 'TaggerInput',
     components: {
         VueTagsInput,
     },

@@ -1,1 +1,1 @@
-export { default as LsIcon } from './LsIcon'
+export { default as BaseIcon } from './BaseIcon'

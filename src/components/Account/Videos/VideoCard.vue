@@ -1,6 +1,6 @@
 <template>
     <div class="Card VideoCard" :class="{ 'is-private': video.isPrivate }">
-        <LsIcon class="drag-icon" icon="drag" />
+        <BaseIcon class="drag-icon" icon="drag" />
         <main class="video-content" @click="handleEditClick">
             <div class="card-media">
                 <div class="lock-thumb"></div>
@@ -13,13 +13,13 @@
                 </small>
             </div>
         </main>
-        <LsButton
+        <BasicButton
             variant="icon"
             class="trash-btn"
             title="Delete"
             @click="handleDeleteClick"
         />
-        <LsButton
+        <BasicButton
             variant="icon"
             class="edit-btn"
             title="Edit"

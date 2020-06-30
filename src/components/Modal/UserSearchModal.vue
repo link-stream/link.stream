@@ -11,13 +11,13 @@
         v-model="open"
     >
         <template v-slot:modal-header>
-            <LsButton variant="icon" class="modal-close" @click="close" />
+            <BasicButton variant="icon" class="modal-close" @click="close" />
             <h2 class="modal-title">Search for collaborator</h2>
         </template>
 
         <template v-slot:default>
             <div class="search-input">
-                <LsIcon class="input-icon" icon="search" />
+                <BaseIcon class="input-icon" icon="search" />
                 <input
                     type="text"
                     class="form-control"
@@ -25,7 +25,7 @@
                     maxlength="35"
                     v-model.trim="searchText"
                 />
-                <LsIconButton
+                <IconButton
                     icon="close"
                     class="search-clear"
                     @click="handleClearClick"
@@ -33,7 +33,7 @@
                 />
             </div>
 
-            <LsSpinner animation="bounce" />
+            <LoadingSpinner animation="bounce" />
 
             <ul class="search-results">
                 <li
@@ -47,9 +47,9 @@
                 <li class="invite">
                     <p>
                         Can't find who you're looking for?
-                        <ls-button variant="link" @click="handleInviteClick">
+                        <basic-button variant="link" @click="handleInviteClick">
                             Send an invite
-                        </ls-button>
+                        </basic-button>
                     </p>
                 </li>
             </ul>

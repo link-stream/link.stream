@@ -150,7 +150,7 @@
                                 <template v-else>
                                     <label class="small">{{ form.url }}</label>
                                 </template>
-                                <ls-button
+                                <basic-button
                                     variant="outline-light"
                                     size="xs"
                                     class="ml-3"
@@ -160,7 +160,7 @@
                                         Done
                                     </template>
                                     <template v-else>Customize</template>
-                                </ls-button>
+                                </basic-button>
                             </b-form-group>
                         </b-col>
                         <b-col sm="6">
@@ -211,7 +211,7 @@
                                 label-for="country"
                                 class="mb-4"
                             >
-                                <LsSelect
+                                <BaseSelect
                                     v-model="form.country"
                                     :options="allCountries"
                                     :reduce="country => country.code"
@@ -237,14 +237,14 @@
                     </b-row>
                 </b-col>
                 <b-col cols="12" class="mb-5">
-                    <ls-spinner-button
+                    <spinner-button
                         type="submit"
                         class="mt-5"
                         :loading="status.loading.update"
                         :error="status.error.update"
                     >
                         Save Updates
-                    </ls-spinner-button>
+                    </spinner-button>
                 </b-col>
             </b-row>
         </b-form>

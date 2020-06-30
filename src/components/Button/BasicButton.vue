@@ -14,7 +14,7 @@
 
 <script>
 export default {
-    name: 'LsButton',
+    name: 'BasicButton',
     props: {
         type: {
             type: String,

@@ -1,7 +1,7 @@
 <template>
     <div class="Card BeatCard" :class="{ 'is-private': beat.isPrivate }">
-        <LsSpinnerMask v-if="processing" />
-        <LsIcon class="drag-icon" icon="drag" />
+        <LoadingMask v-if="processing" />
+        <BaseIcon class="drag-icon" icon="drag" />
         <div class="card-media">
             <div class="lock-thumb"></div>
             <img class="card-img" :src="beat.coverart" :alt="beat.title" />
@@ -22,13 +22,13 @@
                 {{ badge.text }}
             </span>
         </div>
-        <LsButton
+        <BasicButton
             variant="icon"
             class="trash-btn"
             title="Delete"
             @click="handleDeleteClick"
         />
-        <LsButton
+        <BasicButton
             variant="icon"
             class="edit-btn"
             title="Edit"
@@ -36,7 +36,7 @@
         />
         <b-dropdown class="actions-menu" variant="icon" dropleft no-caret>
             <template v-slot:button-content>
-                <LsIcon icon="dot-menu-v" />
+                <BaseIcon icon="dot-menu-v" />
             </template>
             <b-dropdown-item @click="handleEditClick">
                 Edit

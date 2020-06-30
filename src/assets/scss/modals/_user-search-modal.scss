@@ -1,6 +1,6 @@
 .UserSearchModal {
     &.is-searching {
-        .LsSpinner {
+        .LoadingSpinner {
             display: block;
         }
     }
@@ -12,7 +12,7 @@
         .search-results {
             display: block;
         }
-        .LsSpinner {
+        .LoadingSpinner {
             display: none;
         }
     }
@@ -21,7 +21,7 @@
         padding-bottom: 60px;
     }
 
-    .LsSpinner {
+    .LoadingSpinner {
         display: none;
         margin-top: 30px;
     }

@@ -3,49 +3,55 @@
         <h1>Dashboard Page</h1>
 
         <div class="my-4">
-            <LsSpinner class="text-left m-0" animation="bounce" />
-            <LsSpinner class="text-left m-0" animation="pulse" />
-            <LsSpinner class="text-left m-0" animation="scale" />
+            <LoadingSpinner class="text-left m-0" animation="bounce" />
+            <LoadingSpinner class="text-left m-0" animation="pulse" />
+            <LoadingSpinner class="text-left m-0" animation="scale" />
         </div>
 
         <div class="mb-4">
-            <ls-button>Add Video</ls-button>
+            <basic-button>Add Video</basic-button>
             &nbsp;
-            <ls-button size="md">Add Video</ls-button>
+            <basic-button size="md">Add Video</basic-button>
             &nbsp;
-            <ls-button size="sm">Add Video</ls-button>
+            <basic-button size="sm">Add Video</basic-button>
             &nbsp;
-            <ls-button size="xs">Add Video</ls-button>
+            <basic-button size="xs">Add Video</basic-button>
         </div>
 
         <div class="mb-4">
-            <ls-button variant="secondary">Add Video</ls-button>
+            <basic-button variant="secondary">Add Video</basic-button>
             &nbsp;
-            <ls-button variant="secondary" size="md">Add Video</ls-button>
+            <basic-button variant="secondary" size="md">Add Video</basic-button>
             &nbsp;
-            <ls-button variant="secondary" size="sm">Add Video</ls-button>
+            <basic-button variant="secondary" size="sm">Add Video</basic-button>
             &nbsp;
-            <ls-button variant="secondary" size="xs">Close</ls-button>
+            <basic-button variant="secondary" size="xs">Close</basic-button>
         </div>
 
         <div class="mb-4">
-            <ls-button variant="tertiary">Add Video</ls-button>
+            <basic-button variant="tertiary">Add Video</basic-button>
             &nbsp;
-            <ls-button variant="secondary" size="md">Add Video</ls-button>
+            <basic-button variant="secondary" size="md">Add Video</basic-button>
             &nbsp;
-            <ls-button variant="tertiary" size="sm">Add Video</ls-button>
+            <basic-button variant="tertiary" size="sm">Add Video</basic-button>
             &nbsp;
-            <ls-button variant="tertiary" size="xs">Add Video</ls-button>
+            <basic-button variant="tertiary" size="xs">Add Video</basic-button>
         </div>
 
         <div class="mb-4">
-            <ls-button variant="outline-light">Add Video</ls-button>
+            <basic-button variant="outline-light">Add Video</basic-button>
             &nbsp;
-            <ls-button variant="outline-light" size="md">Add Video</ls-button>
+            <basic-button variant="outline-light" size="md"
+                >Add Video</basic-button
+            >
             &nbsp;
-            <ls-button variant="outline-light" size="sm">Add Video</ls-button>
+            <basic-button variant="outline-light" size="sm"
+                >Add Video</basic-button
+            >
             &nbsp;
-            <ls-button variant="outline-light" size="xs">Add Video</ls-button>
+            <basic-button variant="outline-light" size="xs"
+                >Add Video</basic-button
+            >
         </div>
 
         <div class="mb-4">

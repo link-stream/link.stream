@@ -1,8 +1,8 @@
 <template>
     <div class="Card LinkCard" :class="{ 'is-private': link.isPrivate }">
-        <LsSpinnerMask v-show="processing" />
+        <LoadingMask v-show="processing" />
         <section class="view-container" v-show="!isEditMode">
-            <LsIcon class="drag-icon" icon="drag" />
+            <BaseIcon class="drag-icon" icon="drag" />
             <div class="card-media" @click="handleEditClick">
                 <img class="card-img" :src="link.coverart" :alt="link.title" />
             </div>
@@ -12,13 +12,13 @@
                     Hidden
                 </small>
             </main>
-            <LsButton
+            <BasicButton
                 variant="icon"
                 title="Delete"
                 class="trash-btn"
                 @click="handleDeleteClick"
             />
-            <LsButton
+            <BasicButton
                 variant="icon"
                 title="Edit"
                 class="edit-btn"
@@ -26,7 +26,7 @@
             />
         </section>
         <section class="edit-container" v-if="isEditMode">
-            <LsIconButton
+            <IconButton
                 icon="close"
                 class="close-btn"
                 title="Close"
@@ -70,37 +70,37 @@
             </main>
             <footer class="edit-actions">
                 <div class="col-left">
-                    <LsIconButton
+                    <IconButton
                         icon="trash-sm"
                         title="Delete"
                         @click="handleDeleteClick"
                     />
                 </div>
                 <div class="col-right">
-                    <ls-icon-button
+                    <icon-button
                         :title="link.isPublic ? 'Hide' : 'Unhide'"
                         @click="handleVisibilityToggleClick"
                     >
-                        <LsIcon
+                        <BaseIcon
                             :icon="
                                 link.isPublic
                                     ? 'eye-cir-gray'
                                     : 'eye-slash-cir-gray'
                             "
                         />
-                    </ls-icon-button>
-                    <LsIconButton
+                    </icon-button>
+                    <IconButton
                         icon="clock-cir-gray"
                         title="Schedule"
                         @click="handleChangeScheduleClick"
                     />
-                    <ls-button
+                    <basic-button
                         variant="tertiary"
                         size="sm"
                         @click="handleSaveClick"
                     >
                         Save
-                    </ls-button>
+                    </basic-button>
                 </div>
             </footer>
             <div class="pubdate" v-if="link.scheduled">

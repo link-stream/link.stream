@@ -5,11 +5,13 @@
                 <b-col lg="6" offset-lg="3">
                     <b-row class="text-white">
                         <b-col cols="12" class="my-3 text-center">
-                            <b-img
-                                src="@/assets/img/logo/logo-v-lg.png"
-                                class="logo"
-                                alt="LinkStream"
-                            ></b-img>
+                            <router-link :to="{ name: 'home' }">
+                                <b-img
+                                    src="@/assets/img/logo/logo-v-lg.png"
+                                    class="logo"
+                                    alt="LinkStream"
+                                ></b-img
+                            ></router-link>
                         </b-col>
                         <b-col cols="12" class="my-3">
                             <h2>PRIVACY POLICY</h2>

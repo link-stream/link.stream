@@ -13,6 +13,9 @@
     }
 
     .page-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         padding: 20px;
     }
 
@@ -33,6 +36,10 @@
         }
         form {
             margin-bottom: 30px;
+            .btn {
+                font-weight: bold;
+                letter-spacing: 2px;
+            }
         }
         .form-group {
             margin-bottom: 30px;
@@ -47,7 +54,25 @@
         }
     }
 
-    .subscribe-text {
+    .social-links {
+        a {
+            font-size: px2rem(22);
+            &:nth-child(2) {
+                margin: 0 18px;
+            }
+            &,
+            &:active,
+            &:visited {
+                color: $white;
+            }
+
+            &:hover {
+                color: $linkstream-260;
+            }
+        }
+    }
+
+    .notify-text {
         color: $white;
         font-size: px2rem(13);
         letter-spacing: 0;
@@ -88,7 +113,7 @@
                 max-width: 400px;
             }
         }
-        .subscribe-text {
+        .notify-text {
             font-size: px2rem(14);
             br {
                 display: block;

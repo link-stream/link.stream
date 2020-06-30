@@ -22,6 +22,7 @@ $linkstream-220: #d0e9c6;
 $linkstream-230: #dff0d8;
 $linkstream-240: #3c763d;
 $linkstream-250: #d529ae;
+$linkstream-260: #fdd311;
 
 $white: #fff;
 $gray-100: #f8f9fa;
@@ -68,6 +69,7 @@ $theme-colors: map-merge(
         'dark': $dark,
         'black': $black,
         'purple': $linkstream-200,
+        'banana': $linkstream-260,
     ),
     $theme-colors
 );

@@ -2,6 +2,17 @@
     <div class="page page-coming-soon">
         <header class="page-header">
             <span class="logo ico"></span>
+            <div class="social-links">
+                <a href="https://www.facebook.com/linkstreamofficial">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://www.instagram.com/lnkstream">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://twitter.com/LinkStream_com">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
         </header>
         <main class="page-body">
             <div class="left-col">
@@ -9,12 +20,12 @@
                     LinkStream is <br />
                     coming soon
                 </h1>
-                <p class="subscribe-text">
+                <p class="notify-text">
                     We’re building a better way to sell and create music.<br />
                     Sign up for our email list and be the first to know when we
                     launch!
                 </p>
-                <form @submit="handleSubmit">
+                <form action="/" method="post" @submit="handleSubmit">
                     <b-form-group>
                         <b-form-input
                             v-model="$v.email.$model"
@@ -25,7 +36,11 @@
                             Enter a valid email address
                         </b-form-invalid-feedback>
                     </b-form-group>
-                    <spinner-button type="submit" :loading="processing">
+                    <spinner-button
+                        variant="banana"
+                        type="submit"
+                        :loading="processing"
+                    >
                         Notify Me
                     </spinner-button>
                 </form>

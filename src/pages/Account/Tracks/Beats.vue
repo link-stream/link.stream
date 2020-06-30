@@ -1,7 +1,7 @@
 <template>
     <div class="page page-beats">
         <header class="page-header">
-            <div class="col-left">
+            <div class="left-col">
                 <h1 class="page-title">Your beats</h1>
                 <div class="page-preview">
                     <span class="text-light">link.stream/</span>
@@ -18,7 +18,7 @@
                     </basic-button>
                 </div>
             </div>
-            <div class="col-right">
+            <div class="right-col">
                 <basic-button :to="{ name: 'accountBeatAdd' }">
                     Add a Beat
                 </basic-button>

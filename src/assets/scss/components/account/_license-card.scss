@@ -34,12 +34,12 @@
     .edit-actions {
         flex-direction: column;
         margin-top: 30px;
-        .col-left {
+        .left-col {
             order: 1;
             text-align: center;
             margin-top: 20px;
         }
-        .col-right {
+        .right-col {
             display: flex;
             .btn {
                 margin: 0;
@@ -67,7 +67,7 @@
         }
         .edit-actions {
             flex-direction: row;
-            .col-left {
+            .left-col {
                 text-align: left;
                 order: 0;
                 margin-top: 0;

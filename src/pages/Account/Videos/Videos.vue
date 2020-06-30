@@ -1,7 +1,7 @@
 <template>
     <div class="page page-vids">
         <header class="page-header">
-            <div class="col-left">
+            <div class="left-col">
                 <h1 class="page-title">Your videos</h1>
                 <h4 class="page-subtitle">
                     Add, remove, edit &amp; order videos anyway you'd like.
@@ -21,7 +21,7 @@
                     </basic-button>
                 </div>
             </div>
-            <div class="col-right">
+            <div class="right-col">
                 <basic-button :to="{ name: 'accountVideoAdd' }">
                     Add New Video
                 </basic-button>

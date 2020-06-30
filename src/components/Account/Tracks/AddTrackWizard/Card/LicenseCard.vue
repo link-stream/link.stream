@@ -41,7 +41,7 @@
                 </b-form-group>
             </div>
             <div class="edit-actions">
-                <div class="col-left">
+                <div class="left-col">
                     To customize your default license terms, go to
                     <basic-button
                         variant="link"
@@ -50,7 +50,7 @@
                         Licenses
                     </basic-button>
                 </div>
-                <div class="col-right">
+                <div class="right-col">
                     <basic-button
                         class="cancel-btn"
                         size="sm"

@@ -1,7 +1,7 @@
 <template>
     <div class="page page-links">
         <header class="page-header">
-            <div class="col-left">
+            <div class="left-col">
                 <h1 class="page-title">Your links</h1>
                 <h4 class="page-subtitle">
                     Add, remove, edit &amp; order links anyway you'd like.
@@ -21,7 +21,7 @@
                     </basic-button>
                 </div>
             </div>
-            <div class="col-right">
+            <div class="right-col">
                 <basic-button :to="{ name: 'accountLinkAdd' }">
                     Add New Link
                 </basic-button>

@@ -26,12 +26,12 @@
                 </basic-button>
             </div>
             <header class="page-header">
-                <div class="col-left">
+                <div class="left-col">
                     <h1 class="page-title">{{
                         isEditMode ? kit.title : 'Create Sound Kit'
                     }}</h1>
                 </div>
-                <div class="col-right">
+                <div class="right-col">
                     <basic-button
                         class="cancel-btn"
                         variant="secondary"
@@ -51,7 +51,7 @@
                 </div>
             </header>
             <main class="page-body">
-                <div class="col-left">
+                <div class="left-col">
                     <base-card title="Kit Details" class="info-card">
                         <b-form-group label="Title">
                             <b-form-input
@@ -218,7 +218,7 @@
                         </div>
                     </base-card>
                 </div>
-                <div class="col-right">
+                <div class="right-col">
                     <div class="Card viz-card">
                         <header class="card-header">
                             <div class="card-title">

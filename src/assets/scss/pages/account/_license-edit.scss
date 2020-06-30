@@ -2,7 +2,7 @@
     .page-header {
         border-bottom: 1px solid $linkstream-130;
         padding-bottom: 15px;
-        .col-right {
+        .right-col {
             margin-top: 15px;
         }
     }
@@ -77,7 +77,7 @@
 
     @include media-breakpoint-up(md) {
         .page-header {
-            .col-right {
+            .right-col {
                 margin-top: 0;
             }
         }

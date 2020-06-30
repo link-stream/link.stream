@@ -1,6 +1,6 @@
 .page-kit-add-edit {
     .page-header {
-        .col-right {
+        .right-col {
             display: none;
         }
         .cancel-btn {
@@ -120,18 +120,18 @@
 
     @include media-breakpoint-up(md) {
         .page-header {
-            .col-right {
+            .right-col {
                 display: block;
             }
         }
 
         .page-body {
             flex-direction: row;
-            .col-left {
+            .left-col {
                 flex-basis: 70%;
                 margin-right: 20px;
             }
-            .col-right {
+            .right-col {
                 flex-basis: 30%;
             }
         }

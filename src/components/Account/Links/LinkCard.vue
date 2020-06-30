@@ -69,14 +69,14 @@
                 </form>
             </main>
             <footer class="edit-actions">
-                <div class="col-left">
+                <div class="left-col">
                     <IconButton
                         icon="trash-sm"
                         title="Delete"
                         @click="handleDeleteClick"
                     />
                 </div>
-                <div class="col-right">
+                <div class="right-col">
                     <icon-button
                         :title="link.isPublic ? 'Hide' : 'Unhide'"
                         @click="handleVisibilityToggleClick"

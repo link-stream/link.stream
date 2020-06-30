@@ -13,7 +13,7 @@
                 </basic-button>
             </nav>
             <header class="page-header">
-                <div class="col-left">
+                <div class="left-col">
                     <h1 class="page-title">
                         Standard License
                     </h1>
@@ -21,7 +21,7 @@
                         Edit contract terms to apply to new track uploads
                     </h4>
                 </div>
-                <div class="col-right">
+                <div class="right-col">
                     <div class="viz-toggle">
                         <span class="toggle-label">Enabled</span>
                         <TogglerButton v-model="form.enabled" />

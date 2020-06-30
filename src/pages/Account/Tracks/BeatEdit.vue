@@ -13,7 +13,7 @@
                 </basic-button>
             </nav>
             <header class="page-header">
-                <div class="col-left">
+                <div class="left-col">
                     <h1 class="page-title">{{ beat.title }}</h1>
                     <div class="page-preview">
                         <span>
@@ -35,7 +35,7 @@
                         </basic-button>
                     </div>
                 </div>
-                <div class="col-right">
+                <div class="right-col">
                     <basic-button
                         class="cancel-btn"
                         variant="secondary"
@@ -55,7 +55,7 @@
                 </div>
             </header>
             <main class="page-body">
-                <div class="col-left">
+                <div class="left-col">
                     <!-- Info Card -->
                     <base-card title="Beat Details" class="info-card">
                         <b-form-group label="Title">
@@ -305,7 +305,7 @@
                         </div>
                     </base-card>
                 </div>
-                <div class="col-right">
+                <div class="right-col">
                     <!-- Visibility Card -->
                     <div class="Card viz-card">
                         <header class="card-header">
@@ -353,14 +353,14 @@
                 </div>
             </main>
             <footer class="page-footer">
-                <div class="col-left">
+                <div class="left-col">
                     <IconButton
                         icon="trash-sm"
                         title="Delete"
                         @click="handleDeleteClick"
                     />
                 </div>
-                <div class="col-right">
+                <div class="right-col">
                     <basic-button
                         class="cancel-btn"
                         variant="secondary"

@@ -122,10 +122,10 @@
 
         .page-header {
             flex-direction: row;
-            .col-left {
+            .left-col {
                 flex-grow: 1;
             }
-            .col-right {
+            .right-col {
                 align-self: flex-end;
             }
         }

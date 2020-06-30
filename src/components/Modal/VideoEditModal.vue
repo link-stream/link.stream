@@ -99,14 +99,14 @@
         </template>
 
         <template v-slot:modal-footer>
-            <div class="col-left">
+            <div class="left-col">
                 <IconButton
                     icon="trash-sm"
                     title="Delete"
                     @click="handleDeleteClick"
                 />
             </div>
-            <div class="col-right">
+            <div class="right-col">
                 <basic-button
                     class="action-btn cancel-btn"
                     variant="secondary"

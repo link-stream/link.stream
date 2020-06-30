@@ -1,5 +1,5 @@
 <template>
-    <div class="layout-default">
+    <div class="layout layout--default">
         <transition name="page" mode="out-in">
             <router-view :key="$route.fullPath"></router-view>
         </transition>
@@ -8,6 +8,6 @@
 
 <script>
 export default {
-    name: 'Default'
+    name: 'Default',
 }
 </script>

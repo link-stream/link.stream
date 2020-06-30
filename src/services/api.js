@@ -319,4 +319,15 @@ export const api = {
             return await call({ endpoint, method, showProgress: false })
         },
     },
+    misc: {
+        async earlyAccess(params) {
+            const endpoint = '/landing/early_access'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+    },
 }

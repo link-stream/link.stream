@@ -1,10 +1,10 @@
 .page-legal {
     font-family: $font-source-family;
+    background: $black;
     .logo {
         max-width: 100%;
         width: 180px;
     }
-
     h2 {
         font-family: $font-base-family;
         font-weight: $font-weight-light;
@@ -12,7 +12,6 @@
         text-transform: uppercase;
         margin-bottom: 2 * $spacer;
     }
-
     p {
         text-align: justify;
     }

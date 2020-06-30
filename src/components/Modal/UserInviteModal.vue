@@ -10,7 +10,7 @@
 
         <template v-slot:default>
             <input
-                type="text"
+                type="email"
                 class="form-control"
                 :class="{ 'is-invalid': $v.email.$error }"
                 placeholder="Email Address"

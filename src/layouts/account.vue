@@ -1,5 +1,5 @@
 <template>
-    <div class="layout layout-acc" :class="getMenuType">
+    <div class="layout layout--account" :class="getMenuType">
         <main class="layout-content">
             <transition name="page" mode="out-in">
                 <router-view :key="$route.fullPath"></router-view>

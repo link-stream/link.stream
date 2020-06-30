@@ -1,4 +1,4 @@
-.layout-acc {
+.layout--account {
     @import 'components/account/topnav';
     @import 'components/account/sidenav';
 
@@ -7,16 +7,16 @@
     }
 
     .layout-content {
-        margin-top: $navbar-height;
-        margin-bottom: $main-margin;
+        padding-top: $navbar-height;
+        padding-bottom: $main-margin;
     }
 
     // Mobile device
     &.menu-mobile .layout-content {
         margin-left: $main-margin-mobile-x !important;
         margin-right: $main-margin-mobile-x !important;
-        margin-top: $navbar-height !important;
-        margin-bottom: $main-margin-mobile-y;
+        padding-top: $navbar-height !important;
+        padding-bottom: $main-margin-mobile-y;
         .page {
             padding-top: $main-margin-mobile-y;
         }
@@ -114,7 +114,7 @@
         }
 
         .page {
-            max-width: $page-max-width;
+            max-width: $layout-account-page-max-width;
             padding-top: $main-margin;
             margin-left: auto;
             margin-right: auto;

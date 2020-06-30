@@ -1,8 +1,12 @@
 <template>
-    <div class="layout-auth">
+    <div class="layout layout--auth">
         <b-navbar toggleable="lg" type="dark" variant="dark">
             <b-navbar-brand to="/" class="m-auto">
-                <b-img src="@/assets/img/logo/logo-h-lg.png" class="logo" alt="LinkStream"></b-img>
+                <b-img
+                    src="@/assets/img/logo/logo-h-lg.png"
+                    class="logo"
+                    alt="LinkStream"
+                ></b-img>
             </b-navbar-brand>
         </b-navbar>
         <transition name="page" mode="out-in">
@@ -14,6 +18,6 @@
 
 <script>
 export default {
-    name: 'Auth'
+    name: 'Auth',
 }
 </script>

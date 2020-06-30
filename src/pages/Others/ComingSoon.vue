@@ -1,34 +1,80 @@
 <template>
-    <div class="page page-coming-soon my-md-5">
-        <b-container fluid>
-            <b-row class="text-center text-white">
-                <b-col cols="12" class="my-3">
-                    <b-img src="@/assets/img/logo/logo-v-lg.png" class="logo" alt="LinkStream"></b-img>
-                </b-col>
-                <b-col cols="12" class="my-3">
-                    <h2 class="text-uppercase font-weight-bold">
-                        <p class="font-weight-light">Your streams come true</p>Spring 2020
-                    </h2>
-                </b-col>
-                <b-col cols="12" class="my-5 pt-4">
-                    <a
-                        href="https://www.instagram.com/_linkstream"
-                        target="_blank"
-                        class="text-white"
-                    >
-                        <font-awesome-icon :icon="['fab', 'instagram']" class="mr-1" />Join the fam on Instagram!
-                    </a>
-                </b-col>
-                <b-col cols="12">
-                    <label>©2020 LinkStream LLC. All Rights Reserved.</label>
-                </b-col>
-            </b-row>
-        </b-container>
+    <div class="page page-coming-soon">
+        <header class="page-header">
+            <span class="logo ico"></span>
+        </header>
+        <main class="page-body">
+            <div class="left-col">
+                <h1 class="page-title">
+                    LinkStream is <br />
+                    coming soon
+                </h1>
+                <p class="subscribe-text">
+                    We’re building a better way to sell and create music.<br />
+                    Sign up for our email list and be the first to know when we
+                    launch!
+                </p>
+                <form @submit="handleSubmit">
+                    <b-form-group>
+                        <b-form-input
+                            v-model="$v.email.$model"
+                            placeholder="Enter Email Address"
+                            :state="!$v.email.$error"
+                        ></b-form-input>
+                        <b-form-invalid-feedback>
+                            Enter a valid email address
+                        </b-form-invalid-feedback>
+                    </b-form-group>
+                    <spinner-button type="submit" :loading="processing">
+                        Notify Me
+                    </spinner-button>
+                </form>
+            </div>
+            <div class="right-col">
+                <img src="@/assets/img/coming-soon.png" />
+            </div>
+        </main>
     </div>
 </template>
 
 <script>
+import { api } from '~/services'
+import { required, email } from 'vuelidate/lib/validators'
+
 export default {
     name: 'ComingSoon',
+    data() {
+        return {
+            email: null,
+            processing: false,
+        }
+    },
+    validations: {
+        email: {
+            required,
+            email,
+        },
+    },
+    methods: {
+        async handleSubmit(e) {
+            e.preventDefault()
+            this.$v.email.$touch()
+            if (this.$v.email.$invalid) {
+                return
+            }
+            this.processing = true
+            const { status, error } = await api.misc.earlyAccess({
+                email: this.email,
+            })
+            if (status === 'success') {
+                this.$toast.success("You've been added to our email list!")
+                this.email = null
+                this.$v.email.$reset()
+            } else {
+                this.$toast.error(error)
+            }
+            this.processing = false
+        },
+    },
 }
 </script>

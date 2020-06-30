@@ -1,6 +1,5 @@
 <template>
-    <div class="layout-landing">
-        <div class="secion-overlay"></div>
+    <div class="layout layout--landing">
         <transition name="page" mode="out-in">
             <router-view :key="$route.fullPath"></router-view>
         </transition>
@@ -9,6 +8,6 @@
 
 <script>
 export default {
-    name: 'Landing'
+    name: 'Landing',
 }
 </script>

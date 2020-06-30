@@ -28,7 +28,7 @@
                 <form action="/" method="post" @submit="handleSubmit">
                     <b-form-group>
                         <b-form-input
-                            v-model="$v.email.$model"
+                            v-model="email"
                             placeholder="Enter Email Address"
                             :state="!$v.email.$error"
                         ></b-form-input>
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import { scrollToTop } from '~/utils'
 import { api } from '~/services'
 import { required, email } from 'vuelidate/lib/validators'
 
@@ -85,6 +86,7 @@ export default {
                 this.$toast.success("You've been added to our email list!")
                 this.email = null
                 this.$v.email.$reset()
+                scrollToTop()
             } else {
                 this.$toast.error(error)
             }

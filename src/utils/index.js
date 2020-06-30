@@ -67,3 +67,10 @@ export const generateTimePickerOptions = function() {
 export const stripCommas = function(value) {
     return value ? value.toString().replace(/,/g, '') : ''
 }
+
+/**
+ * Scoll to top of page.
+ */
+export const scrollToTop = function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+}

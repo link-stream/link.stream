@@ -43,6 +43,16 @@
                     >
                         Notify Me
                     </spinner-button>
+                    <div class="legal-text">
+                        By clicking Notify Me, you agree to our
+                        <router-link :to="{ name: 'legal' }">
+                            Terms of Use
+                        </router-link>
+                        and
+                        <router-link :to="{ name: 'legal' }">
+                            Privacy Policy
+                        </router-link>
+                    </div>
                 </form>
             </div>
             <div class="right-col">

@@ -1,15 +1,18 @@
 <template>
-    <div class="page page-coming-soon">
+    <div class="page page-coming-soon" ref="container">
         <header class="page-header">
             <span class="logo ico"></span>
             <div class="social-links">
-                <a href="https://www.facebook.com/linkstreamofficial">
+                <a
+                    target="_blank"
+                    href="https://www.facebook.com/linkstreamofficial"
+                >
                     <i class="fab fa-facebook"></i>
                 </a>
-                <a href="https://www.instagram.com/lnkstream">
+                <a target="_blank" href="https://www.instagram.com/lnkstream">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="https://twitter.com/LinkStream_com">
+                <a target="_blank" href="https://twitter.com/LinkStream_com">
                     <i class="fab fa-twitter"></i>
                 </a>
             </div>
@@ -81,6 +84,9 @@ export default {
             required,
             email,
         },
+    },
+    mounted() {
+        this.$refs.container.style.minHeight = screen.height + 'px'
     },
     methods: {
         async handleSubmit(e) {

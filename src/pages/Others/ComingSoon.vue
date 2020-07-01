@@ -86,7 +86,11 @@ export default {
         },
     },
     mounted() {
-        this.$refs.container.style.minHeight = screen.height + 'px'
+        const resizeCallback = () => {
+            this.$refs.container.style.minHeight = window.innerHeight + 'px'
+        }
+        resizeCallback()
+        window.onresize = resizeCallback
     },
     methods: {
         async handleSubmit(e) {

@@ -16,7 +16,7 @@
                     <h2 class="step-title">Add a link</h2>
                 </header>
                 <main class="step-body">
-                    <div class="col-info">
+                    <div class="left-col">
                         <div class="fieldset">
                             <b-form-group
                                 label="Copy &amp; Paste Your Link URL"
@@ -99,7 +99,7 @@
                             </basic-button>
                         </div>
                     </div>
-                    <div class="col-image">
+                    <div class="right-col">
                         <DropImage
                             :src="form.coverArtBase64"
                             @add-file="handleImageAdd"

@@ -29,19 +29,18 @@
                 <LoadingSpinner />
             </div>
             <div class="page-empty" v-if="!loading && !sortableKits.length">
-                <div class="col-text">
+                <div class="empty-text">
                     Your Sound Kits will appear here.
                 </div>
-                <div class="col-link">
-                    <basic-button
-                        variant="link"
-                        :to="{
-                            name: 'accountSoundKitAdd',
-                        }"
-                    >
-                        Add a kit
-                    </basic-button>
-                </div>
+                <basic-button
+                    class="empty-link"
+                    variant="link"
+                    :to="{
+                        name: 'accountSoundKitAdd',
+                    }"
+                >
+                    Add a kit
+                </basic-button>
             </div>
             <Container
                 v-else

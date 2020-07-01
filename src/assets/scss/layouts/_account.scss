@@ -90,12 +90,15 @@
         padding: 38px 0;
         color: $linkstream-170 !important;
         &,
-        .btn-link {
+        .empty-link {
             font-size: px2rem(13);
             font-weight: 600;
         }
-        .btn-link {
+        .empty-link {
             text-decoration: none;
+        }
+        .empty-text {
+            margin-bottom: 2px;
         }
     }
 
@@ -137,7 +140,7 @@
         .page-empty {
             flex-direction: row;
             justify-content: center;
-            .col-text {
+            .empty-text {
                 margin-right: 5px;
             }
         }

@@ -58,7 +58,7 @@
             class="info-step"
             :title="isSong ? 'Song info' : 'Beat info'"
         >
-            <div class="col-image">
+            <div class="left-col">
                 <drop-image
                     msg-long="Drag artwork here or<br><u>browse for file</u>"
                     msg-short="Add Artwork"
@@ -73,7 +73,7 @@
                     </template>
                 </drop-image>
             </div>
-            <InfoBlock class="col-fields" v-if="isStepInfo" />
+            <InfoBlock class="right-col" v-if="isStepInfo" />
         </wizard-step>
 
         <!-- STEP - LICENSE TYPES -->
@@ -111,7 +111,7 @@
             :title="isSong ? 'Review song' : 'Review beat'"
             class="review-step"
         >
-            <div class="col-image">
+            <div class="left-col">
                 <div class="Card">
                     <DropImage
                         variant="inline"
@@ -122,7 +122,7 @@
                     />
                 </div>
             </div>
-            <ReviewBlock v-if="isStepReview" class="col-summary" />
+            <ReviewBlock class="right-col" v-if="isStepReview" />
         </wizard-step>
 
         <footer class="fwz-pager" v-show="stepIndex > 0">

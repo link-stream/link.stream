@@ -107,7 +107,7 @@
             display: flex;
             flex-direction: column;
         }
-        .col-image {
+        .left-col {
             margin-bottom: 10px;
         }
         .DropImage {
@@ -121,7 +121,7 @@
         .step-body {
             display: flex;
             flex-direction: column;
-            .col-image {
+            .left-col {
                 margin-bottom: 15px;
             }
         }
@@ -192,14 +192,14 @@
         .review-step {
             .step-body {
                 flex-direction: row;
-                .col-image {
+                .left-col {
                     margin: 0 30px 0 0;
                 }
             }
         }
 
         .info-step {
-            .col-fields {
+            .right-col {
                 flex-grow: 1;
             }
             .DropImage {
@@ -213,7 +213,7 @@
         }
 
         .review-step {
-            .col-summary {
+            .right-col {
                 flex-grow: 1;
             }
             .Card {

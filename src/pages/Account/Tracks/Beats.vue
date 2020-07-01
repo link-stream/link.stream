@@ -29,19 +29,18 @@
                 <LoadingSpinner />
             </div>
             <div class="page-empty" v-if="!loading && !sortableBeats.length">
-                <div class="col-text">
+                <div class="empty-text">
                     Your beats will appear here.
                 </div>
-                <div class="col-link">
-                    <basic-button
-                        variant="link"
-                        :to="{
-                            name: 'accountBeatAdd',
-                        }"
-                    >
-                        Add a beat
-                    </basic-button>
-                </div>
+                <basic-button
+                    class="empty-link"
+                    variant="link"
+                    :to="{
+                        name: 'accountBeatAdd',
+                    }"
+                >
+                    Add a beat
+                </basic-button>
             </div>
             <Container
                 v-else

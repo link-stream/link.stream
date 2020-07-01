@@ -7,7 +7,7 @@
     .step-body {
         display: flex;
         flex-direction: column;
-        .col-image {
+        .right-col {
             margin-top: 20px;
         }
     }
@@ -15,10 +15,10 @@
     @include media-breakpoint-up(md) {
         .step-body {
             flex-direction: row;
-            .col-info {
+            .left-col {
                 flex-grow: 1;
             }
-            .col-image {
+            .right-col {
                 margin-top: 0;
             }
         }

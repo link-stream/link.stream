@@ -24,12 +24,10 @@
                     Will Be Here Soon
                 </h1>
                 <p class="join-text">
-                    Discover the missing link between streaming
-                    artists&nbsp;and&nbsp;music producers. LinkStream was built
-                    by tech entrepreneurs and marketing experts to help artists
-                    and producers buy and sell their songs and instrumentals.
-                    Sign-up to receive an email for early access to the
-                    platform.
+                    You just discovered the missing link between music
+                    production and building a successful business selling beats,
+                    instrumentals and sound kits online. Sign-up to receive a
+                    notification for early access.
                 </p>
                 <div class="form-group">
                     <input

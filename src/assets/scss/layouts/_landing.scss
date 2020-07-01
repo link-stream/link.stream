@@ -1,0 +1,5 @@
+.layout--landing {
+    @include media-breakpoint-up(md) {
+        height: 100%;
+    }
+}

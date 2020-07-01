@@ -15,50 +15,48 @@
             </div>
         </header>
         <main class="page-body">
-            <div class="left-col">
+            <form action="/" method="post" @submit="handleSubmit">
                 <h1 class="page-title">
-                    LinkStream is <br />
-                    coming soon
+                    The Missing Link<br />
+                    Will Be Here Soon
                 </h1>
-                <p class="notify-text">
-                    We’re building a better way to sell and create music.<br />
-                    Sign up for our email list and be the first to know when we
-                    launch!
+                <p class="join-text">
+                    Discover the missing link between streaming
+                    artists&nbsp;and&nbsp;music producers. LinkStream was built
+                    by tech entrepreneurs and marketing experts to help artists
+                    and producers buy and sell their songs and instrumentals.
+                    Sign-up to receive an email for early access to the
+                    platform.
                 </p>
-                <form action="/" method="post" @submit="handleSubmit">
-                    <b-form-group>
-                        <b-form-input
-                            v-model="email"
-                            placeholder="Enter Email Address"
-                            :state="!$v.email.$error"
-                        ></b-form-input>
-                        <b-form-invalid-feedback>
-                            Enter a valid email address
-                        </b-form-invalid-feedback>
-                    </b-form-group>
-                    <spinner-button
-                        variant="banana"
-                        type="submit"
-                        :loading="processing"
-                    >
-                        Notify Me
-                    </spinner-button>
-                    <div class="legal-text">
-                        By clicking Notify Me, you agree to our
-                        <router-link :to="{ name: 'legal' }">
-                            Terms of Use
-                        </router-link>
-                        and
-                        <router-link :to="{ name: 'legal' }">
-                            Privacy Policy
-                        </router-link>
+                <div class="form-group">
+                    <input
+                        type="text"
+                        v-model="email"
+                        placeholder="Enter Email Address"
+                        class="form-control"
+                        :class="{ 'is-invalid': $v.email.$error }"
+                    />
+                    <div class="invalid-feedback">
+                        Enter a valid email address
                     </div>
-                </form>
-            </div>
-            <div class="right-col">
+                </div>
+                <spinner-button
+                    variant="banana"
+                    type="submit"
+                    :loading="processing"
+                >
+                    Notify Me
+                </spinner-button>
+            </form>
+            <div class="img">
                 <img src="@/assets/img/coming-soon.png" />
             </div>
         </main>
+        <footer class="page-footer">
+            &copy; {{ new Date().getFullYear() }} LinkStream LLC. All Rights
+            Reserved.<span class="pipe">&vert;</span>
+            <router-link :to="{ name: 'legal' }">Privacy Policy</router-link>
+        </footer>
     </div>
 </template>
 

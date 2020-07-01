@@ -528,10 +528,10 @@
                             </a>
                         </b-col>
                         <b-col cols="12" class="text-center">
-                            <label
-                                >©2020 LinkStream LLC. All Rights
-                                Reserved.</label
-                            >
+                            <label>
+                                &copy; {{ new Date().getFullYear() }} LinkStream
+                                LLC. All Rights Reserved.
+                            </label>
                         </b-col>
                     </b-row>
                 </b-col>

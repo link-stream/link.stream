@@ -24,8 +24,8 @@
                     Will Be Here Soon
                 </h1>
                 <p class="join-text">
-                    You just discovered the missing link between music
-                    production and building a successful business selling beats,
+                    You just discovered the missing link between producing music
+                    and building a successful business selling beats,
                     instrumentals and sound kits online. Sign-up to receive a
                     notification for early access.
                 </p>
@@ -84,13 +84,13 @@ export default {
         },
     },
     mounted() {
-        const resizeCallback = () => {
-            this.$refs.container.style.minHeight = window.innerHeight + 'px'
-        }
-        resizeCallback()
-        window.onresize = resizeCallback
+        this.handleWindowResize()
+        window.onresize = this.handleWindowResize
     },
     methods: {
+        handleWindowResize() {
+            this.$refs.container.style.minHeight = window.innerHeight + 'px'
+        },
         async handleSubmit(e) {
             e.preventDefault()
             this.$v.email.$touch()

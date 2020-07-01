@@ -155,6 +155,7 @@ import MarketingBlock from './Block/MarketingBlock'
 import ReviewBlock from './Block/ReviewBlock'
 import { DropImage } from '~/components/Uploader'
 import { appConstants } from '~/constants'
+import { scrollToTop } from '~/utils'
 import { mapGetters } from 'vuex'
 import moment from 'moment'
 
@@ -255,7 +256,7 @@ export default {
             this.$bus.$off('wz.nextClick')
             this.$bus.$off('wz.prevClick')
             this.$bus.$off('wz.saveClick')
-            window.scrollTo({ top: 0, behavior: 'smooth' })
+            scrollToTop()
         },
     },
     created() {

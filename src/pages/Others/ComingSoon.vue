@@ -55,7 +55,10 @@
         <footer class="page-footer">
             &copy; {{ new Date().getFullYear() }} LinkStream LLC. All Rights
             Reserved.<span class="pipe">&vert;</span>
-            <router-link :to="{ name: 'legal' }">Privacy Policy</router-link>
+            <router-link
+                :to="{ name: 'legal' }"
+                v-html="'Privacy&nbsp;Policy'"
+            ></router-link>
         </footer>
     </div>
 </template>

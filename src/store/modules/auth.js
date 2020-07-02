@@ -71,8 +71,8 @@ const actions = {
         }
     },
 
-    logout({ commit, dispatch }) {
-        api.users.logout()
+    async logout({ commit, dispatch }) {
+        await api.users.logout()
         commit(authTypes.LOGOUT)
         dispatch('reset')
         dispatch('me/reset', null, { root: true })

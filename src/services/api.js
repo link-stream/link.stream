@@ -1,4 +1,3 @@
-import { getAuthCookie } from '~/utils/auth'
 import qs from 'qs'
 import axios from '~/plugins/axios'
 
@@ -6,8 +5,6 @@ const METHOD_GET = 'GET'
 const METHOD_POST = 'POST'
 const METHOD_PUT = 'PUT'
 const METHOD_DELETE = 'DELETE'
-
-let authCookie = null
 
 const call = async function({
     endpoint,
@@ -18,11 +15,6 @@ const call = async function({
     const headers = {
         'X-API-KEY': process.env.VUE_APP_API_KEY,
         'Content-Type': 'application/x-www-form-urlencoded',
-    }
-
-    authCookie = authCookie || getAuthCookie()
-    if (authCookie) {
-        headers.Token = authCookie.token
     }
 
     const auth = {

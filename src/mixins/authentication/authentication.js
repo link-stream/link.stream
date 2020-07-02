@@ -1,5 +1,6 @@
 import GoogleLogin from 'vue-google-login'
-import { call } from '~/services'
+import { setStatusChange } from '~/utils'
+import { api } from '~/services'
 
 export default {
     components: {
@@ -8,15 +9,21 @@ export default {
     data() {
         return {
             google: {
-                client_id: process.env.SOCIAL.GOOGLE_CLIENT_ID,
+                client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
             },
             instagram: {
-                client_id: process.env.SOCIAL.INSTAGRAM_CLIENT_ID,
+                client_id: process.env.VUE_APP_INSTAGRAM_CLIENT_ID,
                 redirect_uri: window.location.href,
             },
-            loading: {
-                google: false,
-                instagram: false,
+            status: {
+                loading: {
+                    google: false,
+                    instagram: false,
+                },
+                error: {
+                    google: null,
+                    instagram: null,
+                },
             },
         }
     },
@@ -24,34 +31,41 @@ export default {
         async onGoogleSuccess(googleUser) {
             const { id_token: platform_token } = googleUser.getAuthResponse()
             if (platform_token) {
-                this.loading.google = true
-                try {
-                    const { status, data } = await call('/users/google', { platform_token }, 'POST')
-                    if (status === 'success') {
-                        console.log(data)
-                        this.$toast.success('Success')
-                    }
-                } catch (e) {
-                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
+                this.status.loading.google = true
+                const { status, data, error } = await api.users.google({
+                    platform_token,
+                })
+                if (status === 'success') {
+                    setStatusChange(this, 'status.error.google', false)
+                    setTimeout(() => {
+                        this.$store.dispatch('auth/login', { user: data })
+                    }, 1500)
+                } else {
+                    setStatusChange(this, 'status.error.google')
+                    this.$toast.error(error)
                 }
-                this.loading.google = false
+                this.status.loading.google = false
             }
         },
         async onInstagramSuccess(instagramUser) {
             const { code } = instagramUser
             const { redirect_uri: redirect_url } = this.instagram
             if (code && redirect_url) {
-                this.loading.instagram = true
-                try {
-                    const { status, data } = await call('/users/instagram', { code, redirect_url }, 'POST')
-                    if (status === 'success') {
-                        console.log(data)
-                        this.$toast.success('Success')
-                    }
-                } catch (e) {
-                    this.$toast.error(e.response.data.error || e.message || e || 'Unexpected error')
+                this.status.loading.instagram = true
+                const { status, data, error } = await api.users.instagram({
+                    code,
+                    redirect_url,
+                })
+                if (status === 'success') {
+                    setStatusChange(this, 'status.error.instagram', false)
+                    setTimeout(() => {
+                        this.$store.dispatch('auth/login', { user: data })
+                    }, 1500)
+                } else {
+                    setStatusChange(this, 'status.error.instagram')
+                    this.$toast.error(error)
                 }
-                this.loading.instagram = false
+                this.status.loading.instagram = false
             }
         },
         authenticateInstagram() {
@@ -66,7 +80,15 @@ export default {
             const popup = window.open(
                 `https://instagram.com/oauth/authorize/?app_id=${client_id}&redirect_uri=${redirect_uri}&scope=user_profile,user_media&response_type=code`,
                 '',
-                'width=' + popupWidth + ',height=' + popupHeight + ',left=' + popupLeft + ',top=' + popupTop + ''
+                'width=' +
+                    popupWidth +
+                    ',height=' +
+                    popupHeight +
+                    ',left=' +
+                    popupLeft +
+                    ',top=' +
+                    popupTop +
+                    ''
             )
             const interval = setInterval(function() {
                 try {
@@ -78,10 +100,10 @@ export default {
                         popup.close()
                         _this.onInstagramSuccess({ code })
                     }
-                } catch (evt) {
+                } catch (e) {
                     // Permission denied
                 }
-            }, 500)
+            }, 100)
         },
     },
 }

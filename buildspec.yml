@@ -6,12 +6,14 @@ phases:
       nodejs: 10  
   pre_build:
     commands:
+      - echo Uninstalling dependencies...
+      - rm -rf ./node_modules 
       - echo Installing dependencies...
   build:
     commands:
       - echo Build started on `date`
       - echo Compiling the Node.js code
-      - npm install 
+      - yarn install 
   post_build:
     commands:
       - echo Build completed on `date`

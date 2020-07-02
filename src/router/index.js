@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '~/store'
 import routes from './routes'
 
 Vue.use(Router)
@@ -18,7 +19,29 @@ router.beforeResolve((to, from, next) => {
     next()
 })
 
-router.afterEach((to, from) => {
+router.beforeEach(async (to, from, next) => {
+    // middleware for access controlled pages
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!store.getters['auth/user']) {
+            // redirect to login if attempting to access authed page
+            next({ name: 'login' })
+        } else {
+            next()
+        }
+    } else if (to.matched.some(record => record.meta.requiresGuest)) {
+        if (store.getters['auth/user']) {
+            // redirect home if attempting to access guest-only page
+            next({ name: 'accountDashboard' })
+            store.dispatch('me/loadAccount')
+        } else {
+            next()
+        }
+    } else {
+        next()
+    }
+})
+
+router.afterEach(() => {
     // Complete the animation of the route progress bar.
     router.app.$Progress.finish()
 })

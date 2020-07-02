@@ -27,3 +27,7 @@ Vue.filter('longDate', function(value) {
 Vue.filter('customizeDate', function(value, format) {
     return moment(value).format(format)
 })
+
+Vue.filter('mmddyyyy', function(value) {
+    return moment(value).format('MM/DD/YYYY')
+})

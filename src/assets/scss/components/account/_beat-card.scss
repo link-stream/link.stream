@@ -1,0 +1,74 @@
+.BeatCard {
+    display: flex;
+    align-items: center;
+
+    .card-media {
+        position: relative;
+        margin: 0 5px;
+    }
+
+    .card-title {
+        flex-grow: 1;
+        line-height: inherit;
+    }
+
+    .card-img,
+    .lock-thumb {
+        width: 60px;
+        height: 60px;
+    }
+
+    .lock-thumb {
+        background-image: url(~@/../public/static/img/lock-thumb-square.svg);
+    }
+
+    .private-badge {
+        background-color: $linkstream-190;
+        color: $linkstream-180;
+        font-size: px2rem(11);
+        font-weight: 500;
+        letter-spacing: 0;
+        padding: 5px 10px;
+        margin-left: 5px;
+    }
+
+    .trash-btn,
+    .edit-btn {
+        display: none;
+    }
+
+    .file-badges {
+        display: none;
+        .badge {
+            &.hidden {
+                visibility: hidden;
+            }
+            text-transform: uppercase;
+            background-color: $linkstream-80;
+            color: $linkstream-170 !important;
+            margin-right: 10px;
+            padding: 5px 10px;
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        .card-img,
+        .lock-thumb {
+            width: 68px;
+            height: 68px;
+        }
+
+        .trash-btn,
+        .edit-btn {
+            display: block;
+        }
+
+        .actions-menu {
+            display: none;
+        }
+
+        .file-badges {
+            display: block;
+        }
+    }
+}

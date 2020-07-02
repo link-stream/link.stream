@@ -1,13 +1,20 @@
 import axios from 'axios'
-import app from '~/main' // import the instance
+import app from '~/main'
 
 const instance = axios.create({
-    baseURL: process.env.API_URL,
+    baseURL: process.env.VUE_APP_API_URL,
 })
 
 instance.interceptors.request.use(
     config => {
-        app.$Progress.start() // for every request start the progress
+        const authToken = app.$store.getters['auth/token']
+        if (authToken) {
+            config.headers.Token = authToken
+        }
+        if (config.showProgress) {
+            // For every request start the progress
+            app.$Progress.start()
+        }
         return config
     },
     error => {
@@ -17,13 +24,19 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
     response => {
-        app.$Progress.finish() // finish when a response is received
+        if (response.config.showProgress) {
+            // Stop progress when a response is received
+            app.$Progress.finish()
+        }
         return response
     },
     error => {
-        app.$Progress.finish()
+        if (error.config.showProgress) {
+            // Stop progress when a response is received
+            app.$Progress.finish()
+        }
         return Promise.reject(error)
     }
 )
 
-export default instance // export axios instance to be imported in your app
+export default instance

@@ -1,1 +1,1 @@
-export { default as call } from './api'
+export { api } from './api'

@@ -1,0 +1,127 @@
+.Card {
+    @include border-radius(4px);
+    position: relative;
+    background-color: $white;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.22);
+    margin: 15px 0;
+    padding: 15px;
+
+    &.is-private {
+        .lock-thumb {
+            display: block;
+        }
+        .private-badge {
+            display: inline;
+        }
+    }
+
+    .card-header {
+        display: flex;
+        background-color: $white;
+        padding: 0;
+        margin: 0;
+        border: 0;
+    }
+
+    .card-title {
+        color: $linkstream-110;
+        font-size: px2rem(12);
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .card-body {
+        padding: 0;
+    }
+
+    .card-img {
+        border-radius: 0;
+    }
+
+    .drag-icon {
+        cursor: move;
+    }
+
+    .private-badge {
+        display: none;
+    }
+
+    .lock-thumb {
+        display: none;
+        position: absolute;
+        background-image: url(~@/../public/static/img/lock-thumb.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 20px;
+    }
+
+    .edit-btn {
+        padding: 0;
+        &:before {
+            background-image: url(~@/../public/static/ico/edit-cir-white-sm.svg);
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    .trash-btn {
+        visibility: hidden;
+        display: none;
+        opacity: 0;
+        transition: visibility 0.3s, opacity 0.3s;
+    }
+
+    .edit-actions {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid $linkstream-30;
+        padding-top: 16px;
+        margin-top: 16px;
+    }
+
+    @include media-breakpoint-up(md) {
+        &:hover {
+            .trash-btn {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+
+        .card-title {
+            font-size: px2rem(14);
+        }
+
+        .trash-btn,
+        .edit-btn {
+            margin-left: 10px;
+        }
+
+        .edit-btn {
+            &:before {
+                background-image: url(~@/../public/static/ico/edit-cir-white-lg.svg);
+                width: 50px;
+                height: 50px;
+            }
+            &:hover {
+                &:before {
+                    background-image: url(~@/../public/static/ico/edit-cir-gray-lg.svg);
+                }
+            }
+        }
+
+        .trash-btn {
+            display: block;
+            &:before {
+                background-image: url(~@/../public/static/ico/trash-lg.svg);
+                width: 50px;
+                height: 50px;
+            }
+        }
+    }
+}

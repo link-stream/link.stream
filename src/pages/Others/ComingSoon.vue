@@ -21,11 +21,11 @@
             <form action="/" method="post" @submit="handleSubmit">
                 <h1 class="page-title">
                     The Missing Link<br />
-                    Will Be Here Soon
+                    Will Be Revealed Soon
                 </h1>
                 <p class="join-text">
-                    You just discovered the missing link between producing music
-                    and building a successful business selling beats,
+                    You are about to discover the missing link between producing
+                    music and building a successful business selling beats,
                     instrumentals and sound kits online. Sign-up to receive a
                     notification for early access.
                 </p>

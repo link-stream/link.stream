@@ -1,17 +1,17 @@
 <template>
     <div class="page page-beat-edit">
+        <nav class="page-nav">
+            <basic-button
+                class="back-btn"
+                variant="text"
+                :to="{ name: 'accountBeats' }"
+            >
+                <i class="ico ico-back"></i>
+                <span>Beats</span>
+            </basic-button>
+        </nav>
         <LoadingSpinner class="page-loader" v-if="isLoading" />
-        <div class="page-content" v-else>
-            <nav class="page-nav">
-                <basic-button
-                    class="back-btn"
-                    variant="text"
-                    :to="{ name: 'accountBeats' }"
-                >
-                    <i class="ico ico-back"></i>
-                    <span>Beats</span>
-                </basic-button>
-            </nav>
+        <div v-else>
             <header class="page-header">
                 <div class="left-col">
                     <h1 class="page-title">{{ beat.title }}</h1>

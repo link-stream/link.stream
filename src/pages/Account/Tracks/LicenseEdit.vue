@@ -1,17 +1,17 @@
 <template>
     <div class="page page-license-edit">
+        <nav class="page-nav">
+            <basic-button
+                class="back-btn"
+                variant="text"
+                :to="{ name: 'accountTracksLicenses' }"
+            >
+                <i class="ico ico-back"></i>
+                <span>Licenses</span>
+            </basic-button>
+        </nav>
         <LoadingSpinner class="page-loader" v-if="loading" />
-        <div v-else class="page-content">
-            <nav class="page-nav">
-                <basic-button
-                    class="back-btn"
-                    variant="text"
-                    :to="{ name: 'accountTracksLicenses' }"
-                >
-                    <i class="ico ico-back"></i>
-                    <span>Licenses</span>
-                </basic-button>
-            </nav>
+        <div v-else>
             <header class="page-header">
                 <div class="left-col">
                     <h1 class="page-title">
@@ -206,8 +206,8 @@ export default {
     },
     async created() {
         this.loading = true
-        const licenseId = this.$route.params.id
 
+        const licenseId = this.$route.params.id
         let license = this.$store.getters['me/licenseById'](licenseId)
 
         if (!license) {

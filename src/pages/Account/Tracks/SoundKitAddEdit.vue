@@ -1,17 +1,17 @@
 <template>
     <div class="page page-kit-add-edit">
+        <nav class="page-nav">
+            <basic-button
+                class="back-btn"
+                variant="text"
+                :to="{ name: 'accountSoundKits' }"
+            >
+                <i class="ico ico-back"></i>
+                <span>Sound Kits</span>
+            </basic-button>
+        </nav>
         <LoadingSpinner class="page-loader" v-if="loading" />
-        <div class="page-content" v-else>
-            <nav class="page-nav">
-                <basic-button
-                    class="back-btn"
-                    variant="text"
-                    :to="{ name: 'accountSoundKits' }"
-                >
-                    <i class="ico ico-back"></i>
-                    <span>Sound Kits</span>
-                </basic-button>
-            </nav>
+        <div v-else>
             <div class="alert alert-success" v-if="showCreatedSuccess">
                 <strong>Created {{ kit.title }}!&nbsp;</strong>
                 <basic-button variant="link">

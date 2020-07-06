@@ -1,7 +1,7 @@
 <template>
     <div class="Card BeatCard" :class="{ 'is-private': beat.isPrivate }">
         <LoadingMask v-if="processing" />
-        <BaseIcon class="drag-icon" icon="drag" />
+        <Icon class="drag-icon" icon="drag" />
         <div class="card-media">
             <div class="lock-thumb"></div>
             <img class="card-img" :src="beat.coverart" :alt="beat.title" />
@@ -36,7 +36,7 @@
         />
         <b-dropdown class="actions-menu" variant="icon" dropleft no-caret>
             <template v-slot:button-content>
-                <BaseIcon icon="dot-menu-v" />
+                <Icon icon="dot-menu-v" />
             </template>
             <b-dropdown-item @click="handleEditClick">
                 Edit

@@ -72,7 +72,7 @@
                         </b-form-group>
 
                         <b-form-group label="Genre" label-for="genreInput">
-                            <BaseSelect
+                            <BasicSelect
                                 v-model="form.genre"
                                 id="genreInput"
                                 placeholder="Select Genre"
@@ -86,7 +86,7 @@
                             label="Related Track"
                             label-for="trackInput"
                         >
-                            <BaseSelect
+                            <BasicSelect
                                 v-model="form.relatedTrack"
                                 id="trackInput"
                                 placeholder="Select Related Track"

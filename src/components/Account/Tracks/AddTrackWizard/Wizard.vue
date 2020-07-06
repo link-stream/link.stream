@@ -14,7 +14,7 @@
             <!-- STEP - TRACK TYPE -->
             <wizard-step v-show="isStepType" class="type-step">
                 <div class="Card">
-                    <BaseIcon icon="beat" />
+                    <Icon icon="beat" />
                     <h4 class="card-title">Upload a Beat</h4>
                     <div class="card-text">
                         Generally short music tracks created
@@ -34,7 +34,7 @@
                     </basic-button>
                 </div>
                 <div class="Card">
-                    <BaseIcon icon="song" />
+                    <Icon icon="song" />
                     <h4 class="card-title">Upload a Song</h4>
                     <div class="card-text">
                         Commonly released by recording

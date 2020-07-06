@@ -18,7 +18,7 @@
             </b-form-group>
 
             <b-form-group label="Primary Genre">
-                <BaseSelect
+                <BasicSelect
                     v-model="form.genre"
                     placeholder="Select Genre"
                     :options="genres"
@@ -51,7 +51,7 @@
                 </b-col>
                 <b-col md="6">
                     <b-form-group label="Key">
-                        <BaseSelect
+                        <BasicSelect
                             v-model="form.key"
                             placeholder="Select"
                             :options="audioKeys"
@@ -126,7 +126,7 @@
                     class="add-btn"
                     @click="showCollabSearchModal"
                 >
-                    <BaseIcon icon="plus" />
+                    <Icon icon="plus" />
                     Add Collaborator
                 </basic-button>
             </div>

@@ -1,6 +1,6 @@
 <template>
     <div class="Card VideoCard" :class="{ 'is-private': video.isPrivate }">
-        <BaseIcon class="drag-icon" icon="drag" />
+        <Icon class="drag-icon" icon="drag" />
         <main class="video-content" @click="handleEditClick">
             <div class="card-media">
                 <div class="lock-thumb"></div>

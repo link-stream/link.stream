@@ -2,7 +2,7 @@
     <div class="Card LinkCard" :class="{ 'is-private': link.isPrivate }">
         <LoadingMask v-show="processing" />
         <section class="view-container" v-show="!isEditMode">
-            <BaseIcon class="drag-icon" icon="drag" />
+            <Icon class="drag-icon" icon="drag" />
             <div class="card-media" @click="handleEditClick">
                 <img class="card-img" :src="link.coverart" :alt="link.title" />
             </div>
@@ -81,7 +81,7 @@
                         :title="link.isPublic ? 'Hide' : 'Unhide'"
                         @click="handleVisibilityToggleClick"
                     >
-                        <BaseIcon
+                        <Icon
                             :icon="
                                 link.isPublic
                                     ? 'eye-cir-gray'

@@ -72,7 +72,7 @@
     }
 }
 
-.BaseSelect {
+.BasicSelect {
     cursor: pointer;
 
     .arrow-icon {
@@ -245,11 +245,11 @@
     }
 }
 
-.dollar-input {
+.money-input {
     position: relative;
     input {
         padding-left: 27px;
-        width: 100px;
+        width: 100%;
     }
     .input-icon {
         position: absolute;

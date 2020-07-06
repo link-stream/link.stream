@@ -70,8 +70,8 @@
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group label="Price">
-                            <div class="dollar-input">
-                                <BaseIcon class="input-icon" icon="dollar" />
+                            <div class="money-input">
+                                <Icon class="input-icon" icon="dollar" />
                                 <input
                                     type="text"
                                     v-model="$v.form.price.$model"
@@ -91,7 +91,7 @@
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group label="Genre">
-                            <BaseSelect
+                            <BasicSelect
                                 v-model="form.genreId"
                                 placeholder="Select Genre"
                                 :options="genres"
@@ -322,13 +322,13 @@ export default {
             filesCurrentPage: 1,
             kit: null,
             form: {
-                isPublic: false,
                 title: '',
                 price: '',
                 genreId: '',
                 description: '',
                 coverArtBase64: '',
                 tags: [],
+                isPublic: false,
                 scheduled: false,
                 date: new Date(),
                 time: '00:00:00',

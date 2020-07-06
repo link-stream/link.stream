@@ -211,7 +211,7 @@
                                 label-for="country"
                                 class="mb-4"
                             >
-                                <BaseSelect
+                                <BasicSelect
                                     v-model="form.country"
                                     :options="allCountries"
                                     :reduce="country => country.code"

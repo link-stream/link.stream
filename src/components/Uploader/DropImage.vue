@@ -42,7 +42,7 @@
                     no-caret
                 >
                     <template v-slot:button-content>
-                        <BaseIcon icon="dot-menu-v" />
+                        <Icon icon="dot-menu-v" />
                     </template>
                     <b-dropdown-item @click="showFileDialog">
                         Replace

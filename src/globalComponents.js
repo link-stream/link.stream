@@ -52,13 +52,13 @@ import {
 } from '~/components/Button'
 import { LoadingSpinner, LoadingMask } from '~/components/Loading'
 import {
-    BaseSelect,
+    BasicSelect,
     DatePicker,
     TimePicker,
     TaggerInput,
     SearchInput,
 } from '~/components/Form'
-import { BaseIcon } from '~/components/Icon'
+import { Icon } from '~/components/Icon'
 import UserAvatar from '~/components/Avatar/UserAvatar'
 import { BaseCard } from '~/components/Card'
 
@@ -155,11 +155,11 @@ Vue.component('SpinnerButton', SpinnerButton)
 Vue.component('IconButton', IconButton)
 Vue.component('TogglerButton', TogglerButton)
 Vue.component('TogglerButtonGroup', TogglerButtonGroup)
-Vue.component('BaseSelect', BaseSelect)
+Vue.component('BasicSelect', BasicSelect)
 Vue.component('DatePicker', DatePicker)
 Vue.component('TimePicker', TimePicker)
 Vue.component('TaggerInput', TaggerInput)
 Vue.component('SearchInput', SearchInput)
-Vue.component('BaseIcon', BaseIcon)
+Vue.component('Icon', Icon)
 Vue.component('LoadingSpinner', LoadingSpinner)
 Vue.component('LoadingMask', LoadingMask)

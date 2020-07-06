@@ -1,5 +1,5 @@
 <template>
-    <BaseSelect
+    <BasicSelect
         class="TimePicker"
         icon="timepicker"
         :value="value"

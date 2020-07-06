@@ -34,8 +34,8 @@
                         <label>Default Price</label>
                     </div>
                     <div class="form-col">
-                        <div class="dollar-input">
-                            <BaseIcon class="input-icon" icon="dollar" />
+                        <div class="money-input">
+                            <Icon class="input-icon" icon="dollar" />
                             <input
                                 type="text"
                                 v-model="form.price"

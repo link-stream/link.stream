@@ -35,7 +35,7 @@ export default {
             this.$emit('input', value)
         },
         handleClearClick() {
-            this.$emit('clear-click')
+            this.$emit('input', '')
         },
     },
 }

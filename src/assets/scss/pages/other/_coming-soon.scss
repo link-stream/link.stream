@@ -1,5 +1,6 @@
 .page-coming-soon {
-    padding-bottom: 20px;
+    padding: 20px;
+
     background: linear-gradient(
         180deg,
         rgba(0, 0, 0, 1) 70%,
@@ -17,7 +18,6 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        padding: 20px;
     }
 
     .page-title {
@@ -31,7 +31,8 @@
     .page-body {
         display: flex;
         flex-direction: column;
-        padding: 50px 20px 60px;
+        padding-top: 50px;
+        padding-bottom: 60px;
     }
 
     .page-footer {
@@ -117,7 +118,7 @@
             height: 34px;
         }
         .page-header {
-            padding: 23px 30px;
+            padding: 3px 10px;
         }
         .page-title {
             font-size: px2rem(42);
@@ -125,7 +126,7 @@
         .page-body {
             flex-direction: row;
             justify-content: center;
-            padding: 100px 57px 200px;
+            padding: 100px 27px 200px;
         }
         form {
             max-width: 520px;

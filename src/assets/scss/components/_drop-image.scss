@@ -77,7 +77,7 @@
     .upload-icon {
         &:before {
             @extend .ico:before;
-            background-image: url(~@/../public/static/ico/cam-plus-md.svg);
+            background-image: url(~@/assets/img/ico/cam-plus-md.svg);
             width: 40px;
             height: 36px;
         }
@@ -125,7 +125,7 @@
         }
         .upload-icon {
             &:before {
-                background-image: url(~@/../public/static/ico/cam-plus-sm.svg);
+                background-image: url(~@/assets/img/ico/cam-plus-sm.svg);
                 width: 34px;
                 height: 30px;
             }
@@ -140,7 +140,7 @@
             cursor: pointer;
         }
         .upload-icon:before {
-            background-image: url(~@/../public/static/ico/cam-plus-lg.svg);
+            background-image: url(~@/assets/img/ico/cam-plus-lg.svg);
             width: 49px;
             height: 44px;
         }
@@ -179,7 +179,7 @@
                 margin: 10px 0 0 0;
             }
             .upload-icon:before {
-                background-image: url(~@/../public/static/ico/cam-plus-lg.svg);
+                background-image: url(~@/assets/img/ico/cam-plus-lg.svg);
                 width: 49px;
                 height: 44px;
             }

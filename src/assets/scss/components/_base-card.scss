@@ -49,7 +49,7 @@
     .lock-thumb {
         display: none;
         position: absolute;
-        background-image: url(~@/../public/static/img/lock-thumb.svg);
+        background-image: url(~@/assets/img/lock-thumb.svg);
         background-repeat: no-repeat;
         background-size: cover;
     }
@@ -64,7 +64,7 @@
     .edit-btn {
         padding: 0;
         &:before {
-            background-image: url(~@/../public/static/ico/edit-cir-white-sm.svg);
+            background-image: url(~@/assets/img/ico/edit-cir-white-sm.svg);
             width: 40px;
             height: 40px;
         }
@@ -104,13 +104,13 @@
 
         .edit-btn {
             &:before {
-                background-image: url(~@/../public/static/ico/edit-cir-white-lg.svg);
+                background-image: url(~@/assets/img/ico/edit-cir-white-lg.svg);
                 width: 50px;
                 height: 50px;
             }
             &:hover {
                 &:before {
-                    background-image: url(~@/../public/static/ico/edit-cir-gray-lg.svg);
+                    background-image: url(~@/assets/img/ico/edit-cir-gray-lg.svg);
                 }
             }
         }
@@ -118,7 +118,7 @@
         .trash-btn {
             display: block;
             &:before {
-                background-image: url(~@/../public/static/ico/trash-lg.svg);
+                background-image: url(~@/assets/img/ico/trash-lg.svg);
                 width: 50px;
                 height: 50px;
             }

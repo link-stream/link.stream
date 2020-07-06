@@ -3,7 +3,7 @@
 
     &.is-playing {
         .player-play-btn:before {
-            background-image: url(~@/../public/static/ico/pause-sm.svg);
+            background-image: url(~@/assets/img/ico/pause-sm.svg);
         }
     }
 
@@ -14,7 +14,7 @@
     }
 
     .player-play-btn:before {
-        background-image: url(~@/../public/static/ico/play-sm.svg);
+        background-image: url(~@/assets/img/ico/play-sm.svg);
         width: 24px;
         height: 24px;
     }
@@ -33,12 +33,12 @@
     @include media-breakpoint-up(sm) {
         &.is-playing {
             .player-play-btn:before {
-                background-image: url(~@/../public/static/ico/pause-lg.svg);
+                background-image: url(~@/assets/img/ico/pause-lg.svg);
             }
         }
 
         .player-play-btn:before {
-            background-image: url(~@/../public/static/ico/play-lg.svg);
+            background-image: url(~@/assets/img/ico/play-lg.svg);
             width: 35px;
             height: 35px;
         }

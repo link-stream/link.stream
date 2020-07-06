@@ -7,16 +7,16 @@
     }
 
     .layout-content {
-        padding-top: $navbar-height;
-        padding-bottom: $main-margin;
+        margin-top: $navbar-height;
+        margin-bottom: $main-margin;
     }
 
     // Mobile device
     &.menu-mobile .layout-content {
         margin-left: $main-margin-mobile-x !important;
         margin-right: $main-margin-mobile-x !important;
-        padding-top: $navbar-height !important;
-        padding-bottom: $main-margin-mobile-y;
+        margin-top: $navbar-height !important;
+        margin-bottom: $main-margin-mobile-y;
         .page {
             padding-top: $main-margin-mobile-y;
         }

@@ -56,6 +56,7 @@ import {
     DatePicker,
     TimePicker,
     TaggerInput,
+    SearchInput,
 } from '~/components/Form'
 import { BaseIcon } from '~/components/Icon'
 import UserAvatar from '~/components/Avatar/UserAvatar'
@@ -158,6 +159,7 @@ Vue.component('BaseSelect', BaseSelect)
 Vue.component('DatePicker', DatePicker)
 Vue.component('TimePicker', TimePicker)
 Vue.component('TaggerInput', TaggerInput)
+Vue.component('SearchInput', SearchInput)
 Vue.component('BaseIcon', BaseIcon)
 Vue.component('LoadingSpinner', LoadingSpinner)
 Vue.component('LoadingMask', LoadingMask)

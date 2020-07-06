@@ -182,12 +182,7 @@
 
                     <!-- Beat Pack Card -->
                     <base-card title="Add to Beat Pack">
-                        <div class="search-input">
-                            <BaseIcon class="input-icon" icon="search" />
-                            <b-form-input
-                                placeholder="Search for beat packs"
-                            ></b-form-input>
-                        </div>
+                        <SearchInput placeholder="Search for beat packs" />
                     </base-card>
 
                     <!-- Marketing Card -->

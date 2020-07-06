@@ -228,7 +228,7 @@
     }
 }
 
-.search-input {
+.SearchInput {
     position: relative;
     input {
         padding-left: 37px;
@@ -237,6 +237,11 @@
         position: absolute;
         top: 13px;
         left: 13px;
+    }
+    .input-clear-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
     }
 }
 

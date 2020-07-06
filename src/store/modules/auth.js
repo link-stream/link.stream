@@ -1,4 +1,4 @@
-import { types, authTypes } from '../mutationTypes'
+import { commonTypes, authTypes } from '../mutationTypes'
 import { api } from '~/services/api'
 import router from '~/router'
 import { isEmpty } from 'lodash'
@@ -27,7 +27,7 @@ const state = {
 }
 
 const mutations = {
-    [types.RESET](state) {
+    [commonTypes.RESET](state) {
         const s = initialState()
         for (let key in state) {
             state[key] = s[key]
@@ -52,7 +52,7 @@ const mutations = {
 
 const actions = {
     reset({ commit }) {
-        commit(types.RESET)
+        commit(commonTypes.RESET)
     },
 
     signup({ commit }, { user }) {
@@ -64,7 +64,7 @@ const actions = {
 
     async login({ commit, dispatch }, { user }) {
         if (!isEmpty(user)) {
-            commit(types.RESET)
+            commit(commonTypes.RESET)
             commit(authTypes.LOGIN, { user })
             await dispatch('me/loadAccount', null, { root: true })
             router.push({ name: 'accountDashboard' })

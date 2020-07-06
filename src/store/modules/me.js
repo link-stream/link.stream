@@ -2,7 +2,7 @@
  * Account Module
  */
 
-import { types, meTypes } from '../mutationTypes'
+import { commonTypes, meTypes } from '../mutationTypes'
 import { api } from '~/services'
 import { appConstants } from '~/constants'
 
@@ -21,7 +21,7 @@ const initialState = () => ({
 const state = initialState()
 
 const mutations = {
-    [types.RESET](state) {
+    [commonTypes.RESET](state) {
         const s = initialState()
         for (let key in state) {
             state[key] = s[key]
@@ -161,7 +161,7 @@ const mutations = {
 
 const actions = {
     reset({ commit }) {
-        commit(types.RESET)
+        commit(commonTypes.RESET)
     },
 
     /**

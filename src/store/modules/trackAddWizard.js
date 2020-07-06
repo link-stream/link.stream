@@ -1,4 +1,4 @@
-import { types, trackAddWizardTypes } from '../mutationTypes'
+import { commonTypes, trackAddWizardTypes } from '../mutationTypes'
 import { appConstants } from '~/constants'
 import { cloneDeep } from 'lodash'
 import { required } from 'vuelidate/lib/validators'
@@ -60,7 +60,7 @@ const initialState = () => ({
 const state = initialState()
 
 const mutations = {
-    [types.RESET](state) {
+    [commonTypes.RESET](state) {
         const s = initialState()
         for (let key in state) {
             state[key] = s[key]
@@ -88,7 +88,7 @@ const mutations = {
 
 const actions = {
     reset({ commit }) {
-        commit(types.RESET)
+        commit(commonTypes.RESET)
     },
 
     async updateForm({ commit }, values) {

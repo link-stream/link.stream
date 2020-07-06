@@ -1,5 +1,5 @@
 // Common
-export const types = {
+export const commonTypes = {
     RESET: 'RESET',
     SET_TIMEZONES: 'SET_TIMEZONES',
     SET_GENRES: 'SET_GENRES',
@@ -11,6 +11,11 @@ export const authTypes = {
     SIGNUP: 'SIGNUP',
     LOGIN: 'LOGIN',
     LOGOUT: 'LOGOUT',
+}
+
+// Loading
+export const loadingTypes = {
+    SET_STATUS: 'SET_STATUS',
 }
 
 // Track Add Wizard

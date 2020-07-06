@@ -1,5 +1,11 @@
 <template>
-    <div class="layout layout--account" :class="getMenuType">
+    <div class="layout layout-account" :class="getMenuType">
+        <!--<LoadingMask
+            variant="fullscreen"
+            :class="{
+                'is-shown': loading,
+            }"
+        />-->
         <main class="layout-content">
             <transition name="page" mode="out-in">
                 <router-view :key="$route.fullPath"></router-view>
@@ -23,7 +29,10 @@ export default {
         SideNav,
     },
     computed: {
-        ...mapGetters(['getMenuType']),
+        ...mapGetters({
+            getMenuType: 'getMenuType',
+            //loading: 'loading/isStarted',
+        }),
     },
     created() {
         this.$store.dispatch('me/loadProfile')

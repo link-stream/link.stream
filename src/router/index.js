@@ -42,6 +42,7 @@ router.beforeEach(async (to, from, next) => {
 })
 
 router.afterEach(() => {
+    // store.dispatch('loading/reset')
     // Complete the animation of the route progress bar.
     router.app.$Progress.finish()
 })

@@ -1,5 +1,5 @@
 <template>
-    <div class="layout layout--auth">
+    <div class="layout layout-auth">
         <b-navbar toggleable="lg" type="dark" variant="dark">
             <b-navbar-brand to="/" class="m-auto">
                 <b-img

@@ -1,147 +1,151 @@
 <template>
     <div class="fwz" :class="`is-step-${step}`">
-        <div class="fwz-counter">Step {{ stepIndex }} / {{ numSteps - 1 }}</div>
+        <header class="fwz-counter">
+            Step {{ stepIndex }} / {{ numSteps - 1 }}
+        </header>
         <WizardTabs
             v-show="stepIndex > 0"
             :tabs="tabs"
             :activeStepName="step"
             :activeStepIndex="stepIndex"
         />
-
-        <!-- STEP - TRACK TYPE -->
-        <wizard-step v-show="isStepType" class="type-step">
-            <div class="Card">
-                <BaseIcon icon="beat" />
-                <h4 class="card-title">Upload a Beat</h4>
-                <div class="card-text">
-                    Generally short music tracks created
-                    <br />
-                    by producers. Usually intended to be
-                    <br />
-                    licensed by recording artists and
-                    <br />
-                    songwriters for use in commercially
-                    <br />
-                    released songs. Beats can be sold
-                    <br />
-                    individually or as part of a beat pack.
-                </div>
-                <basic-button @click="handleAddBeatClick">
-                    Get Started
-                </basic-button>
-            </div>
-            <div class="Card">
-                <BaseIcon icon="song" />
-                <h4 class="card-title">Upload a Song</h4>
-                <div class="card-text">
-                    Commonly released by recording
-                    <br />
-                    artists and songwriters and are
-                    <br />
-                    considered a finished musical
-                    <br />
-                    product intended for commercial
-                    <br />
-                    release. Songs can be single releases
-                    <br />
-                    or part of an album or playlist.
-                </div>
-                <basic-button @click="handleAddSongClick">
-                    Get Started
-                </basic-button>
-            </div>
-        </wizard-step>
-
-        <!-- STEP - TRACK INFO -->
-        <wizard-step
-            v-show="isStepInfo"
-            class="info-step"
-            :title="isSong ? 'Song info' : 'Beat info'"
-        >
-            <div class="left-col">
-                <drop-image
-                    msg-long="Drag artwork here or<br><u>browse for file</u>"
-                    msg-short="Add Artwork"
-                    :src="coverArtBase64"
-                    @add-file="handleImageAdd"
-                    @remove-file="handleImageRemove"
-                >
-                    <template v-slot:upload-body>
-                        <small class="text-hint" v-if="!coverArtBase64">
-                            Suggested Dimensions: 1000x1000
-                        </small>
-                    </template>
-                </drop-image>
-            </div>
-            <InfoBlock class="right-col" v-if="isStepInfo" />
-        </wizard-step>
-
-        <!-- STEP - LICENSE TYPES -->
-        <wizard-step
-            v-show="isStepLicenses"
-            title="License types"
-            class="licenses-step"
-        >
-            <LicensesBlock v-if="isStepLicenses" />
-        </wizard-step>
-
-        <!-- STEP - UPLOAD FILES -->
-        <wizard-step
-            v-show="isStepFiles"
-            title="Upload files"
-            subtitle="Add files to deliver when the license for this track is purchased"
-            class="files-step"
-        >
-            <FilesBlock v-if="isStepFiles" />
-        </wizard-step>
-
-        <!-- STEP - MARKETING -->
-        <wizard-step
-            v-show="isStepMarketing"
-            title="Free downloads"
-            subtitle="Build your audience by allowing free MP3 downloads for social follows, email and SMS subscribes"
-            class="marketing-step"
-        >
-            <MarketingBlock v-if="isStepMarketing" />
-        </wizard-step>
-
-        <!-- STEP - REVIEW -->
-        <wizard-step
-            v-show="isStepReview"
-            :title="isSong ? 'Review song' : 'Review beat'"
-            class="review-step"
-        >
-            <div class="left-col">
+        <LoadingSpinner class="page-loader" v-if="loading" />
+        <main v-else>
+            <!-- STEP - TRACK TYPE -->
+            <wizard-step v-show="isStepType" class="type-step">
                 <div class="Card">
-                    <DropImage
-                        variant="inline"
+                    <BaseIcon icon="beat" />
+                    <h4 class="card-title">Upload a Beat</h4>
+                    <div class="card-text">
+                        Generally short music tracks created
+                        <br />
+                        by producers. Usually intended to be
+                        <br />
+                        licensed by recording artists and
+                        <br />
+                        songwriters for use in commercially
+                        <br />
+                        released songs. Beats can be sold
+                        <br />
+                        individually or as part of a beat pack.
+                    </div>
+                    <basic-button @click="handleAddBeatClick">
+                        Get Started
+                    </basic-button>
+                </div>
+                <div class="Card">
+                    <BaseIcon icon="song" />
+                    <h4 class="card-title">Upload a Song</h4>
+                    <div class="card-text">
+                        Commonly released by recording
+                        <br />
+                        artists and songwriters and are
+                        <br />
+                        considered a finished musical
+                        <br />
+                        product intended for commercial
+                        <br />
+                        release. Songs can be single releases
+                        <br />
+                        or part of an album or playlist.
+                    </div>
+                    <basic-button @click="handleAddSongClick">
+                        Get Started
+                    </basic-button>
+                </div>
+            </wizard-step>
+
+            <!-- STEP - TRACK INFO -->
+            <wizard-step
+                v-show="isStepInfo"
+                class="info-step"
+                :title="isSong ? 'Song info' : 'Beat info'"
+            >
+                <div class="left-col">
+                    <drop-image
                         msg-long="Drag artwork here or<br><u>browse for file</u>"
+                        msg-short="Add Artwork"
                         :src="coverArtBase64"
                         @add-file="handleImageAdd"
                         @remove-file="handleImageRemove"
-                    />
+                    >
+                        <template v-slot:upload-body>
+                            <small class="text-hint" v-if="!coverArtBase64">
+                                Suggested Dimensions: 1000x1000
+                            </small>
+                        </template>
+                    </drop-image>
                 </div>
-            </div>
-            <ReviewBlock class="right-col" v-if="isStepReview" />
-        </wizard-step>
+                <InfoBlock class="right-col" v-if="isStepInfo" />
+            </wizard-step>
 
-        <footer class="fwz-pager" v-show="stepIndex > 0">
-            <basic-button
-                variant="secondary"
-                class="fwz-prev-btn"
-                :disabled="saving"
-                @click="handlePrevClick"
+            <!-- STEP - LICENSE TYPES -->
+            <wizard-step
+                v-show="isStepLicenses"
+                title="License types"
+                class="licenses-step"
             >
-                Back
-            </basic-button>
-            <spinner-button
-                class="fwz-next-btn"
-                :loading="saving"
-                @click="handleNextClick"
+                <LicensesBlock v-if="isStepLicenses" />
+            </wizard-step>
+
+            <!-- STEP - UPLOAD FILES -->
+            <wizard-step
+                v-show="isStepFiles"
+                title="Upload files"
+                subtitle="Add files to deliver when the license for this track is purchased"
+                class="files-step"
             >
-                {{ isStepReview ? 'Save' : 'Next' }}
-            </spinner-button>
-        </footer>
+                <FilesBlock v-if="isStepFiles" />
+            </wizard-step>
+
+            <!-- STEP - MARKETING -->
+            <wizard-step
+                v-show="isStepMarketing"
+                title="Free downloads"
+                subtitle="Build your audience by allowing free MP3 downloads for social follows, email and SMS subscribes"
+                class="marketing-step"
+            >
+                <MarketingBlock v-if="isStepMarketing" />
+            </wizard-step>
+
+            <!-- STEP - REVIEW -->
+            <wizard-step
+                v-show="isStepReview"
+                :title="isSong ? 'Review song' : 'Review beat'"
+                class="review-step"
+            >
+                <div class="left-col">
+                    <div class="Card">
+                        <DropImage
+                            variant="inline"
+                            msg-long="Drag artwork here or<br><u>browse for file</u>"
+                            :src="coverArtBase64"
+                            @add-file="handleImageAdd"
+                            @remove-file="handleImageRemove"
+                        />
+                    </div>
+                </div>
+                <ReviewBlock class="right-col" v-if="isStepReview" />
+            </wizard-step>
+
+            <footer class="fwz-pager" v-show="stepIndex > 0">
+                <basic-button
+                    variant="secondary"
+                    class="fwz-prev-btn"
+                    :disabled="saving"
+                    @click="handlePrevClick"
+                >
+                    Back
+                </basic-button>
+                <spinner-button
+                    class="fwz-next-btn"
+                    :loading="saving"
+                    @click="handleNextClick"
+                >
+                    {{ isStepReview ? 'Save' : 'Next' }}
+                </spinner-button>
+            </footer>
+        </main>
     </div>
 </template>
 
@@ -214,6 +218,7 @@ export default {
         return {
             stepIndex: 1,
             saving: false,
+            loading: false,
             coverArtBase64: null,
         }
     },
@@ -259,7 +264,9 @@ export default {
             scrollToTop()
         },
     },
-    created() {
+    async created() {
+        this.loading = true
+        await this.$store.dispatch('trackAddWizard/loadWizard')
         this.$store.dispatch('trackAddWizard/updateForm', {
             collabs: [
                 {
@@ -273,6 +280,7 @@ export default {
                 },
             ],
         })
+        this.loading = false
     },
     methods: {
         goToStep(index) {

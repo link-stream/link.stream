@@ -97,7 +97,7 @@
         display: none;
     }
 
-    &.--inline {
+    &.is-inline {
         .preview-box,
         .drop-box {
             width: 60px;
@@ -153,7 +153,7 @@
         .upload-msg-l {
             display: block;
         }
-        &.--inline {
+        &.is-inline {
             .preview-box,
             .drop-box {
                 width: 215px;

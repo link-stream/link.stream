@@ -1,6 +1,6 @@
 <template>
     <div class="page page-license-edit">
-        <LoadingSpinner v-if="loading" />
+        <LoadingSpinner class="page-loader" v-if="loading" />
         <div v-else class="page-content">
             <nav class="page-nav">
                 <basic-button
@@ -15,7 +15,7 @@
             <header class="page-header">
                 <div class="left-col">
                     <h1 class="page-title">
-                        Standard License
+                        {{ license.title }}
                     </h1>
                     <h4 class="page-subtitle">
                         Edit contract terms to apply to new track uploads

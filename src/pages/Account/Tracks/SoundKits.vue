@@ -25,9 +25,7 @@
             </div>
         </header>
         <main class="page-body">
-            <div class="page-spinner" v-if="loading">
-                <LoadingSpinner />
-            </div>
+            <LoadingSpinner class="page-loader" v-if="loading" />
             <div class="page-empty" v-if="!loading && !sortableKits.length">
                 <div class="empty-text">
                     Your Sound Kits will appear here.

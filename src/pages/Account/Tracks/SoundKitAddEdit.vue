@@ -1,6 +1,6 @@
 <template>
     <div class="page page-kit-add-edit">
-        <LoadingSpinner v-if="loading" />
+        <LoadingSpinner class="page-loader" v-if="loading" />
         <div class="page-content" v-else>
             <nav class="page-nav">
                 <basic-button

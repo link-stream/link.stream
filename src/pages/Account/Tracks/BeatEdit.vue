@@ -1,6 +1,6 @@
 <template>
     <div class="page page-beat-edit">
-        <LoadingSpinner v-if="isLoading" />
+        <LoadingSpinner class="page-loader" v-if="isLoading" />
         <div class="page-content" v-else>
             <nav class="page-nav">
                 <basic-button

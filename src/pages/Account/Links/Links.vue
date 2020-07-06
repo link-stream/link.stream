@@ -28,9 +28,7 @@
             </div>
         </header>
         <main class="page-body">
-            <div class="page-spinner" v-if="loading">
-                <LoadingSpinner />
-            </div>
+            <LoadingSpinner class="page-loader" v-if="loading" />
             <Container
                 v-else
                 @drop="handleReorder"

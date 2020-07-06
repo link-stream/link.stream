@@ -1,4 +1,4 @@
-.layout--account {
+.layout-account {
     @import 'components/account/topnav';
     @import 'components/account/sidenav';
 
@@ -38,7 +38,7 @@
         }
     }
 
-    .page-spinner {
+    .page-loader {
         margin-top: 75px;
     }
 

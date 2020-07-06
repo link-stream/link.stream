@@ -2,7 +2,7 @@
     <div
         class="DropImage"
         :class="{
-            '--inline': variant === 'inline',
+            'is-inline': variant === 'inline',
         }"
     >
         <input

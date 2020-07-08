@@ -55,7 +55,7 @@
         </section>
         <section class="upload-container" v-else>
             <div
-                class="drop-box"
+                class="upload-box"
                 :class="{ highlight: isDraggingFile }"
                 @drop="handleDrop"
                 @dragleave="handleDragLeave"
@@ -69,8 +69,8 @@
                     <div class="upload-msg-l" v-html="msgLong"></div>
                 </div>
             </div>
-            <div class="upload-body">
-                <slot name="upload-body" :showFileDialog="showFileDialog">
+            <div class="upload-controls">
+                <slot name="upload-controls" :showFileDialog="showFileDialog">
                     <basic-button
                         class="file-add-btn"
                         variant="link"

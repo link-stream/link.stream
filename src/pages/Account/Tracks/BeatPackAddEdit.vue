@@ -198,9 +198,7 @@
                                             {{ beat.title }}
                                         </h4>
                                         <small class="item-subtitle">
-                                            {{
-                                                genreLabelById(beat.genre_id)
-                                            }}
+                                            {{ genreLabelById(beat.genre_id) }}
                                         </small>
                                     </div>
                                     <div class="item-cover">
@@ -267,7 +265,7 @@
                             @add-file="handleImageAdd"
                             @remove-file="handleImageRemove"
                         >
-                            <template v-slot:upload-body>
+                            <template v-slot:upload-controls>
                                 <small
                                     class="text-hint"
                                     v-if="!form.coverArtBase64"

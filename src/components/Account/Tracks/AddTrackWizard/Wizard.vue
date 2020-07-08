@@ -69,7 +69,7 @@
                         @add-file="handleImageAdd"
                         @remove-file="handleImageRemove"
                     >
-                        <template v-slot:upload-body>
+                        <template v-slot:upload-controls>
                             <small class="text-hint" v-if="!coverArtBase64">
                                 Suggested Dimensions: 1000x1000
                             </small>

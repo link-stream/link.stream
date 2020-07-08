@@ -259,7 +259,7 @@
                             @add-file="handleImageAdd"
                             @remove-file="handleImageRemove"
                         >
-                            <template v-slot:upload-body>
+                            <template v-slot:upload-controls>
                                 <small
                                     class="text-hint"
                                     v-if="!form.coverArtBase64"

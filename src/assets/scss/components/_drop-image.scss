@@ -1,5 +1,5 @@
 .DropImage {
-    .drop-box,
+    .upload-box,
     .preview-box {
         height: 140px;
         width: 140px;
@@ -52,11 +52,11 @@
         display: flex;
     }
 
-    .upload-body {
+    .upload-controls {
         align-self: center;
     }
 
-    .drop-box {
+    .upload-box {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -99,7 +99,7 @@
 
     &.is-inline {
         .preview-box,
-        .drop-box {
+        .upload-box {
             width: 60px;
             height: 60px;
             margin-bottom: 0;
@@ -133,7 +133,7 @@
     }
 
     @include media-breakpoint-up(md) {
-        .drop-box,
+        .upload-box,
         .preview-box {
             width: 215px;
             height: 215px;
@@ -155,7 +155,7 @@
         }
         &.is-inline {
             .preview-box,
-            .drop-box {
+            .upload-box {
                 width: 215px;
                 height: 215px;
                 margin-bottom: 0;

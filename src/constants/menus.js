@@ -39,6 +39,10 @@ export const menus = [
                 label: 'Sound Kits',
                 to: '/app/kits/manage',
             },
+            {
+                label: 'Beat Packs',
+                to: '/app/beat-packs/manage',
+            },
         ],
     },
     {

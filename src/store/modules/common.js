@@ -61,6 +61,12 @@ const actions = {
 const getters = {
     genres: ({ genres }) => genres,
     audioKeys: ({ audioKeys }) => audioKeys,
+    genreLabelById: ({ genres }) => {
+        return id => {
+            const genre = genres.find(genre => genre.id == id)
+            return genre ? genre.genre : ''
+        }
+    },
 }
 
 export default {

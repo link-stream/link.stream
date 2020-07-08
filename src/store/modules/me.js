@@ -16,6 +16,7 @@ const initialState = () => ({
     links: [],
     beats: [],
     soundKits: [],
+    beatPacks: [],
 })
 
 const state = initialState()
@@ -286,6 +287,14 @@ const actions = {
     },
 
     /**
+     * Beat Packs
+     */
+
+    async loadBeatPacks() {
+        // TODO
+    },
+
+    /**
      * Videos
      */
 
@@ -414,14 +423,18 @@ const getters = {
         })
     },
     soundKits: ({ soundKits }) => {
-        return soundKits.map(sk => {
+        return soundKits.map(kit => {
             return {
-                ...sk,
-                coverart: sk.data_image || appConstants.defaultCoverArt,
-                isPublic: sk.public == '1',
-                isPrivate: sk.public == '2',
+                ...kit,
+                coverart: kit.data_image || appConstants.defaultCoverArt,
+                isPublic: kit.public == '1',
+                isPrivate: kit.public == '2',
             }
         })
+    },
+    beatPacks: () => {
+        // TODO
+        return []
     },
 }
 

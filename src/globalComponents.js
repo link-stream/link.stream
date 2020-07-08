@@ -53,6 +53,7 @@ import {
 import { LoadingSpinner, LoadingMask } from '~/components/Loading'
 import {
     BasicSelect,
+    MultiSelect,
     DatePicker,
     TimePicker,
     TaggerInput,
@@ -156,6 +157,7 @@ Vue.component('IconButton', IconButton)
 Vue.component('TogglerButton', TogglerButton)
 Vue.component('TogglerButtonGroup', TogglerButtonGroup)
 Vue.component('BasicSelect', BasicSelect)
+Vue.component('MultiSelect', MultiSelect)
 Vue.component('DatePicker', DatePicker)
 Vue.component('TimePicker', TimePicker)
 Vue.component('TaggerInput', TaggerInput)

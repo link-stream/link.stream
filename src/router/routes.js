@@ -22,6 +22,8 @@ import {
     AccountTracksLicenseEdit,
     AccountSoundKits,
     AccountSoundKitAddEdit,
+    AccountBeatPacks,
+    AccountBeatPackAddEdit,
 } from '~/pages/Account'
 
 const routes = [
@@ -172,6 +174,18 @@ const routes = [
         path: '/app/kits/:id/edit',
         name: 'accountSoundKitEdit',
         component: AccountSoundKitAddEdit,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/beat-packs/manage',
+        name: 'accountBeatPacks',
+        component: AccountBeatPacks,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/beat-packs/add',
+        name: 'accountBeatPackAdd',
+        component: AccountBeatPackAddEdit,
         meta: { requiresAuth: true, layout: 'account' },
     },
 

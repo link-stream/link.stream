@@ -1,0 +1,107 @@
+<template>
+    <div class="page page-sk">
+        <header class="page-header">
+            <div class="left-col">
+                <h1 class="page-title">Your Beat Packs</h1>
+                <div class="page-preview">
+                    <span class="text-light">link.stream/</span>
+                    <span>{{ user.user_name }}/beat-packs</span>
+                    <basic-button
+                        variant="outline-light"
+                        size="xs"
+                        :to="{
+                            name: 'userBeatPacks',
+                            params: { username: user.user_name },
+                        }"
+                    >
+                        Preview
+                    </basic-button>
+                </div>
+            </div>
+            <div class="right-col">
+                <basic-button :to="{ name: 'accountBeatPackAdd' }">
+                    Add a Pack
+                </basic-button>
+            </div>
+        </header>
+        <main class="page-body">
+            <LoadingSpinner class="page-loader" v-if="loading" />
+            <div class="page-empty" v-if="!loading && !sortablePacks.length">
+                <div class="empty-text">
+                    Your Beat Packs will appear here.
+                </div>
+                <basic-button
+                    class="empty-link"
+                    variant="link"
+                    :to="{
+                        name: 'accountBeatPackAdd',
+                    }"
+                >
+                    Add a Beat Pack
+                </basic-button>
+            </div>
+            <Container
+                v-else
+                drag-handle-selector=".drag-icon"
+                @drop="handleReorder"
+            >
+                <Draggable v-for="pack in sortablePacks" :key="pack.id">
+                </Draggable>
+            </Container>
+        </main>
+    </div>
+</template>
+
+<script>
+import { Container, Draggable } from 'vue-smooth-dnd'
+import { mapGetters } from 'vuex'
+
+export default {
+    name: 'BeatPacks',
+    components: {
+        Container,
+        Draggable,
+    },
+    data() {
+        return {
+            loading: false,
+            sortablePacks: [],
+        }
+    },
+    computed: {
+        ...mapGetters({
+            user: 'me/user',
+            packs: 'me/beatPacks',
+        }),
+    },
+    watch: {
+        packs(newValue) {
+            this.sortablePacks = [...newValue]
+        },
+    },
+    async created() {
+        this.loading = true
+        await this.$store.dispatch('me/loadBeatPacks')
+        this.loading = false
+    },
+    methods: {
+        handleReorder(dropResult) {
+            const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
+            const pack = this.sortablePacks[oldIndex]
+            this.sortablePacks.splice(oldIndex, 1)
+            this.sortablePacks.splice(newIndex, 0, pack)
+            const sorts = this.sortablePacks.map(({ id }, index) => {
+                return {
+                    id,
+                    sort: (index + 1).toString(),
+                }
+            })
+            this.$store.dispatch('me/reorderBeatPack', {
+                oldIndex,
+                newIndex,
+                sorts,
+            })
+        },
+    },
+}
+</script>

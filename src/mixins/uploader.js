@@ -14,9 +14,7 @@ export const uploaderMixin = {
         },
         acceptTypes: {
             type: Array,
-            default() {
-                return []
-            },
+            default: () => [],
         },
     },
     data() {

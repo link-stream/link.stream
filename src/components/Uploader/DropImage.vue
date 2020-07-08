@@ -111,9 +111,7 @@ export default {
         },
         acceptTypes: {
             type: Array,
-            default() {
-                return ['.png', '.jpg', '.jpeg']
-            },
+            default: () => ['.png', '.jpg', '.jpeg'],
         },
         msgShort: {
             type: String,

@@ -12,12 +12,10 @@ export default {
         user: {
             type: Object,
             required: true,
-            default() {
-                return {
-                    photo: '',
-                    name: '',
-                }
-            },
+            default: () => ({
+                photo: '',
+                name: '',
+            }),
         },
     },
     computed: {

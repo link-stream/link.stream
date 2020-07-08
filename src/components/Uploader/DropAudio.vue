@@ -75,9 +75,7 @@ export default {
     props: {
         acceptTypes: {
             type: Array,
-            default() {
-                return ['.wav', '.mp3']
-            },
+            default: () => ['.wav', '.mp3'],
         },
     },
 }

@@ -39,22 +39,22 @@ export const constants = {
         {
             id: '1',
             title: 'Follow on LinkStream',
-            icon: 'logo-streamy',
+            icon: 'streamy',
         },
         {
             id: '2',
             title: 'Follow on SoundCloud',
-            icon: 'logo-sc',
+            icon: 'soundcloud',
         },
         {
             id: '3',
             title: 'Follow on Twitter',
-            icon: 'logo-twitter',
+            icon: 'twitter',
         },
         {
             id: '4',
             title: 'Follow on Instagram',
-            icon: 'logo-ig',
+            icon: 'ig',
         },
         {
             id: '5',

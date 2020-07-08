@@ -13,13 +13,9 @@
     }
 
     .card-img,
-    .lock-thumb {
+    .card-lock {
         width: 60px;
         height: 60px;
-    }
-
-    .lock-thumb {
-        background-image: url(~@/assets/img/lock-thumb-square.svg);
     }
 
     .private-badge {
@@ -53,7 +49,7 @@
 
     @include media-breakpoint-up(md) {
         .card-img,
-        .lock-thumb {
+        .card-lock {
             width: 68px;
             height: 68px;
         }

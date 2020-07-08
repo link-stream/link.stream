@@ -7,7 +7,7 @@
     padding: 15px;
 
     &.is-private {
-        .lock-thumb {
+        .card-lock {
             display: block;
         }
         .private-badge {
@@ -46,10 +46,10 @@
         display: none;
     }
 
-    .lock-thumb {
+    .card-lock {
         display: none;
         position: absolute;
-        background-image: url(~@/assets/img/lock-thumb.svg);
+        background-image: url(~@/assets/img/lock-overlay-square.svg);
         background-repeat: no-repeat;
         background-size: cover;
     }

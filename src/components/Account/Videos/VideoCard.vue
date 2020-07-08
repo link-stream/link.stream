@@ -3,7 +3,7 @@
         <Icon class="drag-icon" icon="drag" />
         <main class="video-content" @click="handleEditClick">
             <div class="card-media">
-                <div class="lock-thumb"></div>
+                <span class="card-lock"></span>
                 <img class="card-img" :src="thumbUrl" :alt="video.title" />
             </div>
             <div class="card-body">

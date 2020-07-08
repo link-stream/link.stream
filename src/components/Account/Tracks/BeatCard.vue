@@ -3,7 +3,7 @@
         <LoadingMask v-if="processing" />
         <Icon class="drag-icon" icon="drag" />
         <div class="card-media">
-            <div class="lock-thumb"></div>
+            <span class="card-lock"></span>
             <img class="card-img" :src="beat.coverart" :alt="beat.title" />
         </div>
         <h4 class="card-title">

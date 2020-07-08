@@ -3,7 +3,7 @@
 
     &.is-private {
         .card-title,
-        .private-badge {
+        .card-viz-badge {
             color: $linkstream-40;
         }
     }
@@ -28,7 +28,7 @@
         height: 60px;
     }
 
-    .private-badge {
+    .card-viz-badge {
         font-size: px2rem(11);
         color: $black;
     }
@@ -48,7 +48,7 @@
         }
     }
 
-    .edit-actions {
+    .card-edit-actions {
         .right-col {
             .btn {
                 margin-left: 10px;

@@ -42,7 +42,7 @@
             </div>
             <Container
                 v-else
-                drag-handle-selector=".drag-icon"
+                drag-handle-selector=".card-drag-icon"
                 @drop="handleReorder"
             >
                 <Draggable v-for="pack in sortablePacks" :key="pack.id">

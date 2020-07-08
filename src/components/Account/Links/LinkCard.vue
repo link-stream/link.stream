@@ -2,33 +2,33 @@
     <div class="Card LinkCard" :class="{ 'is-private': link.isPrivate }">
         <LoadingMask v-show="processing" />
         <section class="view-container" v-show="!isEditMode">
-            <Icon class="drag-icon" icon="drag" />
+            <Icon class="card-drag-icon" icon="drag" />
             <div class="card-media" @click="handleEditClick">
                 <img class="card-img" :src="link.coverart" :alt="link.title" />
             </div>
             <main class="card-body" @click="handleEditClick">
                 <h4 class="card-title">{{ link.title }}</h4>
-                <small class="private-badge" v-if="link.isPrivate">
+                <small class="card-viz-badge" v-if="link.isPrivate">
                     Hidden
                 </small>
             </main>
             <BasicButton
                 variant="icon"
                 title="Delete"
-                class="trash-btn"
+                class="card-trash-btn"
                 @click="handleDeleteClick"
             />
             <BasicButton
                 variant="icon"
                 title="Edit"
-                class="edit-btn"
+                class="card-edit-btn"
                 @click="handleEditClick"
             />
         </section>
         <section class="edit-container" v-if="isEditMode">
             <IconButton
                 icon="close"
-                class="close-btn"
+                class="card-close-btn"
                 title="Close"
                 @click="closeEditMode"
             />
@@ -68,7 +68,7 @@
                     </b-form-group>
                 </form>
             </main>
-            <footer class="edit-actions">
+            <footer class="card-edit-actions">
                 <div class="left-col">
                     <IconButton
                         icon="trash-sm"

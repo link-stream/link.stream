@@ -1,7 +1,7 @@
 <template>
     <div class="Card BeatCard" :class="{ 'is-private': kit.isPrivate }">
         <LoadingMask v-if="processing" />
-        <Icon class="drag-icon" icon="drag" />
+        <Icon class="card-drag-icon" icon="drag" />
         <div class="card-media">
             <span class="card-lock"></span>
             <img class="card-img" :src="kit.coverart" :alt="kit.title" />
@@ -11,13 +11,13 @@
         </h4>
         <BasicButton
             variant="icon"
-            class="trash-btn"
+            class="card-trash-btn"
             title="Delete"
             @click="handleDeleteClick"
         />
         <BasicButton
             variant="icon"
-            class="edit-btn"
+            class="card-edit-btn"
             title="Edit"
             @click="handleEditClick"
         />

@@ -16,7 +16,7 @@
                 </div>
                 <BasicButton
                     variant="icon"
-                    class="edit-btn"
+                    class="card-edit-btn"
                     title="Edit"
                     :to="{
                         name: 'accountTracksLicenseEdit',

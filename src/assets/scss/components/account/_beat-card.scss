@@ -18,7 +18,7 @@
         height: 60px;
     }
 
-    .private-badge {
+    .card-viz-badge {
         background-color: $linkstream-190;
         color: $linkstream-180;
         font-size: px2rem(11);
@@ -28,8 +28,8 @@
         margin-left: 5px;
     }
 
-    .trash-btn,
-    .edit-btn {
+    .card-trash-btn,
+    .card-edit-btn {
         display: none;
     }
 
@@ -54,8 +54,8 @@
             height: 68px;
         }
 
-        .trash-btn,
-        .edit-btn {
+        .card-trash-btn,
+        .card-edit-btn {
             display: block;
         }
 

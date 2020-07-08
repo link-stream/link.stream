@@ -1,14 +1,14 @@
 <template>
     <div class="Card BeatCard" :class="{ 'is-private': beat.isPrivate }">
         <LoadingMask v-if="processing" />
-        <Icon class="drag-icon" icon="drag" />
+        <Icon class="card-drag-icon" icon="drag" />
         <div class="card-media">
             <span class="card-lock"></span>
             <img class="card-img" :src="beat.coverart" :alt="beat.title" />
         </div>
         <h4 class="card-title">
             {{ beat.title }}
-            <span class="private-badge badge badge-pill">
+            <span class="card-viz-badge badge badge-pill">
                 Private
             </span>
         </h4>
@@ -24,13 +24,13 @@
         </div>
         <BasicButton
             variant="icon"
-            class="trash-btn"
+            class="card-trash-btn"
             title="Delete"
             @click="handleDeleteClick"
         />
         <BasicButton
             variant="icon"
-            class="edit-btn"
+            class="card-edit-btn"
             title="Edit"
             @click="handleEditClick"
         />

@@ -6,7 +6,7 @@
         centered
         hide-header
     >
-        <IconButton class="close-btn" icon="close" @click="close" />
+        <IconButton class="alert-close-btn" icon="close" @click="close" />
         <h2 class="alert-title" v-html="opts.title" v-if="opts.title"></h2>
         <p class="alert-message" v-html="opts.message" v-if="opts.message"></p>
         <template v-slot:modal-footer>

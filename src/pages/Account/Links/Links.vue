@@ -32,7 +32,7 @@
             <Container
                 v-else
                 @drop="handleReorder"
-                drag-handle-selector=".drag-icon"
+                drag-handle-selector=".card-drag-icon"
             >
                 <Draggable v-for="link in sortableLinks" :key="link.id">
                     <LinkCard

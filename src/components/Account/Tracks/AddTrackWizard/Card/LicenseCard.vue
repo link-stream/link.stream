@@ -2,7 +2,7 @@
     <div class="Card LicenseCard" :class="{ 'is-editing': isEditMode }">
         <IconButton
             icon="close"
-            class="close-btn"
+            class="card-close-btn"
             title="Close"
             @click="handleCancelClick"
         />
@@ -21,7 +21,7 @@
             </div>
             <BasicButton
                 variant="icon"
-                class="edit-btn"
+                class="card-edit-btn"
                 title="Edit"
                 @click="handleEditClick"
             />
@@ -40,7 +40,7 @@
                     </b-form-invalid-feedback>
                 </b-form-group>
             </div>
-            <div class="edit-actions">
+            <div class="card-edit-actions">
                 <div class="left-col">
                     To customize your default license terms, go to
                     <basic-button

@@ -31,7 +31,7 @@
             <LoadingSpinner class="page-loader" v-if="loading" />
             <Container
                 v-else
-                drag-handle-selector=".drag-icon"
+                drag-handle-selector=".card-drag-icon"
                 @drop="handleReorder"
             >
                 <Draggable v-for="video in sortableVideos" :key="video.id">

@@ -27,11 +27,11 @@
         line-height: 15px;
     }
 
-    .close-btn {
+    .card-close-btn {
         display: none;
     }
 
-    .edit-actions {
+    .card-edit-actions {
         flex-direction: column;
         margin-top: 30px;
         .left-col {
@@ -52,10 +52,10 @@
     }
 
     &.is-editing {
-        .edit-btn {
+        .card-edit-btn {
             visibility: hidden;
         }
-        .close-btn,
+        .card-close-btn,
         .edit-container {
             display: block;
         }
@@ -65,7 +65,7 @@
         .edit-form {
             margin: 0 37px;
         }
-        .edit-actions {
+        .card-edit-actions {
             flex-direction: row;
             .left-col {
                 text-align: left;

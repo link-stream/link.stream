@@ -5,7 +5,7 @@
             <BasicButton
                 variant="icon"
                 title="Edit"
-                class="edit-btn"
+                class="card-edit-btn"
                 @click="handleEditClick('info')"
             />
             <p>Title: {{ title }}</p>
@@ -22,7 +22,7 @@
             <BasicButton
                 variant="icon"
                 title="Edit"
-                class="edit-btn"
+                class="card-edit-btn"
                 @click="handleEditClick('licenses')"
             />
             <ul v-for="license in selectedLicenses" :key="license.id">
@@ -40,7 +40,7 @@
             <BasicButton
                 variant="icon"
                 title="Edit"
-                class="edit-btn"
+                class="card-edit-btn"
                 @click="handleEditClick('files')"
             />
             <p>
@@ -75,7 +75,7 @@
             <BasicButton
                 variant="icon"
                 title="Edit"
-                class="edit-btn"
+                class="card-edit-btn"
                 @click="handleEditClick('marketing')"
             />
             <p v-if="!selectedFreeDls.length">

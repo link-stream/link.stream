@@ -24,7 +24,7 @@
     }
 
     .card-title {
-        color: $linkstream-110;
+        color: $gray-810;
         font-size: px2rem(12);
         font-weight: bold;
         margin-bottom: 0;
@@ -80,7 +80,7 @@
     .card-edit-actions {
         display: flex;
         justify-content: space-between;
-        border-top: 1px solid $linkstream-30;
+        border-top: 1px solid $gray-330;
         padding-top: 16px;
         margin-top: 16px;
     }

@@ -4,7 +4,7 @@
     background: linear-gradient(
         180deg,
         rgba(0, 0, 0, 1) 70%,
-        $linkstream-250 100%
+        $linkstream-70 100%
     );
 
     .logo:before {
@@ -65,7 +65,7 @@
                 border-color: $white;
             }
             &::placeholder {
-                color: $linkstream-170;
+                color: $gray-530;
             }
         }
         button {
@@ -110,7 +110,7 @@
         background: linear-gradient(
             180deg,
             rgba(0, 0, 0, 1) 60%,
-            $linkstream-250 100%
+            $linkstream-70 100%
         );
         .logo:before {
             background-image: url(~@/assets/img/logo/logo-h-lg.png);

@@ -25,7 +25,7 @@
     .page-nav {
         margin-bottom: 15px;
         .back-btn {
-            color: $linkstream-70;
+            color: $gray-520;
             font-size: px2rem(11);
             font-weight: bold;
             letter-spacing: 2px;
@@ -72,7 +72,7 @@
         letter-spacing: 0.5px;
         margin: 15px 0;
         .text-light {
-            color: $linkstream-70 !important;
+            color: $gray-520 !important;
             font-size: 12px;
             font-weight: 600;
             letter-spacing: 0;
@@ -86,9 +86,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: $linkstream-160;
+        background-color: $gray-10;
         padding: 38px 0;
-        color: $linkstream-170 !important;
+        color: $gray-530 !important;
         &,
         .empty-link {
             font-size: px2rem(13);

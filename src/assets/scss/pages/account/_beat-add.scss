@@ -33,22 +33,22 @@
 
     .fwz-tabs {
         margin-bottom: 30px;
-        border-bottom: 1px solid $linkstream-30;
+        border-bottom: 1px solid $gray-330;
         li {
             display: inline-block;
             line-height: 50px;
             margin-right: 15px;
-            color: $linkstream-140;
+            color: $gray-510;
             font-size: px2rem(13);
             font-weight: 600;
             letter-spacing: 0;
             cursor: default;
             &.done {
-                color: $linkstream-110;
+                color: $gray-810;
                 font-weight: bold;
             }
             &.active {
-                color: $linkstream-110;
+                color: $gray-810;
                 font-weight: bold;
                 border-bottom: 3px solid $linkstream-1;
             }

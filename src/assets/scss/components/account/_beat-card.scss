@@ -19,8 +19,8 @@
     }
 
     .card-viz-badge {
-        background-color: $linkstream-190;
-        color: $linkstream-180;
+        background-color: $gray-310;
+        color: $gray-620;
         font-size: px2rem(11);
         font-weight: 500;
         letter-spacing: 0;
@@ -40,8 +40,8 @@
                 visibility: hidden;
             }
             text-transform: uppercase;
-            background-color: $linkstream-80;
-            color: $linkstream-170 !important;
+            background-color: $gray-110;
+            color: $gray-530 !important;
             margin-right: 10px;
             padding: 5px 10px;
         }

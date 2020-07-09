@@ -13,7 +13,7 @@
     }
     .invalid-feedback {
         font-size: px2rem(12);
-        color: $linkstream-120;
+        color: $linkstream-30;
         font-weight: 600;
         margin-top: 5px;
     }
@@ -58,7 +58,7 @@
     }
 
     .custom-control-label:before {
-        border: 2px solid $linkstream-30;
+        border: 2px solid $gray-330;
     }
 
     .custom-control-input:checked ~ .custom-control-label:before {
@@ -262,7 +262,7 @@
     &.is-unlimited {
         .btn,
         .form-control {
-            background-color: $linkstream-80;
+            background-color: $gray-110;
         }
         .btn {
             box-shadow: inset -1px 1px 3px 0 rgba(0, 0, 0, 0.18);
@@ -271,17 +271,17 @@
     .btn {
         &,
         &:active {
-            border-color: $linkstream-30 !important;
+            border-color: $gray-330 !important;
         }
         &:hover {
-            background-color: $linkstream-80;
+            background-color: $gray-110;
         }
         font-size: px2rem(13);
         font-weight: 500;
         border-radius: 4px 0 0 4px;
         letter-spacing: 0;
         text-transform: none;
-        color: $linkstream-110;
+        color: $gray-810;
         background-color: $white;
         padding: 0 15px;
     }
@@ -302,7 +302,7 @@
         max-height: 297px;
         overflow-y: scroll;
         margin-top: 11px;
-        border: 1px solid $linkstream-270;
+        border: 1px solid $gray-420;
         border-radius: 2px;
         background-color: $white;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);

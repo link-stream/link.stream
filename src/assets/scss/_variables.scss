@@ -1,40 +1,39 @@
 $linkstream-1: #dc2ea6;
 $linkstream-20: #fdd311;
-$linkstream-30: #d7d7d7;
-$linkstream-40: #7d7d7d;
-$linkstream-60: #939598;
-$linkstream-70: #9d9d9d;
-$linkstream-80: #f5f5f5;
-$linkstream-90: #dbdbdb;
-$linkstream-100: #666666;
-$linkstream-110: #333333;
-$linkstream-120: #e02020;
-$linkstream-130: #d1d1d1;
-$linkstream-140: #b7b7b7;
-$linkstream-150: #48d2a0;
-$linkstream-160: #fafafa;
-$linkstream-170: #999999;
-$linkstream-180: #565e6a;
-$linkstream-190: #dfe3e8;
-$linkstream-200: #b620e0;
-$linkstream-210: #ededed;
-$linkstream-220: #d0e9c6;
-$linkstream-230: #dff0d8;
-$linkstream-240: #3c763d;
-$linkstream-250: #d529ae;
-$linkstream-260: #fdd311;
-$linkstream-270: #cccccc;
-$linkstream-280: #dbdbdb;
+$linkstream-30: #e02020;
+$linkstream-40: #48d2a0;
+$linkstream-50: #b620e0;
+$linkstream-60: #3c763d;
+$linkstream-70: #d529ae;
+$linkstream-80: #fdd311;
+$linkstream-90: #d0e9c6;
+$linkstream-100: #dff0d8;
 
 $white: #fff;
+$gray-10: #fafafa;
 $gray-100: #f8f9fa;
+$gray-110: #f5f5f5;
+$gray-120: #ededed;
 $gray-200: #e9ecef;
 $gray-300: #dee2e6;
+$gray-310: #dfe3e8;
+$gray-320: #dbdbdb;
+$gray-330: #d7d7d7;
 $gray-400: #ced4da;
+$gray-410: #d1d1d1;
+$gray-420: #cccccc;
 $gray-500: #adb5bd;
+$gray-510: #b7b7b7;
+$gray-520: #9d9d9d;
+$gray-530: #999999;
+$gray-540: #939598;
+$gray-550: #7d7d7d;
 $gray-600: #6c757d;
+$gray-610: #666666;
+$gray-620: #565e6a;
 $gray-700: #495057;
 $gray-800: #343a40;
+$gray-810: #333333;
 $gray-900: #212529;
 $black: #000;
 
@@ -50,11 +49,11 @@ $teal: #20c997;
 $cyan: #17a2b8;
 
 $primary: $linkstream-1;
-$secondary: $linkstream-80;
+$secondary: $gray-110;
 $success: $green;
 $info: $cyan;
 $warning: $yellow;
-$danger: $linkstream-120;
+$danger: $linkstream-30;
 $light: $gray-200;
 $dark: $gray-800;
 
@@ -70,8 +69,8 @@ $theme-colors: map-merge(
         'light': $light,
         'dark': $dark,
         'black': $black,
-        'purple': $linkstream-200,
-        'banana': $linkstream-260,
+        'purple': $linkstream-50,
+        'banana': $linkstream-80,
     ),
     $theme-colors
 );
@@ -84,7 +83,7 @@ $link-color: $linkstream-1;
 $link-hover-color: $linkstream-1;
 
 // Navbar
-$navbar-light-color: $linkstream-60;
+$navbar-light-color: $gray-540;
 $navbar-light-hover-color: $linkstream-1;
 $navbar-light-active-color: $linkstream-1;
 $navbar-nav-link-padding-x: 0.65rem;
@@ -110,8 +109,8 @@ $font-family-sans-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 // Input
 $input-box-shadow: none;
 $input-border-radius: 0;
-$input-border-color: $linkstream-30;
-$input-focus-border-color: $linkstream-30;
+$input-border-color: $gray-330;
+$input-focus-border-color: $gray-330;
 $input-color: $black;
 $custom-radio-indicator-icon-checked: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='-4 -4 8 8'><circle r='3' fill='#{$primary}'/></svg>");
 
@@ -124,15 +123,15 @@ $btn-border-radius: 0;
 $form-feedback-icon-valid: none;
 $form-feedback-icon-invalid: none;
 $enable-validation-icons: false;
-$form-feedback-valid-color: $linkstream-30;
+$form-feedback-valid-color: $gray-330;
 
 // Text
-$text-muted: $linkstream-70;
+$text-muted: $gray-520;
 
 // Color
 $body-bg: white;
-$border-color: $linkstream-90;
-$text-color: $linkstream-110;
+$border-color: $gray-320;
+$text-color: $gray-810;
 $loading-color: $primary;
 
 // Font
@@ -183,8 +182,8 @@ $navbar-height: 80px;
 
 $main-menu-width: 128px;
 $main-menu-item-height: 85px;
-$main-menu-bg: $linkstream-110;
-$main-menu-color: $linkstream-70;
+$main-menu-bg: $gray-810;
+$main-menu-color: $gray-520;
 $main-menu-active-color: white;
 $main-menu-border-color: #555555;
 $main-menu-selector-color: #fdd311;

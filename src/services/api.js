@@ -72,25 +72,15 @@ export const api = {
     users: {
         async getUser(id) {
             const endpoint = '/users/' + id
-            return await call({ endpoint, showProgress: false })
+            return await call({ endpoint })
         },
         async updateUser(id, params) {
             const endpoint = '/users/' + id
             const method = METHOD_PUT
             return await call({ endpoint, params, method })
         },
-        async emailConfirm(params) {
+        async confirmEmail(params) {
             const endpoint = '/users/email_confirm'
-            const method = METHOD_POST
-            return await call({ endpoint, params, method })
-        },
-        async google(params) {
-            const endpoint = '/users/google'
-            const method = METHOD_POST
-            return await call({ endpoint, params, method })
-        },
-        async instagram(params) {
-            const endpoint = '/users/instagram'
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
@@ -99,12 +89,22 @@ export const api = {
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
+        async googleLogin(params) {
+            const endpoint = '/users/google'
+            const method = METHOD_POST
+            return await call({ endpoint, params, method })
+        },
+        async instagramLogin(params) {
+            const endpoint = '/users/instagram'
+            const method = METHOD_POST
+            return await call({ endpoint, params, method })
+        },
         async logout() {
             const endpoint = '/users/logout'
             const method = METHOD_POST
             return await call({ endpoint, method })
         },
-        async registration(params) {
+        async signup(params) {
             const endpoint = '/users/registration'
             const method = METHOD_POST
             return await call({ endpoint, params, method })
@@ -114,17 +114,17 @@ export const api = {
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
-        async passwordReset(params) {
+        async resetPassword(params) {
             const endpoint = '/users/password_reset'
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
-        async availability({ type, value, userId = '' }) {
+        async getAvailability({ type, value, userId = '' }) {
             const endpoint = `/users/availability/${type}/${value}/${userId}`
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
         },
-        async resendEmailConfirm(params) {
+        async resendConfirmEmail(params) {
             const endpoint = '/users/resend_email_confirm'
             const method = METHOD_POST
             return await call({ endpoint, params, method })
@@ -157,12 +157,12 @@ export const api = {
         async getBeatsByUser(userId) {
             const endpoint = `/audios/${userId}/2`
             const method = METHOD_GET
-            return await call({ endpoint, method, showProgress: false })
+            return await call({ endpoint, method })
         },
         async getSoundKitsByUser(userId) {
             const endpoint = `/audios/${userId}/3`
             const method = METHOD_GET
-            return await call({ endpoint, method, showProgress: false })
+            return await call({ endpoint, method })
         },
         async getKeys() {
             const endpoint = '/audios/audio_key'
@@ -242,7 +242,6 @@ export const api = {
                 endpoint,
                 params,
                 method,
-                showProgress: false,
             })
         },
     },
@@ -253,7 +252,6 @@ export const api = {
             return await call({
                 endpoint,
                 method,
-                showProgress: false,
             })
         },
         async createLink(params) {
@@ -263,7 +261,6 @@ export const api = {
                 endpoint,
                 params,
                 method,
-                showProgress: false,
             })
         },
         async updateLink(id, params) {
@@ -277,7 +274,6 @@ export const api = {
             return await call({
                 endpoint,
                 method,
-                showProgress: false,
             })
         },
         async sortLinks(params) {

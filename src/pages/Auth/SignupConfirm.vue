@@ -33,7 +33,7 @@ export default {
     methods: {
         async resendConfirationEmail() {
             const { id: user_id } = this.$store.getters.pendingUser
-            const { status, error } = await api.users.resendEmailConfirm({
+            const { status, error } = await api.users.resendConfirmEmail({
                 user_id,
             })
             if (status === 'success') {

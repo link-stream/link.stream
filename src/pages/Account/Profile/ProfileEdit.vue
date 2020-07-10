@@ -358,7 +358,7 @@ export default {
         Validator.extend('uniqueUrl', {
             validate: async value => {
                 this.validating.url = true
-                const { status, error } = await api.users.availability({
+                const { status, error } = await api.users.getAvailability({
                     type: 'url',
                     value,
                     userId: this.user.id,

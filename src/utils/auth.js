@@ -19,7 +19,8 @@ export const getPendingUserCookie = () =>
     Cookies.getJSON(appConstants.cookies.pendingUser.name)
 
 export const setPendingUserCookie = value => {
-    Cookies.remove(appConstants.cookies.pendingUser.name, value, {
+    Cookies.set(appConstants.cookies.pendingUser.name, value, {
+        expires: appConstants.cookies.pendingUser.expires,
         secure: process.env === 'production',
     })
 }

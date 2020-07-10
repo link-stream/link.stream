@@ -10,6 +10,7 @@ export const constants = {
         },
         pendingUser: {
             name: 'pendingUser',
+            expires: 1 / 3,
         },
     },
     links: {

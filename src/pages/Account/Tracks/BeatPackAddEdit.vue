@@ -196,60 +196,11 @@
                                 </span>
                             </template>
                         </multi-select>
-                        <div class="selected-beats">
-                            <Container
-                                v-if="form.beats.length"
-                                drag-handle-selector=".beat-drag-handle"
-                                @drop="handleBeatReorder"
-                            >
-                                <Draggable
-                                    v-for="(beat, index) in form.beats"
-                                    :key="beat.id"
-                                >
-                                    <div class="list-item">
-                                        <Icon
-                                            icon="drag"
-                                            class="beat-drag-handle"
-                                        />
-                                        <div class="item-number">
-                                            {{ index + 1 }}
-                                        </div>
-                                        <div class="item-body">
-                                            <h4 class="item-title">
-                                                {{ beat.title }}
-                                            </h4>
-                                            <small class="item-subtitle">
-                                                {{
-                                                    genreLabelById(
-                                                        beat.genre_id
-                                                    )
-                                                }}
-                                            </small>
-                                        </div>
-                                        <div class="item-cover">
-                                            <span
-                                                class="lock-overlay"
-                                                v-if="beat.isPrivate"
-                                            ></span>
-                                            <img
-                                                :src="beat.coverart"
-                                                :alt="beat.title"
-                                            />
-                                        </div>
-                                        <IconButton
-                                            icon="close"
-                                            @click="
-                                                handleBeatRemoveClick(index)
-                                            "
-                                        />
-                                    </div>
-                                </Draggable>
-                            </Container>
-                            <div class="no-selected-beats" v-else>
-                                <Icon icon="music-note" />
-                                <p>There are no Beats in this Pack</p>
-                            </div>
-                        </div>
+                        <BeatList
+                            :beats="form.beats"
+                            @remove-item="handleBeatRemove"
+                            @reorder-items="handleBeatsReorder"
+                        />
                     </base-card>
                 </div>
                 <div class="right-col">
@@ -328,20 +279,19 @@
 </template>
 
 <script>
+import { BeatList } from '~/components/Account/Tracks/BeatPacks'
 import { DropImage } from '~/components/Uploader'
 import { api } from '~/services'
 import { appConstants } from '~/constants'
 import { required, minLength } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
-import { Container, Draggable } from 'vue-smooth-dnd'
 import moment from 'moment'
 
 export default {
     name: 'BeatPackAddEdit',
     components: {
+        BeatList,
         DropImage,
-        Container,
-        Draggable,
     },
     data() {
         return {
@@ -468,13 +418,6 @@ export default {
         handleTagsChange(tags) {
             this.form.tags = tags
         },
-        handleBeatReorder(dropResult) {
-            const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
-            const beats = this.form.beats
-            const beat = beats[oldIndex]
-            beats.splice(oldIndex, 1)
-            beats.splice(newIndex, 0, beat)
-        },
         handleScheduleToggle() {
             this.$v.form.$reset()
             this.form.scheduled = !this.form.scheduled
@@ -485,8 +428,11 @@ export default {
         handleImageRemove() {
             this.form.coverArtBase64 = null
         },
-        handleBeatRemoveClick(index) {
+        handleBeatRemove(index) {
             this.form.beats.splice(index, 1)
+        },
+        handleBeatsReorder(beats) {
+            this.form.beats = beats
         },
         handleSaveClick() {
             this.$v.form.$touch()

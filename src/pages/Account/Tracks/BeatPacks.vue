@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { BeatPackCard } from '~/components/Account/Tracks'
+import { BeatPackCard } from '~/components/Account/Tracks/BeatPacks'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import { mapGetters } from 'vuex'
 

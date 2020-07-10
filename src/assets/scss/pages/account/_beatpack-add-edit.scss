@@ -76,16 +76,16 @@
                 margin-bottom: 0;
             }
         }
-        .selected-beats {
+        .BeatList {
             padding-top: 13px;
             .smooth-dnd-draggable-wrapper {
                 &:last-child {
-                    .list-item {
+                    .BeatListItem {
                         border-bottom: 0;
                     }
                 }
             }
-            .list-item {
+            .BeatListItem {
                 display: flex;
                 align-items: center;
                 padding: 7px 10px;

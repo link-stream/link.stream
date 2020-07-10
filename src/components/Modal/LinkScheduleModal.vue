@@ -76,9 +76,9 @@ export default {
             showEndDate: false,
             form: {
                 date: null,
-                time: '',
+                time: null,
                 endDate: null,
-                endTime: '',
+                endTime: null,
             },
         }
     },
@@ -120,9 +120,9 @@ export default {
             this.showEndDate = false
             this.form = {
                 date: null,
-                time: '',
+                time: null,
                 endDate: null,
-                endTime: '',
+                endTime: null,
             }
             if (this.link.scheduled) {
                 const { date, time, end_date, end_time } = this.link

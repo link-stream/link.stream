@@ -20,7 +20,7 @@ const initialState = () => ({
         title: null,
         genre: {},
         tags: [],
-        bpm: '',
+        bpm: null,
         key: {},
         trackPack: null,
         time: null,

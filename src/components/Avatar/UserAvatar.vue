@@ -13,8 +13,8 @@ export default {
             type: Object,
             required: true,
             default: () => ({
-                photo: '',
-                name: '',
+                photo: null,
+                name: null,
             }),
         },
     },

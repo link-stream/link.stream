@@ -61,7 +61,7 @@ export default {
         return {
             open: false,
             status: STATUS_IDLE,
-            searchText: '',
+            searchText: null,
             results: [
                 // e.g.
                 // {

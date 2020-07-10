@@ -322,11 +322,11 @@ export default {
             filesCurrentPage: 1,
             kit: null,
             form: {
-                title: '',
-                price: '',
-                genreId: '',
-                description: '',
-                coverArtBase64: '',
+                title: null,
+                price: null,
+                genreId: null,
+                description: null,
+                coverArtBase64: null,
                 tags: [],
                 isPublic: false,
                 scheduled: false,
@@ -451,10 +451,12 @@ export default {
     },
     mounted() {
         const routeParams = this.$route.params
-        if (routeParams.createdMessage) {
-            this.showCreatedMessage = true
-        } else if (routeParams.updatedMessage) {
-            this.$toast.success(routeParams.updatedMessage)
+        if (routeParams.flashMessage) {
+            if (routeParams.created) {
+                this.showCreatedMessage = true
+            } else {
+                this.$toast.success(routeParams.flashMessage)
+            }
         }
     },
     methods: {
@@ -582,7 +584,7 @@ export default {
                         name: 'accountSoundKitEdit',
                         params: {
                             id: data.id,
-                            updatedMessage: message,
+                            flashMessage: message,
                         },
                         query: {
                             u: Date.now(),
@@ -593,7 +595,8 @@ export default {
                         name: 'accountSoundKitEdit',
                         params: {
                             id: data.id,
-                            createdMessage: message,
+                            created: true,
+                            flashMessage: message,
                         },
                     })
                 }

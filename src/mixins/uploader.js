@@ -10,7 +10,6 @@ export const uploaderMixin = {
         },
         filename: {
             type: String,
-            default: '',
         },
         acceptTypes: {
             type: Array,

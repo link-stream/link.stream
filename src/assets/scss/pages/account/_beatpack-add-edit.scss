@@ -1,5 +1,8 @@
-.page-pack-add-edit {
+.page-beatpack-add-edit {
     .page-header {
+        .right-col {
+            display: none;
+        }
         .cancel-btn {
             margin-right: 10px;
         }
@@ -75,7 +78,7 @@
         }
         .selected-beats {
             padding-top: 13px;
-            li {
+            .list-item {
                 display: flex;
                 align-items: center;
                 padding: 7px 10px;

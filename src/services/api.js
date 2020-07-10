@@ -225,6 +225,11 @@ export const api = {
             const method = METHOD_PUT
             return await call({ endpoint, method, params })
         },
+        async getAlbumsByUser(userId) {
+            const endpoint = `/albums/${userId}`
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
         async getAlbum(id, userId) {
             const endpoint = `/albums/${userId}/${id}`
             const method = METHOD_GET
@@ -232,6 +237,16 @@ export const api = {
                 endpoint,
                 method,
             })
+        },
+        async deleteAlbum(id) {
+            const endpoint = '/albums/' + id
+            const method = METHOD_DELETE
+            return await call({ endpoint, method })
+        },
+        async sortAlbums(params) {
+            const endpoint = '/albums/sort_albums/'
+            const method = METHOD_POST
+            return await call({ endpoint, params, method })
         },
     },
     videos: {

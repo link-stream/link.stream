@@ -10,10 +10,13 @@
     background-position: center;
 }
 
-.ico-drag:before {
-    background-image: url(~@/assets/img/ico/drag.svg);
-    width: 18px;
-    height: 14px;
+.ico-drag {
+    cursor: move;
+    &:before {
+        background-image: url(~@/assets/img/ico/drag.svg);
+        width: 18px;
+        height: 14px;
+    }
 }
 
 .ico-eye-cir-gray:before {

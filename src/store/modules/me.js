@@ -109,10 +109,27 @@ const mutations = {
      * Beat Packs
      */
 
+    [meTypes.SET_BEAT_PACKS](state, { beatPacks }) {
+        state.beatPacks = beatPacks
+    },
+
     [meTypes.UPDATE_BEAT_PACK](state, { beatPack }) {
         const { beatPacks } = state
         const index = beatPacks.findIndex(({ id }) => id == beatPack.id)
         index > -1 && beatPacks.splice(index, 1, beatPack)
+    },
+
+    [meTypes.DELETE_BEAT_PACK](state, { beatPack }) {
+        const { beatPacks } = state
+        const index = beatPacks.findIndex(({ id }) => id == beatPack.id)
+        beatPacks.splice(index, 1)
+    },
+
+    [meTypes.REORDER_BEAT_PACK](state, { oldIndex, newIndex }) {
+        const { beatPacks } = state
+        const beatPack = beatPacks[oldIndex]
+        beatPacks.splice(oldIndex, 1)
+        beatPacks.splice(newIndex, 0, beatPack)
     },
 
     /**
@@ -300,8 +317,13 @@ const actions = {
      * Beat Packs
      */
 
-    async loadBeatPacks() {
-        // TODO
+    async loadBeatPacks({ commit, rootGetters }) {
+        const user = rootGetters['auth/user']
+        const { status, data } = await api.albums.getAlbumsByUser(user.id)
+        commit({
+            type: meTypes.SET_BEAT_PACKS,
+            beatPacks: status === 'success' ? data : [],
+        })
     },
 
     async createBeatPack(context, { params }) {
@@ -314,6 +336,21 @@ const actions = {
         status === 'success' &&
             commit(meTypes.UPDATE_BEAT_PACK, { beatPack: data })
         return response
+    },
+
+    async deleteBeatPack({ commit }, beatPack) {
+        const response = await api.albums.deleteAlbum(beatPack.id)
+        const { status } = response
+        status === 'success' && commit(meTypes.DELETE_BEAT_PACK, { beatPack })
+        return response
+    },
+
+    reorderBeatPack({ state, commit }, { oldIndex, newIndex, sorts }) {
+        commit(meTypes.REORDER_BEAT_PACK, { oldIndex, newIndex })
+        api.albums.sortAlbums({
+            user_id: state.user.id,
+            list: JSON.stringify(sorts),
+        })
     },
 
     /**
@@ -454,9 +491,15 @@ const getters = {
             }
         })
     },
-    beatPacks: () => {
-        // TODO
-        return []
+    beatPacks: ({beatPacks}) => {
+        return beatPacks.map(pack => {
+            return {
+                ...pack,
+                coverart: pack.data_image || appConstants.defaultCoverArt,
+                isPublic: pack.public == '1',
+                isPrivate: pack.public == '2',
+            }
+        })
     },
 }
 

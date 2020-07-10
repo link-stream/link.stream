@@ -46,6 +46,7 @@
                 @drop="handleReorder"
             >
                 <Draggable v-for="pack in sortablePacks" :key="pack.id">
+                    <BeatPackCard :pack="pack" />
                 </Draggable>
             </Container>
         </main>
@@ -53,12 +54,14 @@
 </template>
 
 <script>
+import { BeatPackCard } from '~/components/Account/Tracks'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import { mapGetters } from 'vuex'
 
 export default {
     name: 'BeatPacks',
     components: {
+        BeatPackCard,
         Container,
         Draggable,
     },

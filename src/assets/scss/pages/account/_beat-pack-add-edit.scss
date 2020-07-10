@@ -43,7 +43,7 @@
     }
 
     .DropImage {
-        .upload-box {
+        .upload-dd {
             margin-right: 15px;
         }
     }
@@ -167,10 +167,10 @@
         }
 
         .DropImage {
-            .upload-container {
+            .upload-section {
                 flex-direction: column;
             }
-            .upload-box {
+            .upload-dd {
                 margin: 0 0 5px 0;
             }
         }

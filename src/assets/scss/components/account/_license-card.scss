@@ -1,7 +1,7 @@
 .LicenseCard {
     padding: 15px 20px;
 
-    .view-container {
+    .view-section {
         display: flex;
         align-items: center;
         .form-group {
@@ -9,7 +9,7 @@
         }
     }
 
-    .edit-container {
+    .edit-section {
         display: none;
         margin-top: 5px;
     }
@@ -56,7 +56,7 @@
             visibility: hidden;
         }
         .card-close-btn,
-        .edit-container {
+        .edit-section {
             display: block;
         }
     }

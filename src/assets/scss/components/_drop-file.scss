@@ -1,6 +1,6 @@
 .DropFile {
     &.is-invalid {
-        .upload-container {
+        .upload-section {
             border-color: $danger;
             border-width: 2px;
         }
@@ -19,8 +19,8 @@
         }
     }
 
-    .preview-container,
-    .upload-container {
+    .preview-section,
+    .upload-section {
         display: flex;
         align-items: center;
         border-radius: 4px;
@@ -28,7 +28,7 @@
         height: 80px;
     }
 
-    .preview-container {
+    .preview-section {
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.22);
     }
 
@@ -36,7 +36,7 @@
         display: none;
     }
 
-    .upload-container {
+    .upload-section {
         border: 2px dashed $gray-410;
         cursor: pointer;
         &.highlight,

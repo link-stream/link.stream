@@ -107,7 +107,7 @@
             margin-bottom: 10px;
         }
         .DropImage {
-            .upload-box {
+            .upload-dd {
                 margin-right: 15px;
             }
         }
@@ -199,10 +199,10 @@
                 flex-grow: 1;
             }
             .DropImage {
-                .upload-container {
+                .upload-section {
                     flex-direction: column;
                 }
-                .upload-box {
+                .upload-dd {
                     margin: 0 0 5px 0;
                 }
             }

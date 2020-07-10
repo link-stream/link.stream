@@ -139,7 +139,7 @@
                                     v-html="form.zipFile.name"
                                 ></div>
                             </template>
-                            <template v-slot:upload-container>
+                            <template v-slot:upload-section>
                                 <i class="upload-icon"></i>
                                 <div class="upload-msg">
                                     <div class="upload-msg-s">
@@ -196,7 +196,7 @@
                                     v-html="form.mp3File.name"
                                 ></div>
                             </template>
-                            <template v-slot:upload-container>
+                            <template v-slot:upload-section>
                                 <i class="upload-icon"></i>
                                 <div class="upload-msg">
                                     <div class="upload-msg-s">

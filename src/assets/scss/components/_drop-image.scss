@@ -1,11 +1,11 @@
 .DropImage {
-    .upload-box,
-    .preview-box {
+    .upload-dd,
+    .preview-thumb {
         height: 140px;
         width: 140px;
     }
 
-    .preview-container {
+    .preview-section {
         display: flex;
         flex-direction: column;
     }
@@ -19,7 +19,7 @@
         margin-left: 10px;
     }
 
-    .preview-box {
+    .preview-thumb {
         position: relative;
         img {
             max-width: 100%;
@@ -48,7 +48,7 @@
         font-size: px2rem(12);
     }
 
-    .upload-container {
+    .upload-section {
         display: flex;
     }
 
@@ -56,7 +56,7 @@
         align-self: center;
     }
 
-    .upload-box {
+    .upload-dd {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -98,13 +98,13 @@
     }
 
     &.is-inline {
-        .preview-box,
-        .upload-box {
+        .preview-thumb,
+        .upload-dd {
             width: 60px;
             height: 60px;
             margin-bottom: 0;
         }
-        .preview-container {
+        .preview-section {
             flex-direction: row;
             align-items: center;
         }
@@ -133,8 +133,8 @@
     }
 
     @include media-breakpoint-up(md) {
-        .upload-box,
-        .preview-box {
+        .upload-dd,
+        .preview-thumb {
             width: 215px;
             height: 215px;
             cursor: pointer;
@@ -154,13 +154,13 @@
             display: block;
         }
         &.is-inline {
-            .preview-box,
-            .upload-box {
+            .preview-thumb,
+            .upload-dd {
                 width: 215px;
                 height: 215px;
                 margin-bottom: 0;
             }
-            .preview-container {
+            .preview-section {
                 flex-direction: column;
                 align-items: flex-start;
             }

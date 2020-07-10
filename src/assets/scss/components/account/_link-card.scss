@@ -8,7 +8,7 @@
         }
     }
 
-    .view-container {
+    .view-section {
         display: flex;
         align-items: center;
         padding: 15px;
@@ -33,7 +33,7 @@
         color: $black;
     }
 
-    .edit-container {
+    .edit-section {
         position: relative;
         padding: 20px;
         .card-body {
@@ -70,13 +70,13 @@
     .DropImage {
         margin-bottom: 10px;
 
-        .preview-container {
+        .preview-section {
             flex-direction: row;
             align-items: center;
         }
 
-        .upload-box,
-        .preview-box {
+        .upload-dd,
+        .preview-thumb {
             width: 65px;
             height: 65px;
         }
@@ -110,7 +110,7 @@
     }
 
     @include media-breakpoint-up(md) {
-        .edit-container {
+        .edit-section {
             .card-body {
                 flex-direction: row;
             }
@@ -138,13 +138,13 @@
         .DropImage {
             margin-bottom: 0;
 
-            .preview-container {
+            .preview-section {
                 flex-direction: column;
                 align-items: flex-start;
             }
 
-            .upload-box,
-            .preview-box {
+            .upload-dd,
+            .preview-thumb {
                 width: 120px;
                 height: 120px;
             }

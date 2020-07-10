@@ -12,8 +12,8 @@
             ref="fileInput"
             @change="handleFileSelected"
         />
-        <section class="preview-container" v-if="isFileAdded">
-            <div class="preview-box">
+        <section class="preview-section" v-if="isFileAdded">
+            <div class="preview-thumb">
                 <img :src="src" @click="showFileDialog" />
                 <IconButton
                     class="file-remove-icon"
@@ -53,9 +53,9 @@
                 </b-dropdown>
             </div>
         </section>
-        <section class="upload-container" v-else>
+        <section class="upload-section" v-else>
             <div
-                class="upload-box"
+                class="upload-dd"
                 :class="{ highlight: isDraggingFile }"
                 @drop="handleDrop"
                 @dragleave="handleDragLeave"

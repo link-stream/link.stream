@@ -1,7 +1,7 @@
 <template>
     <div class="Card LinkCard" :class="{ 'is-private': link.isPrivate }">
         <LoadingMask v-show="processing" />
-        <section class="view-container" v-show="!isEditMode">
+        <section class="view-section" v-show="!isEditMode">
             <Icon class="card-drag-icon" icon="drag" />
             <div class="card-media" @click="handleEditClick">
                 <img class="card-img" :src="link.coverart" :alt="link.title" />
@@ -25,7 +25,7 @@
                 @click="handleEditClick"
             />
         </section>
-        <section class="edit-container" v-if="isEditMode">
+        <section class="edit-section" v-if="isEditMode">
             <IconButton
                 icon="close"
                 class="card-close-btn"

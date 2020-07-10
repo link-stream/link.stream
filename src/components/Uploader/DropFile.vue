@@ -7,7 +7,7 @@
             ref="fileInput"
             @change="handleFileSelected"
         />
-        <section class="preview-container" v-if="isFileAdded">
+        <section class="preview-section" v-if="isFileAdded">
             <i class="preview-icon"></i>
             <div class="preview-body">
                 <slot name="preview-body">
@@ -45,7 +45,7 @@
         </section>
         <section
             v-else
-            class="upload-container"
+            class="upload-section"
             :class="{ highlight: isDraggingFile }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
@@ -53,7 +53,7 @@
             @dragenter="handleDragEnter"
             @click="showFileDialog"
         >
-            <slot name="upload-container" :showFileDialog="showFileDialog">
+            <slot name="upload-section" :showFileDialog="showFileDialog">
                 <div class="upload-body">
                     <div class="upload-title" v-html="title"></div>
                     <div class="upload-subtitle">No File Added</div>

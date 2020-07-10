@@ -14,7 +14,7 @@
             icon="close"
             class="input-clear-btn"
             @click="handleClearClick"
-            v-show="value ? true : false"
+            v-show="!!value"
         />
     </div>
 </template>

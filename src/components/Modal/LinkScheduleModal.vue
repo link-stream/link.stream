@@ -126,7 +126,7 @@ export default {
             }
             if (this.link.scheduled) {
                 const { date, time, end_date, end_time } = this.link
-                this.endDateEnabled = end_date && end_time ? true : false
+                this.endDateEnabled = !!(end_date && end_time)
                 this.form = {
                     ...this.form,
                     date: new Date(date + ' 00:00:00'),

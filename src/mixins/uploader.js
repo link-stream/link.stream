@@ -24,7 +24,7 @@ export const uploaderMixin = {
     },
     computed: {
         isFileAdded() {
-            return this.src ? true : false
+            return !!this.src
         },
     },
     methods: {

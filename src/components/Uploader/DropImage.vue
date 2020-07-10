@@ -129,7 +129,7 @@ export default {
     },
     computed: {
         isFileSelected() {
-            return this.tmpFile ? true : false
+            return !!this.tmpFile
         },
     },
     methods: {

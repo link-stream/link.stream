@@ -76,7 +76,6 @@ export default {
         },
         msgNoOptions: {
             type: String,
-            default: '',
         },
         msgNoMatch: {
             type: String,
@@ -85,7 +84,7 @@ export default {
     },
     data() {
         return {
-            filterText: '',
+            filterText: null,
             showDropdown: false,
         }
     },
@@ -102,11 +101,6 @@ export default {
             )
         },
     },
-    watch: {
-        value(v) {
-            console.log(v)
-        },
-    },
     mounted() {
         document.addEventListener('click', this.handleDocumentClick)
     },
@@ -115,7 +109,11 @@ export default {
             this.showDropdown = true
         },
         handleDocumentClick(e) {
-            const clickedOutside = !this.$refs.multiselect.contains(e.target)
+            const el = this.$refs.multiselect
+            if (!el) {
+                return
+            }
+            const clickedOutside = !el.contains(e.target)
             if (clickedOutside) {
                 this.showDropdown = false
             }

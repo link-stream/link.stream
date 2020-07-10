@@ -12,7 +12,7 @@
         </nav>
         <LoadingSpinner class="page-loader" v-if="loading" />
         <div v-else>
-            <div class="alert alert-success" v-if="showCreatedSuccess">
+            <div class="alert alert-success" v-if="showCreatedMessage">
                 <strong>Created {{ kit.title }}!&nbsp;</strong>
                 <basic-button variant="link">
                     View it
@@ -316,7 +316,7 @@ export default {
         return {
             loading: false,
             saving: false,
-            showCreatedSuccess: false,
+            showCreatedMessage: false,
             tag: '',
             files: [],
             filesCurrentPage: 1,
@@ -450,11 +450,11 @@ export default {
         this.loading = false
     },
     mounted() {
-        const rouetParams = this.$route.params
-        if (rouetParams.createdSuccess) {
-            this.showCreatedSuccess = true
-        } else if (rouetParams.updatedSuccess) {
-            this.$toast.success(rouetParams.updatedSuccess)
+        const routeParams = this.$route.params
+        if (routeParams.createdMessage) {
+            this.showCreatedMessage = true
+        } else if (routeParams.updatedMessage) {
+            this.$toast.success(routeParams.updatedMessage)
         }
     },
     methods: {
@@ -582,7 +582,7 @@ export default {
                         name: 'accountSoundKitEdit',
                         params: {
                             id: data.id,
-                            updatedSuccess: message,
+                            updatedMessage: message,
                         },
                         query: {
                             u: Date.now(),
@@ -593,7 +593,7 @@ export default {
                         name: 'accountSoundKitEdit',
                         params: {
                             id: data.id,
-                            createdSuccess: message,
+                            createdMessage: message,
                         },
                     })
                 }

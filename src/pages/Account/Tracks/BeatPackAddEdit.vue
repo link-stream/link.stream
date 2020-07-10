@@ -12,6 +12,19 @@
         </nav>
         <LoadingSpinner class="page-loader" v-if="loading" />
         <div v-else>
+            <div class="alert alert-success" v-if="showCreatedMessage">
+                <strong>Created {{ pack.title }}!&nbsp;</strong>
+                <basic-button variant="link">
+                    View it
+                </basic-button>
+                or
+                <basic-button
+                    variant="link"
+                    :to="{ name: 'accountBeatPackAdd' }"
+                >
+                    create another beat pack
+                </basic-button>
+            </div>
             <header class="page-header">
                 <div class="left-col">
                     <h1 class="page-title">{{
@@ -130,7 +143,7 @@
                         <multi-select
                             placeholder="Search for Beats to add"
                             class="beats-multiselect"
-                            v-model="form.selectedBeats"
+                            v-model="form.beats"
                             :options="beats"
                         >
                             <template
@@ -184,9 +197,9 @@
                             </template>
                         </multi-select>
                         <div class="selected-beats">
-                            <ul v-if="form.selectedBeats.length">
+                            <ul v-if="form.beats.length">
                                 <li
-                                    v-for="(beat, index) in form.selectedBeats"
+                                    v-for="(beat, index) in form.beats"
                                     :key="beat.id"
                                 >
                                     <Icon icon="drag" />
@@ -301,8 +314,11 @@
 
 <script>
 import { DropImage } from '~/components/Uploader'
+import { api } from '~/services'
+import { appConstants } from '~/constants'
 import { required, minLength } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
+import moment from 'moment'
 
 export default {
     name: 'BeatPackAddEdit',
@@ -311,9 +327,10 @@ export default {
     },
     data() {
         return {
-            isEditMode: false,
             loading: false,
             saving: false,
+            showCreatedMessage: false,
+            pack: null,
             tag: '',
             form: {
                 title: '',
@@ -323,7 +340,7 @@ export default {
                 description: '',
                 tags: [],
                 coverArtBase64: '',
-                selectedBeats: [],
+                beats: [],
                 isPublic: false,
                 scheduled: false,
                 date: new Date(),
@@ -339,6 +356,9 @@ export default {
             beats: 'me/beats',
             genreLabelById: 'common/genreLabelById',
         }),
+        isEditMode() {
+            return !!this.pack
+        },
     },
     validations: {
         form: {
@@ -362,10 +382,69 @@ export default {
     },
     async created() {
         this.loading = true
-        await this.$store.dispatch('common/loadGenres')
-        await this.$store.dispatch('me/loadLicenses')
-        await this.$store.dispatch('me/loadBeats')
+
+        const route = this.$route
+
+        if (route.name === 'accountBeatPackEdit') {
+            const packId = route.params.id
+            const packResponse = await api.albums.getAlbum(packId, this.user.id)
+            if (
+                packResponse.status !== 'success' ||
+                !packResponse.data.length
+            ) {
+                this.$router.push({ name: 'accountBeatPacks' })
+                this.$toast.error('Beat pack not found.')
+                return
+            }
+            await this.$store.dispatch('common/loadGenres')
+            await this.$store.dispatch('me/loadLicenses')
+            await this.$store.dispatch('me/loadBeats')
+            const pack = packResponse.data[0]
+            const form = {
+                isPublic: pack.public == appConstants.visibilities.public,
+                title: pack.title,
+                price: pack.price,
+                genreId: pack.genre_id,
+                licenseId: pack.license_id,
+                description: pack.description,
+                coverArtBase64: pack.data_image,
+                scheduled: pack.scheduled,
+                date: pack.scheduled
+                    ? new Date(pack.date + ' 00:00:00')
+                    : new Date(),
+                time: pack.scheduled ? pack.time : '00:00:00',
+                tags: pack.tags
+                    ? pack.tags.split(', ').map(tag => ({
+                          text: tag,
+                      }))
+                    : [],
+                beats: [],
+            }
+
+            if (pack.beats) {
+                pack.beats.forEach(beatId => {
+                    const beat = this.beats.find(({ id }) => id == beatId)
+                    beat && form.beats.push(beat)
+                })
+            }
+
+            this.form = { ...this.form, ...form }
+            this.pack = pack
+        } else {
+            await this.$store.dispatch('common/loadGenres')
+            await this.$store.dispatch('me/loadLicenses')
+            await this.$store.dispatch('me/loadBeats')
+        }
+
         this.loading = false
+    },
+    mounted() {
+        const routeParams = this.$route.params
+        if (routeParams.createdMessage) {
+            this.showCreatedMessage = true
+        } else if (routeParams.updatedMessage) {
+            this.$toast.success(routeParams.updatedMessage)
+        }
     },
     methods: {
         handleTagsChange(tags) {
@@ -382,11 +461,93 @@ export default {
             this.form.coverArtBase64 = null
         },
         handleBeatRemoveClick(index) {
-            this.form.selectedBeats.splice(index, 1)
+            this.form.beats.splice(index, 1)
         },
-        handleSaveClick() {
+        async handleSaveClick() {
             this.$v.form.$touch()
-            return
+
+            if (this.$v.form.$invalid) {
+                return
+            }
+
+            if (this.$v.form.title.$invalid) {
+                this.$toast.error('Enter a title.')
+                return
+            }
+
+            if (this.$v.form.licenseId.$invalid) {
+                this.$toast.error('Pick a license type.')
+                return
+            }
+
+            if (this.$v.form.price.$invalid) {
+                this.$toast.error('Enter a price.')
+                return
+            }
+
+            if (this.$v.form.tags.$invalid) {
+                this.$toast.error(
+                    'Add 3 or more tags to help people find this beat pack.'
+                )
+                return
+            }
+
+            const { pack, form } = this
+
+            const params = {
+                user_id: this.user.id,
+                title: form.title,
+                price: form.price,
+                genre_id: form.genreId,
+                license_id: form.licenseId,
+                tags: form.tags.map(({ text }) => text).join(', '),
+                description: form.description,
+                public: form.isPublic ? 1 : 2,
+                scheduled: form.scheduled,
+                beats: JSON.stringify(form.beats.map(beat => beat.id)),
+            }
+
+            if (form.scheduled) {
+                params.date = moment(form.date).format('YYYY-MM-DD')
+                params.time = form.time
+            }
+
+            if (!this.isEditMode || form.coverArtBase64 !== pack.data_image) {
+                params.image = form.coverArtBase64
+            }
+
+            const { status, message, error, data } = this.isEditMode
+                ? await this.$store.dispatch('me/updateBeatPack', {
+                      id: pack.id,
+                      params,
+                  })
+                : await this.$store.dispatch('me/createBeatPack', { params })
+
+            if (status === 'success') {
+                if (this.isEditMode) {
+                    this.$router.push({
+                        name: 'accountBeatPackEdit',
+                        params: {
+                            id: data.id,
+                            updatedMessage: message,
+                        },
+                        query: {
+                            u: Date.now(),
+                        },
+                    })
+                } else {
+                    this.$router.push({
+                        name: 'accountBeatPackEdit',
+                        params: {
+                            id: data.id,
+                            createdMessage: message,
+                        },
+                    })
+                }
+            } else {
+                this.$toast.error(error)
+                this.saving = false
+            }
         },
     },
 }

@@ -106,6 +106,16 @@ const mutations = {
     },
 
     /**
+     * Beat Packs
+     */
+
+    [meTypes.UPDATE_BEAT_PACK](state, { beatPack }) {
+        const { beatPacks } = state
+        const index = beatPacks.findIndex(({ id }) => id == beatPack.id)
+        index > -1 && beatPacks.splice(index, 1, beatPack)
+    },
+
+    /**
      * Videos
      */
 
@@ -292,6 +302,18 @@ const actions = {
 
     async loadBeatPacks() {
         // TODO
+    },
+
+    async createBeatPack(context, { params }) {
+        return await api.albums.createAlbum(params)
+    },
+
+    async updateBeatPack({ commit }, { id, params }) {
+        const response = await api.albums.updateAlbum(id, params)
+        const { status, data } = response
+        status === 'success' &&
+            commit(meTypes.UPDATE_BEAT_PACK, { beatPack: data })
+        return response
     },
 
     /**

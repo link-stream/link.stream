@@ -188,6 +188,12 @@ const routes = [
         component: AccountBeatPackAddEdit,
         meta: { requiresAuth: true, layout: 'account' },
     },
+    {
+        path: '/app/beat-packs/:id/edit',
+        name: 'accountBeatPackEdit',
+        component: AccountBeatPackAddEdit,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
 
     /**
      * 404 catcher

@@ -214,6 +214,26 @@ export const api = {
             return await call({ endpoint, method })
         },
     },
+    albums: {
+        async createAlbum(params) {
+            const endpoint = '/albums'
+            const method = METHOD_POST
+            return await call({ endpoint, method, params })
+        },
+        async updateAlbum(id, params) {
+            const endpoint = `/albums/${id}`
+            const method = METHOD_PUT
+            return await call({ endpoint, method, params })
+        },
+        async getAlbum(id, userId) {
+            const endpoint = `/albums/${userId}/${id}`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+    },
     videos: {
         async createVideo(params) {
             const endpoint = '/videos'

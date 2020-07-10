@@ -21,14 +21,14 @@
 
                 <b-form-group>
                     <b-form-checkbox
-                        :checked="endDateEnabled"
+                        :checked="showEndDate"
                         @change="handleEndDateCheckChange"
                     >
                         Set end date
                     </b-form-checkbox>
                 </b-form-group>
 
-                <b-form-group label="End Date" v-show="endDateEnabled">
+                <b-form-group label="End Date" v-show="showEndDate">
                     <b-input-group class="date-input-group">
                         <DatePicker v-model="form.endDate" />
                         <TimePicker v-model="form.endTime" />
@@ -73,7 +73,7 @@ export default {
         return {
             open: false,
             loading: false,
-            endDateEnabled: false,
+            showEndDate: false,
             form: {
                 date: null,
                 time: '',
@@ -92,12 +92,12 @@ export default {
             },
             endDate: {
                 required: requiredIf(function() {
-                    return this.endDateEnabled
+                    return this.showEndDate
                 }),
             },
             endTime: {
                 required: requiredIf(function() {
-                    return this.endDateEnabled
+                    return this.showEndDate
                 }),
             },
         },
@@ -112,12 +112,12 @@ export default {
         handleEndDateCheckChange() {
             this.$v.form.endDate.$reset()
             this.$v.form.endTime.$reset()
-            this.endDateEnabled = !this.endDateEnabled
+            this.showEndDate = !this.showEndDate
         },
         handleOpen(link) {
             this.$v.form.$reset()
             this.link = { ...link }
-            this.endDateEnabled = false
+            this.showEndDate = false
             this.form = {
                 date: null,
                 time: '',
@@ -126,13 +126,13 @@ export default {
             }
             if (this.link.scheduled) {
                 const { date, time, end_date, end_time } = this.link
-                this.endDateEnabled = !!(end_date && end_time)
+                this.showEndDate = !!(end_date && end_time)
                 this.form = {
                     ...this.form,
                     date: new Date(date + ' 00:00:00'),
                     time,
                 }
-                if (this.endDateEnabled) {
+                if (this.showEndDate) {
                     this.form = {
                         ...this.form,
                         endDate: new Date(end_date + ' 00:00:00'),
@@ -161,7 +161,7 @@ export default {
                 end_time: null,
             }
 
-            if (this.endDateEnabled) {
+            if (this.showEndDate) {
                 params.end_date = moment(endDate).format('YYYY-MM-DD')
                 params.end_time = endTime
             }

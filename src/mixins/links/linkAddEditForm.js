@@ -11,7 +11,7 @@ export const linkAddEditForm = {
         return {
             isEditMode: false,
             processing: false,
-            endDateEnabled: false,
+            showEndDate: false,
             form: {
                 url: null,
                 title: null,
@@ -102,7 +102,7 @@ export const linkAddEditForm = {
                     params.scheduled = 1
                     params.date = moment(date).format('YYYY-MM-DD')
                     params.time = time
-                    if (this.endDateEnabled) {
+                    if (this.showEndDate) {
                         params.end_date = moment(endDate).format('YYYY-MM-DD')
                         params.end_time = endTime
                     }

@@ -7,10 +7,6 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
     config => {
-        const authToken = app.$store.getters['auth/token']
-        if (authToken) {
-            config.headers.Token = authToken
-        }
         if (config.showProgress) {
             // For every request start the progress
             app.$Progress.start()

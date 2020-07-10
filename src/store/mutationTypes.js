@@ -10,7 +10,6 @@ export const commonTypes = {
 export const authTypes = {
     SIGNUP: 'SIGNUP',
     LOGIN: 'LOGIN',
-    LOGOUT: 'LOGOUT',
 }
 
 // Loading

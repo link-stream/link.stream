@@ -1,5 +1,6 @@
 import qs from 'qs'
 import axios from '~/plugins/axios'
+import app from '~/main'
 
 const METHOD_GET = 'GET'
 const METHOD_POST = 'POST'
@@ -15,6 +16,11 @@ const call = async function({
     const headers = {
         'X-API-KEY': process.env.VUE_APP_API_KEY,
         'Content-Type': 'application/x-www-form-urlencoded',
+    }
+
+    const authToken = app.$store.getters['auth/token']
+    if (authToken) {
+        headers.Token = authToken
     }
 
     const auth = {

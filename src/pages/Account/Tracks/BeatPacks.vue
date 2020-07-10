@@ -26,7 +26,7 @@
         </header>
         <main class="page-body">
             <LoadingSpinner class="page-loader" v-if="loading" />
-            <div class="page-empty" v-if="!loading && !sortablePacks.length">
+            <div class="page-empty" v-if="!loading && !packs.length">
                 <div class="empty-text">
                     Your Beat Packs will appear here.
                 </div>
@@ -45,7 +45,7 @@
                 drag-handle-selector=".card-drag-icon"
                 @drop="handleReorder"
             >
-                <Draggable v-for="pack in sortablePacks" :key="pack.id">
+                <Draggable v-for="pack in sortableList" :key="pack.id">
                     <BeatPackCard :pack="pack" />
                 </Draggable>
             </Container>
@@ -68,7 +68,7 @@ export default {
     data() {
         return {
             loading: false,
-            sortablePacks: [],
+            sortableList: [],
         }
     },
     computed: {
@@ -79,7 +79,7 @@ export default {
     },
     watch: {
         packs(newValue) {
-            this.sortablePacks = [...newValue]
+            this.sortableList = [...newValue]
         },
     },
     async created() {
@@ -90,10 +90,11 @@ export default {
     methods: {
         handleReorder(dropResult) {
             const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
-            const pack = this.sortablePacks[oldIndex]
-            this.sortablePacks.splice(oldIndex, 1)
-            this.sortablePacks.splice(newIndex, 0, pack)
-            const sorts = this.sortablePacks.map(({ id }, index) => {
+            const list = [...this.sortableList]
+            const item = list[oldIndex]
+            list.splice(oldIndex, 1)
+            list.splice(newIndex, 0, item)
+            const sorts = list.map(({ id }, index) => {
                 return {
                     id,
                     sort: (index + 1).toString(),

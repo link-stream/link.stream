@@ -26,7 +26,7 @@
         </header>
         <main class="page-body">
             <LoadingSpinner class="page-loader" v-if="loading" />
-            <div class="page-empty" v-if="!loading && !sortableKits.length">
+            <div class="page-empty" v-if="!loading && !sortableList.length">
                 <div class="empty-text">
                     Your Sound Kits will appear here.
                 </div>
@@ -37,7 +37,7 @@
                         name: 'accountSoundKitAdd',
                     }"
                 >
-                    Add a kit
+                    Add a Kit
                 </basic-button>
             </div>
             <Container
@@ -45,7 +45,7 @@
                 drag-handle-selector=".card-drag-icon"
                 @drop="handleReorder"
             >
-                <Draggable v-for="kit in sortableKits" :key="kit.id">
+                <Draggable v-for="kit in sortableList" :key="kit.id">
                     <SoundKitCard :kit="kit" />
                 </Draggable>
             </Container>
@@ -68,7 +68,7 @@ export default {
     data() {
         return {
             loading: false,
-            sortableKits: [],
+            sortableList: [],
         }
     },
     computed: {
@@ -79,7 +79,7 @@ export default {
     },
     watch: {
         kits(newValue) {
-            this.sortableKits = [...newValue]
+            this.sortableList = [...newValue]
         },
     },
     async created() {
@@ -90,10 +90,11 @@ export default {
     methods: {
         handleReorder(dropResult) {
             const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
-            const kit = this.sortableKits[oldIndex]
-            this.sortableKits.splice(oldIndex, 1)
-            this.sortableKits.splice(newIndex, 0, kit)
-            const sorts = this.sortableKits.map(({ id }, index) => {
+            const list = [...this.sortableList]
+            const item = list[oldIndex]
+            list.splice(oldIndex, 1)
+            list.splice(newIndex, 0, item)
+            const sorts = list.map(({ id }, index) => {
                 return {
                     id,
                     sort: (index + 1).toString(),

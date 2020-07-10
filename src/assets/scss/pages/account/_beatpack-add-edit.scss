@@ -78,14 +78,18 @@
         }
         .selected-beats {
             padding-top: 13px;
+            .smooth-dnd-draggable-wrapper {
+                &:last-child {
+                    .list-item {
+                        border-bottom: 0;
+                    }
+                }
+            }
             .list-item {
                 display: flex;
                 align-items: center;
                 padding: 7px 10px;
                 border-bottom: 1px solid $gray-320;
-                &:last-child {
-                    border-bottom: 0;
-                }
             }
             .item-number {
                 color: $black;

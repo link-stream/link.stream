@@ -83,7 +83,7 @@
                             <b-form-invalid-feedback
                                 :force-show="$v.form.licenseId.$error"
                             >
-                                Pick a license type
+                                Select a license
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group label="Price">
@@ -443,7 +443,7 @@ export default {
             }
 
             if (this.$v.form.licenseId.$invalid) {
-                this.$toast.error('Pick a license type.')
+                this.$toast.error('Select a license.')
                 return
             }
 

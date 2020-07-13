@@ -66,7 +66,7 @@
                             ></b-form-input>
                             <b-form-invalid-feedback>
                                 <template v-if="!$v.form.title.required">
-                                    Enter a title
+                                    Enter the title
                                 </template>
                                 <template v-else-if="!$v.form.title.isUnique">
                                     You already have a beat with this title,
@@ -696,7 +696,7 @@ export default {
             this.$v.form.$touch()
 
             if (!this.$v.form.title.required) {
-                this.$toast.error('Enter a title.')
+                this.$toast.error('Enter the title.')
                 return
             }
 

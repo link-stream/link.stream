@@ -13,7 +13,7 @@
                 />
             </Draggable>
         </Container>
-        <div class="no-selected-beats" v-else>
+        <div class="empty-message" v-else>
             <Icon icon="music-note" />
             <p>There are no Beats in this Pack</p>
         </div>

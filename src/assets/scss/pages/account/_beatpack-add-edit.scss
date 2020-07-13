@@ -63,19 +63,6 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
-        .no-selected-beats {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 30px 0 15px;
-            .ico {
-                margin-bottom: 10px;
-            }
-            p {
-                font-size: px2rem(13);
-                margin-bottom: 0;
-            }
-        }
         .BeatList {
             padding-top: 13px;
             .smooth-dnd-draggable-wrapper {
@@ -83,6 +70,19 @@
                     .BeatListItem {
                         border-bottom: 0;
                     }
+                }
+            }
+            .empty-message {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 0 15px;
+                .ico {
+                    margin-bottom: 10px;
+                }
+                p {
+                    font-size: px2rem(13);
+                    margin-bottom: 0;
                 }
             }
             .BeatListItem {

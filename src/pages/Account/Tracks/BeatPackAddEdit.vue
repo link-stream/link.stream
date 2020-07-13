@@ -298,7 +298,7 @@ export default {
             loading: false,
             saving: false,
             showCreatedMessage: false,
-            pack: null,
+            pack: {},
             tag: '',
             form: {
                 title: null,
@@ -325,7 +325,7 @@ export default {
             genreLabelById: 'common/genreLabelById',
         }),
         isEditMode() {
-            return !!this.pack
+            return !!this.pack.id
         },
     },
     validations: {
@@ -405,14 +405,7 @@ export default {
         this.loading = false
     },
     mounted() {
-        const routeParams = this.$route.params
-        if (routeParams.flashMessage) {
-            if (routeParams.created) {
-                this.showCreatedMessage = true
-            } else {
-                this.$toast.success(routeParams.flashMessage)
-            }
-        }
+        this.showCreatedMessage = !!this.$route.query.c
     },
     methods: {
         handleTagsChange(tags) {
@@ -497,23 +490,28 @@ export default {
 
             if (status === 'success') {
                 if (this.isEditMode) {
-                    this.$router.push({
-                        name: 'accountBeatPackEdit',
-                        params: {
-                            id: data.id,
-                            flashMessage: message,
+                    this.$router.replace(
+                        {
+                            name: 'accountBeatPackEdit',
+                            params: {
+                                id: data.id,
+                            },
+                            query: {
+                                u: Date.now(),
+                            },
                         },
-                        query: {
-                            u: Date.now(),
-                        },
-                    })
+                        () => {
+                            this.$toast.success(message)
+                        }
+                    )
                 } else {
                     this.$router.push({
                         name: 'accountBeatPackEdit',
                         params: {
                             id: data.id,
-                            created: true,
-                            flashMessage: message,
+                        },
+                        query: {
+                            c: 1,
                         },
                     })
                 }

@@ -78,8 +78,11 @@ export default {
         }),
     },
     watch: {
-        beats(newValue) {
-            this.sortableList = [...newValue]
+        beats: {
+            immediate: true,
+            handler(newValue) {
+                this.sortableList = [...newValue]
+            },
         },
     },
     async created() {

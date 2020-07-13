@@ -78,8 +78,11 @@ export default {
         }),
     },
     watch: {
-        kits(newValue) {
-            this.sortableList = [...newValue]
+        kits: {
+            immediate: true,
+            handler(newValue) {
+                this.sortableList = [...newValue]
+            },
         },
     },
     async created() {

@@ -320,7 +320,7 @@ export default {
             tag: '',
             files: [],
             filesCurrentPage: 1,
-            kit: null,
+            kit: {},
             form: {
                 title: null,
                 price: null,
@@ -343,7 +343,7 @@ export default {
             genres: 'common/genres',
         }),
         isEditMode() {
-            return !!this.kit
+            return !!this.kit.id
         },
         fileCount() {
             return this.files.length
@@ -450,14 +450,7 @@ export default {
         this.loading = false
     },
     mounted() {
-        const routeParams = this.$route.params
-        if (routeParams.flashMessage) {
-            if (routeParams.created) {
-                this.showCreatedMessage = true
-            } else {
-                this.$toast.success(routeParams.flashMessage)
-            }
-        }
+        this.showCreatedMessage = !!this.$route.query.c
     },
     methods: {
         handleTagsChange(tags) {
@@ -580,23 +573,28 @@ export default {
 
             if (status === 'success') {
                 if (this.isEditMode) {
-                    this.$router.push({
-                        name: 'accountSoundKitEdit',
-                        params: {
-                            id: data.id,
-                            flashMessage: message,
+                    this.$router.replace(
+                        {
+                            name: 'accountSoundKitEdit',
+                            params: {
+                                id: data.id,
+                            },
+                            query: {
+                                u: Date.now(),
+                            },
                         },
-                        query: {
-                            u: Date.now(),
-                        },
-                    })
+                        () => {
+                            this.$toast.success(message)
+                        }
+                    )
                 } else {
                     this.$router.push({
                         name: 'accountSoundKitEdit',
                         params: {
                             id: data.id,
-                            created: true,
-                            flashMessage: message,
+                        },
+                        query: {
+                            c: 1,
                         },
                     })
                 }

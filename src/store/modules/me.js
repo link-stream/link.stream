@@ -59,6 +59,10 @@ const mutations = {
         state.beats = beats
     },
 
+    [meTypes.ADD_BEAT](state, { beat }) {
+        state.beats.push(beat)
+    },
+
     [meTypes.UPDATE_BEAT](state, { beat }) {
         const { beats } = state
         const index = beats.findIndex(({ id }) => id == beat.id)
@@ -84,6 +88,10 @@ const mutations = {
 
     [meTypes.SET_SOUND_KITS](state, { soundKits }) {
         state.soundKits = soundKits
+    },
+
+    [meTypes.ADD_SOUND_KIT](state, { soundKit }) {
+        state.soundKits.push(soundKit)
     },
 
     [meTypes.UPDATE_SOUND_KIT](state, { soundKit }) {
@@ -113,6 +121,10 @@ const mutations = {
         state.beatPacks = beatPacks
     },
 
+    [meTypes.ADD_BEAT_PACK](state, { beatPack }) {
+        state.beatPacks.push(beatPack)
+    },
+
     [meTypes.UPDATE_BEAT_PACK](state, { beatPack }) {
         const { beatPacks } = state
         const index = beatPacks.findIndex(({ id }) => id == beatPack.id)
@@ -140,6 +152,10 @@ const mutations = {
         state.videos = videos
     },
 
+    [meTypes.ADD_VIDEO](state, { video }) {
+        state.videos.push(video)
+    },
+
     [meTypes.UPDATE_VIDEO](state, { video }) {
         const { videos } = state
         const index = videos.findIndex(({ id }) => id == video.id)
@@ -165,6 +181,10 @@ const mutations = {
 
     [meTypes.SET_LINKS](state, { links }) {
         state.links = links
+    },
+
+    [meTypes.ADD_LINK](state, { link }) {
+        state.links.push(link)
     },
 
     [meTypes.UPDATE_LINK](state, { link }) {
@@ -238,7 +258,10 @@ const actions = {
      * Beats
      */
 
-    async loadBeats({ commit, rootGetters }) {
+    async loadBeats({ state, commit, rootGetters }) {
+        if (state.beats.length) {
+            return
+        }
         const user = rootGetters['auth/user']
         const { status, data } = await api.audios.getBeatsByUser(user.id)
         commit({
@@ -247,8 +270,13 @@ const actions = {
         })
     },
 
-    async createBeat(context, { params }) {
-        return await api.audios.createAudio(params)
+    async createBeat({ commit }, { params }) {
+        const response = await api.audios.createAudio(params)
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.ADD_BEAT, { beat: data })
+        }
+        return response
     },
 
     async updateBeat({ commit }, { id, params }) {
@@ -277,7 +305,10 @@ const actions = {
      * Sound Kits
      */
 
-    async loadSoundKits({ commit, rootGetters }) {
+    async loadSoundKits({ state, commit, rootGetters }) {
+        if (state.soundKits.length) {
+            return
+        }
         const user = rootGetters['auth/user']
         const { status, data } = await api.audios.getSoundKitsByUser(user.id)
         commit({
@@ -286,8 +317,13 @@ const actions = {
         })
     },
 
-    async createSoundKit(context, { params }) {
-        return await api.audios.createAudio(params)
+    async createSoundKit({ commit }, { params }) {
+        const response = await api.audios.createAudio(params)
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.ADD_SOUND_KIT, { soundKit: data })
+        }
+        return response
     },
 
     async updateSoundKit({ commit }, { id, params }) {
@@ -317,7 +353,10 @@ const actions = {
      * Beat Packs
      */
 
-    async loadBeatPacks({ commit, rootGetters }) {
+    async loadBeatPacks({ state, commit, rootGetters }) {
+        if (state.beatPacks.length) {
+            return
+        }
         const user = rootGetters['auth/user']
         const { status, data } = await api.albums.getAlbumsByUser(user.id)
         commit({
@@ -326,8 +365,13 @@ const actions = {
         })
     },
 
-    async createBeatPack(context, { params }) {
-        return await api.albums.createAlbum(params)
+    async createBeatPack({ commit }, { params }) {
+        const response = await api.albums.createAlbum(params)
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.ADD_BEAT_PACK, { beatPack: data })
+        }
+        return response
     },
 
     async updateBeatPack({ commit }, { id, params }) {
@@ -358,6 +402,9 @@ const actions = {
      */
 
     async loadVideos({ state, commit }, { params }) {
+        if (state.videos.length) {
+            return
+        }
         const { status, data } = await api.videos.getVideosByUser(
             state.user.id,
             params
@@ -368,8 +415,13 @@ const actions = {
         })
     },
 
-    async createVideo(context, { params }) {
-        return await api.videos.createVideo(params)
+    async createVideo({ commit }, { params }) {
+        const response = await api.videos.createVideo(params)
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.ADD_VIDEO, { video: data })
+        }
+        return response
     },
 
     async updateVideo({ commit }, { id, params }) {
@@ -399,12 +451,20 @@ const actions = {
      */
 
     async loadLinks({ state, commit }) {
+        if (state.links.length) {
+            return
+        }
         const { status, data } = await api.links.getLinksByUser(state.user.id)
         status === 'success' && commit(meTypes.SET_LINKS, { links: data })
     },
 
-    async createLink(context, { params }) {
-        return await api.links.createLink(params)
+    async createLink({ commit }, { params }) {
+        const response = await api.links.createLink(params)
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.ADD_LINK, { link: data })
+        }
+        return response
     },
 
     async updateLink({ commit }, { id, params }) {
@@ -432,12 +492,12 @@ const actions = {
 
 const getters = {
     licenses: ({ licenses }) => licenses,
-    licenseById: ({ licenses }) => {
+    findLicenseById: ({ licenses }) => {
         return id => {
             return licenses.find(license => license.id == id)
         }
     },
-    beatById: ({ beats }) => {
+    findBeatById: ({ beats }) => {
         return id => {
             return beats.find(beat => beat.id == id)
         }
@@ -491,7 +551,7 @@ const getters = {
             }
         })
     },
-    beatPacks: ({beatPacks}) => {
+    beatPacks: ({ beatPacks }) => {
         return beatPacks.map(pack => {
             return {
                 ...pack,

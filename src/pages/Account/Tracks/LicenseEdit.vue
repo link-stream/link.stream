@@ -208,11 +208,11 @@ export default {
         this.loading = true
 
         const licenseId = this.$route.params.id
-        let license = this.$store.getters['me/licenseById'](licenseId)
+        let license = this.$store.getters['me/findLicenseById'](licenseId)
 
         if (!license) {
             await this.$store.dispatch('me/loadLicenses')
-            license = this.$store.getters['me/licenseById'](licenseId)
+            license = this.$store.getters['me/findLicenseById'](licenseId)
             if (!license) {
                 this.$router.push({ name: 'accountTracksLicenses' })
                 this.$toast.error('License not found.')

@@ -136,7 +136,7 @@ export default {
     data() {
         return {
             open: false,
-            video: null,
+            video: {},
         }
     },
     created() {

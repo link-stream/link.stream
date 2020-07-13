@@ -87,8 +87,11 @@ export default {
         }),
     },
     watch: {
-        links(newValue) {
-            this.sortableList = [...newValue]
+        links: {
+            immediate: true,
+            handler(newValue) {
+                this.sortableList = [...newValue]
+            },
         },
     },
     async created() {

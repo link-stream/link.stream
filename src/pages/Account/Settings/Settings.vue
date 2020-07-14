@@ -32,8 +32,6 @@ export default {
     computed: {
         currentTabComponent() {
             switch (this.$route.name) {
-                case 'accountSettingsInfo':
-                    return 'AccountInfoTab'
                 case 'accountSettingsPurchases':
                     return 'AccountPurchasesTab'
                 case 'accountSettingsPayments':
@@ -42,6 +40,8 @@ export default {
                     return 'AccountPayoutsTab'
                 case 'accountSettingsNotifs':
                     return 'AccountNotificationsTab'
+                default:
+                    return 'AccountInfoTab'
             }
         },
     },

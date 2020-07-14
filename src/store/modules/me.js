@@ -17,6 +17,7 @@ const initialState = () => ({
     beats: [],
     soundKits: [],
     beatPacks: [],
+    relatedTracks: [],
 })
 
 const state = initialState()
@@ -29,13 +30,17 @@ const mutations = {
         }
     },
 
-    // User
+    /**
+     * User
+     */
 
     [meTypes.SET_USER](state, { user }) {
         state.user = user
     },
 
-    // Licenses
+    /**
+     * Licenses
+     */
 
     [meTypes.SET_LICENSES](state, { licenses }) {
         state.licenses = licenses
@@ -47,7 +52,9 @@ const mutations = {
         index > -1 && licenses.splice(index, 1, license)
     },
 
-    // Beats
+    /**
+     * Beats
+     */
 
     [meTypes.SET_BEATS](state, { beats }) {
         state.beats = beats
@@ -76,7 +83,9 @@ const mutations = {
         beats.splice(newIndex, 0, beat)
     },
 
-    // Sound Kits
+    /**
+     * Sound Kits
+     */
 
     [meTypes.SET_SOUND_KITS](state, { soundKits }) {
         state.soundKits = soundKits
@@ -105,7 +114,9 @@ const mutations = {
         soundKits.splice(newIndex, 0, soundKit)
     },
 
-    // Beat Packs
+    /**
+     * Beat Packs
+     */
 
     [meTypes.SET_BEAT_PACKS](state, { beatPacks }) {
         state.beatPacks = beatPacks
@@ -134,7 +145,9 @@ const mutations = {
         beatPacks.splice(newIndex, 0, beatPack)
     },
 
-    // Videos
+    /**
+     * Videos
+     */
 
     [meTypes.SET_VIDEOS](state, { videos }) {
         state.videos = videos
@@ -162,8 +175,12 @@ const mutations = {
         videos.splice(oldIndex, 1)
         videos.splice(newIndex, 0, video)
     },
-
-    // Links
+    [meTypes.SET_RELATED_TRACKS](state, { relatedTracks }) {
+        state.relatedTracks = relatedTracks
+    },
+    /**
+     * Links
+     */
 
     [meTypes.SET_LINKS](state, { links }) {
         state.links = links
@@ -198,7 +215,9 @@ const actions = {
         commit(commonTypes.RESET)
     },
 
-    // User
+    /**
+     * User
+     */
 
     loadAccount({ dispatch }) {
         dispatch('loadProfile')
@@ -214,7 +233,9 @@ const actions = {
         status === 'success' && commit(meTypes.SET_USER, { user: data })
     },
 
-    // Licenses
+    /**
+     * Licenses
+     */
 
     async loadLicenses({ state, commit, rootGetters }) {
         if (state.licenses.length) {
@@ -236,7 +257,9 @@ const actions = {
         return response
     },
 
-    // Beats
+    /**
+     * Beats
+     */
 
     async loadBeats({ state, commit, rootGetters }) {
         if (state.beats.length) {
@@ -281,7 +304,9 @@ const actions = {
         })
     },
 
-    // Sound Kits
+    /**
+     * Sound Kits
+     */
 
     async loadSoundKits({ state, commit, rootGetters }) {
         if (state.soundKits.length) {
@@ -327,7 +352,9 @@ const actions = {
         })
     },
 
-    // Beat Packs
+    /**
+     * Beat Packs
+     */
 
     async loadBeatPacks({ state, commit, rootGetters }) {
         if (state.beatPacks.length) {
@@ -373,7 +400,18 @@ const actions = {
         })
     },
 
-    // Videos
+    async loadRelatedTracks({ commit, rootGetters }) {
+        const user = rootGetters['auth/user']
+        const { status, data } = await api.audios.getRelatedTracks(user.id)
+        commit({
+            type: meTypes.SET_RELATED_TRACKS,
+            relatedTracks: status === 'success' ? data : [],
+        })
+    },
+
+    /**
+     * Videos
+     */
 
     async loadVideos({ state, commit }, { params }) {
         if (state.videos.length) {
@@ -420,7 +458,9 @@ const actions = {
         })
     },
 
-    // Links
+    /**
+     * Links
+     */
 
     async loadLinks({ state, commit }) {
         if (state.links.length) {
@@ -533,6 +573,8 @@ const getters = {
             }
         })
     },
+
+    relatedTracks: ({ relatedTracks }) => relatedTracks,
 }
 
 export default {

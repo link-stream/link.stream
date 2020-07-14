@@ -6,6 +6,7 @@ import moment from 'moment'
 export const videoAddEditForm = {
     created() {
         this.$store.dispatch('common/loadGenres')
+        this.$store.dispatch('me/loadRelatedTracks')
     },
     data() {
         return {
@@ -26,6 +27,7 @@ export const videoAddEditForm = {
         ...mapGetters({
             user: ['me/user'],
             genres: ['common/genres'],
+            relatedTracks: ['me/relatedTracks'],
         }),
         ytVidId() {
             return this.$youtube.getIdFromUrl(this.form.url)

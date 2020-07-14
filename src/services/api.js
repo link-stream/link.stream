@@ -213,6 +213,11 @@ export const api = {
             const method = METHOD_GET
             return await call({ endpoint, method })
         },
+        async getRelatedTracks(userId) {
+            const endpoint = `/audios/related_track/${userId}`
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
     },
     albums: {
         async createAlbum(params) {

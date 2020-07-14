@@ -62,10 +62,10 @@
 
             <b-form-group label="Related Track" label-for="trackInput">
                 <BasicSelect
-                    v-model="form.related_track"
+                    v-model="form.relatedTrack"
                     id="trackInput"
                     placeholder="Select Related Track"
-                    :options="[]"
+                    :options="relatedTracks"
                     :reduce="track => track.id"
                     label="title"
                 />

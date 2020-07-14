@@ -90,7 +90,7 @@
                                 v-model="form.relatedTrack"
                                 id="trackInput"
                                 placeholder="Select Related Track"
-                                :options="[]"
+                                :options="relatedTracks"
                                 :reduce="track => track.id"
                                 label="title"
                             />

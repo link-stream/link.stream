@@ -1,0 +1,22 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+h1 {
+    font-size: px2rem(30);
+    font-weight: 800;
+    line-height: 34px;
+    color: $black;
+}
+
+h2 {
+    font-size: px2rem(18);
+    font-weight: 800;
+    line-height: 24px;
+    letter-spacing: 0;
+}

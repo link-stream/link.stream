@@ -100,7 +100,7 @@ export const menus = [
         to: '/app/account',
         subs: [
             {
-                label: 'Info',
+                label: 'Account Info',
                 to: '/app/account/info',
             },
             {

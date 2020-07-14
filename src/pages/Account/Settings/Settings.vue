@@ -2,7 +2,9 @@
     <div class="page page-account-settings">
         <h1 class="page-title">Account</h1>
         <TabNav />
-        <component v-bind:is="currentTabComponent"></component>
+        <div class="page-body">
+            <component v-bind:is="currentTabComponent"></component>
+        </div>
     </div>
 </template>
 

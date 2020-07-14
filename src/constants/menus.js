@@ -101,11 +101,7 @@ export const menus = [
         subs: [
             {
                 label: 'Settings',
-                to: '/app/account/settings',
-            },
-            {
-                label: 'Billing',
-                to: '/app/account/billing',
+                to: '/app/account/account-info',
             },
         ],
     },

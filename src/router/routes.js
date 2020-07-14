@@ -24,12 +24,16 @@ import {
     AccountSoundKitAddEdit,
     AccountBeatPacks,
     AccountBeatPackAddEdit,
+    AccountSettingsPurchases,
+    AccountSettingsInfo,
+    AccountSettingsPayments,
+    AccountSettingsPayouts,
+    AccountSettingsNotifications,
 } from '~/pages/Account'
 
 const routes = [
-    /**
-     * Misc pages
-     */
+    // Misc
+
     {
         path: '/',
         name: 'home',
@@ -43,9 +47,8 @@ const routes = [
         meta: { layout: 'landing' },
     },
 
-    /**
-     * Auth
-     */
+    // Auth
+
     {
         path: '/login',
         name: 'login',
@@ -88,9 +91,8 @@ const routes = [
         meta: { requiresGuest: true, layout: 'auth' },
     },
 
-    /**
-     * Account
-     */
+    // Account
+
     {
         path: '/app',
         name: 'accountDashboard',
@@ -194,10 +196,39 @@ const routes = [
         component: AccountBeatPackAddEdit,
         meta: { requiresAuth: true, layout: 'account' },
     },
+    {
+        path: '/app/account/purchases',
+        name: 'accountSettingsPurchases',
+        component: AccountSettingsPurchases,
+        meta: { requiresAuth: true, layout: 'accountSettings' },
+    },
+    {
+        path: '/app/account/info',
+        name: 'accountSettingsInfo',
+        component: AccountSettingsInfo,
+        meta: { requiresAuth: true, layout: 'accountSettings' },
+    },
+    {
+        path: '/app/account/payments',
+        name: 'accountSettingsPayments',
+        component: AccountSettingsPayments,
+        meta: { requiresAuth: true, layout: 'accountSettings' },
+    },
+    {
+        path: '/app/account/payouts',
+        name: 'accountSettingsPayouts',
+        component: AccountSettingsPayouts,
+        meta: { requiresAuth: true, layout: 'accountSettings' },
+    },
+    {
+        path: '/app/account/notifications',
+        name: 'accountSettingsNotifs',
+        component: AccountSettingsNotifications,
+        meta: { requiresAuth: true, layout: 'accountSettings' },
+    },
 
-    /**
-     * 404 catcher
-     */
+    // 404 catch all
+
     {
         path: '/404',
         alias: '*',

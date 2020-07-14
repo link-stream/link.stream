@@ -5,13 +5,9 @@ import { required } from 'vuelidate/lib/validators'
 
 const initialState = () => ({
     licenses: [],
-    /**
-     * Free download options.
-     */
+    // Free download options
     freeDls: [...appConstants.marketingOptions],
-    /**
-     * Form values.
-     */
+    // Form values
     form: {
         selectedLicenseIds: [],
         selectedFreeDlIds: [],
@@ -28,31 +24,27 @@ const initialState = () => ({
         scheduled: false,
         isPublic: false,
         files: {
-            /**
-             * e.g.
-             * tagged: {
-             *   name: null,
-             *   base64: null
-             * }
-             */
+            // e.g.
+            // tagged: {
+            //     name: null,
+            //     base64: null,
+            // },
             stems: null,
             tagged: null,
             untaggedMp3: null,
             untaggedWav: null,
         },
         collabs: [
-            /**
-             * e.g.
-             * {
-             *   profit: null,
-             *   publishing: null,
-             *   user: {
-             *     id: null,
-             *     name: null,
-             *     photo: null,
-             *   }
-             * }
-             */
+            // e.g.
+            // {
+            //     profit: null,
+            //     publishing: null,
+            //     user: {
+            //         id: null,
+            //         name: null,
+            //         photo: null,
+            //     },
+            // },
         ],
     },
 })

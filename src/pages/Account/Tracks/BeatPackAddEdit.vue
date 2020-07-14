@@ -279,7 +279,7 @@
 </template>
 
 <script>
-import { BeatList } from '~/components/Account/Tracks/BeatPacks'
+import BeatList from '~/components/Account/Tracks/BeatPacks/BeatList'
 import { DropImage } from '~/components/Uploader'
 import { api } from '~/services'
 import { appConstants } from '~/constants'

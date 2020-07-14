@@ -62,8 +62,8 @@
 </template>
 
 <script>
-import { VideoEditModal } from '~/components/Modal'
-import { VideoCard } from '~/components/Account/Videos'
+import VideoEditModal from '~/components/Modal/VideoEditModal'
+import VideoCard from '~/components/Account/Videos/VideoCard'
 import { appConstants } from '~/constants'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import { mapGetters } from 'vuex'

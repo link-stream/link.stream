@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { SoundKitCard } from '~/components/Account/Tracks/SoundKits'
+import SoundKitCard from '~/components/Account/Tracks/SoundKits/SoundKitCard'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import { mapGetters } from 'vuex'
 

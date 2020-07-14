@@ -61,8 +61,8 @@
 </template>
 
 <script>
-import { LinkCard } from '~/components/Account/Links'
-import { LinkScheduleModal } from '~/components/Modal'
+import LinkCard from '~/components/Account/Links/LinkCard'
+import LinkScheduleModal from '~/components/Modal/LinkScheduleModal'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import { mapGetters } from 'vuex'
 

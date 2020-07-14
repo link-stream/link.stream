@@ -59,7 +59,7 @@ import {
     TaggerInput,
     SearchInput,
 } from '~/components/Form'
-import { Icon } from '~/components/Icon'
+import Icon from '~/components/Icon/Icon'
 import UserAvatar from '~/components/Avatar/UserAvatar'
 import { BaseCard } from '~/components/Card'
 

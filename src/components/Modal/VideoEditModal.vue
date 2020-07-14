@@ -65,7 +65,7 @@
                     v-model="form.related_track"
                     id="trackInput"
                     placeholder="Select Related Track"
-                    :options="[]"
+                    :options="relatedTrack"
                     :reduce="track => track.id"
                     label="title"
                 />

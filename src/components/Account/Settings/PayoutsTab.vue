@@ -1,9 +1,9 @@
 <template>
-    <div>Info</div>
+    <div>PayoutsTab</div>
 </template>
 
 <script>
 export default {
-    name: 'Info',
+    name: 'PayoutsTab',
 }
 </script>

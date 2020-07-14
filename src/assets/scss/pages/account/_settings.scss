@@ -1,0 +1,20 @@
+.page-account-settings {
+    .tabnav {
+        margin-bottom: 30px;
+        li {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: px2rem(12);
+            font-weight: bold;
+            letter-spacing: 0;
+            &.active {
+                border-bottom: 3px solid $linkstream-1;
+            }
+            a {
+                color: $gray-810;
+                text-decoration: none;
+                line-height: 40px;
+            }
+        }
+    }
+}

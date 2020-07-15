@@ -1,13 +1,13 @@
-$linkstream-1: #dc2ea6;
-$linkstream-20: #fdd311;
-$linkstream-30: #e02020;
-$linkstream-40: #48d2a0;
-$linkstream-50: #b620e0;
-$linkstream-60: #3c763d;
-$linkstream-70: #d529ae;
-$linkstream-80: #fdd311;
-$linkstream-90: #d0e9c6;
-$linkstream-100: #dff0d8;
+$color-pink-1: #dc2ea6;
+$color-pink-2: #d529ae;
+$color-purple-1: #b620e0;
+$color-red-1: #e02020;
+$color-yellow-1: #fdd311;
+$color-yellow-2: #fdd311;
+$color-green-1: #3c763d;
+$color-green-2: #48d2a0;
+$color-green-3: #d0e9c6;
+$color-green-4: #dff0d8;
 $color-facebook: #3578e5;
 $color-twitter: #6fbff2;
 
@@ -50,12 +50,12 @@ $green: #28a745;
 $teal: #20c997;
 $cyan: #17a2b8;
 
-$primary: $linkstream-1;
+$primary: $color-pink-1;
 $secondary: $gray-110;
 $success: $green;
 $info: $cyan;
 $warning: $yellow;
-$danger: $linkstream-30;
+$danger: $color-red-1;
 $light: $gray-200;
 $dark: $gray-800;
 
@@ -71,8 +71,8 @@ $theme-colors: map-merge(
         'light': $light,
         'dark': $dark,
         'black': $black,
-        'purple': $linkstream-50,
-        'banana': $linkstream-80,
+        'purple': $color-purple-1,
+        'banana': $color-yellow-2,
     ),
     $theme-colors
 );
@@ -81,13 +81,13 @@ $theme-colors: map-merge(
 $spacer: 1rem;
 
 // Link
-$link-color: $linkstream-1;
-$link-hover-color: $linkstream-1;
+$link-color: $primary;
+$link-hover-color: $primary;
 
 // Navbar
 $navbar-light-color: $gray-540;
-$navbar-light-hover-color: $linkstream-1;
-$navbar-light-active-color: $linkstream-1;
+$navbar-light-hover-color: $primary;
+$navbar-light-active-color: $primary;
 $navbar-nav-link-padding-x: 0.65rem;
 $navbar-padding-y: 0;
 $nav-link-padding-x: 1rem;
@@ -103,7 +103,7 @@ $container-max-widths: (
 // Dropdown
 $dropdown-item-padding-x: 0.75rem;
 $dropdown-item-padding-y: 0.75rem;
-$dropdown-link-hover-color: $linkstream-1;
+$dropdown-link-hover-color: $primary;
 
 // Fonts
 $font-family-sans-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;

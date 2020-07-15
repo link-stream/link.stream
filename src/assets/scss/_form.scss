@@ -13,7 +13,7 @@
     }
     .invalid-feedback {
         font-size: px2rem(12);
-        color: $linkstream-30;
+        color: $danger;
         font-weight: 600;
         margin-top: 5px;
     }
@@ -130,7 +130,7 @@
 
     .vs__dropdown-option--highlight {
         color: $white !important;
-        background: rgba($linkstream-1, 0.9) !important;
+        background: rgba($primary, 0.9) !important;
     }
 
     .vs__no-options {
@@ -161,7 +161,7 @@
     .vc-day-content:hover,
     .vc-day-content:focus {
         color: $white;
-        background: rgba($linkstream-1, 0.9) !important;
+        background: rgba($primary, 0.9) !important;
     }
 
     input {

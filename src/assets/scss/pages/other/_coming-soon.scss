@@ -4,7 +4,7 @@
     background: linear-gradient(
         180deg,
         rgba(0, 0, 0, 1) 70%,
-        $linkstream-70 100%
+        $color-pink-2 100%
     );
 
     .logo:before {
@@ -110,7 +110,7 @@
         background: linear-gradient(
             180deg,
             rgba(0, 0, 0, 1) 60%,
-            $linkstream-70 100%
+            $color-pink-2 100%
         );
         .logo:before {
             background-image: url(~@/assets/img/logo/logo-h-lg.png);

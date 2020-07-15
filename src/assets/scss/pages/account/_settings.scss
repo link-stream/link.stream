@@ -17,4 +17,37 @@
             }
         }
     }
+
+    .InfoTab {
+        .social-accounts {
+            .list-item {
+                display: flex;
+                padding: 18px 11px;
+                align-items: center;
+                i {
+                    font-size: px2rem(24);
+                    margin-right: 14px;
+                }
+                .username {
+                    flex-grow: 1;
+                    color: $black;
+                    font-size: px2rem(13);
+                    font-weight: 500;
+                }
+                .connect-btn {
+                    text-decoration: none;
+                }
+            }
+            .list-item-fb {
+                i {
+                    color: $color-facebook;
+                }
+            }
+            .list-item-twitter {
+                i {
+                    color: $color-twitter;
+                }
+            }
+        }
+    }
 }

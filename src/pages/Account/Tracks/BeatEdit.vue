@@ -182,7 +182,10 @@
 
                     <!-- Beat Pack Card -->
                     <base-card title="Add to Beat Pack">
-                        <SearchInput placeholder="Search for beat packs" />
+                        <beat-packs-multi-select
+                            placeholder="Search for beat packs"
+                            v-model="form.trackPack"
+                        />
                     </base-card>
 
                     <!-- Marketing Card -->
@@ -384,6 +387,7 @@
 import { LicenseCard } from '~/components/Account/Tracks/AddTrackWizard'
 import { DropAudio, DropFile, DropImage } from '~/components/Uploader'
 import { UserInviteModal, UserSearchModal } from '~/components/Modal'
+import BeatPacksMultiSelect from '~/components/Account/Tracks/Beats/BeatPacksMultiSelect'
 import { collabsProfitFormMixin } from '~/mixins/tracks/collabsProfitForm'
 import { api } from '~/services'
 import { appConstants } from '~/constants'
@@ -405,6 +409,7 @@ export default {
         LicenseCard,
         UserInviteModal,
         UserSearchModal,
+        BeatPacksMultiSelect,
     },
     data() {
         return {
@@ -421,6 +426,7 @@ export default {
             user: 'me/user',
             genres: 'common/genres',
             audioKeys: 'common/audioKeys',
+            packs: 'me/relatedBeatPacks',
         }),
         isLoading() {
             return this.status === STATUS_LOADING
@@ -516,7 +522,6 @@ export default {
             this.$toast.error('Licenses not found.')
             return
         }
-
         const form = {
             title: beat.title,
             genreId: beat.genre_id || null,
@@ -583,8 +588,15 @@ export default {
                       }
                     : {},
             },
+            trackPack: []
         }
 
+        if (Array.isArray(beat.beat_packs)) {
+            beat.beat_packs.forEach(({ id_album }) => {
+                const pack = this.packs.find(({ id }) => id == id_album)
+                pack && form.trackPack.push(pack)
+            })
+        }
         this.form = form
         this.beat = beat
         this.licenses = licenses
@@ -764,6 +776,7 @@ export default {
                         connect_id: '',
                     }
                 }),
+                beat_packs: JSON.stringify(form.trackPack.map(pack => pack.id))
             }
 
             // Schedule
@@ -815,7 +828,7 @@ export default {
             params.licenses = JSON.stringify(params.licenses)
             params.collaborators = JSON.stringify(params.collaborators)
             params.marketing = JSON.stringify(params.marketing)
-
+            
             const { status, message, error } = await this.$store.dispatch(
                 'me/updateBeat',
                 {

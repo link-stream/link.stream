@@ -253,6 +253,11 @@ export const api = {
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
+        async getRelatedAlbums(userId, trackType) {
+            const endpoint = `/albums/related_album/${userId}/${trackType}`
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
     },
     videos: {
         async createVideo(params) {

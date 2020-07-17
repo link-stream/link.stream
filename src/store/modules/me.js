@@ -8,7 +8,7 @@ import { appConstants } from '~/constants'
 
 const initialState = () => ({
     /**
-     * @type {object}
+     * @type {null|object}
      */
     user: null,
     licenses: [],
@@ -42,8 +42,7 @@ const mutations = {
         state.licenses = licenses
     },
 
-    [meTypes.UPDATE_LICENSE](state, { license }) {
-        const { licenses } = state
+    [meTypes.UPDATE_LICENSE]({ licenses }, { license }) {
         const index = licenses.findIndex(({ id }) => id == license.id)
         index > -1 && licenses.splice(index, 1, license)
     },
@@ -58,20 +57,17 @@ const mutations = {
         state.beats.push(beat)
     },
 
-    [meTypes.UPDATE_BEAT](state, { beat }) {
-        const { beats } = state
+    [meTypes.UPDATE_BEAT]({ beats }, { beat }) {
         const index = beats.findIndex(({ id }) => id == beat.id)
         index > -1 && beats.splice(index, 1, beat)
     },
 
-    [meTypes.DELETE_BEAT](state, { beat }) {
-        const { beats } = state
+    [meTypes.DELETE_BEAT]({ beats }, { beat }) {
         const index = beats.findIndex(({ id }) => id == beat.id)
         beats.splice(index, 1)
     },
 
-    [meTypes.REORDER_BEAT](state, { oldIndex, newIndex }) {
-        const { beats } = state
+    [meTypes.REORDER_BEAT]({ beats }, { oldIndex, newIndex }) {
         const beat = beats[oldIndex]
         beats.splice(oldIndex, 1)
         beats.splice(newIndex, 0, beat)
@@ -87,20 +83,17 @@ const mutations = {
         state.soundKits.push(soundKit)
     },
 
-    [meTypes.UPDATE_SOUND_KIT](state, { soundKit }) {
-        const { soundKits } = state
+    [meTypes.UPDATE_SOUND_KIT]({ soundKits }, { soundKit }) {
         const index = soundKits.findIndex(({ id }) => id == soundKit.id)
         index > -1 && soundKits.splice(index, 1, soundKit)
     },
 
-    [meTypes.DELETE_SOUND_KIT](state, { soundKit }) {
-        const { soundKits } = state
+    [meTypes.DELETE_SOUND_KIT]({ soundKits }, { soundKit }) {
         const index = soundKits.findIndex(({ id }) => id == soundKit.id)
         soundKits.splice(index, 1)
     },
 
-    [meTypes.REORDER_SOUND_KIT](state, { oldIndex, newIndex }) {
-        const { soundKits } = state
+    [meTypes.REORDER_SOUND_KIT]({ soundKits }, { oldIndex, newIndex }) {
         const soundKit = soundKits[oldIndex]
         soundKits.splice(oldIndex, 1)
         soundKits.splice(newIndex, 0, soundKit)
@@ -116,20 +109,17 @@ const mutations = {
         state.beatPacks.push(beatPack)
     },
 
-    [meTypes.UPDATE_BEAT_PACK](state, { beatPack }) {
-        const { beatPacks } = state
+    [meTypes.UPDATE_BEAT_PACK]({ beatPacks }, { beatPack }) {
         const index = beatPacks.findIndex(({ id }) => id == beatPack.id)
         index > -1 && beatPacks.splice(index, 1, beatPack)
     },
 
-    [meTypes.DELETE_BEAT_PACK](state, { beatPack }) {
-        const { beatPacks } = state
+    [meTypes.DELETE_BEAT_PACK]({ beatPacks }, { beatPack }) {
         const index = beatPacks.findIndex(({ id }) => id == beatPack.id)
         beatPacks.splice(index, 1)
     },
 
-    [meTypes.REORDER_BEAT_PACK](state, { oldIndex, newIndex }) {
-        const { beatPacks } = state
+    [meTypes.REORDER_BEAT_PACK]({ beatPacks }, { oldIndex, newIndex }) {
         const beatPack = beatPacks[oldIndex]
         beatPacks.splice(oldIndex, 1)
         beatPacks.splice(newIndex, 0, beatPack)
@@ -145,24 +135,22 @@ const mutations = {
         state.videos.push(video)
     },
 
-    [meTypes.UPDATE_VIDEO](state, { video }) {
-        const { videos } = state
+    [meTypes.UPDATE_VIDEO]({ videos }, { video }) {
         const index = videos.findIndex(({ id }) => id == video.id)
         index > -1 && videos.splice(index, 1, video)
     },
 
-    [meTypes.DELETE_VIDEO](state, { video }) {
-        const { videos } = state
+    [meTypes.DELETE_VIDEO]({ videos }, { video }) {
         const index = videos.findIndex(({ id }) => id == video.id)
         videos.splice(index, 1)
     },
 
-    [meTypes.REORDER_VIDEO](state, { oldIndex, newIndex }) {
-        const { videos } = state
+    [meTypes.REORDER_VIDEO]({ videos }, { oldIndex, newIndex }) {
         const video = videos[oldIndex]
         videos.splice(oldIndex, 1)
         videos.splice(newIndex, 0, video)
     },
+
     [meTypes.SET_RELATED_TRACKS](state, { relatedTracks }) {
         state.relatedTracks = relatedTracks
     },
@@ -177,20 +165,17 @@ const mutations = {
         state.links.push(link)
     },
 
-    [meTypes.UPDATE_LINK](state, { link }) {
-        const { links } = state
+    [meTypes.UPDATE_LINK]({ links }, { link }) {
         const index = links.findIndex(({ id }) => id == link.id)
         index > -1 && links.splice(index, 1, link)
     },
 
-    [meTypes.DELETE_LINK](state, { link }) {
-        const { links } = state
+    [meTypes.DELETE_LINK]({ links }, { link }) {
         const index = links.findIndex(({ id }) => id == link.id)
         links.splice(index, 1)
     },
 
-    [meTypes.REORDER_LINK](state, { oldIndex, newIndex }) {
-        const { links } = state
+    [meTypes.REORDER_LINK]({ links }, { oldIndex, newIndex }) {
         const link = links[oldIndex]
         links.splice(oldIndex, 1)
         links.splice(newIndex, 0, link)

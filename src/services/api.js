@@ -120,6 +120,7 @@ export const api = {
             return await call({ endpoint, params, method })
         },
         async getAvailability({ type, value, userId = '' }) {
+            value = encodeURIComponent(value)
             const endpoint = `/users/availability/${type}/${value}/${userId}`
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
@@ -135,8 +136,9 @@ export const api = {
             const method = METHOD_GET
             return await call({ endpoint, method })
         },
-        async inviteCollab({ user_id, email }) {
-            const endpoint = `/users/invite_collaborator/${user_id}/${email}`
+        async inviteCollab({ userId, email }) {
+            email = encodeURIComponent(email)
+            const endpoint = `/users/invite_collaborator/${userId}/${email}`
             const method = METHOD_POST
             return await call({ endpoint, method })
         },
@@ -214,7 +216,7 @@ export const api = {
             return await call({ endpoint, method })
         },
         async getRelatedTracks(userId) {
-            const endpoint = `/audios/related_track/${userId}`
+            const endpoint = '/audios/related_track/' + userId
             const method = METHOD_GET
             return await call({ endpoint, method })
         },
@@ -226,12 +228,12 @@ export const api = {
             return await call({ endpoint, method, params })
         },
         async updateAlbum(id, params) {
-            const endpoint = `/albums/${id}`
+            const endpoint = '/albums/' + id
             const method = METHOD_PUT
             return await call({ endpoint, method, params })
         },
         async getAlbumsByUser(userId) {
-            const endpoint = `/albums/${userId}`
+            const endpoint = '/albums/' + userId
             const method = METHOD_GET
             return await call({ endpoint, method })
         },

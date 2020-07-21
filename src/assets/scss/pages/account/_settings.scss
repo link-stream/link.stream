@@ -50,4 +50,32 @@
             }
         }
     }
+    .PurchasesTab {
+        .purchase-item {
+            display: flex;
+            align-items: center;
+            padding: 7px 0px;
+            border-bottom: 1px solid $gray-320;
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+        img {
+            width: 68px;
+            height: 68px;
+        }
+        .item-title {
+            font-size: px2rem(14);
+            font-weight: bold;
+        }
+        .item-subtitle {
+            color: $gray-520;
+        }
+        .item-body {
+            flex-grow: 1;
+        }
+        .item-cover {
+            margin-right: 12px;
+        }
+    }
 }

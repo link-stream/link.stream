@@ -366,4 +366,14 @@ export const api = {
             })
         },
     },
+    account: {
+        async getPurchases(userId) {
+            const endpoint = '/users/purchases/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        }
+    }
 }

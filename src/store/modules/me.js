@@ -18,6 +18,7 @@ const initialState = () => ({
     soundKits: [],
     beatPacks: [],
     relatedTracks: [],
+    purchases: [],
 })
 
 const state = initialState()
@@ -180,6 +181,12 @@ const mutations = {
         links.splice(oldIndex, 1)
         links.splice(newIndex, 0, link)
     },
+
+    //Account
+
+    [meTypes.SET_PURCHASES](state, { purchases }) {
+        state.purchases = purchases
+    }
 }
 
 const actions = {
@@ -458,6 +465,16 @@ const actions = {
             list: JSON.stringify(sorts),
         })
     },
+
+    //Account
+
+    async loadPurchases({ state, commit }) {
+        if (state.purchases.length) {
+            return
+        }
+        const { status, data } = await api.account.getPurchases(state.user.id)
+        status === 'success' && commit(meTypes.SET_PURCHASES, { purchases: data })
+    }, 
 }
 
 const getters = {
@@ -533,6 +550,8 @@ const getters = {
     },
 
     relatedTracks: ({ relatedTracks }) => relatedTracks,
+
+    purchases: ({ purchases }) => purchases,
 }
 
 export default {

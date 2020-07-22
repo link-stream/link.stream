@@ -66,4 +66,7 @@ export const meTypes = {
     UPDATE_LINK: 'UPDATE_LINK',
     DELETE_LINK: 'DELETE_LINK',
     REORDER_LINK: 'REORDER_LINK',
+
+    //Account
+    SET_PURCHASES: 'SET_PURCHASES',
 }

@@ -1,14 +1,14 @@
 <template>
     <div class="purchase-item">
         <div class="item-cover">
-            <img :src="purchase.image" :alt="purchase.title" />
+            <img src="/static/img/no-coverart.jpg" :alt="purchase.item_title" />
         </div>
         <div class="item-body">
             <h4 class="item-title">
-                {{ purchase.title }}
+                {{ purchase.item_title }}
             </h4>
             <small class="item-subtitle">
-                {{ purchase.type }} sold by {{ purchase.user }} - {{ purchase.price | currencyFormat }}
+                {{ purchase.track_type }} sold by {{ purchase.display_name }} - {{ purchase.item_amount | currencyFormat }}
             </small>
         </div>
         <basic-button

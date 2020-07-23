@@ -1,7 +1,7 @@
 <template>
     <div class="purchase-item">
         <div class="item-cover">
-            <img src="/static/img/no-coverart.jpg" :alt="purchase.item_title" />
+            <img :src="purchase.data_image ? purchase.data_image : '/static/img/no-coverart.jpg'" :alt="purchase.item_title" />
         </div>
         <div class="item-body">
             <h4 class="item-title">

@@ -78,4 +78,32 @@
             margin-right: 12px;
         }
     }
+    .PaymentsTab {
+        .upgrade-pro {
+            *height: 96px;
+            *width: 816px;
+            background: linear-gradient(45deg, #A624D2 0%, #CE5353 47.8%, #FFB02D 100%);
+            color: white;
+        }
+    }
+}
+.AddPaymentModal {
+    .tabnav {
+        *margin-bottom: 30px;
+        li {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: px2rem(18);
+            font-weight: bold;
+            letter-spacing: 0;
+            &.active {
+                border-bottom: 3px solid $primary;
+            }
+            a {
+                color: $gray-810;
+                text-decoration: none;
+                line-height: 30px;
+            }
+        }
+    }
 }

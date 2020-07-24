@@ -186,7 +186,7 @@ const mutations = {
 
     [meTypes.SET_PURCHASES](state, { purchases }) {
         state.purchases = purchases
-    }
+    },
 }
 
 const actions = {
@@ -202,6 +202,15 @@ const actions = {
 
     updateProfile({ commit }, { user }) {
         commit(meTypes.SET_USER, { user })
+    },
+
+    async updateUser({ commit }, { id, params }) {
+        const response = await api.users.updateUser(id, params)
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.SET_USER, { user: data })
+        }
+        return response
     },
 
     async loadProfile({ commit, rootGetters }) {
@@ -473,8 +482,9 @@ const actions = {
             return
         }
         const { status, data } = await api.account.getPurchases(state.user.id)
-        status === 'success' && commit(meTypes.SET_PURCHASES, { purchases: data })
-    }, 
+        status === 'success' &&
+            commit(meTypes.SET_PURCHASES, { purchases: data })
+    },
 }
 
 const getters = {

@@ -374,6 +374,6 @@ export const api = {
                 endpoint,
                 method,
             })
-        }
-    }
+        },
+    },
 }

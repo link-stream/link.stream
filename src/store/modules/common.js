@@ -67,6 +67,7 @@ const getters = {
             return genre ? genre.genre : ''
         }
     },
+    timezones: ({ timezones }) => timezones,
 }
 
 export default {

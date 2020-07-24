@@ -2,48 +2,105 @@
     <div class="tab InfoTab">
         <h2 class="section-title">Account Info</h2>
         <div class="tab-body">
-            <form>
+            <b-form>
                 <b-form-group label="Username">
                     <b-form-input
-                        v-model="form.username"
+                        v-model="$v.form.user_name.$model"
                         placeholder="Username"
+                        :state="!$v.form.user_name.$error"
                     ></b-form-input>
+                    <b-form-invalid-feedback>
+                        <template v-if="!$v.form.user_name.required">
+                            Enter a user name.
+                        </template>
+                        <template v-else-if="!$v.form.user_name.minLength">
+                            The user name must have at least 5 letters.
+                        </template>
+                        <template v-else-if="!$v.form.user_name.uniqueUsername">
+                            The user name exists, pick a new one.
+                        </template>
+                    </b-form-invalid-feedback>
                 </b-form-group>
                 <b-form-group label="Display Name">
                     <b-form-input
-                        v-model="form.display_name"
+                        v-model="$v.form.display_name.$model"
                         placeholder="Display Name"
+                        :state="!$v.form.display_name.$error"
                     ></b-form-input>
+                    <b-form-invalid-feedback>
+                        <template v-if="!$v.form.display_name.required">
+                            Enter a display name.
+                        </template>
+                    </b-form-invalid-feedback>
                 </b-form-group>
                 <b-form-group label="Email">
                     <b-form-input
-                        v-model="form.email"
+                        v-model="$v.form.email.$model"
                         type="email"
                         placeholder="Email"
+                        :state="!$v.form.email.$error"
                     ></b-form-input>
+                    <b-form-invalid-feedback>
+                        <template v-if="!$v.form.email.required">
+                            Enter a email.
+                        </template>
+                        <template v-else-if="!$v.form.email.email">
+                            Enter a vaild email.
+                        </template>
+                        <template v-else-if="!$v.form.email.uniqueEmail">
+                            The current email exists, pick a new one.
+                        </template>
+                    </b-form-invalid-feedback>
                 </b-form-group>
                 <b-form-group label="Time Zone">
-                    <BasicSelect placeholder="Select Time Zone" />
+                    <BasicSelect
+                        v-model="form.timezone"
+                        :options="timezones"
+                        :reduce="timezone => timezone.id"
+                        label="zone"
+                        placeholder="Select Time Zone"
+                    />
                 </b-form-group>
                 <b-form-group label="Current Password">
                     <b-form-input
-                        v-model="form.currentPassword"
+                        v-model="form.current_password"
                         placeholder="Current Password"
+                        autocomplete="new-password"
+                        type="password"
                     ></b-form-input>
                 </b-form-group>
                 <b-form-group label="New Password">
                     <b-form-input
-                        v-model="form.newPassword"
+                        v-model="$v.form.password.$model"
                         placeholder="New Password"
+                        type="password"
+                        :state="!$v.form.password.$error"
                     ></b-form-input>
+                    <b-form-invalid-feedback>
+                        <template v-if="!$v.form.password.required">
+                            Enter a password.
+                        </template>
+                        <template v-else-if="!$v.form.password.minLength">
+                            Password must have at least 8 letters.
+                        </template>
+                    </b-form-invalid-feedback>
                 </b-form-group>
                 <b-form-group label="Confirm Password">
                     <b-form-input
-                        v-model="form.confirmPassword"
+                        v-model="$v.form.confirm_password.$model"
                         placeholder="Confirm Password"
+                        type="password"
+                        :state="!$v.form.confirm_password.$error"
                     ></b-form-input>
+                    <b-form-invalid-feedback>
+                        <template
+                            v-if="!$v.form.confirm_password.sameAsPassword"
+                        >
+                            Password must be identical.
+                        </template>
+                    </b-form-invalid-feedback>
                 </b-form-group>
-            </form>
+            </b-form>
             <h2 class="section-title">Connected Accounts</h2>
             <div class="social-accounts">
                 <ul>
@@ -87,8 +144,66 @@
                             Connect
                         </basic-button>
                     </li>
+                    <li class="list-item">
+                        <img src="@/assets/img/ico/social-ig.svg" />
+                        <span class="username">
+                            {{ social.instagram || 'Instagram' }}
+                        </span>
+                        <IconButton
+                            v-if="social.instagram"
+                            icon="trash-sm"
+                            class="disconnect-btn"
+                            @click="handleInstagramDisconnect"
+                        />
+                        <basic-button
+                            v-else
+                            variant="link"
+                            class="connect-btn"
+                            @click="handleInstagramConnect"
+                        >
+                            Connect
+                        </basic-button>
+                    </li>
+                    <li class="list-item">
+                        <img src="@/assets/img/ico/social-soundcloud.svg" />
+                        <span class="username">
+                            {{ social.soundcloud || 'Instagram' }}
+                        </span>
+                        <IconButton
+                            v-if="social.soundcloud"
+                            icon="trash-sm"
+                            class="disconnect-btn"
+                            @click="handleSoundcloudDisconnect"
+                        />
+                        <basic-button
+                            v-else
+                            variant="link"
+                            class="connect-btn"
+                            @click="handleSoundcloudConnect"
+                        >
+                            Connect
+                        </basic-button>
+                    </li>
                 </ul>
             </div>
+            <footer class="page-footer border-top mt-3 pt-3">
+                <basic-button
+                    class="cancel-btn"
+                    variant="secondary"
+                    size="md"
+                    :disabled="saving"
+                >
+                    Cancel
+                </basic-button>
+                <spinner-button
+                    size="md"
+                    :loading="saving"
+                    @click="handleSaveClick"
+                    class="float-right"
+                >
+                    Save Changes
+                </spinner-button>
+            </footer>
         </div>
     </div>
 </template>
@@ -96,6 +211,15 @@
 <script>
 import firebase from 'firebase'
 import { appConstants } from '~/constants'
+import { mapGetters } from 'vuex'
+import {
+    required,
+    requiredIf,
+    email,
+    minLength,
+    sameAs,
+} from 'vuelidate/lib/validators'
+import { api } from '~/services'
 
 firebase.initializeApp(appConstants.firebaseConfig)
 const fbProvider = new firebase.auth.FacebookAuthProvider()
@@ -105,14 +229,80 @@ export default {
     name: 'InfoTab',
     data() {
         return {
-            form: {},
+            form: {
+                user_name: '',
+                display_name: '',
+                email: '',
+                timezone: '',
+                current_password: '',
+                password: '',
+                confirm_password: '',
+            },
             social: {
                 fb: false,
                 twitter: false,
+                instagram: false,
+                soundcloud: false,
             },
+            saving: false,
+        }
+    },
+    computed: {
+        ...mapGetters({
+            userInfo: 'me/user',
+            timezones: 'common/timezones',
+        }),
+    },
+    validations: {
+        form: {
+            user_name: {
+                required,
+                minLength: minLength(5),
+                uniqueUsername(value) {
+                    return value === this.userInfo.user_name || this.availabilityValidator('username', value)
+                },
+            },
+            display_name: {
+                required,
+            },
+            email: {
+                required,
+                email,
+                uniqueEmail(value) {
+                    return value === this.userInfo.email || this.availabilityValidator('email', value)
+                },
+            },
+            password: {
+                required: requiredIf(function() {
+                    return this.form.current_password
+                }),
+                minLength: minLength(8),
+            },
+            confirm_password: {
+                sameAsPassword: sameAs('password'),
+            },
+        },
+    },
+    async created() {
+        await this.$store.dispatch('common/loadTimezones')
+        this.form = {
+            ...this.userInfo,
+            current_password: '',
+            password: '',
+            confirm_password: '',
         }
     },
     methods: {
+        async availabilityValidator(field, value) {
+            if (!value) {
+                return true
+            }
+            const { status } = await api.users.getAvailability({
+                type: field,
+                value,
+            })
+            return status === 'success'
+        },
         handleFbConnect() {
             firebase
                 .auth()
@@ -148,6 +338,56 @@ export default {
         },
         handleTwitterDisconnect() {
             this.social.twitter = false
+        },
+        handleInstagramConnect() {},
+        handleInstagramDisconnect() {
+            this.social.instagram = false
+        },
+        handleSoundcloudConnect() {},
+        handleSoundcloudDisconnect() {
+            this.social.soundcloud = false
+        },
+        async handleSaveClick() {
+            this.$v.form.$touch()
+            if (this.$v.form.$invalid) {
+                return
+            }
+            this.saving = true
+            const {
+                user_name,
+                display_name,
+                email,
+                timezone,
+                current_password,
+                password,
+            } = this.form
+            const params = {
+                user_name,
+                display_name,
+                email,
+                timezone,
+                current_password,
+                password,
+            }
+
+            const { status, error } = await this.$store.dispatch(
+                'me/updateUser',
+                {
+                    id: this.userInfo.id,
+                    params,
+                }
+            )
+            if (status === 'success') {
+                this.$toast.success(
+                    'Your account has been updated successfully.'
+                )
+            } else {
+                this.$toast.error(error)
+            }
+            this.form.password = ''
+            this.form.current_password = ''
+            this.form.confirm_password = ''
+            this.saving = false
         },
     },
 }

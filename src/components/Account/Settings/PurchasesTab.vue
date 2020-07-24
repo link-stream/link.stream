@@ -6,7 +6,7 @@
             <div class="empty-text">
                 Your purchases will appear here.
             </div>
-        </div>    
+        </div>
         <div class="tab-body" v-else>
             <base-card
                 class="Card purchases-card"
@@ -21,11 +21,17 @@
                         </span>
                         <span class="float-right">
                             <span class="font-weight-bold">Date: </span>
-                            <span class="mr-3">{{ purchases.created_at | normalDate }}</span>
+                            <span class="mr-3">
+                                {{ purchases.created_at | normalDate }}
+                            </span>
                             <span class="font-weight-bold">Amount: </span>
-                            <span class="mr-3">{{ purchases.amount | currencyFormat }}</span>
+                            <span class="mr-3">
+                                {{ purchases.amount | currencyFormat }}
+                            </span>
                             <span class="font-weight-bold">Status: </span>
-                            <span class="mr-3">{{ purchases.status }}</span>
+                            <span class="mr-3">
+                                {{ purchases.status }}
+                            </span>
                         </span>
                     </b-col>
                 </b-form-row>
@@ -51,9 +57,9 @@ export default {
     },
     computed: {
         ...mapGetters({
-            purchaseData: 'me/purchases'
-        })
-    }, 
+            purchaseData: 'me/purchases',
+        }),
+    },
     data: () => ({
         loading: false,
     }),

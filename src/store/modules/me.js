@@ -20,6 +20,7 @@ const initialState = () => ({
     relatedTracks: [],
     purchases: [],
     paymentMethods: [],
+    bankInfo: {},
 })
 
 const state = initialState()
@@ -209,6 +210,10 @@ const mutations = {
         )
         paymentMethods.splice(index, 1)
     },
+
+    [meTypes.SET_BANK_INFO](state, { params }) {
+        state.bankInfo = params
+    }
 }
 
 const actions = {
@@ -539,6 +544,11 @@ const actions = {
             commit(meTypes.DELETE_PAYMENT_METHOD, { paymentMethod })
         return response
     },
+
+    async addBankInfo({ commit }, { params }) {
+        commit(meTypes.SET_BANK_INFO, { params })
+        return { status: 'success', message: 'The Bank info has been added successfully' }
+    }
 }
 
 const getters = {
@@ -614,10 +624,10 @@ const getters = {
     },
 
     relatedTracks: ({ relatedTracks }) => relatedTracks,
-
     purchases: ({ purchases }) => purchases,
-
     paymentMethods: ({ paymentMethods }) => paymentMethods,
+    bankInfo: ({ bankInfo }) => bankInfo,
+    
 }
 
 export default {

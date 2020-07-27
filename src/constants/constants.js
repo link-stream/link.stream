@@ -83,6 +83,11 @@ export const constants = {
             type: 'MasterCard',
             url: '/static/img/mastercard.svg',
         },
+        {
+            type: 'Bank',
+            url: '/static/img/bank.svg',
+        },
+
     ],
     firebaseConfig: {
         apiKey: env.VUE_APP_FIREBASE_API_KEY,

@@ -1,6 +1,6 @@
 <template>
     <div class="tab PaymentsTab">
-        <div class="my-5">
+        <div class="mb-5">
             <h2 class="my-2">Payment Method</h2>
             <LoadingSpinner class="page-loader" v-if="loading" />
             <div v-else>

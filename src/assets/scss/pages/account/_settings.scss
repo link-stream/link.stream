@@ -136,3 +136,38 @@
         }
     }
 }
+.PayoutsTab {
+    ul.desc-list {
+        margin-left: 1.25rem;
+        li {
+            list-style: initial;
+        }
+    }
+    .btn-paypal {
+        img {
+            margin-top: -0.5rem;
+        }
+    }
+    .payout-item {
+        display: flex;
+        align-items: center;
+        padding: 15px 0px;
+        img {
+            width: 40px;
+            height: 40px;
+        }
+        .item-title {
+            font-size: px2rem(14);
+            font-weight: bold;
+        }
+        .item-subtitle {
+            color: $gray-520;
+        }
+        .item-body {
+            flex-grow: 1;
+        }
+        .item-cover {
+            margin-right: 12px;
+        }
+    }
+}

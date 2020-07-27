@@ -88,6 +88,32 @@
             background: linear-gradient(45deg, #A624D2 0%, #CE5353 47.8%, #FFB02D 100%);
             color: white;
         }
+        .payment-method-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0px;
+            border-bottom: 1px solid $gray-320;
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+        img {
+            width: 40px;
+            height: 40px;
+        }
+        .item-title {
+            font-size: px2rem(14);
+            font-weight: bold;
+        }
+        .item-subtitle {
+            color: $gray-520;
+        }
+        .item-body {
+            flex-grow: 1;
+        }
+        .item-cover {
+            margin-right: 12px;
+        }
     }
 }
 .AddPaymentModal {

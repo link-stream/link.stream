@@ -375,5 +375,39 @@ export const api = {
                 method,
             })
         },
+        async getPaymentMethodsByUser(userId) {
+            const endpoint = '/users/payment_method/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async insertPaymentMethod(params) {
+            const endpoint = '/users/payment_method'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async updatePaymentMethod(payment_id, params) {
+            const endpoint = '/users/payment_method/' + payment_id
+            const method = METHOD_PUT
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async deletePaymentMethod(id) {
+            const endpoint = '/users/payment_method/' + id
+            const method = METHOD_DELETE
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
 }

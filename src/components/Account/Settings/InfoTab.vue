@@ -369,7 +369,6 @@ export default {
                 current_password,
                 password,
             }
-
             const { status, error } = await this.$store.dispatch(
                 'me/updateUser',
                 {

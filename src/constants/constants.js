@@ -70,6 +70,20 @@ export const constants = {
             icon: 'envelope-open',
         },
     ],
+    cardImages: [
+        {
+            type: 'Visa',
+            url: '/static/img/visa.svg',
+        },
+        {
+            type: 'Amex',
+            url: '/static/img/amex.svg',
+        },
+        {
+            type: 'MasterCard',
+            url: '/static/img/mastercard.svg',
+        },
+    ],
     firebaseConfig: {
         apiKey: env.VUE_APP_FIREBASE_API_KEY,
         appId: env.VUE_APP_FIREBASE_APP_ID,

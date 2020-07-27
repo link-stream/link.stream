@@ -19,6 +19,7 @@ const initialState = () => ({
     beatPacks: [],
     relatedTracks: [],
     purchases: [],
+    paymentMethods: [],
 })
 
 const state = initialState()
@@ -186,6 +187,27 @@ const mutations = {
 
     [meTypes.SET_PURCHASES](state, { purchases }) {
         state.purchases = purchases
+    },
+
+    [meTypes.SET_PAYMENT_METHODS](state, { paymentMethods }) {
+        state.paymentMethods = paymentMethods
+    },
+
+    [meTypes.ADD_PAYMENT_METHOD](state, { paymentMethod }) {
+        state.paymentMethods.push(paymentMethod)
+    },
+
+    [meTypes.UPDATE_PAYMENT_METHOD]({ paymentMethods }, { payment_id }) {
+        paymentMethods.forEach(element => {
+            element.is_default = (element.id === payment_id) ? 1 : 0
+        })
+    },
+
+    [meTypes.DELETE_PAYMENT_METHOD]({ paymentMethods }, { paymentMethod }) {
+        const index = paymentMethods.findIndex(
+            ({ id }) => id == paymentMethod.id
+        )
+        paymentMethods.splice(index, 1)
     },
 }
 
@@ -485,6 +507,38 @@ const actions = {
         status === 'success' &&
             commit(meTypes.SET_PURCHASES, { purchases: data })
     },
+
+    async loadPaymentMethods({ state, commit }) {
+        const { status, data } = await api.account.getPaymentMethodsByUser(
+            state.user.id
+        )
+        commit({
+            type: meTypes.SET_PAYMENT_METHODS,
+            paymentMethods: status === 'success' ? data : [],
+        })
+    },
+
+    // eslint-disable-next-line
+    async createPaymentMethod({ commit }, { params }) {
+        const response = await api.account.insertPaymentMethod(params)
+        return response
+    },
+
+    async updatePaymentMethod({ commit }, { payment_id, params }) {
+        const response = await api.account.updatePaymentMethod(payment_id, params)
+        const { status } = response
+        status === 'success' &&
+            commit(meTypes.UPDATE_PAYMENT_METHOD, { payment_id })
+        return response
+    },
+
+    async deletePaymentMethod({ commit }, paymentMethod) {
+        const response = await api.account.deletePaymentMethod(paymentMethod.id)
+        const { status } = response
+        status === 'success' &&
+            commit(meTypes.DELETE_PAYMENT_METHOD, { paymentMethod })
+        return response
+    },
 }
 
 const getters = {
@@ -562,6 +616,8 @@ const getters = {
     relatedTracks: ({ relatedTracks }) => relatedTracks,
 
     purchases: ({ purchases }) => purchases,
+
+    paymentMethods: ({ paymentMethods }) => paymentMethods,
 }
 
 export default {

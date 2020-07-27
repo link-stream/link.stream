@@ -9,24 +9,24 @@
             <BasicButton variant="icon" class="modal-close" @click="close" />
             <div class="tabnav">
                 <ul>
-                    <li
-                        :class="{ active: currentTab === 'card' }"
-                    >
-                        <b-icon-credit-card class="mr-2"/>
-                        <a href="#" @click.prevent="currentTab='card'">Credit Card</a>
+                    <li :class="{ active: currentTab === 'card' }">
+                        <b-icon-credit-card class="mr-2" />
+                        <a href="#" @click.prevent="currentTab = 'card'">
+                            Credit Card
+                        </a>
                     </li>
-                    <li
-                        :class="{ active: currentTab === 'paypal' }"
-                    >
+                    <li :class="{ active: currentTab === 'paypal' }">
                         <font-awesome-icon
                             :icon="['fab', 'paypal']"
                             class="mr-2"
                         />
-                        <a href="#" @click.prevent="currentTab='paypal'">Paypal</a>
+                        <a href="#" @click.prevent="currentTab = 'paypal'">
+                            Paypal
+                        </a>
                     </li>
                 </ul>
             </div>
-        </template>    
+        </template>
 
         <template v-slot:default>
             <div v-if="currentTab === 'card'">
@@ -34,7 +34,7 @@
                     <b-col sm="6">
                         <b-form-group label="First name">
                             <b-form-input
-                                v-model="form.firstname"
+                                v-model="form.first_name"
                                 placeholder="First name"
                             ></b-form-input>
                         </b-form-group>
@@ -42,39 +42,35 @@
                     <b-col sm="6">
                         <b-form-group label="First name">
                             <b-form-input
-                                v-model="form.lastname"
+                                v-model="form.last_name"
                                 placeholder="Last name"
                             ></b-form-input>
                         </b-form-group>
                     </b-col>
                 </b-form-row>
-                <b-form-group
-                    label="Card information"
-                >
+                <b-form-group label="Card information">
                     <b-form-input
-                        v-model="form.card_number"
-                        placeholder="Card Number" 
+                        v-model="form.cc_number"
+                        placeholder="Card Number"
                     ></b-form-input>
                     <b-form-input
-                        v-model="form.expiration"
+                        v-model="form.expiration_date"
                         placeholder="Expiration"
                         class="col-6 float-left"
                     ></b-form-input>
                     <b-form-input
                         v-model="form.cvv"
                         placeholder="CVV"
-                        class="col-6" 
+                        class="col-6"
                     ></b-form-input>
                 </b-form-group>
                 <p>
-                    I authorize LinkStream Inc. to save this payment method and automatically charge this payment method for any subscriptions associated with it.
+                    I authorize LinkStream Inc. to save this payment method and
+                    automatically charge this payment method for any subscriptions associated with it.
                 </p>
             </div>
             <div v-else class="text-center">
-                <basic-button
-                    variant="warning"
-                    class="my-5"
-                >
+                <basic-button variant="warning" class="my-5">
                     Connect to
                     <img src="@/assets/img/ico/paypal.png" />
                 </basic-button>
@@ -103,7 +99,7 @@
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex'
 export default {
     name: 'AddPaymentModal',
     data() {
@@ -111,13 +107,19 @@ export default {
             open: false,
             currentTab: 'card',
             form: {
-                firstname: '',
-                lastname: '',
-                card_number: '',
-                expiration: '',
+                first_name: '',
+                last_name: '',
+                cc_number: '',
+                expiration_date: '',
                 cvv: '',
             },
+            saving: false,
         }
+    },
+    computed: {
+        ...mapGetters({
+            user: 'me/user',
+        }),
     },
     created() {
         this.$bus.$on('modal.addPayment.open', this.handleOpen)
@@ -132,6 +134,26 @@ export default {
         },
         handleOpen() {
             this.open = true
+        },
+        async handleSaveClick() {
+            this.saving = true
+            const params = {
+                user_id: this.user.id,
+                ...this.form,
+            }
+            const {
+                status,
+                message,
+                error,
+            } = await this.$store.dispatch('me/createPaymentMethod', { params })
+            if (status === 'success') {
+                this.$toast.success(message)
+                await this.$store.dispatch('me/loadPaymentMethods')
+            } else {
+                this.$toast.error(error)
+            }
+            this.saving = false
+            this.close()
         },
     },
 }

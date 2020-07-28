@@ -11,7 +11,7 @@
                 v-if="cardImage"
                 :src="cardImage" 
                 :alt="paymentMethod.cc_type" />
-            <b-icon-credit-card v-else class="mr-2"/>    
+            <b-icon-credit-card v-else class="mr-2 h1 align-middle"/>    
         </div>
         <div class="item-body">
             <h4 class="item-title">

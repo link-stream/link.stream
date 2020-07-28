@@ -167,3 +167,6 @@ Vue.component('SearchInput', SearchInput)
 Vue.component('Icon', Icon)
 Vue.component('LoadingSpinner', LoadingSpinner)
 Vue.component('LoadingMask', LoadingMask)
+
+import VueCardFormat from 'vue-credit-card-validation'
+Vue.use(VueCardFormat)

@@ -171,3 +171,27 @@
         }
     }
 }
+.NotificationsTab {
+    .notification-item {
+        align-items: center;
+        padding: 15px 0px;
+        .item-title {
+            font-size: px2rem(14);
+            font-weight: bold;
+        }
+        .item-subtitle {
+            color: $gray-520;
+        }
+        .item-body {
+            flex-grow: 1;
+        }
+        @include media-breakpoint-up(xs) {
+            .only-email {
+                margin-right: 178px;
+            }
+        }
+        @include media-breakpoint-up(md) {
+            display: flex;
+        }
+    }
+}

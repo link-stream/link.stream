@@ -91,6 +91,10 @@ export const constants = {
             type: 'Discover',
             url: '/static/img/discover.svg',
         },
+        {
+            type: 'Paypal',
+            url: '/static/img/paypal.svg',
+        },
     ],
     firebaseConfig: {
         apiKey: env.VUE_APP_FIREBASE_API_KEY,

@@ -2,30 +2,101 @@
     <div class="tab NotificationsTab">
         <div class="tab-body">
             <div class="mb-3">
-                <div 
-                    class="notification-item border-bottom"
-                    v-for="(item, index) in notificationItems"
-                    :key="index"
-                >
+                <div class="notification-item border-bottom">
                     <div class="item-body">
-                        <h4 class="item-title">
-                            {{ item.title }}
-                        </h4>
-                        <small class="item-subtitle">
-                            {{ item.description }}
-                        </small>
+                        <h4 class="item-title">Sales</h4>
+                        <small class="item-subtitle">When someone purchases my tracks/sound kits</small>
                     </div>
                     <div class="item-action">
                         <b-form-checkbox
                             class="custom-control-inline"
-                            :checked="item.email"
+                            v-model="form.sales_email"
                         >
                             Email
                         </b-form-checkbox>
                         <b-form-checkbox
-                            v-if="item.type === 1"
                             class="custom-control-inline"
-                            :checked="item.push_notification"
+                            v-model="form.sales_push"
+                        >
+                            Push Notification
+                        </b-form-checkbox>
+                    </div>
+                </div>
+                <div class="notification-item border-bottom">
+                     <div class="item-body">
+                        <h4 class="item-title">Follows</h4>
+                        <small class="item-subtitle">When someone follows you</small>
+                    </div>
+                    <div class="item-action">
+                        <b-form-checkbox
+                            class="custom-control-inline"
+                            v-model="form.follows_email"
+                        >
+                            Email
+                        </b-form-checkbox>
+                        <b-form-checkbox
+                            class="custom-control-inline"
+                            v-model="form.follows_push"
+                        >
+                            Push Notification
+                        </b-form-checkbox>
+                    </div>
+                </div>
+                <div class="notification-item border-bottom">
+                     <div class="item-body">
+                        <h4 class="item-title">Likes</h4>
+                        <small class="item-subtitle">When someone likes your track or sound kit</small>
+                    </div>
+                    <div class="item-action">
+                        <b-form-checkbox
+                            class="custom-control-inline"
+                            v-model="form.likes_email"
+                        >
+                            Email
+                        </b-form-checkbox>
+                        <b-form-checkbox
+                            class="custom-control-inline"
+                            v-model="form.likes_push"
+                        >
+                            Push Notification
+                        </b-form-checkbox>
+                    </div>
+                </div>
+                <div class="notification-item border-bottom">
+                     <div class="item-body">
+                        <h4 class="item-title">Reposts</h4>
+                        <small class="item-subtitle">When someone reposts your track or sound kit</small>
+                    </div>
+                    <div class="item-action">
+                        <b-form-checkbox
+                            class="custom-control-inline"
+                            v-model="form.reposts_email"
+                        >
+                            Email
+                        </b-form-checkbox>
+                        <b-form-checkbox
+                            class="custom-control-inline"
+                            v-model="form.reposts_push"
+                        >
+                            Push Notification
+                        </b-form-checkbox>
+                    </div>
+                </div>
+                <div class="notification-item border-bottom">
+                     <div class="item-body">
+                        <h4 class="item-title">Collaborations</h4>
+                        <small class="item-subtitle">When someone invites you to collaborate or updates collaboration details</small>
+                    </div>
+                    <div class="item-action">
+                        <b-form-checkbox
+                            class="custom-control-inline"
+                            v-model="form.collaborations_email"
+                        >
+                            Email
+                        </b-form-checkbox>
+                        <b-form-checkbox
+                            class="custom-control-inline"
+                            v-model="form.collaborations_push"
                         >
                             Push Notification
                         </b-form-checkbox>
@@ -34,30 +105,54 @@
             </div>
             <div class="my-5">
                 <h2 class="my-2">Updates from LinkStream</h2>
-                <div 
-                    class="notification-item border-top"
-                    v-for="(item, index) in updateNotifictionsItems"
-                    :key="index"
-                >
+                <div class="notification-item border-top">
                     <div class="item-body">
-                        <h4 class="item-title font-weight-light">
-                            {{ item.title }}
-                        </h4>
+                        <h4 class="item-title font-weight-light">New LinkStream features</h4>
                     </div>
                     <div class="item-action">
                         <b-form-checkbox
                             class="custom-control-inline"
-                            :checked="item.email"
-                            :class="{ 'only-email': item.type==2 }"
+                            v-model="form.ls_features_email"
                         >
                             Email
                         </b-form-checkbox>
                         <b-form-checkbox
-                            v-show="item.type === 1"
                             class="custom-control-inline"
-                            :checked="item.push_notification"
+                            v-model="form.ls_features_push"
                         >
                             Push Notification
+                        </b-form-checkbox>
+                    </div>
+                </div>
+                <div class="notification-item border-top">
+                    <div class="item-body">
+                        <h4 class="item-title font-weight-light">Surveys and feedback</h4>
+                    </div>
+                    <div class="item-action">
+                        <b-form-checkbox
+                            class="custom-control-inline"
+                            v-model="form.surveys_email"
+                        >
+                            Email
+                        </b-form-checkbox>
+                        <b-form-checkbox
+                            class="custom-control-inline"
+                            v-model="form.surveys_push"
+                        >
+                            Push Notification
+                        </b-form-checkbox>
+                    </div>
+                </div>
+                <div class="notification-item border-top">
+                    <div class="item-body">
+                        <h4 class="item-title font-weight-light">LinkStream newsletter</h4>
+                    </div>
+                    <div class="item-action">
+                        <b-form-checkbox
+                            class="custom-control-inline only-email"
+                            v-model="form.ls_newsletter_email"
+                        >
+                            Email
                         </b-form-checkbox>
                     </div>
                 </div>
@@ -68,6 +163,7 @@
                     variant="secondary"
                     size="md"
                     :disabled="saving"
+                    @click="handleCancelClick"
                 >
                     Cancel
                 </basic-button>
@@ -85,78 +181,53 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: 'NotificationsTab',
+    computed: {
+        ...mapGetters({
+            notification: 'me/notification',
+        }),
+    },
     data: () =>({
-        notificationItems: [
-            {
-                id: 1,
-                title: 'Sales',
-                description: 'When someone purchases my tracks/sound kits',
-                email: false,
-                push_notification: false,
-                type: 1
-            },
-            {
-                id: 2,
-                title: 'Follows',
-                description: 'When someone follows you',
-                email: false,
-                push_notification: false,
-                type: 1
-            },
-            {
-                id: 3,
-                title: 'Likes',
-                description: 'When someone likes your track or sound kit',
-                email: false,
-                push_notification: false,
-                type: 1
-            },
-            {
-                id: 4,
-                title: 'Reposts',
-                description: 'When someone reposts your track or sound kit',
-                email: false,
-                push_notification: false,
-                type: 1
-            },
-            {
-                id: 5,
-                title: 'Collaborations',
-                description: 'When someone invites you to collaborate or updates collaboration details',
-                email: false,
-                push_notification: false,
-                type: 1
-            },
-        ],
-        updateNotifictionsItems: [
-            {
-                id: 6,
-                title: 'New LinkStream features',
-                email: false,
-                push_notification: false,
-                type: 1
-            },
-            {
-                id: 7,
-                title: 'Surveys and feedback',
-                email: false,
-                push_notification: false,
-                type: 1
-            },
-            {
-                id: 8,
-                title: 'LinkStream newsletter',
-                email: false,
-                push_notification: false,
-                type: 2
-            },
-        ],
+        form: {},
         saving : false,
     }),
+    async created() {
+        await this.$store.dispatch('me/loadNotification')
+        this.resetForm()
+    },
     methods: {
-        handleSaveClick() {}
+        async handleSaveClick() {
+            const params = {}
+            Object.entries(this.form).forEach(([key, value]) => {
+                params[key] = value ? 1 : 0
+            })
+            this.saving = true
+            const { status, message, error } = await this.$store.dispatch(
+                'me/updateNotification',
+                { 
+                    id: this.notification.id,
+                    params 
+                })
+            if (status === 'success') {
+                this.$toast.success(message)
+            } else {
+                this.$toast.error(error)
+            }
+            this.saving = false
+        },
+        handleCancelClick() {
+            this.resetForm()
+        },
+        resetForm() {
+            this.form = {}
+            Object.entries(this.notification).forEach(([key, value]) => {
+                if (key !== 'id' && key !== 'user_id') {
+                    this.form[key] = value == 1
+                }
+            })
+        }
     },
 }
 </script>

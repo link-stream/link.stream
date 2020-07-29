@@ -21,6 +21,7 @@ const initialState = () => ({
     purchases: [],
     paymentMethods: [],
     bankInfo: {},
+    notification: {},
 })
 
 const state = initialState()
@@ -213,6 +214,10 @@ const mutations = {
 
     [meTypes.SET_BANK_INFO](state, { params }) {
         state.bankInfo = params
+    },
+
+    [meTypes.SET_NOTIFICATION](state, { notification }) {
+        state.notification = notification
     }
 }
 
@@ -548,7 +553,29 @@ const actions = {
     async addBankInfo({ commit }, { params }) {
         commit(meTypes.SET_BANK_INFO, { params })
         return { status: 'success', message: 'The Bank info has been added successfully' }
-    }
+    },
+
+    async loadNotification({ state, commit }) {
+        const response = await api.account.getNotification(
+            state.user.id
+        )
+        const { status, data } = response
+        status === 'success' &&
+            commit({
+                type: meTypes.SET_NOTIFICATION,
+                notification: data.length > 0 ? data[0] : {},
+            })
+    },
+    async updateNotification({ commit }, { id, params }) {
+        const response = await api.account.updateNotification(id, params)
+        const { status, data } = response
+        status === 'success' &&
+            commit({
+                type: meTypes.SET_NOTIFICATION,
+                notification: data,
+            })
+        return response
+    },
 }
 
 const getters = {
@@ -627,7 +654,7 @@ const getters = {
     purchases: ({ purchases }) => purchases,
     paymentMethods: ({ paymentMethods }) => paymentMethods,
     bankInfo: ({ bankInfo }) => bankInfo,
-    
+    notification: ({ notification }) => notification,
 }
 
 export default {

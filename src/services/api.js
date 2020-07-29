@@ -409,5 +409,23 @@ export const api = {
                 method,
             })
         },
+
+        async getNotification(userId) {
+            const endpoint = '/users/notification/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async updateNotification(id, params) {
+            const endpoint = '/users/notification/' + id
+            const method = METHOD_PUT
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        }
     },
 }

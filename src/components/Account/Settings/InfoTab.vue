@@ -107,10 +107,10 @@
                     <li class="list-item list-item-fb">
                         <i class="fab fa-facebook"></i>
                         <span class="username">
-                            {{ social.fb || 'Facebook' }}
+                            {{ social.facebook || 'Facebook' }}
                         </span>
                         <IconButton
-                            v-if="social.fb"
+                            v-if="social.facebook"
                             icon="trash-sm"
                             class="disconnect-btn"
                             @click="handleFbDisconnect"
@@ -167,7 +167,7 @@
                     <li class="list-item">
                         <img src="@/assets/img/ico/social-soundcloud.svg" />
                         <span class="username">
-                            {{ social.soundcloud || 'Instagram' }}
+                            {{ social.soundcloud || 'SoundCloud' }}
                         </span>
                         <IconButton
                             v-if="social.soundcloud"
@@ -239,7 +239,7 @@ export default {
                 confirm_password: '',
             },
             social: {
-                fb: false,
+                facebook: false,
                 twitter: false,
                 instagram: false,
                 soundcloud: false,
@@ -291,6 +291,7 @@ export default {
             password: '',
             confirm_password: '',
         }
+        console.log(this.userInfo)
     },
     methods: {
         async availabilityValidator(field, value) {
@@ -308,7 +309,7 @@ export default {
                 .auth()
                 .signInWithPopup(fbProvider)
                 .then(({ credential, user }) => {
-                    this.social.fb = user.displayName
+                    this.social.facebook = user.displayName
                     this.$alert.ok(
                         `<strong>Access token:</strong> ${credential.accessToken}`,
                         { title: 'Connected!' }
@@ -319,7 +320,7 @@ export default {
                 })
         },
         handleFbDisconnect() {
-            this.social.fb = false
+            this.social.facebook = false
         },
         handleTwitterConnect() {
             firebase
@@ -361,6 +362,10 @@ export default {
                 current_password,
                 password,
             } = this.form
+            const {
+                facebook,
+                twitter,
+            } = this.social
             const params = {
                 user_name,
                 display_name,
@@ -368,6 +373,8 @@ export default {
                 timezone,
                 current_password,
                 password,
+                facebook,
+                twitter,
             }
             const { status, error } = await this.$store.dispatch(
                 'me/updateUser',

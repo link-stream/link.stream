@@ -2,7 +2,7 @@
     <div class="page page-login my-4">
         <b-container>
             <b-row class="text-center">
-                <b-col cols="12" class="my-2">
+                <!-- <b-col cols="12" class="my-2">
                     <spinner-button
                         instagram
                         class="auth-btn"
@@ -13,7 +13,7 @@
                         <i class="ig-ico fab fa-instagram fa-lg"></i>
                         Signin with Instagram
                     </spinner-button>
-                </b-col>
+                </b-col> -->
                 <b-col cols="12" class="my-2">
                     <GoogleLogin
                         class="g-login-btn-wrap col"

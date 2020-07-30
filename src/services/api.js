@@ -75,6 +75,7 @@ export const api = {
             return await call({ endpoint })
         },
         async updateUser(id, params) {
+            console.log('api-params', params)
             const endpoint = '/users/' + id
             const method = METHOD_PUT
             return await call({ endpoint, params, method })
@@ -426,6 +427,6 @@ export const api = {
                 params,
                 method,
             })
-        }
+        },
     },
 }

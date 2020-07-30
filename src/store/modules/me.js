@@ -239,6 +239,7 @@ const actions = {
     async updateUser({ commit }, { id, params }) {
         const response = await api.users.updateUser(id, params)
         const { status, data } = response
+        console.log('api-response', response)
         if (status === 'success') {
             commit(meTypes.SET_USER, { user: data })
         }
@@ -556,9 +557,7 @@ const actions = {
     },
 
     async loadNotification({ state, commit }) {
-        const response = await api.account.getNotification(
-            state.user.id
-        )
+        const response = await api.account.getNotification(state.user.id)
         const { status, data } = response
         status === 'success' &&
             commit({

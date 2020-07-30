@@ -192,6 +192,7 @@
                     variant="secondary"
                     size="md"
                     :disabled="saving"
+                    @click="handleCancelClick"
                 >
                     Cancel
                 </basic-button>
@@ -237,6 +238,8 @@ export default {
                 current_password: '',
                 password: '',
                 confirm_password: '',
+                facebook: '',
+                twitter: '',
             },
             social: {
                 facebook: false,
@@ -285,13 +288,8 @@ export default {
     },
     async created() {
         await this.$store.dispatch('common/loadTimezones')
-        this.form = {
-            ...this.userInfo,
-            current_password: '',
-            password: '',
-            confirm_password: '',
-        }
         console.log(this.userInfo)
+        this.resetForm()
     },
     methods: {
         async availabilityValidator(field, value) {
@@ -314,6 +312,7 @@ export default {
                         `<strong>Access token:</strong> ${credential.accessToken}`,
                         { title: 'Connected!' }
                     )
+                    this.form.facebook = credential.accessToken
                 })
                 .catch(() => {
                     this.$alert.oops()
@@ -321,6 +320,7 @@ export default {
         },
         handleFbDisconnect() {
             this.social.facebook = false
+            this.form.facebook = ''
         },
         handleTwitterConnect() {
             firebase
@@ -332,6 +332,7 @@ export default {
                         `<strong>Access token:</strong> ${credential.accessToken}`,
                         { title: 'Connected!' }
                     )
+                    this.form.twitter = credential.accessToken + "@" + credential.secret
                 })
                 .catch(() => {
                     this.$alert.oops()
@@ -339,6 +340,7 @@ export default {
         },
         handleTwitterDisconnect() {
             this.social.twitter = false
+            this.form.twitter = ''
         },
         handleInstagramConnect() {},
         handleInstagramDisconnect() {
@@ -361,11 +363,13 @@ export default {
                 timezone,
                 current_password,
                 password,
-            } = this.form
-            const {
                 facebook,
                 twitter,
-            } = this.social
+            } = this.form
+            // const {
+            //     facebook,
+            //     twitter,
+            // } = this.social
             const params = {
                 user_name,
                 display_name,
@@ -395,6 +399,43 @@ export default {
             this.form.confirm_password = ''
             this.saving = false
         },
+        handleCancelClick() {
+            this.resetForm()
+        },
+        resetForm() {
+            this.form = {
+                ...this.userInfo,
+                current_password: '',
+                password: '',
+                confirm_password: '',
+            }
+            this.social.facebook = false
+            if (this.userInfo.facebook) {
+                this.social.facebook = 'Failed'
+                let facebook_credential = firebase.auth.FacebookAuthProvider.credential(this.userInfo.facebook)
+                firebase.auth().signInWithCredential(facebook_credential)
+                    .then(({ user }) => {
+                        this.social.facebook = user.displayName
+                    })
+                    .catch((error) => {
+                        console.log("error", error)
+                    })
+            }
+            this.social.twitter = false
+            if (this.userInfo.twitter) {
+                this.social.twitter = 'Failed'
+                let credential_info = this.userInfo.twitter.split('@')
+                let twitter_credential = firebase.auth.TwitterAuthProvider.credential(credential_info[0], credential_info[1])
+                console.log(twitter_credential)
+                firebase.auth().signInWithCredential(twitter_credential)
+                    .then(({ user }) => {
+                        this.social.twitter = user.displayName
+                    })
+                    .catch((error) => {
+                        console.log("error", error)
+                    })
+            }
+        }
     },
 }
 </script>

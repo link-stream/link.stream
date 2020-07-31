@@ -287,9 +287,9 @@ export default {
         },
     },
     async created() {
+        this.resetForm()
         await this.$store.dispatch('common/loadTimezones')
         console.log(this.userInfo)
-        this.resetForm()
     },
     methods: {
         async availabilityValidator(field, value) {
@@ -366,10 +366,6 @@ export default {
                 facebook,
                 twitter,
             } = this.form
-            // const {
-            //     facebook,
-            //     twitter,
-            // } = this.social
             const params = {
                 user_name,
                 display_name,
@@ -402,7 +398,7 @@ export default {
         handleCancelClick() {
             this.resetForm()
         },
-        resetForm() {
+        async resetForm() {
             this.form = {
                 ...this.userInfo,
                 current_password: '',
@@ -411,27 +407,28 @@ export default {
             }
             this.social.facebook = false
             if (this.userInfo.facebook) {
-                this.social.facebook = 'Failed'
-                let facebook_credential = firebase.auth.FacebookAuthProvider.credential(this.userInfo.facebook)
-                firebase.auth().signInWithCredential(facebook_credential)
+                this.social.facebook = 'Connecting...'
+                let facebook_credential = await firebase.auth.FacebookAuthProvider.credential(this.userInfo.facebook)
+                await firebase.auth().signInWithCredential(facebook_credential)
                     .then(({ user }) => {
                         this.social.facebook = user.displayName
                     })
                     .catch((error) => {
+                        this.social.facebook = 'Failed'
                         console.log("error", error)
                     })
             }
             this.social.twitter = false
             if (this.userInfo.twitter) {
-                this.social.twitter = 'Failed'
+                this.social.twitter = 'Connecting'
                 let credential_info = this.userInfo.twitter.split('@')
-                let twitter_credential = firebase.auth.TwitterAuthProvider.credential(credential_info[0], credential_info[1])
-                console.log(twitter_credential)
-                firebase.auth().signInWithCredential(twitter_credential)
+                let twitter_credential = await firebase.auth.TwitterAuthProvider.credential(credential_info[0], credential_info[1])
+                await firebase.auth().signInWithCredential(twitter_credential)
                     .then(({ user }) => {
                         this.social.twitter = user.displayName
                     })
                     .catch((error) => {
+                        this.social.twitter = 'Failed'
                         console.log("error", error)
                     })
             }

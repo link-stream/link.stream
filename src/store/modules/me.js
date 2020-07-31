@@ -18,6 +18,7 @@ const initialState = () => ({
     soundKits: [],
     beatPacks: [],
     relatedTracks: [],
+    relatedBeatPacks: [],
     purchases: [],
     paymentMethods: [],
     bankInfo: {},
@@ -127,6 +128,10 @@ const mutations = {
         const beatPack = beatPacks[oldIndex]
         beatPacks.splice(oldIndex, 1)
         beatPacks.splice(newIndex, 0, beatPack)
+    },
+
+    [meTypes.SET_RELATED_BEAT_PACK](state, { relatedBeatPacks }) {
+        state.relatedBeatPacks = relatedBeatPacks
     },
 
     // Videos
@@ -420,6 +425,15 @@ const actions = {
         })
     },
 
+    async loadRelatedBeatPacks({ commit, rootGetters }) {
+        const user = rootGetters['auth/user']
+        const { status, data } = await api.albums.getRelatedAlbums(user.id, 2)
+        commit({
+            type: meTypes.SET_RELATED_BEAT_PACK,
+            relatedBeatPacks: status === 'success' ? data : [],
+        })
+    },
+
     // Videos
 
     async loadVideos({ state, commit }, { params }) {
@@ -650,6 +664,17 @@ const getters = {
     },
 
     relatedTracks: ({ relatedTracks }) => relatedTracks,
+    relatedBeatPacks: ({ relatedBeatPacks, beatPacks }) => {
+        return relatedBeatPacks.map(pack => {
+            let findBeatPack = beatPacks.find(item => item.id == pack.id)
+            return {
+                ...findBeatPack,
+                coverart: findBeatPack.data_image || appConstants.defaultCoverArt,
+                isPublic: findBeatPack.public == '1',
+                isPrivate: findBeatPack.public == '2',
+            }
+        })
+    },
     purchases: ({ purchases }) => purchases,
     paymentMethods: ({ paymentMethods }) => paymentMethods,
     bankInfo: ({ bankInfo }) => bankInfo,

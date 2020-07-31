@@ -61,11 +61,13 @@
                 </b-col>
             </b-form-row>
 
-            <b-form-group :label="`Add to ${isSong ? 'Song' : 'Beat'} Pack`">
-                <SearchInput
+            <b-form-group 
+                label="Add to Beat Pack"
+            >
+                <beat-packs-multi-select
+                    placeholder="Search for beat packs"
                     v-model="form.trackPack"
-                    :placeholder="`Search for ${isSong ? 'song' : 'beat'} pack`"
-                />
+                />    
             </b-form-group>
 
             <div class="collabs">
@@ -135,6 +137,7 @@
 </template>
 
 <script>
+import BeatPacksMultiSelect from '~/components/Account/Tracks/Beats/BeatPacksMultiSelect'
 import { collabsProfitFormMixin } from '~/mixins/tracks/collabsProfitForm'
 import { required, minLength } from 'vuelidate/lib/validators'
 import { api } from '~/services'
@@ -144,6 +147,9 @@ import { cloneDeep } from 'lodash'
 export default {
     name: 'InfoBlock',
     mixins: [collabsProfitFormMixin],
+    components:{
+        BeatPacksMultiSelect
+    },
     data() {
         const {
             trackType,
@@ -245,6 +251,7 @@ export default {
         handleTagsChange(tags) {
             this.form.tags = tags
         },
+        
     },
 }
 </script>

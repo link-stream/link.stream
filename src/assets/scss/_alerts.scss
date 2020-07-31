@@ -5,11 +5,11 @@
         vertical-align: baseline;
     }
     &.alert-success {
-        border: 1px solid $linkstream-90;
-        background-color: $linkstream-100;
+        border: 1px solid $color-green-3;
+        background-color: $color-green-4;
         &,
         .btn-link {
-            color: $linkstream-60;
+            color: $color-green-1;
         }
     }
 }

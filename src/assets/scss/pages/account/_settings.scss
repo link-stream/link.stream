@@ -1,0 +1,197 @@
+.page-account-settings {
+    .tabnav {
+        margin-bottom: 30px;
+        li {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: px2rem(12);
+            font-weight: bold;
+            letter-spacing: 0;
+            &.active {
+                border-bottom: 3px solid $primary;
+            }
+            a {
+                color: $gray-810;
+                text-decoration: none;
+                line-height: 40px;
+            }
+        }
+    }
+
+    .InfoTab {
+        .social-accounts {
+            .list-item {
+                display: flex;
+                padding: 18px 11px;
+                align-items: center;
+                i {
+                    font-size: px2rem(24);
+                    margin-right: 14px;
+                }
+                .username {
+                    flex-grow: 1;
+                    color: $black;
+                    font-size: px2rem(13);
+                    font-weight: 500;
+                }
+                .connect-btn {
+                    text-decoration: none;
+                }
+                img {
+                    margin-right: 14px;
+                }
+            }
+            .list-item-fb {
+                i {
+                    color: $color-facebook;
+                }
+            }
+            .list-item-twitter {
+                i {
+                    color: $color-twitter;
+                }
+            }
+        }
+    }
+    .PurchasesTab {
+        .purchase-item {
+            display: flex;
+            align-items: center;
+            padding: 7px 0px;
+            border-bottom: 1px solid $gray-320;
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+        img {
+            width: 68px;
+            height: 68px;
+        }
+        .item-title {
+            font-size: px2rem(14);
+            font-weight: bold;
+        }
+        .item-subtitle {
+            color: $gray-520;
+        }
+        .item-body {
+            flex-grow: 1;
+        }
+        .item-cover {
+            margin-right: 12px;
+        }
+    }
+    .PaymentsTab {
+        .upgrade-pro {
+            *height: 96px;
+            *width: 816px;
+            background: linear-gradient(45deg, #A624D2 0%, #CE5353 47.8%, #FFB02D 100%);
+            color: white;
+        }
+        .payment-method-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0px;
+            border-bottom: 1px solid $gray-320;
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+        img {
+            width: 40px;
+            height: 40px;
+        }
+        .item-title {
+            font-size: px2rem(14);
+            font-weight: bold;
+        }
+        .item-subtitle {
+            color: $gray-520;
+        }
+        .item-body {
+            flex-grow: 1;
+        }
+        .item-cover {
+            margin-right: 12px;
+        }
+    }
+}
+.AddPaymentModal {
+    .tabnav {
+        *margin-bottom: 30px;
+        li {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: px2rem(18);
+            font-weight: bold;
+            letter-spacing: 0;
+            &.active {
+                border-bottom: 3px solid $primary;
+            }
+            a {
+                color: $gray-810;
+                text-decoration: none;
+                line-height: 30px;
+            }
+        }
+    }
+}
+.PayoutsTab {
+    ul.desc-list {
+        margin-left: 1.25rem;
+        li {
+            list-style: initial;
+        }
+    }
+    .btn-paypal {
+        img {
+            margin-top: -0.5rem;
+        }
+    }
+    .payout-item {
+        display: flex;
+        align-items: center;
+        padding: 15px 0px;
+        img {
+            width: 40px;
+            height: 40px;
+        }
+        .item-title {
+            font-size: px2rem(14);
+            font-weight: bold;
+        }
+        .item-subtitle {
+            color: $gray-520;
+        }
+        .item-body {
+            flex-grow: 1;
+        }
+        .item-cover {
+            margin-right: 12px;
+        }
+    }
+}
+.NotificationsTab {
+    .notification-item {
+        align-items: center;
+        padding: 15px 0px;
+        .item-title {
+            font-size: px2rem(14);
+            font-weight: bold;
+        }
+        .item-subtitle {
+            color: $gray-520;
+        }
+        .item-body {
+            flex-grow: 1;
+        }
+        @include media-breakpoint-up(xs) {
+            .only-email {
+                margin-right: 178px;
+            }
+        }
+        @include media-breakpoint-up(md) {
+            display: flex;
+        }
+    }
+}

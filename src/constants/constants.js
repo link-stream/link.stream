@@ -1,3 +1,5 @@
+const env = process.env
+
 export const constants = {
     vuexLocalStorage: {
         key: 'ls',
@@ -68,4 +70,35 @@ export const constants = {
             icon: 'envelope-open',
         },
     ],
+    cardImages: [
+        {
+            type: 'Visa',
+            url: '/static/img/visa.svg',
+        },
+        {
+            type: 'Amex',
+            url: '/static/img/amex.svg',
+        },
+        {
+            type: 'Mastercard',
+            url: '/static/img/mastercard.svg',
+        },
+        {
+            type: 'Bank',
+            url: '/static/img/bank.svg',
+        },
+        {
+            type: 'Discover',
+            url: '/static/img/discover.svg',
+        },
+        {
+            type: 'Paypal',
+            url: '/static/img/paypal.svg',
+        },
+    ],
+    firebaseConfig: {
+        apiKey: env.VUE_APP_FIREBASE_API_KEY,
+        appId: env.VUE_APP_FIREBASE_APP_ID,
+        authDomain: env.VUE_APP_FIREBASE_AUTH_DOMAIN,
+    },
 }

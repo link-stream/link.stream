@@ -80,7 +80,10 @@ export default {
             }
             this.open = true
         },
-        oops(message, { title = 'Oops!', okText = 'OK' } = {}) {
+        oops(
+            message = 'Something went wrong, please try again!',
+            { title = 'Oops!', okText = 'OK' } = {}
+        ) {
             this.type = Type.ALERT
             this.opts = {
                 ...defaultOpts,

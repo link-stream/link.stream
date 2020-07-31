@@ -100,8 +100,24 @@ export const menus = [
         to: '/app/account',
         subs: [
             {
-                label: 'Settings',
-                to: '/app/account/account-info',
+                label: 'Account Info',
+                to: '/app/account/info',
+            },
+            {
+                label: 'Purchases',
+                to: '/app/account/purchases',
+            },
+            {
+                label: 'Payments',
+                to: '/app/account/payments',
+            },
+            {
+                label: 'Payouts',
+                to: '/app/account/payouts',
+            },
+            {
+                label: 'Notifications',
+                to: '/app/account/notifications',
             },
         ],
     },

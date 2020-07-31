@@ -8,7 +8,7 @@ import { appConstants } from '~/constants'
 
 const initialState = () => ({
     /**
-     * @type {object}
+     * @type {null|object}
      */
     user: null,
     licenses: [],
@@ -19,6 +19,10 @@ const initialState = () => ({
     beatPacks: [],
     relatedTracks: [],
     relatedBeatPacks: [],
+    purchases: [],
+    paymentMethods: [],
+    bankInfo: {},
+    notification: {},
 })
 
 const state = initialState()
@@ -43,8 +47,7 @@ const mutations = {
         state.licenses = licenses
     },
 
-    [meTypes.UPDATE_LICENSE](state, { license }) {
-        const { licenses } = state
+    [meTypes.UPDATE_LICENSE]({ licenses }, { license }) {
         const index = licenses.findIndex(({ id }) => id == license.id)
         index > -1 && licenses.splice(index, 1, license)
     },
@@ -59,20 +62,17 @@ const mutations = {
         state.beats.push(beat)
     },
 
-    [meTypes.UPDATE_BEAT](state, { beat }) {
-        const { beats } = state
+    [meTypes.UPDATE_BEAT]({ beats }, { beat }) {
         const index = beats.findIndex(({ id }) => id == beat.id)
         index > -1 && beats.splice(index, 1, beat)
     },
 
-    [meTypes.DELETE_BEAT](state, { beat }) {
-        const { beats } = state
+    [meTypes.DELETE_BEAT]({ beats }, { beat }) {
         const index = beats.findIndex(({ id }) => id == beat.id)
         beats.splice(index, 1)
     },
 
-    [meTypes.REORDER_BEAT](state, { oldIndex, newIndex }) {
-        const { beats } = state
+    [meTypes.REORDER_BEAT]({ beats }, { oldIndex, newIndex }) {
         const beat = beats[oldIndex]
         beats.splice(oldIndex, 1)
         beats.splice(newIndex, 0, beat)
@@ -88,20 +88,17 @@ const mutations = {
         state.soundKits.push(soundKit)
     },
 
-    [meTypes.UPDATE_SOUND_KIT](state, { soundKit }) {
-        const { soundKits } = state
+    [meTypes.UPDATE_SOUND_KIT]({ soundKits }, { soundKit }) {
         const index = soundKits.findIndex(({ id }) => id == soundKit.id)
         index > -1 && soundKits.splice(index, 1, soundKit)
     },
 
-    [meTypes.DELETE_SOUND_KIT](state, { soundKit }) {
-        const { soundKits } = state
+    [meTypes.DELETE_SOUND_KIT]({ soundKits }, { soundKit }) {
         const index = soundKits.findIndex(({ id }) => id == soundKit.id)
         soundKits.splice(index, 1)
     },
 
-    [meTypes.REORDER_SOUND_KIT](state, { oldIndex, newIndex }) {
-        const { soundKits } = state
+    [meTypes.REORDER_SOUND_KIT]({ soundKits }, { oldIndex, newIndex }) {
         const soundKit = soundKits[oldIndex]
         soundKits.splice(oldIndex, 1)
         soundKits.splice(newIndex, 0, soundKit)
@@ -117,20 +114,17 @@ const mutations = {
         state.beatPacks.push(beatPack)
     },
 
-    [meTypes.UPDATE_BEAT_PACK](state, { beatPack }) {
-        const { beatPacks } = state
+    [meTypes.UPDATE_BEAT_PACK]({ beatPacks }, { beatPack }) {
         const index = beatPacks.findIndex(({ id }) => id == beatPack.id)
         index > -1 && beatPacks.splice(index, 1, beatPack)
     },
 
-    [meTypes.DELETE_BEAT_PACK](state, { beatPack }) {
-        const { beatPacks } = state
+    [meTypes.DELETE_BEAT_PACK]({ beatPacks }, { beatPack }) {
         const index = beatPacks.findIndex(({ id }) => id == beatPack.id)
         beatPacks.splice(index, 1)
     },
 
-    [meTypes.REORDER_BEAT_PACK](state, { oldIndex, newIndex }) {
-        const { beatPacks } = state
+    [meTypes.REORDER_BEAT_PACK]({ beatPacks }, { oldIndex, newIndex }) {
         const beatPack = beatPacks[oldIndex]
         beatPacks.splice(oldIndex, 1)
         beatPacks.splice(newIndex, 0, beatPack)
@@ -150,24 +144,22 @@ const mutations = {
         state.videos.push(video)
     },
 
-    [meTypes.UPDATE_VIDEO](state, { video }) {
-        const { videos } = state
+    [meTypes.UPDATE_VIDEO]({ videos }, { video }) {
         const index = videos.findIndex(({ id }) => id == video.id)
         index > -1 && videos.splice(index, 1, video)
     },
 
-    [meTypes.DELETE_VIDEO](state, { video }) {
-        const { videos } = state
+    [meTypes.DELETE_VIDEO]({ videos }, { video }) {
         const index = videos.findIndex(({ id }) => id == video.id)
         videos.splice(index, 1)
     },
 
-    [meTypes.REORDER_VIDEO](state, { oldIndex, newIndex }) {
-        const { videos } = state
+    [meTypes.REORDER_VIDEO]({ videos }, { oldIndex, newIndex }) {
         const video = videos[oldIndex]
         videos.splice(oldIndex, 1)
         videos.splice(newIndex, 0, video)
     },
+
     [meTypes.SET_RELATED_TRACKS](state, { relatedTracks }) {
         state.relatedTracks = relatedTracks
     },
@@ -182,24 +174,56 @@ const mutations = {
         state.links.push(link)
     },
 
-    [meTypes.UPDATE_LINK](state, { link }) {
-        const { links } = state
+    [meTypes.UPDATE_LINK]({ links }, { link }) {
         const index = links.findIndex(({ id }) => id == link.id)
         index > -1 && links.splice(index, 1, link)
     },
 
-    [meTypes.DELETE_LINK](state, { link }) {
-        const { links } = state
+    [meTypes.DELETE_LINK]({ links }, { link }) {
         const index = links.findIndex(({ id }) => id == link.id)
         links.splice(index, 1)
     },
 
-    [meTypes.REORDER_LINK](state, { oldIndex, newIndex }) {
-        const { links } = state
+    [meTypes.REORDER_LINK]({ links }, { oldIndex, newIndex }) {
         const link = links[oldIndex]
         links.splice(oldIndex, 1)
         links.splice(newIndex, 0, link)
     },
+
+    //Account
+
+    [meTypes.SET_PURCHASES](state, { purchases }) {
+        state.purchases = purchases
+    },
+
+    [meTypes.SET_PAYMENT_METHODS](state, { paymentMethods }) {
+        state.paymentMethods = paymentMethods
+    },
+
+    [meTypes.ADD_PAYMENT_METHOD](state, { paymentMethod }) {
+        state.paymentMethods.push(paymentMethod)
+    },
+
+    [meTypes.UPDATE_PAYMENT_METHOD]({ paymentMethods }, { payment_id }) {
+        paymentMethods.forEach(element => {
+            element.is_default = (element.id === payment_id) ? 1 : 0
+        })
+    },
+
+    [meTypes.DELETE_PAYMENT_METHOD]({ paymentMethods }, { paymentMethod }) {
+        const index = paymentMethods.findIndex(
+            ({ id }) => id == paymentMethod.id
+        )
+        paymentMethods.splice(index, 1)
+    },
+
+    [meTypes.SET_BANK_INFO](state, { params }) {
+        state.bankInfo = params
+    },
+
+    [meTypes.SET_NOTIFICATION](state, { notification }) {
+        state.notification = notification
+    }
 }
 
 const actions = {
@@ -215,6 +239,16 @@ const actions = {
 
     updateProfile({ commit }, { user }) {
         commit(meTypes.SET_USER, { user })
+    },
+
+    async updateUser({ commit }, { id, params }) {
+        const response = await api.users.updateUser(id, params)
+        const { status, data } = response
+        console.log('api-response', response)
+        if (status === 'success') {
+            commit(meTypes.SET_USER, { user: data })
+        }
+        return response
     },
 
     async loadProfile({ commit, rootGetters }) {
@@ -487,6 +521,74 @@ const actions = {
             list: JSON.stringify(sorts),
         })
     },
+
+    //Account
+
+    async loadPurchases({ state, commit }) {
+        if (state.purchases.length) {
+            return
+        }
+        const { status, data } = await api.account.getPurchases(state.user.id)
+        status === 'success' &&
+            commit(meTypes.SET_PURCHASES, { purchases: data })
+    },
+
+    async loadPaymentMethods({ state, commit }) {
+        const { status, data } = await api.account.getPaymentMethodsByUser(
+            state.user.id
+        )
+        commit({
+            type: meTypes.SET_PAYMENT_METHODS,
+            paymentMethods: status === 'success' ? data : [],
+        })
+    },
+
+    // eslint-disable-next-line
+    async createPaymentMethod({ commit }, { params }) {
+        const response = await api.account.insertPaymentMethod(params)
+        return response
+    },
+
+    async updatePaymentMethod({ commit }, { payment_id, params }) {
+        const response = await api.account.updatePaymentMethod(payment_id, params)
+        const { status } = response
+        status === 'success' &&
+            commit(meTypes.UPDATE_PAYMENT_METHOD, { payment_id })
+        return response
+    },
+
+    async deletePaymentMethod({ commit }, paymentMethod) {
+        const response = await api.account.deletePaymentMethod(paymentMethod.id)
+        const { status } = response
+        status === 'success' &&
+            commit(meTypes.DELETE_PAYMENT_METHOD, { paymentMethod })
+        return response
+    },
+
+    async addBankInfo({ commit }, { params }) {
+        commit(meTypes.SET_BANK_INFO, { params })
+        return { status: 'success', message: 'The Bank info has been added successfully' }
+    },
+
+    async loadNotification({ state, commit }) {
+        const response = await api.account.getNotification(state.user.id)
+        const { status, data } = response
+        status === 'success' &&
+            commit({
+                type: meTypes.SET_NOTIFICATION,
+                notification: data.length > 0 ? data[0] : {},
+            })
+    },
+    async updateNotification({ commit }, { id, params }) {
+        const response = await api.account.updateNotification(id, params)
+        const { status, data } = response
+        status === 'success' &&
+            commit({
+                type: meTypes.SET_NOTIFICATION,
+                notification: data,
+            })
+        return response
+    },
 }
 
 const getters = {
@@ -573,6 +675,10 @@ const getters = {
             }
         })
     },
+    purchases: ({ purchases }) => purchases,
+    paymentMethods: ({ paymentMethods }) => paymentMethods,
+    bankInfo: ({ bankInfo }) => bankInfo,
+    notification: ({ notification }) => notification,
 }
 
 export default {

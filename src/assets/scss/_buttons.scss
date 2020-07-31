@@ -127,11 +127,11 @@
     margin-bottom: 0;
     &.toggled {
         .v-switch-core {
-            background-color: $linkstream-40 !important;
+            background-color: $color-green-2 !important;
         }
     }
     .v-switch-core {
-        background-color: $linkstream-30 !important;
+        background-color: $danger !important;
     }
 }
 

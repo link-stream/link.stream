@@ -18,6 +18,7 @@
 @import 'form';
 @import 'icons';
 @import 'alerts';
+@import 'typography';
 @import 'vendor/perfect-scrollbar';
 @import 'vendor/vue-toastification';
 
@@ -46,8 +47,8 @@
 
 // Layouts
 @import 'layouts/error';
-@import 'layouts/account';
 @import 'layouts/auth';
+@import 'layouts/account';
 
 // Pages - Auth
 @import 'pages/auth/login';
@@ -66,6 +67,7 @@
 @import 'pages/account/license-edit';
 @import 'pages/account/soundkit-add-edit';
 @import 'pages/account/beatpack-add-edit';
+@import 'pages/account/settings';
 
 // Pages - Other
 @import 'pages/other/coming-soon';

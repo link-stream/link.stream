@@ -1,0 +1,5 @@
+export { default as AccountInfoTab } from './InfoTab'
+export { default as AccountPurchasesTab } from './PurchasesTab'
+export { default as AccountPaymentsTab } from './PaymentsTab'
+export { default as AccountPayoutsTab } from './PayoutsTab'
+export { default as AccountNotificationsTab } from './NotificationsTab'

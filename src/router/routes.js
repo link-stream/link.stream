@@ -1,5 +1,7 @@
 import { NotFound } from '~/pages/Error'
+
 import { Legal, ComingSoon } from '~/pages/Others'
+
 import {
     Login,
     Signup,
@@ -8,6 +10,7 @@ import {
     PasswordForgot,
     PasswordReset,
 } from '~/pages/Auth'
+
 import {
     AccountDashboard,
     AccountProfileEdit,
@@ -24,12 +27,10 @@ import {
     AccountSoundKitAddEdit,
     AccountBeatPacks,
     AccountBeatPackAddEdit,
-    AccountSettingsPurchases,
-    AccountSettingsInfo,
-    AccountSettingsPayments,
-    AccountSettingsPayouts,
-    AccountSettingsNotifications,
+    AccountSettings,
 } from '~/pages/Account'
+
+import PublicProfile from '@/pages/Profile/PublicProfile'
 
 const routes = [
     // Misc
@@ -197,34 +198,44 @@ const routes = [
         meta: { requiresAuth: true, layout: 'account' },
     },
     {
-        path: '/app/account/purchases',
-        name: 'accountSettingsPurchases',
-        component: AccountSettingsPurchases,
-        meta: { requiresAuth: true, layout: 'accountSettings' },
-    },
-    {
         path: '/app/account/info',
         name: 'accountSettingsInfo',
-        component: AccountSettingsInfo,
-        meta: { requiresAuth: true, layout: 'accountSettings' },
+        component: AccountSettings,
+        meta: { requiresAuth: true, layout: 'account' },
     },
+    {
+        path: '/app/account/purchases',
+        name: 'accountSettingsPurchases',
+        component: AccountSettings,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+
     {
         path: '/app/account/payments',
         name: 'accountSettingsPayments',
-        component: AccountSettingsPayments,
-        meta: { requiresAuth: true, layout: 'accountSettings' },
+        component: AccountSettings,
+        meta: { requiresAuth: true, layout: 'account' },
     },
     {
         path: '/app/account/payouts',
         name: 'accountSettingsPayouts',
-        component: AccountSettingsPayouts,
-        meta: { requiresAuth: true, layout: 'accountSettings' },
+        component: AccountSettings,
+        meta: { requiresAuth: true, layout: 'account' },
     },
     {
         path: '/app/account/notifications',
         name: 'accountSettingsNotifs',
-        component: AccountSettingsNotifications,
-        meta: { requiresAuth: true, layout: 'accountSettings' },
+        component: AccountSettings,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+
+    //Public Profile
+    {
+        path: '/profile/:id',
+        name: 'publicProfile',
+        component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
     },
 
     // 404 catch all

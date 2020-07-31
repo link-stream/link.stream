@@ -27,6 +27,7 @@ import {
     BDropdown,
     BDropdownItem,
     BDropdownDivider,
+    BootstrapVueIcons
 } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'
@@ -90,6 +91,7 @@ Vue.component('BLink', BLink)
 Vue.component('BDropdown', BDropdown)
 Vue.component('BDropdownItem', BDropdownItem)
 Vue.component('BDropdownDivider', BDropdownDivider)
+Vue.use(BootstrapVueIcons)
 
 // Install VueProgressBar
 Vue.use(VueProgressBar, {
@@ -165,3 +167,6 @@ Vue.component('SearchInput', SearchInput)
 Vue.component('Icon', Icon)
 Vue.component('LoadingSpinner', LoadingSpinner)
 Vue.component('LoadingMask', LoadingMask)
+
+import VueCardFormat from 'vue-credit-card-validation'
+Vue.use(VueCardFormat)

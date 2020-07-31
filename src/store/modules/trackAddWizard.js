@@ -73,8 +73,8 @@ const mutations = {
         state.licenses = cloneDeep(licenses)
     },
 
-    [trackAddWizardTypes.UPDATE_LICENSE](state, { index, license }) {
-        state.licenses.splice(index, 1, cloneDeep(license))
+    [trackAddWizardTypes.UPDATE_LICENSE]({ licenses }, { index, license }) {
+        licenses.splice(index, 1, cloneDeep(license))
     },
 }
 

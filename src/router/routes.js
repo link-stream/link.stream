@@ -30,6 +30,8 @@ import {
     AccountSettings,
 } from '~/pages/Account'
 
+import PublicProfile from '@/pages/Profile/PublicProfile'
+
 const routes = [
     // Misc
 
@@ -225,6 +227,15 @@ const routes = [
         name: 'accountSettingsNotifs',
         component: AccountSettings,
         meta: { requiresAuth: true, layout: 'account' },
+    },
+
+    //Public Profile
+    {
+        path: '/profile/:id',
+        name: 'publicProfile',
+        component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
     },
 
     // 404 catch all

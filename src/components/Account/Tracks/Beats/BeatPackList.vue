@@ -7,7 +7,7 @@
             :index="index"
             @remove-click="handleRemoveClick"
         />
-        <div class="empty-message" v-if="!beatPacks.length">
+        <div class="empty-message" v-if="beatPacks && !beatPacks.length">
             <Icon icon="music-note" />
             <p>There are no Beats in this Pack</p>
         </div>

@@ -18,7 +18,7 @@ const initialState = () => ({
         tags: [],
         bpm: null,
         key: {},
-        trackPack: null,
+        trackPack: [],
         time: null,
         date: null,
         scheduled: false,

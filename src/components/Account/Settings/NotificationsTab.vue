@@ -1,7 +1,7 @@
 <template>
     <div class="tab NotificationsTab">
         <div class="tab-body">
-            <div class="mb-3">
+            <div class="notification">
                 <div class="notification-item border-bottom">
                     <div class="item-body">
                         <h4 class="item-title">Sales</h4>
@@ -103,15 +103,15 @@
                     </div>
                 </div>
             </div>
-            <div class="my-5">
-                <h2 class="my-2">Updates from LinkStream</h2>
+            <div class="notification ls-update">
+                <h2 class="title">Updates from LinkStream</h2>
                 <div class="notification-item border-top">
                     <div class="item-body">
                         <h4 class="item-title font-weight-light">New LinkStream features</h4>
                     </div>
                     <div class="item-action">
                         <b-form-checkbox
-                            class="custom-control-inline"
+                            class="custom-control-inline chk-email"
                             v-model="form.ls_features_email"
                         >
                             Email

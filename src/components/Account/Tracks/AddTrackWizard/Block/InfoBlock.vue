@@ -170,7 +170,7 @@ export default {
                 tags: [...tags],
                 bpm,
                 key: { ...key },
-                trackPack,
+                trackPack: [...trackPack],
                 collabs: cloneDeep(collabs),
             },
         }

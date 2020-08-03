@@ -118,7 +118,7 @@ export default {
     },
     async created() {
         await this.$store.dispatch('me/loadBeatPacks')
-        await this.$store.dispatch('me/loadRelatedBeatPacks')    
+        await this.$store.dispatch('me/loadRelatedBeatPacks')
     },
     mounted() {
         document.addEventListener('click', this.handleDocumentClick)

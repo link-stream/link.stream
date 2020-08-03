@@ -106,13 +106,13 @@
                         </template>
                     </b-form-invalid-feedback>
                 </b-form-group>
-                <p>
+                <small>
                     I authorize LinkStream Inc. to save this payment method and
                     automatically charge this payment method for any subscriptions associated with it.
-                </p>
+                </small>
             </div>
-            <div v-else class="text-center">
-                <basic-button variant="warning" class="my-5">
+            <div v-else class="paypal-action">
+                <basic-button variant="warning">
                     Connect to
                     <img src="@/assets/img/ico/paypal.png" />
                 </basic-button>

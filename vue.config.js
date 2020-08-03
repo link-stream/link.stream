@@ -6,7 +6,7 @@ module.exports = {
     lintOnSave: true,
     filenameHashing: true,
     devServer: {
-        https: true,
+        // https: true,
     },
     configureWebpack: {
         resolve: {

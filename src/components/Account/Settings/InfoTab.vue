@@ -2,7 +2,7 @@
     <div class="tab InfoTab">
         <h2 class="section-title">Account Info</h2>
         <div class="tab-body">
-            <b-form>
+            <b-form class="main-info">
                 <b-form-group label="Username">
                     <b-form-input
                         v-model="$v.form.user_name.$model"
@@ -102,7 +102,7 @@
                 </b-form-group>
             </b-form>
             <h2 class="section-title">Connected Accounts</h2>
-            <div class="social-accounts">
+            <div class="social-accounts border-top">
                 <ul>
                     <li class="list-item list-item-fb">
                         <i class="fab fa-facebook"></i>
@@ -186,7 +186,7 @@
                     </li>
                 </ul>
             </div>
-            <footer class="page-footer border-top mt-3 pt-3">
+            <footer class="page-footer border-top">
                 <basic-button
                     class="cancel-btn"
                     variant="secondary"
@@ -200,9 +200,17 @@
                     size="md"
                     :loading="saving"
                     @click="handleSaveClick"
-                    class="float-right"
+                    class="float-right d-none d-sm-block"
                 >
                     Save Changes
+                </spinner-button>
+                <spinner-button
+                    size="md"
+                    :loading="saving"
+                    @click="handleSaveClick"
+                    class="float-right d-sm-none"
+                >
+                    Save
                 </spinner-button>
             </footer>
         </div>

@@ -9,33 +9,39 @@
         </div>
         <div class="tab-body" v-else>
             <base-card
-                class="Card purchases-card"
+                class="purchases-card"
                 v-for="purchases in purchaseData"
                 :key="purchases.id"
             >
-                <b-form-row class="border-bottom pb-3">
+                <b-form-row class="border-bottom purchases-main-info">
                     <b-col>
-                        <span>
+                        <span class="individual-info">
                             <span class="font-weight-bold">Invoice # </span>
                             <span>{{ purchases.invoice_number }}</span>
                         </span>
-                        <span class="float-right">
-                            <span class="font-weight-bold">Date: </span>
-                            <span class="mr-3">
-                                {{ purchases.created_at | normalDate }}
+                        <span class="individual-info float-right">
+                            <span class="individual-info">
+                                <span class="font-weight-bold">Date: </span>
+                                <span class="mr-3">
+                                    {{ purchases.created_at | normalDate }}
+                                </span>
                             </span>
-                            <span class="font-weight-bold">Amount: </span>
-                            <span class="mr-3">
-                                {{ purchases.amount | currencyFormat }}
+                            <span class="individual-info">
+                                <span class="font-weight-bold">Amount: </span>
+                                <span class="mr-3">
+                                    {{ purchases.amount | currencyFormat }}
+                                </span>
                             </span>
-                            <span class="font-weight-bold">Status: </span>
-                            <span class="mr-3">
-                                {{ purchases.status }}
+                            <span class="individual-info">
+                                <span class="font-weight-bold">Status: </span>
+                                <span class="mr-3">
+                                    {{ purchases.status }}
+                                </span>
                             </span>
                         </span>
                     </b-col>
                 </b-form-row>
-                <h4 class="my-3">Items purchased</h4>
+                <h2 class="section-title">Items purchased</h2>
                 <purchase-item
                     v-for="item in purchases.details"
                     :key="`purchase-item-${item.id}`"

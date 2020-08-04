@@ -49,6 +49,7 @@
 @import 'layouts/error';
 @import 'layouts/auth';
 @import 'layouts/account';
+@import 'layouts/profile';
 
 // Pages - Auth
 @import 'pages/auth/login';
@@ -72,3 +73,4 @@
 // Pages - Other
 @import 'pages/other/coming-soon';
 @import 'pages/other/legal';
+@import 'pages/other/profile';

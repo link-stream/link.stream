@@ -27,7 +27,7 @@ import {
     BDropdown,
     BDropdownItem,
     BDropdownDivider,
-    BootstrapVueIcons
+    BootstrapVueIcons,
 } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'

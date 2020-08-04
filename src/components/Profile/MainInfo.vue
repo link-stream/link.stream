@@ -1,0 +1,107 @@
+<template>
+    <div class="main-info">
+        <b-row class="m-0">
+            <b-col cols="12" class="profile-images-container p-0">
+                <div
+                    class="banner-container"
+                    ref="banner-container"
+                    v-resize="onResize"
+                >
+                    <div class="banner">
+                        <img :src="profile.banner" />
+                    </div>
+                </div>
+                <div class="avatar-container">
+                    <div class="avatar-box">
+                        <img :src="profile.photo" />
+                        <!-- <vue-letter-avatar
+                            v-else
+                            :name="user.display_name"
+                            size="150"
+                            :rounded="true"
+                        /> -->
+                    </div>
+                    <img class="avata-badge" src="@/assets/img/ico/badge.svg" />
+                </div>
+            </b-col>
+        </b-row>
+        
+        <b-row>
+            <b-col cols="12" class="action-bar">
+                <basic-button
+                    class="d-none d-sm-block"
+                >
+                    Follow
+                </basic-button>
+                <b-dropdown class="actions-menu" variant="icon" dropleft no-caret>
+                    <template v-slot:button-content>
+                        <Icon icon="dot-menu-v" />
+                    </template>
+                    <b-dropdown-item>
+                        Unfollow
+                    </b-dropdown-item>
+                    <b-dropdown-item>
+                        Copy Artist Link
+                    </b-dropdown-item>
+                    <b-dropdown-item>
+                        Save
+                    </b-dropdown-item>
+                </b-dropdown>
+            </b-col>
+        </b-row>
+        <div class="profile-content">
+            <b-row>
+                <b-col cols="12" class="profile-info">
+                    <h2 class="section-title">{{ profile.name }}</h2>
+                    <p class="section-subtitle">
+                        <span class="mr-3">
+                            <span class="font-weight-bold">{{ profile.follows | thousandNumber }}</span>
+                            <span class="ml-1">Followers</span>
+                        </span>
+                        <span class="mr-3">
+                            <span class="font-weight-bold">{{ profile.plays | thousandNumber }}</span>
+                            <span class="ml-1">Plays</span>
+                        </span>
+                        <span>
+                            <span class="font-weight-bold">{{ profile.beats | thousandNumber }}</span>
+                            <span class="ml-1">Beats</span>
+                        </span>
+                    </p>
+                </b-col>
+            </b-row>
+        </div>
+    </div>
+</template>
+<script>
+import resize from 'vue-resize-directive'
+import { appConstants } from '~/constants'
+export default {
+    name: 'MainInfo',
+    directives: {
+        resize,
+    },
+    data: () => ({
+        profile: {
+            banner: '/static/img/profile/banner.jpg',
+            photo: '/static/img/profile/avata1.jpg',
+            name: 'producername',
+            follows: 490,
+            plays: 23900,
+            beats: 213,
+        },
+    }),
+    methods: {
+        // Resize
+        onResize() {
+            let rate = appConstants.user.publicProfileBannerAspectRatio
+            let curWidth = this.$refs['banner-container'].clientWidth
+            if ( curWidth < 768 && curWidth > 576) {
+                rate *= 1.2
+            } else if (curWidth <= 576) {
+                rate *= 1.4
+            }
+            this.$refs['banner-container'].style.height = rate * curWidth + 'px'
+        },
+    },
+}
+</script>

@@ -11,3 +11,7 @@ Vue.filter('currencyFormat', function(value) {
     })
     return formatter.format(value)
 })
+
+Vue.filter('thousandNumber', function(value) {
+    return  value >=1000 ? Math.floor(value/100)/10 + 'k' : value
+})

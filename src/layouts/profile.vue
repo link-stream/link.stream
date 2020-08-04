@@ -1,5 +1,5 @@
 <template>
-    <div class="layout layout-account">
+    <div class="layout layout-profile">
         <main class="layout-content">
             <transition name="page" mode="out-in">
                 <router-view :key="$route.fullPath"></router-view>

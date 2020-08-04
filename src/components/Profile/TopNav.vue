@@ -1,6 +1,6 @@
 <template>
     <b-navbar
-        class="topnav"
+        class="topnav profile-nav"
         toggleable="lg"
         type="dark"
         variant="dark"
@@ -14,7 +14,7 @@
                 <ToggleMenu :isHidden="isHidden" />
             </a>
         </b-navbar-nav>
-        <b-navbar-nav class="mr-auto ml-4">
+        <b-navbar-nav class="mr-auto left-padding">
             <SearchInput
                 pill
                 color="white"
@@ -24,9 +24,9 @@
                 
             />
         </b-navbar-nav>
-        <b-navbar-nav>
+        <b-navbar-nav class="d-none d-md-block">
             <b-button 
-                class="bg-transparent text-white mr-2 border-0"
+                class="bg-transparent text-white border-0"
                 size="md"
             >
                 Sign In
@@ -38,6 +38,9 @@
             >
                 Sign Up
             </b-button>
+        </b-navbar-nav>
+        <b-navbar-nav class="left-padding">
+            <img src="@/assets/img/ico/basket.svg" />
         </b-navbar-nav>
     </b-navbar>
 </template>

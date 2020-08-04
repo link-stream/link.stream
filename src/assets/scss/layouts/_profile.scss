@@ -1,0 +1,29 @@
+.layout-profile {
+    .layout-content {
+        margin-top: 80px;
+        margin-bottom: 40px;
+        .page {
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0;
+        }
+    }
+    .profile-nav {
+        height: 80px;
+        background-color: #000 !important;
+        .SearchInput {
+            width: 330px;
+        }
+        .left-padding {
+            margin-left: 20px;
+        }
+        @include media-breakpoint-down(sm) {
+            .SearchInput {
+                width: 165px;
+            }
+            .left-padding {
+                margin-left: 15px;
+            }
+        }
+    }
+}

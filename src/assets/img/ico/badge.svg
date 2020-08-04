@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>icon-badge</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Final" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Profile---Beats---Centered" transform="translate(-561.000000, -315.000000)">
+            <g id="Header" transform="translate(0.000000, 80.000000)">
+                <g id="User-Pic" transform="translate(421.000000, 90.000000)">
+                    <g id="icon-badge" transform="translate(138.000000, 143.000000)">
+                        <g id="Icon" transform="translate(2.000000, 2.000000)">
+                            <circle id="Oval" fill="#DC2EA6" cx="10" cy="10" r="10"></circle>
+                            <path d="M9.99142857,4.23160714 C9.99142857,4.23160714 9.72214286,10.0616071 4.23142857,10.0780357 C4.1036141,10.0780357 4,10.1816498 4,10.3094643 C4,10.4372788 4.1036141,10.5408929 4.23142857,10.5408929 L4.23285714,10.5408929 C4.23285714,10.5408929 10.0628571,10.93375 10.0792857,16.4244643 L10.0792857,16.4766071 C10.0792857,16.6044216 10.1828998,16.7080357 10.3107143,16.7080357 C10.4385288,16.7080357 10.5421429,16.6044216 10.5421429,16.4766071 C10.5585714,10.9855357 16.3885714,10.5408929 16.3885714,10.5408929 L16.3903571,10.5408929 C16.4730386,10.5408929 16.5494394,10.4967828 16.5907802,10.4251786 C16.6321209,10.3535743 16.6321209,10.2653542 16.5907802,10.19375 C16.5494394,10.1221457 16.4730386,10.0780357 16.3903571,10.0780357 C10.8992857,10.0616071 10.4546429,4.23160714 10.4546429,4.23160714 C10.4546429,4.10369405 10.3509488,4 10.2230357,4 C10.0951226,4 9.99142857,4.10369405 9.99142857,4.23160714 L9.99142857,4.23160714 Z" id="Icon-Path" stroke="#FFFFFF" fill="#FFFFFF" fill-rule="nonzero" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                        <rect id="ViewBox" fill-rule="nonzero" x="0" y="0" width="24" height="24"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

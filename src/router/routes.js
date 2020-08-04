@@ -231,13 +231,40 @@ const routes = [
 
     //Public Profile
     {
-        path: '/profile/:id',
-        name: 'publicProfile',
+        path: '/profile/:id/beats',
+        name: 'profileBeats',
         component: PublicProfile,
         props: true,
         meta: { layout: 'profile' },
     },
-
+    {
+        path: '/profile/:id/kits',
+        name: 'profileSoundKits',
+        component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/profile/:id/videos',
+        name: 'profileVideos',
+        component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/profile/:id/links',
+        name: 'profileLinks',
+        component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/profile/:id/about',
+        name: 'profileAbout',
+        component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
+    },
     // 404 catch all
 
     {

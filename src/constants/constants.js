@@ -33,6 +33,7 @@ export const constants = {
     },
     user: {
         profileBannerAspectRatio: 0.254364,
+        publicProfileBannerAspectRatio: 0.17578,
         account: {
             videosPerPage: 20,
             menuHiddenBreakpoint: 992,

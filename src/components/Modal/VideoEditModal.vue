@@ -42,10 +42,6 @@
                     <template v-if="!$v.form.title.required">
                         Enter the title
                     </template>
-                    <template v-else-if="!$v.form.title.minLength">
-                        Title should be at least
-                        {{ $v.form.title.$params.minLength.min }} characters
-                    </template>
                 </b-form-invalid-feedback>
             </b-form-group>
 

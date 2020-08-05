@@ -128,7 +128,7 @@
                             <b-form-invalid-feedback
                                 :state="!$v.form.tags.$error"
                             >
-                                Add 3 or more tags to help people find this pack
+                                Add at most 3 tags to help people find this beat pack.
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group label="Description">
@@ -283,7 +283,7 @@ import BeatList from '~/components/Account/Tracks/BeatPacks/BeatList'
 import { DropImage } from '~/components/Uploader'
 import { api } from '~/services'
 import { appConstants } from '~/constants'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, maxLength } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 import moment from 'moment'
 
@@ -338,7 +338,7 @@ export default {
             },
             tags: {
                 required,
-                minLength: minLength(3),
+                maxLength: maxLength(3),
             },
             title: {
                 required,
@@ -447,7 +447,7 @@ export default {
 
             if (this.$v.form.tags.$invalid) {
                 this.$toast.error(
-                    'Add 3 or more tags to help people find this beat pack.'
+                    'Add at most 3 tags to help people find this beat pack.'
                 )
                 return
             }

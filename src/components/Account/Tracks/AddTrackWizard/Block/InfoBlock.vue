@@ -36,7 +36,7 @@
                     @tags-changed="handleTagsChange"
                 />
                 <b-form-invalid-feedback :state="!$v.form.tags.$error">
-                    Add 3 or more tags to help people find this beat
+                    Add at most 3 tags to help people find this beat
                 </b-form-invalid-feedback>
             </b-form-group>
 
@@ -139,7 +139,7 @@
 <script>
 import BeatPacksMultiSelect from '~/components/Account/Tracks/Beats/BeatPacksMultiSelect'
 import { collabsProfitFormMixin } from '~/mixins/tracks/collabsProfitForm'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, maxLength } from 'vuelidate/lib/validators'
 import { api } from '~/services'
 import { mapGetters } from 'vuex'
 import { cloneDeep } from 'lodash'
@@ -187,7 +187,7 @@ export default {
         form: {
             tags: {
                 required,
-                minLength: minLength(3),
+                maxLength: maxLength(3),
             },
             title: {
                 required,
@@ -240,7 +240,7 @@ export default {
 
             if (this.$v.form.tags.$invalid) {
                 this.$toast.error(
-                    'Add 3 or more tags to help people find this beat.'
+                    'Add at most 3 tags to help people find this beat.'
                 )
                 return
             }

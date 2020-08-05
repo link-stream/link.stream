@@ -111,7 +111,7 @@
                             <b-form-invalid-feedback
                                 :state="!$v.form.tags.$error"
                             >
-                                Add 3 or more tags to help people find this kit
+                                Add at most 3 tags to help people find this kit
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group label="Description">
@@ -299,7 +299,7 @@ import { MiniAudioPlayer } from '~/components/Player'
 import { api } from '~/services'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, maxLength } from 'vuelidate/lib/validators'
 import moment from 'moment'
 
 const FILES_PAGE_SIZE = 5
@@ -368,7 +368,7 @@ export default {
             },
             tags: {
                 required,
-                minLength: minLength(3),
+                maxLength: maxLength(3),
             },
             zipFile: {
                 required,
@@ -503,7 +503,7 @@ export default {
 
             if (this.$v.form.tags.$invalid) {
                 this.$toast.error(
-                    'Add 3 or more tags to help people find this kit.'
+                    'Add at most 3 tags to help people find this kit'
                 )
                 return
             }

@@ -46,7 +46,6 @@ export const videoAddEditForm = {
             },
             title: {
                 required,
-                minLength: minLength(10),
             },
         },
     },

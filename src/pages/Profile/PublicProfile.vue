@@ -1,10 +1,11 @@
 <template>
-    <b-container fluid class="page page-public-profile">
+    <b-container class="page page-public-profile">
         <MainInfo />
         <TabNav />
         <div class="page-body">
             <component v-bind:is="currentTabComponent"></component>
         </div>
+        <ArtPlayer />
     </b-container>
 </template>
 
@@ -18,6 +19,7 @@ import {
     ProfileLinks,
     ProfileAbout,
 } from '@/components/Profile'
+import ArtPlayer from '@/components/Profile/ArtPlayer'
 export default {
     name: 'PublicProfile',
     components: {
@@ -28,6 +30,7 @@ export default {
         ProfileVideos,
         ProfileLinks,
         ProfileAbout,
+        ArtPlayer,
     },
     computed: {
         currentTabComponent() {

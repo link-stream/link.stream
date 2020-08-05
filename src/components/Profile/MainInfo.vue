@@ -49,11 +49,12 @@
                 </b-dropdown>
             </b-col>
         </b-row>
+       
         <div class="profile-content">
             <b-row>
                 <b-col cols="12" class="profile-info">
                     <h2 class="section-title">{{ profile.name }}</h2>
-                    <p class="section-subtitle">
+                    <div class="section-subtitle">
                         <span class="mr-3">
                             <span class="font-weight-bold">{{ profile.follows | thousandNumber }}</span>
                             <span class="ml-1">Followers</span>
@@ -66,7 +67,14 @@
                             <span class="font-weight-bold">{{ profile.beats | thousandNumber }}</span>
                             <span class="ml-1">Beats</span>
                         </span>
-                    </p>
+                    </div>
+                </b-col>
+            </b-row>
+            <b-row class="d-sm-none btn-follow">
+                <b-col cols="12">
+                    <basic-button size="md">
+                        Follow
+                    </basic-button>
                 </b-col>
             </b-row>
         </div>

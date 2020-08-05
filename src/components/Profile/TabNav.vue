@@ -6,9 +6,12 @@
             v-model="searchString"
             placeholder="Search by tag"
             direction="right"
-            
+            class="search-form d-none d-sm-block"
         />
         <ul class="mx-auto">
+            <li>
+                <b-icon-search />
+            </li>
             <li
                 v-for="tab in tabs"
                 :key="tab.to"
@@ -22,6 +25,7 @@
         <basic-button 
             variant="outline-light" 
             size="sm"
+            class="btn-filter d-none d-sm-block"
         >
             <img src="@/assets/img/ico/filter-list.svg" class="mr-2" />
             Filters

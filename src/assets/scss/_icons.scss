@@ -169,3 +169,28 @@
     width: 30px;
     height: 30px;
 }
+.ico-player-back:before {
+    background-image: url(~@/assets/img/ico/player-back.svg);
+    width: 16px;
+    height: 18px;
+}
+.ico-player-pause:before {
+    background-image: url(~@/assets/img/ico/player-pause.svg);
+    width: 43px;
+    height: 42px;
+}
+.ico-player-next:before {
+    background-image: url(~@/assets/img/ico/player-next.svg);
+    width: 16px;
+    height: 18px;
+}
+.ico-volume:before {
+    background-image: url(~@/assets/img/ico/volume.svg);
+    width: 16px;
+    height: 15px;
+}
+.ico-dot-menu-v-w {
+    background-image: url(~@/assets/img/ico/dot-menu-v-w.svg);
+    width: 4px;
+    height: 16px;
+}

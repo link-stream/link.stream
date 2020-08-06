@@ -2,13 +2,16 @@
     <div class="beats-container">
         <b-form-row>
             <b-col
-                col
+                cols="12"
                 lg="3"
                 md="6"
                 v-for="(item, index) in beats"
                 :key="index"
             >
-                <ArtItem :artItem="item" />
+                <ArtItem
+                    :artItem="item"
+                    :selected="index === currentIndex"
+                />
             </b-col>
         </b-form-row>
         <div class="text-center mb-5">
@@ -20,7 +23,7 @@
 </template>
 <script>
 import { appConstants } from '~/constants'
-import ArtItem from './ArtItem'
+import ArtItem from '@/components/Profile/ArtItem'
 export default {
     name: 'ProfileBeats',
     components: {
@@ -85,6 +88,7 @@ export default {
                 bogo: false,
             }
         ],
+        currentIndex: 1,
     })
 }
 </script>

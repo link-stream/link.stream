@@ -10,7 +10,7 @@
         />
         <ul class="mx-auto">
             <li>
-                <b-icon-search />
+                <b-icon-search class="d-sm-none" />
             </li>
             <li
                 v-for="tab in tabs"
@@ -26,16 +26,24 @@
             variant="outline-light" 
             size="sm"
             class="btn-filter d-none d-sm-block"
+            @click="isShowFilter = !isShowFilter"
         >
             <img src="@/assets/img/ico/filter-list.svg" class="mr-2" />
             Filters
         </basic-button>
+        <ProfileFilter
+            v-if="isShowFilter"
+        />
     </div>
 </template>
 
 <script>
+import ProfileFilter from './Filter'
 export default {
     name: 'TabNav',
+    components: {
+        ProfileFilter,
+    },
     data() {
         return {
             tabs: [
@@ -45,7 +53,8 @@ export default {
                 { title: 'Links', to: 'profileLinks' },
                 { title: 'About', to: 'profileAbout' },
             ],
-            searchString: ''
+            searchString: '',
+            isShowFilter: false,
         }
     },
 }

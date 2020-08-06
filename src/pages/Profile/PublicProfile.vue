@@ -11,14 +11,14 @@
 
 <script>
 import {
-    MainInfo,
-    TabNav,
     ProfileBeats,
     ProfileSoundKits,
     ProfileVideos,
     ProfileLinks,
     ProfileAbout,
-} from '@/components/Profile'
+} from './Tabs'
+import MainInfo from '@/components/Profile/MainInfo'
+import TabNav from '@/components/Profile/TabNav'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
 export default {
     name: 'PublicProfile',

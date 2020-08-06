@@ -102,4 +102,26 @@ export const constants = {
         appId: env.VUE_APP_FIREBASE_APP_ID,
         authDomain: env.VUE_APP_FIREBASE_AUTH_DOMAIN,
     },
+    sortItems: [
+        {
+            id: 0,
+            title: 'Default',
+        },
+        {
+            id: 1,
+            title: 'Best Selling',
+        },
+        {
+            id: 2,
+            titel: 'New Releases',
+        },
+        {
+            id: 3,
+            title: 'Price: Low to high',
+        },
+        {
+            id: 4,
+            title: 'Price: High to low',
+        },
+    ]
 }

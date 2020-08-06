@@ -1,0 +1,95 @@
+.beats-container {
+    .art-item {
+        margin: 5px 5px 30px 5px;
+        .img-container {
+            position: relative;
+            img {
+                width: 100%;
+                &.center-img {
+                    position: absolute;
+                    width: 33%;
+                    top: 33%;
+                    left: 33%;
+                }
+            }
+        }
+        .art-desc {
+            margin-top: 10px;
+            display: inline-block;
+            .title {
+                font-size: px2rem(13);
+                line-height: px2rem(18);
+                font-weight: bold;
+            }
+            .price {
+                font-size: px2rem(13);
+                line-height: px2rem(18);
+                margin-right: 7px;
+                float: left;
+            }
+            .bogo {
+                background-color: #FEEBD3;
+                color: black;
+                width: 42px;
+                height: 17px;
+                border-radius: 17px;
+                font-size: 10px;
+                line-height: 17px;
+                text-align: center;
+                float: left;
+            }
+        }
+        .actions-menu {
+            float: right;
+            margin-top: 20px;
+            margin-right: 15px;
+        }
+        .action {
+            margin-top: 10px;
+            .btn-download {
+                margin-left: 7px;
+                opacity: 0.3;
+                &:hover, &.active, &:active {
+                    opacity: 1;
+                }
+            }
+        }
+        @include media-breakpoint-down(sm) {
+            display: flex;
+            margin: 0;
+            padding: 15px 0px;
+            border-bottom: 1px solid $gray-320;
+            .img-container {
+                width: 70px;
+                min-width: 70px;
+                img.center-img {
+                    width: 50%;
+                    top: 25%;
+                    left: 25%;
+                }
+            }
+            .art-desc {
+                margin-left: 13px;
+                .price {
+                    float: inherit;
+                }
+            }
+            .action {
+                text-align: right;
+                margin-right: 5px;
+                .btn-download {
+                    margin-top: 15px;
+                    margin-right: 5px;
+                }
+                .actions-menu {
+                    margin-top: 15px;
+                    margin-right: 5px;
+                    margin-left: 15px;
+                }
+            }
+            &:last-child {
+                margin-bottom: 30px;
+            }
+        }
+    }
+}

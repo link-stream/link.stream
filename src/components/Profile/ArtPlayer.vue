@@ -16,7 +16,7 @@
                         {{ curItem.username }}
                     </div>
                 </div>
-                <div class="center-control">
+                <div class="center-control d-none d-sm-block">
                     <IconButton 
                         class="btn-back"
                         icon="player-back"
@@ -32,7 +32,7 @@
                 </div>
                 <div class="right-control">
                     <IconButton 
-                        class="btn-volume"
+                        class="btn-volume d-none d-sm-block"
                         icon="volume"
                     />
                     <b-dropdown class="actions-menu" variant="icon" dropleft no-caret>
@@ -40,17 +40,22 @@
                             <Icon icon="dot-menu-v-w" />
                         </template>
                     </b-dropdown>
+                    <IconButton 
+                        class="btn-pause d-sm-none"
+                        icon="player-pause"
+                    />
                 </div>
             </div>
         </div>
     </b-container>
 </template>
 <script>
+import { appConstants } from '~/constants'
 export default {
     name: 'ArtPlayer',
     data: () => ({
         curItem: {
-            img: '/static/img/profile/Spaceman-Bitmap.jpg',
+            img: appConstants.defaultCoverArt,
             title: 'Beat Title',
             username: 'producername', 
         },

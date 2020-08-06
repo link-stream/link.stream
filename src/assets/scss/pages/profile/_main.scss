@@ -150,123 +150,19 @@
                 margin-top: 20px;
             }
         }
+        @include media-breakpoint-down(sm) {
+            margin: 30px 10px 8px;
+        }
     }
     .page-body {
         margin-left: 27px;
         margin-right: 27px;
-        margin-bottom: 80px;
-    }
-    .beats-container {
-        .art-item {
-            margin: 5px 5px 30px 5px;
-            *margin-bottom: 30px;
-            .img-container {
-                img {
-                    width: 100%;
-                }
-            }
-            .art-desc {
-                margin-top: 10px;
-                .title {
-                    font-size: px2rem(13);
-                    line-height: px2rem(18);
-                    font-weight: bold;
-                }
-                .desc {
-                    display: flex;
-                    .price {
-                        font-size: px2rem(13);
-                        line-height: px2rem(18);
-                        margin-right: 7px;
-                    }
-                    .bogo {
-                        background-color: #FEEBD3;
-                        color: black;
-                        width: 42px;
-                        height: 17px;
-                        border-radius: 17px;
-                        font-size: 10px;
-                        line-height: 17px;
-                        text-align: center;
-                        display: block;
-                    }
-                }
-                .action {
-                    margin-top: 10px;
-                    .btn-download {
-                        margin-left: 7px;
-                        opacity: 0.3;
-                        &:hover, &.active, &:active {
-                            opacity: 1;
-                        }
-                    }
-                }
-            }
-        }
-        
-    }
-    .art-player {
-        position: fixed;
-        bottom: 0;
-        padding: 0;
-        height: 64px;
-        .player-progress {
-            width: 100%;
-            height: 4px;
-            background-color: #771859;
-            box-shadow: 0 -6px 10px 0 rgba(0, 0, 0, 0.04);
-            .current-progress {
-                height: 4px;
-                background-color: #DC2EA6;
-                box-shadow: 0 -6px 10px 0 rgba(0, 0, 0, 0.04);
-            }
-        }
-        .player-container {
-            display: flex;
-            height: 60px;
-            .img-thumb {
-                width: 60px;
-                height: 60px;
-                img {
-                    height: 100%;
-                }
-            }
-            .control-container {
-                width: 100%;
-                line-height: 60px;
-                display: flex;
-                background-color: rgba(0, 0, 0, 0.85);
-                box-shadow: 0 -6px 10px 0 rgba(0, 0, 0, 0.04);
-                .art-info {
-                    padding: 10px 15px;
-                    .title {
-                        font-size: px2rem(13);
-                        color: white;
-                        font-weight: 500;
-                        line-height: px2rem(24);
-                    }
-                    .art-user {
-                        color: white;
-                        font-size: px2rem(11);
-                        line-height: px2rem(16);
-                    }
-                }
-                .center-control {
-                    margin-left: auto;
-                    margin-right: auto;
-                    .btn-pause {
-                        margin-left: 25px;
-                        margin-right: 25px;
-                    }
-                    
-                }
-                .right-control {
-                    .actions-menu {
-                        margin-right: 20px;
-                        margin-left: 20px;
-                    }
-                }
-            }
+        margin-bottom: 110px;
+        @include media-breakpoint-down(sm) {
+            margin-left: 10px;
+            margin-right: 10px;
         }
     }
+    
+    
 }

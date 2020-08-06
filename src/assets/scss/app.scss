@@ -38,6 +38,8 @@
 @import 'components/account/link-card';
 @import 'components/account/beat-card';
 @import 'components/account/license-card';
+@import 'components/profile/art-player';
+@import 'components/profile/filter';
 
 // Modals
 @import 'modals/base-modal';
@@ -73,4 +75,7 @@
 // Pages - Other
 @import 'pages/other/coming-soon';
 @import 'pages/other/legal';
-@import 'pages/other/profile';
+
+//Pages - Public Profile
+@import 'pages/profile/main';
+@import 'pages/profile/beats';

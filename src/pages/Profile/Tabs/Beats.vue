@@ -20,17 +20,20 @@
             </basic-button>
         </div>
         <BuyLicenseModal />
+        <AddedCartModal />
     </div>
 </template>
 <script>
 import { appConstants } from '~/constants'
 import ArtItem from '@/components/Profile/ArtItem'
 import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
+import AddedCartModal from '@/components/Modal/AddedCartModal'
 export default {
     name: 'ProfileBeats',
     components: {
         ArtItem,
         BuyLicenseModal,
+        AddedCartModal,
     },
     data: () => ({
         beats: [

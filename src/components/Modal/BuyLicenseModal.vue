@@ -34,6 +34,7 @@
                         <basic-button
                             size="sm"
                             class="btn-buy"
+                            @click="handleBuyClick"
                         >
                             Buy
                         </basic-button>
@@ -82,6 +83,10 @@ export default {
         },
         handleOpen() {
             this.open = true
+        },
+        handleBuyClick() {
+            this.close()
+            this.$bus.$emit('modal.addedCart.open')
         },
     },
 }

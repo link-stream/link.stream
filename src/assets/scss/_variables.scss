@@ -209,3 +209,8 @@ $shadowBlursBottom: 3 6 6 5 6;
 $shadowOpacitiesBottom: 0.04 0.1 0.2 0.22 0.22;
 
 $layout-account-page-max-width: 816px;
+
+//Vue Slider
+$themeColor: $color-pink-1;
+$dotShadow: 0.5px 0.5px 2px 1px rgba($color-pink-1, 0.32) !default;
+$dotBgColor: $color-pink-1 !default;

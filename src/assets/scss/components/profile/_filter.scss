@@ -3,4 +3,40 @@
     border-radius: 2px;
     background-color: white;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+    position: absolute;
+    z-index: 999;
+    right: 0;
+    margin-top: 80px;
+    .filter-item {
+        padding: 20px;
+        border-bottom: 1px solid $gray-320;
+    }
+    .custom-radio, .custom-checkbox {
+        height: 32px;
+        display: block;
+        margin-right: 0;
+    }
+    .slider-range-input {
+        display: flex;
+        .range-dash {
+            font-size: px2rem(16);
+            font-weight: bold;
+            line-height: px2rem(40);
+            margin: 0 10px;
+        }
+    }
+    .page-footer {
+        padding: 15px 15px 20px;
+        text-align: right;
+        .btn {
+            padding: 9px 15px;
+            letter-spacing: normal;
+        }
+        .cancel-btn {
+            margin-right: 5px;
+            text-transform: capitalize;
+            background: transparent;
+            border: 0;
+        }
+    }
 }

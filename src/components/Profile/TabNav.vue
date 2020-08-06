@@ -33,6 +33,7 @@
         </basic-button>
         <ProfileFilter
             v-if="isShowFilter"
+            @apply="searchData"
         />
     </div>
 </template>
@@ -57,5 +58,11 @@ export default {
             isShowFilter: false,
         }
     },
+    methods: {
+        searchData(filter) {
+            this.isShowFilter = false
+            console.log('filter', filter)
+        }
+    }
 }
 </script>

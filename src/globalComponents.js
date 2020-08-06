@@ -9,6 +9,7 @@ import {
     BFormGroup,
     BFormInput,
     BFormCheckbox,
+    BFormCheckboxGroup,
     BFormRadio,
     BFormRadioGroup,
     BFormInvalidFeedback,
@@ -73,6 +74,7 @@ Vue.component('BFormRow', BFormRow)
 Vue.component('BFormGroup', BFormGroup)
 Vue.component('BFormInput', BFormInput)
 Vue.component('BFormCheckbox', BFormCheckbox)
+Vue.component('BFormCheckboxGroup', BFormCheckboxGroup)
 Vue.component('BFormRadio', BFormRadio)
 Vue.component('BFormRadioGroup', BFormRadioGroup)
 Vue.component('BFormInvalidFeedback', BFormInvalidFeedback)
@@ -169,4 +171,6 @@ Vue.component('LoadingSpinner', LoadingSpinner)
 Vue.component('LoadingMask', LoadingMask)
 
 import VueCardFormat from 'vue-credit-card-validation'
+import VueSlider from 'vue-slider-component'
 Vue.use(VueCardFormat)
+Vue.component('VueSlider', VueSlider)

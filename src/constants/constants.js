@@ -113,7 +113,7 @@ export const constants = {
         },
         {
             id: 2,
-            titel: 'New Releases',
+            title: 'New Releases',
         },
         {
             id: 3,

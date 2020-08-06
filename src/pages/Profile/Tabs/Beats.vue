@@ -19,15 +19,18 @@
                 view More
             </basic-button>
         </div>
+        <BuyLicenseModal />
     </div>
 </template>
 <script>
 import { appConstants } from '~/constants'
 import ArtItem from '@/components/Profile/ArtItem'
+import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
 export default {
     name: 'ProfileBeats',
     components: {
         ArtItem,
+        BuyLicenseModal,
     },
     data: () => ({
         beats: [

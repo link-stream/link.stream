@@ -33,7 +33,7 @@
         </basic-button>
         <ProfileFilter
             v-if="isShowFilter"
-            @apply="searchData"
+            @apply-filter="searchData"
         />
     </div>
 </template>

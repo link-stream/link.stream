@@ -129,7 +129,7 @@ export default {
         },
         handleApplyClick() {
             this.form.genre = this.selected
-            this.$emit('apply', {...this.form})
+            this.$emit('apply-filter', {...this.form})
         }
     }
 }

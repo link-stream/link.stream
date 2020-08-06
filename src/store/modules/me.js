@@ -206,7 +206,7 @@ const mutations = {
 
     [meTypes.UPDATE_PAYMENT_METHOD]({ paymentMethods }, { payment_id }) {
         paymentMethods.forEach(element => {
-            element.is_default = (element.id === payment_id) ? 1 : 0
+            element.is_default = element.id === payment_id ? 1 : 0
         })
     },
 
@@ -223,7 +223,7 @@ const mutations = {
 
     [meTypes.SET_NOTIFICATION](state, { notification }) {
         state.notification = notification
-    }
+    },
 }
 
 const actions = {
@@ -550,7 +550,10 @@ const actions = {
     },
 
     async updatePaymentMethod({ commit }, { payment_id, params }) {
-        const response = await api.account.updatePaymentMethod(payment_id, params)
+        const response = await api.account.updatePaymentMethod(
+            payment_id,
+            params
+        )
         const { status } = response
         status === 'success' &&
             commit(meTypes.UPDATE_PAYMENT_METHOD, { payment_id })
@@ -567,7 +570,10 @@ const actions = {
 
     async addBankInfo({ commit }, { params }) {
         commit(meTypes.SET_BANK_INFO, { params })
-        return { status: 'success', message: 'The Bank info has been added successfully' }
+        return {
+            status: 'success',
+            message: 'The Bank info has been added successfully',
+        }
     },
 
     async loadNotification({ state, commit }) {

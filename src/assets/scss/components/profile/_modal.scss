@@ -1,0 +1,15 @@
+.BuyLicenseModal {
+    padding-left: 0 !important;
+    .btn-view-terms {
+        text-decoration: none;
+        margin-left: 0.5rem;
+        @include media-breakpoint-down(sm) {
+            display: block;
+            margin-left: 0;
+        }
+    }
+    .btn-buy {
+        padding: 7px 15px;
+        max-height: 28px;
+    }
+}

@@ -46,7 +46,10 @@
             </b-dropdown-item>
         </b-dropdown>
         <div class="action">
-            <basic-button size="sm">
+            <basic-button 
+                size="sm"
+                @click="handleBuyClick"
+            >
                 Buy
             </basic-button>
             <button class="btn btn-icon btn-download">
@@ -88,6 +91,11 @@ export default {
         selected: {
             type: Boolean,
         },
-    }
+    },
+    methods: {
+        handleBuyClick() {
+            this.$bus.$emit('modal.buyLicense.open')
+        }
+    },
 }
 </script>

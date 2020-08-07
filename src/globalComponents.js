@@ -15,6 +15,7 @@ import {
     BFormInvalidFeedback,
     BFormTextarea,
     BInputGroup,
+    BInputGroupText,
     BContainer,
     BRow,
     BCol,
@@ -80,6 +81,7 @@ Vue.component('BFormRadioGroup', BFormRadioGroup)
 Vue.component('BFormInvalidFeedback', BFormInvalidFeedback)
 Vue.component('BFormTextarea', BFormTextarea)
 Vue.component('BInputGroup', BInputGroup)
+Vue.component('BInputGroupText', BInputGroupText)
 Vue.component('BContainer', BContainer)
 Vue.component('BRow', BRow)
 Vue.component('BCol', BCol)

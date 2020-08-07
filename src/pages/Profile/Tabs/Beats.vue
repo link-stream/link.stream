@@ -8,10 +8,7 @@
                 v-for="(item, index) in beats"
                 :key="index"
             >
-                <ArtItem
-                    :artItem="item"
-                    :selected="index === currentIndex"
-                />
+                <ArtItem :artItem="item" :selected="index === currentIndex" />
             </b-col>
         </b-form-row>
         <div class="text-center mb-5">
@@ -19,21 +16,15 @@
                 view More
             </basic-button>
         </div>
-        <BuyLicenseModal />
-        <AddedCartModal />
     </div>
 </template>
 <script>
 import { appConstants } from '~/constants'
 import ArtItem from '@/components/Profile/ArtItem'
-import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
-import AddedCartModal from '@/components/Modal/AddedCartModal'
 export default {
     name: 'ProfileBeats',
     components: {
         ArtItem,
-        BuyLicenseModal,
-        AddedCartModal,
     },
     data: () => ({
         beats: [
@@ -92,9 +83,9 @@ export default {
                 minPrice: 19.95,
                 maxPrice: 100,
                 bogo: false,
-            }
+            },
         ],
         currentIndex: 1,
-    })
+    }),
 }
 </script>

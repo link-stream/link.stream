@@ -38,7 +38,7 @@
             <b-dropdown-item>
                 Save
             </b-dropdown-item>
-            <b-dropdown-item>
+            <b-dropdown-item @click="handleShareClick">
                 Share
             </b-dropdown-item>
             <b-dropdown-item>
@@ -73,6 +73,10 @@ export default {
     methods: {
         handleBuyClick() {
             this.$bus.$emit('modal.buyLicense.open')
+        },
+        handleShareClick() {
+            console.log('click share button!')
+            this.$bus.$emit('modal.shareArt.open')
         }
     },
 }

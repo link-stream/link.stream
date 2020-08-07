@@ -21,17 +21,13 @@
                 v-model="searchString"
                 placeholder="Search"
                 direction="right"
-                
             />
         </b-navbar-nav>
         <b-navbar-nav class="d-none d-md-block">
-            <b-button 
-                class="bg-transparent text-white border-0"
-                size="md"
-            >
+            <b-button class="bg-transparent text-white border-0" size="md">
                 Sign In
             </b-button>
-            <b-button 
+            <b-button
                 pill
                 class="bg-transparent text-white"
                 size="md"
@@ -39,7 +35,7 @@
                 Sign Up
             </b-button>
         </b-navbar-nav>
-        <b-navbar-nav class="left-padding">
+        <b-navbar-nav class="left-padding" @click="showCart">
             <img src="@/assets/img/ico/basket.svg" />
         </b-navbar-nav>
     </b-navbar>
@@ -60,11 +56,14 @@ export default {
             return window.innerWidth >= appConstants.user.account.menuHiddenBreakpoint
         },
     },
-    data : () => ({
-        searchString: ''
+    data: () => ({
+        searchString: '',
     }),
     methods: {
         toggle() {},
+        showCart() {
+            this.$bus.$emit('modal.addedCart.open')
+        },
     },
 }
 </script>

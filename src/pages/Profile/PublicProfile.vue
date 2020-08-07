@@ -6,6 +6,9 @@
             <component v-bind:is="currentTabComponent"></component>
         </div>
         <ArtPlayer />
+        <BuyLicenseModal />
+        <AddedCartModal />
+        <ShareArtModal />
     </b-container>
 </template>
 
@@ -20,6 +23,9 @@ import {
 import MainInfo from '@/components/Profile/MainInfo'
 import TabNav from '@/components/Profile/TabNav'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
+import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
+import AddedCartModal from '@/components/Modal/AddedCartModal'
+import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'PublicProfile',
     components: {
@@ -31,6 +37,9 @@ export default {
         ProfileLinks,
         ProfileAbout,
         ArtPlayer,
+        BuyLicenseModal,
+        AddedCartModal,
+        ShareArtModal,
     },
     computed: {
         currentTabComponent() {

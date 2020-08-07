@@ -69,5 +69,53 @@
         font-size: px2rem(16);
         line-height: px2rem(19);
         font-weight: bold;
+        text-decoration: none;
+    }
+}
+.ShareArtModal {
+    .Card {
+        display: flex;
+        align-items: center;
+        padding: 0;
+        .item-cover {
+            width: 80px;
+            height: 80px;
+            img {
+                height: 100%;
+            }
+        }
+        .MiniAudioPlayer {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .item-body {
+            .item-title {
+                font-size: px2rem(14);
+                color: $text-color;
+            }
+            .item-subtitle {
+                color: $text-muted;
+            }
+        }
+    }
+    .social-share-links {
+        margin: 10px 0px;
+        a {
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+            color: black;
+            font-size: px2rem(30);
+            i {
+                vertical-align: middle;
+            }
+            .fa-paper-plane {
+                font-size: 14px;
+                background: black;
+                color: white;
+                padding: 6px 6px;
+                border-radius: 3px;
+            }
+        }
     }
 }

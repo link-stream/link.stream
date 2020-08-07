@@ -16,8 +16,8 @@
                 <div v-else class="page-body">
                     <div
                         class="Card"
-                        v-for="license in realLicenses"
-                        :key="license.id"
+                        v-for="(license, index) in realLicenses"
+                        :key="index"
                     >
                         <div class="card-body">
                             <div class="d-flex">

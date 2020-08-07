@@ -127,7 +127,12 @@
             text-align: center;
         }
     }
+    .tabnav-container {
+        width: 100%;
+        overflow-x: auto;
+    }
     .tabnav {
+        min-width: max-content;
         border-top: 1px solid $gray-320;
         margin: 30px 32px 15px;
         .search-form, .btn-filter {

@@ -48,6 +48,7 @@
         <div class="action">
             <basic-button 
                 size="sm"
+                class="btn-buy"
                 @click="handleBuyClick"
             >
                 Buy
@@ -55,29 +56,6 @@
             <button class="btn btn-icon btn-download">
                 <b-icon-download />
             </button>
-            <b-dropdown
-                v-if="selected"
-                class="actions-menu d-sm-none"
-                variant="icon" 
-                dropleft 
-                no-caret
-            >
-                <template v-slot:button-content>
-                    <Icon icon="dot-menu-v-s" />
-                </template>
-                <b-dropdown-item>
-                    Go to Beat
-                </b-dropdown-item>
-                <b-dropdown-item>
-                    Save
-                </b-dropdown-item>
-                <b-dropdown-item>
-                    Share
-                </b-dropdown-item>
-                <b-dropdown-item>
-                    Free Download
-                </b-dropdown-item>
-            </b-dropdown>
         </div>
     </div>
 </template>

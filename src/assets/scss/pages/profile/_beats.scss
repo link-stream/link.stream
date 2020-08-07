@@ -53,6 +53,9 @@
                     opacity: 1;
                 }
             }
+            .btn-buy {
+                padding: 7px 15px;
+            }
         }
         @include media-breakpoint-down(sm) {
             display: flex;
@@ -75,11 +78,16 @@
                 }
             }
             .action {
-                text-align: right;
+                margin-left: auto;
                 margin-right: 5px;
+                .btn-buy {
+                    display: block;
+                }
                 .btn-download {
                     margin-top: 15px;
                     margin-right: 5px;
+                    margin-left: auto;
+                    display: block;
                 }
                 .actions-menu {
                     margin-top: 15px;

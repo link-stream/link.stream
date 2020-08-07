@@ -14,35 +14,55 @@
             <div class="page page-licenses">
                 <LoadingSpinner class="page-loader" v-if="loading" />
                 <div v-else class="page-body">
-                    <div class="Card" v-for="license in licenses" :key="license.id">
+                    <div
+                        class="Card"
+                        v-for="license in realLicenses"
+                        :key="license.id"
+                    >
                         <div class="card-body">
-                            <h4 class="card-title">
-                                {{
-                                    license.price | currencyFormat
-                                }} - {{ license.title }}
-                            </h4>
-                            <small>
-                                {{ license.descripcion }}
-                            </small>
+                            <div class="d-flex">
+                                <div class="text">
+                                    <h4 class="card-title">
+                                        {{ license.price | currencyFormat }} -
+                                        {{ license.title }}
+                                    </h4>
+                                    <small>
+                                        {{ license.descripcion }}
+                                    </small>
+                                    <basic-button
+                                        v-if="!license.isExpanded"
+                                        variant="link"
+                                        class="btn-view-terms"
+                                        @click="license.isExpanded = true"
+                                    >
+                                        <small>View Terms</small>
+                                    </basic-button>
+                                </div>
+                                <basic-button
+                                    size="sm"
+                                    class="btn-buy"
+                                    @click="handleBuyClick"
+                                >
+                                    Buy
+                                </basic-button>
+                            </div>
+                            <ul v-if="license.isExpanded" class="license-details">
+                                <li v-for="item in license.details" :key="item">
+                                    <b-icon-check />
+                                    {{ item }}
+                                </li>
+                            </ul>
                             <basic-button
+                                v-if="license.isExpanded"
                                 variant="link"
                                 class="btn-view-terms"
+                                @click="license.isExpanded = false"
                             >
-                                <small>View Terms</small>
+                                <small>Hide Terms</small>
                             </basic-button>
                         </div>
-                        <basic-button
-                            size="sm"
-                            class="btn-buy"
-                            @click="handleBuyClick"
-                        >
-                            Buy
-                        </basic-button>
                     </div>
-                    <basic-button 
-                        variant="link" 
-                        class="float-right text-black"
-                    >
+                    <basic-button variant="link" class="float-right text-black">
                         Negotiate Price
                     </basic-button>
                 </div>
@@ -60,6 +80,15 @@ export default {
         return {
             loading: false,
             open: false,
+            licenseDetails: [
+                'Used for Music Recording',
+                'Distribute up to 25000 copies',
+                'Unlimited Online Audio Streams',
+                'Unlimited Music Video',
+                'For Profit Live Performances',
+                'Radio Broadcasting rights (Unlimited Stations)',
+            ],
+            realLicenses: [],
         }
     },
     computed: {
@@ -73,6 +102,13 @@ export default {
         this.loading = false
         this.$bus.$on('modal.buyLicense.open', this.handleOpen)
         this.$bus.$on('modal.buyLicense.close', this.handleClose)
+        this.realLicenses = this.licenses.map(item => {
+            return {
+                ...item,
+                isExpanded: false,
+                details: [...this.licenseDetails],
+            }
+        })
     },
     methods: {
         close() {

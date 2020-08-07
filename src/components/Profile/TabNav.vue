@@ -11,7 +11,7 @@
             />
             <ul class="mx-auto">
                 <li>
-                    <b-icon-search class="d-sm-none" />
+                    <b-icon-search class="d-sm-none" @click="isSearchBox = !isSearchBox"/>
                 </li>
                 <li
                     v-for="tab in tabs"
@@ -35,8 +35,18 @@
             <ProfileFilter
                 v-if="isShowFilter"
                 @apply-filter="searchData"
+                @close-filter="isShowFilter = false"
             />
         </div>
+        <SearchInput
+            v-if="isSearchBox"
+            pill
+            color="black"
+            v-model="searchString"
+            placeholder="Search by tag"
+            direction="right"
+            class="search-form d-sm-none"
+        />
     </div>
 </template>
 
@@ -58,6 +68,7 @@ export default {
             ],
             searchString: '',
             isShowFilter: false,
+            isSearchBox: false
         }
     },
     methods: {

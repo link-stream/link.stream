@@ -1,5 +1,35 @@
 <template>
     <div class="profile-filter">
+        <div class="filter-item d-sm-none filter-top-action">
+            <div class="text-center">
+                <basic-button 
+                    size="sm"
+                    class="btn-filter"
+                    @click="closeFilter"
+                >
+                    <b-icon-filter scale="1.5" class="mr-2" />
+                    Filters
+                </basic-button>
+            </div>
+            <div class="actions">
+                <basic-button
+                    class="cancel-btn"
+                    variant="link"
+                    size="sm"
+                    @click="handleResetClick"
+                >
+                    Reset
+                </basic-button>
+                <basic-button
+                    variant="link"
+                    size="sm"
+                    @click="handleApplyClick"
+                    class="float-right"
+                >
+                    Apply
+                </basic-button>
+            </div>
+        </div>
         <div class="filter-item">
             <p class="font-weight-bold">Sort</p>
             <b-form-radio-group 
@@ -15,6 +45,7 @@
                 v-model="form.bpm"
                 :min="0"
                 :max="1000"
+                class="mb-3"
             />
             <div class="slider-range-input">
                 <b-form-input
@@ -57,7 +88,7 @@
                 More
             </basic-button>
         </div>
-        <footer class="page-footer">
+        <footer class="page-footer d-none d-sm-block">
             <basic-button
                 class="cancel-btn"
                 variant="secondary"
@@ -130,6 +161,9 @@ export default {
         handleApplyClick() {
             this.form.genre = this.selected
             this.$emit('apply-filter', {...this.form})
+        },
+        closeFilter() {
+            this.$emit('close-filter')
         }
     }
 }

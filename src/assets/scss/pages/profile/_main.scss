@@ -81,6 +81,7 @@
         position: absolute;
         display: flex;
         margin-top: -70px;
+        right: 0;
         .btn {
             margin-left: auto;
         }
@@ -130,6 +131,10 @@
     .tabnav-container {
         width: 100%;
         overflow-x: auto;
+        @include media-breakpoint-down(sm) {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
     }
     .tabnav {
         min-width: max-content;

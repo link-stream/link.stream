@@ -7,6 +7,10 @@
     z-index: 999;
     right: 0;
     margin-top: 80px;
+    @include media-breakpoint-down(sm) {
+        width: 100%;
+        margin-top: -190px;
+    }
     .filter-item {
         padding: 20px;
         border-bottom: 1px solid $gray-320;
@@ -37,6 +41,25 @@
             text-transform: capitalize;
             background: transparent;
             border: 0;
+        }
+    }
+    @include media-breakpoint-down(sm) {
+        .filter-top-action {
+            position: relative;
+            .btn {
+                text-decoration: none;
+                font-weight: bold;
+            }
+            .cancel-btn {
+                color: $text-color;
+            }
+            .btn-filter {
+                position: absolute;
+                text-transform: capitalize;
+                padding: 10px 15px;
+                margin-top: -40px !important;
+                margin-left: -50px;
+            }
         }
     }
 }

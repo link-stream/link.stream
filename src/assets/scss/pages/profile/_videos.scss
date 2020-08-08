@@ -1,0 +1,24 @@
+.video-item {
+    margin-bottom: 20px;
+    .video-wrapper {
+        width: 100%;
+        height: 100%;
+    }
+    .video-desc {
+        margin-top: 10px;
+        display: inline-block;
+        .title {
+            font-size: px2rem(12);
+            line-height: px2rem(16);
+        }
+        .cnt-view {
+            font-size: px2rem(11);
+            color: $text-muted;
+        }
+    }
+    .actions-menu {
+        float: right;
+        margin-top: 12px;
+        margin-right: 10px;
+    }
+}

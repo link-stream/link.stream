@@ -26,11 +26,13 @@
             line-height: px2rem(22);
             color: black;
         }
-        &.no-img {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
+        @include media-breakpoint-up(sm) {
+            &.no-img {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100%;
+            }
         }
     }
 }

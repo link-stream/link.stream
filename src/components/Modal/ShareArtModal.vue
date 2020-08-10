@@ -76,7 +76,6 @@ export default {
         }
     },
     created() {
-        console.log('share art model')
         this.$bus.$on('modal.shareArt.open', this.handleOpen)
         this.$bus.$on('modal.shareArt.close', this.handleClose)
     },

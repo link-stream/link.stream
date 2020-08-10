@@ -19,7 +19,6 @@
     </div>
 </template>
 <script>
-import { appConstants } from '~/constants'
 import VideoItem from '@/components/Profile/VideoItem'
 export default {
     name: 'ProfileSoundKits',
@@ -29,34 +28,19 @@ export default {
     data: () => ({
         videos: [
             {
-                url: 'https://youtu.be/vwm_N2PCUz8',
+                url: 'https://www.youtube.com/vwm_N2PCUz8',
                 title: 'Video Title Placeholder',
-                cnt_view: 2300000, 
+                cnt_view: 2300000,
             },
             {
-                url: 'https://youtu.be/vwm_N2PCUz8',
+                url: 'https://www.youtube.com/vwm_N2PCUz8',
                 title: 'Video Title Placeholder',
-                cnt_view: 2300000, 
+                cnt_view: 2300000,
             },
             {
-                url: 'https://youtu.be/vwm_N2PCUz8',
+                url: 'https://www.youtube.com/vwm_N2PCUz8',
                 title: 'Video Title Placeholder',
-                cnt_view: 2300000, 
-            },
-            {
-                url: 'https://youtu.be/vwm_N2PCUz8',
-                title: 'Video Title Placeholder',
-                cnt_view: 2300000, 
-            },
-            {
-                url: 'https://youtu.be/vwm_N2PCUz8',
-                title: 'Video Title Placeholder',
-                cnt_view: 2300000, 
-            },
-            {
-                url: 'https://youtu.be/vwm_N2PCUz8',
-                title: 'Video Title Placeholder',
-                cnt_view: 2300000, 
+                cnt_view: 2300000,
             },
         ],
         currentIndex: 1,

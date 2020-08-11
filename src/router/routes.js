@@ -31,6 +31,7 @@ import {
 } from '~/pages/Account'
 
 import PublicProfile from '@/pages/Profile/PublicProfile'
+import PublicBeatDetails from '@/pages/Profile/PublicBeatDetails'
 
 const routes = [
     // Misc
@@ -262,6 +263,13 @@ const routes = [
         path: '/profile/:id/about',
         name: 'profileAbout',
         component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/profile/:id/beats/:beatId',
+        name: 'profileBeatDetails',
+        component: PublicBeatDetails,
         props: true,
         meta: { layout: 'profile' },
     },

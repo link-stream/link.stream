@@ -6,6 +6,7 @@ import me from './modules/me'
 import menu from './modules/menu'
 import loading from './modules/loading'
 import trackAddWizard from './modules/trackAddWizard'
+import profile from './modules/profile'
 import { appConstants } from '~/constants'
 import createPersistedState from 'vuex-persistedstate'
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
         menu,
         trackAddWizard,
         loading,
+        profile,
     },
     plugins: [
         createPersistedState({

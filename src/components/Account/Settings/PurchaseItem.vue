@@ -13,7 +13,7 @@
                 </small>
             </div>
             <basic-button
-                class="d-none d-sm-block"
+                class="d-none d-md-block"
                 size="md"
             >
                 <b-icon-download 
@@ -41,7 +41,7 @@
             </b-dropdown>
         </div>    
         <basic-button
-            class="d-sm-none mt-3"
+            class="d-md-none mt-3"
             size="md"
         >
             <b-icon-download 

@@ -200,7 +200,7 @@
                     size="md"
                     :loading="saving"
                     @click="handleSaveClick"
-                    class="float-right d-none d-sm-block"
+                    class="float-right d-none d-md-block"
                 >
                     Save Changes
                 </spinner-button>
@@ -208,7 +208,7 @@
                     size="md"
                     :loading="saving"
                     @click="handleSaveClick"
-                    class="float-right d-sm-none"
+                    class="float-right d-md-none"
                 >
                     Save
                 </spinner-button>

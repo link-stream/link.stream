@@ -16,7 +16,7 @@
                         {{ curItem.username }}
                     </div>
                 </div>
-                <div class="center-control d-none d-sm-block">
+                <div class="center-control d-none d-md-block">
                     <IconButton 
                         class="btn-back"
                         icon="player-back"
@@ -32,7 +32,7 @@
                 </div>
                 <div class="right-control">
                     <IconButton 
-                        class="btn-volume d-none d-sm-block"
+                        class="btn-volume d-none d-md-block"
                         icon="volume"
                     />
                     <b-dropdown class="actions-menu" variant="icon" dropleft no-caret>
@@ -41,7 +41,7 @@
                         </template>
                     </b-dropdown>
                     <IconButton 
-                        class="btn-pause d-sm-none"
+                        class="btn-pause d-md-none"
                         icon="player-pause"
                     />
                 </div>

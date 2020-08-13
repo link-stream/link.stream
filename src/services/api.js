@@ -434,4 +434,14 @@ export const api = {
             })
         },
     },
+    profiles: {
+        async getProfile(userUrl) {
+            const endpoint = '/profiles/' + userUrl
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+    },
 }

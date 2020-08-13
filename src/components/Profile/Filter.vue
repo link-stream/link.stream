@@ -1,6 +1,6 @@
 <template>
     <div class="profile-filter">
-        <div class="filter-item d-sm-none filter-top-action">
+        <div class="filter-item d-md-none filter-top-action">
             <div class="text-center">
                 <basic-button 
                     size="sm"
@@ -88,7 +88,7 @@
                 More
             </basic-button>
         </div>
-        <footer class="page-footer d-none d-sm-block">
+        <footer class="page-footer d-none d-md-block">
             <basic-button
                 class="cancel-btn"
                 variant="secondary"

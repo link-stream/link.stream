@@ -7,11 +7,11 @@
                 v-model="searchString"
                 placeholder="Search by tag"
                 direction="right"
-                class="search-form d-none d-sm-block"
+                class="search-form d-none d-md-block"
             />
             <ul class="mx-auto">
                 <li>
-                    <b-icon-search class="d-sm-none" @click="isSearchBox = !isSearchBox"/>
+                    <b-icon-search class="d-md-none" @click="isSearchBox = !isSearchBox"/>
                 </li>
                 <li
                     v-for="tab in tabs"
@@ -45,7 +45,7 @@
             v-model="searchString"
             placeholder="Search by tag"
             direction="right"
-            class="search-form d-sm-none"
+            class="search-form d-md-none"
         />
     </div>
 </template>

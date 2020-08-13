@@ -77,3 +77,8 @@ export const meTypes = {
     SET_BANK_INFO: 'SET_BANK_INFO',
     SET_NOTIFICATION: 'SET_NOTIFICATION',
 }
+
+//Profiles
+export const profileTypes = {
+    SET_PROFILE: 'SET_PROFILE',
+}

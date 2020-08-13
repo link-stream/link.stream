@@ -232,42 +232,42 @@ const routes = [
 
     //Public Profile
     {
-        path: '/profile/:id/beats',
+        path: '/:url/beats',
         name: 'profileBeats',
         component: PublicProfile,
         props: true,
         meta: { layout: 'profile' },
     },
     {
-        path: '/profile/:id/kits',
+        path: '/:url/kits',
         name: 'profileSoundKits',
         component: PublicProfile,
         props: true,
         meta: { layout: 'profile' },
     },
     {
-        path: '/profile/:id/videos',
+        path: '/:url/videos',
         name: 'profileVideos',
         component: PublicProfile,
         props: true,
         meta: { layout: 'profile' },
     },
     {
-        path: '/profile/:id/links',
+        path: '/:url/links',
         name: 'profileLinks',
         component: PublicProfile,
         props: true,
         meta: { layout: 'profile' },
     },
     {
-        path: '/profile/:id/about',
+        path: '/:url/about',
         name: 'profileAbout',
         component: PublicProfile,
         props: true,
         meta: { layout: 'profile' },
     },
     {
-        path: '/profile/:id/beats/:beatId',
+        path: '/:url/beats/:beatId',
         name: 'profileBeatDetails',
         component: PublicBeatDetails,
         props: true,

@@ -6,7 +6,7 @@
             :novalidate="true"
         >
             <b-row>
-                <b-col cols="12" class="d-none d-sm-block">
+                <b-col cols="12" class="d-none d-md-block">
                     <h2 class="page-title">Edit your profile</h2>
                 </b-col>
                 <b-col cols="12" class="profile-images-container mt-sm-4">

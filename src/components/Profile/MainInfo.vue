@@ -1,5 +1,5 @@
 <template>
-    <div class="main-info">
+    <div class="main-info" v-if="profile">
         <b-row class="m-0">
             <b-col cols="12" class="profile-images-container p-0">
                 <div
@@ -8,18 +8,18 @@
                     v-resize="onResize"
                 >
                     <div class="banner">
-                        <img :src="profile.banner" />
+                        <img :src="profile.data_banner" />
                     </div>
                 </div>
                 <div class="avatar-container">
                     <div class="avatar-box">
-                        <img :src="profile.photo" />
-                        <!-- <vue-letter-avatar
+                        <img v-if="profile.data_image" :src="profile.data_image" />
+                        <vue-letter-avatar
                             v-else
-                            :name="user.display_name"
-                            size="150"
+                            :name="profile.display_name"
+                            size="180"
                             :rounded="true"
-                        /> -->
+                        />
                     </div>
                     <img class="avata-badge" src="@/assets/img/ico/badge.svg" />
                 </div>
@@ -29,7 +29,7 @@
         <b-row>
             <b-col cols="12" class="action-bar">
                 <basic-button
-                    class="d-none d-sm-block"
+                    class="d-none d-md-block"
                 >
                     Follow
                 </basic-button>
@@ -53,24 +53,24 @@
         <div class="profile-content">
             <b-row>
                 <b-col cols="12" class="profile-info">
-                    <h2 class="section-title">{{ profile.name }}</h2>
+                    <h2 class="section-title">{{ profile.display_name }}</h2>
                     <div class="section-subtitle">
                         <span class="mr-3">
-                            <span class="font-weight-bold">{{ profile.follows | thousandNumber }}</span>
+                            <span class="font-weight-bold">{{ 490 | thousandNumber }}</span>
                             <span class="ml-1">Followers</span>
                         </span>
                         <span class="mr-3">
-                            <span class="font-weight-bold">{{ profile.plays | thousandNumber }}</span>
+                            <span class="font-weight-bold">{{ 23900 | thousandNumber }}</span>
                             <span class="ml-1">Plays</span>
                         </span>
                         <span>
-                            <span class="font-weight-bold">{{ profile.beats | thousandNumber }}</span>
+                            <span class="font-weight-bold">{{ 213 | thousandNumber }}</span>
                             <span class="ml-1">Beats</span>
                         </span>
                     </div>
                 </b-col>
             </b-row>
-            <b-row class="d-sm-none btn-follow">
+            <b-row class="d-md-none btn-follow">
                 <b-col cols="12">
                     <basic-button size="md">
                         Follow
@@ -83,21 +83,18 @@
 <script>
 import resize from 'vue-resize-directive'
 import { appConstants } from '~/constants'
+import { mapGetters } from 'vuex'
 export default {
     name: 'MainInfo',
     directives: {
         resize,
     },
-    data: () => ({
-        profile: {
-            banner: '/static/img/profile/banner.jpg',
-            photo: '/static/img/profile/avata1.jpg',
-            name: 'producername',
-            follows: 490,
-            plays: 23900,
-            beats: 213,
-        },
-    }),
+    computed: {
+        ...mapGetters({
+            profile: 'profile/profile',
+        }),
+    },
+    data: () => ({}),
     methods: {
         // Resize
         onResize() {

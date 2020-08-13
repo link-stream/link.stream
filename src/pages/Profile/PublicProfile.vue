@@ -41,6 +41,11 @@ export default {
         AddedCartModal,
         ShareArtModal,
     },
+    props: {
+        url: {
+            type: String,
+        },
+    },
     computed: {
         currentTabComponent() {
             switch (this.$route.name) {
@@ -58,6 +63,10 @@ export default {
                     return 'ProfileBeats'
             }
         },
+    },
+    async created() {
+        console.log('userUrl', this.url)
+        await this.$store.dispatch('profile/getProfile', { url: this.url })
     },
 }
 </script>

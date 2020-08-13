@@ -24,7 +24,7 @@
         </div>
         <b-dropdown
             v-if="selected"
-            class="actions-menu d-none d-sm-block"
+            class="actions-menu d-none d-md-block"
             variant="icon" 
             dropleft 
             no-caret

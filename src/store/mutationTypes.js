@@ -81,4 +81,5 @@ export const meTypes = {
 //Profiles
 export const profileTypes = {
     SET_PROFILE: 'SET_PROFILE',
+    SET_BEATS: 'SET_BEATS',
 }

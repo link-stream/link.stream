@@ -1,5 +1,6 @@
 <template>
     <div class="beats-container">
+        <LoadingSpinner class="page-loader" v-if="loading" />
         <b-form-row>
             <b-col
                 cols="12"
@@ -19,73 +20,33 @@
     </div>
 </template>
 <script>
-import { appConstants } from '~/constants'
+import { mapGetters } from 'vuex'
 import ArtItem from '@/components/Profile/ArtItem'
 export default {
     name: 'ProfileBeats',
     components: {
         ArtItem,
     },
+    props: {
+        url: {
+            type: String,
+        },
+    },
+    computed: {
+        ...mapGetters({
+            beats: 'profile/beats',
+        }),
+    },
     data: () => ({
-        beats: [
-            {
-                img: '/static/img/profile/Spaceman-Bitmap.jpg',
-                title: 'Beat Title',
-                minPrice: 19.95,
-                maxPrice: 100,
-                bogo: true,
-            },
-            {
-                img: appConstants.defaultCoverArt,
-                title: 'Beat Title',
-                minPrice: 19.95,
-                maxPrice: 100,
-                bogo: false,
-            },
-            {
-                img: appConstants.defaultCoverArt,
-                title: 'Beat Title',
-                minPrice: 19.95,
-                maxPrice: 100,
-                bogo: false,
-            },
-            {
-                img: appConstants.defaultCoverArt,
-                title: 'Beat Title',
-                minPrice: 19.95,
-                maxPrice: 100,
-                bogo: true,
-            },
-            {
-                img: appConstants.defaultCoverArt,
-                title: 'Beat Title',
-                minPrice: 19.95,
-                maxPrice: 100,
-                bogo: false,
-            },
-            {
-                img: appConstants.defaultCoverArt,
-                title: 'Beat Title',
-                minPrice: 19.95,
-                maxPrice: 100,
-                bogo: false,
-            },
-            {
-                img: appConstants.defaultCoverArt,
-                title: 'Beat Title',
-                minPrice: 19.95,
-                maxPrice: 100,
-                bogo: false,
-            },
-            {
-                img: appConstants.defaultCoverArt,
-                title: 'Beat Title',
-                minPrice: 19.95,
-                maxPrice: 100,
-                bogo: false,
-            },
-        ],
+        loading: false,
         currentIndex: 1,
     }),
+    async created() {
+        this.loading = true
+        await this.$store.dispatch('profile/getProfileMain', { url: this.url })
+        await this.$store.dispatch('profile/getProfileBeats')
+        this.loading = false
+        console.log('beats', this.beats)
+    }
 }
 </script>

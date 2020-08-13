@@ -1,7 +1,7 @@
 <template>
     <div class="art-item">
         <div class="img-container">
-            <img :src="artItem.img" />
+            <img :src="artItem.coverart" />
             <img
                 v-if="selected"
                 src="@/assets/img/ico/pause-red.svg"
@@ -13,7 +13,7 @@
                 {{ artItem.title }}
             </div>
             <div class="price">
-                {{ artItem.minPrice | currencyFormat }} - {{ artItem.maxPrice | currencyFormat }}
+                {{ minPrice | currencyFormat }} - {{ maxPrice | currencyFormat }}
             </div>
             <div
                 v-if="artItem.bogo"
@@ -68,6 +68,14 @@ export default {
         },
         selected: {
             type: Boolean,
+        },
+    },
+    computed: {
+        minPrice() {
+            return Math.min.apply(Math, this.artItem.licenses.map(({price}) => price))
+        },
+        maxPrice() {
+            return Math.max.apply(Math, this.artItem.licenses.map(({price}) => price))
         },
     },
     methods: {

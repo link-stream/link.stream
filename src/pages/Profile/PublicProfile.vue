@@ -3,7 +3,7 @@
         <MainInfo />
         <TabNav />
         <div class="page-body">
-            <component v-bind:is="currentTabComponent"></component>
+            <component v-bind:is="currentTabComponent" :url="url"></component>
         </div>
         <ArtPlayer />
         <BuyLicenseModal />
@@ -63,10 +63,6 @@ export default {
                     return 'ProfileBeats'
             }
         },
-    },
-    async created() {
-        console.log('userUrl', this.url)
-        await this.$store.dispatch('profile/getProfile', { url: this.url })
     },
 }
 </script>

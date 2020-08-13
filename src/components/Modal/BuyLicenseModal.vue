@@ -98,7 +98,7 @@ export default {
     },
     async created() {
         this.loading = true
-        await this.$store.dispatch('me/loadLicenses')
+        // await this.$store.dispatch('me/loadLicenses')
         this.loading = false
         this.$bus.$on('modal.buyLicense.open', this.handleOpen)
         this.$bus.$on('modal.buyLicense.close', this.handleClose)

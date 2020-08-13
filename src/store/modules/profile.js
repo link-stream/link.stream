@@ -4,13 +4,14 @@
 
 import { commonTypes, profileTypes } from '../mutationTypes'
 import { api } from '~/services'
-// import { appConstants } from '~/constants'
+import { appConstants } from '~/constants'
 
 const initialState = () => ({
     /**
      * @type {null|object}
      */
     profile: null,
+    beats: [],
 })
 
 const state = initialState()
@@ -26,6 +27,9 @@ const mutations = {
     [profileTypes.SET_PROFILE](state, { profile }) {
         state.profile = profile
     },
+    [profileTypes.SET_BEATS](state, { beats }) {
+        state.beats = beats
+    }
 }
 
 const actions = {
@@ -33,19 +37,32 @@ const actions = {
         commit(commonTypes.RESET)
     },
 
-    async getProfile({ commit }, { url }) {
-        console.log(url)
-        const response = await api.profiles.getProfile(url)
-        console.log(response)
+    async getProfileMain({ commit }, { url }) {
+        const response = await api.profiles.getProfileMain(url)
         const { status, data } = response
         status === 'success' &&
             commit(profileTypes.SET_PROFILE, { profile: data })
+        return response
+    },
+    async getProfileBeats({ state, commit }) {
+        const response = await api.profiles.getProfileBeats(state.profile.id)
+        const { status, data } = response
+        status === 'success' &&
+            commit(profileTypes.SET_BEATS, { beats: data })
         return response
     },
 }
 
 const getters = {
     profile: ({ profile }) => profile,
+    beats: ({ beats }) => {
+        return beats.map(beat => {
+            return {
+                ...beat,
+                coverart: beat.data_image || appConstants.defaultCoverArt,
+            }
+        })
+    },
 }
 
 export default {

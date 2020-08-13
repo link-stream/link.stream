@@ -75,7 +75,6 @@ export const api = {
             return await call({ endpoint })
         },
         async updateUser(id, params) {
-            console.log('api-params', params)
             const endpoint = '/users/' + id
             const method = METHOD_PUT
             return await call({ endpoint, params, method })
@@ -435,8 +434,16 @@ export const api = {
         },
     },
     profiles: {
-        async getProfile(userUrl) {
+        async getProfileMain(userUrl) {
             const endpoint = '/profiles/' + userUrl
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileBeats(producerId) {
+            const endpoint = '/profiles/beats/' + producerId
             const method = METHOD_GET
             return await call({
                 endpoint,

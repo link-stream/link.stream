@@ -35,7 +35,7 @@
             <b-form-radio-group 
                 v-model="form.sort"
                 :options="sortItems"
-                value-field="id"
+                value-field="value"
                 text-field="title"
             />
         </div>
@@ -113,7 +113,7 @@ export default {
     name: 'ProfileFilter',
     data: () => ({
         form: {
-            sort: 0,
+            sort: 'default',
             bpm: [60, 220],
             type: [],
             genre: [],

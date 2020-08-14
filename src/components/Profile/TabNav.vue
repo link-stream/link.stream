@@ -2,15 +2,17 @@
     <div class="tabnav-container">
         <div class="tabnav d-flex">
             <SearchInput
+                v-if="isSearchable"
                 pill
                 color="black"
                 v-model="searchString"
-                placeholder="Search by tag"
+                placeholder="Search by tag or title"
                 direction="right"
                 class="search-form d-none d-md-block"
+                @keyupEnter="searchDataByTag"
             />
             <ul class="mx-auto">
-                <li>
+                <li v-if="isSearchable">
                     <b-icon-search class="d-md-none" @click="isSearchBox = !isSearchBox"/>
                 </li>
                 <li
@@ -43,14 +45,16 @@
             pill
             color="black"
             v-model="searchString"
-            placeholder="Search by tag"
+            placeholder="Search by tag or title"
             direction="right"
             class="search-form d-md-none"
+            @keyupEnter="searchDataByTag"
         />
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import ProfileFilter from './Filter'
 export default {
     name: 'TabNav',
@@ -71,10 +75,32 @@ export default {
             isSearchBox: false
         }
     },
+    computed:{
+        curRouteName() {
+            return this.$route.name
+        },
+        isSearchable() {
+            return this.curRouteName === 'profileBeats' || this.curRouteName === 'profileSoundKits'
+        }
+    },
     methods: {
         searchData(filter) {
             this.isShowFilter = false
             console.log('filter', filter)
+        },
+        async searchDataByTag() {
+            const params = {
+                tag: this.searchString
+            }
+            switch (this.curRouteName) {
+                case 'profileBeats': 
+                    await this.$store.dispatch('profile/getProfileBeats', params)
+                    break
+                case 'profileSoundKits': 
+                    await this.$store.dispatch('profile/getProfileKits', params)
+                    break
+            }
+            
         }
     }
 }

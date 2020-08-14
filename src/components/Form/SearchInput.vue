@@ -14,6 +14,7 @@
             :maxlength="maxlength"
             @input="handleInput"
             @focus="handleFocus"
+            @keyup.enter="handleKeyup"
             :style="customStyle"
         />
         <!-- <IconButton
@@ -76,6 +77,9 @@ export default {
         },
         handleFocus() {
             this.$emit('focus')
+        },
+        handleKeyup() {
+            this.$emit('keyupEnter')
         },
     },
 }

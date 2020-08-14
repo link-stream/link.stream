@@ -442,16 +442,29 @@ export const api = {
                 method,
             })
         },
-        async getProfileBeats(producerId) {
-            const endpoint = '/profiles/beats/' + producerId
+        async getProfileBeats(producerId, params) {
+            let endpoint = '/profiles/beats/' + producerId
+            endpoint += '?page=1'
+            if (params) {
+                endpoint += params.sort ? '&sort=' + params.sort : ''
+                endpoint += params.tag ? '&tag=' + params.tag : ''
+                endpoint += params.genre ? '&genre=' + params.genre : ''
+                endpoint += params.bpm_min ? '&bpm_min=' + params.bpm_min : ''
+                endpoint += params.bpm_max ? '&bpm_max=' + params.bpm_max : ''
+            }
             const method = METHOD_GET
             return await call({
                 endpoint,
                 method,
             })
         },
-        async getProfileKits(producerId) {
-            const endpoint = '/profiles/sound_kits/' + producerId
+        async getProfileKits(producerId, params) {
+            let endpoint = '/profiles/sound_kits/' + producerId
+            endpoint += '?page=1'
+            if (params) {
+                endpoint += params.tag ? '&tag=' + params.tag : ''
+                endpoint += params.genre ? '&genre=' + params.genre : ''
+            }
             const method = METHOD_GET
             return await call({
                 endpoint,

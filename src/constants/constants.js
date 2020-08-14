@@ -104,24 +104,24 @@ export const constants = {
     },
     sortItems: [
         {
-            id: 0,
             title: 'Default',
+            value: 'default',
         },
         {
-            id: 1,
             title: 'Best Selling',
+            value: 'best',
         },
         {
-            id: 2,
             title: 'New Releases',
+            value: 'new',
         },
         {
-            id: 3,
             title: 'Price: Low to high',
+            value: 'price_low',
         },
         {
-            id: 4,
             title: 'Price: High to low',
+            value: 'price_high',
         },
     ]
 }

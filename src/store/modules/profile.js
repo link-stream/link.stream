@@ -56,16 +56,14 @@ const actions = {
             commit(profileTypes.SET_PROFILE, { profile: data })
         return response
     },
-    async getProfileBeats({ state, commit }) {
-        const response = await api.profiles.getProfileBeats(state.profile.id)
+    async getProfileBeats({ state, commit }, params) {
+        const response = await api.profiles.getProfileBeats(state.profile.id, params)
         const { status, data } = response
-        status === 'success' &&
-            commit(profileTypes.SET_BEATS, { beats: data })
+        status === 'success' && commit(profileTypes.SET_BEATS, { beats: data })
         return response
     },
-    async getProfileKits({ state, commit }) {
-        const response = await api.profiles.getProfileKits(state.profile.id)
-        console.log(response)
+    async getProfileKits({ state, commit }, params) {
+        const response = await api.profiles.getProfileKits(state.profile.id, params)
         const { status, data } = response
         status === 'success' &&
             commit(profileTypes.SET_SOUND_KITS, { soundKits: data })
@@ -81,10 +79,9 @@ const actions = {
     async getProfileLinks({ state, commit }) {
         const response = await api.profiles.getProfileLinks(state.profile.id)
         const { status, data } = response
-        status === 'success' &&
-            commit(profileTypes.SET_LINKS, { links: data })
+        status === 'success' && commit(profileTypes.SET_LINKS, { links: data })
         return response
-    }
+    },
 }
 
 const getters = {

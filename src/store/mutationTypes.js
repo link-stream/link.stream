@@ -82,4 +82,5 @@ export const meTypes = {
 export const profileTypes = {
     SET_PROFILE: 'SET_PROFILE',
     SET_BEATS: 'SET_BEATS',
+    SET_SOUND_KITS: 'SET_SOUND_KITS',
 }

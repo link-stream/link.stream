@@ -12,6 +12,7 @@ const initialState = () => ({
      */
     profile: null,
     beats: [],
+    soundKits: [],
 })
 
 const state = initialState()
@@ -29,6 +30,9 @@ const mutations = {
     },
     [profileTypes.SET_BEATS](state, { beats }) {
         state.beats = beats
+    },
+    [profileTypes.SET_SOUND_KITS](state, { soundKits }) {
+        state.soundKits = soundKits
     }
 }
 
@@ -51,6 +55,14 @@ const actions = {
             commit(profileTypes.SET_BEATS, { beats: data })
         return response
     },
+    async getProfileKits({ state, commit }) {
+        const response = await api.profiles.getProfileKits(state.profile.id)
+        console.log(response)
+        const { status, data } = response
+        status === 'success' &&
+            commit(profileTypes.SET_SOUND_KITS, { soundKits: data })
+        return response
+    },
 }
 
 const getters = {
@@ -60,6 +72,14 @@ const getters = {
             return {
                 ...beat,
                 coverart: beat.data_image || appConstants.defaultCoverArt,
+            }
+        })
+    },
+    soundKits: ({ soundKits }) => {
+        return soundKits.map(soundKit => {
+            return {
+                ...soundKit,
+                coverart: soundKit.data_image || appConstants.defaultCoverArt,
             }
         })
     },

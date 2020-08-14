@@ -450,5 +450,13 @@ export const api = {
                 method,
             })
         },
+        async getProfileKits(producerId) {
+            const endpoint = '/profiles/sound_kits/' + producerId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
 }

@@ -51,8 +51,6 @@ export default {
         await this.$store.dispatch('profile/getProfileMain', { url: this.url })
         await this.$store.dispatch('profile/getProfileKits')
         this.loading = false
-        console.log(this.soundKits)
-        console.log(this.soundKits.length)
     }
 
 }

@@ -1,49 +1,55 @@
 <template>
     <div class="beats-container">
-        <b-row>
-            <b-col
-                cols="12"
-                lg="4"
-                md="6"
-                v-for="(item, index) in videos"
-                :key="index"
-            >
-                <VideoItem :videoItem="item" />
-            </b-col>
-        </b-row>
-        <div class="text-center mb-5">
-            <basic-button variant="outline-black" size="md">
-                view More
-            </basic-button>
+        <p v-if="!loading && !videos.length" class="text-center my-5">
+            There are no public videos.
+        </p>
+        <LoadingSpinner class="page-loader" v-if="loading" />
+        <div v-else>
+            <b-row>
+                <b-col
+                    cols="12"
+                    lg="4"
+                    md="6"
+                    v-for="(item, index) in videos"
+                    :key="index"
+                >
+                    <VideoItem :videoItem="item" />
+                </b-col>
+            </b-row>
+            <div class="text-center mb-5">
+                <basic-button variant="outline-black" size="md">
+                    View More
+                </basic-button>
+            </div>
         </div>
     </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import VideoItem from '@/components/Profile/VideoItem'
 export default {
     name: 'ProfileSoundKits',
     components: {
         VideoItem,
     },
+    props: {
+        url: {
+            type: String,
+        },
+    },
+    computed: {
+        ...mapGetters({
+            videos: 'profile/videos',
+        }),
+    },
     data: () => ({
-        videos: [
-            {
-                url: 'https://www.youtube.com/vwm_N2PCUz8',
-                title: 'Video Title Placeholder',
-                cnt_view: 2300000,
-            },
-            {
-                url: 'https://www.youtube.com/vwm_N2PCUz8',
-                title: 'Video Title Placeholder',
-                cnt_view: 2300000,
-            },
-            {
-                url: 'https://www.youtube.com/vwm_N2PCUz8',
-                title: 'Video Title Placeholder',
-                cnt_view: 2300000,
-            },
-        ],
-        currentIndex: 1,
+        loading: false,
     }),
-}
+    async created() {
+        this.loading = true
+        await this.$store.dispatch('profile/getProfileMain', { url: this.url })
+        await this.$store.dispatch('profile/getProfileVideos')
+        this.loading = false
+    },
+} 
 </script>

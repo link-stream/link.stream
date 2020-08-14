@@ -13,6 +13,8 @@ const initialState = () => ({
     profile: null,
     beats: [],
     soundKits: [],
+    videos: [],
+    links: [],
 })
 
 const state = initialState()
@@ -33,7 +35,13 @@ const mutations = {
     },
     [profileTypes.SET_SOUND_KITS](state, { soundKits }) {
         state.soundKits = soundKits
-    }
+    },
+    [profileTypes.SET_VIDEOS](state, { videos }) {
+        state.videos = videos
+    },
+    [profileTypes.SET_LINKS](state, { links }) {
+        state.links = links
+    },
 }
 
 const actions = {
@@ -63,6 +71,20 @@ const actions = {
             commit(profileTypes.SET_SOUND_KITS, { soundKits: data })
         return response
     },
+    async getProfileVideos({ state, commit }) {
+        const response = await api.profiles.getProfileVideos(state.profile.id)
+        const { status, data } = response
+        status === 'success' &&
+            commit(profileTypes.SET_VIDEOS, { videos: data })
+        return response
+    },
+    async getProfileLinks({ state, commit }) {
+        const response = await api.profiles.getProfileLinks(state.profile.id)
+        const { status, data } = response
+        status === 'success' &&
+            commit(profileTypes.SET_LINKS, { links: data })
+        return response
+    }
 }
 
 const getters = {
@@ -83,6 +105,8 @@ const getters = {
             }
         })
     },
+    videos: ({ videos }) => videos,
+    links: ({ links }) => links,
 }
 
 export default {

@@ -24,13 +24,19 @@
             />
         </b-navbar-nav>
         <b-navbar-nav class="d-none d-md-block">
-            <b-button class="bg-transparent text-white border-0" size="md">
+            <b-button
+                pill
+                class="bg-transparent text-white btn-login"
+                size="md"
+                :to="{ name: 'login' }"
+            >
                 Sign In
             </b-button>
             <b-button
                 pill
                 class="bg-transparent text-white"
                 size="md"
+                :to="{ name: 'signup' }"
             >
                 Sign Up
             </b-button>

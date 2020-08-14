@@ -26,7 +26,7 @@
             v-if="selected"
             class="actions-menu d-none d-md-block"
             variant="icon" 
-            dropleft 
+            right 
             no-caret
         >
             <template v-slot:button-content>

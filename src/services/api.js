@@ -458,5 +458,21 @@ export const api = {
                 method,
             })
         },
+        async getProfileVideos(producerId) {
+            const endpoint = '/profiles/videos/' + producerId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileLinks(producerId) {
+            const endpoint = '/profiles/links/' + producerId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
 }

@@ -83,4 +83,6 @@ export const profileTypes = {
     SET_PROFILE: 'SET_PROFILE',
     SET_BEATS: 'SET_BEATS',
     SET_SOUND_KITS: 'SET_SOUND_KITS',
+    SET_VIDEOS: 'SET_VIDEOS',
+    SET_LINKS: 'SET_LINKS',
 }

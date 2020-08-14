@@ -33,7 +33,7 @@
                 >
                     Follow
                 </basic-button>
-                <b-dropdown class="actions-menu" variant="icon" dropleft no-caret>
+                <b-dropdown class="actions-menu" variant="icon" right no-caret>
                     <template v-slot:button-content>
                         <Icon icon="dot-menu-v" />
                     </template>

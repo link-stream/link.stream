@@ -462,6 +462,7 @@ export const api = {
             let endpoint = '/profiles/sound_kits/' + producerId
             endpoint += '?page=1'
             if (params) {
+                endpoint += params.sort ? '&sort=' + params.sort : ''
                 endpoint += params.tag ? '&tag=' + params.tag : ''
                 endpoint += params.genre ? '&genre=' + params.genre : ''
             }
@@ -471,16 +472,27 @@ export const api = {
                 method,
             })
         },
-        async getProfileVideos(producerId) {
-            const endpoint = '/profiles/videos/' + producerId
+        async getProfileVideos(producerId, params) {
+            let endpoint = '/profiles/videos/' + producerId
+            endpoint += '?page=1'
+            if (params) {
+                endpoint += params.sort ? '&sort=' + params.sort : ''
+                endpoint += params.tag ? '&tag=' + params.tag : ''
+                endpoint += params.genre ? '&genre=' + params.genre : ''
+            }
             const method = METHOD_GET
             return await call({
                 endpoint,
                 method,
             })
         },
-        async getProfileLinks(producerId) {
-            const endpoint = '/profiles/links/' + producerId
+        async getProfileLinks(producerId, params) {
+            let endpoint = '/profiles/links/' + producerId
+            endpoint += '?page=1'
+            if (params) {
+                endpoint += params.sort ? '&sort=' + params.sort : ''
+                endpoint += params.tag ? '&tag=' + params.tag : ''
+            }
             const method = METHOD_GET
             return await call({
                 endpoint,

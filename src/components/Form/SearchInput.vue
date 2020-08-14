@@ -5,6 +5,7 @@
             class="input-icon"
             :variant="color ? color : 'muted'"
             :class="direction"
+            @click="handleKeyup"
         />
         <input
             type="text"

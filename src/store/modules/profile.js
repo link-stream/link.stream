@@ -69,15 +69,15 @@ const actions = {
             commit(profileTypes.SET_SOUND_KITS, { soundKits: data })
         return response
     },
-    async getProfileVideos({ state, commit }) {
-        const response = await api.profiles.getProfileVideos(state.profile.id)
+    async getProfileVideos({ state, commit }, params) {
+        const response = await api.profiles.getProfileVideos(state.profile.id, params)
         const { status, data } = response
         status === 'success' &&
             commit(profileTypes.SET_VIDEOS, { videos: data })
         return response
     },
-    async getProfileLinks({ state, commit }) {
-        const response = await api.profiles.getProfileLinks(state.profile.id)
+    async getProfileLinks({ state, commit }, params) {
+        const response = await api.profiles.getProfileLinks(state.profile.id, params)
         const { status, data } = response
         status === 'success' && commit(profileTypes.SET_LINKS, { links: data })
         return response

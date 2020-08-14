@@ -80,7 +80,7 @@ export default {
             return this.$route.name
         },
         isSearchable() {
-            return this.curRouteName === 'profileBeats' || this.curRouteName === 'profileSoundKits'
+            return this.curRouteName !== 'profileAbout'
         }
     },
     methods: {
@@ -98,6 +98,12 @@ export default {
                     break
                 case 'profileSoundKits': 
                     await this.$store.dispatch('profile/getProfileKits', params)
+                    break
+                case 'profileVideos': 
+                    await this.$store.dispatch('profile/getProfileVideos', params)
+                    break
+                case 'profileLinks': 
+                    await this.$store.dispatch('profile/getProfileLinks', params)
                     break
             }
             

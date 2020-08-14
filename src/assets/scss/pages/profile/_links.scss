@@ -1,10 +1,11 @@
 .link-item {
     position: relative;
+    min-height: 300px;
     margin-bottom: 20px;
     border-radius: 6px;
     background-color: white;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.22);
-    min-height: calc(100% - 20px);
+    height: calc(100% - 20px);
     .img-container {
         img {
             width: 100%;

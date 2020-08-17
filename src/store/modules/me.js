@@ -585,6 +585,7 @@ const actions = {
                 notification: data.length > 0 ? data[0] : {},
             })
     },
+
     async updateNotification({ commit }, { id, params }) {
         const response = await api.account.updateNotification(id, params)
         const { status, data } = response
@@ -675,7 +676,8 @@ const getters = {
             let findBeatPack = beatPacks.find(item => item.id == pack.id)
             return {
                 ...findBeatPack,
-                coverart: findBeatPack.data_image || appConstants.defaultCoverArt,
+                coverart:
+                    findBeatPack.data_image || appConstants.defaultCoverArt,
                 isPublic: findBeatPack.public == '1',
                 isPrivate: findBeatPack.public == '2',
             }

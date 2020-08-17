@@ -51,5 +51,5 @@ export default {
         await this.$store.dispatch('profile/getProfileVideos')
         this.loading = false
     },
-} 
+}
 </script>

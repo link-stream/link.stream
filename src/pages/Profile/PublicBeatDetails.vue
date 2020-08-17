@@ -4,15 +4,11 @@
         <div v-else class="page-body">
             <div class="left-col">
                 <div class="main-img img-contaiiner">
-                    <img class="img-fluid" :src="form.coverArtBase64">
+                    <img class="img-fluid" :src="form.coverArtBase64" />
                 </div>
                 <div class="tags-container">
                     <div class="title">Beat Tags</div>
-                    <div
-                        v-for="tag in form.tags"
-                        :key="tag.text"
-                        class="tag"
-                    >
+                    <div v-for="tag in form.tags" :key="tag.text" class="tag">
                         {{ tag.text }}
                     </div>
                 </div>
@@ -27,17 +23,11 @@
                         <img
                             class="avatar-badge"
                             v-if="collab.user.id == user.id"
-                            src="@/assets/img/ico/badge.svg" 
+                            src="@/assets/img/ico/badge.svg"
                         />
                         <span class="user-name">
-                            {{
-                                collab.user.name | truncate(14)
-                            }}
-                            {{
-                                collab.user.id == user.id
-                                    ? '(you)'
-                                    : ''
-                            }}
+                            {{ collab.user.name | truncate(14) }}
+                            {{ collab.user.id == user.id ? '(you)' : '' }}
                         </span>
                     </div>
                 </div>
@@ -61,8 +51,8 @@
                         </button>
                         <b-dropdown
                             class="actions-menu"
-                            variant="icon" 
-                            dropleft 
+                            variant="icon"
+                            right
                             no-caret
                         >
                             <template v-slot:button-content>
@@ -104,10 +94,7 @@
                                         {{ license.descripcion }}
                                     </small>
                                 </div>
-                                <basic-button
-                                    size="sm"
-                                    class="btn-buy"
-                                >
+                                <basic-button size="sm" class="btn-buy">
                                     <img src="@/assets/img/ico/basket.svg" />
                                     Buy
                                 </basic-button>
@@ -159,19 +146,16 @@ import { MiniAudioPlayer } from '~/components/Player'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
 export default {
     name: 'PublicBeatDetails',
-    props: [
-        'id',
-        'beatId',
-    ],
+    props: ['id', 'beatId'],
     components: {
         MiniAudioPlayer,
         ArtPlayer,
     },
-    computed:  {
+    computed: {
         ...mapGetters({
             user: 'me/user',
             packs: 'me/relatedBeatPacks',
-        })
+        }),
     },
     data: () => ({
         isLoading: false,
@@ -203,7 +187,7 @@ export default {
                 BPM: 134,
                 plays: 120,
             },
-        ]
+        ],
     }),
     async created() {
         this.isLoading = true
@@ -282,7 +266,7 @@ export default {
                       }
                     : {},
             },
-            trackPack: []
+            trackPack: [],
         }
 
         if (Array.isArray(beat.beat_packs)) {

@@ -30,15 +30,19 @@ const mutations = {
     [profileTypes.SET_PROFILE](state, { profile }) {
         state.profile = profile
     },
+
     [profileTypes.SET_BEATS](state, { beats }) {
         state.beats = beats
     },
+
     [profileTypes.SET_SOUND_KITS](state, { soundKits }) {
         state.soundKits = soundKits
     },
+
     [profileTypes.SET_VIDEOS](state, { videos }) {
         state.videos = videos
     },
+
     [profileTypes.SET_LINKS](state, { links }) {
         state.links = links
     },
@@ -56,28 +60,44 @@ const actions = {
             commit(profileTypes.SET_PROFILE, { profile: data })
         return response
     },
+
     async getProfileBeats({ state, commit }, params) {
-        const response = await api.profiles.getProfileBeats(state.profile.id, params)
+        const response = await api.profiles.getProfileBeats(
+            state.profile.id,
+            params
+        )
         const { status, data } = response
         status === 'success' && commit(profileTypes.SET_BEATS, { beats: data })
         return response
     },
+
     async getProfileKits({ state, commit }, params) {
-        const response = await api.profiles.getProfileKits(state.profile.id, params)
+        const response = await api.profiles.getProfileKits(
+            state.profile.id,
+            params
+        )
         const { status, data } = response
         status === 'success' &&
             commit(profileTypes.SET_SOUND_KITS, { soundKits: data })
         return response
     },
+
     async getProfileVideos({ state, commit }, params) {
-        const response = await api.profiles.getProfileVideos(state.profile.id, params)
+        const response = await api.profiles.getProfileVideos(
+            state.profile.id,
+            params
+        )
         const { status, data } = response
         status === 'success' &&
             commit(profileTypes.SET_VIDEOS, { videos: data })
         return response
     },
+
     async getProfileLinks({ state, commit }, params) {
-        const response = await api.profiles.getProfileLinks(state.profile.id, params)
+        const response = await api.profiles.getProfileLinks(
+            state.profile.id,
+            params
+        )
         const { status, data } = response
         status === 'success' && commit(profileTypes.SET_LINKS, { links: data })
         return response
@@ -86,6 +106,7 @@ const actions = {
 
 const getters = {
     profile: ({ profile }) => profile,
+
     beats: ({ beats }) => {
         return beats.map(beat => {
             return {
@@ -94,6 +115,7 @@ const getters = {
             }
         })
     },
+
     soundKits: ({ soundKits }) => {
         return soundKits.map(soundKit => {
             return {
@@ -102,6 +124,7 @@ const getters = {
             }
         })
     },
+
     videos: ({ videos }) => videos,
     links: ({ links }) => links,
 }

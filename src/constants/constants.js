@@ -123,5 +123,5 @@ export const constants = {
             title: 'Price: High to low',
             value: 'price_high',
         },
-    ]
+    ],
 }

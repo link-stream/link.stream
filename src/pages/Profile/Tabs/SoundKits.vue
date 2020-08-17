@@ -13,7 +13,10 @@
                     v-for="(item, index) in soundKits"
                     :key="index"
                 >
-                    <SoundKitItem :artItem="item" :selected="index === currentIndex" />
+                    <SoundKitItem
+                        :artItem="item"
+                        :selected="index === currentIndex"
+                    />
                 </b-col>
             </b-form-row>
             <div class="text-center mb-5">
@@ -51,7 +54,6 @@ export default {
         await this.$store.dispatch('profile/getProfileMain', { url: this.url })
         await this.$store.dispatch('profile/getProfileKits')
         this.loading = false
-    }
-
+    },
 }
 </script>

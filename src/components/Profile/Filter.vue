@@ -2,11 +2,7 @@
     <div class="profile-filter">
         <div class="filter-item d-md-none filter-top-action">
             <div class="text-center">
-                <basic-button 
-                    size="sm"
-                    class="btn-filter"
-                    @click="closeFilter"
-                >
+                <basic-button size="sm" class="btn-filter" @click="closeFilter">
                     <b-icon-filter scale="1.5" class="mr-2" />
                     Filters
                 </basic-button>
@@ -32,7 +28,7 @@
         </div>
         <div class="filter-item">
             <p class="font-weight-bold">Sort</p>
-            <b-form-radio-group 
+            <b-form-radio-group
                 v-model="form.sort"
                 :options="sortItems"
                 value-field="value"
@@ -41,27 +37,16 @@
         </div>
         <div class="filter-item">
             <p class="font-weight-bold">Filter by BPM Range</p>
-            <vue-slider 
-                v-model="form.bpm"
-                :min="0"
-                :max="1000"
-                class="mb-3"
-            />
+            <vue-slider v-model="form.bpm" :min="0" :max="1000" class="mb-3" />
             <div class="slider-range-input">
-                <b-form-input
-                    v-model="form.bpm[0]"
-                />
+                <b-form-input v-model="form.bpm[0]" />
                 <div class="range-dash">-</div>
-                <b-form-input
-                    v-model="form.bpm[1]"
-                />
+                <b-form-input v-model="form.bpm[1]" />
             </div>
         </div>
         <div class="filter-item">
             <p class="font-weight-bold">Type</p>
-            <b-form-checkbox-group
-                v-model="form.type"
-            >
+            <b-form-checkbox-group v-model="form.type">
                 <b-form-checkbox value="11">
                     Beats
                 </b-form-checkbox>
@@ -72,10 +57,7 @@
         </div>
         <div class="filter-item">
             <p class="font-weight-bold">Genre</p>
-            <b-form-checkbox 
-                v-model="allSelected"
-                @change="toggleAll"
-            >
+            <b-form-checkbox v-model="allSelected" @change="toggleAll">
                 All genres
             </b-form-checkbox>
             <b-form-checkbox-group
@@ -130,7 +112,7 @@ export default {
             {
                 id: 3,
                 genre: 'R & B',
-            }
+            },
         ],
         sortItems: appConstants.sortItems,
         allSelected: false,
@@ -147,7 +129,7 @@ export default {
     },
     methods: {
         toggleAll(checked) {
-            this.selected = checked ? this.genreList.map(({id}) => id) : []
+            this.selected = checked ? this.genreList.map(({ id }) => id) : []
         },
         handleResetClick() {
             this.form = {
@@ -160,11 +142,11 @@ export default {
         },
         handleApplyClick() {
             this.form.genre = this.selected
-            this.$emit('apply-filter', {...this.form})
+            this.$emit('apply-filter', { ...this.form })
         },
         closeFilter() {
             this.$emit('close-filter')
-        }
-    }
+        },
+    },
 }
 </script>

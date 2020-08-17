@@ -13,7 +13,10 @@
             />
             <ul class="mx-auto">
                 <li v-if="isSearchable">
-                    <b-icon-search class="d-md-none" @click="isSearchBox = !isSearchBox"/>
+                    <b-icon-search
+                        class="d-md-none"
+                        @click="isSearchBox = !isSearchBox"
+                    />
                 </li>
                 <li
                     v-for="tab in tabs"
@@ -25,8 +28,8 @@
                     </router-link>
                 </li>
             </ul>
-            <basic-button 
-                variant="outline-light" 
+            <basic-button
+                variant="outline-light"
                 size="sm"
                 class="btn-filter"
                 @click="isShowFilter = !isShowFilter"
@@ -54,7 +57,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import ProfileFilter from './Filter'
 export default {
     name: 'TabNav',
@@ -72,16 +74,16 @@ export default {
             ],
             searchString: '',
             isShowFilter: false,
-            isSearchBox: false
+            isSearchBox: false,
         }
     },
-    computed:{
+    computed: {
         curRouteName() {
             return this.$route.name
         },
         isSearchable() {
             return this.curRouteName !== 'profileAbout'
-        }
+        },
     },
     methods: {
         searchData(filter) {
@@ -90,24 +92,31 @@ export default {
         },
         async searchDataByTag() {
             const params = {
-                tag: this.searchString
+                tag: this.searchString,
             }
             switch (this.curRouteName) {
-                case 'profileBeats': 
-                    await this.$store.dispatch('profile/getProfileBeats', params)
+                case 'profileBeats':
+                    await this.$store.dispatch(
+                        'profile/getProfileBeats',
+                        params
+                    )
                     break
-                case 'profileSoundKits': 
+                case 'profileSoundKits':
                     await this.$store.dispatch('profile/getProfileKits', params)
                     break
-                case 'profileVideos': 
-                    await this.$store.dispatch('profile/getProfileVideos', params)
+                case 'profileVideos':
+                    await this.$store.dispatch(
+                        'profile/getProfileVideos',
+                        params
+                    )
                     break
-                case 'profileLinks': 
-                    await this.$store.dispatch('profile/getProfileLinks', params)
-                    break
+                case 'profileLinks':
+                    await this.$store.dispatch(
+                        'profile/getProfileLinks',
+                        params
+                    )
             }
-            
-        }
-    }
+        },
+    },
 }
 </script>

@@ -13,7 +13,10 @@
                 </div>
                 <div class="avatar-container">
                     <div class="avatar-box">
-                        <img v-if="profile.data_image" :src="profile.data_image" />
+                        <img
+                            v-if="profile.data_image"
+                            :src="profile.data_image"
+                        />
                         <vue-letter-avatar
                             v-else
                             :name="profile.display_name"
@@ -25,12 +28,10 @@
                 </div>
             </b-col>
         </b-row>
-        
+
         <b-row>
             <b-col cols="12" class="action-bar">
-                <basic-button
-                    class="d-none d-md-block"
-                >
+                <basic-button class="d-none d-md-block">
                     Follow
                 </basic-button>
                 <b-dropdown class="actions-menu" variant="icon" right no-caret>
@@ -49,22 +50,28 @@
                 </b-dropdown>
             </b-col>
         </b-row>
-       
+
         <div class="profile-content">
             <b-row>
                 <b-col cols="12" class="profile-info">
                     <h2 class="section-title">{{ profile.display_name }}</h2>
                     <div class="section-subtitle">
                         <span class="mr-3">
-                            <span class="font-weight-bold">{{ 490 | thousandNumber }}</span>
+                            <span class="font-weight-bold">
+                                {{ 490 | thousandNumber }}
+                            </span>
                             <span class="ml-1">Followers</span>
                         </span>
                         <span class="mr-3">
-                            <span class="font-weight-bold">{{ 23900 | thousandNumber }}</span>
+                            <span class="font-weight-bold">
+                                {{ 23900 | thousandNumber }}
+                            </span>
                             <span class="ml-1">Plays</span>
                         </span>
                         <span>
-                            <span class="font-weight-bold">{{ 213 | thousandNumber }}</span>
+                            <span class="font-weight-bold">
+                                {{ 213 | thousandNumber }}
+                            </span>
                             <span class="ml-1">Beats</span>
                         </span>
                     </div>
@@ -100,7 +107,7 @@ export default {
         onResize() {
             let rate = appConstants.user.publicProfileBannerAspectRatio
             let curWidth = this.$refs['banner-container'].clientWidth
-            if ( curWidth < 768 && curWidth > 576) {
+            if (curWidth < 768 && curWidth > 576) {
                 rate *= 1.2
             } else if (curWidth <= 576) {
                 rate *= 1.4

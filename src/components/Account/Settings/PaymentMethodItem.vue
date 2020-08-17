@@ -7,11 +7,12 @@
                 class="mr-2"
                 color="warning"
             />
-            <img 
+            <img
                 v-if="cardImage"
-                :src="cardImage" 
-                :alt="paymentMethod.cc_type" />
-            <b-icon-credit-card v-else class="mr-2 h1 align-middle"/>    
+                :src="cardImage"
+                :alt="paymentMethod.cc_type"
+            />
+            <b-icon-credit-card v-else class="mr-2 h1 align-middle" />
         </div>
         <div class="item-body">
             <h4 class="item-title">
@@ -23,7 +24,7 @@
                 Expiration: {{ paymentMethod.expiration_date }}
             </small>
         </div>
-        
+
         <b-dropdown class="actions-menu" variant="icon" right no-caret>
             <template v-slot:button-content>
                 <Icon icon="dot-menu-h" />
@@ -50,17 +51,23 @@ export default {
     },
     computed: {
         cardImage() {
-            const findIndex = appConstants.cardImages.findIndex(item => item.type === this.paymentMethod.cc_type)
+            const findIndex = appConstants.cardImages.findIndex(
+                item => item.type === this.paymentMethod.cc_type
+            )
             if (findIndex > -1) {
                 return appConstants.cardImages[findIndex].url
-            } else {
-                return
             }
+            return null
         },
     },
-    methods: {    
+    methods: {
         async deletePaymentMethod() {
-            const { status, message, error } = await this.$store.dispatch('me/deletePaymentMethod', { ...this.paymentMethod })
+            const { status, message, error } = await this.$store.dispatch(
+                'me/deletePaymentMethod',
+                {
+                    ...this.paymentMethod,
+                }
+            )
             if (status === 'success') {
                 this.$toast.success(message)
             } else {
@@ -70,11 +77,11 @@ export default {
         async setPrimary() {
             const { status, message, error } = await this.$store.dispatch(
                 'me/updatePaymentMethod',
-                { 
+                {
                     payment_id: this.paymentMethod.id,
                     params: {
-                        is_default: 1
-                    } 
+                        is_default: 1,
+                    },
                 }
             )
             if (status === 'success') {
@@ -82,7 +89,7 @@ export default {
             } else {
                 this.$toast.error(error)
             }
-        }
-    }
+        },
+    },
 }
 </script>

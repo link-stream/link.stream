@@ -15,18 +15,15 @@
             <div class="price">
                 {{ artItem.price | currencyFormat }}
             </div>
-            <div
-                v-if="artItem.bogo"
-                class="bogo"
-            >
+            <div v-if="artItem.bogo" class="bogo">
                 BOGO
             </div>
         </div>
         <b-dropdown
             v-if="selected"
             class="actions-menu d-none d-md-block"
-            variant="icon" 
-            right 
+            variant="icon"
+            right
             no-caret
         >
             <template v-slot:button-content>
@@ -46,11 +43,7 @@
             </b-dropdown-item>
         </b-dropdown>
         <div class="action">
-            <basic-button 
-                size="sm"
-                class="btn-buy"
-                @click="handleBuyClick"
-            >
+            <basic-button size="sm" class="btn-buy" @click="handleBuyClick">
                 Buy
             </basic-button>
             <button class="btn btn-icon btn-download">
@@ -64,7 +57,7 @@ export default {
     name: 'SoundKitItemm',
     props: {
         artItem: {
-            type: Object
+            type: Object,
         },
         selected: {
             type: Boolean,
@@ -76,7 +69,7 @@ export default {
         },
         handleShareClick() {
             this.$bus.$emit('modal.shareArt.open')
-        }
+        },
     },
 }
 </script>

@@ -7,7 +7,7 @@
                 @load="handleLoad"
             />
         </div>
-        <div class="link-desc" :class="{'no-img': !linkItem.data_image}">
+        <div class="link-desc" :class="{ 'no-img': !linkItem.data_image }">
             <div class="title">
                 {{ linkItem.title }}
             </div>
@@ -23,14 +23,18 @@ export default {
     name: 'LinkItemm',
     props: {
         linkItem: {
-            type: Object
+            type: Object,
         },
     },
     methods: {
         handleLoad() {
             $("a[href^='http']").each(function() {
                 if (!$(this).find('img').length) {
-                    $(this).prepend('<img src="https://www.google.com/s2/favicons?domain=' + this.href + '">')
+                    $(this).prepend(
+                        '<img src="https://www.google.com/s2/favicons?domain=' +
+                            this.href +
+                            '">'
+                    )
                 }
             })
         },

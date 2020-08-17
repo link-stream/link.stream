@@ -59,6 +59,7 @@ export default {
     },
     computed: {
         isHidden() {
+            // eslint-disable-next-line
             return window.innerWidth >= appConstants.user.account.menuHiddenBreakpoint
         },
     },

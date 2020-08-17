@@ -51,6 +51,5 @@ export default {
         await this.$store.dispatch('profile/getProfileLinks')
         this.loading = false
     },
-    
 }
 </script>

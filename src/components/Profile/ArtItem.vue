@@ -12,8 +12,11 @@
             <div class="title">
                 {{ artItem.title }}
             </div>
-            <div class="price">
+            <div v-if="artItem.type === 'beat'" class="price">
                 {{ minPrice | currencyFormat }} - {{ maxPrice | currencyFormat }}
+            </div>
+            <div v-else class="price">
+                {{ artItem.price | currencyFormat }}
             </div>
             <div
                 v-if="artItem.bogo"

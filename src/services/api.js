@@ -451,6 +451,7 @@ export const api = {
                 endpoint += params.genre ? '&genre=' + params.genre : ''
                 endpoint += params.bpm_min ? '&bpm_min=' + params.bpm_min : ''
                 endpoint += params.bpm_max ? '&bpm_max=' + params.bpm_max : ''
+                endpoint += params.type ? '&type=' + params.type: ''
             }
             const method = METHOD_GET
             return await call({

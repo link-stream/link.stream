@@ -66,6 +66,7 @@ const actions = {
             state.profile.id,
             params
         )
+        console.log(response)
         const { status, data } = response
         status === 'success' && commit(profileTypes.SET_BEATS, { beats: data })
         return response

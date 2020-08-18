@@ -101,7 +101,7 @@ export default {
     data: () => ({
         form: {
             sort: 'default',
-            bpm: [60, 220],
+            bpm: [0, 1000],
             type: [],
             genre: [],
         },
@@ -143,6 +143,11 @@ export default {
                 this.allSelected = false
             }
         },
+        isOnlyBeat(newVal, oldVal) {
+            if (newVal !== oldVal && newVal) {
+                this.form.bpm = [0, 1000]
+            }
+        }
     },
     async created() {
         let genreType = null
@@ -170,7 +175,7 @@ export default {
         handleResetClick() {
             this.form = {
                 sort: 0,
-                bpm: [60, 220],
+                bpm: [0, 1000],
                 type: [],
                 genre: [],
             },

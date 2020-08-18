@@ -39,7 +39,7 @@
                 Filters
             </basic-button>
             <ProfileFilter
-                v-if="isShowFilter"
+                v-show="isShowFilter"
                 @apply-filter="searchFilter"
                 @close-filter="isShowFilter = false"
             />
@@ -76,6 +76,7 @@ export default {
             searchString: '',
             isShowFilter: false,
             isSearchBox: false,
+            currentFilter: {},
         }
     },
     computed: {
@@ -89,15 +90,22 @@ export default {
     methods: {
         searchFilter(filter) {
             this.isShowFilter = false
+            this.currentFilter = filter
+            const params = {
+                ...filter,
+                tag: this.searchString,
+            }
             this.searchData(filter)
         },
         searchDataByTag() {
             const params = {
+                ...this.currentFilter,
                 tag: this.searchString,
             }
             this.searchData(params)
         },
         async searchData(params) {
+            console.log('params', params)
             switch (this.curRouteName) {
                 case 'profileBeats':
                     await this.$store.dispatch(

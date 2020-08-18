@@ -11,7 +11,7 @@
             <div class="title">
                 {{ linkItem.title }}
             </div>
-            <a class="link" :href="linkItem.url">
+            <a class="link" :href="linkItem.url" target="_blank">
                 {{ linkItem.url }}
             </a>
         </div>

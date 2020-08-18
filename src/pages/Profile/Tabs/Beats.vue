@@ -47,7 +47,7 @@ export default {
     },
     data: () => ({
         loading: false,
-        currentIndex: 1,
+        currentIndex: 0,
     }),
     async created() {
         this.loading = true

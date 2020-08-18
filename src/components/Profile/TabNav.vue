@@ -95,7 +95,7 @@ export default {
                 ...filter,
                 tag: this.searchString,
             }
-            this.searchData(filter)
+            this.searchData(params)
         },
         searchDataByTag() {
             const params = {
@@ -105,7 +105,6 @@ export default {
             this.searchData(params)
         },
         async searchData(params) {
-            console.log('params', params)
             switch (this.curRouteName) {
                 case 'profileBeats':
                     await this.$store.dispatch(

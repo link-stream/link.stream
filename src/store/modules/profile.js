@@ -67,12 +67,10 @@ const actions = {
     },
 
     async getProfileBeats({ state, commit }, params) {
-        console.log('params', params)
         const response = await api.profiles.getProfileBeats(
             state.profile.id,
             params
         )
-        console.log('response', response)
         const { status, data } = response
         status === 'success' && commit(profileTypes.SET_BEATS, { beats: data })
         return response
@@ -115,6 +113,7 @@ const actions = {
             state.profile.id,
             type
         )
+        console.log(response)
         const { status, data } = response
         status === 'success' &&
             commit(profileTypes.SET_GENRES, { genres: data })

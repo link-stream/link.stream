@@ -492,13 +492,7 @@ export default {
                 if (this.isEditMode) {
                     this.$router.replace(
                         {
-                            name: 'accountBeatPackEdit',
-                            params: {
-                                id: data.id,
-                            },
-                            query: {
-                                u: Date.now(),
-                            },
+                            name: 'accountBeatPacks'
                         },
                         () => {
                             this.$toast.success(message)
@@ -506,13 +500,7 @@ export default {
                     )
                 } else {
                     this.$router.push({
-                        name: 'accountBeatPackEdit',
-                        params: {
-                            id: data.id,
-                        },
-                        query: {
-                            c: 1,
-                        },
+                        name: 'accountBeatPacks'
                     })
                 }
             } else {

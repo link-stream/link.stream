@@ -101,7 +101,7 @@ export default {
     data: () => ({
         form: {
             sort: 'default',
-            bpm: [0, 1000],
+            bpm: [0, 500],
             type: [],
             genre: [],
         },
@@ -145,7 +145,7 @@ export default {
         },
         isOnlyBeat(newVal, oldVal) {
             if (newVal !== oldVal && newVal) {
-                this.form.bpm = [0, 1000]
+                this.form.bpm = [0, 500]
             }
         }
     },
@@ -175,7 +175,7 @@ export default {
         handleResetClick() {
             this.form = {
                 sort: 0,
-                bpm: [0, 1000],
+                bpm: [0, 500],
                 type: [],
                 genre: [],
             },

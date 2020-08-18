@@ -575,13 +575,7 @@ export default {
                 if (this.isEditMode) {
                     this.$router.replace(
                         {
-                            name: 'accountSoundKitEdit',
-                            params: {
-                                id: data.id,
-                            },
-                            query: {
-                                u: Date.now(),
-                            },
+                            name: 'accountSoundKits',
                         },
                         () => {
                             this.$toast.success(message)
@@ -589,13 +583,7 @@ export default {
                     )
                 } else {
                     this.$router.push({
-                        name: 'accountSoundKitEdit',
-                        params: {
-                            id: data.id,
-                        },
-                        query: {
-                            c: 1,
-                        },
+                        name: 'accountSoundKits',
                     })
                 }
             } else {

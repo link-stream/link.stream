@@ -35,39 +35,43 @@
                 text-field="title"
             />
         </div>
-        <div class="filter-item">
+        <div class="filter-item" v-if="routeName === 'profileBeats'">
             <p class="font-weight-bold">Filter by BPM Range</p>
-            <vue-slider v-model="form.bpm" :min="0" :max="1000" class="mb-3" />
+            <vue-slider v-model="form.bpm" :min="0" :max="1000" class="mb-3" :disabled="!isOnlyBeat" />
             <div class="slider-range-input">
-                <b-form-input v-model="form.bpm[0]" />
+                <b-form-input v-model="form.bpm[0]" :disabled="!isOnlyBeat" />
                 <div class="range-dash">-</div>
-                <b-form-input v-model="form.bpm[1]" />
+                <b-form-input v-model="form.bpm[1]" :disabled="!isOnlyBeat" />
             </div>
         </div>
-        <div class="filter-item">
+        <div class="filter-item" v-if="routeName === 'profileBeats'">
             <p class="font-weight-bold">Type</p>
             <b-form-checkbox-group v-model="form.type">
-                <b-form-checkbox value="11">
+                <b-form-checkbox value="beat">
                     Beats
                 </b-form-checkbox>
-                <b-form-checkbox value="12">
+                <b-form-checkbox value="pack">
                     Beat Packs
                 </b-form-checkbox>
             </b-form-checkbox-group>
         </div>
-        <div class="filter-item">
+        <div class="filter-item" v-if="routeName !='profileLinks'">
             <p class="font-weight-bold">Genre</p>
             <b-form-checkbox v-model="allSelected" @change="toggleAll">
                 All genres
             </b-form-checkbox>
             <b-form-checkbox-group
                 v-model="selected"
-                :options="genreList"
+                :options="showGenres"
                 value-field="id"
                 text-field="genre"
             />
-            <basic-button variant="link">
-                More
+            <basic-button
+                v-if="genres.length > 4"
+                variant="link"
+                @click="isMore = !isMore"
+            >
+                {{ isMore ? 'Show less' : 'More' }}
             </basic-button>
         </div>
         <footer class="page-footer d-none d-md-block">
@@ -91,6 +95,7 @@
 </template>
 <script>
 import { appConstants } from '~/constants'
+import { mapGetters } from 'vuex'
 export default {
     name: 'ProfileFilter',
     data: () => ({
@@ -100,36 +105,67 @@ export default {
             type: [],
             genre: [],
         },
-        genreList: [
-            {
-                id: 1,
-                genre: 'Hip Hop',
-            },
-            {
-                id: 2,
-                genre: 'Pop',
-            },
-            {
-                id: 3,
-                genre: 'R & B',
-            },
-        ],
-        sortItems: appConstants.sortItems,
+        // sortItems: appConstants.sortItems,
         allSelected: false,
         selected: [],
+        isMore: false,
     }),
+    computed: {
+        ...mapGetters({
+            genres: 'profile/profileGenres',
+        }),
+        isOnlyBeat() {
+            return this.form.type.length === 1 && this.form.type[0] === 'beat'
+        },
+        showGenres() {
+            return this.isMore ? this.genres : this.genres.slice(0, 4)
+        },
+        routeName() {
+            return this.$route.name
+        },
+        sortItems() {
+            if (this.routeName === 'profileBeats' || this.routeName === 'profileSoundKits') {
+                return appConstants.sortItems
+            } else if (this.routeName === 'profileVideos' || this.routeName === 'profileLinks') {
+                return [
+                    appConstants.sortItems[0],
+                    appConstants.sortItems[2],
+                ]
+            }
+            return []
+        },
+    },
     watch: {
         selected(newVal) {
-            if (newVal.length === this.genreList.length) {
+            if (newVal.length === this.genres.length) {
                 this.allSelected = true
             } else {
                 this.allSelected = false
             }
         },
     },
+    async created() {
+        let genreType = null
+        switch (this.routeName) {
+            case 'profileBeats':
+                genreType = 'beats'
+                break
+            case 'profileSoundKits':
+                genreType = 'kits'
+                break
+            case 'profileVideos':
+                genreType = 'videos'
+                break
+            default:
+                genreType = null
+        }
+        if (genreType) {
+            await this.$store.dispatch('profile/getProfileGenres', genreType)
+        }
+    },
     methods: {
         toggleAll(checked) {
-            this.selected = checked ? this.genreList.map(({ id }) => id) : []
+            this.selected = checked ? this.genres.map(({ id }) => id) : []
         },
         handleResetClick() {
             this.form = {
@@ -141,8 +177,14 @@ export default {
             this.selected = []
         },
         handleApplyClick() {
-            this.form.genre = this.selected
-            this.$emit('apply-filter', { ...this.form })
+            const params = {
+                sort: this.form.sort,
+                bpm_min: this.isOnlyBeat ? this.form.bpm[0] : null,
+                bpm_max: this.isOnlyBeat ? this.form.bpm[1] : null,
+                type: this.routeName === 'profileBeats' ? this.form.type.join(',') : null,
+                genre: this.routeName ==='profileLinks' ? null : this.selected.join(',')
+            }
+            this.$emit('apply-filter', params)
         },
         closeFilter() {
             this.$emit('close-filter')

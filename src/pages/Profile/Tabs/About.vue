@@ -7,5 +7,13 @@
 <script>
 export default {
     name: 'ProfileAbout',
+    props: {
+        url: {
+            type: String,
+        },
+    },
+    created() {
+        this.$store.dispatch('profile/getProfileMain', { url: this.url })
+    },
 }
 </script>

@@ -29,6 +29,7 @@
                 </li>
             </ul>
             <basic-button
+                v-if="curRouteName != 'profileAbout'"
                 variant="outline-light"
                 size="sm"
                 class="btn-filter"
@@ -39,7 +40,7 @@
             </basic-button>
             <ProfileFilter
                 v-if="isShowFilter"
-                @apply-filter="searchData"
+                @apply-filter="searchFilter"
                 @close-filter="isShowFilter = false"
             />
         </div>
@@ -86,14 +87,17 @@ export default {
         },
     },
     methods: {
-        searchData(filter) {
+        searchFilter(filter) {
             this.isShowFilter = false
-            console.log('filter', filter)
+            this.searchData(filter)
         },
-        async searchDataByTag() {
+        searchDataByTag() {
             const params = {
                 tag: this.searchString,
             }
+            this.searchData(params)
+        },
+        async searchData(params) {
             switch (this.curRouteName) {
                 case 'profileBeats':
                     await this.$store.dispatch(
@@ -102,7 +106,10 @@ export default {
                     )
                     break
                 case 'profileSoundKits':
-                    await this.$store.dispatch('profile/getProfileKits', params)
+                    await this.$store.dispatch(
+                        'profile/getProfileKits',
+                        params
+                    )
                     break
                 case 'profileVideos':
                     await this.$store.dispatch(

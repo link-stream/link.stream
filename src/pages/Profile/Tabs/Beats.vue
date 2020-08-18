@@ -13,7 +13,10 @@
                     v-for="(item, index) in beats"
                     :key="index"
                 >
-                    <ArtItem :artItem="item" :selected="index === currentIndex" />
+                    <ArtItem
+                        :artItem="item"
+                        :selected="index === currentIndex"
+                    />
                 </b-col>
             </b-form-row>
             <div class="text-center mb-5">
@@ -51,6 +54,6 @@ export default {
         await this.$store.dispatch('profile/getProfileMain', { url: this.url })
         await this.$store.dispatch('profile/getProfileBeats')
         this.loading = false
-    }
+    },
 }
 </script>

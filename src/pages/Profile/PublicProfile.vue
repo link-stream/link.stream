@@ -64,5 +64,8 @@ export default {
             }
         },
     },
+    async created() {
+        await this.$store.dispatch('common/loadGenres')
+    },
 }
 </script>

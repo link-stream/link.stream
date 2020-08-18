@@ -451,8 +451,9 @@ export const api = {
                 endpoint += params.genre ? '&genre=' + params.genre : ''
                 endpoint += params.bpm_min ? '&bpm_min=' + params.bpm_min : ''
                 endpoint += params.bpm_max ? '&bpm_max=' + params.bpm_max : ''
-                endpoint += params.type ? '&type=' + params.type: ''
+                endpoint += params.type ? '&type=' + params.type : ''
             }
+            console.log('endpoint', endpoint)
             const method = METHOD_GET
             return await call({
                 endpoint,
@@ -494,6 +495,14 @@ export const api = {
                 endpoint += params.sort ? '&sort=' + params.sort : ''
                 endpoint += params.tag ? '&tag=' + params.tag : ''
             }
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileGenres(producerId, type) {
+            let endpoint = `/profiles/genres/${producerId}/${type}`
             const method = METHOD_GET
             return await call({
                 endpoint,

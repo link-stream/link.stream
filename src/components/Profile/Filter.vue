@@ -149,25 +149,6 @@ export default {
             }
         }
     },
-    async created() {
-        let genreType = null
-        switch (this.routeName) {
-            case 'profileBeats':
-                genreType = 'beats'
-                break
-            case 'profileSoundKits':
-                genreType = 'kits'
-                break
-            case 'profileVideos':
-                genreType = 'videos'
-                break
-            default:
-                genreType = null
-        }
-        if (genreType) {
-            await this.$store.dispatch('profile/getProfileGenres', genreType)
-        }
-    },
     methods: {
         toggleAll(checked) {
             this.selected = checked ? this.genres.map(({ id }) => id) : []

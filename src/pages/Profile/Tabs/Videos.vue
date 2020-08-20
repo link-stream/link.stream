@@ -49,6 +49,7 @@ export default {
         this.loading = true
         await this.$store.dispatch('profile/getProfileMain', { url: this.url })
         await this.$store.dispatch('profile/getProfileVideos')
+        await this.$store.dispatch('profile/getProfileGenres', 'videos')
         this.loading = false
     },
 }

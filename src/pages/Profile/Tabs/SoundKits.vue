@@ -53,6 +53,7 @@ export default {
         this.loading = true
         await this.$store.dispatch('profile/getProfileMain', { url: this.url })
         await this.$store.dispatch('profile/getProfileKits')
+        await this.$store.dispatch('profile/getProfileGenres', 'kits')
         this.loading = false
     },
 }

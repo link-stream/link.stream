@@ -17,21 +17,21 @@
                     </div>
                 </div>
                 <div class="center-control d-none d-md-block">
-                    <IconButton 
+                    <IconButton
                         class="btn-back"
                         icon="player-back"
                     />
-                    <IconButton 
+                    <IconButton
                         class="btn-pause"
                         icon="player-pause"
                     />
-                    <IconButton 
+                    <IconButton
                         class="btn-next"
                         icon="player-next"
                     />
                 </div>
                 <div class="right-control">
-                    <IconButton 
+                    <IconButton
                         class="btn-volume d-none d-md-block"
                         icon="volume"
                     />
@@ -40,7 +40,7 @@
                             <Icon icon="dot-menu-v-w" />
                         </template>
                     </b-dropdown>
-                    <IconButton 
+                    <IconButton
                         class="btn-pause d-md-none"
                         icon="player-pause"
                     />

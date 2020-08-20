@@ -109,11 +109,12 @@ const actions = {
     },
 
     async getProfileGenres({ state, commit }, type) {
+        console.log('genre params', state.profile)
         const response = await api.profiles.getProfileGenres(
             state.profile.id,
             type
         )
-        console.log(response)
+        console.log('genre response', response)
         const { status, data } = response
         status === 'success' &&
             commit(profileTypes.SET_GENRES, { genres: data })

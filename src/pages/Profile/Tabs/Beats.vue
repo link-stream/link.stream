@@ -25,15 +25,18 @@
                 </basic-button>
             </div>
         </div>
+        <ArtPlayer :playerItem="beats[currentIndex]"/>
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
 import ArtItem from '@/components/Profile/ArtItem'
+import ArtPlayer from '@/components/Profile/ArtPlayer'
 export default {
     name: 'ProfileBeats',
     components: {
         ArtItem,
+        ArtPlayer,
     },
     props: {
         url: {
@@ -53,6 +56,7 @@ export default {
         this.loading = true
         await this.$store.dispatch('profile/getProfileMain', { url: this.url })
         await this.$store.dispatch('profile/getProfileBeats')
+        await this.$store.dispatch('profile/getProfileGenres', 'beats')
         this.loading = false
     },
 }

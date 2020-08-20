@@ -5,7 +5,6 @@
         <div class="page-body">
             <component v-bind:is="currentTabComponent" :url="url"></component>
         </div>
-        <ArtPlayer />
         <BuyLicenseModal />
         <AddedCartModal />
         <ShareArtModal />
@@ -22,7 +21,6 @@ import {
 } from './Tabs'
 import MainInfo from '@/components/Profile/MainInfo'
 import TabNav from '@/components/Profile/TabNav'
-import ArtPlayer from '@/components/Profile/ArtPlayer'
 import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
 import AddedCartModal from '@/components/Modal/AddedCartModal'
 import ShareArtModal from '@/components/Modal/ShareArtModal'
@@ -36,7 +34,6 @@ export default {
         ProfileVideos,
         ProfileLinks,
         ProfileAbout,
-        ArtPlayer,
         BuyLicenseModal,
         AddedCartModal,
         ShareArtModal,

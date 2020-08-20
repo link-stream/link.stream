@@ -167,6 +167,9 @@
         @include media-breakpoint-down(sm) {
             margin: 30px 10px 8px;
         }
+        .SearchInput {
+            min-width: 250px;
+        }
     }
     .page-body {
         margin-left: 27px;

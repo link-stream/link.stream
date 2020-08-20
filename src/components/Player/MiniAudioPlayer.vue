@@ -64,7 +64,9 @@ export default {
             }
 
             if (!this.audioObj) {
+                console.log(this.src)
                 if (this.src.charAt(0) === '/') {
+                    console.log(this.src)
                     this.state = STATE_LOADING
                     const { status, data } = await api.call({
                         endpoint: this.src,

@@ -509,5 +509,13 @@ export const api = {
                 method,
             })
         },
+        async getProfileBeatById(producerId, beatId, type) {
+            let endpoint = `/profiles/beats/${producerId}/${beatId}?type=${type}`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
 }

@@ -232,6 +232,13 @@ const routes = [
 
     //Public Profile
     {
+        path: '/:url',
+        name: 'profileBeats',
+        component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
         path: '/:url/beats',
         name: 'profileBeats',
         component: PublicProfile,

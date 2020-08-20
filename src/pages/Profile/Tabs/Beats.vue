@@ -16,6 +16,7 @@
                     <ArtItem
                         :artItem="item"
                         :selected="index === currentIndex"
+                        :status="currentStatus"
                     />
                 </b-col>
             </b-form-row>
@@ -25,11 +26,19 @@
                 </basic-button>
             </div>
         </div>
-        <ArtPlayer :playerItem="beats[currentIndex]"/>
+        <ArtPlayer
+            :playerItem="beats[currentIndex]"
+            :isFirst="currentIndex === 0"
+            :isLast="currentIndex === beats.length"
+            @prev="prevItem"
+            @next="nextItem"
+            @setStatus="setStatus"
+        />
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { api } from '~/services'
 import ArtItem from '@/components/Profile/ArtItem'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
 export default {
@@ -47,10 +56,14 @@ export default {
         ...mapGetters({
             beats: 'profile/beats',
         }),
+        //async beat() {
+            // const response = await api.
+        //}
     },
     data: () => ({
         loading: false,
         currentIndex: 0,
+        currentStatus: false,
     }),
     async created() {
         this.loading = true
@@ -58,6 +71,18 @@ export default {
         await this.$store.dispatch('profile/getProfileBeats')
         await this.$store.dispatch('profile/getProfileGenres', 'beats')
         this.loading = false
+        console.log(this.beats)
+    },
+    methods: {
+        prevItem() {
+            this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : 0
+        },
+        nextItem() {
+            this.currentIndex = this.currentIndex < this.beats.length - 1 ? this.currentIndex + 1 : this.beats.length - 1
+        },
+        setStatus(status) {
+            this.currentStatus = status
+        },
     },
 }
 </script>

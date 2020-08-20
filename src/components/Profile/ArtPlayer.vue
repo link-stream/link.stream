@@ -1,7 +1,7 @@
 <template>
     <b-container class="art-player" v-if="playerItem">
-        <div class="player-progress">
-            <div class="current-progress" style="width:30%"></div>
+        <div class="player-progress" @click="seek">
+            <div class="current-progress" :style="`width: ${percentComplete}%`"></div>
         </div>
         <div class="player-container">
             <div class="img-thumb">
@@ -13,7 +13,7 @@
                         {{ playerItem.title }}
                     </div>
                     <div class="art-user">
-                        {{ profile.display_name }}
+                        {{ playerItem.producer_name }}
                     </div>
                 </div>
                 <div class="center-control d-none d-md-block">
@@ -26,8 +26,8 @@
                     <IconButton
                         class="btn-pause"
                         :icon="playing ? 'player-pause' : 'player-play'"
-                        @click="handlePlayClick"
-                        :disabled="playerItem.type === 'pack' || loading"
+                        @click="playing = !playing"
+                        :disabled="playerItem.type === 'pack' || !loaded"
                     />
                     <IconButton
                         class="btn-next"
@@ -37,9 +37,17 @@
                     />
                 </div>
                 <div class="right-control">
+                    <vue-slider
+                        v-if="showVolume"
+                        v-model="volume"
+                        class="slider-volume"
+                        :min="0"
+                        :max="100"
+                    />
                     <IconButton
                         class="btn-volume d-none d-md-block"
                         icon="volume"
+                        @click="showVolume=!showVolume"
                     />
                     <b-dropdown class="actions-menu" variant="icon" dropleft no-caret>
                         <template v-slot:button-content>
@@ -59,10 +67,6 @@
 import { mapGetters } from 'vuex'
 import { api } from '@/services/api'
 
-const STATE_PAUSED = 'paused'
-const STATE_PLAYING = 'playing'
-const STATE_LOADING = 'loading'
-
 export default {
     name: 'ArtPlayer',
     props: {
@@ -77,42 +81,38 @@ export default {
         },
     },
     computed: {
-        ...mapGetters({
-            profile: 'profile/profile',
-        }),
-        src() {
-            let srcAudio = null
-            if (this.playerItem.type === 'beat') {
-                if (this.playerItem.tagged_file) {
-                    srcAudio = this.playerItem.tagged_file
-                } else if (this.playerItem.untagged_mp3) {
-                    srcAudio = this.playerItem.untagged_mp3
-                } else if (this.playerItem.untagged_wav) {
-                    srcAudio = this.playerItem.untagged_wav
-                }
-            }
-            return srcAudio
+        percentComplete() {
+            return parseInt(this.currentSeconds / this.durationSeconds * 100)
         },
-        playing() {
-            return this.state === STATE_PLAYING
-        },
-        loading() {
-            return this.state === STATE_LOADING
+        muted() {
+            return this.volume / 100 === 0 
         },
     },
     data: () => ({
-        state: STATE_PAUSED,
         audioObj: null,
+        currentSeconds: 0,
+        durationSeconds: 0,
+        loaded: false,
+        playing: false,
+        previousVolume: 35,
+        showVolume: false,
+        volume: 100,
     }),
     watch: {
-        playerItem() {
-            if (this.playerItem.type === 'pack') {
-                this.playStatus = false
-            }
+        playerItem(value) {
+            this.load(value.src)
         },
         playing(value) {
+            if (value) {
+                this.audioObj.play()
+            } else {
+                this.audioObj.pause()
+            }
             this.$emit('setStatus', value)
-        }
+        },
+        volume(value) {
+            this.audioObj.volume = this.volume / 100
+        },
     },
     beforeDestroy() {
         this.audioObj && this.audioObj.pause()
@@ -120,50 +120,14 @@ export default {
     methods: {
         load(src) {
             this.audioObj = new Audio()
+            this.audioObj.addEventListener('timeupdate', this.handleUpdate)
+            this.audioObj.addEventListener('loadeddata', this.handleLoaded)
             this.audioObj.addEventListener('playing', this.handlePlaying)
             this.audioObj.addEventListener('pause', this.handlePause)
             this.audioObj.addEventListener('error', this.handleError)
             this.audioObj.addEventListener('ended', this.handleEnded)
             this.audioObj.src = src
             this.audioObj.load()
-        },
-        async handlePlayClick() {
-            if (!this.src) {
-                this.$toast.error('No source provided.')
-                return
-            }
-
-            if (!this.audioObj) {
-                console.log(this.src)
-                if (this.src.charAt(0) === '/') {
-                    this.state = STATE_LOADING
-                    const { status, data } = await api.call({
-                        endpoint: this.src,
-                        showProgress: false,
-                    })
-                    if (status === 'success') {
-                        this.load(data.audio)
-                    } else {
-                        this.state = STATE_PAUSED
-                        this.$toast.error('Failed to fetch audio.')
-                        return
-                    }
-                } else {
-                    // Base64 audio
-                    this.load(this.src)
-                }
-            }
-
-            if (this.playing) {
-                this.audioObj.pause()
-            } else {
-                this.audioObj
-                    .play()
-                    .then(() => {})
-                    .catch(e => {
-                        this.$toast.error(e.message)
-                    })
-            }
         },
         goPrev() {
             this.$emit('prev')
@@ -172,18 +136,46 @@ export default {
             this.$emit('next')
         },
         handlePlaying() {
-            this.state = STATE_PLAYING
+            this.playing = true
         },
         handlePause() {
-            this.state = STATE_PAUSED
+            this.playing = false
         },
         handleEnded() {
-            this.state = STATE_PAUSED
+            this.playing = false
         },
         handleError() {
             this.audioObj = null
-            this.state = STATE_PAUSED
+            this.state = false
         },
+        handleLoaded() {
+            if (this.audioObj.readyState >= 2) {
+                this.loaded = true
+                this.durationSeconds = parseInt(this.audioObj.duration)
+                this.currentSeconds = 0
+            } else {
+                this.$toast.error('Failed to fetch audio.')
+            }
+        },
+        handleUpdate() {
+            this.currentSeconds = this.audioObj.currentTime
+        },
+        mute() {
+            if (this.muted) {
+                this.volume = this.previousVolume
+            } else {
+                this.previousVolume = this.volume
+                this.volume = 0
+            }
+        },
+        seek(e) {
+            if (!this.playing || e.target.tagName === 'SPAN') {
+                return
+            }
+            const el = e.target.getBoundingClientRect()
+            const seekPos = (e.clientX - el.left) / el.width
+            this.audioObj.currentTime = this.audioObj.duration * seekPos
+        }
     }
 }
 </script>

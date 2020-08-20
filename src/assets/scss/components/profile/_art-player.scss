@@ -8,6 +8,7 @@
         height: 4px;
         background-color: #771859;
         box-shadow: 0 -6px 10px 0 rgba(0, 0, 0, 0.04);
+        cursor: pointer;
         .current-progress {
             height: 4px;
             background-color: #DC2EA6;
@@ -55,6 +56,12 @@
             .right-control {
                 margin-left: auto;
                 display: flex;
+                .slider-volume {
+                    min-width: 70px;
+                    margin-top: 22px;
+                    margin-right: 5px;
+                    line-height: 1rem;
+                }
                 .actions-menu {
                     margin-right: 20px;
                     margin-left: 20px;

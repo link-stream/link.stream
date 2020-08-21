@@ -1,7 +1,7 @@
 <template>
     <div class="beats-container">
         <p v-if="!loading && !beats.length" class="text-center my-5">
-            There are no public sound kits.
+            There are no public beats or beat packs.
         </p>
         <LoadingSpinner class="page-loader" v-if="loading" />
         <div v-else>
@@ -80,7 +80,6 @@ export default {
         await this.$store.dispatch('profile/getProfileBeats')
         await this.$store.dispatch('profile/getProfileGenres', 'beats')
         this.loading = false
-        if (this.beats.length) this.currentIndex = 0
     },
     methods: {
         async updateCurrentItem() {

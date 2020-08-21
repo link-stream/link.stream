@@ -517,5 +517,13 @@ export const api = {
                 method,
             })
         },
+        async getProfileKitById(producerId, kitId) {
+            let endpoint = `/profiles/sound_kits/${producerId}/${kitId}`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
 }

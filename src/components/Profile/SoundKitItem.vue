@@ -3,8 +3,13 @@
         <div class="img-container">
             <img :src="artItem.coverart" />
             <img
-                v-if="selected"
+                v-if="selected && status"
                 src="@/assets/img/ico/pause-red.svg"
+                class="center-img"
+            />
+            <img
+                v-if="selected && !status"
+                src="@/assets/img/ico/play-red.svg"
                 class="center-img"
             />
         </div>
@@ -60,6 +65,9 @@ export default {
             type: Object,
         },
         selected: {
+            type: Boolean,
+        },
+        status: {
             type: Boolean,
         },
     },

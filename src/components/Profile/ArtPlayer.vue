@@ -100,7 +100,13 @@ export default {
     }),
     watch: {
         playerItem(value) {
-            this.load(value.src)
+            this.playing = false
+            if (this.audioObj) {
+                this.audioObj.src = value.src
+                this.audioObj.load()
+            } else {
+                this.load(value.src)
+            }
         },
         playing(value) {
             if (value) {
@@ -130,9 +136,11 @@ export default {
             this.audioObj.load()
         },
         goPrev() {
+            this.playing = false
             this.$emit('prev')
         },
         goNext() {
+            this.playing = false
             this.$emit('next')
         },
         handlePlaying() {

@@ -16,6 +16,7 @@
                     <SoundKitItem
                         :artItem="item"
                         :selected="index === currentIndex"
+                        :status="currentStatus"
                     />
                 </b-col>
             </b-form-row>
@@ -25,15 +26,26 @@
                 </basic-button>
             </div>
         </div>
+        <ArtPlayer
+            :playerItem="curItem"
+            :isFirst="currentIndex === 0"
+            :isLast="currentIndex === soundKits.length - 1"
+            @prev="prevItem"
+            @next="nextItem"
+            @setStatus="setStatus"
+        />
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { api } from '~/services'
 import SoundKitItem from '@/components/Profile/SoundKitItem'
+import ArtPlayer from '@/components/Profile/ArtPlayer'
 export default {
     name: 'ProfileSoundKits',
     components: {
         SoundKitItem,
+        ArtPlayer,
     },
     props: {
         url: {
@@ -43,18 +55,63 @@ export default {
     computed: {
         ...mapGetters({
             soundKits: 'profile/soundKits',
+            profile: 'profile/profile',
         }),
     },
     data: () => ({
         loading: false,
-        currentIndex: 0,
+        currentIndex: -1,
+        currentStatus: false,
+        curItem: {},
     }),
+    watch: {
+        currentIndex() {
+            this.updateCurrentItem()
+        },
+        soundKits() {
+            this.currentIndex = 0
+            this.updateCurrentItem()
+        },
+    },
     async created() {
         this.loading = true
         await this.$store.dispatch('profile/getProfileMain', { url: this.url })
         await this.$store.dispatch('profile/getProfileKits')
         await this.$store.dispatch('profile/getProfileGenres', 'kits')
         this.loading = false
+    },
+    methods: {
+        async updateCurrentItem() {
+            if (this.soundKits[this.currentIndex].id === this.curItem.id) {
+                return
+            }
+            const response = await api.profiles.getProfileKitById(
+                this.profile.id,
+                this.soundKits[this.currentIndex].id
+            )
+            if (response.status !== 'success' || !response.data.length) {
+                return {}
+            }
+            const soundKit = response.data[0]
+            console.log(soundKit)
+            this.curItem = {
+                id: soundKit.id,
+                coverart: soundKit.data_image || appConstants.defaultCoverArt,
+                title: soundKit.title,
+                producer_name: this.profile.display_name,
+                src: soundKit.data_tagged_file,
+                type: 'kit',
+            }
+        },
+        prevItem() {
+            this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : 0
+        },
+        nextItem() {
+            this.currentIndex = this.currentIndex < this.soundKits.length - 1 ? this.currentIndex + 1 : this.soundKits.length - 1
+        },
+        setStatus(status) {
+            this.currentStatus = status
+        },
     },
 }
 </script>

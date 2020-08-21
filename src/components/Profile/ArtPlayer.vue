@@ -56,7 +56,9 @@
                     </b-dropdown>
                     <IconButton
                         class="btn-pause d-md-none"
-                        icon="player-pause"
+                        :icon="playing ? 'player-pause' : 'player-play'"
+                        @click="playing = !playing"
+                        :disabled="playerItem.type === 'pack' || !loaded"
                     />
                 </div>
             </div>

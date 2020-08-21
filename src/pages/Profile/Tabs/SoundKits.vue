@@ -39,6 +39,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { api } from '~/services'
+import { appConstants } from '~/constants'
 import SoundKitItem from '@/components/Profile/SoundKitItem'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
 export default {

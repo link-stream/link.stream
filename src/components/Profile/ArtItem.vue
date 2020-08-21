@@ -61,9 +61,10 @@
             >
                 Buy
             </basic-button>
-            <button class="btn btn-icon btn-download">
-                <b-icon-download />
-            </button>
+            <IconButton
+                class="btn-download"
+                icon="download"
+            />
         </div>
     </div>
 </template>

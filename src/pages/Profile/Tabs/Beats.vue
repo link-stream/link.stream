@@ -72,7 +72,7 @@ export default {
         beats() {
             this.currentIndex = 0
             this.updateCurrentItem()
-        }
+        },
     },
     async created() {
         this.loading = true

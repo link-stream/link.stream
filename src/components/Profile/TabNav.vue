@@ -11,7 +11,7 @@
                 class="search-form d-none d-md-block"
                 @keyupEnter="searchDataByTag"
             />
-            <ul class="mx-auto">
+            <ul class="ul-menu">
                 <li v-if="isSearchable">
                     <b-icon-search
                         class="d-md-none"

@@ -17,6 +17,9 @@
                         :artItem="item"
                         :selected="index === currentIndex"
                         :status="currentStatus"
+                        :index="index"
+                        :loading="individualLoading"
+                        @select="setCurrentItem"
                     />
                 </b-col>
             </b-form-row>
@@ -30,6 +33,8 @@
             :playerItem="curItem"
             :isFirst="currentIndex === 0"
             :isLast="currentIndex === soundKits.length - 1"
+            :status="currentStatus"
+            :loading="individualLoading"
             @prev="prevItem"
             @next="nextItem"
             @setStatus="setStatus"
@@ -64,6 +69,7 @@ export default {
         currentIndex: -1,
         currentStatus: false,
         curItem: {},
+        individualLoading: false
     }),
     watch: {
         currentIndex() {
@@ -71,6 +77,7 @@ export default {
         },
         soundKits() {
             this.currentIndex = 0
+            this.currentStatus = false
             this.updateCurrentItem()
         },
     },
@@ -86,6 +93,7 @@ export default {
             if (this.soundKits[this.currentIndex].id === this.curItem.id) {
                 return
             }
+            this.individualLoading = true
             const response = await api.profiles.getProfileKitById(
                 this.profile.id,
                 this.soundKits[this.currentIndex].id
@@ -103,6 +111,7 @@ export default {
                 src: soundKit.data_tagged_file,
                 type: 'kit',
             }
+            this.individualLoading = false
         },
         prevItem() {
             this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : 0
@@ -113,6 +122,13 @@ export default {
         setStatus(status) {
             this.currentStatus = status
         },
+        setCurrentItem(index) {
+            if (this.currentIndex === index) {
+                this.currentStatus = !this.currentStatus
+            } else {
+                this.currentIndex = index
+            }
+        }
     },
 }
 </script>

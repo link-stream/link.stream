@@ -37,7 +37,7 @@ export default {
     methods: {
         removeItem() {
             this.$store.dispatch('profile/removeCartItem', this.cartItem)
-        }
-    }
+        },
+    },
 }
 </script>

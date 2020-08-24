@@ -6,11 +6,16 @@
         <div class="player-container">
             <div class="img-thumb">
                 <img :src="playerItem.coverart" />
+                <LoadingSpinner
+                    v-if="loading"
+                    class="art-loading"
+                    animation="bounce"
+                />
             </div>
             <div class="control-container">
                 <div class="art-info">
                     <div class="title">
-                        {{ playerItem.title }}
+                        {{ loading ? 'Loading...' : playerItem.title }}
                     </div>
                     <div class="art-user">
                         {{ playerItem.producer_name }}
@@ -47,7 +52,7 @@
                     <IconButton
                         class="btn-volume d-none d-md-block"
                         icon="volume"
-                        @click="showVolume=!showVolume"
+                        @click="showVolume = !showVolume"
                     />
                     <b-dropdown class="actions-menu" variant="icon" dropleft no-caret>
                         <template v-slot:button-content>
@@ -66,9 +71,6 @@
     </b-container>
 </template>
 <script>
-import { mapGetters } from 'vuex'
-import { api } from '@/services/api'
-
 export default {
     name: 'ArtPlayer',
     props: {
@@ -81,13 +83,19 @@ export default {
         isLast: {
             type: Boolean,
         },
+        status: {
+            type: Boolean,
+        },
+        loading: {
+            type: Boolean,
+        },
     },
     computed: {
         percentComplete() {
             return parseInt(this.currentSeconds / this.durationSeconds * 100)
         },
         muted() {
-            return this.volume / 100 === 0 
+            return this.volume / 100 === 0
         },
     },
     data: () => ({
@@ -119,7 +127,10 @@ export default {
             this.$emit('setStatus', value)
         },
         volume(value) {
-            this.audioObj.volume = this.volume / 100
+            this.audioObj.volume = value / 100
+        },
+        status(value) {
+            this.playing = value
         },
     },
     beforeDestroy() {
@@ -185,7 +196,7 @@ export default {
             const el = e.target.getBoundingClientRect()
             const seekPos = (e.clientX - el.left) / el.width
             this.audioObj.currentTime = this.audioObj.duration * seekPos
-        }
-    }
+        },
+    },
 }
 </script>

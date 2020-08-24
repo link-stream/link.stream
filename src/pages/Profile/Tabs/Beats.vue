@@ -18,6 +18,7 @@
                         :selected="index === currentIndex"
                         :status="currentStatus"
                         :index="index"
+                        :loading="individualLoading"
                         @select="setCurrentItem"
                     />
                 </b-col>
@@ -32,6 +33,8 @@
             :playerItem="playerItem"
             :isFirst="currentIndex === 0"
             :isLast="currentIndex === beats.length - 1"
+            :status="currentStatus"
+            :loading="individualLoading"
             @prev="prevItem"
             @next="nextItem"
             @setStatus="setStatus"
@@ -67,6 +70,7 @@ export default {
         currentStatus: false,
         playerItem: {},
         curBeat: {},
+        individualLoading: false,
     }),
     watch: {
         currentIndex() {
@@ -74,6 +78,7 @@ export default {
         },
         beats() {
             this.currentIndex = 0
+            this.currentStatus = false
             this.updateCurrentItem()
         },
     },
@@ -90,6 +95,7 @@ export default {
             if (this.beats[this.currentIndex].id === this.playerItem.id) {
                 return
             }
+            this.individualLoading = true
             const response = await api.profiles.getProfileBeatById(
                 this.profile.id,
                 this.beats[this.currentIndex].id,
@@ -118,6 +124,7 @@ export default {
                 type: beat.type,
             }
             this.curBeat = { ...beat }
+            this.individualLoading = false
         },
         prevItem() {
             this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : 0
@@ -129,8 +136,16 @@ export default {
             this.currentStatus = status
         },
         setCurrentItem(index) {
-            this.currentIndex = index
-        }
+            if (this.currentIndex === index) {
+                if (this.playerItem.type === 'pack') {
+                    this.currentStatus = false
+                } else {
+                    this.currentStatus = !this.currentStatus
+                }
+            } else {
+                this.currentIndex = index
+            }
+        },
     },
 }
 </script>

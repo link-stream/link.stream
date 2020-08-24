@@ -1,14 +1,23 @@
 <template>
     <div class="art-item">
-        <a href="#" class="img-container" @click.prevent="$emit('select', index)">
+        <a
+            href="#"
+            class="img-container"
+            @click.prevent="$emit('select', index)"
+        >
             <img :src="artItem.coverart" />
+            <LoadingSpinner
+                v-if="selected && loading"
+                class="center-img"
+                animation="bounce"
+            />
             <img
-                v-if="selected && status"
+                v-if="selected && !loading && status"
                 src="@/assets/img/ico/pause-red.svg"
                 class="center-img"
             />
             <img
-                v-if="selected && !status"
+                v-if="selected && !loading && !status"
                 src="@/assets/img/ico/play-red.svg"
                 class="center-img"
             />
@@ -18,23 +27,21 @@
                 {{ artItem.title }}
             </div>
             <div v-if="artItem.type === 'beat'" class="price">
-                {{ minPrice | currencyFormat }} - {{ maxPrice | currencyFormat }}
+                {{ minPrice | currencyFormat }} -
+                {{ maxPrice | currencyFormat }}
             </div>
             <div v-else class="price">
                 {{ artItem.price | currencyFormat }}
             </div>
-            <div
-                v-if="artItem.bogo"
-                class="bogo"
-            >
+            <div v-if="artItem.bogo" class="bogo">
                 BOGO
             </div>
         </div>
         <b-dropdown
             v-if="selected"
             class="actions-menu d-none d-md-block"
-            variant="icon" 
-            right 
+            variant="icon"
+            right
             no-caret
         >
             <template v-slot:button-content>
@@ -61,10 +68,7 @@
             >
                 Buy
             </basic-button>
-            <IconButton
-                class="btn-download"
-                icon="download"
-            />
+            <IconButton class="btn-download" icon="download" />
         </div>
         <BuyLicenseModal
             v-if="isShowBuyLicenses"
@@ -80,7 +84,7 @@ export default {
     name: 'ArtItemm',
     props: {
         artItem: {
-            type: Object
+            type: Object,
         },
         selected: {
             type: Boolean,
@@ -91,6 +95,9 @@ export default {
         index: {
             type: Number,
         },
+        loading: {
+            type: Boolean,
+        },
     },
     components: {
         BuyLicenseModal,
@@ -99,7 +106,7 @@ export default {
         isShowBuyLicenses: false,
     }),
     computed: {
-        ...mapGetters ({
+        ...mapGetters({
             licenses: 'profile/licenses',
         }),
         minPrice() {
@@ -120,7 +127,7 @@ export default {
         },
         handleShareClick() {
             this.$bus.$emit('modal.shareArt.open')
-        }
+        },
     },
 }
 </script>

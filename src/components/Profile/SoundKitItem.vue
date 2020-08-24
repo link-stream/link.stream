@@ -1,18 +1,23 @@
 <template>
     <div class="art-item">
-        <div class="img-container">
+        <a href="#" class="img-container" @click.prevent="$emit('select', index)">
             <img :src="artItem.coverart" />
+            <LoadingSpinner
+                v-if="selected && loading"
+                class="center-img"
+                animation="bounce"
+            />
             <img
-                v-if="selected && status"
+                v-if="selected && !loading && status"
                 src="@/assets/img/ico/pause-red.svg"
                 class="center-img"
             />
             <img
-                v-if="selected && !status"
+                v-if="selected && !loading && !status"
                 src="@/assets/img/ico/play-red.svg"
                 class="center-img"
             />
-        </div>
+        </a>
         <div class="art-desc">
             <div class="title">
                 {{ artItem.title }}
@@ -69,6 +74,12 @@ export default {
             type: Boolean,
         },
         status: {
+            type: Boolean,
+        },
+        index: {
+            type: Number,
+        },
+        loading: {
             type: Boolean,
         },
     },

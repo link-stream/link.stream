@@ -233,7 +233,7 @@ const routes = [
     //Public Profile
     {
         path: '/:url',
-        name: 'profileBeats',
+        name: 'publicProfile',
         component: PublicProfile,
         props: true,
         meta: { layout: 'profile' },

@@ -36,7 +36,6 @@
             @next="nextItem"
             @setStatus="setStatus"
         />
-        <BuyLicenseModal v-if="licenses.length" :curItem="curBeat" />
     </div>
 </template>
 <script>
@@ -45,13 +44,11 @@ import { api } from '~/services'
 import { appConstants } from '~/constants'
 import ArtItem from '@/components/Profile/ArtItem'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
-import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
 export default {
     name: 'ProfileBeats',
     components: {
         ArtItem,
         ArtPlayer,
-        BuyLicenseModal,
     },
     props: {
         url: {
@@ -62,7 +59,6 @@ export default {
         ...mapGetters({
             beats: 'profile/beats',
             profile: 'profile/profile',
-            licenses: 'profile/licenses',
         }),
     },
     data: () => ({

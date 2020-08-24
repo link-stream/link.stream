@@ -66,9 +66,16 @@
                 icon="download"
             />
         </div>
+        <BuyLicenseModal
+            v-if="isShowBuyLicenses"
+            :curItem="artItem"
+            @close="isShowBuyLicenses = false"
+        />
     </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
 export default {
     name: 'ArtItemm',
     props: {
@@ -85,7 +92,16 @@ export default {
             type: Number,
         },
     },
+    components: {
+        BuyLicenseModal,
+    },
+    data: () => ({
+        isShowBuyLicenses: false,
+    }),
     computed: {
+        ...mapGetters ({
+            licenses: 'profile/licenses',
+        }),
         minPrice() {
             return Math.min.apply(Math, this.artItem.licenses.map(({price}) => price))
         },
@@ -95,10 +111,13 @@ export default {
     },
     methods: {
         handleBuyClick() {
-            this.$bus.$emit('modal.buyLicense.open')
+            if (this.artItem.type === 'beat') {
+                this.isShowBuyLicenses = true
+            } else {
+                this.$bus.$emit('modal.addedCart.open')
+            }
         },
         handleShareClick() {
-            console.log('click share button!')
             this.$bus.$emit('modal.shareArt.open')
         }
     },

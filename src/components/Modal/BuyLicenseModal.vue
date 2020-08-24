@@ -5,6 +5,7 @@
         size="lg"
         v-model="open"
         hide-footer
+        @hidden="$emit('close')"
     >
         <template v-slot:modal-header>
             <BasicButton variant="icon" class="modal-close" @click="close" />
@@ -82,7 +83,7 @@ export default {
     },
     data() {
         return {
-            open: false,
+            open: true,
             licenseDetails: [
                 'Used for Music Recording',
                 'Distribute up to 25000 copies',
@@ -99,50 +100,29 @@ export default {
             licenses: 'profile/licenses',
         }),
     },
-    watch: {
-        curItem() {
-            this.initLicense()
-        },
-    },
     async created() {
-        this.$bus.$on('modal.buyLicense.open', this.handleOpen)
-        this.$bus.$on('modal.buyLicense.close', this.handleClose)
         this.initLicense()
     },
     methods: {
         close() {
-            this.open = false
-        },
-        handleClose() {
-            this.open = false
-        },
-        handleOpen() {
-            this.open = true
+            this.$emit('close')
         },
         handleBuyClick() {
             this.close()
             this.$bus.$emit('modal.addedCart.open')
         },
         initLicense() {
-            if (this.curItem.type === 'beat') {
-                this.realLicenses = this.curItem.licenses.map(item => {
-                    const findLicense = this.licenses.find(({ id }) => id === item.license_id)
-                    return {
-                        ...item,
-                        isExpanded: false,
-                        details: [...this.licenseDetails],
-                        title: findLicense.title,
-                        descripcion: findLicense.descripcion,
-                    }
-                })
-            } else {
-                const packLicense = this.licenses.find(({ id }) => id === this.curItem.license_id)
-                this.realLicenses = [
-                    {
-                        ...packLicense
-                    }
-                ]
-            }
+            console.log('licences', this.licenses)
+            this.realLicenses = this.curItem.licenses.map(item => {
+                const findLicense = this.licenses.find(({ id }) => id === item.license_id)
+                return {
+                    ...item,
+                    isExpanded: false,
+                    details: [...this.licenseDetails],
+                    title: findLicense.title,
+                    descripcion: findLicense.descripcion,
+                }
+            })
         }
     },
 }

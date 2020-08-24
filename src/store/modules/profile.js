@@ -16,6 +16,7 @@ const initialState = () => ({
     videos: [],
     links: [],
     profileGenres: [],
+    licenses: [],
 })
 
 const state = initialState()
@@ -50,6 +51,10 @@ const mutations = {
 
     [profileTypes.SET_GENRES](state, { genres }) {
         state.profileGenres = genres
+    },
+
+    [profileTypes.SET_LICENSES](state, { licenses }) {
+        state.licenses = licenses
     },
 }
 
@@ -118,6 +123,16 @@ const actions = {
             commit(profileTypes.SET_GENRES, { genres: data })
         return response
     },
+
+    async getProfileLicenses({ state, commit }) {
+        const response = await api.profiles.getProfileLicenses(
+            state.profile.id,
+        )
+        const { status, data } = response
+        status === 'success' &&
+            commit(profileTypes.SET_LICENSES, { licenses: data })
+        return response
+    },
 }
 
 const getters = {
@@ -144,6 +159,7 @@ const getters = {
     videos: ({ videos }) => videos,
     links: ({ links }) => links,
     profileGenres: ({ profileGenres }) => profileGenres,
+    licenses: ({ licenses }) => licenses,
 }
 
 export default {

@@ -12,8 +12,7 @@
         </template>
         <template v-slot:default>
             <div class="page page-licenses">
-                <LoadingSpinner class="page-loader" v-if="loading" />
-                <div v-else class="page-body">
+                <div v-if="realLicenses.length" class="page-body">
                     <div
                         class="Card"
                         v-for="(license, index) in realLicenses"
@@ -76,9 +75,13 @@ import { mapGetters } from 'vuex'
 
 export default {
     name: 'Licenses',
+    props: {
+        curItem: {
+            type: Object,
+        }
+    },
     data() {
         return {
-            loading: false,
             open: false,
             licenseDetails: [
                 'Used for Music Recording',
@@ -93,22 +96,18 @@ export default {
     },
     computed: {
         ...mapGetters({
-            licenses: 'me/licenses',
+            licenses: 'profile/licenses',
         }),
     },
+    watch: {
+        curItem() {
+            this.initLicense()
+        },
+    },
     async created() {
-        this.loading = true
-        // await this.$store.dispatch('me/loadLicenses')
-        this.loading = false
         this.$bus.$on('modal.buyLicense.open', this.handleOpen)
         this.$bus.$on('modal.buyLicense.close', this.handleClose)
-        this.realLicenses = this.licenses.map(item => {
-            return {
-                ...item,
-                isExpanded: false,
-                details: [...this.licenseDetails],
-            }
-        })
+        this.initLicense()
     },
     methods: {
         close() {
@@ -124,6 +123,27 @@ export default {
             this.close()
             this.$bus.$emit('modal.addedCart.open')
         },
+        initLicense() {
+            if (this.curItem.type === 'beat') {
+                this.realLicenses = this.curItem.licenses.map(item => {
+                    const findLicense = this.licenses.find(({ id }) => id === item.license_id)
+                    return {
+                        ...item,
+                        isExpanded: false,
+                        details: [...this.licenseDetails],
+                        title: findLicense.title,
+                        descripcion: findLicense.descripcion,
+                    }
+                })
+            } else {
+                const packLicense = this.licenses.find(({ id }) => id === this.curItem.license_id)
+                this.realLicenses = [
+                    {
+                        ...packLicense
+                    }
+                ]
+            }
+        }
     },
 }
 </script>

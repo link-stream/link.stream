@@ -118,7 +118,7 @@ export default {
             return this.form.type.length === 1 && this.form.type[0] === 'beat'
         },
         showGenres() {
-            return this.isMore ? this.genres : this.genres.slice(0, 4)
+            return this.isMore ? this.genres : this.genres.slice(0, 3)
         },
         routeName() {
             return this.$route.name

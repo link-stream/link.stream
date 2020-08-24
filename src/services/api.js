@@ -414,7 +414,6 @@ export const api = {
                 method,
             })
         },
-
         async getNotification(userId) {
             const endpoint = '/users/notification/' + userId
             const method = METHOD_GET
@@ -453,7 +452,6 @@ export const api = {
                 endpoint += params.bpm_max ? '&bpm_max=' + params.bpm_max : ''
                 endpoint += params.type ? '&type=' + params.type : ''
             }
-            console.log('endpoint', endpoint)
             const method = METHOD_GET
             return await call({
                 endpoint,
@@ -519,6 +517,14 @@ export const api = {
         },
         async getProfileKitById(producerId, kitId) {
             let endpoint = `/profiles/sound_kits/${producerId}/${kitId}`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileLicenses(producerId) {
+            let endpoint = `/profiles/licenses/${producerId}`
             const method = METHOD_GET
             return await call({
                 endpoint,

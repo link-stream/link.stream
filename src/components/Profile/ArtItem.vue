@@ -1,6 +1,6 @@
 <template>
     <div class="art-item">
-        <div class="img-container">
+        <a href="#" class="img-container" @click.prevent="$emit('select', index)">
             <img :src="artItem.coverart" />
             <img
                 v-if="selected && status"
@@ -12,7 +12,7 @@
                 src="@/assets/img/ico/play-red.svg"
                 class="center-img"
             />
-        </div>
+        </a>
         <div class="art-desc">
             <div class="title">
                 {{ artItem.title }}
@@ -80,6 +80,9 @@ export default {
         },
         status: {
             type: Boolean,
+        },
+        index: {
+            type: Number,
         },
     },
     computed: {

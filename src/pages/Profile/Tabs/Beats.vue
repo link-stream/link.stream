@@ -17,6 +17,8 @@
                         :artItem="item"
                         :selected="index === currentIndex"
                         :status="currentStatus"
+                        :index="index"
+                        @select="setCurrentItem"
                     />
                 </b-col>
             </b-form-row>
@@ -27,13 +29,14 @@
             </div>
         </div>
         <ArtPlayer
-            :playerItem="curItem"
+            :playerItem="playerItem"
             :isFirst="currentIndex === 0"
             :isLast="currentIndex === beats.length - 1"
             @prev="prevItem"
             @next="nextItem"
             @setStatus="setStatus"
         />
+        <BuyLicenseModal v-if="licenses.length" :curItem="curBeat" />
     </div>
 </template>
 <script>
@@ -42,11 +45,13 @@ import { api } from '~/services'
 import { appConstants } from '~/constants'
 import ArtItem from '@/components/Profile/ArtItem'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
+import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
 export default {
     name: 'ProfileBeats',
     components: {
         ArtItem,
         ArtPlayer,
+        BuyLicenseModal,
     },
     props: {
         url: {
@@ -57,13 +62,15 @@ export default {
         ...mapGetters({
             beats: 'profile/beats',
             profile: 'profile/profile',
+            licenses: 'profile/licenses',
         }),
     },
     data: () => ({
         loading: false,
         currentIndex: -1,
         currentStatus: false,
-        curItem: {},
+        playerItem: {},
+        curBeat: {},
     }),
     watch: {
         currentIndex() {
@@ -79,11 +86,12 @@ export default {
         await this.$store.dispatch('profile/getProfileMain', { url: this.url })
         await this.$store.dispatch('profile/getProfileBeats')
         await this.$store.dispatch('profile/getProfileGenres', 'beats')
+        await this.$store.dispatch('profile/getProfileLicenses')
         this.loading = false
     },
     methods: {
         async updateCurrentItem() {
-            if (this.beats[this.currentIndex].id === this.curItem.id) {
+            if (this.beats[this.currentIndex].id === this.playerItem.id) {
                 return
             }
             const response = await api.profiles.getProfileBeatById(
@@ -105,7 +113,7 @@ export default {
                     srcAudio = beat.data_untagged_wav
                 }
             }
-            this.curItem = {
+            this.playerItem = {
                 id: beat.id,
                 coverart: beat.data_image || appConstants.defaultCoverArt,
                 title: beat.title,
@@ -113,6 +121,7 @@ export default {
                 src: srcAudio,
                 type: beat.type,
             }
+            this.curBeat = { ...beat }
         },
         prevItem() {
             this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : 0
@@ -123,6 +132,9 @@ export default {
         setStatus(status) {
             this.currentStatus = status
         },
+        setCurrentItem(index) {
+            this.currentIndex = index
+        }
     },
 }
 </script>

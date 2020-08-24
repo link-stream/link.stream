@@ -86,4 +86,5 @@ export const profileTypes = {
     SET_VIDEOS: 'SET_VIDEOS',
     SET_LINKS: 'SET_LINKS',
     SET_GENRES: 'SET_GENRES',
+    SET_LICENSES: 'SET_LICENSES',
 }

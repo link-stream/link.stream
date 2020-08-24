@@ -74,7 +74,8 @@ export default {
     },
     methods: {
         handleBuyClick() {
-            this.$bus.$emit('modal.buyLicense.open')
+            this.$store.dispatch('profile/addCartItem', { ...this.artItem })
+            this.$bus.$emit('modal.addedCart.open')
         },
         handleShareClick() {
             this.$bus.$emit('modal.shareArt.open')

@@ -41,7 +41,7 @@
                                 <basic-button
                                     size="sm"
                                     class="btn-buy"
-                                    @click="handleBuyClick"
+                                    @click="handleBuyClick(license)"
                                 >
                                     Buy
                                 </basic-button>
@@ -93,6 +93,7 @@ export default {
                 'Radio Broadcasting rights (Unlimited Stations)',
             ],
             realLicenses: [],
+
         }
     },
     computed: {
@@ -107,14 +108,27 @@ export default {
         close() {
             this.$emit('close')
         },
-        handleBuyClick() {
+        handleBuyClick(license) {
             this.close()
+
+            this.$store.dispatch(
+                'profile/addCartItem',
+                { 
+                    ...this.curItem,
+                    price: license.price,
+                    license_id: license.id,
+                }
+            )
             this.$bus.$emit('modal.addedCart.open')
         },
         initLicense() {
             console.log('licences', this.licenses)
             this.realLicenses = this.curItem.licenses.map(item => {
                 const findLicense = this.licenses.find(({ id }) => id === item.license_id)
+                // let details = []
+                // if (findLicense.wav) {
+                //     details.push('Include a WAV file')
+                // }    
                 return {
                     ...item,
                     isExpanded: false,

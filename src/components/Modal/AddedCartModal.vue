@@ -11,8 +11,8 @@
 
         <template v-slot:default>
             <AddedCartItem
-                v-for="cartItem in addedCarts"
-                :key="cartItem.id"
+                v-for="(cartItem, index) in addedCarts"
+                :key="index"
                 :cartItem="cartItem"
             />
         </template>
@@ -31,32 +31,21 @@
 </template>
 
 <script>
-import { appConstants } from '~/constants'
+import { mapGetters } from 'vuex'
 import AddedCartItem from '@/components/Profile/AddedCartItem'
 export default {
     name: 'AddedCartModal',
     components: {
         AddedCartItem,
     },
+    computed: {
+        ...mapGetters({
+            addedCarts: 'profile/cartItems',
+        }),
+    },
     data() {
         return {
             open: false,
-            addedCarts: [
-                {
-                    id: 1,
-                    title: 'New Cart Item',
-                    type: 'Beat',
-                    price: 29.95,
-                    coverart: appConstants.defaultCoverArt,
-                },
-                {
-                    id: 2,
-                    title: 'Ambient Sounds',
-                    type: 'Sound Kit',
-                    price: 29.95,
-                    coverart: appConstants.defaultCoverArt,
-                }
-            ]
         }
     },
     created() {

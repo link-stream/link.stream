@@ -114,6 +114,7 @@ export default {
             if (this.artItem.type === 'beat') {
                 this.isShowBuyLicenses = true
             } else {
+                this.$store.dispatch('profile/addCartItem', { ...this.artItem })
                 this.$bus.$emit('modal.addedCart.open')
             }
         },

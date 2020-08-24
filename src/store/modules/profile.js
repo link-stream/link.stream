@@ -17,6 +17,7 @@ const initialState = () => ({
     links: [],
     profileGenres: [],
     licenses: [],
+    cartItems: [],
 })
 
 const state = initialState()
@@ -55,6 +56,25 @@ const mutations = {
 
     [profileTypes.SET_LICENSES](state, { licenses }) {
         state.licenses = licenses
+    },
+
+    [profileTypes.ADD_CART_ITEM]({ cartItems }, { cartItem }) {
+        cartItems.push(cartItem)
+    },
+
+    [profileTypes.REMOVE_CART_ITEM]({ cartItems }, { cartItem }) {
+        const findIndex = cartItems.findIndex(item => {
+            if (cartItem.track_type === appConstants.tracks.types.beat) {
+                if (item.type === 'beat') {
+                    return item.id === cartItem.id && item.license_id === cartItem.license_id
+                } else {
+                    return item.type === cartItem.type && item.id === cartItem.id
+                }
+            } else {
+                return item.track_type === cartItem.track_type && item.id === cartItem.id
+            }
+        })
+        cartItems.splice(findIndex, 1)
     },
 }
 
@@ -125,13 +145,19 @@ const actions = {
     },
 
     async getProfileLicenses({ state, commit }) {
-        const response = await api.profiles.getProfileLicenses(
-            state.profile.id,
-        )
+        const response = await api.profiles.getProfileLicenses(state.profile.id)
         const { status, data } = response
         status === 'success' &&
             commit(profileTypes.SET_LICENSES, { licenses: data })
         return response
+    },
+
+    async addCartItem({ commit }, item) {
+        commit(profileTypes.ADD_CART_ITEM, { cartItem: item })
+    },
+
+    async removeCartItem({ commit }, item) {
+        commit(profileTypes.REMOVE_CART_ITEM, { cartItem: item })
     },
 }
 
@@ -160,6 +186,7 @@ const getters = {
     links: ({ links }) => links,
     profileGenres: ({ profileGenres }) => profileGenres,
     licenses: ({ licenses }) => licenses,
+    cartItems: ({ cartItems }) => cartItems,
 }
 
 export default {

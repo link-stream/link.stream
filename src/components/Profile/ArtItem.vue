@@ -22,7 +22,21 @@
                 class="center-img"
             />
         </a>
-        <router-link class="art-desc" :to="{name: 'profileBeatDetails', params: {beatId: artItem.id}}" target="_blank">
+        <router-link
+            class="art-desc"
+            :to="
+                artItem.type === 'beat'
+                    ? {
+                          name: 'profileBeatDetails',
+                          params: { beatId: artItem.id },
+                      }
+                    : {
+                          name: 'profilePackDetails',
+                          params: { packId: artItem.id },
+                      }
+            "
+            target="_blank"
+        >
             <div class="title">
                 {{ artItem.title }}
             </div>
@@ -61,11 +75,7 @@
             </b-dropdown-item>
         </b-dropdown>
         <div class="action">
-            <basic-button 
-                size="sm"
-                class="btn-buy"
-                @click="handleBuyClick"
-            >
+            <basic-button size="sm" class="btn-buy" @click="handleBuyClick">
                 Buy
             </basic-button>
             <IconButton class="btn-download" icon="download" />
@@ -110,10 +120,16 @@ export default {
             licenses: 'profile/licenses',
         }),
         minPrice() {
-            return Math.min.apply(Math, this.artItem.licenses.map(({price}) => price))
+            return Math.min.apply(
+                Math,
+                this.artItem.licenses.map(({ price }) => price)
+            )
         },
         maxPrice() {
-            return Math.max.apply(Math, this.artItem.licenses.map(({price}) => price))
+            return Math.max.apply(
+                Math,
+                this.artItem.licenses.map(({ price }) => price)
+            )
         },
     },
     methods: {

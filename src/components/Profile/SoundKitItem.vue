@@ -1,6 +1,10 @@
 <template>
     <div class="art-item">
-        <a href="#" class="img-container" @click.prevent="$emit('select', index)">
+        <a
+            href="#"
+            class="img-container"
+            @click.prevent="$emit('select', index)"
+        >
             <img :src="artItem.coverart" />
             <LoadingSpinner
                 v-if="selected && loading"
@@ -56,10 +60,7 @@
             <basic-button size="sm" class="btn-buy" @click="handleBuyClick">
                 Buy
             </basic-button>
-            <IconButton
-                class="btn-download"
-                icon="download"
-            />
+            <IconButton class="btn-download" icon="download" />
         </div>
     </div>
 </template>

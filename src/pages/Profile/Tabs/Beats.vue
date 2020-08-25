@@ -96,7 +96,7 @@ export default {
                 return
             }
             this.individualLoading = true
-            const response = await api.profiles.getProfileBeatById(
+            const response = await api.profiles.getProfileBeatPackById(
                 this.profile.id,
                 this.beats[this.currentIndex].id,
                 this.beats[this.currentIndex].type
@@ -127,10 +127,14 @@ export default {
             this.individualLoading = false
         },
         prevItem() {
-            this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : 0
+            this.currentIndex =
+                this.currentIndex > 0 ? this.currentIndex - 1 : 0
         },
         nextItem() {
-            this.currentIndex = this.currentIndex < this.beats.length - 1 ? this.currentIndex + 1 : this.beats.length - 1
+            this.currentIndex =
+                this.currentIndex < this.beats.length - 1
+                    ? this.currentIndex + 1
+                    : this.beats.length - 1
         },
         setStatus(status) {
             this.currentStatus = status

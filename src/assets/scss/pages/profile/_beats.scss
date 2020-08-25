@@ -126,6 +126,9 @@
         text-align: center;
         width: 280px;
         height: 280px;
+        img {
+            width: 100%;
+        }
     }
     .tags-container {
         margin-top: 20px;
@@ -273,6 +276,165 @@
             .desc {
                 font-size: px2rem(11);
                 line-height: px2rem(16);
+            }
+        }
+    }
+}
+.page-pack-details {
+    padding-top: 30px;
+    .page-body {
+        padding-left: 15px;
+        padding-right: 15px;
+        .main-info {
+            display: flex;
+            flex-direction: row;
+            @include media-breakpoint-down(sm) {
+                flex-direction: column;
+            }
+            .left-col {
+                flex-basis: 250px;
+            }
+            .right-col {
+                flex-basis: 100%;
+                margin: 40px 40px 15px 25px;
+                @include media-breakpoint-down(sm) {
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+            }
+            .img-container {
+                width: 250px;
+                height:250px;
+                img {
+                    width: 100%;
+                }
+            }
+            .title-container {
+                display: flex;
+                .title-desc {
+                    margin-left: 15px;
+                    .title {
+                        font-size: px2rem(30);
+                        line-height: px2rem(25);
+                        font-weight: 900;
+                        color: black;
+                    }
+                    .sub-title {
+                        font-size: px2rem(12);
+                    }
+                }
+            }
+            .desc {
+                margin-top: 15px;
+                margin-right: 15px;
+                font-size: px2rem(13);
+                line-height: px2rem(22);
+                .read-more {
+                    color: black;
+                    font-weight: bold;
+                }
+            }
+            .btn-buy {
+                text-transform: capitalize;
+                margin-top: 20px;
+                img {
+                    margin-top: -7px;
+                }
+            }
+        }
+        @include media-breakpoint-up(sm) {
+            .MiniAudioPlayer {
+                .player-play-btn:before {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
+        .more-artist {
+            margin-top: 40px;
+            .section-title {
+                margin-bottom: 20px;
+                text-transform: uppercase;
+                color: black;
+                font-size: px2rem(12);
+                font-weight: bold;
+                line-height: px2rem(18);
+                letter-spacing: 2px;
+            }
+            .separator {
+                display: flex;
+                align-items: center;
+                text-align: center;
+                &::before, &::after {
+                    content: '';
+                    flex: 1;
+                    border-bottom: 1px solid black;
+                }
+                &::before {
+                    margin-right: 1rem
+                }
+                &::after {
+                    margin-left: 1rem;
+                }
+            }
+            .artist {
+                margin-bottom: 15px;
+                .img-container {
+                    img {
+                        width: 100%
+                    }
+                }
+                .title {
+                    font-size: px2rem(12);
+                    line-height: px2rem(18);
+                    font-weight: bold;
+                    margin-top: 10px;
+                }
+                .desc {
+                    font-size: px2rem(12);
+                    line-height: px2rem(18);
+                }
+            }
+        }
+        .beat-container {
+            border-radius: 4px;
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+            padding: 15px 15px 30px 20px;
+            .header {
+                color: $gray-510;
+                font-size: px2rem(11);
+                line-height: px2rem(14);
+                margin-top: 5px;
+                margin-bottom: 8px;
+                height: 14px;
+                letter-spacing: 1px;
+            }
+            .beat-info {
+                display: flex;
+                line-height: px2rem(50);
+                border-bottom: 1px solid $gray-320;
+                color: black;
+                .btn-play {
+                    margin: 10px 20px;
+                }
+                .beat-title {
+                    font-size: px2rem(12);
+                }
+                .btn-menu {
+                    margin-left: auto;
+                    margin-top: 15px;
+                    font-size: 150%;
+                    color: gray;
+                    display: none;
+                }
+                // cursor: pointer;
+                &:active, &:hover {
+                    background-color: #FBFBFB;
+                    box-shadow: 0 -1px 0 0 #EDEDED, 0 1px 0 0 #EDEDED;
+                    .btn-menu {
+                        display: block;
+                    }
+                }
             }
         }
     }

@@ -507,7 +507,7 @@ export const api = {
                 method,
             })
         },
-        async getProfileBeatById(producerId, beatId, type) {
+        async getProfileBeatPackById(producerId, beatId, type) {
             let endpoint = `/profiles/beats/${producerId}/${beatId}?type=${type}`
             const method = METHOD_GET
             return await call({
@@ -531,13 +531,13 @@ export const api = {
                 method,
             })
         },
-        async getProfileMoreBeats(producerId) {
-            let endpoint = `/profiles/beats/${producerId}?type=beat&sort=random&page_size=4`
+        async getProfileMoreBeats(producerId, type) {
+            let endpoint = `/profiles/beats/${producerId}?type=${type}&sort=random&page_size=4`
             const method = METHOD_GET
             return await call({
                 endpoint,
                 method,
             })
-        }
+        },
     },
 }

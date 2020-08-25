@@ -32,6 +32,7 @@ import {
 
 import PublicProfile from '@/pages/Profile/PublicProfile'
 import PublicBeatDetails from '@/pages/Profile/PublicBeatDetails'
+import PublicPackDetails from '@/pages/Profile/PublicPackDetails'
 
 const routes = [
     // Misc
@@ -277,6 +278,13 @@ const routes = [
         path: '/:url/beats/:beatId',
         name: 'profileBeatDetails',
         component: PublicBeatDetails,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/:url/beat-packs/:packId',
+        name: 'profilePackDetails',
+        component: PublicPackDetails,
         props: true,
         meta: { layout: 'profile' },
     },

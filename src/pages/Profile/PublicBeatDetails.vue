@@ -3,8 +3,8 @@
         <LoadingSpinner class="page-loader" v-if="isLoading" />
         <div v-else class="page-body">
             <div class="left-col">
-                <div class="main-img img-contaiiner">
-                    <img class="img-fluid" :src="form.coverart" />
+                <div class="main-img img-container">
+                    <img :src="form.coverart" />
                 </div>
                 <div class="tags-container">
                     <div class="title">Beat Tags</div>
@@ -82,7 +82,11 @@
                                         {{ license.descripcion }}
                                     </small>
                                 </div>
-                                <basic-button size="sm" class="btn-buy" @click="handleBuyClick(license)">
+                                <basic-button
+                                    size="sm"
+                                    class="btn-buy"
+                                    @click="handleBuyClick(license)"
+                                >
                                     <img src="@/assets/img/ico/basket.svg" />
                                     Buy
                                 </basic-button>
@@ -154,13 +158,16 @@ export default {
         this.profile = this.$store.getters['profile/profile']
         const licenses = this.$store.getters['profile/licenses']
 
-        const beatResponse = await api.profiles.getProfileBeatById(
+        const beatResponse = await api.profiles.getProfileBeatPackById(
             this.profile.id,
             this.beatId,
             'beat'
         )
 
-        const moreArtists = await api.profiles.getProfileMoreBeats(this.profile.id)
+        const moreArtists = await api.profiles.getProfileMoreBeats(
+            this.profile.id,
+            'beat'
+        )
         if (moreArtists.status == 'success') {
             this.moreArtists = moreArtists.data.map(artist => {
                 return {
@@ -241,16 +248,13 @@ export default {
     },
     methods: {
         handleBuyClick(license) {
-            this.$store.dispatch(
-                'profile/addCartItem',
-                { 
-                    ...this.beat,
-                    price: license.price,
-                    license_id: license.license_id,
-                }
-            )
+            this.$store.dispatch('profile/addCartItem', {
+                ...this.beat,
+                price: license.price,
+                license_id: license.license_id,
+            })
             this.$bus.$emit('modal.addedCart.open')
         },
-    }
+    },
 }
 </script>

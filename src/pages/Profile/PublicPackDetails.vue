@@ -20,9 +20,25 @@
                             </div>
                         </div>
                     </div>
-                    <div class="desc">
-                        {{ pack.description | truncate(270) }}...
-                        <a href="#" class="read-more">Read More</a>
+                    <div class="desc" v-if="pack.description && !readMore">
+                        {{ pack.description | truncate(270) }}
+                        <a
+                            href="#"
+                            class="read-more"
+                            @click.prevent="readMore = true"
+                        >
+                            Read More
+                        </a>
+                    </div>
+                    <div class="desc" v-if="pack.description && readMore">
+                        {{ pack.description }}
+                        <a
+                            href="#"
+                            class="read-more"
+                            @click.prevent="readMore = false"
+                        >
+                            Less
+                        </a>
                     </div>
                     <basic-button class="btn-buy" @click="handleBuyClick()">
                         <img src="@/assets/img/ico/basket.svg" />
@@ -36,7 +52,7 @@
                         {{ this.beats.length }} BEATS
                     </div>
                     <div class="float-right">
-                        58 min
+                        {{ Math.ceil(sumDurations / 60) }} mins
                     </div>
                 </div>
                 <div
@@ -50,17 +66,16 @@
                     </div>
                     <b-icon-three-dots-vertical class="btn-menu" />
                 </div>
-
             </div>
             <div class="more-artist">
                 <div class="section-title separator">
-                    More BEAT PACKS
+                    More Beat Packs
                 </div>
                 <b-form-row>
                     <b-col
                         cols="12"
                         sm="6"
-                        md="4"
+                        md="6"
                         lg="3"
                         v-for="(artist, index) in moreArtists"
                         :key="index"
@@ -98,6 +113,9 @@ export default {
         pack: {},
         moreArtists: [],
         beats: [],
+        sumDurations: 0,
+        audioObj: null,
+        readMore: false,
     }),
     async created() {
         this.isLoading = true
@@ -121,6 +139,9 @@ export default {
             coverart: pack.data_image || appConstants.defaultCoverArt,
         }
         this.beats = []
+        this.sumDurations = 0
+        this.audioObj = new Audio()
+        this.audioObj.addEventListener('loadeddata', this.handleLoaded)
         for (const item of pack.beats) {
             const response = await api.profiles.getProfileBeatPackById(
                 this.profile.id,
@@ -141,6 +162,8 @@ export default {
                     ...beat,
                     src: srcAudio,
                 })
+                this.audioObj.src = srcAudio
+                this.audioObj.load()
             }
         }
         console.log('beats', this.beats)
@@ -168,6 +191,11 @@ export default {
                 ...this.pack,
             })
             this.$bus.$emit('modal.addedCart.open')
+        },
+        handleLoaded() {
+            if (this.audioObj.readyState >= 2) {
+                this.sumDurations += parseInt(this.audioObj.duration)
+            }
         },
     },
 }

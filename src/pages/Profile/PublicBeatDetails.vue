@@ -105,7 +105,7 @@
                         <b-col
                             cols="12"
                             sm="6"
-                            md="4"
+                            md="6"
                             lg="3"
                             v-for="(artist, index) in moreArtists"
                             :key="index"

@@ -22,7 +22,7 @@
                 class="center-img"
             />
         </a>
-        <div class="art-desc">
+        <router-link class="art-desc" :to="{name: 'profileBeatDetails', params: {beatId: artItem.id}}" target="_blank">
             <div class="title">
                 {{ artItem.title }}
             </div>
@@ -36,7 +36,7 @@
             <div v-if="artItem.bogo" class="bogo">
                 BOGO
             </div>
-        </div>
+        </router-link>
         <b-dropdown
             v-if="selected"
             class="actions-menu d-none d-md-block"

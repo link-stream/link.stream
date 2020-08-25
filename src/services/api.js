@@ -531,5 +531,13 @@ export const api = {
                 method,
             })
         },
+        async getProfileMoreBeats(producerId) {
+            let endpoint = `/profiles/beats/${producerId}?type=beat&sort=random&page_size=4`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        }
     },
 }

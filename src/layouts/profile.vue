@@ -7,16 +7,18 @@
         </main>
         <TopNav />
         <vue-progress-bar></vue-progress-bar>
+        <AddedCartModal />
     </div>
 </template>
 
 <script>
 import TopNav from '~/components/Profile/TopNav'
-
+import AddedCartModal from '@/components/Modal/AddedCartModal'
 export default {
     name: 'Profile',
     components: {
         TopNav,
+        AddedCartModal,
     },
 }
 </script>

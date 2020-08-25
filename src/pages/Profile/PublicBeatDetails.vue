@@ -4,7 +4,7 @@
         <div v-else class="page-body">
             <div class="left-col">
                 <div class="main-img img-contaiiner">
-                    <img class="img-fluid" :src="form.coverArtBase64" />
+                    <img class="img-fluid" :src="form.coverart" />
                 </div>
                 <div class="tags-container">
                     <div class="title">Beat Tags</div>
@@ -22,12 +22,12 @@
                         <UserAvatar :user="collab.user" />
                         <img
                             class="avatar-badge"
-                            v-if="collab.user.id == user.id"
+                            v-if="collab.user.id == profile.id"
                             src="@/assets/img/ico/badge.svg"
                         />
                         <span class="user-name">
                             {{ collab.user.name | truncate(14) }}
-                            {{ collab.user.id == user.id ? '(you)' : '' }}
+                            {{ collab.user.id == profile.id ? '(you)' : '' }}
                         </span>
                     </div>
                 </div>
@@ -36,13 +36,13 @@
                 <div class="header">
                     <div class="left-header">
                         <div class="title-container">
-                            <MiniAudioPlayer src="" />
+                            <MiniAudioPlayer :src="form.src" />
                             <div class="title">
                                 {{ form.title }}
                             </div>
                         </div>
                         <div class="desc">
-                            Ambient beat by {{ user.display_name }}
+                            Ambient beat by {{ profile.display_name }}
                         </div>
                     </div>
                     <div class="right-header">
@@ -60,18 +60,6 @@
                                     <Icon icon="dot-menu-h " />
                                 </button>
                             </template>
-                            <b-dropdown-item>
-                                Go to Beat
-                            </b-dropdown-item>
-                            <b-dropdown-item>
-                                Save
-                            </b-dropdown-item>
-                            <b-dropdown-item>
-                                Share
-                            </b-dropdown-item>
-                            <b-dropdown-item>
-                                Free Download
-                            </b-dropdown-item>
                         </b-dropdown>
                     </div>
                 </div>
@@ -94,7 +82,7 @@
                                         {{ license.descripcion }}
                                     </small>
                                 </div>
-                                <basic-button size="sm" class="btn-buy">
+                                <basic-button size="sm" class="btn-buy" @click="handleBuyClick(license)">
                                     <img src="@/assets/img/ico/basket.svg" />
                                     Buy
                                 </basic-button>
@@ -120,13 +108,13 @@
                         >
                             <div class="artist">
                                 <div class="img-container">
-                                    <img :src="artist.img" />
+                                    <img :src="artist.coverart" />
                                 </div>
                                 <h4 class="title">
                                     {{ artist.title }}
                                 </h4>
                                 <div class="desc">
-                                    {{ artist.BPM }} BPM •
+                                    {{ artist.bpm }} BPM •
                                     {{ artist.plays }} plays
                                 </div>
                             </div>
@@ -135,86 +123,66 @@
                 </div>
             </div>
         </div>
-        <ArtPlayer />
+        <!-- <ArtPlayer /> -->
     </b-container>
 </template>
 <script>
-import { mapGetters } from 'vuex'
 import { api } from '~/services'
 import { appConstants } from '~/constants'
 import { MiniAudioPlayer } from '~/components/Player'
-import ArtPlayer from '@/components/Profile/ArtPlayer'
+// import ArtPlayer from '@/components/Profile/ArtPlayer'
 export default {
     name: 'PublicBeatDetails',
-    props: ['id', 'beatId'],
+    props: ['url', 'beatId'],
     components: {
         MiniAudioPlayer,
-        ArtPlayer,
-    },
-    computed: {
-        ...mapGetters({
-            user: 'me/user',
-            packs: 'me/relatedBeatPacks',
-        }),
+        // ArtPlayer,
     },
     data: () => ({
         isLoading: false,
+        profile: {},
         form: {},
         beat: {},
         licenses: [],
-        moreArtists: [
-            {
-                img: appConstants.defaultCoverArt,
-                title: 'Beat Name Extra L...',
-                BPM: 134,
-                plays: 1326,
-            },
-            {
-                img: appConstants.defaultCoverArt,
-                title: 'Vamos Pero Lento',
-                BPM: 134,
-                plays: 120,
-            },
-            {
-                img: appConstants.defaultCoverArt,
-                title: 'Beat Name Extra L...',
-                BPM: 134,
-                plays: 1326,
-            },
-            {
-                img: appConstants.defaultCoverArt,
-                title: 'Vamos Pero Lento',
-                BPM: 134,
-                plays: 120,
-            },
-        ],
+        moreArtists: [],
     }),
     async created() {
         this.isLoading = true
+        await this.$store.dispatch('profile/getProfileMain', { url: this.url })
+        await this.$store.dispatch('profile/getProfileLicenses')
 
-        const beatResponse = await api.audios.getBeat(this.beatId, this.user.id)
+        this.profile = this.$store.getters['profile/profile']
+        const licenses = this.$store.getters['profile/licenses']
+
+        const beatResponse = await api.profiles.getProfileBeatById(
+            this.profile.id,
+            this.beatId,
+            'beat'
+        )
+
+        const moreArtists = await api.profiles.getProfileMoreBeats(this.profile.id)
+        if (moreArtists.status == 'success') {
+            this.moreArtists = moreArtists.data.map(artist => {
+                return {
+                    ...artist,
+                    coverart: artist.data_image || appConstants.defaultCoverArt,
+                    plays: 0,
+                }
+            })
+        } else {
+            this.moreArtists = []
+        }
+        console.log(moreArtists)
 
         if (beatResponse.status !== 'success' || !beatResponse.data.length) {
             this.$router.push({ name: 'profileBeats' })
             this.$toast.error('Beat not found.')
             return
         }
-
         const beat = beatResponse.data[0]
-        console.log(beat)
-
-        // await this.$store.dispatch('me/loadRelatedBeatPacks')
-        await this.$store.dispatch('me/loadLicenses')
-        const licenses = this.$store.getters['me/licenses']
-
-        if (!licenses.length) {
-            this.$router.push({ name: 'profileBeats' })
-            this.$toast.error('Licenses not found.')
-            return
-        }
         const form = {
             title: beat.title,
-            coverArtBase64: beat.data_image,
+            coverart: beat.data_image || appConstants.defaultCoverArt,
             tags: beat.tags
                 ? beat.tags.split(', ').map(tag => ({
                       text: tag,
@@ -240,61 +208,49 @@ export default {
                       })
                   )
                 : [],
-            files: {
-                stems: beat.data_track_stems
-                    ? {
-                          name: beat.track_stems_name,
-                          base64: beat.data_track_stems,
-                      }
-                    : {},
-                tagged: beat.data_tagged_file
-                    ? {
-                          name: beat.tagged_file_name,
-                          base64: beat.data_tagged_file,
-                      }
-                    : {},
-                untaggedMp3: beat.data_untagged_mp3
-                    ? {
-                          name: beat.untagged_mp3_name,
-                          base64: beat.data_untagged_mp3,
-                      }
-                    : {},
-                untaggedWav: beat.data_untagged_wav
-                    ? {
-                          name: beat.untagged_wav_name,
-                          base64: beat.data_untagged_wav,
-                      }
-                    : {},
-            },
-            trackPack: [],
+            src: '',
         }
-
-        if (Array.isArray(beat.beat_packs)) {
-            beat.beat_packs.forEach(({ id_album }) => {
-                const pack = this.packs.find(({ id }) => id == id_album)
-                pack && form.trackPack.push(pack)
-            })
+        if (beat.data_tagged_file) {
+            form.src = beat.data_tagged_file
+        } else if (beat.data_untagged_mp3) {
+            form.src = beat.data_untagged_mp3
+        } else if (beat.data_untagged_wav) {
+            form.src = beat.data_untagged_wav
         }
         this.form = form
-        this.beat = beat
-        this.licenses = licenses
+        this.beat = {
+            ...beat,
+            coverart: beat.data_image || appConstants.defaultCoverArt,
+        }
 
         // Merge beat licenses into licenses
         if (Array.isArray(beat.licenses) && beat.licenses.length) {
-            this.licenses = licenses.map(license => {
-                const beatLicense = beat.licenses.find(
-                    ({ license_id }) => license_id == license.id
+            this.licenses = beat.licenses.map(license => {
+                const findLicense = licenses.find(
+                    ({ id }) => id == license.license_id
                 )
-                beatLicense &&
-                    form.selectedLicenseIds.push(beatLicense.license_id)
                 return {
                     ...license,
-                    price: beatLicense ? beatLicense.price : license.price,
+                    title: findLicense.title,
+                    descripcion: findLicense.descripcion,
                 }
             })
         }
 
         this.isLoading = false
     },
+    methods: {
+        handleBuyClick(license) {
+            this.$store.dispatch(
+                'profile/addCartItem',
+                { 
+                    ...this.beat,
+                    price: license.price,
+                    license_id: license.license_id,
+                }
+            )
+            this.$bus.$emit('modal.addedCart.open')
+        },
+    }
 }
 </script>

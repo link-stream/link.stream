@@ -69,7 +69,7 @@ export default {
         currentIndex: -1,
         currentStatus: false,
         curItem: {},
-        individualLoading: false
+        individualLoading: false,
     }),
     watch: {
         currentIndex() {
@@ -128,7 +128,7 @@ export default {
             } else {
                 this.currentIndex = index
             }
-        }
+        },
     },
 }
 </script>

@@ -110,7 +110,7 @@ export default {
         },
         handleBuyClick(license) {
             this.close()
-
+            console.log(license)
             this.$store.dispatch(
                 'profile/addCartItem',
                 { 

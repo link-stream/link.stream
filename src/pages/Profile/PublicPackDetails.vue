@@ -23,7 +23,7 @@
                     <div class="desc" v-if="pack.description && !readMore">
                         {{ pack.description | truncate(270) }}
                         <a
-                            v-if="pack.description.length>270"
+                            v-if="pack.description.length > 270"
                             href="#"
                             class="read-more"
                             @click.prevent="readMore = true"

@@ -3,7 +3,7 @@
         <a
             href="#"
             class="img-container"
-            @click.prevent="$emit('select', index)"
+            @click.prevent="selectImage"
         >
             <img :src="artItem.coverart" />
             <LoadingSpinner
@@ -143,6 +143,16 @@ export default {
         },
         handleShareClick() {
             this.$bus.$emit('modal.shareArt.open')
+        },
+        selectImage() {
+            if (this.artItem.type === 'beat') {
+                this.$emit('select', this.index)
+            } else {
+                this.$router.push({
+                    name: 'profilePackDetails',
+                    params: { packId: this.artItem.id },
+                })
+            }
         },
     },
 }

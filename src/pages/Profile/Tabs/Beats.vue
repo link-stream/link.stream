@@ -77,7 +77,15 @@ export default {
             this.updateCurrentItem()
         },
         beats() {
-            this.currentIndex = 0
+            const that = this
+            this.beats.some((beat, index) => {
+                if (beat.type === 'beat') {
+                    that.currentIndex = index
+                    return true
+                } else {
+                    return false
+                }
+            })
             this.currentStatus = false
             this.updateCurrentItem()
         },
@@ -127,14 +135,20 @@ export default {
             this.individualLoading = false
         },
         prevItem() {
-            this.currentIndex =
-                this.currentIndex > 0 ? this.currentIndex - 1 : 0
+            for (let k = this.currentIndex - 1; k >= 0;k--) {
+                if (this.beats[k].type === 'beat') {
+                    this.currentIndex = k
+                    break
+                }
+            }
         },
         nextItem() {
-            this.currentIndex =
-                this.currentIndex < this.beats.length - 1
-                    ? this.currentIndex + 1
-                    : this.beats.length - 1
+            for (let k = this.currentIndex + 1; k < this.beats.length ;k++) {
+                if (this.beats[k].type === 'beat') {
+                    this.currentIndex = k
+                    break
+                }
+            }
         },
         setStatus(status) {
             this.currentStatus = status

@@ -539,5 +539,21 @@ export const api = {
                 method,
             })
         },
+        async getProfileKitFileByName(producerId, kitId, fileNamme) {
+            let endpoint = `/profiles/sound_kit_file/${producerId}/${kitId}/${fileNamme}`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileMoreKits(producerId) {
+            let endpoint = `/profiles/sound_kits/${producerId}?sort=random&page_size=4`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
 }

@@ -334,11 +334,16 @@
                     font-weight: bold;
                 }
             }
-            .btn-buy {
+            .actions{
                 text-transform: capitalize;
                 margin-top: 20px;
-                img {
-                    margin-top: -7px;
+                .btn-buy {
+                    img {
+                        margin-top: -7px;
+                    }
+                }
+                .btn-share {
+                    margin-left: 10px;
                 }
             }
         }
@@ -360,6 +365,7 @@
                 font-weight: bold;
                 line-height: px2rem(18);
                 letter-spacing: 2px;
+                padding: 7px 0 5px;
             }
             .separator {
                 display: flex;
@@ -436,6 +442,9 @@
                         display: block;
                     }
                 }
+            }
+            .btn-show-more {
+                margin-top: 20px;
             }
         }
     }

@@ -125,14 +125,66 @@ export default {
             console.log('licences', this.licenses)
             this.realLicenses = this.curItem.licenses.map(item => {
                 const findLicense = this.licenses.find(({ id }) => id === item.license_id)
-                // let details = []
-                // if (findLicense.wav) {
-                //     details.push('Include a WAV file')
-                // }    
+                let details = []
+                if (findLicense.distribution_copies != 0) {
+                    if (findLicense.distribution_copies === 'Unlimited') {
+                        details.push('Unlimited distribution copies')    
+                    } else {
+                        details.push(`Up to ${findLicense.distribution_copies} free downloads`)
+                    }
+                }
+                if (findLicense.free_download != 0) {
+                    if (findLicense.free_download === 'Unlimited') {
+                        details.push('Unlimited free downloads')    
+                    } else {
+                        details.push(`Up to ${findLicense.free_download} free downloads`)
+                    }
+                }
+                if (findLicense.audio_streams != 0) {
+                    if (findLicense.audio_streams === 'Unlimited') {
+                        details.push('Unlimited audio streams')    
+                    } else {
+                        details.push(`Up to ${findLicense.audio_streams} audio streams`)
+                    }
+                }
+                if (findLicense.music_videos != 0) {
+                    if (findLicense.music_videos === 'Unlimited') {
+                        details.push('Unlimited music videos')    
+                    } else {
+                        details.push(`Up to ${findLicense.music_videos} music videos`)
+                    }
+                }
+                if (findLicense.video_streams != 0) {
+                    if (findLicense.video_streams === 'Unlimited') {
+                        details.push('Unlimited video streams')    
+                    } else {
+                        details.push(`Up to ${findLicense.video_streams} video streams`)
+                    }
+                }
+                if (findLicense.broadcasting_rights != 0) {
+                    details.push('Broadcasting Rights')    
+                }
+                if (findLicense.radio_station != 0) {
+                    if (findLicense.radio_station === 'Unlimited') {
+                        details.push('Unlimited radio stations')    
+                    } else {
+                        details.push(`Up to ${findLicense.radio_station} radio stations`)
+                    }
+                }
+                if (findLicense.paid_performances != 0) {
+                    details.push('Paid performances')    
+                }
+                if (findLicense.non_profit_performances != 0) {
+                    if (findLicense.non_profit_performances === 'Unlimited') {
+                        details.push('Unlimited non-profit performances')    
+                    } else {
+                        details.push(`Up to ${findLicense.non_profit_performances} non-profit performances`)
+                    }
+                }
                 return {
                     ...item,
                     isExpanded: false,
-                    details: [...this.licenseDetails],
+                    details: details,
                     title: findLicense.title,
                     descripcion: findLicense.descripcion,
                 }

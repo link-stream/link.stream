@@ -6,11 +6,6 @@
         <div class="player-container">
             <div class="img-thumb">
                 <img :src="playerItem.coverart" />
-                <LoadingSpinner
-                    v-if="loading"
-                    class="art-loading"
-                    animation="bounce"
-                />
             </div>
             <div class="control-container">
                 <div class="art-info">

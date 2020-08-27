@@ -144,7 +144,6 @@ export default {
             return
         }
         const kit = kitResponse.data[0]
-        console.log(kit)
         this.kit = {
             ...kit,
             coverart: kit.data_image || appConstants.defaultCoverArt,

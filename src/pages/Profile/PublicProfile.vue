@@ -1,10 +1,10 @@
 <template>
-    <b-container class="page page-public-profile">
+    <b-container fluid class="page page-public-profile">
         <MainInfo />
         <TabNav />
-        <div class="page-body">
+        <b-container class="page-body">
             <component v-bind:is="currentTabComponent" :url="url"></component>
-        </div>
+        </b-container>
         <ShareArtModal />
     </b-container>
 </template>

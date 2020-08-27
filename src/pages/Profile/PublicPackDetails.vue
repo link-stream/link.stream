@@ -140,7 +140,6 @@ export default {
             return
         }
         const pack = packResponse.data[0]
-        console.log(pack)
         this.pack = {
             ...pack,
             coverart: pack.data_image || appConstants.defaultCoverArt,
@@ -173,7 +172,6 @@ export default {
                 this.audioObj.load()
             }
         }
-        console.log('beats', this.beats)
         const moreArtists = await api.profiles.getProfileMoreBeats(
             this.profile.id,
             'pack'

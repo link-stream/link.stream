@@ -1,50 +1,51 @@
 <template>
     <div class="tabnav-container">
-        <div class="tabnav d-flex">
-            <SearchInput
-                v-if="isSearchable"
-                pill
-                color="black"
-                v-model="searchString"
-                placeholder="Search by tag or title"
-                direction="right"
-                class="search-form d-none d-md-block"
-                @keyupEnter="searchDataByTag"
-            />
-            <ul class="ul-menu">
-                <li v-if="isSearchable">
-                    <b-icon-search
-                        class="d-md-none"
-                        @click="isSearchBox = !isSearchBox"
-                    />
-                </li>
-                <li
-                    v-for="tab in tabs"
-                    :key="tab.to"
-                    :class="{ active: $route.name === tab.to }"
+        <b-container>
+            <div class="tabnav d-flex">
+                <SearchInput
+                    v-if="isSearchable"
+                    pill
+                    color="black"
+                    v-model="searchString"
+                    placeholder="Search by tag or title"
+                    direction="right"
+                    class="search-form d-none d-md-block"
+                    @keyupEnter="searchDataByTag"
+                />
+                <ul class="ul-menu">
+                    <li v-if="isSearchable">
+                        <b-icon-search
+                            class="d-md-none"
+                            @click="isSearchBox = !isSearchBox"
+                        />
+                    </li>
+                    <li
+                        v-for="tab in tabs"
+                        :key="tab.to"
+                        :class="{ active: $route.name === tab.to }"
+                    >
+                        <router-link :to="{ name: tab.to }">
+                            {{ tab.title }}
+                        </router-link>
+                    </li>
+                </ul>
+                <basic-button
+                    v-if="curRouteName != 'profileAbout'"
+                    variant="outline-light"
+                    size="sm"
+                    class="btn-filter"
+                    @click="isShowFilter = !isShowFilter"
                 >
-                    <router-link :to="{ name: tab.to }">
-                        {{ tab.title }}
-                    </router-link>
-                </li>
-            </ul>
-            <basic-button
-                v-if="curRouteName != 'profileAbout'"
-                variant="outline-light"
-                size="sm"
-                class="btn-filter"
-                @click="isShowFilter = !isShowFilter"
-            >
-                <img src="@/assets/img/ico/filter-list.svg" class="mr-2" />
-                Filters
-            </basic-button>
-            <ProfileFilter
-                v-show="isShowFilter"
-                @apply-filter="searchFilter"
-                @close-filter="isShowFilter = false"
-            />
-        </div>
-        <SearchInput
+                    <img src="@/assets/img/ico/filter-list.svg" class="mr-2" />
+                    Filters
+                </basic-button>
+                <ProfileFilter
+                    v-show="isShowFilter"
+                    @apply-filter="searchFilter"
+                    @close-filter="isShowFilter = false"
+                />
+            </div>
+            <SearchInput
             v-if="isSearchBox"
             pill
             color="black"
@@ -54,6 +55,7 @@
             class="search-form d-md-none"
             @keyupEnter="searchDataByTag"
         />
+        </b-container>
     </div>
 </template>
 

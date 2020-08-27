@@ -1,5 +1,5 @@
 <template>
-    <b-container class="art-player" v-if="playerItem">
+    <b-container fluid class="art-player" v-if="playerItem">
         <div class="player-progress" @click="seek">
             <div
                 class="current-progress"

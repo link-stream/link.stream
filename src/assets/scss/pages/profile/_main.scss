@@ -5,7 +5,7 @@
             position: relative;
             width: 100%;
             *max-width: 1024px;
-            max-height: 180px;
+            *max-height: 180px;
             background: linear-gradient(135deg, #39C8D6 0%, #D59C75 62.93%, #39C8D6 100%);
             .banner {
                 position: absolute;
@@ -36,6 +36,7 @@
                 overflow: hidden;
                 border: 3px solid $white;
                 @include border-radius(9999em);
+                box-shadow: 0 0 8px 0 rgba(0,0,0,0.2);
 
                 img {
                     display: block;
@@ -100,8 +101,6 @@
         }
     }
     .profile-content {
-        margin-left: 32px;
-        margin-right: 32px;
         margin-top: 15px;
         .profile-info {
             text-align: center;
@@ -134,15 +133,14 @@
     .tabnav-container {
         width: 100%;
         overflow-x: auto;
-        @include media-breakpoint-down(sm) {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
+        border-top: 1px solid $gray-320;
+        margin-top: 30px;
+        margin-bottom: 15px;
     }
     .tabnav {
         min-width: max-content;
-        border-top: 1px solid $gray-320;
-        margin: 30px 32px 15px;
+        min-height: 40px;
+        *margin: 30px 32px 15px;
         .search-form, .btn-filter {
             margin-top: 15px;
         }
@@ -173,21 +171,12 @@
         .btn-filter {
             margin-left: auto;
         }
-        @include media-breakpoint-down(sm) {
-            margin: 30px 10px 8px;
-        }
         .SearchInput {
             min-width: 250px;
         }
     }
     .page-body {
-        margin-left: 27px;
-        margin-right: 27px;
         margin-bottom: 110px;
-        @include media-breakpoint-down(sm) {
-            margin-left: 10px;
-            margin-right: 10px;
-        }
     }
     
     

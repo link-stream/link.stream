@@ -135,7 +135,7 @@ export default {
             this.individualLoading = false
         },
         prevItem() {
-            for (let k = this.currentIndex - 1; k >= 0;k--) {
+            for (let k = this.currentIndex - 1; k >= 0; k--) {
                 if (this.beats[k].type === 'beat') {
                     this.currentIndex = k
                     break
@@ -143,7 +143,7 @@ export default {
             }
         },
         nextItem() {
-            for (let k = this.currentIndex + 1; k < this.beats.length ;k++) {
+            for (let k = this.currentIndex + 1; k < this.beats.length; k++) {
                 if (this.beats[k].type === 'beat') {
                     this.currentIndex = k
                     break

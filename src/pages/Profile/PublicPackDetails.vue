@@ -63,7 +63,7 @@
                     :key="index"
                     class="beat-info"
                 >
-                    <b-icon-play-fill font-scale="2" class="btn-play" />
+                    <ListAudioPlayer :src="beat.src" />
                     <div class="beat-title">
                         {{ beat.title }}
                     </div>
@@ -103,12 +103,16 @@
 <script>
 import { api } from '~/services'
 import { appConstants } from '~/constants'
-import { MiniAudioPlayer } from '~/components/Player'
+import {
+    MiniAudioPlayer,
+    ListAudioPlayer,
+} from '~/components/Player'
 export default {
     name: 'PublicPackDetails',
     props: ['url', 'packId'],
     components: {
         MiniAudioPlayer,
+        ListAudioPlayer,
     },
     data: () => ({
         isLoading: false,

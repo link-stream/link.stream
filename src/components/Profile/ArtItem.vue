@@ -1,10 +1,6 @@
 <template>
     <div class="art-item">
-        <a
-            href="#"
-            class="img-container"
-            @click.prevent="selectImage"
-        >
+        <a href="#" class="img-container" @click.prevent="selectImage">
             <img :src="artItem.coverart" />
             <LoadingSpinner
                 v-if="selected && loading"
@@ -148,10 +144,11 @@ export default {
             if (this.artItem.type === 'beat') {
                 this.$emit('select', this.index)
             } else {
-                this.$router.push({
+                let routeData = this.$router.resolve({
                     name: 'profilePackDetails',
                     params: { packId: this.artItem.id },
                 })
+                window.open(routeData.href, '_blank')
             }
         },
     },

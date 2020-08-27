@@ -421,8 +421,17 @@
                 line-height: px2rem(50);
                 border-bottom: 1px solid $gray-320;
                 color: black;
-                .btn-play {
-                    margin: 10px 20px;
+                .MiniAudioPlayer {
+                    margin: 0px 20px;
+                    .player-spinner {
+                        width: 32px;
+                        height: 32px;
+                        top: 10px;
+                        left: -3px;
+                    }
+                    .btn-play {
+                        vertical-align: middle;
+                    }
                 }
                 .beat-title {
                     font-size: px2rem(12);

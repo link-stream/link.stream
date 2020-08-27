@@ -46,6 +46,11 @@
                             {{ kit.price | currencyFormat }} - Buy Kit
                         </basic-button>
                         <basic-button variant="outline-black" class="btn-share" @click="handleShareClick()">
+                            <font-awesome-icon
+                                :icon="['fas', 'share-alt-square']"
+                                size="lg"
+                                class="mr-2"
+                            />
                             Share
                         </basic-button>
                     </div>
@@ -62,7 +67,7 @@
                     :key="index"
                     class="beat-info"
                 >
-                    <b-icon-play-fill font-scale="2" class="btn-play" />
+                    <ListAudioPlayer :src="sample.src" />
                     <div class="beat-title">
                         {{ sample.title }}
                     </div>
@@ -105,12 +110,16 @@
 <script>
 import { api } from '~/services'
 import { appConstants } from '~/constants'
-import { MiniAudioPlayer } from '~/components/Player'
+import {
+    MiniAudioPlayer,
+    ListAudioPlayer,
+} from '~/components/Player'
 export default {
     name: 'PublicKitDetails',
     props: ['url', 'kitId'],
     components: {
         MiniAudioPlayer,
+        ListAudioPlayer,
     },
     data: () => ({
         isLoading: false,
@@ -139,6 +148,7 @@ export default {
         this.kit = {
             ...kit,
             coverart: kit.data_image || appConstants.defaultCoverArt,
+            src: kit.data_tagged_file,
         }
         this.samples = []
         for (const item of kit.kit_files_name) {
@@ -176,6 +186,7 @@ export default {
             })
             this.$bus.$emit('modal.addedCart.open')
         },
+        handleShareClick() {},
     },
 }
 </script>

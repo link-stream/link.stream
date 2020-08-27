@@ -46,7 +46,10 @@
                                     Buy
                                 </basic-button>
                             </div>
-                            <ul v-if="license.isExpanded" class="license-details">
+                            <ul
+                                v-if="license.isExpanded"
+                                class="license-details"
+                            >
                                 <li v-for="item in license.details" :key="item">
                                     <b-icon-check />
                                     {{ item }}
@@ -79,7 +82,7 @@ export default {
     props: {
         curItem: {
             type: Object,
-        }
+        },
     },
     data() {
         return {
@@ -93,7 +96,6 @@ export default {
                 'Radio Broadcasting rights (Unlimited Stations)',
             ],
             realLicenses: [],
-
         }
     },
     computed: {
@@ -110,75 +112,87 @@ export default {
         },
         handleBuyClick(license) {
             this.close()
-            console.log(license)
-            this.$store.dispatch(
-                'profile/addCartItem',
-                { 
-                    ...this.curItem,
-                    price: license.price,
-                    license_id: license.id,
-                }
-            )
+            this.$store.dispatch('profile/addCartItem', {
+                ...this.curItem,
+                price: license.price,
+                license_id: license.id,
+            })
             this.$bus.$emit('modal.addedCart.open')
         },
         initLicense() {
             console.log('licences', this.licenses)
             this.realLicenses = this.curItem.licenses.map(item => {
-                const findLicense = this.licenses.find(({ id }) => id === item.license_id)
+                const findLicense = this.licenses.find(
+                    ({ id }) => id === item.license_id
+                )
                 let details = []
                 if (findLicense.distribution_copies != 0) {
                     if (findLicense.distribution_copies === 'Unlimited') {
-                        details.push('Unlimited distribution copies')    
+                        details.push('Unlimited distribution copies')
                     } else {
-                        details.push(`Up to ${findLicense.distribution_copies} free downloads`)
+                        details.push(
+                            `Up to ${findLicense.distribution_copies} free downloads`
+                        )
                     }
                 }
                 if (findLicense.free_download != 0) {
                     if (findLicense.free_download === 'Unlimited') {
-                        details.push('Unlimited free downloads')    
+                        details.push('Unlimited free downloads')
                     } else {
-                        details.push(`Up to ${findLicense.free_download} free downloads`)
+                        details.push(
+                            `Up to ${findLicense.free_download} free downloads`
+                        )
                     }
                 }
                 if (findLicense.audio_streams != 0) {
                     if (findLicense.audio_streams === 'Unlimited') {
-                        details.push('Unlimited audio streams')    
+                        details.push('Unlimited audio streams')
                     } else {
-                        details.push(`Up to ${findLicense.audio_streams} audio streams`)
+                        details.push(
+                            `Up to ${findLicense.audio_streams} audio streams`
+                        )
                     }
                 }
                 if (findLicense.music_videos != 0) {
                     if (findLicense.music_videos === 'Unlimited') {
-                        details.push('Unlimited music videos')    
+                        details.push('Unlimited music videos')
                     } else {
-                        details.push(`Up to ${findLicense.music_videos} music videos`)
+                        details.push(
+                            `Up to ${findLicense.music_videos} music videos`
+                        )
                     }
                 }
                 if (findLicense.video_streams != 0) {
                     if (findLicense.video_streams === 'Unlimited') {
-                        details.push('Unlimited video streams')    
+                        details.push('Unlimited video streams')
                     } else {
-                        details.push(`Up to ${findLicense.video_streams} video streams`)
+                        details.push(
+                            `Up to ${findLicense.video_streams} video streams`
+                        )
                     }
                 }
                 if (findLicense.broadcasting_rights != 0) {
-                    details.push('Broadcasting Rights')    
+                    details.push('Broadcasting Rights')
                 }
                 if (findLicense.radio_station != 0) {
                     if (findLicense.radio_station === 'Unlimited') {
-                        details.push('Unlimited radio stations')    
+                        details.push('Unlimited radio stations')
                     } else {
-                        details.push(`Up to ${findLicense.radio_station} radio stations`)
+                        details.push(
+                            `Up to ${findLicense.radio_station} radio stations`
+                        )
                     }
                 }
                 if (findLicense.paid_performances != 0) {
-                    details.push('Paid performances')    
+                    details.push('Paid performances')
                 }
                 if (findLicense.non_profit_performances != 0) {
                     if (findLicense.non_profit_performances === 'Unlimited') {
-                        details.push('Unlimited non-profit performances')    
+                        details.push('Unlimited non-profit performances')
                     } else {
-                        details.push(`Up to ${findLicense.non_profit_performances} non-profit performances`)
+                        details.push(
+                            `Up to ${findLicense.non_profit_performances} non-profit performances`
+                        )
                     }
                 }
                 return {
@@ -189,7 +203,7 @@ export default {
                     descripcion: findLicense.descripcion,
                 }
             })
-        }
+        },
     },
 }
 </script>

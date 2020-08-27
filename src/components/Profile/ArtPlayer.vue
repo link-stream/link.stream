@@ -1,7 +1,10 @@
 <template>
     <b-container class="art-player" v-if="playerItem">
         <div class="player-progress" @click="seek">
-            <div class="current-progress" :style="`width: ${percentComplete}%`"></div>
+            <div
+                class="current-progress"
+                :style="`width: ${percentComplete}%`"
+            ></div>
         </div>
         <div class="player-container">
             <div class="img-thumb">

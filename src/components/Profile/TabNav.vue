@@ -22,7 +22,7 @@
                     <li
                         v-for="tab in tabs"
                         :key="tab.to"
-                        :class="{ active: $route.name === tab.to }"
+                        :class="{ active: $route.name === tab.to || $route.name === 'publicProfile' && tab.to === 'profileBeats' }"
                     >
                         <router-link :to="{ name: tab.to }">
                             {{ tab.title }}
@@ -46,15 +46,15 @@
                 />
             </div>
             <SearchInput
-            v-if="isSearchBox"
-            pill
-            color="black"
-            v-model="searchString"
-            placeholder="Search by tag or title"
-            direction="right"
-            class="search-form d-md-none"
-            @keyupEnter="searchDataByTag"
-        />
+                v-if="isSearchBox"
+                pill
+                color="black"
+                v-model="searchString"
+                placeholder="Search by tag or title"
+                direction="right"
+                class="search-form d-md-none"
+                @keyupEnter="searchDataByTag"
+            />
         </b-container>
     </div>
 </template>

@@ -1,9 +1,8 @@
 <template>
     <div class="SearchInput">
-        <!-- <Icon class="input-icon" icon="search" /> -->
-        <b-icon-search
+        <IconButton
             class="input-icon"
-            :variant="color ? color : 'muted'"
+            :icon="color ? `search-${color}` : 'muted'"
             :class="direction"
             @click="handleKeyup"
         />
@@ -18,12 +17,6 @@
             @keyup.enter="handleKeyup"
             :style="customStyle"
         />
-        <!-- <IconButton
-            icon="close"
-            class="input-clear-btn"
-            @click="handleClearClick"
-            v-show="!!value"
-        /> -->
         <b-icon-x
             class="input-clear-btn"
             :class="direction"
@@ -52,12 +45,12 @@ export default {
             default: false,
         },
         color: {
-            type: String
+            type: String,
         },
         direction: {
             type: String,
-            default: 'left'
-        }
+            default: 'left',
+        },
     },
     computed: {
         customStyle() {
@@ -67,9 +60,9 @@ export default {
                 backgroundColor: this.color === 'white' ? '#2E2E2E' : (this.color === 'black' ? '#F5F5F5' : ''),
                 border: this.color ? 0: '',
             }
-        }
+        },
     },
-     methods: {
+    methods: {
         handleInput(e) {
             this.$emit('input', e.target.value)
         },

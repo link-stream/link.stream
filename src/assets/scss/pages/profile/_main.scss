@@ -147,19 +147,23 @@
         .ul-menu {
             li {
                 display: inline-block;
-                margin-right: 15px;
+                margin-right: 20px;
                 font-size: px2rem(12);
-                font-weight: bold;
-                letter-spacing: 0;
+                letter-spacing: 1px;
                 padding-top: 10px;
                 &.active {
                     border-top: 3px solid $primary;
+                    a {
+                        color: black;
+                        font-weight: bold;
+                    }
                 }
                 a {
-                    color: $gray-810;
+                    color: $gray-510;
                     text-decoration: none;
                     line-height: 40px;
                     margin-top: 20px;
+                    font-weight: 600;
                 }
             }
             @include media-breakpoint-up(lg) {
@@ -169,19 +173,40 @@
             }
         }
         .btn-filter {
-            margin-left: auto;
+            @include media-breakpoint-up(md) {
+                margin-left: auto;
+            }
+            height: 35px;
         }
         .SearchInput {
             min-width: 250px;
+            input {
+                font-size: px2rem(13);
+                &::placeholder {
+                    color: $gray-530;
+                    opacity: 1;
+                }
+                &:-ms-input-placeholder {
+                    color: $gray-530;
+                }
+                &::-ms-input-placeholder {
+                    color: $gray-530;
+                }
+            }
         }
     }
     .page-body {
         margin-bottom: 110px;
     }
-    
-    
+    .btn-view-more {
+        border: 2px solid black;
+        font-weight: bold;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .about-page {
+        text-align: center;
+        padding: 30px;
+    }
 }
-.about-page {
-    text-align: center;
-    padding: 30px;
-}
+

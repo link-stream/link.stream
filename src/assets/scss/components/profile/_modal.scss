@@ -24,12 +24,15 @@
 }
 .AddedCartModal {
     .modal-dialog {
-        right: 30px;
-        position: absolute;
-        top: 50px;
+        top: 60px;
         width: 350px;
         border-radius: 2px;
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.15);
+        @include media-breakpoint-up(sm) {
+            right: 30px;
+            position: absolute;
+            top: 45px;
+        }
     }
     .AddedCartItem {
         display: flex;

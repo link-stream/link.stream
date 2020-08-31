@@ -17,7 +17,11 @@
                 </b-col>
             </b-row>
             <div class="text-center mb-5">
-                <basic-button variant="outline-black" size="md" class="btn-view-more">
+                <basic-button
+                    variant="outline-black"
+                    size="md"
+                    class="btn-view-more"
+                >
                     View More
                 </basic-button>
             </div>

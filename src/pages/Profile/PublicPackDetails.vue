@@ -103,10 +103,7 @@
 <script>
 import { api } from '~/services'
 import { appConstants } from '~/constants'
-import {
-    MiniAudioPlayer,
-    ListAudioPlayer,
-} from '~/components/Player'
+import { MiniAudioPlayer, ListAudioPlayer } from '~/components/Player'
 export default {
     name: 'PublicPackDetails',
     props: ['url', 'packId'],

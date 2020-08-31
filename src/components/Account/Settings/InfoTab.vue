@@ -52,6 +52,14 @@
                         </template>
                     </b-form-invalid-feedback>
                 </b-form-group>
+                <b-form-group label="Country">
+                    <BasicSelect
+                        v-model="form.country"
+                        :options="allCountries"
+                        :reduce="country => country.code"
+                        label="country"
+                    />
+                </b-form-group>
                 <b-form-group label="Time Zone">
                     <BasicSelect
                         v-model="form.timezone"
@@ -229,6 +237,7 @@ import {
     sameAs,
 } from 'vuelidate/lib/validators'
 import { api } from '~/services'
+import csc from 'country-state-city'
 
 firebase.initializeApp(appConstants.firebaseConfig)
 const fbProvider = new firebase.auth.FacebookAuthProvider()
@@ -243,6 +252,7 @@ export default {
                 display_name: '',
                 email: '',
                 timezone: '',
+                country: '',
                 current_password: '',
                 password: '',
                 confirm_password: '',
@@ -263,6 +273,14 @@ export default {
             userInfo: 'me/user',
             timezones: 'common/timezones',
         }),
+        allCountries() {
+            return csc.getAllCountries().map(({ sortname, name }) => {
+                return {
+                    code: sortname,
+                    country: name,
+                }
+            })
+        },
     },
     validations: {
         form: {
@@ -270,7 +288,8 @@ export default {
                 required,
                 minLength: minLength(5),
                 uniqueUsername(value) {
-                    return value === this.userInfo.user_name || this.availabilityValidator('username', value)
+                    return value === this.userInfo.user_name ||
+                        this.availabilityValidator('username', value)
                 },
             },
             display_name: {
@@ -280,7 +299,8 @@ export default {
                 required,
                 email,
                 uniqueEmail(value) {
-                    return value === this.userInfo.email || this.availabilityValidator('email', value)
+                    return value === this.userInfo.email ||
+                        this.availabilityValidator('email', value)
                 },
             },
             password: {
@@ -369,6 +389,7 @@ export default {
                 display_name,
                 email,
                 timezone,
+                country,
                 current_password,
                 password,
                 facebook,
@@ -379,6 +400,7 @@ export default {
                 display_name,
                 email,
                 timezone,
+                country,
                 current_password,
                 password,
                 facebook,
@@ -421,26 +443,29 @@ export default {
                     .then(({ user }) => {
                         this.social.facebook = user.displayName
                     })
-                    .catch((error) => {
+                    .catch(error => {
                         this.social.facebook = 'Failed'
-                        console.log("error", error)
+                        console.log('error', error)
                     })
             }
             this.social.twitter = false
             if (this.userInfo.twitter) {
                 this.social.twitter = 'Connecting'
                 let credential_info = this.userInfo.twitter.split('@')
-                let twitter_credential = await firebase.auth.TwitterAuthProvider.credential(credential_info[0], credential_info[1])
+                let twitter_credential = await firebase.auth.TwitterAuthProvider.credential(
+                    credential_info[0],
+                    credential_info[1]
+                )
                 await firebase.auth().signInWithCredential(twitter_credential)
                     .then(({ user }) => {
                         this.social.twitter = user.displayName
                     })
-                    .catch((error) => {
+                    .catch(error => {
                         this.social.twitter = 'Failed'
-                        console.log("error", error)
+                        console.log('error', error)
                     })
             }
-        }
+        },
     },
 }
 </script>

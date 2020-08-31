@@ -57,8 +57,13 @@ export default {
             return {
                 borderRadius: this.pill ? '3rem' : '',
                 color: this.color === 'white' ? 'white' : '',
-                backgroundColor: this.color === 'white' ? '#2E2E2E' : (this.color === 'black' ? '#F5F5F5' : ''),
-                border: this.color ? 0: '',
+                backgroundColor:
+                    this.color === 'white'
+                        ? '#2E2E2E'
+                        : this.color === 'black'
+                        ? '#F5F5F5'
+                        : '',
+                border: this.color ? 0 : '',
             }
         },
     },

@@ -9,12 +9,12 @@
         <b-navbar-brand to="/">
             <Logo1 />
         </b-navbar-brand>
-        <b-navbar-nav>
+        <b-navbar-nav class="mr-auto">
             <a href="#" @click.prevent.stop="toggle">
                 <ToggleMenu :isHidden="isHidden" />
             </a>
         </b-navbar-nav>
-        <b-navbar-nav class="mr-auto left-padding">
+        <!-- <b-navbar-nav class="mr-auto left-padding">
             <SearchInput
                 pill
                 color="white"
@@ -22,7 +22,7 @@
                 placeholder="Search"
                 direction="right"
             />
-        </b-navbar-nav>
+        </b-navbar-nav> -->
         <b-navbar-nav class="d-none d-md-block">
             <b-button
                 pill

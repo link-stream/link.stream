@@ -284,8 +284,8 @@
 .page-pack-details {
     padding-top: 30px;
     .page-body {
-        padding-left: 15px;
-        padding-right: 15px;
+        *padding-left: 15px;
+        *padding-right: 15px;
         .main-info {
             display: flex;
             flex-direction: row;
@@ -335,17 +335,21 @@
                     font-weight: bold;
                 }
             }
-            .actions{
-                text-transform: capitalize;
-                margin-top: 20px;
-                .btn-buy {
-                    img {
-                        margin-top: -7px;
-                    }
+            
+        }
+        .actions{
+            text-transform: capitalize;
+            margin-top: 20px;
+            .btn-buy {
+                img {
+                    margin-top: -7px;
                 }
-                .btn-share {
-                    margin-left: 10px;
-                }
+            }
+            .btn-share {
+                margin-left: 10px;
+            }
+            @include media-breakpoint-down(sm) {
+                text-align: center;
             }
         }
         @include media-breakpoint-up(sm) {

@@ -52,7 +52,12 @@
                         icon="volume"
                         @click="showVolume = !showVolume"
                     />
-                    <b-dropdown class="actions-menu" variant="icon" dropleft no-caret>
+                    <b-dropdown
+                        class="actions-menu"
+                        variant="icon"
+                        dropleft
+                        no-caret
+                    >
                         <template v-slot:button-content>
                             <Icon icon="dot-menu-v-w" />
                         </template>
@@ -90,7 +95,7 @@ export default {
     },
     computed: {
         percentComplete() {
-            return parseInt(this.currentSeconds / this.durationSeconds * 100)
+            return parseInt((this.currentSeconds / this.durationSeconds) * 100)
         },
         muted() {
             return this.volume / 100 === 0

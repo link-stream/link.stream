@@ -20,16 +20,34 @@
                             </div>
                         </div>
                     </div>
+                    <div class="actions d-sm-none">
+                        <basic-button class="btn-buy" @click="handleBuyClick()">
+                            {{ kit.price | currencyFormat }} - Buy Kit
+                        </basic-button>
+                    </div>
                     <div class="desc" v-if="kit.description && !readMore">
-                        {{ kit.description | truncate(270) }}
-                        <a
-                            v-if="kit.description.length > 270"
-                            href="#"
-                            class="read-more"
-                            @click.prevent="readMore = true"
-                        >
-                            Read More
-                        </a>
+                        <div class="d-none d-sm-block">
+                            {{ kit.description | truncate(270) }}
+                            <a
+                                v-if="kit.description.length > 270"
+                                href="#"
+                                class="read-more"
+                                @click.prevent="readMore = true"
+                            >
+                                Read More
+                            </a>
+                        </div>
+                        <div class="d-sm-none">
+                            {{ kit.description | truncate(100) }}
+                            <a
+                                v-if="kit.description.length > 100"
+                                href="#"
+                                class="read-more"
+                                @click.prevent="readMore = true"
+                            >
+                                Read More
+                            </a>
+                        </div>
                     </div>
                     <div class="desc" v-if="kit.description && readMore">
                         {{ kit.description }}
@@ -41,7 +59,7 @@
                             Less
                         </a>
                     </div>
-                    <div class="actions">
+                    <div class="actions d-none d-sm-block">
                         <basic-button class="btn-buy" @click="handleBuyClick()">
                             {{ kit.price | currencyFormat }} - Buy Kit
                         </basic-button>
@@ -75,6 +93,16 @@
                 </div>
                 <basic-button variant="outline-light" size="sm" class="btn-show-more">
                     Load More Samples
+                </basic-button>
+            </div>
+            <div class="actions d-sm-none">
+                <basic-button variant="outline-black" class="btn-share" @click="handleShareClick()">
+                    <font-awesome-icon
+                        :icon="['fas', 'share-alt-square']"
+                        size="lg"
+                        class="mr-2"
+                    />
+                    Share
                 </basic-button>
             </div>
             <div class="more-artist">

@@ -37,8 +37,7 @@
                 {{ artItem.title }}
             </div>
             <div v-if="artItem.type === 'beat'" class="price">
-                {{ minPrice | currencyFormat }} -
-                {{ maxPrice | currencyFormat }}
+                {{ minPrice | currencyFormat }}
             </div>
             <div v-else class="price">
                 {{ artItem.price | currencyFormat }}

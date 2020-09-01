@@ -47,7 +47,6 @@
             </div>
         </router-link>
         <b-dropdown
-            v-if="selected"
             class="actions-menu d-none d-md-block"
             variant="icon"
             right

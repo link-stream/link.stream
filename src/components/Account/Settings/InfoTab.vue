@@ -288,8 +288,10 @@ export default {
                 required,
                 minLength: minLength(5),
                 uniqueUsername(value) {
-                    return value === this.userInfo.user_name ||
+                    return (
+                        value === this.userInfo.user_name ||
                         this.availabilityValidator('username', value)
+                    )
                 },
             },
             display_name: {
@@ -299,8 +301,10 @@ export default {
                 required,
                 email,
                 uniqueEmail(value) {
-                    return value === this.userInfo.email ||
+                    return (
+                        value === this.userInfo.email ||
                         this.availabilityValidator('email', value)
+                    )
                 },
             },
             password: {
@@ -360,7 +364,7 @@ export default {
                         `<strong>Access token:</strong> ${credential.accessToken}`,
                         { title: 'Connected!' }
                     )
-                    this.form.twitter = credential.accessToken + "@" + credential.secret
+                    this.form.twitter = `${credential.accessToken}@${credential.secret}`
                 })
                 .catch(() => {
                     this.$alert.oops()
@@ -438,7 +442,9 @@ export default {
             this.social.facebook = false
             if (this.userInfo.facebook) {
                 this.social.facebook = 'Connecting...'
-                let facebook_credential = await firebase.auth.FacebookAuthProvider.credential(this.userInfo.facebook)
+                let facebook_credential = await firebase.auth.FacebookAuthProvider.credential(
+                    this.userInfo.facebook
+                )
                 await firebase.auth().signInWithCredential(facebook_credential)
                     .then(({ user }) => {
                         this.social.facebook = user.displayName

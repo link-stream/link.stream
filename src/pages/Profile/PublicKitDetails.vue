@@ -4,13 +4,21 @@
         <div v-else class="page-body">
             <div class="main-info">
                 <div class="left-col">
+                    <div class="img-back d-sm-none"></div>
                     <div class="img-container">
                         <img :src="kit.coverart" />
+                        <img
+                            src="@/assets/img/ico/play-light.svg"
+                            class="center-img d-sm-none"
+                        />
                     </div>
                 </div>
                 <div class="right-col">
                     <div class="title-container">
-                        <MiniAudioPlayer :src="kit.src" />
+                        <MiniAudioPlayer
+                            :src="kit.src"
+                            class="d-none d-sm-block"
+                        />
                         <div class="title-desc">
                             <div class="title">
                                 {{ kit.title }}
@@ -63,7 +71,11 @@
                         <basic-button class="btn-buy" @click="handleBuyClick()">
                             {{ kit.price | currencyFormat }} - Buy Kit
                         </basic-button>
-                        <basic-button variant="outline-black" class="btn-share" @click="handleShareClick()">
+                        <basic-button
+                            variant="outline-black"
+                            class="btn-share"
+                            @click="handleShareClick()"
+                        >
                             <font-awesome-icon
                                 :icon="['fas', 'share-alt-square']"
                                 size="lg"
@@ -91,18 +103,26 @@
                     </div>
                     <b-icon-three-dots-vertical class="btn-menu" />
                 </div>
-                <basic-button variant="outline-light" size="sm" class="btn-show-more">
+                <basic-button
+                    variant="outline-light"
+                    size="sm"
+                    class="btn-show-more"
+                >
                     Load More Samples
                 </basic-button>
             </div>
             <div class="actions d-sm-none">
-                <basic-button variant="outline-black" class="btn-share" @click="handleShareClick()">
+                <basic-button
+                    variant="outline-black"
+                    class="btn-share"
+                    @click="handleShareClick()"
+                >
                     <font-awesome-icon
                         :icon="['fas', 'share-alt-square']"
                         size="lg"
                         class="mr-2"
                     />
-                    Share
+                    Share Kit
                 </basic-button>
             </div>
             <div class="more-artist">
@@ -111,7 +131,7 @@
                 </div>
                 <b-form-row>
                     <b-col
-                        cols="12"
+                        cols="6"
                         sm="6"
                         md="6"
                         lg="3"
@@ -138,10 +158,7 @@
 <script>
 import { api } from '~/services'
 import { appConstants } from '~/constants'
-import {
-    MiniAudioPlayer,
-    ListAudioPlayer,
-} from '~/components/Player'
+import { MiniAudioPlayer, ListAudioPlayer } from '~/components/Player'
 export default {
     name: 'PublicKitDetails',
     props: ['url', 'kitId'],
@@ -191,7 +208,9 @@ export default {
                 })
             }
         }
-        const moreArtists = await api.profiles.getProfileMoreKits(this.profile.id)
+        const moreArtists = await api.profiles.getProfileMoreKits(
+            this.profile.id
+        )
         if (moreArtists.status == 'success') {
             this.moreArtists = moreArtists.data.map(artist => {
                 return {

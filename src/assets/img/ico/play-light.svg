@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="67px" height="67px" viewBox="0 0 67 67" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 63.1 (101010) - https://sketch.com -->
+    <title>4F06752C-295D-40D3-88BB-D26734BEDB0B</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <filter x="-42.6%" y="-42.6%" width="185.1%" height="185.1%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.51 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Beat-Pack---Public" transform="translate(-127.000000, -166.000000)">
+            <g id="Header" transform="translate(0.000000, 69.000000)">
+                <g id="Artwork---Play-Button" transform="translate(50.000000, 20.000000)">
+                    <g id="icon-play-light" filter="url(#filter-1)" transform="translate(87.000000, 87.000000)">
+                        <g id="icon-play">
+                            <circle id="Oval" fill="#FFFFFF" cx="23.5" cy="23.5" r="23.5"></circle>
+                            <polygon id="Shape" fill="#000000" points="19.5833333 13.7083333 33.2916667 23.5 19.5833333 33.2916667"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

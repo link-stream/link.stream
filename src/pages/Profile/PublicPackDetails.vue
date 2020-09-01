@@ -4,13 +4,18 @@
         <div v-else class="page-body">
             <div class="main-info">
                 <div class="left-col">
+                    <div class="img-back d-sm-none"></div>
                     <div class="img-container">
                         <img :src="pack.coverart" />
+                        <img
+                            src="@/assets/img/ico/play-light.svg"
+                            class="center-img d-sm-none"
+                        />
                     </div>
                 </div>
                 <div class="right-col">
                     <div class="title-container">
-                        <MiniAudioPlayer src="" />
+                        <MiniAudioPlayer src="" class="d-none d-sm-block" />
                         <div class="title-desc">
                             <div class="title">
                                 {{ pack.title }}
@@ -21,15 +26,28 @@
                         </div>
                     </div>
                     <div class="desc" v-if="pack.description && !readMore">
-                        {{ pack.description | truncate(270) }}
-                        <a
-                            v-if="pack.description.length > 270"
-                            href="#"
-                            class="read-more"
-                            @click.prevent="readMore = true"
-                        >
-                            Read More
-                        </a>
+                        <div class="d-none d-sm-block">
+                            {{ pack.description | truncate(270) }}
+                            <a
+                                v-if="pack.description.length > 270"
+                                href="#"
+                                class="read-more"
+                                @click.prevent="readMore = true"
+                            >
+                                Read More
+                            </a>
+                        </div>
+                        <div class="d-sm-none">
+                            {{ pack.description | truncate(100) }}
+                            <a
+                                v-if="pack.description.length > 100"
+                                href="#"
+                                class="read-more"
+                                @click.prevent="readMore = true"
+                            >
+                                Read More
+                            </a>
+                        </div>
                     </div>
                     <div class="desc" v-if="pack.description && readMore">
                         {{ pack.description }}
@@ -76,7 +94,7 @@
                 </div>
                 <b-form-row>
                     <b-col
-                        cols="12"
+                        cols="6"
                         sm="6"
                         md="6"
                         lg="3"

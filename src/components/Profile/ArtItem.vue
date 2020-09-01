@@ -55,8 +55,21 @@
             <template v-slot:button-content>
                 <Icon icon="dot-menu-v-s" />
             </template>
-            <b-dropdown-item>
-                Go to Beat
+            <b-dropdown-item 
+                :to="
+                    artItem.type === 'beat'
+                        ? {
+                            name: 'profileBeatDetails',
+                            params: { beatId: artItem.id },
+                        }
+                        : {
+                            name: 'profilePackDetails',
+                            params: { packId: artItem.id },
+                        }
+                "
+                target="_blank"
+            >
+                {{  artItem.type === 'beat' ? 'Go to Beat' : 'Go to Beat Pack' }}
             </b-dropdown-item>
             <b-dropdown-item>
                 Save

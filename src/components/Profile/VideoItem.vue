@@ -17,7 +17,7 @@
             <b-dropdown-item>
                 Go to Video Page
             </b-dropdown-item>
-            <b-dropdown-item>
+            <b-dropdown-item :href="videoItem.url" target="_blank">
                 View on YouTube
             </b-dropdown-item>
             <b-dropdown-item>

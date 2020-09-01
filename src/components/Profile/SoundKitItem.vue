@@ -41,7 +41,6 @@
             </div>
         </router-link>
         <b-dropdown
-            v-if="selected"
             class="actions-menu d-none d-md-block"
             variant="icon"
             right
@@ -50,7 +49,13 @@
             <template v-slot:button-content>
                 <Icon icon="dot-menu-v-s" />
             </template>
-            <b-dropdown-item>
+            <b-dropdown-item
+                :to="{
+                    name: 'profileKitDetails',
+                    params: { kitId: artItem.id },
+                }"
+                target="_blank"
+            >
                 Go to Sound Kit
             </b-dropdown-item>
             <b-dropdown-item>

@@ -29,7 +29,7 @@
                     size="md"
                     class="btn-view-more"
                 >
-                    view More
+                    View More
                 </basic-button>
             </div>
         </div>
@@ -101,6 +101,7 @@ export default {
         await this.$store.dispatch('profile/getProfileGenres', 'beats')
         await this.$store.dispatch('profile/getProfileLicenses')
         this.loading = false
+        console.log(this.profile)
     },
     methods: {
         async updateCurrentItem() {

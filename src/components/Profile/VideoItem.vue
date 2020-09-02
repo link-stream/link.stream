@@ -23,13 +23,20 @@
             <b-dropdown-item>
                 Save
             </b-dropdown-item>
-            <b-dropdown-item>
+            <b-dropdown-item @click="handleShareClick">
                 Share
             </b-dropdown-item>
         </b-dropdown>
+        <ShareArtModal
+            v-if="isShowShare"
+            :curItem="curItem"
+            @close="isShowShare = false"
+        />
     </div>
 </template>
 <script>
+import ShareArtModal from '@/components/Modal/ShareArtModal'
+import { getYtVideoThumbUrl } from '~/utils'
 export default {
     name: 'VideoItemm',
     props: {
@@ -37,11 +44,34 @@ export default {
             type: Object,
         },
     },
+    components: {
+        ShareArtModal,
+    },
+    data: () =>({
+        isShowShare: false,
+    }),
     computed: {
         ytVidId() {
             return this.$youtube.getIdFromUrl(this.videoItem.url)
         },
+        thumbUrl() {
+            return getYtVideoThumbUrl(
+                this.$youtube.getIdFromUrl(this.videoItem.url)
+            )
+        },
+        curItem() {
+            console.log(this.thumbUrl)
+            return {
+                ...this.videoItem,
+                coverart: this.thumbUrl,
+                type: 'video',
+            }
+        },
     },
-    methods: {},
+    methods: {
+        handleShareClick() {
+            this.isShowShare = true
+        },
+    },
 }
 </script>

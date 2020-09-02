@@ -5,7 +5,6 @@
         <b-container class="page-body">
             <component v-bind:is="currentTabComponent" :url="url"></component>
         </b-container>
-        <ShareArtModal />
     </b-container>
 </template>
 
@@ -19,7 +18,6 @@ import {
 } from './Tabs'
 import MainInfo from '@/components/Profile/MainInfo'
 import TabNav from '@/components/Profile/TabNav'
-import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'PublicProfile',
     components: {
@@ -30,7 +28,6 @@ export default {
         ProfileVideos,
         ProfileLinks,
         ProfileAbout,
-        ShareArtModal,
     },
     props: {
         url: {

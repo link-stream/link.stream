@@ -174,5 +174,8 @@ Vue.component('LoadingMask', LoadingMask)
 
 import VueCardFormat from 'vue-credit-card-validation'
 import VueSlider from 'vue-slider-component'
+import VueSocialSharing from 'vue-social-sharing'
+
 Vue.use(VueCardFormat)
 Vue.component('VueSlider', VueSlider)
+Vue.use(VueSocialSharing);

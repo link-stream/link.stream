@@ -55,21 +55,21 @@
             <template v-slot:button-content>
                 <Icon icon="dot-menu-v-s" />
             </template>
-            <b-dropdown-item 
+            <b-dropdown-item
                 :to="
                     artItem.type === 'beat'
                         ? {
-                            name: 'profileBeatDetails',
-                            params: { beatId: artItem.id },
-                        }
+                              name: 'profileBeatDetails',
+                              params: { beatId: artItem.id },
+                          }
                         : {
-                            name: 'profilePackDetails',
-                            params: { packId: artItem.id },
-                        }
+                              name: 'profilePackDetails',
+                              params: { packId: artItem.id },
+                          }
                 "
                 target="_blank"
             >
-                {{  artItem.type === 'beat' ? 'Go to Beat' : 'Go to Beat Pack' }}
+                {{ artItem.type === 'beat' ? 'Go to Beat' : 'Go to Beat Pack' }}
             </b-dropdown-item>
             <b-dropdown-item>
                 Save
@@ -92,11 +92,17 @@
             :curItem="artItem"
             @close="isShowBuyLicenses = false"
         />
+        <ShareArtModal
+            v-if="isShowShare"
+            :curItem="artItem"
+            @close="isShowShare = false"
+        />
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
 import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
+import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'ArtItemm',
     props: {
@@ -118,9 +124,11 @@ export default {
     },
     components: {
         BuyLicenseModal,
+        ShareArtModal,
     },
     data: () => ({
         isShowBuyLicenses: false,
+        isShowShare: false,
     }),
     computed: {
         ...mapGetters({
@@ -149,7 +157,7 @@ export default {
             }
         },
         handleShareClick() {
-            this.$bus.$emit('modal.shareArt.open')
+            this.isShowShare = true
         },
         selectImage() {
             if (this.artItem.type === 'beat') {

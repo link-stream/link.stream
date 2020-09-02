@@ -124,4 +124,5 @@ export const constants = {
             value: 'price_high',
         },
     ],
+    baseAppUrl: 'https://link.stream/',
 }

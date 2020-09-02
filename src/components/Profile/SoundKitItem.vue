@@ -74,9 +74,15 @@
             </basic-button>
             <IconButton class="btn-download" icon="download" />
         </div>
+        <ShareArtModal
+            v-if="isShowShare"
+            :curItem="curItem"
+            @close="isShowShare = false"
+        />
     </div>
 </template>
 <script>
+import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'SoundKitItemm',
     props: {
@@ -96,13 +102,27 @@ export default {
             type: Boolean,
         },
     },
+    components: {
+        ShareArtModal,
+    },
+    data: () => ({
+        isShowShare: false,
+    }),
+    computed: {
+        curItem() {
+            return {
+                ...this.artItem,
+                type: 'kit',
+            }
+        },
+    },
     methods: {
         handleBuyClick() {
             this.$store.dispatch('profile/addCartItem', { ...this.artItem })
             this.$bus.$emit('modal.addedCart.open')
         },
         handleShareClick() {
-            this.$bus.$emit('modal.shareArt.open')
+            this.isShowShare = true
         },
     },
 }

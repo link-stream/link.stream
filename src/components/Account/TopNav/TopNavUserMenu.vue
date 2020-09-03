@@ -24,6 +24,9 @@
                         :rounded="true"
                     />
                 </span>
+                <span class="user-name d-none d-sm-block">{{ user.display_name }}</span>
+                <font-awesome-icon class="d-none d-sm-block" :icon="['fas', 'chevron-down']"/>
+                <font-awesome-icon class="d-none d-sm-block" :icon="['fas', 'chevron-up']"/>
             </template>
             <b-dropdown-item :to="{ name: 'accountProfileEdit' }">
                 Account

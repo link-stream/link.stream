@@ -4,7 +4,7 @@
             <Logo1 />
             <span>LinkStream</span>
         </b-navbar-brand>
-        <ul class="list-unstyled">
+        <ul class="list-unstyled main-menu">
             <li
                 v-for="(item, index) in menuItems"
                 :key="`parent_${index}`"
@@ -36,6 +36,9 @@
                 </div>
             </li>
         </ul>
+        <div class="user-nav">
+            <TopNavUserMenu />
+        </div>
     </div>
 </template>
 
@@ -43,10 +46,12 @@
 import { mapGetters, mapMutations } from 'vuex'
 import { appConstants, appMenus } from '~/constants'
 import { Logo1 } from '~/components/Svg'
+import TopNavUserMenu from '@/components/Account/TopNav/TopNavUserMenu'
 export default {
     name: 'SideBar',
     components: {
         Logo1,
+        TopNavUserMenu,
     },
     data() {
         return {

@@ -1,0 +1,143 @@
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+    width: $main-menu-width;
+    height: 100%;
+    background: $main-menu-bg;
+    transition: transform $menu-collapse-time;
+    z-index: 3;
+    .navbar-brand {
+        margin: 20px;
+        padding: 0;
+        span {
+            font-size: px2rem(13);
+            line-height: px2rem(16);
+            letter-spacing: 2px;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+    }
+    &.main-hidden {
+        transform: translateX(-$main-menu-width);
+    }
+
+    .scroll {
+        height: 100%;
+        padding-right: unset;
+        margin-right: unset;
+    }
+
+    ul li {
+        position: relative;
+        
+        a {
+            display: flex;
+            padding-left: 10px;
+            line-height: $main-menu-item-height;
+            height: $main-menu-item-height;
+            font-weight: $font-weight-bold;
+            color: $main-menu-color;
+            text-decoration: none;
+            font-size: px2rem(14);
+            svg {
+                margin-top: 12px;
+                width: 40px;
+            }
+
+            &:hover{
+                color: $main-menu-active-color;
+                background: #212121;
+            }
+        }
+
+        &.active {
+            &>a {
+                color: $main-menu-active-color;
+                &:not(.has-submenu) {
+                    &:after {
+                        content: ' ';
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        bottom: 0;
+                        width: 3px;
+                        background: $main-menu-selector-color;
+                    }
+                }
+            }
+            .sub-menu {
+                // display: block;
+                max-height: 500px;
+            }
+        }
+    }
+
+    .sub-menu {
+        // display: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s;
+        ul {
+            li {
+                a {
+                    padding-left: 50px;
+                    color: $sub-menu-color;
+                    text-decoration: none;
+                    font-weight: normal;
+
+                    &:hover,
+                    &:focus {
+                        font-weight: bold;
+                        color: white;
+                        background-color: #212121;
+                    }
+                }
+
+                &.active a {
+                    font-weight: bold;
+                    color: white;
+                    background-color: #212121;
+                }
+            }
+        }
+    }
+
+    //Menu Config Main Menu Sub Menu
+
+    &.main-hidden .main-menu,
+    &.menu-hidden .main-menu {
+        transform: translateX(-$main-menu-width);
+    }
+
+    //Mobile
+    &.menu-mobile {
+        .main-menu {
+            transform: translateX(-$main-menu-width);
+        }
+        .sub-menu {
+            transform: translateX(-$sub-menu-width - $main-menu-width - 50);
+        }
+    }
+
+    //Show Temporary
+    &.main-show-temporary {
+        .main-menu {
+            transform: translateX(0);
+        }
+        .sub-menu {
+            transform: translateX(-$sub-menu-width);
+        }
+    }
+
+    &.sub-show-temporary,
+    &.menu-mobile.sub-show-temporary {
+        .sub-menu {
+            transform: translateX(0);
+        }
+    }
+}

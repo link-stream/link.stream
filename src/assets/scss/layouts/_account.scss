@@ -1,6 +1,7 @@
 .layout-account {
     @import 'components/account/topnav';
-    @import 'components/account/sidenav';
+    // @import 'components/account/sidenav';
+    @import 'components/account/sidebar';
 
     .smooth-dnd-draggable-wrapper {
         overflow: visible !important;

@@ -1,4 +1,4 @@
-.sidenav {
+.sidenav, .sidebar {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -9,7 +9,7 @@
 
     .main-menu {
         position: fixed;
-        overflow-y: scroll;
+        overflow-y: auto;
         @include scrollbarHidden;
         left: 0;
         width: $main-menu-width;
@@ -33,16 +33,16 @@
 
             a {
                 display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
+                // flex-direction: column;
+                // justify-content: center;
+                // align-items: center;
                 height: $main-menu-item-height;
                 font-weight: $font-weight-semi-bold;
                 color: $main-menu-color;
                 text-decoration: none;
-                box-shadow: 0 1px 0 0 $main-menu-border-color;
-                transition: color $menu-collapse-time;
-                transition: background $menu-collapse-time;
+                // box-shadow: 0 1px 0 0 $main-menu-border-color;
+                // transition: color $menu-collapse-time;
+                // transition: background $menu-collapse-time;
 
                 svg {
                     color: $main-menu-active-color;
@@ -52,7 +52,7 @@
                 &:hover,
                 &:focus {
                     color: $main-menu-active-color;
-                    background: rgba($color: $main-menu-bg, $alpha: 0.2);
+                    // background: rgba($color: $main-menu-bg, $alpha: 0.2);
                 }
             }
 

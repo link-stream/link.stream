@@ -111,6 +111,12 @@ const routes = [
         meta: { requiresAuth: true, layout: 'account' },
     },
     {
+        path: '/app/profile/view',
+        name: 'accountProfileView',
+        component: NotFound,
+        meta: { layout: 'error' },
+    },
+    {
         path: '/app/videos/manage',
         name: 'accountVideos',
         component: AccountVideos,
@@ -230,6 +236,24 @@ const routes = [
         name: 'accountSettingsNotifs',
         component: AccountSettings,
         meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/analytics/trafic',
+        name: 'analyticsTrafic',
+        component: NotFound,
+        meta: { layout: 'error' },
+    },
+    {
+        path: '/app/analytics/revenue',
+        name: 'analyticsRevenue',
+        component: NotFound,
+        meta: { layout: 'error' },
+    },
+    {
+        path: '/app/upgrade',
+        name: 'upgrade',
+        component: NotFound,
+        meta: { layout: 'error' },
     },
 
     //Public Profile

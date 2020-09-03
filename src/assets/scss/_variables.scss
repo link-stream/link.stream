@@ -180,19 +180,19 @@ $main-margin-mobile-x: 20px;
 $main-margin-mobile-y: 30px;
 
 // Menu
-$navbar-height: 80px;
+$navbar-height: 0px;
 
-$main-menu-width: 128px;
-$main-menu-item-height: 85px;
-$main-menu-bg: $gray-810;
-$main-menu-color: $gray-520;
-$main-menu-active-color: white;
+$main-menu-width: 225px;
+$main-menu-item-height: 45px;
+$main-menu-bg: black;
+$main-menu-color: $white;
+$main-menu-active-color: #fdd311;
 $main-menu-border-color: #555555;
 $main-menu-selector-color: #fdd311;
 
 $sub-menu-width: 160px;
 $sub-menu-bg: rgba(0, 0, 0, 0.9);
-$sub-menu-color: #cccccc;
+$sub-menu-color: white;
 $sub-menu-active-color: white;
 
 $menu-collapse-time: 300ms;

@@ -19,7 +19,6 @@ export default {
     },
     created() {
         this.$store.dispatch('profile/getProfileMain', { url: this.url })
-        console.log(this.profile)
     },
 }
 </script>

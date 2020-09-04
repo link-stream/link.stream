@@ -244,7 +244,6 @@ const actions = {
     async updateUser({ commit }, { id, params }) {
         const response = await api.users.updateUser(id, params)
         const { status, data } = response
-        console.log('api-response', response)
         if (status === 'success') {
             commit(meTypes.SET_USER, { user: data })
         }

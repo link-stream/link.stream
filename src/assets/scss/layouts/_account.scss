@@ -8,7 +8,9 @@
     }
 
     .layout-content {
-        margin-top: $navbar-height;
+        @include media-breakpoint-down(sm) {
+            margin-top: $navbar-height;
+        }
         margin-bottom: $main-margin;
     }
 

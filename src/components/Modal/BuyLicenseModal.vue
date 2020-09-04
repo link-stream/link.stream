@@ -120,7 +120,6 @@ export default {
             this.$bus.$emit('modal.addedCart.open')
         },
         initLicense() {
-            console.log('licences', this.licenses)
             this.realLicenses = this.curItem.licenses.map(item => {
                 const findLicense = this.licenses.find(
                     ({ id }) => id === item.license_id

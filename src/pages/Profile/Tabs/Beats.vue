@@ -101,7 +101,6 @@ export default {
         await this.$store.dispatch('profile/getProfileGenres', 'beats')
         await this.$store.dispatch('profile/getProfileLicenses')
         this.loading = false
-        console.log(this.profile)
     },
     methods: {
         async updateCurrentItem() {

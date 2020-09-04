@@ -179,7 +179,6 @@ export default {
         } else {
             this.moreArtists = []
         }
-        console.log(moreArtists)
 
         if (beatResponse.status !== 'success' || !beatResponse.data.length) {
             this.$router.push({ name: 'profileBeats' })

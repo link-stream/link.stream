@@ -106,7 +106,6 @@ export default {
                 return {}
             }
             const soundKit = response.data[0]
-            console.log(soundKit)
             this.curItem = {
                 id: soundKit.id,
                 coverart: soundKit.data_image || appConstants.defaultCoverArt,

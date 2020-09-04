@@ -178,4 +178,4 @@ import VueSocialSharing from 'vue-social-sharing'
 
 Vue.use(VueCardFormat)
 Vue.component('VueSlider', VueSlider)
-Vue.use(VueSocialSharing);
+Vue.use(VueSocialSharing)

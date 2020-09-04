@@ -47,7 +47,7 @@ export default {
     components: {
         ShareArtModal,
     },
-    data: () =>({
+    data: () => ({
         isShowShare: false,
     }),
     computed: {
@@ -60,7 +60,6 @@ export default {
             )
         },
         curItem() {
-            console.log(this.thumbUrl)
             return {
                 ...this.videoItem,
                 coverart: this.thumbUrl,

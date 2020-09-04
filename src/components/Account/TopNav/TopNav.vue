@@ -24,8 +24,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
-import { appConstants } from '~/constants'
+import { mapGetters } from 'vuex'
 import { Logo1, ToggleMenu } from '~/components/Svg'
 import TopNavUserMenu from './TopNavUserMenu'
 import TopNavNotifications from './TopNavNotifications'
@@ -40,40 +39,15 @@ export default {
     },
     computed: {
         ...mapGetters({
-            menuType: 'getMenuType',
-            menuClickCount: 'getMenuClickCount',
+            menuStatus: 'getMenuState',
         }),
         isHidden() {
-            if (
-                window.innerWidth <
-                appConstants.user.account.menuHiddenBreakpoint
-            ) {
-                return !(
-                    this.menuType.includes('menu-mobile') &&
-                    this.menuType.includes('main-show-temporary')
-                )
-            } else {
-                return (
-                    this.menuType.includes('main-hidden') &&
-                    this.menuType.includes('sub-hidden')
-                )
-            }
+            return !this.menuStatus
         },
     },
     methods: {
-        ...mapMutations(['changeSideMenuStatus', 'changeSideMenuForMobile']),
         toggle() {
-            if (
-                window.innerWidth <
-                appConstants.user.account.menuHiddenBreakpoint
-            ) {
-                this.changeSideMenuForMobile(this.menuType)
-            } else {
-                this.changeSideMenuStatus({
-                    step: this.menuClickCount + 1,
-                    classNames: this.menuType,
-                })
-            }
+            this.$store.commit('setMenuStatus', !this.menuStatus)
         },
     },
 }

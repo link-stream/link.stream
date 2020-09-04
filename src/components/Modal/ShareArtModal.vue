@@ -33,7 +33,7 @@
             </div>
             <div class="social-share-links">
                 <a href="#">
-                   <i class="fab fa-instagram-square"></i> 
+                    <i class="fab fa-instagram-square"></i>
                 </a>
                 <ShareNetwork
                     network="facebook"
@@ -45,7 +45,6 @@
                 >
                     <i class="fab fa-facebook-square"></i>
                 </ShareNetwork>
-                
                 <ShareNetwork
                     network="twitter"
                     :url="shareData.shareUrl"
@@ -115,10 +114,9 @@ export default {
                     subTypeURL = 'kits'
                     break
                 case 'video':
-                    typeString = "Video"
+                    typeString = 'Video'
                     subTypeURL = 'videos'
             }
-            console.log(this.curItem)
             return {
                 ...this.curItem,
                 type: typeString,

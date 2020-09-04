@@ -3,10 +3,11 @@ import Vuex from 'vuex'
 import auth from './modules/auth'
 import common from './modules/common'
 import me from './modules/me'
-import menu from './modules/menu'
+// import menu from './modules/menu'
 import loading from './modules/loading'
 import trackAddWizard from './modules/trackAddWizard'
 import profile from './modules/profile'
+import customMenu from './modules/customMenu'
 import { appConstants } from '~/constants'
 import createPersistedState from 'vuex-persistedstate'
 
@@ -18,10 +19,11 @@ export default new Vuex.Store({
         auth,
         common,
         me,
-        menu,
+        // menu,
         trackAddWizard,
         loading,
         profile,
+        customMenu,
     },
     plugins: [
         createPersistedState({

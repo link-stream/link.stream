@@ -109,40 +109,45 @@
 
     //Menu Config Main Menu Sub Menu
 
-    &.main-hidden .main-menu,
-    &.menu-hidden .main-menu {
+    // &.main-hidden .main-menu,
+    // &.menu-hidden .main-menu {
+    //     transform: translateX(-$main-menu-width);
+    // }
+
+    // //Mobile
+    // &.menu-mobile {
+    //     .main-menu {
+    //         transform: translateX(-$main-menu-width);
+    //     }
+    // }
+
+    // //Show Temporary
+    // &.main-show-temporary {
+    //     .main-menu {
+    //         transform: translateX(0);
+    //     }
+    // }
+
+    // &.sub-show-temporary,
+    // &.menu-mobile.sub-show-temporary {
+    //     .sub-menu {
+    //         transform: translateX(0);
+    //     }
+    // }
+    &.show-menu {
+        transform: translateX(0);
+    }
+    &.hide-menu {
         transform: translateX(-$main-menu-width);
     }
-
-    //Mobile
-    &.menu-mobile {
-        .main-menu {
-            transform: translateX(-$main-menu-width);
-        }
-        .sub-menu {
-            transform: translateX(-$sub-menu-width - $main-menu-width - 50);
-        }
-    }
-
-    //Show Temporary
-    &.main-show-temporary {
-        .main-menu {
-            transform: translateX(0);
-        }
-        .sub-menu {
-            transform: translateX(-$sub-menu-width);
-        }
-    }
-
-    &.sub-show-temporary,
-    &.menu-mobile.sub-show-temporary {
-        .sub-menu {
-            transform: translateX(0);
-        }
-    }
     .user-nav {
-        position: fixed;
-        bottom: 20px;
+        @include media-breakpoint-up(sm) {
+            position: fixed;
+            bottom: 20px;
+        }
+        @include media-breakpoint-down(sm) {
+            margin-top: 70px;
+        }
         .user-menu {
             margin-left: 20px;
             .dropdown {
@@ -161,28 +166,24 @@
                     }
                     svg {
                         margin-top: 14px;
-                        @include media-breakpoint-up(sm) {
-                            &.fa-chevron-up {
-                                display: none !important;
-                            }
-                            &.fa-chevron-down {
-                                display: block !important;
-                            }
+                        &.fa-chevron-up {
+                            display: none !important;
+                        }
+                        &.fa-chevron-down {
+                            display: block !important;
                         }
                     }
                     display: inherit;
                     color: white;
                     font-size: px2rem(14);
                 }
-                @include media-breakpoint-up(sm) {
-                    &.show {
-                        svg {
-                            &.fa-chevron-up {
-                                display: block !important;
-                            }
-                            &.fa-chevron-down {
-                                display: none !important;
-                            }
+                &.show {
+                    svg {
+                        &.fa-chevron-up {
+                            display: block !important;
+                        }
+                        &.fa-chevron-down {
+                            display: none !important;
                         }
                     }
                 }

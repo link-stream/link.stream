@@ -9,6 +9,7 @@
     background: $main-menu-bg;
     transition: transform $menu-collapse-time;
     z-index: 3;
+    min-height: 750px;
     .navbar-brand {
         margin: 20px;
         padding: 0;
@@ -107,33 +108,6 @@
         }
     }
 
-    //Menu Config Main Menu Sub Menu
-
-    // &.main-hidden .main-menu,
-    // &.menu-hidden .main-menu {
-    //     transform: translateX(-$main-menu-width);
-    // }
-
-    // //Mobile
-    // &.menu-mobile {
-    //     .main-menu {
-    //         transform: translateX(-$main-menu-width);
-    //     }
-    // }
-
-    // //Show Temporary
-    // &.main-show-temporary {
-    //     .main-menu {
-    //         transform: translateX(0);
-    //     }
-    // }
-
-    // &.sub-show-temporary,
-    // &.menu-mobile.sub-show-temporary {
-    //     .sub-menu {
-    //         transform: translateX(0);
-    //     }
-    // }
     &.show-menu {
         transform: translateX(0);
     }
@@ -141,11 +115,11 @@
         transform: translateX(-$main-menu-width);
     }
     .user-nav {
-        @include media-breakpoint-up(sm) {
+        @include media-breakpoint-up(lg) {
             position: fixed;
             bottom: 20px;
         }
-        @include media-breakpoint-down(sm) {
+        @include media-breakpoint-down(lg) {
             margin-top: 70px;
         }
         .user-menu {

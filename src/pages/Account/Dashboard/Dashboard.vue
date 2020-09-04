@@ -1,7 +1,6 @@
 <template>
     <div class="page">
         <h1>Dashboard Page</h1>
-
         <div class="my-4">
             <LoadingSpinner class="text-left m-0" animation="bounce" />
             <LoadingSpinner class="text-left m-0" animation="pulse" />

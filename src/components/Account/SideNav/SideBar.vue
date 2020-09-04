@@ -5,9 +5,10 @@
         :class="menuStatus ? 'show-menu' : 'hide-menu'"
     >
         <b-navbar-brand to="/">
-            <Logo1 />
+            <img src="@/assets/img/ico/logo.svg" />
             <span>LinkStream</span>
         </b-navbar-brand>
+        
         <ul class="list-unstyled main-menu">
             <li
                 v-for="(item, index) in menuItems"
@@ -51,12 +52,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import { appConstants, appMenus } from '~/constants'
-import { Logo1 } from '~/components/Svg'
 import UserMenu from './UserMenu'
 export default {
     name: 'SideBar',
     components: {
-        Logo1,
         UserMenu,
     },
     data() {

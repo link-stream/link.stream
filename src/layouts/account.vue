@@ -11,8 +11,8 @@
                 <router-view :key="$route.fullPath"></router-view>
             </transition>
         </main>
-        <TopNav class="d-sm-none" />
-        <SideBar :class="getMenuType" />
+        <TopNav class="d-lg-none" />
+        <SideBar />
         <vue-progress-bar></vue-progress-bar>
     </div>
 </template>
@@ -21,7 +21,6 @@
 import { mapGetters } from 'vuex'
 import TopNav from '~/components/Account/TopNav/TopNav'
 import SideBar from '~/components/Account/SideNav/SideBar'
-
 export default {
     name: 'Account',
     components: {

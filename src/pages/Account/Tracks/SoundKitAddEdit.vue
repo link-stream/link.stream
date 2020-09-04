@@ -564,7 +564,7 @@ export default {
                 params.tagged_file_name = mp3File.name || null
             }
 
-            const { status, message, error, data } = this.isEditMode
+            const { status, message, error } = this.isEditMode
                 ? await this.$store.dispatch('me/updateSoundKit', {
                       id: kit.id,
                       params,

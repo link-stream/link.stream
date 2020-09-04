@@ -94,6 +94,30 @@ export const menus = [
         ],
     },
     {
+        id: 'marketing',
+        icon: ['fas', 'bullhorn'],
+        label:  'Marketing',
+        to: '/app/marketing/messages',
+        subs: [
+            {
+                label: 'Messages',
+                to: '/app/marketing/messages',
+            },
+            {
+                label: 'Subscribers',
+                to: '/app/marketing/subscribers',
+            },
+            {
+                label: 'Landing Pages',
+                to: '/app/marketing/landing-pages',
+            },
+            {
+                label: 'Ad Promos',
+                to: '/app/marketing/ad-promos',
+            },
+        ],
+    },
+    {
         id: 'account',
         icon: ['fas', 'user'],
         label: 'Account',

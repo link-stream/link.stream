@@ -143,4 +143,9 @@
             }
         }
     }
+    @include media-breakpoint-only(lg) {
+        .page {
+            max-width: $layout-account-page-max-width-lg;
+        }
+    }
 }

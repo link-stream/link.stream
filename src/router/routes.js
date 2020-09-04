@@ -30,6 +30,13 @@ import {
     AccountSettings,
 } from '~/pages/Account'
 
+import {
+    MarketingMessages,
+    Subscribers,
+    LandingPages,
+    AdPromos,
+} from '~/pages/Marketing'
+
 import PublicProfile from '@/pages/Profile/PublicProfile'
 import PublicBeatDetails from '@/pages/Profile/PublicBeatDetails'
 import PublicPackDetails from '@/pages/Profile/PublicPackDetails'
@@ -254,6 +261,33 @@ const routes = [
         name: 'upgrade',
         component: NotFound,
         meta: { layout: 'error' },
+    },
+
+    //Marketing
+
+    {
+        path: '/app/marketing/messages',
+        name: 'marketingMessages',
+        component: MarketingMessages,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/subscribers',
+        name: 'subscribers',
+        component: Subscribers,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/landing-pages',
+        name: 'landingPages',
+        component: LandingPages,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/ad-promos',
+        name: 'adPromos',
+        component: AdPromos,
+        meta: { requiresAuth: true, layout: 'account' },
     },
 
     //Public Profile

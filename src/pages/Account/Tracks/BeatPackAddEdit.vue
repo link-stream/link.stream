@@ -481,7 +481,7 @@ export default {
                 params.image = form.coverArtBase64
             }
 
-            const { status, message, error, data } = this.isEditMode
+            const { status, message, error } = this.isEditMode
                 ? await this.$store.dispatch('me/updateBeatPack', {
                       id: pack.id,
                       params,
@@ -492,7 +492,7 @@ export default {
                 if (this.isEditMode) {
                     this.$router.replace(
                         {
-                            name: 'accountBeatPacks'
+                            name: 'accountBeatPacks',
                         },
                         () => {
                             this.$toast.success(message)
@@ -500,7 +500,7 @@ export default {
                     )
                 } else {
                     this.$router.push({
-                        name: 'accountBeatPacks'
+                        name: 'accountBeatPacks',
                     })
                 }
             } else {

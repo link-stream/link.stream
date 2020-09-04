@@ -42,6 +42,7 @@
 @import 'components/profile/art-player';
 @import 'components/profile/filter';
 @import 'components/profile/modal';
+@import 'components/marketing/selectplan';
 
 // Modals
 @import 'modals/base-modal';
@@ -83,3 +84,6 @@
 @import 'pages/profile/beats';
 @import 'pages/profile/videos';
 @import 'pages/profile/links';
+
+//Pages - Marketing
+@import 'pages/marketing/messages';

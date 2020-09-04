@@ -343,6 +343,7 @@
                     }
                     .sub-title {
                         font-size: px2rem(12);
+                        margin-top: 5px;
                     }
                     @include media-breakpoint-down(sm) {
                         text-align: center;

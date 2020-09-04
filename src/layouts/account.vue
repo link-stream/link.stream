@@ -11,6 +11,7 @@
                 <router-view :key="$route.fullPath"></router-view>
             </transition>
         </main>
+        <SelectPlanBar v-if="$route.name === 'marketingMessages'" />
         <TopNav class="d-lg-none" />
         <SideBar />
         <vue-progress-bar></vue-progress-bar>
@@ -21,11 +22,13 @@
 import { mapGetters } from 'vuex'
 import TopNav from '~/components/Account/TopNav/TopNav'
 import SideBar from '~/components/Account/SideNav/SideBar'
+import SelectPlanBar from '~/components/Account/SideNav/SelectPlanBar'
 export default {
     name: 'Account',
     components: {
         TopNav,
         SideBar,
+        SelectPlanBar,
     },
     computed: {
         ...mapGetters({

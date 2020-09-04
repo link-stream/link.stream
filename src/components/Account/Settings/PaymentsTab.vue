@@ -43,7 +43,7 @@
                     <div class="action">
                         <b-button 
                             pill
-                            class="bg-transparent text-white"
+                            class="btn-upgrade"
                             size="md"
                         >
                             Upgrade Now

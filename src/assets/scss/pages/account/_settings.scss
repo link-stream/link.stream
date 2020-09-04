@@ -156,6 +156,11 @@
                 margin-top: 4px;
                 float: right !important;
             }
+            .btn-upgrade {
+                background-color: transparent;
+                color: white;
+                border-width: 2px;
+            }
             @include media-breakpoint-down(sm) {
                 .action {
                     float: left !important;

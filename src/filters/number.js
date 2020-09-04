@@ -15,3 +15,7 @@ Vue.filter('currencyFormat', function(value) {
 Vue.filter('thousandNumber', function(value) {
     return value >= 1000 ? (value >= 1000000 ? Math.floor(value/100000)/10 + 'M' : Math.floor(value/100)/10 + 'K') : value
 })
+
+Vue.filter('thousandCNumber', function(value) {
+    return value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+})

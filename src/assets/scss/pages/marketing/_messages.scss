@@ -1,0 +1,92 @@
+.page-messages {
+    .page-title {
+        font-size: px2rem(30);
+        line-height: px2rem(34);
+    }
+    .page-subtitle {
+        margin-top: 10px;
+        .active-number {
+            font-weight: 600;
+            color: $color-pink-1;
+        }
+    }
+    .message-list {
+        .date-title {
+            font-size: px2rem(12);
+            line-height: px2rem(14);
+            font-weight: 600;
+        }
+    }
+    .MessageCard {
+        display: flex;
+        padding: 20px;
+        @include media-breakpoint-up(sm) {
+            padding-left: 0px;
+        }
+        .item-body {
+            flex-basis: 100%;
+            .icon-container {
+                margin-top: 5px;
+                width: 54px;
+                text-align: center;
+                min-width: 54px;
+            }
+            .text-content {
+                .item-title {
+                    font-size: px2rem(13);
+                    line-height: px2rem(18);
+                    font-weight: 600;
+                }
+                .item-subtitle {
+                    font-size: px2rem(11);
+                    line-height: px2rem(14);
+                    text-transform: capitalize;
+                }
+            }
+            .message-status {
+                font-size: px2rem(11);
+                line-height: px2rem(13);
+                padding: 4px 12px;
+                border-radius: 100px;
+                color: $gray-620;
+                text-transform: capitalize;
+                width: fit-content;
+                margin-top: 10px;
+                @include media-breakpoint-up(sm) {
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+                &.scheduled {
+                    background-color: #FFF0C5;
+                }
+                &.draft {
+                    background-color: #DFE3E8;
+                }
+                &.sent {
+                    background-color: #DFF0D8;
+                }
+            }
+            .number-value {
+                font-size: px2rem(14);
+                line-height: px2rem(18);
+                margin-top: 4px;
+                @include media-breakpoint-down(sm) {
+                    margin-top: 15px;
+                }
+            }
+            .number-title {
+                font-size: px2rem(11);
+                line-height: px2rem(18);
+            }
+        }
+        .card-edit-btn:before {
+            width: 40px;
+            height: 40px;
+        }
+        .dropdown-toggle {
+            line-height: 28px;
+            width: 50px;
+            text-align: right;
+        }
+    }
+}

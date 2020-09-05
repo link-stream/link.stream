@@ -1,0 +1,58 @@
+.SelectMessageTypeModal {
+    .title {
+        font-size: px2rem(18);
+        line-height: px2rem(24);
+        font-weight: bold;
+    }
+    .box-container {
+        position: relative;
+        padding-top: 100%;
+        margin-bottom: 20px;
+        .message-type-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            text-align: center;
+            border: 1px solid $gray-330;
+            .message-type {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                svg {
+                    width: 48px;
+                    height: 48px;
+                    margin-bottom: 15px;
+                }
+                .title {
+                    font-size: px2rem(16);
+                    line-height: px2rem(24);
+                    font-weight: 600;
+                    color: black;
+                }
+                .description {
+                    font-size: px2rem(13);
+                    line-height: px2rem(21);
+                    color: black;
+                }
+            }
+        }
+    }
+}
+.CreateMessageModal {
+    .modal-header {
+        padding-top: 15px;
+        .title {
+            font-size: px2rem(18);
+            line-height: px2rem(24);
+            font-weight: bold;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        border: 1px solid $gray-330;
+    }
+    .modal-body {
+        margin-top: 30px;
+    }
+}

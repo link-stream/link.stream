@@ -10,8 +10,8 @@
             <transition name="page" mode="out-in">
                 <router-view :key="$route.fullPath"></router-view>
             </transition>
+            <SelectPlanBar v-if="$route.name === 'marketingMessages'" />
         </main>
-        <SelectPlanBar v-if="$route.name === 'marketingMessages'" />
         <TopNav class="d-lg-none" />
         <SideBar />
         <vue-progress-bar></vue-progress-bar>

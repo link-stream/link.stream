@@ -1,7 +1,7 @@
 .modal {
     .action-btn {
         padding: 0;
-        width: 135px;
+        width: 125px;
         height: 40px;
         font-size: px2rem(11);
     }
@@ -21,6 +21,20 @@
     z-index: 1;
     &:before {
         @extend .ico-close:before;
+    }
+}
+.modal-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 15px;
+    z-index: 1;
+    width: 24px;
+    height: 24px;
+    svg {
+        width: 24px;
+        height: 24px;
+        color: black;
     }
 }
 

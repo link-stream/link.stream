@@ -1,5 +1,5 @@
 <template>
-    <b-container class="page page-profile-edit p-sm-5">
+    <b-container class="page page-profile-edit">
         <b-form
             @submit.stop.prevent="onSubmit"
             @reset="resetForm"
@@ -236,7 +236,7 @@
                         </b-col>
                     </b-row>
                 </b-col>
-                <b-col cols="12" class="mb-5">
+                <b-col cols="12">
                     <spinner-button
                         type="submit"
                         class="mt-5"

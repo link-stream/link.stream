@@ -16,7 +16,7 @@
                 </h4>
             </div>
             <div class="right-col">
-                <basic-button :to="{ name: 'createMessage' }">
+                <basic-button @click="handleCreateClick">
                     Create Message
                 </basic-button>
             </div>
@@ -31,8 +31,8 @@
             <div class="">
                 <div class="message-list">
                     <h4 class="date-title">
-                        This week(
-                        {{ thisWeekMessages.length }}
+                        This Week(
+                        {{thisWeekMessages.length}}
                         )
                     </h4>
                     <message-card
@@ -44,7 +44,7 @@
                 <div class="message-list">
                     <h4 class="date-title">
                         May, 2020(
-                        {{ mayMessages.length }}
+                        {{mayMessages.length}}
                         )
                     </h4>
                     <message-card
@@ -52,28 +52,33 @@
                         :key="`may-${index}`"
                         :message="message"
                     />
-                    <basic-button
-                        variant="outline-light"
-                        size="sm"
-                        class="btn-show-more"
-                    >
-                        Load More Messages
-                    </basic-button>
                 </div>
+                <basic-button
+                    variant="outline-light"
+                    size="sm"
+                    class="btn-show-more"
+                >
+                    Load More Messages
+                </basic-button>
             </div>
         </main>
+        <SelectMessageTypeModal />
+        <CreateMessageModal />
     </div>
 </template>
 
 <script>
 import MessageCard from '~/components/Marketing/MessageCard'
-
+import SelectMessageTypeModal from '~/components/Modal/SelectMessageTypeModal'
+import CreateMessageModal from '~/components/Modal/CreateMessageModal'
 import { mapGetters } from 'vuex'
 
 export default {
     name: 'MarketingMessages',
     components: {
         MessageCard,
+        SelectMessageTypeModal,
+        CreateMessageModal,
     },
     data() {
         return {
@@ -150,6 +155,10 @@ export default {
         this.thisWeekMessages = this.messages.slice(0, 4)
         this.mayMessages = this.messages.slice(4)
     },
-    methods: {},
+    methods: {
+        handleCreateClick() {
+            this.$bus.$emit('modal.selectMessageType.open')
+        }
+    },
 }
 </script>

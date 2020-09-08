@@ -125,4 +125,5 @@ export const constants = {
         },
     ],
     baseAppUrl: 'https://link.stream/',
+    maxMessageLength: 918,
 }

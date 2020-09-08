@@ -10,7 +10,7 @@
             <transition name="page" mode="out-in">
                 <router-view :key="$route.fullPath"></router-view>
             </transition>
-            <SelectPlanBar v-if="$route.name === 'marketingMessages'" />
+            <SelectPlanBar v-if="isShowPlanBar" />
         </main>
         <TopNav class="d-lg-none" />
         <SideBar />
@@ -35,6 +35,9 @@ export default {
             getMenuType: 'getMenuType',
             //loading: 'loading/isStarted',
         }),
+        isShowPlanBar() {
+            return this.$route.name === 'marketingMessages' || this.$route.name === 'editMessage'
+        }
     },
     created() {
         this.$store.dispatch('me/loadProfile')

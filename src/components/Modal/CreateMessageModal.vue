@@ -21,7 +21,7 @@
                     id="campaign-name"
                     v-model="campaignName"
                     required
-                    placeholder="Someone To Love You"
+                    placeholder="Campaign Name"
                 >
                 </b-form-input>
             </b-form-group>
@@ -37,7 +37,7 @@
                 </basic-button>
                 <spinner-button
                     class="action-btn"
-                    @click="handleSaveClick"
+                    @click="handleNextClick"
                 >
                     Next
                 </spinner-button>
@@ -70,9 +70,15 @@ export default {
             this.open = true
         },
         back() {
-
+            this.$bus.$emit('modal.selectMessageType.open')
+            this.close()
         },
-        handleSaveClick() {
+        handleNextClick() {
+            if (!this.campaignName) {
+                this.$toast.error('Please enter a campaign name.')
+                return
+            }
+            this.$router.push({ name: 'editMessage' })
             this.close()
         },
     },

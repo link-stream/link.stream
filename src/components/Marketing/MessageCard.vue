@@ -24,8 +24,8 @@
                             {{ message.title }}
                         </h4>
                         <small class="item-subtitle">
-                            <span class="message-type">{{ message.type }}&middot;</span>
-                            <span>{{ message.status === 'sent' ? 'Sent' : 'Editted' }}</span>
+                            <span class="message-type">{{ message.type }}&nbsp;&middot;&nbsp;</span>
+                            <span>{{ message.status === 'sent' ? 'Sent' : 'Editted' }}&nbsp;</span>
                             <span class="message-datetime">{{ message.datetime | fullDateTime }}</span>
                         </small>
                     </div>
@@ -91,6 +91,13 @@
                 <Icon icon="dot-menu-h" />
             </template>
             <b-dropdown-item>
+                View Report
+            </b-dropdown-item>
+            <b-dropdown-item>
+                View Email
+            </b-dropdown-item>
+            <b-dropdown-item>
+                Duplicate
             </b-dropdown-item>
         </b-dropdown>
     </div>

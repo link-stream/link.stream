@@ -35,6 +35,8 @@ import {
     Subscribers,
     LandingPages,
     AdPromos,
+    EditMessage,
+    
 } from '~/pages/Marketing'
 
 import PublicProfile from '@/pages/Profile/PublicProfile'
@@ -287,6 +289,12 @@ const routes = [
         path: '/app/marketing/ad-promos',
         name: 'adPromos',
         component: AdPromos,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/edit-message',
+        name: 'editMessage',
+        component: EditMessage,
         meta: { requiresAuth: true, layout: 'account' },
     },
 

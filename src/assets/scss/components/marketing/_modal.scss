@@ -56,3 +56,25 @@
         margin-top: 30px;
     }
 }
+.CreateSMSModal {
+    .title {
+        font-size: px2rem(18);
+        line-height: px2rem(24);
+        font-weight: bold;
+    }
+    .date-input-group {
+        .DatePicker {
+            width: 100%;
+            input {
+                border-right-width: 1px;
+            }
+        }
+        .TimePicker {
+            width: 100%;
+        }
+    }
+    .active-number {
+        font-weight: 600;
+        color: $color-pink-1;
+    }
+}

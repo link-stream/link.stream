@@ -38,7 +38,7 @@
                         <a
                             href="#"
                             class="message-type-container"
-                            @click="handleEmailClick"
+                            @click="handleSMSClick"
                         >
                             <div class="message-type"> 
                                 <font-awesome-icon
@@ -83,6 +83,10 @@ export default {
         },
         handleEmailClick() {
             this.$bus.$emit('modal.createMessage.open')
+            this.close()
+        },
+        handleSMSClick() {
+            this.$bus.$emit('modal.createSMS.open')
             this.close()
         },
     },

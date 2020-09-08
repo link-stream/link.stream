@@ -138,6 +138,7 @@ export default {
     created() {
         this.$bus.$on('modal.videoEdit.open', this.handleOpen)
         this.$bus.$on('modal.videoEdit.close', this.handleClose)
+        console.log(this.relatedTracks)
     },
     methods: {
         close() {

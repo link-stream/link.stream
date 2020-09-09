@@ -1,26 +1,30 @@
 <template>
     <b-modal
-        modal-class="EditSubjectModal"
+        modal-class="EditSendtoModal"
         centered
         v-model="open"
         size="lg"
     >
         <template v-slot:modal-header>
             <BasicButton variant="icon" class="modal-close" @click="close" />
-            <h4 class="title">Add a subject line</h4>
+            <h4 class="title">Send to</h4>
+            <p class="description">
+                You can send a message to all of your email subscribers or use segmentation too send this message to a select group
+            </p>
         </template>
         <template v-slot:default>
             <b-form-group
-                label="What's the subject line of this email?"
-                label-for="subject-line"
+                label="Segment or Tag(optional)"
+                label-for="segmentTagInput"
             >
-                <b-form-input
-                    id="subject-line"
-                    v-model="subjectLine"
-                    required
-                    placeholder="Subject Line"
-                >
-                </b-form-input>
+                <BasicSelect
+                    v-model="segmentTag"
+                    id="segmentTagInput"
+                    placeholder="Select Segment or Tag"
+                    :options="segmentTagList"
+                    :reduce="segmentTag => segmentTag.id"
+                    label="title"
+                />
             </b-form-group>
         </template>
         <template v-slot:modal-footer>
@@ -44,17 +48,28 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-    name: 'EditSubjectModal',
+    name: 'EditSendtoModal',
     data() {
         return {
             open: false,
-            subjectLine: '',
+            segmentTag: '',
+            segmentTagList: [{
+                id: "1",
+                title: 'All subscribers in audience',
+            }],
         }
     },
-    created() {
-        this.$bus.$on('modal.editSubject.open', this.handleOpen)
-        this.$bus.$on('modal.editSubject.close', this.handleClose)
+    computed: {
+        ...mapGetters({
+            sentos: 'marketing/sendtos',
+        }),
+    },
+    async created() {
+        this.$bus.$on('modal.editSendto.open', this.handleOpen)
+        this.$bus.$on('modal.editSendto.close', this.handleClose)
+        await this.$store.dispatch('marketing/getMessageSendto')
     },
     methods: {
         close() {
@@ -67,10 +82,6 @@ export default {
             this.open = true
         },
         handleSaveClick() {
-            if (!this.subjectLine) {
-                this.$toast.error('Please enter a subject line.')
-                return
-            }
             this.$router.push({ name: 'editMessage' })
             this.close()
         },

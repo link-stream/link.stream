@@ -60,7 +60,7 @@
                                 title="Edit"
                                 class="card-edit-btn"
                                 size="sm"
-                                @click="handleEditSendClick"
+                                @click="handleEditSendtoClick"
                             />
                         </div>
                     </div>
@@ -175,14 +175,20 @@
             </footer>
         </div>
         <EditSubjectModal />
+        <EditSendtoModal />
+        <EditFromModal />
     </div>                   
 </template>
 <script>
 import EditSubjectModal from '@/components/Modal/EditSubjectModal'
+import EditSendtoModal from '@/components/Modal/EditSendtoModal'
+import EditFromModal from '@/components/Modal/EditFromModal'
 export default {
     name: 'EditMessage',
     components: {
         EditSubjectModal,
+        EditSendtoModal,
+        EditFromModal,
     },
     data: () => ({
         loading: false,
@@ -193,11 +199,14 @@ export default {
         templateImageUrl: '/static/img/email-template-release.jpg'
     }),
     methods: {
-        handleEditSendClick() {},
-        handleEditFromClick() {},
+        handleEditSendtoClick() {
+            this.$bus.$emit('modal.editSendto.open')
+        },
+        handleEditFromClick() {
+            this.$bus.$emit('modal.editFrom.open')
+        },
         handleEditSubjectClick() {
             this.$bus.$emit('modal.editSubject.open')
-            console.log('click edit')
         },
         handleEditContentClick() {},
         handleSendClick() {}

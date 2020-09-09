@@ -42,7 +42,7 @@
                 SMS subscribers
             </p>
             <b-form-row>
-                <b-col col="12" sm="6">
+                <b-col cols="12" sm="6">
                     <b-form-group label="Delivery Date">
                         <b-input-group class="date-input-group">
                             <DatePicker v-model="form.date" />
@@ -90,7 +90,7 @@
         <template v-slot:modal-footer>
             <div class="right-col">
                 <basic-button
-                    class="action-btn cancel-btn"
+                    class="action-btn cancel-btn text-black"
                     variant="link"
                     @click="close"
                 >

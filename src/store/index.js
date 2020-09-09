@@ -8,6 +8,7 @@ import loading from './modules/loading'
 import trackAddWizard from './modules/trackAddWizard'
 import profile from './modules/profile'
 import customMenu from './modules/customMenu'
+import marketing from './modules/marketing'
 import { appConstants } from '~/constants'
 import createPersistedState from 'vuex-persistedstate'
 
@@ -24,6 +25,7 @@ export default new Vuex.Store({
         loading,
         profile,
         customMenu,
+        marketing,
     },
     plugins: [
         createPersistedState({

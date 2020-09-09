@@ -29,7 +29,7 @@
         <template v-slot:modal-footer>
             <div class="right-col">
                 <basic-button
-                    class="action-btn cancel-btn"
+                    class="action-btn cancel-btn text-black"
                     variant="link"
                     @click="close"
                 >

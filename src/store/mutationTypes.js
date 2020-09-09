@@ -90,3 +90,8 @@ export const profileTypes = {
     ADD_CART_ITEM: 'ADD_CART_ITEM',
     REMOVE_CART_ITEM: 'REMOVE_CART_ITEM',
 }
+
+//Marketing
+export const marketingTypes = {
+    SET_SEND_TO: 'SET_SEND_TO',
+}

@@ -556,4 +556,14 @@ export const api = {
             })
         },
     },
+    marketing: {
+        async getMessageSendto(userId) {
+            const endpoint = '/marketing/messages_sent_to/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+    },
 }

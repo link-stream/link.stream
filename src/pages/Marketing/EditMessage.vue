@@ -24,7 +24,7 @@
                         class="btn-schedule"
                         variant="outline-black"
                         size="md"
-                        :disabled="saving"
+                        @click="handleScheduleClick"
                     >
                         Schedule
                     </basic-button>
@@ -50,8 +50,12 @@
                             </h4>
                             <small class="item-subtitle">
                                 All
-                                <span class="font-weight-bold">{{ cntSubscribers | thousandCNumber }} subscribers </span>
-                                subscribed contacts in the audience {{ `Hidro Kitty` }}
+                                <span class="font-weight-bold">
+                                    {{ cntSubscribers | thousandCNumber }}
+                                    subscribers
+                                </span>
+                                subscribed contacts in the audience
+                                {{ `Hidro Kitty` }}
                             </small>
                         </div>
                         <div class="right-col">
@@ -96,10 +100,13 @@
                             <h4 class="item-title">
                                 Subject
                             </h4>
-                            <small class="item-subtitle" v-if="subject">
+                            <small v-if="subject" class="item-subtitle">
                                 {{ subject }}
                             </small>
-                            <small class="item-subtitle placeholder-text" v-else>
+                            <small
+                                v-else
+                                class="item-subtitle placeholder-text"
+                            >
                                 What's the subject line for this email campaign?
                             </small>
                         </div>
@@ -160,7 +167,7 @@
                         class="btn-schedule"
                         variant="outline-black"
                         size="md"
-                        :disabled="saving"
+                        @click="handleScheduleClick"
                     >
                         Schedule
                     </basic-button>
@@ -178,13 +185,15 @@
         <EditSendtoModal />
         <EditFromModal />
         <SendTestModal />
+        <ScheduleEmailModal />
     </div>                   
 </template>
 <script>
-import EditSubjectModal from '@/components/Modal/EditSubjectModal'
-import EditSendtoModal from '@/components/Modal/EditSendtoModal'
-import EditFromModal from '@/components/Modal/EditFromModal'
-import SendTestModal from '@/components/Modal/SendTestModal'
+import EditSubjectModal from '@/components/Modal/Marketing/EditSubjectModal'
+import EditSendtoModal from '@/components/Modal/Marketing/EditSendtoModal'
+import EditFromModal from '@/components/Modal/Marketing/EditFromModal'
+import SendTestModal from '@/components/Modal/Marketing/SendTestModal'
+import ScheduleEmailModal from '@/components/Modal/Marketing/ScheduleEmailModal'
 export default {
     name: 'EditMessage',
     components: {
@@ -192,6 +201,7 @@ export default {
         EditSendtoModal,
         EditFromModal,
         SendTestModal,
+        ScheduleEmailModal,
     },
     data: () => ({
         loading: false,
@@ -199,7 +209,7 @@ export default {
         cntSubscribers: 5749,
         subject: null,
         content: null,
-        templateImageUrl: '/static/img/email-template-release.jpg'
+        templateImageUrl: '/static/img/email-template-release.jpg',
     }),
     methods: {
         handleEditSendtoClick() {
@@ -215,6 +225,9 @@ export default {
         handleSendClick() {},
         handleSenndTestClick() {
             this.$bus.$emit('modal.sendTest.open')
+        },
+        handleScheduleClick() {
+            this.$bus.$emit('modal.scheduleEmail.open')
         },
     },
 }

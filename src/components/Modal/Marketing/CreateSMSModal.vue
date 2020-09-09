@@ -123,7 +123,7 @@ export default {
             message: '',
         },
         audienceList: [{
-            id: "1",
+            id: '1',
             name: 'Hydro Kitty',
         }],
         segmentTagList: [{

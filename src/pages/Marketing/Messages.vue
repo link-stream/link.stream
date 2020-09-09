@@ -32,7 +32,7 @@
                 <div class="message-list">
                     <h4 class="date-title">
                         This Week(
-                        {{thisWeekMessages.length}}
+                        {{ thisWeekMessages.length }}
                         )
                     </h4>
                     <message-card
@@ -44,7 +44,7 @@
                 <div class="message-list">
                     <h4 class="date-title">
                         May, 2020(
-                        {{mayMessages.length}}
+                        {{ mayMessages.length }}
                         )
                     </h4>
                     <message-card
@@ -70,9 +70,9 @@
 
 <script>
 import MessageCard from '~/components/Marketing/MessageCard'
-import SelectMessageTypeModal from '~/components/Modal/SelectMessageTypeModal'
-import CreateMessageModal from '~/components/Modal/CreateMessageModal'
-import CreateSMSModal from '~/components/Modal/CreateSMSModal'
+import SelectMessageTypeModal from '~/components/Modal/Marketing/SelectMessageTypeModal'
+import CreateMessageModal from '~/components/Modal/Marketing/CreateMessageModal'
+import CreateSMSModal from '~/components/Modal/Marketing/CreateSMSModal'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -161,7 +161,7 @@ export default {
     methods: {
         handleCreateClick() {
             this.$bus.$emit('modal.selectMessageType.open')
-        }
+        },
     },
 }
 </script>

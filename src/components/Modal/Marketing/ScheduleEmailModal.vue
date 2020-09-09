@@ -1,0 +1,102 @@
+<template>
+    <b-modal
+        modal-class="CreateSMSModal"
+        centered
+        v-model="open"
+        size="lg"
+    >
+        <template v-slot:modal-header>
+            <BasicButton variant="icon" class="modal-close" @click="close" />
+            <h4 class="title">Schedule this email</h4>
+            <p class="mb-0">
+                This message will be sent to all
+                <span class="font-weight-bold">{{ cntSubscribers | thousandCNumber }}</span>
+                subscribers
+                <a href="#" class="btn-link">Edit Recipients</a> 
+            </p>
+        </template>
+        <template v-slot:default>
+            <b-form-row>
+                <b-col cols="12" sm="6">
+                    <b-form-group label="Delivery Date">
+                        <b-input-group class="date-input-group">
+                            <DatePicker v-model="date" />
+                        </b-input-group>
+                    </b-form-group>
+                </b-col>
+                <b-col cols="12" sm="6">
+                    <b-form-group label="Send Time">
+                        <template v-slot:label>
+                            <label class="mb-0">Send Time</label>
+                            <small class="float-right">
+                                {{ timezone.zone }}
+                                <a href="#">Edit</a>
+                            </small>
+                        </template>
+                        <b-input-group class="date-input-group">
+                            <TimePicker v-model="time" />
+                        </b-input-group>
+                    </b-form-group>
+                </b-col>
+            </b-form-row>
+        </template>
+        <template v-slot:modal-footer>
+            <div class="right-col">
+                <basic-button
+                    class="action-btn cancel-btn text-black"
+                    variant="link"
+                    @click="close"
+                >
+                    Cancel
+                </basic-button>
+                <spinner-button
+                    class="action-btn"
+                    @click="handleScheduleClick"
+                >
+                    Schedule
+                </spinner-button>
+            </div>
+        </template>
+    </b-modal>
+</template>
+
+<script>
+import { mapGetters } from 'vuex'
+export default {
+    name: 'ScheduleEmailModal',
+    data: () => ({
+        open: false,
+        date: new Date(),
+        time: '00:00:00',
+        cntSubscribers: 2257,
+    }),
+    computed: {
+        ...mapGetters({
+            user: 'me/user',
+            timezones: 'common/timezones',
+        }),
+        timezone() {
+            return this.timezones.find(({ id }) => id === this.user.timezone)
+        }
+    },
+    async created() {
+        this.$bus.$on('modal.scheduleEmail.open', this.handleOpen)
+        this.$bus.$on('modal.scheduleEmail.close', this.handleClose)
+        await this.$store.dispatch('common/loadTimezones')
+    },
+    methods: {
+        close() {
+            this.open = false
+        },
+        handleClose() {
+            this.open = false
+        },
+        handleOpen() {
+            this.open = true
+        },
+        handleScheduleClick() {
+            this.close()
+        },
+    },
+}
+</script>

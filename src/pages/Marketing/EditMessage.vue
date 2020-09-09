@@ -40,6 +40,10 @@
             <main class="page-body">
                 <div class="Card EditMessageCard">
                     <div class="card-item">
+                        <font-awesome-icon
+                            :icon="['fas', 'check-circle']"
+                            class="item-status completed"
+                        />
                         <div class="left-col">
                             <h4 class="item-title">
                                 Send to
@@ -61,6 +65,10 @@
                         </div>
                     </div>
                     <div class="card-item">
+                        <font-awesome-icon
+                            :icon="['fas', 'check-circle']"
+                            class="item-status completed"
+                        />
                         <div class="left-col">
                             <h4 class="item-title">
                                 From
@@ -80,6 +88,10 @@
                         </div>
                     </div>
                     <div class="card-item">
+                        <font-awesome-icon
+                            :icon="['fas', 'check-circle']"
+                            class="item-status"
+                        />
                         <div class="left-col">
                             <h4 class="item-title">
                                 Subject
@@ -102,6 +114,10 @@
                         </div>
                     </div>
                     <div class="card-item">
+                        <font-awesome-icon
+                            :icon="['fas', 'check-circle']"
+                            class="item-status"
+                        />
                         <div class="left-col">
                             <h4 class="item-title">
                                 Content
@@ -129,7 +145,7 @@
                                 title="Edit"
                                 class="card-edit-btn"
                                 size="sm"
-                                @click="handleEditSubjectClick"
+                                @click="handleEditContentClick"
                             />
                         </div>
                     </div>
@@ -158,11 +174,16 @@
                 </div>
             </footer>
         </div>
+        <EditSubjectModal />
     </div>                   
 </template>
 <script>
+import EditSubjectModal from '@/components/Modal/EditSubjectModal'
 export default {
     name: 'EditMessage',
+    components: {
+        EditSubjectModal,
+    },
     data: () => ({
         loading: false,
         saving: false,
@@ -174,7 +195,12 @@ export default {
     methods: {
         handleEditSendClick() {},
         handleEditFromClick() {},
-        handleEditSubjectClick() {},
+        handleEditSubjectClick() {
+            this.$bus.$emit('modal.editSubject.open')
+            console.log('click edit')
+        },
+        handleEditContentClick() {},
+        handleSendClick() {}
     },
 }
 </script>

@@ -136,7 +136,7 @@
                                         icon="visible"
                                     />
                                 </div>
-                                <a href="#" class="test-link">Send a test email</a>
+                                <a href="#" class="test-link" @click.prevent="handleSenndTestClick">Send a test email</a>
                             </div>
                         </div>
                         <div class="right-col">
@@ -177,18 +177,21 @@
         <EditSubjectModal />
         <EditSendtoModal />
         <EditFromModal />
+        <SendTestModal />
     </div>                   
 </template>
 <script>
 import EditSubjectModal from '@/components/Modal/EditSubjectModal'
 import EditSendtoModal from '@/components/Modal/EditSendtoModal'
 import EditFromModal from '@/components/Modal/EditFromModal'
+import SendTestModal from '@/components/Modal/SendTestModal'
 export default {
     name: 'EditMessage',
     components: {
         EditSubjectModal,
         EditSendtoModal,
         EditFromModal,
+        SendTestModal,
     },
     data: () => ({
         loading: false,
@@ -209,7 +212,10 @@ export default {
             this.$bus.$emit('modal.editSubject.open')
         },
         handleEditContentClick() {},
-        handleSendClick() {}
+        handleSendClick() {},
+        handleSenndTestClick() {
+            this.$bus.$emit('modal.sendTest.open')
+        },
     },
 }
 </script>

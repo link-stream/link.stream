@@ -221,5 +221,40 @@
                 }
             }
         }
+        .color-picker-container {
+            position: relative;
+            .current-color {
+                position: absolute;
+                width: 26px;
+                height: 26px;
+                margin: 8px;
+                z-index: 9;
+                &.no-color {
+                    border:1px solid #8A8197;
+
+                    &:after{
+                        content: "";
+                        position: absolute;
+                        border-top: 3px solid red;
+                        width: 34px;
+                        transform: rotate(135deg);
+                        left: -5px;
+                        top: 10px;
+                    }
+                }
+            }
+            .txt-color-value {
+                padding-left: 40px;
+            }
+            .vc-chrome {
+                position: absolute;
+                z-index: 9;
+            }
+            &.right-align {
+                .vc-chrome {
+                    right: 0;
+                }
+            }
+        }
     }
 }

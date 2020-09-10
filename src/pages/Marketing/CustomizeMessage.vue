@@ -135,13 +135,49 @@
                     </b-form-group>
                     <b-form-row>
                         <b-col>
-                            <b-form-group label="Button Color">
-
-                            </b-form-group>
+                            <div ref="buttonColorPicker">
+                                <b-form-group label="Button Color" class="color-picker-container">
+                                    <b-input-group>
+                                        <template v-slot:prepend>
+                                            <a
+                                                href="#"
+                                                class="current-color"
+                                                :style="`background-color: ${buttonColorHex}`"
+                                            ></a>
+                                        </template>
+                                        <b-form-input v-model="buttonColorHex" class="txt-color-value"></b-form-input>
+                                    </b-input-group>
+                                    <color-picker
+                                        v-model="buttonColor"
+                                        v-if="isButtonColorPicker"
+                                        @input="onChangeButtonColor"
+                                    >
+                                    </color-picker>
+                                </b-form-group>
+                            </div>
                         </b-col>
                         <b-col>
-                            <b-form-group label="background Color">
-                            </b-form-group>
+                            <div ref="backColorPicker">
+                                <b-form-group label="Background Color" class="color-picker-container right-align">
+                                    <b-input-group>
+                                        <template v-slot:prepend>
+                                            <a
+                                                href="#"
+                                                class="current-color"
+                                                :class="{ 'no-color': !backColorHex }"
+                                                :style="`background-color: ${backColorHex}`"
+                                            ></a>
+                                        </template>
+                                        <b-form-input v-model="backColorHex" class="txt-color-value"></b-form-input>
+                                    </b-input-group>
+                                    <color-picker
+                                        v-model="backColor"
+                                        v-if="isBackColorPicker"
+                                        @input="onChangeBackColor"
+                                    >
+                                    </color-picker>
+                                </b-form-group>
+                            </div>
                         </b-col>
                     </b-form-row>
                     <div class="thumb-upload no-image">
@@ -167,19 +203,76 @@
     </b-container>
 </template>
 <script>
+import { Chrome } from 'vue-color'
 export default {
     name: 'CustomizeMessage',
+    components: {
+        'color-picker': Chrome,
+    },
     data: () => ({
         promoteName: null,
         headLine: null,
         message: null,
         nameList: [],
+
+        isButtonColorPicker: false,
+        buttonColorHex: '#DC2EA6',
+        buttonColor: {
+            hex: '#DC2EA6',
+        },
+        isBackColorPicker: false,
+        backColorHex: '',
+        backColor: {
+            hex: '',
+        },
     }),
+    watch: {
+        buttonColorHex(val) {
+            this.buttonColor = {
+                hex: val
+            }
+        },
+        backColorHex(val) {
+            this.backColor = {
+                hex: val
+            }
+        },
+    },
+    mounted() {
+        document.addEventListener('click', this.handleDocumentClick)
+    },
+    beforeDestroy() {
+        document.removeEventListener('click', this.handleDocumentClick)
+    },
     methods: {
         back() {
             this.$router.push( {
                 name: 'editMessage',
             })
+        },
+        onChangeButtonColor(val) {
+            this.buttonColor = val
+            this.buttonColorHex = val.hex
+        },
+        onChangeBackColor(val) {
+            this.backColor = val
+            this.backColorHex = val.hex
+        },
+        handleDocumentClick(e) {
+            const el = this.$refs.buttonColorPicker
+            if (!el) return
+            if (!el.contains(e.target)) {
+                this.isButtonColorPicker = false    
+            } else {
+                this.isButtonColorPicker = true
+            }
+            const elBack = this.$refs.backColorPicker
+            if (!elBack) return
+            if (!elBack.contains(e.target)) {
+                this.isBackColorPicker = false    
+            } else {
+                this.isBackColorPicker = true
+            }
         },
     },
 }

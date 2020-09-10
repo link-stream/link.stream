@@ -221,7 +221,11 @@ export default {
         handleEditSubjectClick() {
             this.$bus.$emit('modal.editSubject.open')
         },
-        handleEditContentClick() {},
+        handleEditContentClick() {
+            this.$router.push({
+                name: 'customizeMessage',
+            })
+        },
         handleSendClick() {},
         handleSenndTestClick() {
             this.$bus.$emit('modal.sendTest.open')

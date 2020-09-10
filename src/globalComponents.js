@@ -30,6 +30,8 @@ import {
     BDropdownItem,
     BDropdownDivider,
     BootstrapVueIcons,
+    BAspect,
+    BPaginationNav,
 } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'
@@ -95,6 +97,8 @@ Vue.component('BLink', BLink)
 Vue.component('BDropdown', BDropdown)
 Vue.component('BDropdownItem', BDropdownItem)
 Vue.component('BDropdownDivider', BDropdownDivider)
+Vue.component('BAspect', BAspect)
+Vue.component('BPaginationNav', BPaginationNav)
 Vue.use(BootstrapVueIcons)
 
 // Install VueProgressBar

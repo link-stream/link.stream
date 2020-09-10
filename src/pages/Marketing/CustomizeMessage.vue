@@ -73,13 +73,14 @@
                     <div class="thumb-upload has-image">
                         <h6>Logo</h6>
                         <div class="d-flex">
-                            <div class="logo-container">
+                            <div class="logo-container has-image">
                                 <div class="logo">
                                     <img src="/static/media/logo1.png" />
                                 </div>
                                 <IconButton
                                     class="btn-camera"
                                     icon="photo-camera"
+                                    @click="showSelectMedia"
                                 />
                             </div>
                             <div class="text-container">
@@ -107,6 +108,7 @@
                                     <IconButton
                                         class="btn-add-image"
                                         icon="add-image"
+                                        @click="showSelectMedia"
                                     />
                                     <p class="lb-add-image">Add Image</p>
                                 </div>
@@ -187,6 +189,7 @@
                                 <IconButton
                                     class="btn-add-image"
                                     icon="add-image"
+                                    @click="showSelectMedia"
                                 />
                                 <p class="lb-add-image">Add Image</p>
                             </div>
@@ -200,14 +203,17 @@
                 </div>
             </div>
         </div>
+        <SelectMediaModal />
     </b-container>
 </template>
 <script>
 import { Chrome } from 'vue-color'
+import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
 export default {
     name: 'CustomizeMessage',
     components: {
         'color-picker': Chrome,
+        SelectMediaModal,
     },
     data: () => ({
         promoteName: null,
@@ -273,6 +279,9 @@ export default {
             } else {
                 this.isBackColorPicker = true
             }
+        },
+        showSelectMedia() {
+            this.$bus.$emit('modal.selectMedia.open')
         },
     },
 }

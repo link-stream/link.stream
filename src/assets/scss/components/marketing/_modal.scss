@@ -89,7 +89,8 @@
     }
 }
 .EditSendtoModal,
-.SendTestModal {
+.SendTestModal,
+.SelectMediaModal {
     .modal-header {
         .title {
             font-size: px2rem(18);
@@ -100,6 +101,28 @@
             font-size: px2rem(14);
             line-height: px2rem(20);
             margin-bottom: 0;
+        }
+    }
+}
+.SelectMediaModal {
+    .search-bar {
+        display: flex;
+        margin-bottom: 15px;
+        .search-form {
+            flex-basis: 100%;
+            margin-right: 10px;
+        }
+    }
+    .one-media-container {
+        margin-bottom: 10px;
+        .one-media {
+            position: relative;
+            img {
+                width: 100%;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
         }
     }
 }

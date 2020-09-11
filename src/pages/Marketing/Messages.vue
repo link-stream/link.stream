@@ -65,6 +65,7 @@
         <SelectMessageTypeModal />
         <CreateMessageModal />
         <CreateSMSModal />
+        <EditSMSModal />
     </div>
 </template>
 
@@ -73,6 +74,7 @@ import MessageCard from '~/components/Marketing/MessageCard'
 import SelectMessageTypeModal from '~/components/Modal/Marketing/SelectMessageTypeModal'
 import CreateMessageModal from '~/components/Modal/Marketing/CreateMessageModal'
 import CreateSMSModal from '~/components/Modal/Marketing/CreateSMSModal'
+import EditSMSModal from '~/components/Modal/Marketing/EditSMSModal'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -82,6 +84,7 @@ export default {
         SelectMessageTypeModal,
         CreateMessageModal,
         CreateSMSModal,
+        EditSMSModal,
     },
     data() {
         return {

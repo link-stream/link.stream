@@ -11,6 +11,9 @@ const initialState = () => ({
      * @type {null|object}
      */
     sendtos: [],
+    smsData: {
+        scheduled: false,
+    }
 })
 
 const state = initialState()
@@ -26,6 +29,10 @@ const mutations = {
     [marketingTypes.SET_SEND_TO](state, { sendtos }) {
         state.sendtos = sendtos
     },
+
+    [marketingTypes.SET_SMS_DATA](state, { smsData }) {
+        state.smsData = smsData
+    }
 }
 
 const actions = {
@@ -38,13 +45,19 @@ const actions = {
         const response = await api.marketing.getMessageSendto(user.id)
         console.log(response)
         const { status, data } = response
-        status === 'success' && commit(marketingTypes.SET_SEND_TO, { sendtos: data })
+        status === 'success' &&
+            commit(marketingTypes.SET_SEND_TO, { sendtos: data })
         return response
     },
+
+    async setSMSData({ commit }, param) {
+        commit(marketingTypes.SET_SMS_DATA, { smsData: param })
+    }
 }
 
 const getters = {
     sendtos: ({ sendtos }) => sendtos,
+    smsData: ({ smsData }) => smsData,
 }
 
 export default {

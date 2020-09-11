@@ -94,4 +94,5 @@ export const profileTypes = {
 //Marketing
 export const marketingTypes = {
     SET_SEND_TO: 'SET_SEND_TO',
+    SET_SMS_DATA: 'SET_SMS_DATA',
 }

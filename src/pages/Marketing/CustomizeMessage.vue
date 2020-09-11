@@ -5,11 +5,7 @@
                 <font-awesome-icon :icon="['fas', 'chevron-left']" />
             </a>
             <h4 class="title">Customize</h4>
-            <b-button
-                pill
-                class="btn-send-test"
-                size="md"
-            >
+            <b-button pill class="btn-send-test" size="md">
                 Send Test
             </b-button>
         </div>
@@ -58,7 +54,10 @@
                                     You are receiving this email because you opted in via our website.
                                 </p>
                                 <p>
-                                    You can <a href="#">update your preferences</a> for this artist or <a hre="#">unsubscribe</a>
+                                    You can
+                                    <a href="#"> update your preferences </a>
+                                    for this artist or
+                                    <a hre="#"> unsubscribe</a>
                                 </p>
                             </div>
                         </div>
@@ -115,7 +114,9 @@
                             </div>
                             <div class="text-container">
                                 <div class="logo-text">
-                                    <small class="text-muted">suggested Minimum Size: 600x600</small>
+                                    <small class="text-muted">
+                                        suggested Minimum Size: 600x600
+                                    </small>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +139,10 @@
                     <b-form-row>
                         <b-col>
                             <div ref="buttonColorPicker">
-                                <b-form-group label="Button Color" class="color-picker-container">
+                                <b-form-group
+                                    label="Button Color"
+                                    class="color-picker-container"
+                                >
                                     <b-input-group>
                                         <template v-slot:prepend>
                                             <a
@@ -170,7 +174,10 @@
                                                 :style="`background-color: ${backColorHex}`"
                                             ></a>
                                         </template>
-                                        <b-form-input v-model="backColorHex" class="txt-color-value"></b-form-input>
+                                        <b-form-input
+                                            v-model="backColorHex"
+                                            class="txt-color-value"
+                                        ></b-form-input>
                                     </b-input-group>
                                     <color-picker
                                         v-model="backColor"
@@ -196,7 +203,7 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <basic-button class="btn-next">
+                        <basic-button class="btn-next" @click="handleNextClick">
                             Next
                         </basic-button>
                     </div>
@@ -220,7 +227,6 @@ export default {
         headLine: null,
         message: null,
         nameList: [],
-
         isButtonColorPicker: false,
         buttonColorHex: '#DC2EA6',
         buttonColor: {
@@ -235,12 +241,12 @@ export default {
     watch: {
         buttonColorHex(val) {
             this.buttonColor = {
-                hex: val
+                hex: val,
             }
         },
         backColorHex(val) {
             this.backColor = {
-                hex: val
+                hex: val,
             }
         },
     },
@@ -252,7 +258,7 @@ export default {
     },
     methods: {
         back() {
-            this.$router.push( {
+            this.$router.push({
                 name: 'editMessage',
             })
         },
@@ -268,20 +274,25 @@ export default {
             const el = this.$refs.buttonColorPicker
             if (!el) return
             if (!el.contains(e.target)) {
-                this.isButtonColorPicker = false    
+                this.isButtonColorPicker = false
             } else {
                 this.isButtonColorPicker = true
             }
             const elBack = this.$refs.backColorPicker
             if (!elBack) return
             if (!elBack.contains(e.target)) {
-                this.isBackColorPicker = false    
+                this.isBackColorPicker = false
             } else {
                 this.isBackColorPicker = true
             }
         },
         showSelectMedia() {
             this.$bus.$emit('modal.selectMedia.open')
+        },
+        handleNextClick() {
+            this.$router.push({
+                name: 'editMessage',
+            })
         },
     },
 }

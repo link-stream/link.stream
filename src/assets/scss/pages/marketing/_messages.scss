@@ -96,6 +96,15 @@
         .btn-schedule {
             margin-right: 10px;
         }
+        .edit-email-container {
+            input {
+                max-width: 400px;
+                margin-bottom: 12px;
+            }
+            .btn-save {
+                margin-right: 20px;
+            }
+        }
     }
     .page-body {
         .EditMessageCard {

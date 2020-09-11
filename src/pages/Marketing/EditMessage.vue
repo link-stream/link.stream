@@ -14,10 +14,35 @@
         <div v-else>
             <header class="page-header">
                 <div class="left-col">
-                    <h1 class="page-title">
-                        Someone To Love You
-                    </h1>
-                    <a href="#">Edit email name</a>
+                    <div v-if="isEditEmailName" class="edit-email-container">
+                        <b-form-input
+                            v-model="tempEmailName"
+                            placeholder="Email Name Placeholder"
+                        >
+                        </b-form-input>
+                        <spinner-button
+                            class="btn-save"
+                            @click="handleSaveClick"
+                            size="sm"
+                        >
+                            Save
+                        </spinner-button>
+                        <basic-button
+                            class="text-black"
+                            variant="link"
+                            @click="isEditEmailName = false"
+                        >
+                            Cancel
+                        </basic-button>
+                    </div>
+                    <div v-else>
+                        <h1 class="page-title">
+                            {{ emailName }}
+                        </h1>
+                        <a href="#" @click.prevent="showEditEmail">
+                            Edit email name
+                        </a>
+                    </div>
                 </div>
                 <div class="right-col">
                     <basic-button
@@ -25,6 +50,7 @@
                         variant="outline-black"
                         size="md"
                         @click="handleScheduleClick"
+                        :disabled="isEditEmailName"
                     >
                         Schedule
                     </basic-button>
@@ -32,6 +58,7 @@
                         size="md"
                         :loading="saving"
                         @click="handleSendClick"
+                        :disabled="isEditEmailName"
                     >
                         Send
                     </spinner-button>
@@ -132,7 +159,10 @@
                             <small class="item-subtitle" v-if="content">
                                 {{ content }}
                             </small>
-                            <small class="item-subtitle placeholder-text" v-else>
+                            <small
+                                v-else
+                                class="item-subtitle placeholder-text"
+                            >
                                 Design and manage the content of your email
                             </small>
                             <div class="template-container">
@@ -143,7 +173,13 @@
                                         icon="visible"
                                     />
                                 </div>
-                                <a href="#" class="test-link" @click.prevent="handleSenndTestClick">Send a test email</a>
+                                <a
+                                    href="#"
+                                    class="test-link"
+                                    @click.prevent="handleSenndTestClick"
+                                >
+                                    Send a test email
+                                </a>
                             </div>
                         </div>
                         <div class="right-col">
@@ -160,7 +196,14 @@
             </main>
             <footer class="page-footer">
                 <div class="float-left">
-                    <a href="#" class="link-save-later">Save for later</a>
+                    <basic-button
+                        class="link-save-later text-black"
+                        variant="link"
+                        @click="handleSaveLaterClick"
+                        :disabled="isEditEmailName"
+                    >
+                        Save for later
+                    </basic-button>
                 </div>
                 <div class="float-right">
                     <basic-button
@@ -168,6 +211,7 @@
                         variant="outline-black"
                         size="md"
                         @click="handleScheduleClick"
+                        :disabled="isEditEmailName"
                     >
                         Schedule
                     </basic-button>
@@ -175,6 +219,7 @@
                         size="md"
                         :loading="saving"
                         @click="handleSendClick"
+                        :disabled="isEditEmailName"
                     >
                         Send
                     </spinner-button>
@@ -186,7 +231,7 @@
         <EditFromModal />
         <SendTestModal />
         <ScheduleEmailModal />
-    </div>                   
+    </div>
 </template>
 <script>
 import EditSubjectModal from '@/components/Modal/Marketing/EditSubjectModal'
@@ -209,6 +254,9 @@ export default {
         cntSubscribers: 5749,
         subject: null,
         content: null,
+        isEditEmailName: false,
+        emailName: 'Someone To Love You',
+        tempEmailName: '',
         templateImageUrl: '/static/img/email-template-release.jpg',
     }),
     methods: {
@@ -233,6 +281,17 @@ export default {
         handleScheduleClick() {
             this.$bus.$emit('modal.scheduleEmail.open')
         },
+        handleSaveClick() {
+            this.emailName = this.tempEmailName
+            this.isEditEmailName = false
+        },
+        showEditEmail() {
+            this.isEditEmailName = true
+            this.tempEmailName = this.emailName
+        },
+        handleSaveLaterClick() {
+            console.log('save later')
+        }
     },
 }
 </script>

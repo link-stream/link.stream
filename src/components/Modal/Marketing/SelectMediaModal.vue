@@ -96,7 +96,9 @@ export default {
             this.open = true
         },
         searchMedia() {},
-        handleUploadClick() {},
+        handleUploadClick() {
+            this.close()
+        },
     },
 }
 </script>

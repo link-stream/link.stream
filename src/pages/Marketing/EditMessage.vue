@@ -291,7 +291,7 @@ export default {
         },
         handleSaveLaterClick() {
             console.log('save later')
-        }
+        },
     },
 }
 </script>

@@ -9,37 +9,40 @@
                 >
                     <div class="icon-container d-none d-sm-block">
                         <font-awesome-icon
-                            v-if="message.type === 'email'" 
+                            v-if="message.type === 'Email'"
                             :icon="['fas', 'envelope-open-text']"
                             class="h3"
                         />
                         <font-awesome-icon
-                            v-else-if="message.type === 'sms'" 
+                            v-else-if="message.type === 'SMS'"
                             :icon="['fas', 'mobile-alt']"
                             class="h3"
                         />
                     </div>
                     <div class="text-content">
                         <h4 class="item-title">
-                            {{ message.title }}
+                            {{ message.campaing_name }}
                         </h4>
                         <small class="item-subtitle">
-                            <span class="message-type">{{ message.type }}&nbsp;&middot;&nbsp;</span>
-                            <span>{{ message.status === 'sent' ? 'Sent' : 'Editted' }}&nbsp;</span>
-                            <span class="message-datetime">{{ message.datetime | fullDateTime }}</span>
+                            <span class="message-type">
+                                {{ message.type }}&nbsp;&middot;&nbsp;
+                            </span>
+                            <span>
+                                {{ message.status === 'Sent' ? 'Sent' : 'Edited' }}&nbsp;
+                            </span>
+                            <span class="message-datetime">
+                                {{ message.created_at | fullDateTime }}
+                            </span>
                         </small>
                     </div>
                 </b-col>
-                <b-col
-                    cols="12"
-                    sm="2"
-                >
-                    <div class="message-status" :class="message.status">
-                        {{ message.status }}
+                <b-col cols="12" sm="2">
+                    <div class="message-status" :class="getStatusString.toLowerCase()">
+                        {{ getStatusString }}
                     </div>
                 </b-col>
                 <b-col
-                    v-if="message.status === 'sent'"
+                    v-if="message.status === 'Sent'"
                     cols="12"
                     sm="4"
                 >
@@ -73,7 +76,7 @@
             </b-row>
         </div>
         <BasicButton
-            v-if="message.status === 'scheduled' || message.status === 'draft'"
+            v-if="message.status === 'Scheduled' || message.status === 'Draft'"
             variant="icon"
             title="Edit"
             class="card-edit-btn"
@@ -104,8 +107,6 @@
 </template>
 
 <script>
-import { appConstants } from '~/constants'
-
 export default {
     name: 'MessageCard',
     props: {
@@ -114,8 +115,22 @@ export default {
             required: true,
         },
     },
+    computed: {
+        getStatusString() {
+            if (this.message.status === 'Sent') {
+                return 'Sent'
+            } else {
+                return this.message.scheduled ? 'Scheduled' : 'Draft'
+            }
+        },
+    },
     methods: {
-        handleEditClick() {},
+        handleEditClick() {
+            if (this.message.type === 'SMS') {
+                this.$store.dispatch('marketing/setSMSData', {...this.message})
+                this.$bus.$emit('modal.createSMS.open')
+            }
+        },
     },
 }
 </script>

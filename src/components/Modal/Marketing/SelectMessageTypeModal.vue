@@ -86,6 +86,15 @@ export default {
             this.close()
         },
         handleSMSClick() {
+            const message = {
+                campaing_name: null,
+                scheduled: false,
+                send_to: null,
+                date: new Date(),
+                time: '00:00:00',
+                content: '',
+            }
+            this.$store.dispatch('marketing/setSMSData', {...message})
             this.$bus.$emit('modal.createSMS.open')
             this.close()
         },

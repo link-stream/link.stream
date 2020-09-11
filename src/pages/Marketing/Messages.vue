@@ -28,28 +28,16 @@
                 </div>
             </div>
             <LoadingSpinner class="page-loader" v-if="loading" />
-            <div class="">
+            <div v-else-if="messages.length > 0">
                 <div class="message-list">
                     <h4 class="date-title">
                         This Week(
-                        {{ thisWeekMessages.length }}
+                        {{ messages.length }}
                         )
                     </h4>
                     <message-card
-                        v-for="(message, index) in thisWeekMessages"
+                        v-for="(message, index) in messages"
                         :key="`this-week-${index}`"
-                        :message="message"
-                    />
-                </div>
-                <div class="message-list">
-                    <h4 class="date-title">
-                        May, 2020(
-                        {{ mayMessages.length }}
-                        )
-                    </h4>
-                    <message-card
-                        v-for="(message, index) in mayMessages"
-                        :key="`may-${index}`"
                         :message="message"
                     />
                 </div>
@@ -76,6 +64,7 @@ import CreateMessageModal from '~/components/Modal/Marketing/CreateMessageModal'
 import CreateSMSModal from '~/components/Modal/Marketing/CreateSMSModal'
 import EditSMSModal from '~/components/Modal/Marketing/EditSMSModal'
 import { mapGetters } from 'vuex'
+// import moment from 'moment'
 
 export default {
     name: 'MarketingMessages',
@@ -89,77 +78,27 @@ export default {
     data() {
         return {
             loading: false,
-            cntEmails: 5748,
-            cntSms: 2257,
-            messages: [
-                {
-                    type: 'email',
-                    title: 'Someone To Love You',
-                    datetime: '2020/07/09 10:05:00',
-                    status: 'scheduled',
-                    opens: null,
-                    clicks: null,
-                    revenue: null,
-                },
-                {
-                    type: 'email',
-                    title: 'Insert Your Subject Here 2',
-                    datetime: '2020/07/08 10:05:00',
-                    status: 'draft',
-                    opens: null,
-                    clicks: null,
-                    revenue: null,
-                },
-                {
-                    type: 'sms',
-                    title: '2 For 1 Deal Today Only',
-                    datetime: '2020/07/07 10:05:00',
-                    status: 'sent',
-                    opens: 5.2,
-                    clicks: 0.2,
-                    revenue: 39,
-                },
-                {
-                    type: 'email',
-                    title: 'Longer Placeholder Email Title Insert Your Subject Here',
-                    datetime: '2020/07/06 20:05:00',
-                    status: 'sent',
-                    opens: 5.2,
-                    clicks: 0.2,
-                    revenue: 39,
-                },
-                {
-                    type: 'email',
-                    title: 'Insert Your Subject Here',
-                    datetime: '2020/05/25 14:07:00',
-                    status: 'sent',
-                    opens: 5.2,
-                    clicks: 0.2,
-                    revenue: 39,
-                },
-                {
-                    type: 'email',
-                    title: 'Longer Placeholder Email Title Insert Your Subject Here',
-                    datetime: '2020/05/23 20:05:00',
-                    status: 'sent',
-                    opens: 5.2,
-                    clicks: 0.2,
-                    revenue: 39,
-                },
-            ],
-            thisWeekMessages: [],
-            mayMessages: [],
         }
     },
     computed: {
-        ...mapGetters({}),
+        ...mapGetters({
+            messages: 'marketing/messages',
+        }),
+        cntEmails() {
+            return this.messages.filter(({ type }) => type === 'Email').length
+        },
+        cntSms() {
+            return this.messages.filter(({ type }) => type === 'SMS').length
+        },
     },
     async created() {
         this.loading = true
-        // await this.$store.dispatch('me/loadLinks')
+        await this.$store.dispatch('marketing/getMessages')
         this.loading = false
-        this.thisWeekMessages = this.messages.slice(0, 4)
-        this.mayMessages = this.messages.slice(4)
+        // console.log(moment().startOf('week'))
+        // console.log(moment().startOf('month'))
+        // console.log(moment(new Date('2020/02/01')).startOf('month'))
+        console.log(this.messages)
     },
     methods: {
         handleCreateClick() {

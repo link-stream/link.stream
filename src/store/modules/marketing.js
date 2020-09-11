@@ -13,7 +13,8 @@ const initialState = () => ({
     sendtos: [],
     smsData: {
         scheduled: false,
-    }
+    },
+    messages: [],
 })
 
 const state = initialState()
@@ -27,11 +28,29 @@ const mutations = {
     },
 
     [marketingTypes.SET_SEND_TO](state, { sendtos }) {
-        state.sendtos = sendtos
+        for (const [key, value] of Object.entries(sendtos)) {
+            state.sendtos.push({
+                value: key,
+                title: value,
+            })
+        }
     },
 
     [marketingTypes.SET_SMS_DATA](state, { smsData }) {
         state.smsData = smsData
+    },
+
+    [marketingTypes.SET_MESSAGES](state, { messages }) {
+        state.messages = messages
+    },
+
+    [marketingTypes.ADD_MESSAGE](state, { message }) {
+        state.messages.push(message)
+    },
+
+    [marketingTypes.UPDATE_MESSAGE](state, { message }) {
+        const index = state.messages.findIndex(({ id }) => id == message.id)
+        index > -1 && state.messages.splice(index, 1, message)
     }
 }
 
@@ -40,24 +59,46 @@ const actions = {
         commit(commonTypes.RESET)
     },
 
-    async getMessageSendto({ commit, rootGetters }) {
+    async getMessageSendto({ commit, state, rootGetters }) {
+        if (state.sendtos.length > 0) return
         const user = rootGetters['auth/user']
         const response = await api.marketing.getMessageSendto(user.id)
-        console.log(response)
         const { status, data } = response
         status === 'success' &&
             commit(marketingTypes.SET_SEND_TO, { sendtos: data })
-        return response
     },
 
-    async setSMSData({ commit }, param) {
-        commit(marketingTypes.SET_SMS_DATA, { smsData: param })
-    }
+    async setSMSData({ commit }, params) {
+        commit(marketingTypes.SET_SMS_DATA, { smsData: params })
+    },
+    async getMessages({ commit, rootGetters }) {
+        const user = rootGetters['auth/user']
+        const response = await api.marketing.getMessages(user.id)
+        console.log(response)
+        const { status, data } = response
+        status === 'success' &&
+            commit(marketingTypes.SET_MESSAGES, { messages: data })
+    },
+    async insertMessage({ commit }, params) {
+        const response = await api.marketing.insertMessage(params)
+        const { status, data } = response
+        status === 'success' &&
+            commit(marketingTypes.ADD_MESSAGE, { message: data })
+        return response
+    },
+    async updateMessage({ commit }, { id, params }) {
+        const response = await api.marketing.updateMessage(id, params)
+        const { status, data } = response
+        status === 'success' &&
+            commit(marketingTypes.UPDATE_MESSAGE, { message: data })
+        return response
+    },
 }
 
 const getters = {
     sendtos: ({ sendtos }) => sendtos,
     smsData: ({ smsData }) => smsData,
+    messages: ({ messages }) => messages,
 }
 
 export default {

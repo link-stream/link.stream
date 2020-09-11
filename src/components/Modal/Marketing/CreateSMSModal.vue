@@ -22,9 +22,9 @@
                 </b-form-input>
             </b-form-group>
             <b-form-group label="Sending options">
-                <b-form-radio-group v-model="sendingOption" name="sending-option">
-                    <b-form-radio value="send">Send now</b-form-radio>
-                    <b-form-radio value="schedule">Schedule</b-form-radio>
+                <b-form-radio-group v-model="scheduled" name="sending-option">
+                    <b-form-radio :value="false">Send now</b-form-radio>
+                    <b-form-radio :value="true">Schedule</b-form-radio>
                 </b-form-radio-group>
             </b-form-group>
         </template>
@@ -49,14 +49,26 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: 'CreateSMSModal',
     data() {
         return {
             open: false,
             campaignName: '',
-            sendingOption: 'send',
+            scheduled: false,
         }
+    },
+    computed: {
+        ...mapGetters({
+            smsData: 'marketing/smsData',
+        }),
+    },
+    watch: {
+        smsData(value) {
+            this.campaignName = value.campaing_name
+            this.scheduled = value.scheduled
+        },
     },
     created() {
         this.$bus.$on('modal.createSMS.open', this.handleOpen)
@@ -77,11 +89,12 @@ export default {
                 this.$toast.error('Please enter a campaign name.')
                 return
             }
-            const param = {
+            const params = {
+                ...this.smsData,
                 campaing_name: this.campaignName,
-                scheduled: this.sendingOption === 'schedule'
+                scheduled: this.scheduled,
             }
-            await this.$store.dispatch('marketing/setSMSData', param)
+            await this.$store.dispatch('marketing/setSMSData', params)
             this.$bus.$emit('modal.editSMS.open')
             this.close()
         },

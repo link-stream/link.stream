@@ -565,5 +565,31 @@ export const api = {
                 method,
             })
         },
+        async getMessages(userId) {
+            const endpoint = '/marketing/messages/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async insertMessage(params) {
+            const endpoint = '/marketing/messages/'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async updateMessage(id, params) {
+            const endpoint = '/marketing/messages/' + id
+            const method = METHOD_PUT
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
     },
 }

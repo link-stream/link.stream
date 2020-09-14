@@ -1,6 +1,6 @@
 <template>
     <b-modal
-        modal-class="CreateSMSModal"
+        modal-class="ScheduleEmailModal"
         centered
         v-model="open"
         size="lg"

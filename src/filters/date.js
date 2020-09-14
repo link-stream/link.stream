@@ -35,3 +35,7 @@ Vue.filter('mmddyyyy', function(value) {
 Vue.filter('fullDateTime', function(value) {
     return moment(value).format('ddd, MMMM Do hh:mm A')
 })
+
+Vue.filter('normalTime', function(value) {
+    return moment(value).format('h:mm a')
+})

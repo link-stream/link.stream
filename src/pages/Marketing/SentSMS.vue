@@ -15,7 +15,15 @@
                 <h1 class="page-title">
                     Your SMS has been sent!
                 </h1>
-                <p class="description mb-0">
+                <p v-if="smsData.scheduled" class="description mb-0">
+                    {{ smsData.campaing_name }}
+                    will be sent on
+                    {{ smsData.date | mmddyyyy }}
+                    at
+                    {{ new Date(smsData.date + ' ' + smsData.time) | normalTime }}
+                    {{ timezone.zone }}
+                </p>
+                <p v-else class="description mb-0">
                     {{ smsData.campaing_name }}
                     is on its way to
                     {{ cntSubscribers }}
@@ -40,9 +48,15 @@ export default {
     computed: {
         ...mapGetters({
             smsData: 'marketing/smsData',
+            user: 'me/user',
+            timezones: 'common/timezones',
         }),
+        timezone() {
+            return this.timezones.find(({ id }) => id === this.user.timezone)
+        },
     },
-    created() {
+    async created() {
+        await this.$store.dispatch('common/loadTimezones')
         console.log(this.smsData)
     },
 }

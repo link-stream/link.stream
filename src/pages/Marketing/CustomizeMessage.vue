@@ -5,7 +5,11 @@
                 <font-awesome-icon :icon="['fas', 'chevron-left']" />
             </a>
             <h4 class="title">Customize</h4>
-            <b-button pill class="btn-send-test" size="md">
+            <b-button
+                pill
+                class="btn-send-test"
+                size="md"
+                @click="handleTestClick">
                 Send Test
             </b-button>
         </div>
@@ -211,16 +215,19 @@
             </div>
         </div>
         <SelectMediaModal />
+        <SendTestModal />
     </b-container>
 </template>
 <script>
 import { Chrome } from 'vue-color'
 import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
+import SendTestModal from '@/components/Modal/Marketing/SendTestModal'
 export default {
     name: 'CustomizeMessage',
     components: {
         'color-picker': Chrome,
         SelectMediaModal,
+        SendTestModal,
     },
     data: () => ({
         promoteName: null,
@@ -294,6 +301,9 @@ export default {
                 name: 'editMessage',
             })
         },
+        handleTestClick() {
+            this.$bus.$emit('modal.sendTest.open')
+        }
     },
 }
 </script>

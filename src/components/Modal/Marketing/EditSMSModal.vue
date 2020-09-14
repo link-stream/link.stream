@@ -170,16 +170,16 @@ export default {
             }
             this.saving = true
             const params = {
-                user_id: this.user.id,
-                type: 'SMS',
+                user_id: this.smsData.user_id,
+                type: this.smsData.type,
                 campaing_name: this.smsData.campaing_name,
                 send_to: this.form.send_to,
                 reply_to: '',
                 subject: '',
                 content: this.form.content,
                 scheduled: this.smsData.scheduled,
-                date: moment(this.form.date).format('YYYY-MM-DD'),
-                time: this.form.time,
+                date: this.form.scheduled ? moment(this.form.date).format('YYYY-MM-DD') : null,
+                time: this.form.scheduled ? this.form.time : null,
             }
             console.log(params)
             if (this.smsData.id) {

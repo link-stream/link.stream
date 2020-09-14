@@ -16,7 +16,7 @@
                 <div class="left-col">
                     <div v-if="isEditEmailName" class="edit-email-container">
                         <b-form-input
-                            v-model="tempEmailName"
+                            v-model="form.campaing_name"
                             placeholder="Email Name Placeholder"
                         >
                         </b-form-input>
@@ -30,14 +30,14 @@
                         <basic-button
                             class="text-black"
                             variant="link"
-                            @click="isEditEmailName = false"
+                            @click="handleCancelClick"
                         >
                             Cancel
                         </basic-button>
                     </div>
                     <div v-else>
                         <h1 class="page-title">
-                            {{ emailName }}
+                            {{ form.campaing_name }}
                         </h1>
                         <a href="#" @click.prevent="showEditEmail">
                             Edit email name
@@ -82,7 +82,7 @@
                                     subscribers
                                 </span>
                                 subscribed contacts in the audience
-                                {{ `Hidro Kitty` }}
+                                {{ form.user_name }}
                             </small>
                         </div>
                         <div class="right-col">
@@ -105,7 +105,9 @@
                                 From
                             </h4>
                             <small class="item-subtitle">
-                                Hydro Kitty &middot; hello@hydrokitty.com
+                                {{ form.user_name }}
+                                &middot;
+                                {{ form.reply_to }}
                             </small>
                         </div>
                         <div class="right-col">
@@ -122,13 +124,14 @@
                         <font-awesome-icon
                             :icon="['fas', 'check-circle']"
                             class="item-status"
+                            :class="{ 'completed': form.subject }"
                         />
                         <div class="left-col">
                             <h4 class="item-title">
                                 Subject
                             </h4>
-                            <small v-if="subject" class="item-subtitle">
-                                {{ subject }}
+                            <small v-if="form.subject" class="item-subtitle">
+                                {{ form.subject }}
                             </small>
                             <small
                                 v-else
@@ -151,18 +154,13 @@
                         <font-awesome-icon
                             :icon="['fas', 'check-circle']"
                             class="item-status"
+                            :class="{ 'completed': form.content }"
                         />
                         <div class="left-col">
                             <h4 class="item-title">
                                 Content
                             </h4>
-                            <small class="item-subtitle" v-if="content">
-                                {{ content }}
-                            </small>
-                            <small
-                                v-else
-                                class="item-subtitle placeholder-text"
-                            >
+                            <small class="item-subtitle placeholder-text">
                                 Design and manage the content of your email
                             </small>
                             <div class="template-container">
@@ -241,6 +239,7 @@ import EditFromModal from '@/components/Modal/Marketing/EditFromModal'
 import SendTestModal from '@/components/Modal/Marketing/SendTestModal'
 import ScheduleEmailModal from '@/components/Modal/Marketing/ScheduleEmailModal'
 import ReviewEmailModal from '@/components/Modal/Marketing/ReviewEmailModal'
+import { mapGetters } from 'vuex'
 export default {
     name: 'EditMessage',
     components: {
@@ -255,13 +254,36 @@ export default {
         loading: false,
         saving: false,
         cntSubscribers: 5749,
-        subject: null,
-        content: null,
+        form: {
+            user_name: null,
+            email: null,
+            campaing_name: null,
+            subject: null,
+            content: null,
+        },
         isEditEmailName: false,
-        emailName: 'Someone To Love You',
-        tempEmailName: '',
         templateImageUrl: '/static/img/email-template-release.jpg',
     }),
+    computed: {
+        ...mapGetters({
+            smsData: 'marketing/smsData',
+        }),
+    },
+    watch: {
+        smsData: {
+            deep: true,
+            handler(value) {
+                this.form = {
+                    ...value,
+                }
+            }
+        },
+    },
+    created() {
+        this.form = {
+            ...this.smsData,
+        }
+    },
     methods: {
         handleEditSendtoClick() {
             this.$bus.$emit('modal.editSendto.open')
@@ -286,16 +308,23 @@ export default {
         handleScheduleClick() {
             this.$bus.$emit('modal.scheduleEmail.open')
         },
-        handleSaveClick() {
-            this.emailName = this.tempEmailName
+        async handleSaveClick() {
+            const params = {
+                ...this.smsData,
+                campaing_name: this.form.campaing_name,
+            }
+            await this.$store.dispatch('marketing/setSMSData', params)
             this.isEditEmailName = false
         },
         showEditEmail() {
             this.isEditEmailName = true
-            this.tempEmailName = this.emailName
         },
         handleSaveLaterClick() {
             console.log('save later')
+        },
+        handleCancelClick() {
+            this.form.campaing_name = this.smsData.campaing_name
+            this.isEditEmailName = false
         },
     },
 }

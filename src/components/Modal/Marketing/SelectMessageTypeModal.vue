@@ -18,7 +18,7 @@
                             href="#"
                             class="message-type-container"
                             @click="handleEmailClick"
-                        > 
+                        >
                             <div class="message-type">
                                 <font-awesome-icon
                                     :icon="['fas', 'envelope-open-text']"
@@ -40,7 +40,7 @@
                             class="message-type-container"
                             @click="handleSMSClick"
                         >
-                            <div class="message-type"> 
+                            <div class="message-type">
                                 <font-awesome-icon
                                     :icon="['fas', 'mobile-alt']"
                                 />
@@ -54,18 +54,24 @@
                         </a>
                     </div>
                 </b-col>
-            </b-form-row>            
+            </b-form-row>
         </template>
     </b-modal>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: 'SelectMessageTypeModal',
     data() {
         return {
             open: false,
         }
+    },
+    computed: {
+        ...mapGetters({
+            user: 'me/user',
+        }),
     },
     created() {
         this.$bus.$on('modal.selectMessageType.open', this.handleOpen)
@@ -82,19 +88,38 @@ export default {
             this.open = true
         },
         handleEmailClick() {
+            const message = {
+                type: 'Email',
+                campaing_name: null,
+                send_to: null,
+                user_id: this.user.id,
+                reply_to: this.user.email,
+                user_name: this.user.display_name,
+                scheduled: false,
+                subject: null,
+                content: null,
+                date: new Date(),
+                time: '00:00:00',
+            }
+            this.$store.dispatch('marketing/setSMSData', { ...message })
             this.$bus.$emit('modal.createMessage.open')
             this.close()
         },
         handleSMSClick() {
             const message = {
+                type: 'SMS',
                 campaing_name: null,
-                scheduled: false,
                 send_to: null,
+                user_id: this.user.id,
+                reply_to: null,
+                user_name: null,
+                scheduled: false,
+                subject: '',
+                content: '',
                 date: new Date(),
                 time: '00:00:00',
-                content: '',
             }
-            this.$store.dispatch('marketing/setSMSData', {...message})
+            this.$store.dispatch('marketing/setSMSData', { ...message })
             this.$bus.$emit('modal.createSMS.open')
             this.close()
         },

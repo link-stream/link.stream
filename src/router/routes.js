@@ -311,7 +311,6 @@ const routes = [
         meta: { requiresAuth: true, layout: 'account' },
     },
 
-
     //Public Profile
     {
         path: '/:url',

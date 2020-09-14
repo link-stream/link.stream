@@ -21,8 +21,8 @@
                     v-model="segmentTag"
                     id="segmentTagInput"
                     placeholder="Select Segment or Tag"
-                    :options="segmentTagList"
-                    :reduce="segmentTag => segmentTag.id"
+                    :options="sentos"
+                    :reduce="segmentTag => segmentTag.value"
                     label="title"
                 />
             </b-form-group>
@@ -55,16 +55,18 @@ export default {
         return {
             open: false,
             segmentTag: '',
-            segmentTagList: [{
-                id: "1",
-                title: 'All subscribers in audience',
-            }],
         }
     },
     computed: {
         ...mapGetters({
             sentos: 'marketing/sendtos',
+            smsData: 'marketing/smsData',
         }),
+    },
+    watch: {
+        smsData(value) {
+            this.segmentTag = value.send_to
+        },
     },
     async created() {
         this.$bus.$on('modal.editSendto.open', this.handleOpen)
@@ -81,8 +83,12 @@ export default {
         handleOpen() {
             this.open = true
         },
-        handleSaveClick() {
-            this.$router.push({ name: 'editMessage' })
+        async handleSaveClick() {
+            const params = {
+                ...this.smsData,
+                send_to: this.segmentTag,
+            }
+            await this.$store.dispatch('marketing/setSMSData', params)
             this.close()
         },
     },

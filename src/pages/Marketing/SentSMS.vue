@@ -20,7 +20,9 @@
                     will be sent on
                     {{ smsData.date | mmddyyyy }}
                     at
-                    {{ new Date(smsData.date + ' ' + smsData.time) | normalTime }}
+                    {{
+                        new Date(smsData.date + ' ' + smsData.time) | normalTime
+                    }}
                     {{ timezone.zone }}
                 </p>
                 <p v-else class="description mb-0">

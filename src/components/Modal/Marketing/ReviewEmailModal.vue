@@ -29,10 +29,7 @@
                 >
                     Cancel
                 </basic-button>
-                <spinner-button
-                    class="action-btn"
-                    @click="handleSendClick"
-                >
+                <spinner-button class="action-btn" @click="handleSendClick">
                     Send Now
                 </spinner-button>
             </div>
@@ -70,7 +67,7 @@ export default {
         handleOpen() {
             this.open = true
         },
-        async handleSendClick() {
+        handleSendClick() {
             this.close()
         },
     },

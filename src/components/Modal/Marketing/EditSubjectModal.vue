@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: 'EditSubjectModal',
     data() {
@@ -51,6 +52,16 @@ export default {
             open: false,
             subjectLine: '',
         }
+    },
+    computed: {
+        ...mapGetters({
+            smsData: 'marketing/smsData',
+        }),
+    },
+    watch: {
+        smsData(value) {
+            this.subjectLine = value.subject
+        },
     },
     created() {
         this.$bus.$on('modal.editSubject.open', this.handleOpen)
@@ -66,11 +77,16 @@ export default {
         handleOpen() {
             this.open = true
         },
-        handleSaveClick() {
+        async handleSaveClick() {
             if (!this.subjectLine) {
                 this.$toast.error('Please enter a subject line.')
                 return
             }
+            const params = {
+                ...this.smsData,
+                subject: this.subjectLine,
+            }
+            await this.$store.dispatch('marketing/setSMSData', params)
             this.$router.push({ name: 'editMessage' })
             this.close()
         },

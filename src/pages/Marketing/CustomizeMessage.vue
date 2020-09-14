@@ -9,7 +9,8 @@
                 pill
                 class="btn-send-test"
                 size="md"
-                @click="handleTestClick">
+                @click="handleTestClick"
+            >
                 Send Test
             </b-button>
         </div>
@@ -222,6 +223,7 @@
 import { Chrome } from 'vue-color'
 import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
 import SendTestModal from '@/components/Modal/Marketing/SendTestModal'
+import { mapGetters } from 'vuex'
 export default {
     name: 'CustomizeMessage',
     components: {
@@ -245,6 +247,11 @@ export default {
             hex: '',
         },
     }),
+    computed: {
+        ...mapGetters({
+            smsData: 'marketing/smsData',
+        }),
+    },
     watch: {
         buttonColorHex(val) {
             this.buttonColor = {
@@ -303,7 +310,7 @@ export default {
         },
         handleTestClick() {
             this.$bus.$emit('modal.sendTest.open')
-        }
+        },
     },
 }
 </script>

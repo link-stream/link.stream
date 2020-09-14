@@ -47,13 +47,24 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-    name: 'SelectMessageTypeModal',
+    name: 'CreateMessageModal',
     data() {
         return {
             open: false,
             campaignName: '',
         }
+    },
+    computed: {
+        ...mapGetters({
+            smsData: 'marketing/smsData',
+        }),
+    },
+    watch: {
+        smsData(value) {
+            this.campaignName = value.campaing_name
+        },
     },
     created() {
         this.$bus.$on('modal.createMessage.open', this.handleOpen)
@@ -73,11 +84,16 @@ export default {
             this.$bus.$emit('modal.selectMessageType.open')
             this.close()
         },
-        handleNextClick() {
+        async handleNextClick() {
             if (!this.campaignName) {
                 this.$toast.error('Please enter a campaign name.')
                 return
             }
+            const params = {
+                ...this.smsData,
+                campaing_name: this.campaignName,
+            }
+            await this.$store.dispatch('marketing/setSMSData', params)
             this.$router.push({ name: 'editMessage' })
             this.close()
         },

@@ -51,7 +51,7 @@ const mutations = {
     [marketingTypes.UPDATE_MESSAGE](state, { message }) {
         const index = state.messages.findIndex(({ id }) => id == message.id)
         index > -1 && state.messages.splice(index, 1, message)
-    }
+    },
 }
 
 const actions = {

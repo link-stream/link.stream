@@ -21,7 +21,7 @@
                     >
                         <b-form-input
                             id="from-name"
-                            v-model="fromName"
+                            v-model="form.user_name"
                             required
                             placeholder="Name"
                         >
@@ -35,7 +35,8 @@
                     >
                         <b-form-input
                             id="from-email"
-                            v-model="fromEmail"
+                            type="email"
+                            v-model="form.reply_to"
                             required
                             placeholder="Email"
                         >
@@ -66,16 +67,30 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-    name: 'EditSendtoModal',
+    name: 'EditFromModal',
     data() {
         return {
             open: false,
-            fromName: null,
-            fromEmail: null
+            form: {
+                user_name: null,
+                reply_to: null,
+            },
         }
     },
-    async created() {
+    computed: {
+        ...mapGetters({
+            smsData: 'marketing/smsData',
+        }),
+    },
+    watch: {
+        smsData(value) {
+            this.form.user_name = value.user_name
+            this.form.reply_to = value.reply_to
+        },
+    },
+    created() {
         this.$bus.$on('modal.editFrom.open', this.handleOpen)
         this.$bus.$on('modal.editFrom.close', this.handleClose)
     },
@@ -89,7 +104,13 @@ export default {
         handleOpen() {
             this.open = true
         },
-        handleSaveClick() {
+        async handleSaveClick() {
+            const params = {
+                ...this.smsData,
+                user_name: this.form.user_name,
+                reply_to: this.form.reply_to,
+            }
+            await this.$store.dispatch('marketing/setSMSData', params)
             this.$router.push({ name: 'editMessage' })
             this.close()
         },

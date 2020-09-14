@@ -299,7 +299,14 @@ export default {
                 name: 'customizeMessage',
             })
         },
-        handleSendClick() {
+        async handleSendClick() {
+            const params = {
+                ...this.smsData,
+                scheduled: false,
+                date: null,
+                time: null,
+            }
+            await this.$store.dispatch('marketing/setSMSData', params)
             this.$bus.$emit('modal.reviewEmail.open')
         },
         handleSenndTestClick() {

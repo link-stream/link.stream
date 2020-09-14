@@ -16,7 +16,7 @@
                 </span>
                 subscribers from the audience
                 <span class="font-weight-bold">
-                    {{ user.display_name }}
+                    {{ smsData.user_name }}
                 </span>
             </p>
         </template>
@@ -29,7 +29,11 @@
                 >
                     Cancel
                 </basic-button>
-                <spinner-button class="action-btn" @click="handleSendClick">
+                <spinner-button
+                    class="action-btn"
+                    :loading="saving"
+                    @click="handleSendClick"
+                >
                     Send Now
                 </spinner-button>
             </div>
@@ -45,12 +49,12 @@ export default {
         return {
             open: false,
             cntSubscribers: 5748,
+            saving: false,
         }
     },
     computed: {
         ...mapGetters({
-            // smsData: 'marketing/smsData',
-            user: 'me/user',
+            smsData: 'marketing/smsData',
         }),
     },
     created() {
@@ -67,7 +71,30 @@ export default {
         handleOpen() {
             this.open = true
         },
-        handleSendClick() {
+        async handleSendClick() {
+            this.saving = true
+            const params = {
+                ...this.smsData,
+            }
+            console.log(params)
+            if (this.smsData.id) {
+                const { status, message, error } = await this.$store.dispatch(
+                    'marketing/updateMessage',
+                    {
+                        id: this.smsData.id,
+                        params: params,
+                    }
+                )
+                status === 'success'
+                    ? this.$toast.success(message)
+                    : this.$toast.error(error)
+            } else {
+                const { status, message, error } = await this.$store.dispatch('marketing/insertMessage', params)
+                status === 'success'
+                    ? this.$toast.success(message)
+                    : this.$toast.error(error)
+            }
+            this.saving == false
             this.close()
         },
     },

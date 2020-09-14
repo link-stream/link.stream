@@ -181,7 +181,6 @@ export default {
                 date: this.form.scheduled ? moment(this.form.date).format('YYYY-MM-DD') : null,
                 time: this.form.scheduled ? this.form.time : null,
             }
-            console.log(params)
             if (this.smsData.id) {
                 const { status, message, error } = await this.$store.dispatch(
                     'marketing/updateMessage',

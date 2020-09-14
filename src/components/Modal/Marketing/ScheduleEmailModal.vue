@@ -51,6 +51,7 @@
                 </basic-button>
                 <spinner-button
                     class="action-btn"
+                    :loading="saving"
                     @click="handleScheduleClick"
                 >
                     Schedule
@@ -62,10 +63,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import moment from 'moment'
 export default {
     name: 'ScheduleEmailModal',
     data: () => ({
         open: false,
+        saving: false,
         date: new Date(),
         time: '00:00:00',
         cntSubscribers: 2257,
@@ -74,10 +77,17 @@ export default {
         ...mapGetters({
             user: 'me/user',
             timezones: 'common/timezones',
+            smsData: 'marketing/smsData',
         }),
         timezone() {
             return this.timezones.find(({ id }) => id === this.user.timezone)
         }
+    },
+    watch: {
+        smsData(value) {
+            this.date = new Date(value.date)
+            this.time = value.time
+        },
     },
     async created() {
         this.$bus.$on('modal.scheduleEmail.open', this.handleOpen)
@@ -94,7 +104,32 @@ export default {
         handleOpen() {
             this.open = true
         },
-        handleScheduleClick() {
+        async handleScheduleClick() {
+            this.saving = true
+            const params = {
+                ...this.smsData,
+                scheduled: true,
+                date: moment(this.date).format('YYYY-MM-DD'),
+                time: this.time,
+            }
+            if (this.smsData.id) {
+                const { status, message, error } = await this.$store.dispatch(
+                    'marketing/updateMessage',
+                    {
+                        id: this.smsData.id,
+                        params: params,
+                    }
+                )
+                status === 'success'
+                    ? this.$toast.success(message)
+                    : this.$toast.error(error)
+            } else {
+                const { status, message, error } = await this.$store.dispatch('marketing/insertMessage', params)
+                status === 'success'
+                    ? this.$toast.success(message)
+                    : this.$toast.error(error)
+            }
+            this.saving == false
             this.close()
         },
     },

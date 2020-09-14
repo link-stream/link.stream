@@ -74,7 +74,6 @@ const actions = {
     async getMessages({ commit, rootGetters }) {
         const user = rootGetters['auth/user']
         const response = await api.marketing.getMessages(user.id)
-        console.log(response)
         const { status, data } = response
         status === 'success' &&
             commit(marketingTypes.SET_MESSAGES, { messages: data })

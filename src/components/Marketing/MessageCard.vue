@@ -129,7 +129,12 @@ export default {
             if (this.message.type === 'SMS') {
                 this.$store.dispatch('marketing/setSMSData', {...this.message})
                 this.$bus.$emit('modal.createSMS.open')
-            }
+            } else if (this.message.type === 'Email') {{
+                this.$store.dispatch('marketing/setSMSData', {...this.message})
+                this.$router.push({
+                    name: 'editMessage',
+                })
+            }}
         },
     },
 }

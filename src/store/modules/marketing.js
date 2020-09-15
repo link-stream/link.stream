@@ -52,6 +52,11 @@ const mutations = {
         const index = state.messages.findIndex(({ id }) => id == message.id)
         index > -1 && state.messages.splice(index, 1, message)
     },
+
+    [marketingTypes.DELETE_MESSAGE](state, { message_id }) {
+        const index = state.messages.findIndex(({ id }) => id == message_id)
+        index > -1 && state.messages.splice(index, 1)
+    },
 }
 
 const actions = {
@@ -72,6 +77,7 @@ const actions = {
         commit(marketingTypes.SET_SMS_DATA, { smsData: params })
     },
     async getMessages({ commit, rootGetters }) {
+        // if (state.messages.length > 0) return
         const user = rootGetters['auth/user']
         const response = await api.marketing.getMessages(user.id)
         const { status, data } = response
@@ -90,6 +96,13 @@ const actions = {
         const { status, data } = response
         status === 'success' &&
             commit(marketingTypes.UPDATE_MESSAGE, { message: data })
+        return response
+    },
+    async deleteMessage({ commit }, { id }) {
+        const response = await api.marketing.deleteMessage(id)
+        const { status } = response
+        status === 'success' &&
+            commit(marketingTypes.DELETE_MESSAGE, { message_id: id })
         return response
     },
 }

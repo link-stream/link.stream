@@ -130,6 +130,7 @@ export default {
                 this.$store.dispatch('marketing/setSMSData', {...this.message})
                 this.$bus.$emit('modal.createSMS.open')
             } else if (this.message.type === 'Email') {{
+                console.log('Set message', this.message)
                 this.$store.dispatch('marketing/setSMSData', {...this.message})
                 this.$router.push({
                     name: 'editMessage',

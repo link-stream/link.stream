@@ -4,6 +4,7 @@
         centered
         v-model="open"
         size="lg"
+        @hidden="$emit('close')"
     >
         <template v-slot:modal-header>
             <BasicButton variant="icon" class="modal-close" @click="close" />
@@ -53,7 +54,7 @@ export default {
     name: 'EditSendtoModal',
     data() {
         return {
-            open: false,
+            open: true,
             segmentTag: '',
         }
     },
@@ -63,25 +64,13 @@ export default {
             smsData: 'marketing/smsData',
         }),
     },
-    watch: {
-        smsData(value) {
-            this.segmentTag = value.send_to
-        },
-    },
     async created() {
-        this.$bus.$on('modal.editSendto.open', this.handleOpen)
-        this.$bus.$on('modal.editSendto.close', this.handleClose)
         await this.$store.dispatch('marketing/getMessageSendto')
+        this.segmentTag = this.smsData.send_to
     },
     methods: {
         close() {
-            this.open = false
-        },
-        handleClose() {
-            this.open = false
-        },
-        handleOpen() {
-            this.open = true
+            this.$emit('close')
         },
         async handleSaveClick() {
             const params = {

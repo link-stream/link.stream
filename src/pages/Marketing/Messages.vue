@@ -29,14 +29,19 @@
             </div>
             <LoadingSpinner class="page-loader" v-if="loading" />
             <div v-else-if="messages.length > 0">
-                <div class="message-list">
+                <div
+                    v-for="item in realMessages"
+                    class="message-list"
+                    :key="item.dateTitlle"
+                >
                     <h4 class="date-title">
-                        This Week(
-                        {{ messages.length }}
+                        {{ item.dateTitle }}
+                        (
+                        {{ item.messages.length }}
                         )
                     </h4>
                     <message-card
-                        v-for="(message, index) in messages"
+                        v-for="(message, index) in item.messages"
                         :key="`this-week-${index}`"
                         :message="message"
                     />
@@ -64,7 +69,7 @@ import CreateMessageModal from '~/components/Modal/Marketing/CreateMessageModal'
 import CreateSMSModal from '~/components/Modal/Marketing/CreateSMSModal'
 import EditSMSModal from '~/components/Modal/Marketing/EditSMSModal'
 import { mapGetters } from 'vuex'
-// import moment from 'moment'
+import moment from 'moment'
 
 export default {
     name: 'MarketingMessages',
@@ -78,6 +83,7 @@ export default {
     data() {
         return {
             loading: false,
+            realMessages: [],
         }
     },
     computed: {
@@ -91,18 +97,55 @@ export default {
             return this.messages.filter(({ type }) => type === 'SMS').length
         },
     },
+    watch: {
+        messages: {
+            deep: true,
+            handler() {
+                console.log('message changed!')
+                this.refreshRealMessages()
+            },
+        },
+    },
     async created() {
         this.loading = true
         await this.$store.dispatch('marketing/getMessages')
         this.loading = false
-        // console.log(moment().startOf('week'))
-        // console.log(moment().startOf('month'))
         // console.log(moment(new Date('2020/02/01')).startOf('month'))
-        console.log(this.messages)
+        // console.log(this.messages)
+        this.refreshRealMessages()
     },
     methods: {
         handleCreateClick() {
             this.$bus.$emit('modal.selectMessageType.open')
+        },    
+        refreshRealMessages() {
+            // console.log(this.messages)
+            let sortMessages = []
+            let tempMessages = [...this.messages]
+            tempMessages.sort((a, b) => (a.created_at < b.created_at ? 1 : -1))
+            const startOfWeek = moment().startOf('week').format('YYYY-MM-DD HH:mm:ss')
+            const thisWeek = tempMessages.filter(({ created_at }) => created_at >= startOfWeek)
+            sortMessages.push({
+                dateTitle: 'This Week',
+                messages: [...thisWeek],
+            })
+            const startOfMonth = moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')
+            if (startOfWeek !== startOfMonth) {
+                const previousWeek = tempMessages.filter(({ created_at }) => created_at >= startOfMonth && created_at < startOfWeek)
+                sortMessages.push({
+                    dateTitle: 'Previous Week',
+                    messages: previousWeek,
+                })
+            }
+            // const curMonth = moment().get('month')
+            // let curStartOfMonth = moment().startOf('month')
+            // for (let m = curMonth - 1; m >= 0; m--) {
+            //     curStartOfMonth.set('month', m)
+            //     const curStartTime = curStartOfMonth.format('YYYY-MM-DD HH:mm:ss')
+            //     console.log(curStartTime)
+            // }
+            this.realMessages = sortMessages
+            // return sortMessages
         },
     },
 }

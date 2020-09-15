@@ -263,9 +263,6 @@ export default {
                 hex: val,
             }
         },
-        smsData(value) {
-
-        }
     },
     mounted() {
         document.addEventListener('click', this.handleDocumentClick)

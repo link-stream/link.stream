@@ -4,6 +4,7 @@
         centered
         v-model="open"
         size="lg"
+        @hide="$emit('close')"
     >
         <template v-slot:modal-header>
             <BasicButton variant="icon" class="modal-close" @click="close" />
@@ -15,10 +16,7 @@
         <template v-slot:default>
             <b-form-row>
                 <b-col cols="12" sm="6">
-                    <b-form-group
-                        label="Name"
-                        label-for="from-name"
-                    >
+                    <b-form-group label="Name" label-for="from-name">
                         <b-form-input
                             id="from-name"
                             v-model="form.user_name"
@@ -29,10 +27,7 @@
                     </b-form-group>
                 </b-col>
                 <b-col cols="12" sm="6">
-                    <b-form-group
-                        label="Email"
-                        label-for="from-email"
-                    >
+                    <b-form-group label="Email" label-for="from-email">
                         <b-form-input
                             id="from-email"
                             type="email"
@@ -44,7 +39,6 @@
                     </b-form-group>
                 </b-col>
             </b-form-row>
-            
         </template>
         <template v-slot:modal-footer>
             <div class="right-col">
@@ -55,10 +49,7 @@
                 >
                     Cancel
                 </basic-button>
-                <spinner-button
-                    class="action-btn"
-                    @click="handleSaveClick"
-                >
+                <spinner-button class="action-btn" @click="handleSaveClick">
                     Save
                 </spinner-button>
             </div>
@@ -72,7 +63,7 @@ export default {
     name: 'EditFromModal',
     data() {
         return {
-            open: false,
+            open: true,
             form: {
                 user_name: null,
                 reply_to: null,
@@ -84,25 +75,13 @@ export default {
             smsData: 'marketing/smsData',
         }),
     },
-    watch: {
-        smsData(value) {
-            this.form.user_name = value.user_name
-            this.form.reply_to = value.reply_to
-        },
-    },
     created() {
-        this.$bus.$on('modal.editFrom.open', this.handleOpen)
-        this.$bus.$on('modal.editFrom.close', this.handleClose)
+        this.form.user_name = this.smsData.user_name
+        this.form.reply_to = this.smsData.reply_to
     },
     methods: {
         close() {
-            this.open = false
-        },
-        handleClose() {
-            this.open = false
-        },
-        handleOpen() {
-            this.open = true
+            this.$emit('close')
         },
         async handleSaveClick() {
             const params = {
@@ -111,7 +90,6 @@ export default {
                 reply_to: this.form.reply_to,
             }
             await this.$store.dispatch('marketing/setSMSData', params)
-            this.$router.push({ name: 'editMessage' })
             this.close()
         },
     },

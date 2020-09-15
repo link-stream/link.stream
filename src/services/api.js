@@ -591,5 +591,13 @@ export const api = {
                 method,
             })
         },
+        async deleteMessage(id) {
+            const endpoint = '/marketing/messages/' + id
+            const method = METHOD_DELETE
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
 }

@@ -10,9 +10,11 @@
             <h4 class="title">Schedule this email</h4>
             <p class="mb-0">
                 This message will be sent to all
-                <span class="font-weight-bold">{{ cntSubscribers | thousandCNumber }}</span>
+                <span class="font-weight-bold">
+                    {{ cntSubscribers | thousandCNumber }}
+                </span>
                 subscribers
-                <a href="#" class="btn-link">Edit Recipients</a> 
+                <a href="#" class="btn-link">Edit Recipients</a>
             </p>
         </template>
         <template v-slot:default>
@@ -81,7 +83,7 @@ export default {
         }),
         timezone() {
             return this.timezones.find(({ id }) => id === this.user.timezone)
-        }
+        },
     },
     watch: {
         smsData(value) {
@@ -124,7 +126,10 @@ export default {
                     ? this.$toast.success(message)
                     : this.$toast.error(error)
             } else {
-                const { status, message, error } = await this.$store.dispatch('marketing/insertMessage', params)
+                const { status, message, error } = await this.$store.dispatch(
+                    'marketing/insertMessage',
+                    params
+                )
                 status === 'success'
                     ? this.$toast.success(message)
                     : this.$toast.error(error)

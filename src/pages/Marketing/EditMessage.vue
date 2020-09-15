@@ -174,7 +174,7 @@
                                 <a
                                     href="#"
                                     class="test-link"
-                                    @click.prevent="handleSenndTestClick"
+                                    @click.prevent="handleSendTestClick"
                                 >
                                     Send a test email
                                 </a>
@@ -224,9 +224,9 @@
                 </div>
             </footer>
         </div>
-        <EditSubjectModal />
-        <EditSendtoModal />
-        <EditFromModal />
+        <EditSubjectModal v-if="isShowSubject" @close="isShowSubject = false" />
+        <EditSendtoModal v-if="isShowSendto" @close="isShowSendto = false" />
+        <EditFromModal v-if="isShowFrom" @close="isShowFrom = false" />
         <SendTestModal />
         <ScheduleEmailModal />
         <ReviewEmailModal />
@@ -262,6 +262,9 @@ export default {
             content: null,
         },
         isEditEmailName: false,
+        isShowSendto: false,
+        isShowFrom: false,
+        isShowSubject: false,
         templateImageUrl: '/static/img/email-template-release.jpg',
     }),
     computed: {
@@ -276,7 +279,7 @@ export default {
                 this.form = {
                     ...value,
                 }
-            }
+            },
         },
     },
     created() {
@@ -286,13 +289,13 @@ export default {
     },
     methods: {
         handleEditSendtoClick() {
-            this.$bus.$emit('modal.editSendto.open')
+            this.isShowSendto = true
         },
         handleEditFromClick() {
-            this.$bus.$emit('modal.editFrom.open')
+            this.isShowFrom = true
         },
         handleEditSubjectClick() {
-            this.$bus.$emit('modal.editSubject.open')
+            this.isShowSubject = true
         },
         handleEditContentClick() {
             this.$router.push({
@@ -306,10 +309,11 @@ export default {
                 date: null,
                 time: null,
             }
+            console.log('smsData', params)
             await this.$store.dispatch('marketing/setSMSData', params)
             this.$bus.$emit('modal.reviewEmail.open')
         },
-        handleSenndTestClick() {
+        handleSendTestClick() {
             this.$bus.$emit('modal.sendTest.open')
         },
         handleScheduleClick() {

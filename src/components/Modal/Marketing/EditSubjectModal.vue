@@ -4,6 +4,7 @@
         centered
         v-model="open"
         size="lg"
+        @hide="$emit('close')"
     >
         <template v-slot:modal-header>
             <BasicButton variant="icon" class="modal-close" @click="close" />
@@ -49,7 +50,7 @@ export default {
     name: 'EditSubjectModal',
     data() {
         return {
-            open: false,
+            open: true,
             subjectLine: '',
         }
     },
@@ -58,24 +59,12 @@ export default {
             smsData: 'marketing/smsData',
         }),
     },
-    watch: {
-        smsData(value) {
-            this.subjectLine = value.subject
-        },
-    },
     created() {
-        this.$bus.$on('modal.editSubject.open', this.handleOpen)
-        this.$bus.$on('modal.editSubject.close', this.handleClose)
+        this.subjectLine = this.smsData.subject
     },
     methods: {
         close() {
-            this.open = false
-        },
-        handleClose() {
-            this.open = false
-        },
-        handleOpen() {
-            this.open = true
+            this.$emit('close')
         },
         async handleSaveClick() {
             if (!this.subjectLine) {
@@ -87,7 +76,6 @@ export default {
                 subject: this.subjectLine,
             }
             await this.$store.dispatch('marketing/setSMSData', params)
-            this.$router.push({ name: 'editMessage' })
             this.close()
         },
     },

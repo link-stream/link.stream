@@ -10,7 +10,6 @@
             <div
                 v-for="(item, index) in activities"
                 :key="index"
-                class="date-container"
             >
                 <div class="date-title">
                     {{ item.date }}

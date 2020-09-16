@@ -113,7 +113,6 @@
     </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
 import LineChart from '~/components/Form/LineChart'
 import moment from 'moment'
 export default {
@@ -253,8 +252,11 @@ export default {
                 } else {
                     aryHours.push('')
                 }
-                aryValues1.push(Math.floor(Math.random() * 20))
-                aryValues2.push(Math.floor(Math.random() * 20))
+                let maxValue = 20
+                if (k > 10) maxValue = 5
+                let randomValue = Math.floor(Math.random() * maxValue)
+                aryValues1.push(randomValue)
+                aryValues2.push(Math.floor(Math.random() * randomValue))
             }
             this.chartData.labels = aryHours
             this.chartData.datasets[0].data = aryValues1

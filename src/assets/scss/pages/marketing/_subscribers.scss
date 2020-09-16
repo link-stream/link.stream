@@ -1,0 +1,90 @@
+.page-subscribers {
+    .action-bar {
+        display: flex;
+        margin-top: 30px;
+        margin-bottom: 25px;
+        .dropdown-actions {
+            margin-right: 20px;
+            .dropdown-toggle {
+                display: flex;
+                text-transform: uppercase;
+                color: black;
+                font-size: px2rem(11);
+                font-weight: bold;
+                line-height: px2rem(35);
+                span {
+                    margin-right: 5px;
+                    letter-spacing: 1.5px;
+                }
+                .fa-chevron-up {
+                    display: none;
+                    margin-top: 12px;
+                }
+                .fa-chevron-down {
+                    display: block;
+                    margin-top: 12px;
+                }
+            }
+            &.show {
+                .fa-chevron-up {
+                    display: block;
+                }
+                .fa-chevron-down {
+                    display: none;
+                }
+            }
+        }
+        .search-form {
+            width: 100%;
+            max-width: 445px;
+            margin-right: 20px;
+        }
+        .btn-export {
+            font-size: px2rem(11);
+            line-height: px2rem(35);
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+        .page-status {
+            margin-left: auto;
+            color: $gray-510;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: px2rem(11);
+            letter-spacing: 1px;
+            margin-top: 15px;
+        }
+    }
+    .subscriber-container {
+        table {
+            th,
+            td {
+                padding: 20px 0px;
+            }
+        }
+        .select-actions {
+            .dropdown-toggle {
+                display: flex;
+                color: black;
+                .fa-chevron-up {
+                    display: none;
+                    margin-top: 7px;
+                }
+                .fa-chevron-down {
+                    display: block;
+                    margin-top: 7px;
+                }
+            }
+            &.show {
+                .fa-chevron-up {
+                    display: block;
+                }
+                .fa-chevron-down {
+                    display: none;
+                }
+            }
+        }
+    }
+}

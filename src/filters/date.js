@@ -37,5 +37,5 @@ Vue.filter('fullDateTime', function(value) {
 })
 
 Vue.filter('normalTime', function(value) {
-    return moment(value).format('h:mm a')
+    return moment(value).format('h:mma')
 })

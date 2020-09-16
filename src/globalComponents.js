@@ -32,6 +32,7 @@ import {
     BootstrapVueIcons,
     BAspect,
     BPaginationNav,
+    BTable,
 } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'
@@ -99,6 +100,7 @@ Vue.component('BDropdownItem', BDropdownItem)
 Vue.component('BDropdownDivider', BDropdownDivider)
 Vue.component('BAspect', BAspect)
 Vue.component('BPaginationNav', BPaginationNav)
+Vue.component('BTable', BTable)
 Vue.use(BootstrapVueIcons)
 
 // Install VueProgressBar
@@ -179,7 +181,9 @@ Vue.component('LoadingMask', LoadingMask)
 import VueCardFormat from 'vue-credit-card-validation'
 import VueSlider from 'vue-slider-component'
 import VueSocialSharing from 'vue-social-sharing'
+import CountryFlag from 'vue-country-flag'
 
 Vue.use(VueCardFormat)
 Vue.component('VueSlider', VueSlider)
 Vue.use(VueSocialSharing)
+Vue.component('country-flag', CountryFlag)

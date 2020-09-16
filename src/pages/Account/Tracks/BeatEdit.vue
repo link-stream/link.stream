@@ -588,7 +588,7 @@ export default {
                       }
                     : {},
             },
-            trackPack: []
+            trackPack: [],
         }
 
         if (Array.isArray(beat.beat_packs)) {
@@ -776,7 +776,7 @@ export default {
                         connect_id: '',
                     }
                 }),
-                beat_packs: JSON.stringify(form.trackPack.map(pack => pack.id))
+                beat_packs: JSON.stringify(form.trackPack.map(pack => pack.id)),
             }
 
             // Schedule
@@ -828,7 +828,6 @@ export default {
             params.licenses = JSON.stringify(params.licenses)
             params.collaborators = JSON.stringify(params.collaborators)
             params.marketing = JSON.stringify(params.marketing)
-            
             const { status, message, error } = await this.$store.dispatch(
                 'me/updateBeat',
                 {

@@ -185,3 +185,123 @@
         }
     }
 }
+.page-report-message {
+    .tabnav {
+        margin-bottom: 30px;
+        li {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: px2rem(12);
+            font-weight: bold;
+            letter-spacing: 0;
+            &.active {
+                border-bottom: 3px solid $primary;
+            }
+            a {
+                color: $gray-810;
+                text-decoration: none;
+                line-height: 40px;
+            }
+        }
+    }
+    .active-number {
+        color: $color-pink-1;
+    }
+    .recipient-title {
+        font-size: px2rem(18);
+        line-height: px2rem(22);
+        margin-bottom: 20px;
+    }
+    .recipient-container {
+        height: 135px;
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.25);
+        .recipient-status {
+            padding-top: 40px;
+            text-align: center;
+            .number {
+                font-size: px2rem(28);
+                line-height: px2rem(34);
+                font-weight: bold;
+                color: $color-pink-1;
+                margin-bottom: 10px;
+            }
+            .description {
+                font-size: px2rem(11);
+                line-height: px2rem(14);
+            }
+        }
+    }
+    .add-description {
+        margin-top: 30px;
+        display: flex;
+        .add-desc-item {
+            font-size: px2rem(16);
+            line-height: px2rem(34);
+        }
+        .link-download-report {
+            font-size: px2rem(13);
+            line-height: px2rem(34);
+        }
+        .left-col {
+            min-width: 350px;
+        }
+    }
+    .chart-container {
+        margin-top: 40px;
+        // max-height: 300px;
+        .chart-title {
+            .title {
+                font-size: px2rem(18);
+                line-height: px2rem(22);
+                font-weight: bold;
+            }
+        }
+    }
+    .location-container {
+        margin-top: 40px;
+        .title {
+            font-size: px2rem(18);
+            line-height: px2rem(22);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .table {
+            line-height: 36px;
+            thead th {
+                border: 0 !important;
+                padding-left: 0;
+            }
+            tbody td {
+                padding-left: 0;
+            }
+        }
+        .img-flag {
+            border-radius: 50% !important;
+            float: left;
+        }
+    }
+    .subscriber-container {
+        margin-top: 40px;
+        .title {
+            font-size: px2rem(18);
+            line-height: px2rem(22);
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .subscriber {
+            height: 58px;
+            box-shadow: 0 -1px 0 0 #E4E4E4;
+            line-height: 58px;
+            .link-email {
+                float: left;               
+            }
+            .opens {
+                float: right;
+                font-weight: bold;
+                font-size: px2rem(13);
+            }
+        }
+    }
+}

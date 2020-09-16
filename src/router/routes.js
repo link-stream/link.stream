@@ -38,6 +38,7 @@ import {
     EditMessage,
     CustomizeMessage,
     SentSMS,
+    ReportMessage,
 } from '~/pages/Marketing'
 
 import PublicProfile from '@/pages/Profile/PublicProfile'
@@ -308,6 +309,12 @@ const routes = [
         path: '/app/marketing/sent-sms',
         name: 'sentSMS',
         component: SentSMS,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/report-message',
+        name: 'reportMessage',
+        component: ReportMessage,
         meta: { requiresAuth: true, layout: 'account' },
     },
 

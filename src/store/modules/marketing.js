@@ -15,6 +15,7 @@ const initialState = () => ({
         scheduled: false,
     },
     messages: [],
+    subscribers: [],
 })
 
 const state = initialState()
@@ -56,6 +57,19 @@ const mutations = {
     [marketingTypes.DELETE_MESSAGE](state, { message_id }) {
         const index = state.messages.findIndex(({ id }) => id == message_id)
         index > -1 && state.messages.splice(index, 1)
+    },
+
+    [marketingTypes.SET_SUBSCRIBERS](state, { subscribers }) {
+        state.subscribers = subscribers
+    },
+
+    [marketingTypes.ADD_SUBSCRIBER](state, { subscriber }) {
+        state.subscribers.push(subscriber)
+    },
+
+    [marketingTypes.UPDATE_SUBSCRIBER](state, { subscriber }) {
+        const index = state.subscribers.findIndex(({ id }) => id == subscriber.id)
+        index > -1 && state.subscribers.splice(index, 1, subscriber)
     },
 }
 
@@ -105,12 +119,35 @@ const actions = {
             commit(marketingTypes.DELETE_MESSAGE, { message_id: id })
         return response
     },
+    async getSubscribers({ commit, rootGetters }) {
+        if (state.subscribers.length > 0) return
+        const user = rootGetters['auth/user']
+        const response = await api.marketing.getSubscribers(user.id)
+        const { status, data } = response
+        status === 'success' &&
+            commit(marketingTypes.SET_SUBSCRIBERS, { subscribers: data })
+    },
+    async insertSubscriber({ commit }, params) {
+        const response = await api.marketing.insertSubscriber(params)
+        const { status, data } = response
+        status === 'success' &&
+            commit(marketingTypes.ADD_SUBSCRIBER, { subscriber: data })
+        return response
+    },
+    async updateSubscriber({ commit }, { id, params }) {
+        const response = await api.marketing.updateSubscriber(id, params)
+        const { status, data } = response
+        status === 'success' &&
+            commit(marketingTypes.UPDATE_SUBSCRIBER, { subscriber: data })
+        return response
+    },
 }
 
 const getters = {
     sendtos: ({ sendtos }) => sendtos,
     smsData: ({ smsData }) => smsData,
     messages: ({ messages }) => messages,
+    subscribers: ({ subscribers }) => subscribers,
 }
 
 export default {

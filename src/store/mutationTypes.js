@@ -93,10 +93,16 @@ export const profileTypes = {
 
 //Marketing
 export const marketingTypes = {
+    //Messages
     SET_SEND_TO: 'SET_SEND_TO',
     SET_SMS_DATA: 'SET_SMS_DATA',
     SET_MESSAGES: 'SET_MESSAGES',
     ADD_MESSAGE: 'ADD_MESSAGE',
     UPDATE_MESSAGE: 'UPDATE_MESSAGE',
     DELETE_MESSAGE: 'DELETE_MESSAGE',
+
+    //Subscribers
+    SET_SUBSCRIBERS: 'SET_SUBSCRIBERS',
+    ADD_SUBSCRIBER: 'ADD_SUBSCRIBER',
+    UPDATE_SUBSCRIBER: 'UPDATE_SUBSCRIBER',
 }

@@ -599,5 +599,31 @@ export const api = {
                 method,
             })
         },
+        async getSubscribers(userId) {
+            const endpoint = '/marketing/subscribers/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async insertSubscriber(params) {
+            const endpoint = '/marketing/subscribers/'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async updateSubscriber(id, params) {
+            const endpoint = '/marketing/subscribers/' + id
+            const method = METHOD_PUT
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
     },
 }

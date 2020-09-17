@@ -1,10 +1,5 @@
 <template>
-    <b-modal
-        modal-class="SelectMediaModal"
-        centered
-        v-model="open"
-        size="lg"
-    >
+    <b-modal modal-class="SelectMediaModal" centered v-model="open" size="lg">
         <template v-slot:modal-header>
             <BasicButton variant="icon" class="modal-close" @click="close" />
             <h4 class="title">Your media files</h4>
@@ -40,7 +35,11 @@
         </template>
         <template v-slot:modal-footer>
             <div>
-                <b-pagination-nav number-of-pages="9" base-url="" align="center"></b-pagination-nav>
+                <b-pagination-nav
+                    number-of-pages="9"
+                    base-url=""
+                    align="center"
+                />
             </div>
         </template>
     </b-modal>
@@ -78,7 +77,7 @@ export default {
                 {
                     url: '/static/media/placeholder.png',
                 },
-            ]
+            ],
         }
     },
     created() {

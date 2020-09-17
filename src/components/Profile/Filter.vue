@@ -37,7 +37,13 @@
         </div>
         <div class="filter-item" v-if="routeName === 'profileBeats'">
             <p class="font-weight-bold">Filter by BPM Range</p>
-            <vue-slider v-model="form.bpm" :min="0" :max="1000" class="mb-3" :disabled="!isOnlyBeat" />
+            <vue-slider
+                v-model="form.bpm"
+                :min="0"
+                :max="1000"
+                class="mb-3"
+                :disabled="!isOnlyBeat"
+            />
             <div class="slider-range-input">
                 <b-form-input v-model="form.bpm[0]" :disabled="!isOnlyBeat" />
                 <div class="range-dash">-</div>
@@ -55,7 +61,7 @@
                 </b-form-checkbox>
             </b-form-checkbox-group>
         </div>
-        <div class="filter-item" v-if="routeName !='profileLinks'">
+        <div class="filter-item" v-if="routeName != 'profileLinks'">
             <p class="font-weight-bold">Genre</p>
             <b-form-checkbox v-model="allSelected" @change="toggleAll">
                 All genres
@@ -124,13 +130,16 @@ export default {
             return this.$route.name
         },
         sortItems() {
-            if (this.routeName === 'profileBeats' || this.routeName === 'profileSoundKits') {
+            if (
+                this.routeName === 'profileBeats' ||
+                this.routeName === 'profileSoundKits'
+            ) {
                 return appConstants.sortItems
-            } else if (this.routeName === 'profileVideos' || this.routeName === 'profileLinks') {
-                return [
-                    appConstants.sortItems[0],
-                    appConstants.sortItems[2],
-                ]
+            } else if (
+                this.routeName === 'profileVideos' ||
+                this.routeName === 'profileLinks'
+            ) {
+                return [appConstants.sortItems[0], appConstants.sortItems[2]]
             }
             return []
         },
@@ -147,7 +156,7 @@ export default {
             if (newVal !== oldVal && newVal) {
                 this.form.bpm = [0, 500]
             }
-        }
+        },
     },
     methods: {
         toggleAll(checked) {
@@ -159,7 +168,7 @@ export default {
                 bpm: [0, 500],
                 type: [],
                 genre: [],
-            },
+            }
             this.selected = []
         },
         handleApplyClick() {
@@ -167,8 +176,14 @@ export default {
                 sort: this.form.sort,
                 bpm_min: this.isOnlyBeat ? this.form.bpm[0] : null,
                 bpm_max: this.isOnlyBeat ? this.form.bpm[1] : null,
-                type: this.routeName === 'profileBeats' ? this.form.type.join(',') : null,
-                genre: this.routeName ==='profileLinks' ? null : this.selected.join(',')
+                type:
+                    this.routeName === 'profileBeats'
+                        ? this.form.type.join(',')
+                        : null,
+                genre:
+                    this.routeName === 'profileLinks'
+                        ? null
+                        : this.selected.join(','),
             }
             this.$emit('apply-filter', params)
         },

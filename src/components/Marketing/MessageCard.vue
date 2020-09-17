@@ -2,11 +2,7 @@
     <div class="Card MessageCard">
         <div class="item-body">
             <b-row>
-                <b-col
-                    cols="12"
-                    sm="6"
-                    class="d-flex"
-                >
+                <b-col cols="12" sm="6" class="d-flex">
                     <div class="icon-container d-none d-sm-block">
                         <font-awesome-icon
                             v-if="message.type === 'Email'"
@@ -28,7 +24,12 @@
                                 {{ message.type }}&nbsp;&middot;&nbsp;
                             </span>
                             <span>
-                                {{ message.status === 'Sent' ? 'Sent' : 'Edited' }}&nbsp;
+                                {{
+                                    message.status === 'Sent'
+                                        ? 'Sent'
+                                        : 'Edited'
+                                }}
+                                &nbsp;
                             </span>
                             <span class="message-datetime">
                                 {{ message.created_at | fullDateTime }}
@@ -37,15 +38,14 @@
                     </div>
                 </b-col>
                 <b-col cols="12" sm="2">
-                    <div class="message-status" :class="getStatusString.toLowerCase()">
+                    <div
+                        class="message-status"
+                        :class="getStatusString.toLowerCase()"
+                    >
                         {{ getStatusString }}
                     </div>
                 </b-col>
-                <b-col
-                    v-if="message.status === 'Sent'"
-                    cols="12"
-                    sm="4"
-                >
+                <b-col v-if="message.status === 'Sent'" cols="12" sm="4">
                     <b-row class="mx-0">
                         <b-col class="px-0">
                             <div class="number-value">
@@ -83,13 +83,7 @@
             size="sm"
             @click="handleEditClick"
         />
-        <b-dropdown
-            v-else
-            class="actions-menu"
-            variant="icon"
-            right
-            no-caret
-        >
+        <b-dropdown v-else class="actions-menu" variant="icon" right no-caret>
             <template v-slot:button-content>
                 <Icon icon="dot-menu-h" />
             </template>
@@ -127,15 +121,19 @@ export default {
     methods: {
         handleEditClick() {
             if (this.message.type === 'SMS') {
-                this.$store.dispatch('marketing/setSMSData', {...this.message})
+                this.$store.dispatch('marketing/setSMSData', {
+                    ...this.message,
+                })
                 this.$bus.$emit('modal.createSMS.open')
-            } else if (this.message.type === 'Email') {{
+            } else if (this.message.type === 'Email') {
                 console.log('Set message', this.message)
-                this.$store.dispatch('marketing/setSMSData', {...this.message})
+                this.$store.dispatch('marketing/setSMSData', {
+                    ...this.message,
+                })
                 this.$router.push({
                     name: 'editMessage',
                 })
-            }}
+            }
         },
     },
 }

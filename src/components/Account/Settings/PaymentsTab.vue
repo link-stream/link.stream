@@ -5,7 +5,8 @@
             <LoadingSpinner class="page-loader" v-if="loading" />
             <div v-else>
                 <p class="description" v-if="paymentMethods.length === 0">
-                    Add a payment method to be used for purchases you make on LinkStream including subscriptions
+                    Add a payment method to be used for purchases you make on
+                    LinkStream including subscriptions
                 </p>
                 <p v-else class="description">
                     Add and manage payment methods
@@ -33,19 +34,16 @@
         </div>
         <div class="upgrade-pro">
             <b-row>
-                <b-col>        
+                <b-col>
                     <div class="text">
                         <h6 class="title">Upgrade to Pro</h6>
                         <p>
-                            Get the most out of LinkStream with advanced features for producers.
+                            Get the most out of LinkStream with advanced
+                            features for producers.
                         </p>
                     </div>
                     <div class="action">
-                        <b-button 
-                            pill
-                            class="btn-upgrade"
-                            size="md"
-                        >
+                        <b-button pill class="btn-upgrade" size="md">
                             Upgrade Now
                         </b-button>
                     </div>
@@ -83,6 +81,6 @@ export default {
         handleAddClick() {
             this.$bus.$emit('modal.addPayment.open')
         },
-    }
+    },
 }
 </script>

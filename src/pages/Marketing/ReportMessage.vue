@@ -18,10 +18,7 @@
                 <div class="page-preview">
                     <span class="text-light">link.stream/</span>
                     <span>{{ user.user_name }}/placeholder-email-title</span>
-                    <basic-button
-                        variant="outline-light"
-                        size="xs"
-                    >
+                    <basic-button variant="outline-light" size="xs">
                         View
                     </basic-button>
                 </div>
@@ -40,11 +37,15 @@
         </header>
         <div class="tabnav">
             <ul>
-                <li :class="{ 'active': currentItem === 'overview' }">
-                    <a href="#" @click.prevent="currentItem = 'overview'">Overview</a>
+                <li :class="{ active: currentItem === 'overview' }">
+                    <a href="#" @click.prevent="currentItem = 'overview'">
+                        Overview
+                    </a>
                 </li>
-                <li :class="{ 'active': currentItem === 'activity' }">
-                    <a href="#" @click.prevent="currentItem = 'activity'">Activity</a>
+                <li :class="{ active: currentItem === 'activity' }">
+                    <a href="#" @click.prevent="currentItem = 'activity'">
+                        Activity
+                    </a>
                 </li>
             </ul>
         </div>
@@ -74,6 +75,6 @@ export default {
     },
     methods: {
         duplicateMessage() {},
-    }
+    },
 }
 </script>

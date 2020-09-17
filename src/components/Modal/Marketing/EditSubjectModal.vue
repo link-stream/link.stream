@@ -33,10 +33,7 @@
                 >
                     Cancel
                 </basic-button>
-                <spinner-button
-                    class="action-btn"
-                    @click="handleSaveClick"
-                >
+                <spinner-button class="action-btn" @click="handleSaveClick">
                     Save
                 </spinner-button>
             </div>

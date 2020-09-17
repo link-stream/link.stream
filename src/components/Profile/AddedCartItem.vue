@@ -13,11 +13,7 @@
             <small class="item-subtitle" v-else-if="cartItem.track_type == 3">
                 Sound Kit |
             </small>
-            <basic-button
-                variant="link"
-                class="btn-remove"
-                @click="removeItem"
-            >
+            <basic-button variant="link" class="btn-remove" @click="removeItem">
                 <small>Remove</small>
             </basic-button>
         </div>

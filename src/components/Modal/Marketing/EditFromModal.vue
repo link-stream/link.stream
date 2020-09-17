@@ -10,7 +10,8 @@
             <BasicButton variant="icon" class="modal-close" @click="close" />
             <h4 class="title">From</h4>
             <p class="description">
-                Who is sending this mail? You should use a name and email that your audience will recognize.
+                Who is sending this mail? You should use a name and email that
+                your audience will recognize.
             </p>
         </template>
         <template v-slot:default>

@@ -64,14 +64,19 @@
                     <b-form-input
                         v-model="$v.form.cc_number.$model"
                         placeholder="Card Number"
-                        :state="!$v.form.cc_number.$error && !cardErrors.cc_number"
+                        :state="
+                            !$v.form.cc_number.$error && !cardErrors.cc_number
+                        "
                         v-cardformat:formatCardNumber
                     ></b-form-input>
                     <b-form-input
                         v-model="$v.form.expiration_date.$model"
                         placeholder="Expiration"
                         class="col-6 float-left"
-                        :state="!$v.form.expiration_date.$error && !cardErrors.expiration_date"
+                        :state="
+                            !$v.form.expiration_date.$error &&
+                                !cardErrors.expiration_date
+                        "
                         v-cardformat:formatCardExpiry
                     ></b-form-input>
                     <b-form-input
@@ -108,7 +113,8 @@
                 </b-form-group>
                 <small>
                     I authorize LinkStream Inc. to save this payment method and
-                    automatically charge this payment method for any subscriptions associated with it.
+                    automatically charge this payment method for any
+                    subscriptions associated with it.
                 </small>
             </div>
             <div v-else class="paypal-action">
@@ -143,11 +149,7 @@
 <script>
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
-
-import {
-    required,
-} from 'vuelidate/lib/validators'
-
+import { required } from 'vuelidate/lib/validators'
 export default {
     name: 'AddPaymentModal',
     data() {
@@ -213,15 +215,17 @@ export default {
 
             this.cardErrors = {}
             if (!this.$cardFormat.validateCardNumber(this.form.cc_number)) {
-                this.cardErrors.cc_number = "Invalid Credit Card Number."
+                this.cardErrors.cc_number = 'Invalid Credit Card Number.'
             }
 
-            if (!this.$cardFormat.validateCardExpiry(this.form.expiration_date)) {
-                this.cardErrors.expiration_date = "Invalid Expiration Date."
+            if (
+                !this.$cardFormat.validateCardExpiry(this.form.expiration_date)
+            ) {
+                this.cardErrors.expiration_date = 'Invalid Expiration Date.'
             }
 
             if (!this.$cardFormat.validateCardCVC(this.form.cvv)) {
-                this.cardErrors.cvv = "Invalid CVV.";
+                this.cardErrors.cvv = 'Invalid CVV.'
             }
 
             if (Object.keys(this.cardErrors).length > 0) {

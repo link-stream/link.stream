@@ -1,10 +1,5 @@
 <template>
-    <b-modal
-        modal-class="CreateMessageModal"
-        centered
-        v-model="open"
-        size="lg"
-    >
+    <b-modal modal-class="CreateMessageModal" centered v-model="open" size="lg">
         <template v-slot:modal-header>
             <a href="#" class="modal-back" @click.prevent="back">
                 <font-awesome-icon :icon="['fas', 'chevron-left']" />
@@ -35,10 +30,7 @@
                 >
                     Cancel
                 </basic-button>
-                <spinner-button
-                    class="action-btn"
-                    @click="handleNextClick"
-                >
+                <spinner-button class="action-btn" @click="handleNextClick">
                     Next
                 </spinner-button>
             </div>

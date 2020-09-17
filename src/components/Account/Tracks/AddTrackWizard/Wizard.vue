@@ -387,7 +387,7 @@ export default {
                         connect_id: '',
                     }
                 }),
-                beat_packs: JSON.stringify(form.trackPack.map(pack => pack.id))
+                beat_packs: JSON.stringify(form.trackPack.map(pack => pack.id)),
             }
 
             // Schedule

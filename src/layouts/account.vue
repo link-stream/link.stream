@@ -36,8 +36,11 @@ export default {
             //loading: 'loading/isStarted',
         }),
         isShowPlanBar() {
-            return this.$route.name === 'marketingMessages' || this.$route.name === 'editMessage'
-        }
+            return (
+                this.$route.name === 'marketingMessages' ||
+                this.$route.name === 'editMessage'
+            )
+        },
     },
     created() {
         this.$store.dispatch('me/loadProfile')

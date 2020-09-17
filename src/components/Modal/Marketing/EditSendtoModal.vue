@@ -10,7 +10,8 @@
             <BasicButton variant="icon" class="modal-close" @click="close" />
             <h4 class="title">Send to</h4>
             <p class="description">
-                You can send a message to all of your email subscribers or use segmentation too send this message to a select group
+                You can send a message to all of your email subscribers or use
+                segmentation too send this message to a select group
             </p>
         </template>
         <template v-slot:default>
@@ -37,10 +38,7 @@
                 >
                     Cancel
                 </basic-button>
-                <spinner-button
-                    class="action-btn"
-                    @click="handleSaveClick"
-                >
+                <spinner-button class="action-btn" click="handleSaveClick">
                     Save
                 </spinner-button>
             </div>

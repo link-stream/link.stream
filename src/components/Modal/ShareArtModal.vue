@@ -39,7 +39,9 @@
                     network="facebook"
                     :url="shareData.shareUrl"
                     :title="shareData.title"
-                    :description="`${shareData.type} from ${shareData.user_name}`"
+                    :description="
+                        `${shareData.type} from ${shareData.user_name}`
+                    "
                     quote=""
                     hashtags=""
                 >

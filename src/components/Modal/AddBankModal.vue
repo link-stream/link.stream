@@ -1,9 +1,5 @@
 <template>
-    <b-modal
-        modal-class="AddBankModal"
-        centered
-        v-model="open"
-    >
+    <b-modal modal-class="AddBankModal" centered v-model="open">
         <template v-slot:modal-header>
             <BasicButton variant="icon" class="modal-close" @click="close" />
             <h4 class="font-weight-bolder">Bank Account Details</h4>
@@ -33,7 +29,12 @@
                     <template v-if="!$v.form.holder_name.required">
                         Enter a routing number.
                     </template>
-                    <template v-else-if="!$v.form.holder_name.minLength || !$v.form.holder_name.maxLength">
+                    <template
+                        v-else-if="
+                            !$v.form.holder_name.minLength ||
+                                !$v.form.holder_name.maxLength
+                        "
+                    >
                         The routing number must have 9 numbers.
                     </template>
                 </b-form-invalid-feedback>
@@ -65,7 +66,11 @@
                     :state="!$v.form.confirm_account_number.$error"
                 ></b-form-input>
                 <b-form-invalid-feedback>
-                    <template v-if="!$v.form.confirm_account_number.sameAsAccountNumber">
+                    <template
+                        v-if="
+                            !$v.form.confirm_account_number.sameAsAccountNumber
+                        "
+                    >
                         The account number must be identical
                     </template>
                 </b-form-invalid-feedback>
@@ -140,8 +145,8 @@ export default {
             confirm_account_number: {
                 required,
                 sameAsAccountNumber: sameAs('account_number'),
-            }
-        }
+            },
+        },
     },
     created() {
         this.$bus.$on('modal.addBank.open', this.handleOpen)

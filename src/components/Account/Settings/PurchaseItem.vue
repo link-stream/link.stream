@@ -2,21 +2,29 @@
     <div class="purchase-item">
         <div class="purchase-item-content">
             <div class="item-cover">
-                <img :src="purchase.data_image ? purchase.data_image : '/static/img/no-coverart.jpg'" :alt="purchase.item_title" />
+                <img
+                    :src="
+                        purchase.data_image
+                            ? purchase.data_image
+                            : '/static/img/no-coverart.jpg'
+                    "
+                    :alt="purchase.item_title"
+                />
             </div>
             <div class="item-body">
                 <h4 class="item-title">
                     {{ purchase.item_title }}
                 </h4>
                 <small class="item-subtitle">
-                    {{ purchase.track_type }} sold by {{ purchase.display_name }} - {{ purchase.item_amount | currencyFormat }}
+                    {{ purchase.track_type }}
+                    sold by
+                    {{ purchase.display_name }}
+                    -
+                    {{ purchase.item_amount | currencyFormat }}
                 </small>
             </div>
-            <basic-button
-                class="d-none d-md-block"
-                size="md"
-            >
-                <b-icon-download 
+            <basic-button class="d-none d-md-block" size="md">
+                <b-icon-download
                     class="mr-2"
                     font-scale="1.5"
                 ></b-icon-download>
@@ -39,15 +47,9 @@
                     Share
                 </b-dropdown-item>
             </b-dropdown>
-        </div>    
-        <basic-button
-            class="d-md-none mt-3"
-            size="md"
-        >
-            <b-icon-download 
-                class="mr-2"
-                font-scale="1.5"
-            ></b-icon-download>
+        </div>
+        <basic-button class="d-md-none mt-3" size="md">
+            <b-icon-download class="mr-2" font-scale="1.5" />
             Download
         </basic-button>
     </div>

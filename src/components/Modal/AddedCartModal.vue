@@ -1,9 +1,5 @@
 <template>
-    <b-modal
-        modal-class="AddedCartModal"
-        v-model="open"
-        hide-backdrop
-    >
+    <b-modal modal-class="AddedCartModal" v-model="open" hide-backdrop>
         <template v-slot:modal-header>
             <BasicButton variant="icon" class="modal-close" @click="close" />
             <h2>Added to cart</h2>

@@ -48,7 +48,8 @@
                                     SMS Message
                                 </h4>
                                 <div class="description">
-                                    Send a quick update to those subscribed to SMS notifications
+                                    Send a quick update to those subscribed to
+                                    SMS notifications
                                 </div>
                             </div>
                         </a>

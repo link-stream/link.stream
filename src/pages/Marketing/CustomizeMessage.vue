@@ -56,7 +56,8 @@
                             </div>
                             <div class="text">
                                 <p>
-                                    You are receiving this email because you opted in via our website.
+                                    You are receiving this email because you
+                                    opted in via our website.
                                 </p>
                                 <p>
                                     You can
@@ -153,10 +154,15 @@
                                             <a
                                                 href="#"
                                                 class="current-color"
-                                                :style="`background-color: ${buttonColorHex}`"
+                                                :style="{
+                                                    backgroundColor: buttonColorHex,
+                                                }"
                                             ></a>
                                         </template>
-                                        <b-form-input v-model="buttonColorHex" class="txt-color-value"></b-form-input>
+                                        <b-form-input
+                                            v-model="buttonColorHex"
+                                            class="txt-color-value"
+                                        ></b-form-input>
                                     </b-input-group>
                                     <color-picker
                                         v-model="buttonColor"
@@ -169,14 +175,21 @@
                         </b-col>
                         <b-col>
                             <div ref="backColorPicker">
-                                <b-form-group label="Background Color" class="color-picker-container right-align">
+                                <b-form-group
+                                    label="Background Color"
+                                    class="color-picker-container right-align"
+                                >
                                     <b-input-group>
                                         <template v-slot:prepend>
                                             <a
                                                 href="#"
                                                 class="current-color"
-                                                :class="{ 'no-color': !backColorHex }"
-                                                :style="`background-color: ${backColorHex}`"
+                                                :class="{
+                                                    noColor: !backColorHex,
+                                                }"
+                                                :style="{
+                                                    backgroundColor: backColorHex,
+                                                }"
                                             ></a>
                                         </template>
                                         <b-form-input

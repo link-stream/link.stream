@@ -8,7 +8,6 @@
             <img src="@/assets/img/ico/logo.svg" />
             <span>LinkStream</span>
         </b-navbar-brand>
-        
         <ul class="list-unstyled main-menu">
             <li
                 v-for="(item, index) in menuItems"
@@ -88,7 +87,9 @@ export default {
                 if (item.to === currentPath) {
                     flagFind = true
                 } else if (item.subs && item.subs.length > 0) {
-                    if (item.subs.findIndex(({ to }) => to === currentPath) > -1) {
+                    if (
+                        item.subs.findIndex(({ to }) => to === currentPath) > -1
+                    ) {
                         flagFind = true
                     }
                 }

@@ -77,14 +77,24 @@
                             no-caret
                         >
                             <template slot="button-content">
-                                <b-form-checkbox v-model="statusAll"></b-form-checkbox>
+                                <b-form-checkbox v-model="statusAll" />
                                 <span>{{ data.label }}</span>
-                                <font-awesome-icon :icon="['fas', 'chevron-down']" />
-                                <font-awesome-icon :icon="['fas', 'chevron-up']" />
+                                <font-awesome-icon
+                                    :icon="['fas', 'chevron-down']"
+                                />
+                                <font-awesome-icon
+                                    :icon="['fas', 'chevron-up']"
+                                />
                             </template>
-                            <b-dropdown-item @click="selectVisible">Select visible</b-dropdown-item>
-                            <b-dropdown-item @click="selectAll">Select all</b-dropdown-item>
-                            <b-dropdown-item @click="deselectAll">Deselect all</b-dropdown-item>
+                            <b-dropdown-item @click="selectVisible">
+                                Select visible
+                            </b-dropdown-item>
+                            <b-dropdown-item @click="selectAll">
+                                Select all
+                            </b-dropdown-item>
+                            <b-dropdown-item @click="deselectAll">
+                                Deselect all
+                            </b-dropdown-item>
                         </b-dropdown>
                     </template>
                     <template v-slot:cell(selected)="data">
@@ -198,7 +208,7 @@ export default {
                 item.selected = true
             })
             this.statusAll = true
-        }
-    }
+        },
+    },
 }
 </script>

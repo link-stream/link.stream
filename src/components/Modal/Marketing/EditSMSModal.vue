@@ -1,10 +1,5 @@
 <template>
-    <b-modal
-        modal-class="EditSMSModal"
-        centered
-        v-model="open"
-        size="lg"
-    >
+    <b-modal modal-class="EditSMSModal" centered v-model="open" size="lg">
         <template v-slot:modal-header>
             <a href="#" class="modal-back" @click.prevent="back">
                 <font-awesome-icon :icon="['fas', 'chevron-left']" />
@@ -13,7 +8,10 @@
             <h4 class="title">Send an SMS message</h4>
         </template>
         <template v-slot:default>
-            <b-form-group label="Segment or Tag (optional)" label-for="segmentTagInput">
+            <b-form-group
+                label="Segment or Tag (optional)"
+                label-for="segmentTagInput"
+            >
                 <BasicSelect
                     v-model="form.send_to"
                     id="segmentTagInput"
@@ -178,7 +176,9 @@ export default {
                 subject: '',
                 content: this.form.content,
                 scheduled: this.smsData.scheduled,
-                date: this.form.scheduled ? moment(this.form.date).format('YYYY-MM-DD') : null,
+                date: this.form.scheduled
+                    ? moment(this.form.date).format('YYYY-MM-DD')
+                    : null,
                 time: this.form.scheduled ? this.form.time : null,
             }
             if (this.smsData.id) {
@@ -193,7 +193,10 @@ export default {
                     ? this.$toast.success(message)
                     : this.$toast.error(error)
             } else {
-                const { status, message, error } = await this.$store.dispatch('marketing/insertMessage', params)
+                const { status, message, error } = await this.$store.dispatch(
+                    'marketing/insertMessage',
+                    params
+                )
                 status === 'success'
                     ? this.$toast.success(message)
                     : this.$toast.error(error)

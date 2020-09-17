@@ -1,10 +1,5 @@
 <template>
-    <b-modal
-        modal-class="SendTestModal"
-        centered
-        v-model="open"
-        size="lg"
-    >
+    <b-modal modal-class="SendTestModal" centered v-model="open" size="lg">
         <template v-slot:modal-header>
             <BasicButton variant="icon" class="modal-close" @click="close" />
             <h4 class="title">Send a test</h4>
@@ -27,12 +22,7 @@
                 label="Include a personal message (optional)"
                 label-for="message"
             >
-                <b-form-textarea
-                    id="emails"
-                    v-model="message"
-                    rows="5"
-                >
-                </b-form-textarea>
+                <b-form-textarea id="emails" v-model="message" rows="5" />
             </b-form-group>
         </template>
         <template v-slot:modal-footer>
@@ -44,10 +34,7 @@
                 >
                     Cancel
                 </basic-button>
-                <spinner-button
-                    class="action-btn"
-                    @click="handleSendTestClick"
-                >
+                <spinner-button lass="action-btn" @click="handleSendTestClick">
                     Send Test
                 </spinner-button>
             </div>

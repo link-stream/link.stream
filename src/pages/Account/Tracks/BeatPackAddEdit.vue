@@ -128,7 +128,8 @@
                             <b-form-invalid-feedback
                                 :state="!$v.form.tags.$error"
                             >
-                                Add at most 3 tags to help people find this beat pack.
+                                Add at most 3 tags to help people find this beat
+                                pack.
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group label="Description">

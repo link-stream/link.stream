@@ -3,7 +3,8 @@
         <div class="payout">
             <h2 class="section-title">Payouts</h2>
             <p class="description">
-                Connect your bank account and PayPal to make the most from your music.
+                Connect your bank account and PayPal to make the most from your
+                music.
             </p>
         </div>
         <div class="bank">
@@ -19,7 +20,8 @@
                     Connect Bank Account
                 </basic-button>
                 <small class="d-block">
-                    You will be directed to Stripe to connect to your bank account.
+                    You will be directed to Stripe to connect to your bank
+                    account.
                 </small>
             </div>
             <bank-item v-else :bankInfo="bankInfo" />
@@ -28,7 +30,10 @@
             <h6 class="sub-title">PayPal</h6>
             <ul class="desc-list">
                 <li>Connect using your existing PayPal account</li>
-                <li>Paypal is required to split the profit share of sales from collaborations.</li>
+                <li>
+                    Paypal is required to split the profit share of sales from
+                    collaborations.
+                </li>
                 <li>May include fees</li>
             </ul>
             <basic-button variant="warning" class="btn-paypal">
@@ -67,6 +72,6 @@ export default {
         handleAddClick() {
             this.$bus.$emit('modal.addBank.open')
         },
-    }
+    },
 }
 </script>

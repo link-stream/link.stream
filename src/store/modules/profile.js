@@ -66,12 +66,20 @@ const mutations = {
         const findIndex = cartItems.findIndex(item => {
             if (cartItem.track_type === appConstants.tracks.types.beat) {
                 if (item.type === 'beat') {
-                    return item.id === cartItem.id && item.license_id === cartItem.license_id
+                    return (
+                        item.id === cartItem.id &&
+                        item.license_id === cartItem.license_id
+                    )
                 } else {
-                    return item.type === cartItem.type && item.id === cartItem.id
+                    return (
+                        item.type === cartItem.type && item.id === cartItem.id
+                    )
                 }
             } else {
-                return item.track_type === cartItem.track_type && item.id === cartItem.id
+                return (
+                    item.track_type === cartItem.track_type &&
+                    item.id === cartItem.id
+                )
             }
         })
         cartItems.splice(findIndex, 1)

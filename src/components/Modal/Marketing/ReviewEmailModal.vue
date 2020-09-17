@@ -1,10 +1,5 @@
 <template>
-    <b-modal
-        modal-class="ReviewEmailModal"
-        centered
-        v-model="open"
-        size="lg"
-    >
+    <b-modal modal-class="ReviewEmailModal" centered v-model="open" size="lg">
         <template v-slot:modal-header>
             <h4 class="title">Review your email</h4>
         </template>
@@ -89,7 +84,10 @@ export default {
                     ? this.$toast.success(message)
                     : this.$toast.error(error)
             } else {
-                const { status, message, error } = await this.$store.dispatch('marketing/insertMessage', params)
+                const { status, message, error } = await this.$store.dispatch(
+                    'marketing/insertMessage',
+                    params
+                )
                 status === 'success'
                     ? this.$toast.success(message)
                     : this.$toast.error(error)

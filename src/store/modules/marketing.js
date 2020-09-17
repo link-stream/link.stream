@@ -68,7 +68,9 @@ const mutations = {
     },
 
     [marketingTypes.UPDATE_SUBSCRIBER](state, { subscriber }) {
-        const index = state.subscribers.findIndex(({ id }) => id == subscriber.id)
+        const index = state.subscribers.findIndex(
+            ({ id }) => id == subscriber.id
+        )
         index > -1 && state.subscribers.splice(index, 1, subscriber)
     },
 }

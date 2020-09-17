@@ -124,7 +124,7 @@
                         <font-awesome-icon
                             :icon="['fas', 'check-circle']"
                             class="item-status"
-                            :class="{ 'completed': form.subject }"
+                            :class="{ completed: form.subject }"
                         />
                         <div class="left-col">
                             <h4 class="item-title">
@@ -154,7 +154,7 @@
                         <font-awesome-icon
                             :icon="['fas', 'check-circle']"
                             class="item-status"
-                            :class="{ 'completed': form.content }"
+                            :class="{ completed: form.content }"
                         />
                         <div class="left-col">
                             <h4 class="item-title">

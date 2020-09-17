@@ -61,13 +61,11 @@
                 </b-col>
             </b-form-row>
 
-            <b-form-group 
-                label="Add to Beat Pack"
-            >
+            <b-form-group label="Add to Beat Pack">
                 <beat-packs-multi-select
                     placeholder="Search for beat packs"
                     v-model="form.trackPack"
-                />    
+                />
             </b-form-group>
 
             <div class="collabs">
@@ -147,8 +145,8 @@ import { cloneDeep } from 'lodash'
 export default {
     name: 'InfoBlock',
     mixins: [collabsProfitFormMixin],
-    components:{
-        BeatPacksMultiSelect
+    components: {
+        BeatPacksMultiSelect,
     },
     data() {
         const {
@@ -251,7 +249,6 @@ export default {
         handleTagsChange(tags) {
             this.form.tags = tags
         },
-        
     },
 }
 </script>

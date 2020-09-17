@@ -96,7 +96,7 @@ export const menus = [
     {
         id: 'marketing',
         icon: ['fas', 'bullhorn'],
-        label:  'Marketing',
+        label: 'Marketing',
         to: '/app/marketing/messages',
         subs: [
             {

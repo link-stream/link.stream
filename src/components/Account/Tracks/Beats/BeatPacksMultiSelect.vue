@@ -25,9 +25,7 @@
                                 type="checkbox"
                                 class="custom-control-input"
                                 :checked="
-                                    !!value.find(
-                                        ({ id }) => id == option.id
-                                    )
+                                    !!value.find(({ id }) => id == option.id)
                                 "
                             />
                             <label class="custom-control-label"></label>
@@ -37,10 +35,7 @@
                                 class="lock-overlay"
                                 v-if="option.isPrivate"
                             ></span>
-                            <img
-                                :src="option.coverart"
-                                :alt="option.title"
-                            />
+                            <img :src="option.coverart" :alt="option.title" />
                         </div>
                         <div>
                             <h4 class="option-title">
@@ -69,11 +64,7 @@
                 </div>
             </div>
         </div>
-        
-        <BeatPackList
-            :beatPacks="value"
-            @remove-item="handleBeatPackRemove"
-        />
+        <BeatPackList :beatPacks="value" @remove-item="handleBeatPackRemove" />
     </div>
 </template>
 <script>
@@ -82,7 +73,7 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'BeatPacksMultiSelect',
     components: {
-        BeatPackList
+        BeatPackList,
     },
     props: {
         placeholder: {
@@ -140,8 +131,7 @@ export default {
         handleOptionClick(option) {
             const selectedOptions = [...this.value]
             const optionIndex = selectedOptions.findIndex(
-                selectedOption =>
-                    selectedOption.id == option.id
+                selectedOption => selectedOption.id == option.id
             )
             if (optionIndex === -1) {
                 selectedOptions.push(option)
@@ -153,6 +143,6 @@ export default {
         handleBeatPackRemove(index) {
             this.value.splice(index, 1)
         },
-    }
+    },
 }
 </script>

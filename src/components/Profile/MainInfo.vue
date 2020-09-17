@@ -34,9 +34,14 @@
                     <basic-button class="d-none d-md-block">
                         Follow
                     </basic-button>
-                    <b-dropdown class="actions-menu" variant="icon" right no-caret>
+                    <b-dropdown
+                        class="actions-menu"
+                        variant="icon"
+                        right
+                        no-caret
+                    >
                         <template v-slot:button-content>
-                            <Icon icon="dot-menu-v-p" class="mx-3"/>
+                            <Icon icon="dot-menu-v-p" class="mx-3" />
                         </template>
                         <b-dropdown-item>
                             Unfollow
@@ -54,7 +59,9 @@
             <div class="profile-content">
                 <b-row>
                     <b-col cols="12" class="profile-info">
-                        <h2 class="section-title">{{ profile.display_name }}</h2>
+                        <h2 class="section-title">
+                            {{ profile.display_name }}
+                        </h2>
                         <div class="section-subtitle">
                             <span class="mr-3">
                                 <span class="font-weight-bold">

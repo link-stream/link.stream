@@ -1,10 +1,5 @@
 <template>
-    <b-modal
-        modal-class="ScheduleEmailModal"
-        centered
-        v-model="open"
-        size="lg"
-    >
+    <b-modal modal-class="ScheduleEmailModal" centered v-model="open" size="lg">
         <template v-slot:modal-header>
             <BasicButton variant="icon" class="modal-close" @click="close" />
             <h4 class="title">Schedule this email</h4>

@@ -5,7 +5,9 @@
                 <div class="notification-item border-bottom">
                     <div class="item-body">
                         <h4 class="item-title">Sales</h4>
-                        <small class="item-subtitle">When someone purchases my tracks/sound kits</small>
+                        <small class="item-subtitle">
+                            When someone purchases my tracks/sound kits
+                        </small>
                     </div>
                     <div class="item-action">
                         <b-form-checkbox
@@ -23,9 +25,11 @@
                     </div>
                 </div>
                 <div class="notification-item border-bottom">
-                     <div class="item-body">
+                    <div class="item-body">
                         <h4 class="item-title">Follows</h4>
-                        <small class="item-subtitle">When someone follows you</small>
+                        <small class="item-subtitle">
+                            When someone follows you
+                        </small>
                     </div>
                     <div class="item-action">
                         <b-form-checkbox
@@ -43,9 +47,11 @@
                     </div>
                 </div>
                 <div class="notification-item border-bottom">
-                     <div class="item-body">
+                    <div class="item-body">
                         <h4 class="item-title">Likes</h4>
-                        <small class="item-subtitle">When someone likes your track or sound kit</small>
+                        <small class="item-subtitle">
+                            When someone likes your track or sound kit
+                        </small>
                     </div>
                     <div class="item-action">
                         <b-form-checkbox
@@ -63,9 +69,11 @@
                     </div>
                 </div>
                 <div class="notification-item border-bottom">
-                     <div class="item-body">
+                    <div class="item-body">
                         <h4 class="item-title">Reposts</h4>
-                        <small class="item-subtitle">When someone reposts your track or sound kit</small>
+                        <small class="item-subtitle">
+                            When someone reposts your track or sound kit
+                        </small>
                     </div>
                     <div class="item-action">
                         <b-form-checkbox
@@ -83,9 +91,12 @@
                     </div>
                 </div>
                 <div class="notification-item border-bottom">
-                     <div class="item-body">
+                    <div class="item-body">
                         <h4 class="item-title">Collaborations</h4>
-                        <small class="item-subtitle">When someone invites you to collaborate or updates collaboration details</small>
+                        <small class="item-subtitle">
+                            When someone invites you to collaborate or updates
+                            collaboration details
+                        </small>
                     </div>
                     <div class="item-action">
                         <b-form-checkbox
@@ -107,7 +118,9 @@
                 <h2 class="title">Updates from LinkStream</h2>
                 <div class="notification-item border-top">
                     <div class="item-body">
-                        <h4 class="item-title font-weight-light">New LinkStream features</h4>
+                        <h4 class="item-title font-weight-light">
+                            New LinkStream features
+                        </h4>
                     </div>
                     <div class="item-action">
                         <b-form-checkbox
@@ -126,7 +139,9 @@
                 </div>
                 <div class="notification-item border-top">
                     <div class="item-body">
-                        <h4 class="item-title font-weight-light">Surveys and feedback</h4>
+                        <h4 class="item-title font-weight-light">
+                            Surveys and feedback
+                        </h4>
                     </div>
                     <div class="item-action">
                         <b-form-checkbox
@@ -145,7 +160,9 @@
                 </div>
                 <div class="notification-item border-top">
                     <div class="item-body">
-                        <h4 class="item-title font-weight-light">LinkStream newsletter</h4>
+                        <h4 class="item-title font-weight-light">
+                            LinkStream newsletter
+                        </h4>
                     </div>
                     <div class="item-action">
                         <b-form-checkbox
@@ -189,9 +206,9 @@ export default {
             notification: 'me/notification',
         }),
     },
-    data: () =>({
+    data: () => ({
         form: {},
-        saving : false,
+        saving: false,
     }),
     async created() {
         await this.$store.dispatch('me/loadNotification')
@@ -206,10 +223,11 @@ export default {
             this.saving = true
             const { status, message, error } = await this.$store.dispatch(
                 'me/updateNotification',
-                { 
+                {
                     id: this.notification.id,
-                    params 
-                })
+                    params,
+                }
+            )
             if (status === 'success') {
                 this.$toast.success(message)
             } else {
@@ -227,7 +245,7 @@ export default {
                     this.form[key] = value == 1
                 }
             })
-        }
+        },
     },
 }
 </script>

@@ -445,7 +445,9 @@ export default {
                 let facebook_credential = await firebase.auth.FacebookAuthProvider.credential(
                     this.userInfo.facebook
                 )
-                await firebase.auth().signInWithCredential(facebook_credential)
+                await firebase
+                    .auth()
+                    .signInWithCredential(facebook_credential)
                     .then(({ user }) => {
                         this.social.facebook = user.displayName
                     })
@@ -462,7 +464,9 @@ export default {
                     credential_info[0],
                     credential_info[1]
                 )
-                await firebase.auth().signInWithCredential(twitter_credential)
+                await firebase
+                    .auth()
+                    .signInWithCredential(twitter_credential)
                     .then(({ user }) => {
                         this.social.twitter = user.displayName
                     })

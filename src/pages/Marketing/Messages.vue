@@ -117,21 +117,30 @@ export default {
     methods: {
         handleCreateClick() {
             this.$bus.$emit('modal.selectMessageType.open')
-        },    
+        },
         refreshRealMessages() {
             // console.log(this.messages)
             let sortMessages = []
             let tempMessages = [...this.messages]
             tempMessages.sort((a, b) => (a.created_at < b.created_at ? 1 : -1))
-            const startOfWeek = moment().startOf('week').format('YYYY-MM-DD HH:mm:ss')
-            const thisWeek = tempMessages.filter(({ created_at }) => created_at >= startOfWeek)
+            const startOfWeek = moment()
+                .startOf('week')
+                .format('YYYY-MM-DD HH:mm:ss')
+            const thisWeek = tempMessages.filter(
+                ({ created_at }) => created_at >= startOfWeek
+            )
             sortMessages.push({
                 dateTitle: 'This Week',
                 messages: [...thisWeek],
             })
-            const startOfMonth = moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')
+            const startOfMonth = moment()
+                .startOf('month')
+                .format('YYYY-MM-DD HH:mm:ss')
             if (startOfWeek !== startOfMonth) {
-                const previousWeek = tempMessages.filter(({ created_at }) => created_at >= startOfMonth && created_at < startOfWeek)
+                const previousWeek = tempMessages.filter(
+                    ({ created_at }) =>
+                        created_at >= startOfMonth && created_at < startOfWeek
+                )
                 sortMessages.push({
                     dateTitle: 'Previous Week',
                     messages: previousWeek,

@@ -212,7 +212,7 @@ export default {
                 this.viewingParentMenu = selectedParent
             }
         },
-        handleDocumentClick(e) {
+        handleDocumentClick() {
             this.viewingParentMenu = ''
             // this.selectMenu()
             this.toggle()

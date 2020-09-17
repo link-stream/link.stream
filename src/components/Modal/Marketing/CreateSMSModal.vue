@@ -1,10 +1,5 @@
 <template>
-    <b-modal
-        modal-class="CreateSMSModal"
-        centered
-        v-model="open"
-        size="lg"
-    >
+    <b-modal modal-class="CreateSMSModal" centered v-model="open" size="lg">
         <template v-slot:modal-header>
             <h4 class="title">Send an SMS message</h4>
         </template>
@@ -37,10 +32,7 @@
                 >
                     Cancel
                 </basic-button>
-                <spinner-button
-                    class="action-btn"
-                    @click="handleNextClick"
-                >
+                <spinner-button class="action-btn" @click="handleNextClick">
                     Next
                 </spinner-button>
             </div>

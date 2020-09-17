@@ -7,10 +7,7 @@
             </a>
         </h5>
         <div class="activity-container">
-            <div
-                v-for="(item, index) in activities"
-                :key="index"
-            >
+            <div v-for="(item, index) in activities" :key="index">
                 <div class="date-title">
                     {{ item.date }}
                 </div>
@@ -24,7 +21,9 @@
                             {{ activity.time }}
                         </b-col>
                         <b-col cols="8">
-                            <span class="text-capitalize">{{ activity.type }}</span>
+                            <span class="text-capitalize">
+                                {{ activity.type }}
+                            </span>
                             <span v-if="activity.type === 'click'">
                                 :
                                 <a :href="activity.link">
@@ -83,7 +82,8 @@ export default {
                     {
                         time: '6:32am',
                         type: 'click',
-                        link: 'https://link.stream/producername/beats/track-title-1'
+                        link:
+                            'https://link.stream/producername/beats/track-title-1',
                     },
                     {
                         time: '6:32am',

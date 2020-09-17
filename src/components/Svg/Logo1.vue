@@ -8,34 +8,74 @@
         xmlns:xlink="http://www.w3.org/1999/xlink"
     >
         <defs>
-            <linearGradient x1="41.8930406%" y1="88.6284178%" x2="55.0951729%" y2="11.3698356%" id="linearGradient-1">
+            <linearGradient
+                x1="41.8930406%"
+                y1="88.6284178%"
+                x2="55.0951729%"
+                y2="11.3698356%"
+                id="linearGradient-1"
+            >
                 <stop stop-color="#D227B2" offset="0%"></stop>
                 <stop stop-color="#DC3299" offset="26%"></stop>
                 <stop stop-color="#F64D58" offset="81%"></stop>
                 <stop stop-color="#FF5740" offset="100%"></stop>
             </linearGradient>
-            <linearGradient x1="37.7334859%" y1="91.8374436%" x2="55.4036917%" y2="9.93834665%" id="linearGradient-2">
+            <linearGradient
+                x1="37.7334859%"
+                y1="91.8374436%"
+                x2="55.4036917%"
+                y2="9.93834665%"
+                id="linearGradient-2"
+            >
                 <stop stop-color="#F8435F" offset="0%"></stop>
                 <stop stop-color="#FB6048" offset="39%"></stop>
                 <stop stop-color="#FF9420" offset="100%"></stop>
             </linearGradient>
-            <linearGradient x1="23.1137135%" y1="100.548664%" x2="64.1600772%" y2="4.84590526%" id="linearGradient-3">
+            <linearGradient
+                x1="23.1137135%"
+                y1="100.548664%"
+                x2="64.1600772%"
+                y2="4.84590526%"
+                id="linearGradient-3"
+            >
                 <stop stop-color="#FF9420" offset="0%"></stop>
                 <stop stop-color="#FFAD19" offset="39%"></stop>
                 <stop stop-color="#FEDD0B" offset="100%"></stop>
             </linearGradient>
-            <linearGradient x1="28.4551011%" y1="94.0079548%" x2="56.090644%" y2="8.66858178%" id="linearGradient-4">
+            <linearGradient
+                x1="28.4551011%"
+                y1="94.0079548%"
+                x2="56.090644%"
+                y2="8.66858178%"
+                id="linearGradient-4"
+            >
                 <stop stop-color="#FF6C40" offset="0%"></stop>
                 <stop stop-color="#FF8531" offset="32%"></stop>
                 <stop stop-color="#FEC60C" offset="99%"></stop>
                 <stop stop-color="#FEC70B" offset="100%"></stop>
             </linearGradient>
         </defs>
-        <g id="Navigation-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g id="Desktop-Nav---Account-Dropdown" transform="translate(-20.000000, -23.000000)" fill-rule="nonzero">
+        <g
+            id="Navigation-2"
+            stroke="none"
+            stroke-width="1"
+            fill="none"
+            fill-rule="evenodd"
+        >
+            <g
+                id="Desktop-Nav---Account-Dropdown"
+                transform="translate(-20.000000, -23.000000)"
+                fill-rule="nonzero"
+            >
                 <g id="Top-Nav">
-                    <g id="Left-Items" transform="translate(20.000000, 23.000000)">
-                        <g id="streamy-logo" transform="translate(0.000000, -0.000000)">
+                    <g
+                        id="Left-Items"
+                        transform="translate(20.000000, 23.000000)"
+                    >
+                        <g
+                            id="streamy-logo"
+                            transform="translate(0.000000, -0.000000)"
+                        >
                             <path
                                 d="M3.29295499,33.6099804 C1.49475573,33.6080379 0.0376934681,32.1504503 0.0363605888,30.3522505 L0.0363605888,3.29941292 C0.0321801803,2.43251643 0.373721006,1.59970335 0.985392927,0.985386834 C1.59706485,0.371070321 2.42839671,0.0259397529 3.29530333,0.0264182887 C3.85724175,0.0264182887 4.40948908,0.172786663 4.89745597,0.45146771 L9.97632094,3.37632094 C7.96119743,3.89583719 6.55210446,5.71194246 6.54951076,7.79295499 L6.54951076,30.3522505 C6.55248758,31.2168519 6.21034316,32.0469003 5.598974,32.6582695 C4.98760484,33.2696387 4.15755642,33.6117831 3.29295499,33.6088063 L3.29295499,33.6099804 Z"
                                 id="Path"

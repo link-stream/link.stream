@@ -22,7 +22,12 @@
                     <li
                         v-for="tab in tabs"
                         :key="tab.to"
-                        :class="{ active: $route.name === tab.to || $route.name === 'publicProfile' && tab.to === 'profileBeats' }"
+                        :class="{
+                            active:
+                                $route.name === tab.to ||
+                                ($route.name === 'publicProfile' &&
+                                    tab.to === 'profileBeats'),
+                        }"
                     >
                         <router-link :to="{ name: tab.to }">
                             {{ tab.title }}
@@ -115,10 +120,7 @@ export default {
                     )
                     break
                 case 'profileSoundKits':
-                    await this.$store.dispatch(
-                        'profile/getProfileKits',
-                        params
-                    )
+                    await this.$store.dispatch('profile/getProfileKits', params)
                     break
                 case 'profileVideos':
                     await this.$store.dispatch(

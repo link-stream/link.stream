@@ -23,22 +23,11 @@
         </header>
         <main class="page-body">
             <div class="action-bar">
-                <b-dropdown
-                    class="dropdown-actions"
-                    left
-                    variant="link"
-                    toggle-class="text-decoration-none"
-                    no-caret
-                >
-                    <template slot="button-content">
-                        <span>Actions</span>
-                        <font-awesome-icon :icon="['fas', 'chevron-down']" />
-                        <font-awesome-icon :icon="['fas', 'chevron-up']" />
-                    </template>
-                    <b-dropdown-item>Unsubscribe</b-dropdown-item>
-                    <b-dropdown-item>Resubscribe</b-dropdown-item>
-                    <b-dropdown-item>Archive</b-dropdown-item>
-                </b-dropdown>
+                <DropdownActions
+                    @unsubscribe="handleUnsubscribeClick"
+                    @resubscribe="handleResubscribeClick"
+                    @archive="handleArchiveClick"
+                />
                 <SearchInput
                     pill
                     color="black"
@@ -60,14 +49,17 @@
                     {{ 6095 | thousandCNumber }}
                 </div>
             </div>
-            <div class="page-empty" v-if="!loading && !items.length">
+            <div class="page-empty" v-if="!loading && !subscribers.length">
                 <div class="empty-text">
                     Your subscribers will appear here.
                 </div>
             </div>
             <LoadingSpinner class="page-loader" v-if="loading" />
-            <div v-else-if="items.length > 0" class="subscriber-container">
-                <b-table :fields="fields" :items="items" responsive>
+            <div
+                v-else-if="subscribers.length > 0"
+                class="subscriber-container"
+            >
+                <b-table :fields="fields" :items="realSubscribers" responsive>
                     <template v-slot:head(selected)="data">
                         <b-dropdown
                             class="select-actions"
@@ -105,6 +97,15 @@
                             {{ data.value }}
                         </a>
                     </template>
+                    <template v-slot:cell(created_at)="data">
+                        {{ data.value | customizeDate('MM/DD/YY h:mma') }}
+                    </template>
+                    <template v-slot:cell(email_status)="data">
+                        <span class="text-capitalize">{{ data.value }}</span>
+                    </template>
+                    <template v-slot:cell(sms_status)="data">
+                        <span class="text-capitalize">{{ data.value }}</span>
+                    </template>
                 </b-table>
             </div>
         </main>
@@ -112,8 +113,12 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import DropdownActions from '~/components/Form/DropdownActions'
 export default {
     name: 'Subscribers',
+    components: {
+        DropdownActions,
+    },
     data: () => ({
         loading: false,
         searchString: '',
@@ -132,7 +137,7 @@ export default {
                 label: 'Email',
             },
             {
-                key: 'date_added',
+                key: 'created_at',
                 label: 'Date added',
             },
             {
@@ -144,32 +149,7 @@ export default {
                 label: 'SMS Status',
             },
         ],
-        items: [
-            {
-                selected: false,
-                name: 'Alyssa Tucker',
-                email: 'alyssa@link.stream',
-                date_added: '07/14/20 3:35pm',
-                email_status: 'Subscribed',
-                sms_status: 'Subscribed',
-            },
-            {
-                selected: false,
-                name: 'Alyssa Tucker',
-                email: 'alyssa@link.stream',
-                date_added: '07/14/20 3:35pm',
-                email_status: 'Subscribed',
-                sms_status: 'Subscribed',
-            },
-            {
-                selected: false,
-                name: 'Alyssa Tucker',
-                email: 'alyssa@link.stream',
-                date_added: '07/14/20 3:35pm',
-                email_status: 'Subscribed',
-                sms_status: 'Subscribed',
-            },
-        ],
+        realSubscribers: [],
         cntEmail: 5748,
         cntSms: 2257,
     }),
@@ -178,10 +158,21 @@ export default {
             subscribers: 'marketing/subscribers',
         }),
     },
+    watch: {
+        subscribers() {
+            this.realSubscribers = this.subscribers.map(item => {
+                return {
+                    selected: false,
+                    ...item,
+                }
+            })
+        },
+    },
     async created() {
         this.loading = true
         await this.$store.dispatch('marketing/getSubscribers')
         this.loading = false
+        console.log(this.subscribers)
     },
     methods: {
         handleAddClick() {
@@ -192,22 +183,31 @@ export default {
         searchContact() {},
         handleExportClick() {},
         selectAll() {
-            this.items.forEach(item => {
+            this.realSubscribers.forEach(item => {
                 item.selected = true
             })
             this.statusAll = true
         },
         deselectAll() {
-            this.items.forEach(item => {
+            this.realSubscribers.forEach(item => {
                 item.selected = false
             })
             this.statusAll = false
         },
         selectVisible() {
-            this.items.forEach(item => {
+            this.realSubscribers.forEach(item => {
                 item.selected = true
             })
             this.statusAll = true
+        },
+        handleUnsubscribeClick() {
+            console.log('Unsubscribe')
+        },
+        handleResubscribeClick() {
+            console.log('Resubscribe')
+        },
+        handleArchiveClick() {
+            console.log('Archive')
         },
     },
 }

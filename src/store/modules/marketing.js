@@ -122,7 +122,7 @@ const actions = {
         return response
     },
     async getSubscribers({ commit, rootGetters }) {
-        if (state.subscribers.length > 0) return
+        // if (state.subscribers.length > 0) return
         const user = rootGetters['auth/user']
         const response = await api.marketing.getSubscribers(user.id)
         const { status, data } = response

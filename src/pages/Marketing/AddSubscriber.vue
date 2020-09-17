@@ -95,11 +95,11 @@
                         >
                         </b-form-input>
                         <template v-slot:description>
-                            <p class="mb-0">
+                            <p class="mb-0 text-black">
                                 tags can help you label this subscriber with how
                                 they signed up to your list.
                             </p>
-                            <p class="mb-0">
+                            <p class="mb-0 text-black">
                                 Example: "website" or "tradeshow"
                             </p>
                         </template>
@@ -121,6 +121,7 @@
     </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { required, email } from 'vuelidate/lib/validators'
 export default {
     name: 'AddSubscriber',
@@ -135,6 +136,11 @@ export default {
             tags: null,
         },
     }),
+    computed: {
+        ...mapGetters({
+            user: 'me/user',
+        }),
+    },
     validations: {
         form: {
             name: {
@@ -158,8 +164,38 @@ export default {
             },
         },
     },
+    created() {
+        console.log(this.user)
+    },
     methods: {
-        async handleAddClick() {},
+        async handleAddClick() {
+            this.$v.form.$touch()
+            if (this.$v.form.$invalid) {
+                return
+            }
+            this.saving = true
+            const params = {
+                user_id: this.user.id,
+                email: this.form.email,
+                phone: this.form.phone,
+                name: this.form.name,
+                birthday: this.form.month + '/' + this.form.day,
+                tags: this.form.tags,
+            }
+            const { status, message, error } = await this.$store.dispatch(
+                'marketing/insertSubscriber',
+                params
+            )
+            if (status === 'success') {
+                this.$toast.success(message)
+            } else {
+                this.$toast.error(error)
+            }
+            this.saving = false
+            this.$router.push({
+                name: 'subscribers',
+            })
+        },
     },
 }
 </script>

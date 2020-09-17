@@ -5,39 +5,16 @@
         margin-bottom: 25px;
         .dropdown-actions {
             margin-right: 20px;
-            .dropdown-toggle {
-                display: flex;
-                text-transform: uppercase;
-                color: black;
-                font-size: px2rem(11);
-                font-weight: bold;
-                line-height: px2rem(35);
-                span {
-                    margin-right: 5px;
-                    letter-spacing: 1.5px;
-                }
-                .fa-chevron-up {
-                    display: none;
-                    margin-top: 12px;
-                }
-                .fa-chevron-down {
-                    display: block;
-                    margin-top: 12px;
-                }
-            }
-            &.show {
-                .fa-chevron-up {
-                    display: block;
-                }
-                .fa-chevron-down {
-                    display: none;
-                }
-            }
         }
         .search-form {
             width: 100%;
             max-width: 445px;
             margin-right: 20px;
+            &.SearchInput {
+                .input-clear-btn.right {
+                    top: 12px;
+                }
+            }
         }
         .btn-export {
             font-size: px2rem(11);
@@ -93,5 +70,18 @@
         margin-top: 5px;
         margin-bottom: 30px;
         line-height: px2rem(24);
+    }
+    .birthday-group  {
+        .txt-month,
+        .txt-day {
+            width: 55px;
+            float: left;
+        }
+        .separator {
+            font-size: px2rem(16);
+            font-weight: bold;
+            margin: 10px;
+            float: left;
+        }
     }
 }

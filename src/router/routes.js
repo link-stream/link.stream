@@ -40,6 +40,7 @@ import {
     SentSMS,
     ReportMessage,
     AddSubscriber,
+    SubscriberDetails,
 } from '~/pages/Marketing'
 
 import PublicProfile from '@/pages/Profile/PublicProfile'
@@ -322,6 +323,13 @@ const routes = [
         path: '/app/marketing/add-subscriber',
         name: 'addSubscriber',
         component: AddSubscriber,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/subscriber-details',
+        name: 'subscriberDetails',
+        component: SubscriberDetails,
+        props: true,
         meta: { requiresAuth: true, layout: 'account' },
     },
 

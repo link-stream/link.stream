@@ -319,3 +319,34 @@
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
     }
 }
+
+.dropdown-actions {
+    .dropdown-toggle {
+        display: flex;
+        text-transform: uppercase;
+        color: black;
+        font-size: px2rem(11);
+        font-weight: bold;
+        line-height: px2rem(35);
+        span {
+            margin-right: 5px;
+            letter-spacing: 1.5px;
+        }
+        .fa-chevron-up {
+            display: none;
+            margin-top: 12px;
+        }
+        .fa-chevron-down {
+            display: block;
+            margin-top: 12px;
+        }
+    }
+    &.show {
+        .fa-chevron-up {
+            display: block;
+        }
+        .fa-chevron-down {
+            display: none;
+        }
+    }
+}

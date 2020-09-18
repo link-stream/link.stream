@@ -23,9 +23,9 @@
                     v-model="segmentTag"
                     id="segmentTagInput"
                     placeholder="Select Segment or Tag"
-                    :options="sentos"
+                    :options="sendtos"
                     :reduce="segmentTag => segmentTag.value"
-                    label="title"
+                    label="text"
                 />
             </b-form-group>
         </template>
@@ -58,7 +58,7 @@ export default {
     },
     computed: {
         ...mapGetters({
-            sentos: 'marketing/sendtos',
+            sendtos: 'marketing/sendtos',
             smsData: 'marketing/smsData',
         }),
     },

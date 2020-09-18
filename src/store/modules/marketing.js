@@ -16,6 +16,7 @@ const initialState = () => ({
     },
     messages: [],
     subscribers: [],
+    tags: [],
 })
 
 const state = initialState()
@@ -29,10 +30,11 @@ const mutations = {
     },
 
     [marketingTypes.SET_SEND_TO](state, { sendtos }) {
+        state.sendtos = []
         for (const [key, value] of Object.entries(sendtos)) {
             state.sendtos.push({
                 value: key,
-                title: value,
+                text: value,
             })
         }
     },
@@ -72,6 +74,16 @@ const mutations = {
             ({ id }) => id == subscriber.id
         )
         index > -1 && state.subscribers.splice(index, 1, subscriber)
+    },
+
+    [marketingTypes.SET_TAGS](state, { tags }) {
+        state.tags = []
+        for (const [key, value] of Object.entries(tags)) {
+            state.tags.push({
+                value: key,
+                text: value,
+            })
+        }
     },
 }
 
@@ -143,6 +155,13 @@ const actions = {
             commit(marketingTypes.UPDATE_SUBSCRIBER, { subscriber: data })
         return response
     },
+    async getTags({ commit, rootGetters }) {
+        const user = rootGetters['auth/user']
+        const response = await api.marketing.getSubscriberTags(user.id)
+        const { status, data } = response
+        status === 'success' &&
+            commit(marketingTypes.SET_TAGS, { tags: data })
+    },
 }
 
 const getters = {
@@ -150,6 +169,7 @@ const getters = {
     smsData: ({ smsData }) => smsData,
     messages: ({ messages }) => messages,
     subscribers: ({ subscribers }) => subscribers,
+    tags: ({ tags }) => tags,
 }
 
 export default {

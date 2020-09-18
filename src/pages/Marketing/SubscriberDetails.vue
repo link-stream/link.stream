@@ -146,6 +146,12 @@
                     <a href="#" class="actions">Add tag</a>
                 </div>
                 <div class="tags-list">
+                    <TaggerInput
+                        v-model="tag"
+                        :tags="tags"
+                        :allTags="allTags"
+                        @tags-changed="handleTagsChange"
+                    />
                 </div>
             </div>
             <div class="detail-container profile">
@@ -239,6 +245,8 @@
 <script>
 import DropdownActions from '~/components/Form/DropdownActions'
 import CustomStarRating from '~/components/Form/CustomStarRating'
+import { api } from '~/services'
+import { mapGetters } from 'vuex'
 export default {
     name: 'SubscriberDetails',
     components: {
@@ -257,6 +265,7 @@ export default {
     data: () => ({
         rating: 3,
         note: '',
+        tag: '',
         activities: [
             {
                 type: 'mail',
@@ -271,9 +280,22 @@ export default {
         ],
     }),
     computed: {
+        ...mapGetters({
+            user: 'me/user',
+            allTags: 'marketing/tags',
+        }),
         subscriber() {
             return this.subscribers[this.index]
         },
+        tags() {
+            return this.subscriber.tags.split(',').map(tag => ({
+                text: tag.trim(),
+                value: tag.trim(),
+            }))
+        }
+    },
+    async created() {
+        await this.$store.dispatch('marketing/getTags')
     },
     methods: {
         handleUnsubscribeClick() {
@@ -294,6 +316,9 @@ export default {
             if (this.index < this.subscribers.length - 1) {
                 this.index++
             }
+        },
+        handleTagsChange(tags) {
+            console.log('tags', tags)
         },
     },
 }

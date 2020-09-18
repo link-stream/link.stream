@@ -625,5 +625,13 @@ export const api = {
                 method,
             })
         },
+        async getSubscriberTags(userId) {
+            const endpoint = '/marketing/tags/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
 }

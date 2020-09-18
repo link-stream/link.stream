@@ -18,7 +18,7 @@
                     placeholder="Select Segment or Tag"
                     :options="sendtos"
                     :reduce="send_to => send_to.value"
-                    label="title"
+                    label="text"
                 />
             </b-form-group>
             <p>

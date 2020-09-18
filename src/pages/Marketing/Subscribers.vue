@@ -93,9 +93,17 @@
                         <b-form-checkbox v-model="data.value"></b-form-checkbox>
                     </template>
                     <template v-slot:cell(name)="data">
-                        <a href="#">
+                        <router-link
+                            :to="{
+                                name: 'subscriberDetails',
+                                params: {
+                                    subscribers: realSubscribers,
+                                    index: parseInt(data.index),
+                                },
+                            }"
+                        >
                             {{ data.value }}
-                        </a>
+                        </router-link>
                     </template>
                     <template v-slot:cell(created_at)="data">
                         {{ data.value | customizeDate('MM/DD/YY h:mma') }}
@@ -172,7 +180,6 @@ export default {
         this.loading = true
         await this.$store.dispatch('marketing/getSubscribers')
         this.loading = false
-        console.log(this.subscribers)
     },
     methods: {
         handleAddClick() {

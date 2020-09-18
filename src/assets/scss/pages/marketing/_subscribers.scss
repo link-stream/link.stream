@@ -85,3 +85,127 @@
         }
     }
 }
+.page-subscriber-details {
+    .page-header {
+        .left-col {
+            .page-title {
+                margin-right: 20px;
+            }
+        }
+        .right-col {
+            align-self: inherit;
+        }
+        .status-container {
+            display: flex;
+            .subscriber-status {
+                background-color: $color-green-4;
+                color: $gray-620;
+                border-radius: 20px;
+                font-size: px2rem(11);
+                line-height: px2rem(20);
+                padding: 0 12px;
+                text-transform: capitalize;
+                margin-left: 10px;
+                margin-top: 10px;
+            }
+        }
+        .move-actions {
+            font-size: px2rem(12);
+            .btn-previous,
+            .btn-next {
+                padding: 8px 12px;
+            }
+            .btn-previous {
+                margin-left: 10px;
+                margin-right: 6px;
+            }
+        }
+    }
+    .page-body {
+        .main-information {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .recipient-container {
+            height: 135px;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.25);
+            .recipient-status {
+                padding-top: 40px;
+                text-align: center;
+                .number {
+                    font-size: px2rem(28);
+                    line-height: px2rem(34);
+                    font-weight: bold;
+                    color: black;
+                    margin-bottom: 10px;
+                }
+                .description {
+                    font-size: px2rem(11);
+                    line-height: px2rem(14);
+                }
+            }
+        }
+        .note-container {
+            margin-top: 30px;
+            .note-title {
+                display: flex;
+                margin-bottom: 10px;
+                .left-title {
+                    font-size: px2rem(13);
+                    line-height: px2rem(18);
+                    font-weight: 600;
+                }
+                .right-title {
+                    font-size: px2rem(12);
+                    line-height: px2rem(18);
+                    margin-left: auto;
+                }
+            }
+            .btn-add-note {
+                margin-top: 15px;
+            }
+        }
+        .detail-container {
+            margin-top: 30px;
+            .title-container {
+                display: flex;
+                margin-bottom: 15px;
+                .title {
+                    margin-right: 10px;
+                }
+                .actions {
+                    align-self: flex-end;
+                    line-height: 24px;
+                }
+            }
+            &.profile {
+                .profile-item {
+                    font-size: px2rem(14);
+                    line-height: px2rem(24);
+                    display: flex;
+                    .caption {
+                        width: 110px;
+                        margin-right: 30px;
+                    }
+                }
+            }
+            &.activity-feed {
+                .one-activity {
+                    margin-bottom: 20px;
+                    .title {
+                        font-size: px2rem(18);
+                        line-height: px2rem(24);
+                        font-weight: bold;
+                        margin-bottom: 5px;
+                    }
+                    .activity {
+                        font-size: px2rem(14);
+                        line-height: px2rem(24);
+                    }
+                }
+            }
+        }
+    }
+}

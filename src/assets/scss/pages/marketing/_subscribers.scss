@@ -266,7 +266,7 @@
         .top-desc {
             font-size: px2rem(14);
             line-height: px2rem(24);
-            margin-bottom: 30px;
+            margin-bottom: 24px;
         }
         .down-desc {
             font-size: px2rem(14);
@@ -279,13 +279,76 @@
         .sms-status {
             margin-bottom: 30px;
             .custom-checkbox {
-                margin-bottom: 12px;
+                margin-bottom: 10px;
             }
             .sms-desc {
                 font-size: px2rem(11);
                 line-height: px2rem(16);
                 padding-left: 30px;
             }
+        }
+    }
+    .review-match {
+        .column-status {
+            line-height: px2rem(24);
+            margin-bottom: px2rem(5);
+            svg {
+                font-size: px2rem(18);
+                margin-right: 12px;
+            }
+            .success-icon {
+                color: $color-green-2;
+            }
+            .error-icon {
+                color: $color-red-1;
+            }
+        }
+        .MatchCard {
+            padding: 0;
+            .item-body {
+                display: flex;
+                overflow-x: auto;
+                .one-column {
+                    min-width: 300px;
+                    min-height: 250px;
+                    padding: 15px;
+                    overflow-y: auto;
+                    border-left: 1px solid $gray-320;
+                    border-right: 1px solid $gray-320;
+                    &:first-child {
+                        border-left: 0;
+                    }
+                    &:last-child {
+                        border-right: 0;
+                    }
+                    &.error {
+                        .custom-label {
+                            color: $color-red-1;
+                            .error-icon {
+                                float: right;
+                                font-size: px2rem(18);
+                            }
+                        }
+                        .vs__dropdown-toggle {
+                            border-color: $color-red-1;
+                        }
+                        .BasicSelect .vs__search {
+                            &::placeholder,
+                            &:-ms-input-placeholder,
+                            &::-ms-input-placeholder {
+                                color: $color-red-1 !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .review-subscribers {
+        p {
+            margin-bottom: 0;
+            font-size: px2rem(14);
+            line-height: px2rem(24);
         }
     }
 }

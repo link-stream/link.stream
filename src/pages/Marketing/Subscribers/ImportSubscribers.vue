@@ -9,25 +9,27 @@
                 :activeStepName="step"
                 :activeStepIndex="stepIndex"
             />
-            <ImportType v-if="step === 'import'" />
+            <ImportFile v-if="step === 'import'" />
             <SelectStatus v-if="step === 'status'" />
+            <ReviewMatch v-if="step === 'match'" />
+            <ReviewSubscribers v-if="step === 'review'" />
         </div>
         <footer class="page-footer">
             <basic-button
-                v-if="stepIndex > 0"
+                v-if="step === 'review'"
                 variant="secondary"
                 class="btn-prev"
                 :disabled="saving"
-                @click="handlePrevClick"
+                @click="handleCancelClick"
             >
-                Back
+                Cancel
             </basic-button>
             <spinner-button
                 class="btn-next"
                 :loading="saving"
                 @click="handleNextClick"
             >
-                Next
+                {{ step === 'review' ? 'Complete Import' : 'Next' }}
             </spinner-button>
         </footer>
     </div>
@@ -35,15 +37,19 @@
 <script>
 import {
     WizardTabs,
-    ImportType,
+    ImportFile,
     SelectStatus,
+    ReviewMatch,
+    ReviewSubscribers,
 } from '@/components/Marketing/Subscribers'
 export default {
     name: 'ImportSubscribers',
     components: {
         WizardTabs,
-        ImportType,
+        ImportFile,
         SelectStatus,
+        ReviewMatch,
+        ReviewSubscribers,
     },
     data: () => ({
         tabs: [
@@ -73,10 +79,10 @@ export default {
         },
     },
     methods: {
-        handlePrevClick() {
-            if (this.stepIndex > 0) {
-                this.stepIndex--
-            }
+        handleCancelClick() {
+            this.$router.push({
+                name: 'addSubscriber',
+            })
         },
         handleNextClick() {
             if (this.stepIndex < this.tabs.length - 1) {

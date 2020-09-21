@@ -10,7 +10,12 @@
         <b-form-group class="email-status" label="Select email opt-in status">
             <b-row>
                 <b-col cols="12" sm="8">
-                    <BasicSelect v-model="emailStatus" :options="statusList" />
+                    <BasicSelect
+                        v-model="emailStatus"
+                        :options="statusList"
+                        :reduce="status => status.value"
+                        label="text"
+                    />
                 </b-col>
             </b-row>
         </b-form-group>
@@ -29,9 +34,14 @@
                 Subscribe to SMS
             </b-form-checkbox>
             <div class="sms-desc">
-                Checking this will sign subscribers up to receive texts from you
-                if they have an associated phone number. Only add subscribers if
-                you have their permission to receive SMS messages from you.
+                <p class="mb-0">
+                    Checking this will sign subscribers up to receive texts from
+                    you if they have an associated phone number.
+                </p>
+                <p class="mb-0">
+                    Only add subscribers if you have their permission to receive
+                    SMS messages from you.
+                </p>
             </div>
         </div>
     </div>

@@ -17,7 +17,8 @@
                 Drop or browse to upload your file
             </p>
             <DropFile
-                :filename="fileSubscribers"
+                :filename="fileSubscribers.name"
+                :src="fileSubscribers.base64"
                 :acceptTypes="['.xls', '.xlsx', '.tsv', '.csv', '.txt']"
                 @add-file="handleFileAdd"
                 @remove-file="handleFileRemove"
@@ -26,7 +27,7 @@
                     <div
                         v-if="isFileAdded"
                         class="preview-title"
-                        v-html="fileSubscribers"
+                        v-html="fileSubscribers.name"
                     ></div>
                 </template>
                 <template v-slot:upload-section>
@@ -65,7 +66,7 @@
 <script>
 import { DropFile } from '~/components/Uploader'
 export default {
-    name: 'ImportType',
+    name: 'ImportFile',
     components: {
         DropFile,
     },
@@ -78,16 +79,19 @@ export default {
     }),
     computed: {
         isFileAdded() {
-            return !!this.fileSubscribers
+            return !!this.fileSubscribers.base64
         },
     },
     methods: {
-        handleFileAdd({ name }) {
-            console.log(name)
-            this.fileSubscribers = name
+        handleFileAdd({ name, base64 }) {
+            console.log(base64)
+            this.fileSubscribers = {
+                name,
+                base64,
+            }
         },
         handleFileRemove() {
-            this.fileSubscribers = ''
+            this.fileSubscribers = {}
         },
     },
 }

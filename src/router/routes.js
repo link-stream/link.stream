@@ -41,6 +41,7 @@ import {
     ReportMessage,
     AddSubscriber,
     SubscriberDetails,
+    ImportSubscribers,
 } from '~/pages/Marketing'
 
 import PublicProfile from '@/pages/Profile/PublicProfile'
@@ -296,40 +297,46 @@ const routes = [
         meta: { requiresAuth: true, layout: 'account' },
     },
     {
-        path: '/app/marketing/edit-message',
+        path: '/app/marketing/messages/edit',
         name: 'editMessage',
         component: EditMessage,
         meta: { requiresAuth: true, layout: 'account' },
     },
     {
-        path: '/app/marketing/customize-message',
+        path: '/app/marketing/messages/customize',
         name: 'customizeMessage',
         component: CustomizeMessage,
         meta: { requiresAuth: true },
     },
     {
-        path: '/app/marketing/sent-sms',
+        path: '/app/marketing/messages/sent-sms',
         name: 'sentSMS',
         component: SentSMS,
         meta: { requiresAuth: true, layout: 'account' },
     },
     {
-        path: '/app/marketing/report-message',
+        path: '/app/marketing/messages/report',
         name: 'reportMessage',
         component: ReportMessage,
         meta: { requiresAuth: true, layout: 'account' },
     },
     {
-        path: '/app/marketing/add-subscriber',
+        path: '/app/marketing/subscriber/add',
         name: 'addSubscriber',
         component: AddSubscriber,
         meta: { requiresAuth: true, layout: 'account' },
     },
     {
-        path: '/app/marketing/subscriber-details',
+        path: '/app/marketing/subscribers/details',
         name: 'subscriberDetails',
         component: SubscriberDetails,
         props: true,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/subscribers/import',
+        name: 'importSubscribers',
+        component: ImportSubscribers,
         meta: { requiresAuth: true, layout: 'account' },
     },
 

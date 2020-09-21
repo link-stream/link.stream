@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import MessageCard from '~/components/Marketing/MessageCard'
+import MessageCard from '~/components/Marketing/Messages/MessageCard'
 import SelectMessageTypeModal from '~/components/Modal/Marketing/SelectMessageTypeModal'
 import CreateMessageModal from '~/components/Modal/Marketing/CreateMessageModal'
 import CreateSMSModal from '~/components/Modal/Marketing/CreateSMSModal'

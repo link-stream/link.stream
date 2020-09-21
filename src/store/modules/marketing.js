@@ -159,8 +159,7 @@ const actions = {
         const user = rootGetters['auth/user']
         const response = await api.marketing.getSubscriberTags(user.id)
         const { status, data } = response
-        status === 'success' &&
-            commit(marketingTypes.SET_TAGS, { tags: data })
+        status === 'success' && commit(marketingTypes.SET_TAGS, { tags: data })
     },
 }
 

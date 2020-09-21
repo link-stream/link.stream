@@ -143,7 +143,7 @@
             <div class="detail-container tags">
                 <div class="title-container">
                     <h1 class="title">Tags</h1>
-                    <a href="#" class="actions">Add tag</a>
+                    <!-- <a href="#" class="actions">Add tag</a> -->
                 </div>
                 <div class="tags-list">
                     <TaggerInput
@@ -198,7 +198,7 @@
                     :key="`activity-${index}`"
                 >
                     <h4 class="title">
-                        {{ activity.datetime | customizeDate('MMMM Do')}}
+                        {{ activity.datetime | customizeDate('MMMM Do') }}
                     </h4>
                     <div class="activity">
                         Was Sent the
@@ -245,7 +245,6 @@
 <script>
 import DropdownActions from '~/components/Form/DropdownActions'
 import CustomStarRating from '~/components/Form/CustomStarRating'
-import { api } from '~/services'
 import { mapGetters } from 'vuex'
 export default {
     name: 'SubscriberDetails',
@@ -292,7 +291,7 @@ export default {
                 text: tag.trim(),
                 value: tag.trim(),
             }))
-        }
+        },
     },
     async created() {
         await this.$store.dispatch('marketing/getTags')

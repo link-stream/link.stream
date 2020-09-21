@@ -209,3 +209,83 @@
         }
     }
 }
+.page-import-subscribers {
+    .fwz-tabs {
+        margin-bottom: 30px;
+        border-bottom: 1px solid $gray-330;
+        li {
+            display: inline-block;
+            line-height: 50px;
+            margin-right: 15px;
+            color: $gray-510;
+            font-size: px2rem(13);
+            font-weight: 600;
+            letter-spacing: 0;
+            cursor: default;
+            &.done {
+                color: $gray-810;
+                font-weight: bold;
+            }
+            &.active {
+                color: $gray-810;
+                font-weight: bold;
+                border-bottom: 3px solid $primary;
+            }
+        }
+    }
+    .import-type {
+        .description {
+            margin-bottom: 30px;
+        }
+        .custom-radio {
+            font-size: px2rem(13);
+            line-height: px2rem(24);
+        }
+        .file-container {
+            margin-bottom: 20px;
+            .DropFile {
+                .upload-section {
+                    display: block;
+                    height: initial;
+                    padding: 40px 20px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    .page-footer {
+        padding-top: 20px;
+        margin-top: 30px;
+        border-top: 1px solid $gray-330;
+        .btn-next {
+            *margin-left: auto;
+            float: right;
+        }
+    }
+    .select-status {
+        .top-desc {
+            font-size: px2rem(14);
+            line-height: px2rem(24);
+            margin-bottom: 30px;
+        }
+        .down-desc {
+            font-size: px2rem(14);
+            line-height: px2rem(24);
+            margin-bottom: 20px;
+        }
+        .email-status {
+            margin-bottom: 20px;
+        }
+        .sms-status {
+            margin-bottom: 30px;
+            .custom-checkbox {
+                margin-bottom: 12px;
+            }
+            .sms-desc {
+                font-size: px2rem(11);
+                line-height: px2rem(16);
+                padding-left: 30px;
+            }
+        }
+    }
+}

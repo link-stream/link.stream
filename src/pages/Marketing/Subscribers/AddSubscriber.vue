@@ -18,9 +18,14 @@
                 <div class="description">
                     Add an individual subscriber to your list. Need to add
                     several at once? Use our
-                    <a href="#" class="font-weight-bold">
+                    <router-link
+                        class="font-weight-bold"
+                        :to="{
+                            name: 'importSubscribers',
+                        }"
+                    >
                         Import
-                    </a>
+                    </router-link>
                     tool instead.
                 </div>
             </div>

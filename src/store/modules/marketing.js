@@ -17,6 +17,9 @@ const initialState = () => ({
     messages: [],
     subscribers: [],
     tags: [],
+    splitTestData: {
+        title: '',
+    },
 })
 
 const state = initialState()
@@ -84,6 +87,10 @@ const mutations = {
                 text: value,
             })
         }
+    },
+
+    [marketingTypes.SET_SPLIT_TEST_DATA](state, { splitTestData }) {
+        state.splitTestData = splitTestData
     },
 }
 
@@ -161,6 +168,10 @@ const actions = {
         const { status, data } = response
         status === 'success' && commit(marketingTypes.SET_TAGS, { tags: data })
     },
+
+    async setSplitTestData({ commit }, params) {
+        commit(marketingTypes.SET_SPLIT_TEST_DATA, { splitTestData: params })
+    },
 }
 
 const getters = {
@@ -169,6 +180,7 @@ const getters = {
     messages: ({ messages }) => messages,
     subscribers: ({ subscribers }) => subscribers,
     tags: ({ tags }) => tags,
+    splitTestData: ({ splitTestData }) => splitTestData,
 }
 
 export default {

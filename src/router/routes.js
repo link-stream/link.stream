@@ -43,6 +43,8 @@ import {
     SubscriberDetails,
     ImportSubscribers,
     SelectPageTemplate,
+    EditLandingPage,
+    EditSplitTest,
 } from '~/pages/Marketing'
 
 import PublicProfile from '@/pages/Profile/PublicProfile'
@@ -344,6 +346,18 @@ const routes = [
         path: '/app/marketing/landing-pages/select',
         name: 'selectPageTemplate',
         component: SelectPageTemplate,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/landing-page/edit',
+        name: 'editLandingPage',
+        component: EditLandingPage,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: '/app/marketing/landing-page/split-edit',
+        name: 'editSplitTest',
+        component: EditSplitTest,
         meta: { requiresAuth: true, layout: 'account' },
     },
 

@@ -23,12 +23,12 @@
                     v-for="(template, index) in templates"
                     :key="`template-${index}`"
                 >
-                    <div class="template-container">
+                    <div class="template-container" @click="showEditPage">
                         <img :src="template.src" />
                         <h5 class="title">
                             {{ template.title }}
                         </h5>
-                        <p class="description" v-html="template.description"></p>
+                        <p class="description" v-html="template.description" />
                     </div>
                 </b-col>
             </b-row>
@@ -59,5 +59,12 @@ export default {
             },
         ],
     }),
+    methods: {
+        showEditPage() {
+            this.$router.push({
+                name: 'editLandingPage',
+            })
+        },
+    },
 }
 </script>

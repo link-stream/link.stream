@@ -40,14 +40,17 @@
                 />
             </div>
         </main>
+        <CreateSplitModal />
     </div>
 </template>
 <script>
 import PageCard from '~/components/Marketing/LandingPages/PageCard'
+import CreateSplitModal from '~/components/Modal/Marketing/CreateSplitModal'
 export default {
     name: 'LaningPages',
     components: {
         PageCard,
+        CreateSplitModal,
     },
     data: () => ({
         loading: false,
@@ -92,7 +95,9 @@ export default {
                 name: 'selectPageTemplate',
             })
         },
-        handleCreateSplitClick() {},
+        handleCreateSplitClick() {
+            this.$bus.$emit('modal.createSplit.open')
+        },
     },
 }
 </script>

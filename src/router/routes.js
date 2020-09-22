@@ -42,6 +42,7 @@ import {
     AddSubscriber,
     SubscriberDetails,
     ImportSubscribers,
+    SelectPageTemplate,
 } from '~/pages/Marketing'
 
 import PublicProfile from '@/pages/Profile/PublicProfile'
@@ -337,6 +338,12 @@ const routes = [
         path: '/app/marketing/subscribers/import',
         name: 'importSubscribers',
         component: ImportSubscribers,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/landing-pages/select',
+        name: 'selectPageTemplate',
+        component: SelectPageTemplate,
         meta: { requiresAuth: true, layout: 'account' },
     },
 

@@ -1,0 +1,114 @@
+.page-landing-pages {
+    .page-title {
+        font-size: px2rem(30);
+        line-height: px2rem(34);
+    }
+    .page-subtitle {
+        margin-top: 10px;
+    }
+    .btn-create-split {
+        margin-right: 10px;
+    }
+    .page-list {
+        margin-bottom: 20px;
+        .date-title {
+            font-size: px2rem(12);
+            line-height: px2rem(14);
+            font-weight: 600;
+        }
+    }
+    .PageCard {
+        display: flex;
+        padding: 20px;
+        @include media-breakpoint-up(sm) {
+            padding-left: 0px;
+        }
+        .item-body {
+            flex-basis: 100%;
+            .icon-container {
+                margin-top: 5px;
+                width: 54px;
+                text-align: center;
+                min-width: 54px;
+            }
+            .text-content {
+                .item-title {
+                    font-size: px2rem(13);
+                    line-height: px2rem(18);
+                    font-weight: 600;
+                }
+                .item-subtitle {
+                    font-size: px2rem(11);
+                    line-height: px2rem(14);
+                    text-transform: capitalize;
+                }
+            }
+            .page-status {
+                font-size: px2rem(11);
+                line-height: px2rem(13);
+                padding: 4px 12px;
+                border-radius: 100px;
+                color: $gray-620;
+                text-transform: capitalize;
+                width: fit-content;
+                margin-top: 10px;
+                @include media-breakpoint-up(sm) {
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+                &.inactive {
+                    background-color: #FFF0C5;
+                }
+                &.draft {
+                    background-color: #DFE3E8;
+                }
+                &.live {
+                    background-color: #DFF0D8;
+                }
+            }
+            .number-value {
+                font-size: px2rem(14);
+                line-height: px2rem(18);
+                margin-top: 4px;
+                @include media-breakpoint-down(sm) {
+                    margin-top: 15px;
+                }
+            }
+            .number-title {
+                font-size: px2rem(11);
+                line-height: px2rem(18);
+            }
+        }
+        .card-edit-btn:before {
+            width: 40px;
+            height: 40px;
+        }
+        .dropdown-toggle {
+            line-height: 28px;
+            width: 50px;
+            text-align: right;
+        }
+    }
+}
+.page-select-template {
+    .template-container {
+        margin-bottom: 30px;
+        img {
+            width: 100%;
+        }
+        .title {
+            margin-top: 18px;
+            font-size: px2rem(16);
+            line-height: px2rem(24);
+            font-weight: bold;
+            text-align: center;
+        }
+        .description {
+            font-size: px2rem(13);
+            line-height: px2rem(21);
+            text-align: center;
+            // max-width: 250px;
+            margin-bottom: 0;
+        }
+    }
+}

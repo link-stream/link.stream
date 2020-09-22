@@ -3,7 +3,7 @@
         <header class="page-header">
             <div class="left-col">
                 <h1 class="page-title">Marketing messages</h1>
-                <h4 class="page-subtitle">
+                <h6 class="page-subtitle">
                     You have
                     <span class="active-number">
                         {{ cntEmails | thousandCNumber }}
@@ -13,7 +13,7 @@
                         {{ cntSms | thousandCNumber }}
                     </span>
                     SMS subscribers
-                </h4>
+                </h6>
             </div>
             <div class="right-col">
                 <basic-button @click="handleCreateClick">

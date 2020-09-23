@@ -323,7 +323,8 @@
         }
     }
 }
-.page-edit-split {
+.page-edit-split,
+.page-add-variations {
     .page-header {
         .edit-email-container {
             input {
@@ -348,6 +349,37 @@
                 line-height: px2rem(24);
                 margin-bottom: 0;
             }
+        }
+    }
+}
+.page-add-variations {
+    .selected-control,
+    .variation-list {
+        margin-bottom: 20px;
+        .title {
+            font-size: px2rem(12);
+            line-height: px2rem(14);
+            font-weight: 600;
+        }
+    }
+    .copy-choose-container {
+        border: 1px dashed $gray-410;
+        border-radius: 4px;
+        padding: 38px 40px;
+        text-align: center;
+        margin-bottom: 30px;
+        .text {
+            font-size: px2rem(16);
+            line-height: px2rem(20);
+            color: $gray-530;
+        }
+    }
+    .page-footer {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid $gray-330;
+        .btn-draft {
+            margin-right: 10px;
         }
     }
 }

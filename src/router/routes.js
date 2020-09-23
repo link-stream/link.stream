@@ -45,6 +45,7 @@ import {
     SelectPageTemplate,
     EditLandingPage,
     EditSplitTest,
+    AddVariations,
 } from '~/pages/Marketing'
 
 import PublicProfile from '@/pages/Profile/PublicProfile'
@@ -358,6 +359,13 @@ const routes = [
         path: '/app/marketing/landing-page/split-edit',
         name: 'editSplitTest',
         component: EditSplitTest,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/landing-page/add-variations',
+        name: 'addVariations',
+        component: AddVariations,
+        props: true,
         meta: { requiresAuth: true, layout: 'account' },
     },
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="page page-edit-split">
+    <div class="page page-add-variations">
         <nav class="page-nav">
             <basic-button
                 class="back-btn"
@@ -44,50 +44,70 @@
                         </a>
                     </div>
                 </div>
-                <div class="right-col">
-                    <spinner-button
-                        @click="handleCreateClick"
-                        :disabled="isEditTitle"
-                    >
-                        Create New Page
-                    </spinner-button>
-                </div>
             </header>
             <main class="page-body">
                 <div class="top-desc">
                     <h4 class="title">
-                        Select a control page
+                        Add variations
                     </h4>
                     <p class="description">
-                        The ‘Control’ is the orginal version, which will serve
-                        as the base to test against.
+                        Make changes to a copy of your control page, or add a page you've already created as a variation.
                     </p>
                 </div>
-                <SearchInput
-                    pill
-                    color="black"
-                    v-model="searchString"
-                    placeholder="Search landing pages"
-                    direction="right"
-                    class="search-form"
-                    @keyupEnter="searchLandingPages"
-                />
-                <div class="page-list">
+                <div class="selected-control">
+                    <h6 class="title">
+                        Selected Control
+                    </h6>
                     <SplitTestCard
-                        v-for="(page, index) in landingPages"
-                        :key="`page-${index}`"
-                        :page="page"
-                        @select-page="showAddVariations"
+                        :page="selectedControl"
+                        type="control"
                     />
                 </div>
-                <basic-button
-                    variant="outline-light"
-                    size="sm"
-                    class="btn-show-more"
-                >
-                    Load More Pages
-                </basic-button>
+                <div class="variation-list">
+                    <h6 class="title">
+                        Variations(
+                        {{ variations.length }}
+                        )
+                    </h6>
+                    <SplitTestCard
+                        v-for="(variation, index) in variations"
+                        :key="`variation-${index}`"
+                        :page="variation"
+                        type="variation"
+                        :index="index"
+                    />
+                </div>
+                <div class="copy-choose-container">
+                    <h5 class="text">
+                        To make a variation, you can
+                        <a href="#">
+                            copy the control
+                        </a>
+                        , or
+                        <a href="#">
+                            choose a different page
+                        </a>
+                    </h5>
+                </div>
             </main>
+            <footer class="page-footer">
+                <div class="float-right">
+                    <basic-button
+                        class="btn-draft"
+                        variant="secondary"
+                        size="md"
+                        @click="handleSaveDraftClick"
+                    >
+                        Save Draft
+                    </basic-button>
+                    <spinner-button
+                        size="md"
+                        @click="handleNextClick"
+                    >
+                        Next
+                    </spinner-button>
+                </div>
+            </footer>
         </div>
     </div>
 </template>
@@ -99,29 +119,25 @@ export default {
     components: {
         SplitTestCard,
     },
+    props: {
+        selectedControl: {
+            type: Object,
+        },
+    },
     data: () => ({
         loading: false,
         splitTitle: '',
         isEditTitle: false,
-        searchString: '',
-        landingPages: [
-            {
-                title: 'Someone To Love You',
-                created_at: '2020/07/08 22:05:00',
-                status: 'published',
-                conversion: 18,
-            },
+        variations: [
             {
                 title: 'Another Landing Page',
                 created_at: '2020/07/07 22:05:00',
-                status: 'published',
-                conversion: 18,
+                status: 'draft',
             },
             {
                 title: 'Someone To Love You',
                 created_at: '2020/07/07 10:05:00',
-                status: 'published',
-                conversion: 18,
+                status: 'draft',
             },
         ],
     }),
@@ -149,20 +165,8 @@ export default {
             this.splitTitle = this.splitTestData.title
             this.isEditTitle = false
         },
-        handleCreateClick() {
-            this.$router.push({
-                name: 'selectPageTemplate',
-            })
-        },
-        searchLandingPages() {},
-        showAddVariations(page) {
-            this.$router.push({
-                name: 'addVariations',
-                params: {
-                    selectedControl: { ...page },
-                }
-            })
-        }
+        handleSaveDraftClick() {},
+        handleNextClick() {},
     },
 }
 </script>

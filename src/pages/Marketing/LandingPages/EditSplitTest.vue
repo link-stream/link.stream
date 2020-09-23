@@ -160,9 +160,9 @@ export default {
                 name: 'addVariations',
                 params: {
                     selectedControl: { ...page },
-                }
+                },
             })
-        }
+        },
     },
 }
 </script>

@@ -20,6 +20,8 @@ const initialState = () => ({
     splitTestData: {
         title: '',
     },
+    variationData: {},
+    variations: [],
 })
 
 const state = initialState()
@@ -92,6 +94,18 @@ const mutations = {
     [marketingTypes.SET_SPLIT_TEST_DATA](state, { splitTestData }) {
         state.splitTestData = splitTestData
     },
+
+    [marketingTypes.SET_VARIATION_DATA](state, { variationData }) {
+        state.variationData = variationData
+    },
+
+    [marketingTypes.ADD_VARIATION](state, { variation }) {
+        state.variations.push(variation)
+    },
+
+    [marketingTypes.SET_VARIATIONS](state, { variations }) {
+        state.variations = variations
+    }
 }
 
 const actions = {
@@ -172,6 +186,15 @@ const actions = {
     async setSplitTestData({ commit }, params) {
         commit(marketingTypes.SET_SPLIT_TEST_DATA, { splitTestData: params })
     },
+    async setVariationData({ commit }, params) {
+        commit(marketingTypes.SET_VARIATION_DATA, { variationData: params })
+    },
+    async getVariations({ commit }) {
+        commit(marketingTypes.SET_VARIATIONS, { variations: [] })
+    },
+    async addVariation({ commit }, params) {
+        commit(marketingTypes.ADD_VARIATION, { variation: params })
+    },
 }
 
 const getters = {
@@ -181,6 +204,8 @@ const getters = {
     subscribers: ({ subscribers }) => subscribers,
     tags: ({ tags }) => tags,
     splitTestData: ({ splitTestData }) => splitTestData,
+    variationData: ({ variationData }) => variationData,
+    variations: ({ variations }) => variations,
 }
 
 export default {

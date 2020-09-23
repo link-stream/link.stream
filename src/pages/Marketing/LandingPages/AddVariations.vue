@@ -51,7 +51,8 @@
                         Add variations
                     </h4>
                     <p class="description">
-                        Make changes to a copy of your control page, or add a page you've already created as a variation.
+                        Make changes to a copy of your control page, or add a
+                        page you've already created as a variation.
                     </p>
                 </div>
                 <div class="selected-control">
@@ -61,6 +62,7 @@
                     <SplitTestCard
                         :page="selectedControl"
                         type="control"
+                        @copy="handleCopyClick"
                     />
                 </div>
                 <div class="variation-list">
@@ -75,6 +77,7 @@
                         :page="variation"
                         type="variation"
                         :index="index"
+                        @copy="handleCopyClick"
                     />
                 </div>
                 <div class="copy-choose-container">
@@ -100,24 +103,24 @@
                     >
                         Save Draft
                     </basic-button>
-                    <spinner-button
-                        size="md"
-                        @click="handleNextClick"
-                    >
+                    <spinner-button size="md" @click="handleNextClick">
                         Next
                     </spinner-button>
                 </div>
             </footer>
         </div>
+        <CopyVariationModal />
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
 import SplitTestCard from '~/components/Marketing/LandingPages/SplitTestCard'
+import CopyVariationModal from '~/components/Modal/Marketing/CopyVariationModal'
 export default {
     name: 'EditSplitTest',
     components: {
         SplitTestCard,
+        CopyVariationModal,
     },
     props: {
         selectedControl: {
@@ -128,26 +131,18 @@ export default {
         loading: false,
         splitTitle: '',
         isEditTitle: false,
-        variations: [
-            {
-                title: 'Another Landing Page',
-                created_at: '2020/07/07 22:05:00',
-                status: 'draft',
-            },
-            {
-                title: 'Someone To Love You',
-                created_at: '2020/07/07 10:05:00',
-                status: 'draft',
-            },
-        ],
     }),
     computed: {
         ...mapGetters({
             splitTestData: 'marketing/splitTestData',
+            variations: 'marketing/variations',
         }),
     },
-    created() {
+    async created() {
+        this.loading = true
         this.splitTitle = this.splitTestData.title
+        await this.$store.dispatch('marketing/getVariations')
+        this.loading = false
     },
     methods: {
         showEditTitle() {
@@ -164,6 +159,16 @@ export default {
         handleCancelClick() {
             this.splitTitle = this.splitTestData.title
             this.isEditTitle = false
+        },
+        async handleCopyClick(page) {
+            console.log(page)
+            const params = {
+                ...page,
+                title: page.title + ' - Copy',
+                status: 'draft',
+            }
+            await this.$store.dispatch('marketing/setVariationData', params)
+            this.$bus.$emit('modal.copyVariation.open')
         },
         handleSaveDraftClick() {},
         handleNextClick() {},

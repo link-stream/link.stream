@@ -2,7 +2,7 @@
     <div class="Card SplitTestCard">
         <div class="item-body">
             <b-row>
-                <b-col cols="12" sm="5" class="d-flex">
+                <b-col cols="12" sm="6" class="d-flex">
                     <div class="icon-container d-none d-sm-block">
                         <font-awesome-icon
                             v-if="type !== 'variation'"
@@ -24,7 +24,7 @@
                         </small>
                     </div>
                 </b-col>
-                <b-col cols="12" sm="3">
+                <b-col cols="12" sm="2">
                     <div class="page-status" :class="page.status">
                         {{ page.status }}
                     </div>
@@ -55,10 +55,7 @@
         </div>
         <div v-else class="action-other">
             <a href="#" @click.prevent="handleCopyClick" class="btn-copy">
-                <font-awesome-icon
-                    :icon="['far', 'copy']"
-                    size="lg"
-                />
+                <font-awesome-icon :icon="['far', 'copy']" size="lg" />
             </a>
             <b-dropdown class="actions-menu" variant="icon" right no-caret>
                 <template v-slot:button-content>
@@ -79,7 +76,7 @@ export default {
         },
         type: {
             type: String,
-            default: 'page'
+            default: 'page',
         },
         index: {
             type: Number,
@@ -90,7 +87,9 @@ export default {
         handleUseClick() {
             this.$emit('select-page', this.page)
         },
-        handleCopyClick() {},
+        handleCopyClick() {
+            this.$emit('copy', this.page)
+        },
     },
 }
 </script>

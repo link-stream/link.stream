@@ -101,7 +101,6 @@ export default {
         messages: {
             deep: true,
             handler() {
-                console.log('message changed!')
                 this.refreshRealMessages()
             },
         },

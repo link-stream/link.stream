@@ -46,6 +46,7 @@ import {
     EditLandingPage,
     EditSplitTest,
     AddVariations,
+    ResultSplitTest,
 } from '~/pages/Marketing'
 
 import PublicProfile from '@/pages/Profile/PublicProfile'
@@ -366,6 +367,12 @@ const routes = [
         name: 'addVariations',
         component: AddVariations,
         props: true,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/landing-page/result',
+        name: 'resultSplitTest',
+        component: ResultSplitTest,
         meta: { requiresAuth: true, layout: 'account' },
     },
 

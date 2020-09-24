@@ -383,3 +383,15 @@
         }
     }
 }
+.page-result-split-test {
+    .page-header {
+        padding-bottom: 20px;
+        border-bottom: 1px solid $gray-330;
+        .viz-toggle {
+            .toggle-label {
+                font-size: px2rem(12);
+                margin-right: 10px;
+            }
+        }
+    }
+}

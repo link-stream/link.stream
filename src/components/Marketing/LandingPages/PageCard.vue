@@ -64,6 +64,9 @@
             <template v-slot:button-content>
                 <Icon icon="dot-menu-h" />
             </template>
+            <b-dropdown-item @click="handleViewReportClick">
+                View Report
+            </b-dropdown-item>
         </b-dropdown>
     </div>
 </template>
@@ -79,6 +82,11 @@ export default {
     },
     methods: {
         handleEditClick() {},
+        handleViewReportClick() {
+            this.$router.push({
+                name: 'resultSplitTest',
+            })
+        },
     },
 }
 </script>

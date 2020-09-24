@@ -87,7 +87,7 @@
             <template v-slot:button-content>
                 <Icon icon="dot-menu-h" />
             </template>
-            <b-dropdown-item>
+            <b-dropdown-item @click="handleViewReportClick">
                 View Report
             </b-dropdown-item>
             <b-dropdown-item>
@@ -135,6 +135,11 @@ export default {
                 })
             }
         },
+        handleViewReportClick() {
+            this.$router.push({
+                name: 'reportMessage',
+            })
+        }
     },
 }
 </script>

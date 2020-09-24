@@ -82,6 +82,7 @@ export default {
         },
         beats() {
             const that = this
+            const prevIndex = that.currentIndex
             this.beats.some((beat, index) => {
                 if (beat.type === 'beat') {
                     that.currentIndex = index
@@ -91,7 +92,9 @@ export default {
                 }
             })
             this.currentStatus = false
-            this.updateCurrentItem()
+            if (prevIndex > -1) {
+                this.updateCurrentItem()
+            }
         },
     },
     async created() {

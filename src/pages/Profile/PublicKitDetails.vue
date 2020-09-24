@@ -138,7 +138,14 @@
                         v-for="(artist, index) in moreArtists"
                         :key="index"
                     >
-                        <div class="artist">
+                        <router-link
+                            class="artist text-black"
+                            :to="{
+                                name: 'profileKitDetails',
+                                params: { kitId: artist.id },
+                            }"
+                            target="_blank"
+                        >
                             <div class="img-container">
                                 <img :src="artist.coverart" />
                             </div>
@@ -148,7 +155,7 @@
                             <div class="desc">
                                 {{ profile.display_name }}
                             </div>
-                        </div>
+                        </router-link>
                     </b-col>
                 </b-form-row>
             </div>
@@ -196,17 +203,10 @@ export default {
         }
         this.samples = []
         for (const item of kit.kit_files_name) {
-            const response = await api.profiles.getProfileKitFileByName(
-                this.profile.id,
-                kit.id,
-                item
-            )
-            if (response.status === 'success') {
-                this.samples.push({
-                    title: item,
-                    src: response.data.audio,
-                })
-            }
+            this.samples.push({
+                title: item,
+                src: null,
+            })
         }
         const moreArtists = await api.profiles.getProfileMoreKits(
             this.profile.id
@@ -222,8 +222,19 @@ export default {
         } else {
             this.moreArtists = []
         }
-
         this.isLoading = false
+
+        for (const item of this.samples) {
+            const response = await api.profiles.getProfileKitFileByName(
+                this.profile.id,
+                kit.id,
+                item.title
+            )
+            console.log(response.data)
+            if (response.status === 'success') {
+                item.src = response.data.audio
+            }
+        }
     },
     methods: {
         handleBuyClick() {

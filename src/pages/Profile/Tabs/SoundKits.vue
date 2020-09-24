@@ -80,7 +80,7 @@ export default {
             this.updateCurrentItem()
         },
         soundKits() {
-            const prevIndex= this.currentIndex
+            const prevIndex = this.currentIndex
             this.currentIndex = 0
             this.currentStatus = false
             if (prevIndex > -1) {

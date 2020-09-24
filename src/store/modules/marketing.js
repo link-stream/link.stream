@@ -105,7 +105,7 @@ const mutations = {
 
     [marketingTypes.SET_VARIATIONS](state, { variations }) {
         state.variations = variations
-    }
+    },
 }
 
 const actions = {

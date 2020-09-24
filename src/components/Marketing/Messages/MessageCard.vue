@@ -139,7 +139,7 @@ export default {
             this.$router.push({
                 name: 'reportMessage',
             })
-        }
+        },
     },
 }
 </script>

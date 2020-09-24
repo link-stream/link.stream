@@ -17,7 +17,10 @@
                 </h1>
                 <div class="page-preview">
                     <span class="text-light">link.stream/</span>
-                    <span>{{ user.user_name }}/placeholder-split-test-title</span>
+                    <span>
+                        {{ user.user_name }}
+                        /placeholder-split-test-title
+                    </span>
                     <basic-button variant="outline-light" size="xs">
                         View
                     </basic-button>

@@ -110,7 +110,21 @@
                             v-for="(artist, index) in moreArtists"
                             :key="index"
                         >
-                            <div class="artist">
+                            <router-link
+                                class="artist text-black"
+                                :to="
+                                    artist.type === 'beat'
+                                        ? {
+                                              name: 'profileBeatDetails',
+                                              params: { beatId: artist.id },
+                                          }
+                                        : {
+                                              name: 'profilePackDetails',
+                                              params: { packId: artist.id },
+                                          }
+                                "
+                                target="_blank"
+                            >
                                 <div class="img-container">
                                     <img :src="artist.coverart" />
                                 </div>
@@ -121,7 +135,7 @@
                                     {{ artist.bpm }} BPM •
                                     {{ artist.plays }} plays
                                 </div>
-                            </div>
+                            </router-link>
                         </b-col>
                     </b-form-row>
                 </div>

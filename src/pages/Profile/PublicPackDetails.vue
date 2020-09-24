@@ -67,7 +67,7 @@
                     </div>
                 </div>
             </div>
-            <div class="beat-container">
+            <div class="beat-container" v-if="!isBeatLoading">
                 <div class="header">
                     <div class="float-left">
                         {{ this.beats.length }} BEATS
@@ -101,7 +101,21 @@
                         v-for="(artist, index) in moreArtists"
                         :key="index"
                     >
-                        <div class="artist">
+                        <router-link
+                            class="artist text-black"
+                            :to="
+                                artist.type === 'beat'
+                                    ? {
+                                          name: 'profileBeatDetails',
+                                          params: { beatId: artist.id },
+                                      }
+                                    : {
+                                          name: 'profilePackDetails',
+                                          params: { packId: artist.id },
+                                      }
+                            "
+                            target="_blank"
+                        >
                             <div class="img-container">
                                 <img :src="artist.coverart" />
                             </div>
@@ -111,7 +125,7 @@
                             <div class="desc">
                                 {{ profile.display_name }}
                             </div>
-                        </div>
+                        </router-link>
                     </b-col>
                 </b-form-row>
             </div>
@@ -131,6 +145,7 @@ export default {
     },
     data: () => ({
         isLoading: false,
+        isBeatLoading: false,
         profile: {},
         pack: {},
         moreArtists: [],
@@ -149,6 +164,7 @@ export default {
             this.packId,
             'pack'
         )
+        console.log('pack', packResponse)
         if (packResponse.status !== 'success' || !packResponse.data.length) {
             this.$router.push({ name: 'profileBeats' })
             this.$toast.error('Beat pack not found.')
@@ -159,6 +175,24 @@ export default {
             ...pack,
             coverart: pack.data_image || appConstants.defaultCoverArt,
         }
+        const moreArtists = await api.profiles.getProfileMoreBeats(
+            this.profile.id,
+            'pack'
+        )
+        if (moreArtists.status == 'success') {
+            this.moreArtists = moreArtists.data.map(artist => {
+                return {
+                    ...artist,
+                    coverart: artist.data_image || appConstants.defaultCoverArt,
+                    producer_name: this.profile.display_name,
+                }
+            })
+        } else {
+            this.moreArtists = []
+        }
+        this.isLoading = false
+
+        this.isBeatLoading = true
         this.beats = []
         this.sumDurations = 0
         this.audioObj = new Audio()
@@ -187,23 +221,7 @@ export default {
                 this.audioObj.load()
             }
         }
-        const moreArtists = await api.profiles.getProfileMoreBeats(
-            this.profile.id,
-            'pack'
-        )
-        if (moreArtists.status == 'success') {
-            this.moreArtists = moreArtists.data.map(artist => {
-                return {
-                    ...artist,
-                    coverart: artist.data_image || appConstants.defaultCoverArt,
-                    producer_name: this.profile.display_name,
-                }
-            })
-        } else {
-            this.moreArtists = []
-        }
-
-        this.isLoading = false
+        this.isBeatLoading = false
     },
     methods: {
         handleBuyClick() {

@@ -37,9 +37,27 @@
                 {{ result.tagged }}
             </span>
         </p>
+        <footer class="page-footer">
+            <basic-button
+                variant="secondary"
+                class="btn-prev"
+                :disabled="saving"
+                @click="handleCancelClick"
+            >
+                Cancel
+            </basic-button>
+            <spinner-button
+                class="btn-next"
+                :loading="saving"
+                @click="handleImportClick"
+            >
+                Complete Import
+            </spinner-button>
+        </footer>
     </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: 'ReviewSubscribers',
     data: () => ({
@@ -50,6 +68,33 @@ export default {
             updated: 'no',
             tagged: 'none',
         },
+        saving: false,
     }),
+    computed: {
+        ...mapGetters({
+            user: 'me/user',
+            importSubscribers: 'marketing/importSubscribers',
+        }),
+    },
+    methods: {
+        async handleCancelClick() {
+            await this.$store.dispatch('marketing/setImportSubscribers', {})
+            this.$router.push({
+                name: 'addSubscriber',
+            })
+        },
+        async handleImportClick() {
+            const params = {
+                user_id: this.user.id,
+                list: JSON.stringify(this.importSubscribers)
+            }
+            const { status, message, error } = await this.$store.dispatch('marketing/importSubscribers', params)
+            if (status === 'success') {
+                this.$toast.success(message)
+            } else {
+                this.$toast.error(error)
+            }
+        }
+    }
 }
 </script>

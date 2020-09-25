@@ -66,6 +66,11 @@
                 </div>
             </div>
         </div>
+        <footer class="page-footer">
+            <spinner-button class="btn-next" @click="handleNextClick">
+                Next
+            </spinner-button>
+        </footer>
     </div>
 </template>
 <script>
@@ -77,15 +82,11 @@ export default {
         realCols: [
             {
                 value: 'email',
-                text: 'Email Address',
+                text: 'Email',
             },
             {
-                value: 'first_name',
-                text: 'First Name',
-            },
-            {
-                value: 'last_name',
-                text: 'Last Name',
+                value: 'name',
+                text: 'Name',
             },
             {
                 value: 'phone',
@@ -102,19 +103,14 @@ export default {
         ],
         colsData: [
             {
-                title: 'Email Address',
+                title: 'Email',
                 matchTitle: '',
                 data: ['email1@example.com', 'email2@example2.com'],
             },
             {
-                title: 'First Name',
+                title: 'Name',
                 matchTitle: '',
-                data: ['John', 'Jane'],
-            },
-            {
-                title: 'Last Name',
-                matchTitle: '',
-                data: ['Doe', 'Doe'],
+                data: ['John Doe', 'Jane Doe'],
             },
             {
                 title: 'Number',
@@ -126,6 +122,11 @@ export default {
                 matchTitle: '',
                 data: ['08/03', '05/29'],
             },
+            {
+                title: 'Tags',
+                matchTitle: '',
+                data: ['beats,links', 'videos']
+            }
         ],
     }),
     created() {
@@ -143,6 +144,9 @@ export default {
                 }
             })
         },
+        handleNextClick() {
+            this.$emit('next')
+        }
     },
 }
 </script>

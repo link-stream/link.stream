@@ -641,6 +641,15 @@ export const api = {
                 params,
                 method,
             })
-        }
+        },
+        async importSubscribers(params) {
+            let endpoint = 'marketing/subscribers_import'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
     },
 }

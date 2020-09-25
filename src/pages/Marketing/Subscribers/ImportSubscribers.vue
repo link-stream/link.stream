@@ -9,12 +9,12 @@
                 :activeStepName="step"
                 :activeStepIndex="stepIndex"
             />
-            <ImportFile v-if="step === 'import'" />
-            <SelectStatus v-if="step === 'status'" />
-            <ReviewMatch v-if="step === 'match'" />
-            <ReviewSubscribers v-if="step === 'review'" />
+            <ImportFile v-if="step === 'import'" @next="handleNextClick" />
+            <SelectStatus v-if="step === 'status'" @next="handleNextClick" />
+            <ReviewMatch v-if="step === 'match'"  @next="handleNextClick" />
+            <ReviewSubscribers v-if="step === 'review'" @next="handleNextClick" />
         </div>
-        <footer class="page-footer">
+        <!-- <footer class="page-footer">
             <basic-button
                 v-if="step === 'review'"
                 variant="secondary"
@@ -31,10 +31,11 @@
             >
                 {{ step === 'review' ? 'Complete Import' : 'Next' }}
             </spinner-button>
-        </footer>
+        </footer> -->
     </div>
 </template>
 <script>
+import { mapState } from 'vuex' 
 import {
     WizardTabs,
     ImportFile,
@@ -74,16 +75,14 @@ export default {
         saving: false,
     }),
     computed: {
+        ...mapState({
+            importSubscribers: 'marketing/importSubscribers',
+        }),
         step() {
             return this.tabs[this.stepIndex].step
         },
     },
     methods: {
-        handleCancelClick() {
-            this.$router.push({
-                name: 'addSubscriber',
-            })
-        },
         handleNextClick() {
             if (this.stepIndex < this.tabs.length - 1) {
                 this.stepIndex++

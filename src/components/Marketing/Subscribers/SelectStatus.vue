@@ -30,7 +30,7 @@
             </p>
         </div>
         <div class="sms-status">
-            <b-form-checkbox v-model="smsStatus">
+            <b-form-checkbox v-model="smsStatus" value="subscribed" unchecked-value="unsubscribed">
                 Subscribe to SMS
             </b-form-checkbox>
             <div class="sms-desc">
@@ -44,9 +44,15 @@
                 </p>
             </div>
         </div>
+        <footer class="page-footer">
+            <spinner-button class="btn-next" @click="handleNextClick">
+                Next
+            </spinner-button>
+        </footer>
     </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: 'SelectStatus',
     data: () => ({
@@ -59,13 +65,32 @@ export default {
                 value: 'unsubscribed',
                 text: 'UnsubScribed',
             },
-            {
-                value: 'archived',
-                text: 'Archived',
-            },
+            // {
+            //     value: 'archived',
+            //     text: 'Archived',
+            // },
         ],
-        emailStatus: 'Subscribed',
-        smsStatus: '',
+        emailStatus: 'unsubscribed',
+        smsStatus: 'unsubscribed',
     }),
+    computed: {
+        ...mapGetters({
+            importSubscribers: 'marketing/importSubscribers',
+        }),
+    },
+    methods: {
+        async handleNextClick() {
+            const subscribers = this.importSubscribers.map(item => {
+                return {
+                    ...item,
+                    email_status: this.emailStatus,
+                    sms_status: this.smsStatus,
+                }
+            })
+            await this.$store.dispatch('marketing/setImportSubscribers', subscribers)
+            console.log(this.importSubscribers)
+            this.$emit('next')
+        }
+    }
 }
 </script>

@@ -22,6 +22,7 @@ const initialState = () => ({
     },
     variationData: {},
     variations: [],
+    importSubscribers: [],
 })
 
 const state = initialState()
@@ -103,6 +104,10 @@ const mutations = {
             }
             state.subscribers.splice(findIndex, 1, newItem)
         });
+    },
+
+    [marketingTypes.SET_IMPORT_SUBSCRIBERS](state, { subscribers }) {
+        state.importSubscribers = subscribers
     },
 
     [marketingTypes.SET_SPLIT_TEST_DATA](state, { splitTestData }) {
@@ -202,6 +207,13 @@ const actions = {
         status === 'success' && commit(marketingTypes.UPDATE_SUBSCRIBERS_STATUS, { params: params })
         return response
     },
+    async setImportSubscribers({ commit }, params) {
+        commit(marketingTypes.SET_IMPORT_SUBSCRIBERS, { subscribers: params})
+    },
+    async importSubscribers({ commit }, params) {
+        const response = await api.marketing.importSubscribers(params)
+        return response
+    },
 
     async setSplitTestData({ commit }, params) {
         commit(marketingTypes.SET_SPLIT_TEST_DATA, { splitTestData: params })
@@ -215,6 +227,7 @@ const actions = {
     async addVariation({ commit }, params) {
         commit(marketingTypes.ADD_VARIATION, { variation: params })
     },
+    
 }
 
 const getters = {
@@ -226,6 +239,7 @@ const getters = {
     splitTestData: ({ splitTestData }) => splitTestData,
     variationData: ({ variationData }) => variationData,
     variations: ({ variations }) => variations,
+    importSubscribers: ({ importSubscribers }) => importSubscribers,
 }
 
 export default {

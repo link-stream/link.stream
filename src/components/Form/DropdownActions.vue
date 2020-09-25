@@ -17,9 +17,9 @@
         <b-dropdown-item @click="$emit('resubscribe')">
             Resubscribe
         </b-dropdown-item>
-        <b-dropdown-item @click="$emit('archive')">
+        <!-- <b-dropdown-item @click="$emit('archive')">
             Archive
-        </b-dropdown-item>
+        </b-dropdown-item> -->
     </b-dropdown>
 </template>
 <script>

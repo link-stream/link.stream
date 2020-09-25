@@ -91,6 +91,20 @@ const mutations = {
         }
     },
 
+    [marketingTypes.UPDATE_SUBSCRIBERS_STATUS](state, { params }) {
+        const selIdList = JSON.parse(params.list)
+        const curStatus = params.action === 'unsubscribe' ? 'unsubscribed' : 'subscribed'
+        selIdList.forEach(({ id }) => {
+            let findIndex = state.subscribers.findIndex(item => item.id === id)
+            const newItem = {
+                ...state.subscribers[findIndex],
+                sms_status: curStatus,
+                email_status: curStatus,
+            }
+            state.subscribers.splice(findIndex, 1, newItem)
+        });
+    },
+
     [marketingTypes.SET_SPLIT_TEST_DATA](state, { splitTestData }) {
         state.splitTestData = splitTestData
     },
@@ -181,6 +195,12 @@ const actions = {
         const response = await api.marketing.getSubscriberTags(user.id)
         const { status, data } = response
         status === 'success' && commit(marketingTypes.SET_TAGS, { tags: data })
+    },
+    async updateSubscribersStatus({ commit }, params) {
+        const response = await api.marketing.updateSubscribersStatus(params)
+        const { status } = response
+        status === 'success' && commit(marketingTypes.UPDATE_SUBSCRIBERS_STATUS, { params: params })
+        return response
     },
 
     async setSplitTestData({ commit }, params) {

@@ -24,8 +24,8 @@
         <main class="page-body">
             <div class="action-bar">
                 <DropdownActions
-                    @unsubscribe="handleUnsubscribeClick"
-                    @resubscribe="handleResubscribeClick"
+                    @unsubscribe="updateStatus('unsubscribe')"
+                    @resubscribe="updateStatus('resubscribe')"
                     @archive="handleArchiveClick"
                 />
                 <SearchInput
@@ -90,7 +90,7 @@
                         </b-dropdown>
                     </template>
                     <template v-slot:cell(selected)="data">
-                        <b-form-checkbox v-model="data.value"></b-form-checkbox>
+                        <b-form-checkbox v-model="data.item.selected"></b-form-checkbox>
                     </template>
                     <template v-slot:cell(name)="data">
                         <router-link
@@ -163,6 +163,7 @@ export default {
     }),
     computed: {
         ...mapGetters({
+            user: 'me/user',
             subscribers: 'marketing/subscribers',
         }),
     },
@@ -180,6 +181,7 @@ export default {
         this.loading = true
         await this.$store.dispatch('marketing/getSubscribers')
         this.loading = false
+        console.log(this.subscribers)
     },
     methods: {
         handleAddClick() {
@@ -207,8 +209,28 @@ export default {
             })
             this.statusAll = true
         },
-        handleUnsubscribeClick() {
-            console.log('Unsubscribe')
+        async updateStatus(action) {
+            const selIdList = this.realSubscribers.filter(({ selected }) => selected).map(({ id }) => { 
+                return {
+                    id: id
+                } 
+            })
+            if (!selIdList.length) {
+                this.$toast.error('Please select one subscriber at least.')
+                return
+            }
+            const params = {
+                user_id: this.user.id,
+                action: action,
+                list: JSON.stringify(selIdList)
+            }
+            const { status, message, error } = await this.$store.dispatch('marketing/updateSubscribersStatus', params)
+            if (status === 'success') {
+                this.$toast.success(message)
+            } else {
+                this.$toast.error(error)
+            }
+            this.statusAll = false
         },
         handleResubscribeClick() {
             console.log('Resubscribe')

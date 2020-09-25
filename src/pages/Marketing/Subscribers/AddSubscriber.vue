@@ -94,11 +94,12 @@
                         </b-form-invalid-feedback>
                     </b-form-group>
                     <b-form-group label="Tags">
-                        <b-form-input
-                            v-model="$v.form.tags.$model"
-                            placeholder="Add or create a tag"
-                        >
-                        </b-form-input>
+                        <TaggerInput
+                            v-model="tag"
+                            :tags="form.tags"
+                            :allTags="allTags"
+                            @tags-changed="handleTagsChange"
+                        />
                         <template v-slot:description>
                             <p class="mb-0 text-black">
                                 tags can help you label this subscriber with how
@@ -138,12 +139,15 @@ export default {
             day: null,
             month: null,
             phone: null,
-            tags: null,
+            tags: [],
         },
+        tag: '',
+        tags: ''
     }),
     computed: {
         ...mapGetters({
             user: 'me/user',
+            allTags: 'marketing/tags',
         }),
     },
     validations: {
@@ -169,8 +173,8 @@ export default {
             },
         },
     },
-    created() {
-        console.log(this.user)
+    async created() {
+        await this.$store.dispatch('marketing/getTags')
     },
     methods: {
         async handleAddClick() {
@@ -185,7 +189,7 @@ export default {
                 phone: this.form.phone,
                 name: this.form.name,
                 birthday: this.form.month + '/' + this.form.day,
-                tags: this.form.tags,
+                tags: this.form.tags.map(({ text }) => text).join(','),
             }
             const { status, message, error } = await this.$store.dispatch(
                 'marketing/insertSubscriber',
@@ -200,6 +204,9 @@ export default {
             this.$router.push({
                 name: 'subscribers',
             })
+        },
+        handleTagsChange(tags) {
+            this.form.tags = tags
         },
     },
 }

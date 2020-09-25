@@ -23,6 +23,7 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
             text-decoration: none;
+            min-width: max-content;
         }
         .page-status {
             margin-left: auto;
@@ -32,6 +33,7 @@
             font-size: px2rem(11);
             letter-spacing: 1px;
             margin-top: 15px;
+            min-width: max-content;
         }
     }
     .subscriber-container {

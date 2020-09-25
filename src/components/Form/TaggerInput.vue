@@ -40,7 +40,6 @@ export default {
     },
     computed: {
         filteredItems() {
-            console.log('allTags', this.allTags)
             return this.allTags.filter(i => {
                 return (
                     i.text.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1

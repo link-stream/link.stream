@@ -633,5 +633,14 @@ export const api = {
                 method,
             })
         },
+        async updateSubscribersStatus(params) {
+            let endpoint = 'marketing/subscribers_action_bulk'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        }
     },
 }

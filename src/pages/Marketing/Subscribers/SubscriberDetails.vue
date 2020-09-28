@@ -170,21 +170,21 @@
                     </div>
                     <div class="profile-item">
                         <div class="caption">
-                            First Name
+                            Name
                         </div>
-                        <span>-</span>
-                    </div>
-                    <div class="profile-item">
-                        <div class="caption">
-                            Last Name
-                        </div>
-                        <span>-</span>
+                        <a href="#" v-if="subscriber.name">
+                            {{ subscriber.name }}
+                        </a>
+                        <span v-else>-</span>
                     </div>
                     <div class="profile-item">
                         <div class="caption">
                             Birthday
                         </div>
-                        <span>-</span>
+                        <a href="#" v-if="subscriber.birthday">
+                            {{ subscriber.birthday }}
+                        </a>
+                        <span v-else>-</span>
                     </div>
                 </div>
             </div>
@@ -287,14 +287,19 @@ export default {
             return this.subscribers[this.index]
         },
         tags() {
-            return this.subscriber.tags.split(',').map(tag => ({
-                text: tag.trim(),
-                value: tag.trim(),
-            }))
+            if (this.subscriber.tags) {
+                return this.subscriber.tags.split(',').map(tag => ({
+                    text: tag.trim(),
+                    value: tag.trim(),
+                }))
+            } else {
+                return []
+            }
         },
     },
     async created() {
         await this.$store.dispatch('marketing/getTags')
+        console.log(this.subscriber)
     },
     methods: {
         handleUnsubscribeClick() {

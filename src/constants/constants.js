@@ -126,4 +126,6 @@ export const constants = {
     ],
     baseAppUrl: 'https://link.stream/',
     maxMessageLength: 918,
+    sampleSubscribersFile:
+        '/static/files/sample-linkstream-subscribers-import.xlsx',
 }

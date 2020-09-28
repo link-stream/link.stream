@@ -3,7 +3,7 @@
         <p class="description">
             Upload or import multiple subscribers. Not sure how to format your
             import?
-            <a href="/static/files/sample_subscribers.csv" download>
+            <a :href="sampleFileName" download>
                 Download sample CSV file
             </a>
         </p>
@@ -71,6 +71,7 @@
 <script>
 import { DropFile } from '~/components/Uploader'
 import XLSX from 'xlsx'
+import { appConstants } from '~/constants'
 export default {
     name: 'ImportFile',
     components: {
@@ -80,9 +81,10 @@ export default {
         importType: 'file',
         contentSubscribers: '',
         placeholderText:
-            'Email Address,Name,Phone,Birthday,Tags\nemail1@example.com,John Doe,(555) 555-5555,08/03,"influencer,friend"\nemail2@example.com,Jane Doe,,04/22',
+            'Email,Name,Phone,Birthday,Gender,Tags\nemail1@example.com,John Doe,(555) 555-5555,08/03/1990,Male,"influencer,friend"\nemail2@example.com,Jane Doe,,04/22/1980,Female,',
         fileSubscribers: '',
-        fileResult: [],        
+        fileResult: [],
+        sampleFileName: appConstants.sampleSubscribersFile,
     }),
     computed: {
         isFileAdded() {
@@ -99,12 +101,11 @@ export default {
             var reader = new FileReader()
             reader.onload = function(e) {
                 var data = new Uint8Array(e.target.result)
-                var workbook = XLSX.read(data, {type: 'array'})
+                var workbook = XLSX.read(data, { type: 'array' })
                 let sheetName = workbook.SheetNames[0]
                 let worksheet = workbook.Sheets[sheetName]
                 that.fileResult = XLSX.utils.sheet_to_json(worksheet)
-                console.log(that.fileResult)
-            };
+            }
             reader.readAsArrayBuffer(blob)
         },
         handleFileRemove() {
@@ -122,11 +123,10 @@ export default {
                     return
                 }
                 let subscribers = []
-                const headFields = this.splitCsv(dataRows[0]).map(item => {
-                    return item.toLowerCase()
-                })
+                const headFields = this.splitCsv(dataRows[0])
                 for (let k = 1; k < dataRows.length; k++) {
                     let row = {}
+                    if (!dataRows[k]) continue
                     const curData = this.splitCsv(dataRows[k])
                     headFields.forEach((field, index) => {
                         let curStr = curData[index]
@@ -147,6 +147,10 @@ export default {
                     'marketing/setImportSubscribers',
                     subscribers
                 )
+                const params = {
+                    importType: 'File upload',
+                }
+                await this.$store.dispatch('marketing/setImportData', params)
                 this.$emit('next')
             } else {
                 if (!this.fileResult.length) {
@@ -157,8 +161,12 @@ export default {
                     'marketing/setImportSubscribers',
                     this.fileResult
                 )
+                const params = {
+                    importType: 'Copy and paste from spreadsheet',
+                }
+                await this.$store.dispatch('marketing/setImportData', params)
                 this.$emit('next')
-            } 
+            }
         },
         splitCsv(str) {
             return str.split(',').reduce(

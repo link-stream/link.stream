@@ -3,7 +3,7 @@
         <p class="top-desc">
             Upload or import multiple subscribers. Not sure how to format your
             import?
-            <a href="#">
+            <a :href="smapleFileName" download>
                 Download sample CSV file
             </a>
         </p>
@@ -57,6 +57,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { appConstants } from '~/constants'
 export default {
     name: 'SelectStatus',
     data: () => ({
@@ -76,26 +77,22 @@ export default {
         ],
         emailStatus: 'unsubscribed',
         smsStatus: 'unsubscribed',
+        smapleFileName: appConstants.sampleSubscribersFile,
     }),
     computed: {
         ...mapGetters({
-            importSubscribers: 'marketing/importSubscribers',
+            importData: 'marketing/importData',
         }),
     },
     methods: {
         async handleNextClick() {
-            const subscribers = this.importSubscribers.map(item => {
-                return {
-                    ...item,
-                    email_status: this.emailStatus,
-                    sms_status: this.smsStatus,
-                }
-            })
-            await this.$store.dispatch(
-                'marketing/setImportSubscribers',
-                subscribers
-            )
-            console.log(this.importSubscribers)
+            
+            const params = {
+                ...this.importData,
+                emailStatus: this.emailStatus,
+                smsStatus: this.smsStatus,
+            }
+            await this.$store.dispatch('marketing/setImportData', params)
             this.$emit('next')
         },
     },

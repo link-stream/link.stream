@@ -1,6 +1,6 @@
 <template>
     <div class="review-match">
-        <div class="column-status">
+        <div class="column-status" v-if="successCols > 0">
             <font-awesome-icon
                 class="success-icon"
                 :icon="['fas', 'check-circle']"
@@ -12,7 +12,7 @@
                 columns successfully imported
             </span>
         </div>
-        <div class="column-status">
+        <div class="column-status" v-if="errorCols > 0">
             <font-awesome-icon
                 class="error-icon"
                 :icon="['fas', 'exclamation-circle']"
@@ -38,7 +38,7 @@
                     <b-form-group>
                         <template v-slot:label>
                             <div class="custom-label">
-                                <span>
+                                <span class="text-capitalize">
                                     {{ data.title }}
                                 </span>
                                 <font-awesome-icon
@@ -54,6 +54,7 @@
                             placeholder="Select a label to match"
                             :reduce="col => col.value"
                             label="text"
+                            @input="fixSubscribers(data)"
                         />
                     </b-form-group>
                     <div
@@ -74,11 +75,10 @@
     </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: 'ReviewMatch',
     data: () => ({
-        successCols: 4,
-        errorCols: 1,
         realCols: [
             {
                 value: 'email',
@@ -101,50 +101,83 @@ export default {
                 text: 'Tags',
             },
         ],
-        colsData: [
-            {
-                title: 'Email',
-                matchTitle: '',
-                data: ['email1@example.com', 'email2@example2.com'],
-            },
-            {
-                title: 'Name',
-                matchTitle: '',
-                data: ['John Doe', 'Jane Doe'],
-            },
-            {
-                title: 'Number',
-                matchTitle: '',
-                data: ['(555) 555-5555', '(555) 222-3333'],
-            },
-            {
-                title: 'Birthday',
-                matchTitle: '',
-                data: ['08/03', '05/29'],
-            },
-            {
-                title: 'Tags',
-                matchTitle: '',
-                data: ['beats,links', 'videos'],
-            },
-        ],
+        colsData: [],
     }),
+    computed: {
+        ...mapGetters({
+            importSubscribers: 'marketing/importSubscribers',
+            importData: 'marketing/importData',
+        }),
+        successCols() {
+            return this.colsData.filter(({ matchTitle }) => !!matchTitle).length
+        },
+        errorCols() {
+            return this.colsData.filter(({ matchTitle }) => !matchTitle).length
+        },
+    },
     created() {
         this.checkMatch()
     },
     methods: {
         checkMatch() {
             const that = this
-            this.colsData.forEach(item => {
-                const findIndex = that.realCols.findIndex(
-                    ({ text }) => text === item.title
-                )
-                if (findIndex !== -1) {
-                    item.matchTitle = that.realCols[findIndex].text
+            this.colsData = []
+            this.importSubscribers.forEach(item => {
+                for (const [key, value] of Object.entries(item)) {
+                    const findIndex = that.colsData.findIndex(({ title }) => title.toLowerCase() === key.toLowerCase())
+                    if (findIndex > -1) {
+                        that.colsData[findIndex].data.push(value)
+                    } else {
+                        const findRealIndex = that.realCols.findIndex(
+                            ({ value }) => value === key.toLowerCase()
+                        )
+                        that.colsData.push({
+                            title: key,
+                            matchTitle: findRealIndex > -1 ? that.realCols[findRealIndex].value : '',
+                            data: [value],
+                        })
+                    }
                 }
             })
         },
-        handleNextClick() {
+        fixSubscribers(data) {
+            if (!data.matchTitle) {
+                this.$toast.error('Please select the correct column!')
+                return
+            }
+            const matchedColumn = this.colsData.filter(({ matchTitle }) => matchTitle === data.matchTitle)
+            if (matchedColumn && matchedColumn.length > 1) {
+                this.$toast.error('The current column already exist. please select another column!')
+                return
+            }
+        },
+        async handleNextClick() {
+            if (this.errorCols > 0 ) {
+                this.$toast.error('Please fix the mismatched columns!')
+                return
+            }
+            let fixedSubscribers = []
+            this.colsData.forEach((item, index) => {
+                if (index === 0) {
+                    for(let k = 0; k < item.data.length; k++) {
+                        fixedSubscribers.push({})
+                    }
+                }
+                item.data.forEach((value, subIndex) => {
+                    fixedSubscribers[subIndex][item.matchTitle] = value
+                })
+            })
+            const subscribers = fixedSubscribers.map(item => {
+                return {
+                    ...item,
+                    email_status: this.importData.emailStatus,
+                    sms_status: this.importData.smsStatus,
+                }
+            })
+            await this.$store.dispatch(
+                'marketing/setImportSubscribers',
+                subscribers
+            )
             this.$emit('next')
         },
     },

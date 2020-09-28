@@ -1,8 +1,8 @@
 <template>
     <div class="review-subscribers">
         <p>
-            <span class="font-weight-bold">{{ cntContacts }}</span>
-            contacts will be added to your "Hydro Kitty" audience.
+            <span class="font-weight-bold">{{ importSubscribers.length }}</span>
+            contacts will be added to your audience.
         </p>
         <br />
         <p>
@@ -10,7 +10,7 @@
                 - Imported from:
             </span>
             <span>
-                {{ result.type === 'file' ? 'File upload' : 'Spreadsheet' }}
+                {{ importData.importType }}
             </span>
         </p>
         <p>
@@ -18,23 +18,7 @@
                 - Email marketing status:
             </span>
             <span class="text-capitalize">
-                {{ result.status }}
-            </span>
-        </p>
-        <p>
-            <span>
-                - Update existing contacts:
-            </span>
-            <span class="text-capitalize">
-                {{ result.updated }}
-            </span>
-        </p>
-        <p>
-            <span>
-                - Tagged:
-            </span>
-            <span class="tetx-capitalize">
-                {{ result.tagged }}
+                {{ importData.emailStatus }}
             </span>
         </p>
         <footer class="page-footer">
@@ -61,19 +45,13 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'ReviewSubscribers',
     data: () => ({
-        cntContacts: 4,
-        result: {
-            type: 'file',
-            status: 'subscribed',
-            updated: 'no',
-            tagged: 'none',
-        },
         saving: false,
     }),
     computed: {
         ...mapGetters({
             user: 'me/user',
             importSubscribers: 'marketing/importSubscribers',
+            importData: 'marketing/importData',
         }),
     },
     methods: {
@@ -84,15 +62,16 @@ export default {
             })
         },
         async handleImportClick() {
+            this.saving = true
             const params = {
                 user_id: this.user.id,
                 list: JSON.stringify(this.importSubscribers),
             }
-            console.log(params)
             const { status, message, error } = await this.$store.dispatch(
                 'marketing/importSubscribers',
                 params
             )
+            this.saving = false
             if (status === 'success') {
                 this.$toast.success(message)
             } else {

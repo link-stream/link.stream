@@ -33,6 +33,7 @@ import {
     BAspect,
     BPaginationNav,
     BTable,
+    BFormFile,
 } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'
@@ -101,6 +102,7 @@ Vue.component('BDropdownDivider', BDropdownDivider)
 Vue.component('BAspect', BAspect)
 Vue.component('BPaginationNav', BPaginationNav)
 Vue.component('BTable', BTable)
+Vue.component('BFormFile', BFormFile)
 Vue.use(BootstrapVueIcons)
 
 // Install VueProgressBar

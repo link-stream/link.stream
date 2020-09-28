@@ -3,7 +3,7 @@
         <p class="description">
             Upload or import multiple subscribers. Not sure how to format your
             import?
-            <a href="#">
+            <a href="/static/files/sample_subscribers.csv" download>
                 Download sample CSV file
             </a>
         </p>
@@ -70,6 +70,7 @@
 </template>
 <script>
 import { DropFile } from '~/components/Uploader'
+import XLSX from 'xlsx'
 export default {
     name: 'ImportFile',
     components: {
@@ -81,6 +82,7 @@ export default {
         placeholderText:
             'Email Address,Name,Phone,Birthday,Tags\nemail1@example.com,John Doe,(555) 555-5555,08/03,"influencer,friend"\nemail2@example.com,Jane Doe,,04/22',
         fileSubscribers: '',
+        fileResult: [],        
     }),
     computed: {
         isFileAdded() {
@@ -88,12 +90,22 @@ export default {
         },
     },
     methods: {
-        handleFileAdd({ name, base64 }) {
-            console.log(base64)
+        handleFileAdd({ name, base64, blob }) {
+            const that = this
             this.fileSubscribers = {
                 name,
                 base64,
             }
+            var reader = new FileReader()
+            reader.onload = function(e) {
+                var data = new Uint8Array(e.target.result)
+                var workbook = XLSX.read(data, {type: 'array'})
+                let sheetName = workbook.SheetNames[0]
+                let worksheet = workbook.Sheets[sheetName]
+                that.fileResult = XLSX.utils.sheet_to_json(worksheet)
+                console.log(that.fileResult)
+            };
+            reader.readAsArrayBuffer(blob)
         },
         handleFileRemove() {
             this.fileSubscribers = {}
@@ -121,34 +133,52 @@ export default {
                         if (curStr && curStr.charAt(0) === '"') {
                             curStr = curStr.slice(1)
                         }
-                        if (curStr && curStr.charAt(curStr.length - 1) === '"') {
+                        if (
+                            curStr &&
+                            curStr.charAt(curStr.length - 1) === '"'
+                        ) {
                             curStr = curStr.slice(0, curStr.length - 1)
                         }
                         row[field] = curStr
                     })
                     subscribers.push(row)
                 }
-                console.log(subscribers)
-                await this.$store.dispatch('marketing/setImportSubscribers', subscribers)
+                await this.$store.dispatch(
+                    'marketing/setImportSubscribers',
+                    subscribers
+                )
                 this.$emit('next')
-            }
+            } else {
+                if (!this.fileResult.length) {
+                    this.$toast.error('Please select a file!')
+                    return
+                }
+                await this.$store.dispatch(
+                    'marketing/setImportSubscribers',
+                    this.fileResult
+                )
+                this.$emit('next')
+            } 
         },
         splitCsv(str) {
-            return str.split(',').reduce((accum, curr) => {
-                if (accum.isConcatting) {
-                    accum.soFar[accum.soFar.length-1] += ',' + curr
-                } else {
-                    accum.soFar.push(curr)
+            return str.split(',').reduce(
+                (accum, curr) => {
+                    if (accum.isConcatting) {
+                        accum.soFar[accum.soFar.length - 1] += ',' + curr
+                    } else {
+                        accum.soFar.push(curr)
+                    }
+                    if (curr.split('"').length % 2 == 0) {
+                        accum.isConcatting = !accum.isConcatting
+                    }
+                    return accum
+                },
+                {
+                    soFar: [],
+                    isConcatting: false,
                 }
-                if(curr.split('"').length % 2 == 0) {
-                    accum.isConcatting = !accum.isConcatting
-                }
-                return accum;
-            }, {
-                soFar: [],
-                isConcatting: false
-            }).soFar
-        }
+            ).soFar
+        },
     },
 }
 </script>

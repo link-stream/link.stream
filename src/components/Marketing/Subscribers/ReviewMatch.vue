@@ -125,8 +125,8 @@ export default {
             {
                 title: 'Tags',
                 matchTitle: '',
-                data: ['beats,links', 'videos']
-            }
+                data: ['beats,links', 'videos'],
+            },
         ],
     }),
     created() {
@@ -146,7 +146,7 @@ export default {
         },
         handleNextClick() {
             this.$emit('next')
-        }
+        },
     },
 }
 </script>

@@ -30,7 +30,11 @@
             </p>
         </div>
         <div class="sms-status">
-            <b-form-checkbox v-model="smsStatus" value="subscribed" unchecked-value="unsubscribed">
+            <b-form-checkbox
+                v-model="smsStatus"
+                value="subscribed"
+                unchecked-value="unsubscribed"
+            >
                 Subscribe to SMS
             </b-form-checkbox>
             <div class="sms-desc">
@@ -87,10 +91,13 @@ export default {
                     sms_status: this.smsStatus,
                 }
             })
-            await this.$store.dispatch('marketing/setImportSubscribers', subscribers)
+            await this.$store.dispatch(
+                'marketing/setImportSubscribers',
+                subscribers
+            )
             console.log(this.importSubscribers)
             this.$emit('next')
-        }
-    }
+        },
+    },
 }
 </script>

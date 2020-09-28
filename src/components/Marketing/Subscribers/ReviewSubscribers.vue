@@ -86,15 +86,19 @@ export default {
         async handleImportClick() {
             const params = {
                 user_id: this.user.id,
-                list: JSON.stringify(this.importSubscribers)
+                list: JSON.stringify(this.importSubscribers),
             }
-            const { status, message, error } = await this.$store.dispatch('marketing/importSubscribers', params)
+            console.log(params)
+            const { status, message, error } = await this.$store.dispatch(
+                'marketing/importSubscribers',
+                params
+            )
             if (status === 'success') {
                 this.$toast.success(message)
             } else {
                 this.$toast.error(error)
             }
-        }
-    }
+        },
+    },
 }
 </script>

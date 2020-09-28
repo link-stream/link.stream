@@ -94,7 +94,8 @@ const mutations = {
 
     [marketingTypes.UPDATE_SUBSCRIBERS_STATUS](state, { params }) {
         const selIdList = JSON.parse(params.list)
-        const curStatus = params.action === 'unsubscribe' ? 'unsubscribed' : 'subscribed'
+        const curStatus =
+            params.action === 'unsubscribe' ? 'unsubscribed' : 'subscribed'
         selIdList.forEach(({ id }) => {
             let findIndex = state.subscribers.findIndex(item => item.id === id)
             const newItem = {
@@ -103,7 +104,7 @@ const mutations = {
                 email_status: curStatus,
             }
             state.subscribers.splice(findIndex, 1, newItem)
-        });
+        })
     },
 
     [marketingTypes.SET_IMPORT_SUBSCRIBERS](state, { subscribers }) {
@@ -204,12 +205,14 @@ const actions = {
     async updateSubscribersStatus({ commit }, params) {
         const response = await api.marketing.updateSubscribersStatus(params)
         const { status } = response
-        status === 'success' && commit(marketingTypes.UPDATE_SUBSCRIBERS_STATUS, { params: params })
+        status === 'success' &&
+            commit(marketingTypes.UPDATE_SUBSCRIBERS_STATUS, { params: params })
         return response
     },
     async setImportSubscribers({ commit }, params) {
-        commit(marketingTypes.SET_IMPORT_SUBSCRIBERS, { subscribers: params})
+        commit(marketingTypes.SET_IMPORT_SUBSCRIBERS, { subscribers: params })
     },
+    // eslint-disable-next-line
     async importSubscribers({ commit }, params) {
         const response = await api.marketing.importSubscribers(params)
         return response
@@ -227,7 +230,6 @@ const actions = {
     async addVariation({ commit }, params) {
         commit(marketingTypes.ADD_VARIATION, { variation: params })
     },
-    
 }
 
 const getters = {

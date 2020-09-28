@@ -142,7 +142,7 @@ export default {
             tags: [],
         },
         tag: '',
-        tags: ''
+        tags: '',
     }),
     computed: {
         ...mapGetters({

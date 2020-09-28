@@ -90,7 +90,9 @@
                         </b-dropdown>
                     </template>
                     <template v-slot:cell(selected)="data">
-                        <b-form-checkbox v-model="data.item.selected"></b-form-checkbox>
+                        <b-form-checkbox
+                            v-model="data.item.selected"
+                        ></b-form-checkbox>
                     </template>
                     <template v-slot:cell(name)="data">
                         <router-link
@@ -210,11 +212,13 @@ export default {
             this.statusAll = true
         },
         async updateStatus(action) {
-            const selIdList = this.realSubscribers.filter(({ selected }) => selected).map(({ id }) => { 
-                return {
-                    id: id
-                } 
-            })
+            const selIdList = this.realSubscribers
+                .filter(({ selected }) => selected)
+                .map(({ id }) => {
+                    return {
+                        id: id,
+                    }
+                })
             if (!selIdList.length) {
                 this.$toast.error('Please select one subscriber at least.')
                 return
@@ -222,9 +226,12 @@ export default {
             const params = {
                 user_id: this.user.id,
                 action: action,
-                list: JSON.stringify(selIdList)
+                list: JSON.stringify(selIdList),
             }
-            const { status, message, error } = await this.$store.dispatch('marketing/updateSubscribersStatus', params)
+            const { status, message, error } = await this.$store.dispatch(
+                'marketing/updateSubscribersStatus',
+                params
+            )
             if (status === 'success') {
                 this.$toast.success(message)
             } else {

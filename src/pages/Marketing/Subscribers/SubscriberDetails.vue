@@ -160,18 +160,31 @@
                     <!-- <a href="#" class="actions">Add tag</a> -->
                 </div>
                 <div class="tags-list">
-                    <TaggerInput
+                    <span
+                        v-for="tag in tags"
+                        :key="tag.text"
+                        class="subscriber-tag"
+                    >
+                        {{ tag.text }}
+                    </span>
+                    <!-- <TaggerInput
                         v-model="tag"
                         :tags="tags"
                         :allTags="allTags"
                         @tags-changed="handleTagsChange"
-                    />
+                    /> -->
                 </div>
             </div>
             <div class="detail-container profile">
                 <div class="title-container">
                     <h1 class="title">Profile information</h1>
-                    <a href="#" class="actions">Edit</a>
+                    <a
+                        href="#"
+                        class="actions"
+                        @click.prevent="showEditSubscriber"
+                    >
+                        Edit
+                    </a>
                 </div>
                 <div class="content">
                     <div class="profile-item">
@@ -250,6 +263,7 @@
                 </b-button>
             </div>
         </footer>
+        <EditSubscriberModal />
     </div>
 </template>
 <script>
@@ -257,25 +271,24 @@ import DropdownActions from '~/components/Form/DropdownActions'
 import CustomStarRating from '~/components/Form/CustomStarRating'
 import { mapGetters } from 'vuex'
 import { api } from '~/services'
+import EditSubscriberModal from '~/components/Modal/Marketing/EditSubscriberModal'
 export default {
     name: 'SubscriberDetails',
     components: {
         DropdownActions,
         CustomStarRating,
+        EditSubscriberModal,
     },
     props: {
         index: {
             type: Number,
             default: 0,
         },
-        subscribers: {
-            type: Array,
-        },
     },
     data: () => ({
         loading: false,
         subscriberDetails: {},
-        currentIndex: 0,
+        currentIndex: -1,
         rating: 3,
         note: '',
         tag: '',
@@ -284,6 +297,7 @@ export default {
         ...mapGetters({
             user: 'me/user',
             allTags: 'marketing/tags',
+            subscribers: 'marketing/subscribers',
         }),
         subscriber() {
             return this.subscribers[this.currentIndex]
@@ -303,6 +317,7 @@ export default {
         subscriber() {
             this.note = this.subscriber.note
             this.updateSubscriberDetails()
+            console.log(this.note)
         },
     },
     async created() {
@@ -346,23 +361,27 @@ export default {
         },
         async addNote() {
             const params = {
-                email: this.subscriber.email,
-                phone: this.subscriber.phone,
-                name: this.subscriber.name,
-                birthday: this.subscriber.birthday,
-                tags: this.subscriber.tags,
-                gender: this.subscriber.gender,
+                ...this.subscriber,
                 note: this.note,
             }
-            const { status, message, error } = await this.$store.dispatch('marketing/updateSubscriber', {
-                id: this.subscriber.id,
-                params: params,
-            })
+            const { status, message, error } = await this.$store.dispatch(
+                'marketing/updateSubscriber',
+                {
+                    id: this.subscriber.id,
+                    params: params,
+                }
+            )
             if (status === 'success') {
                 this.$toast.success(message)
             } else {
                 this.$toast.error(error)
             }
+        },
+        showEditSubscriber() {
+            this.$store.dispatch('marketing/setCurrentSubscriber', {
+                ...this.subscriber,
+            })
+            this.$bus.$emit('modal.editSubscriber.open')
         },
     },
 }

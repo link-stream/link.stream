@@ -145,6 +145,17 @@
                 }
             }
         }
+        .tags-list {
+            .subscriber-tag {
+                color: white;
+                background-color: black;
+                font-size: px2rem(11);
+                line-height: px2rem(10);
+                padding: 7px 12px;
+                margin-right: 5px;
+                border-radius: 50px;
+            }
+        }
         .note-container {
             margin-top: 30px;
             .note-title {

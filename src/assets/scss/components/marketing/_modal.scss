@@ -117,3 +117,15 @@
         }
     }
 }
+.EditSubscriberModal {
+    .birthday-group  {
+        .date-input-group {
+            .DatePicker {
+                width: 100%;
+                input {
+                    border-right-width: 1px;
+                }
+            }
+        }
+    }
+}

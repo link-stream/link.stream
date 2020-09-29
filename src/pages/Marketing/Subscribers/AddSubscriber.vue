@@ -133,7 +133,6 @@ export default {
             phone: null,
             tags: [],
         },
-        genders: ['', 'Male', 'Female'],
         tag: '',
         tags: '',
     }),
@@ -175,7 +174,9 @@ export default {
                 email: this.form.email,
                 phone: this.form.phone,
                 name: this.form.name,
-                birthday: this.form.birthday ? moment(this.form.birthday).format('MM/DD/YYYY') : '',
+                birthday: this.form.birthday
+                    ? moment(this.form.birthday).format('MM/DD/YYYY')
+                    : '',
                 tags: this.form.tags.map(({ text }) => text).join(','),
             }
             const { status, message, error } = await this.$store.dispatch(

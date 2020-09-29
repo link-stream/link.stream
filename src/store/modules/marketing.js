@@ -17,13 +17,14 @@ const initialState = () => ({
     messages: [],
     subscribers: [],
     tags: [],
+    importSubscribers: [],
+    importData: {},
+    currentSubscriber: {},
     splitTestData: {
         title: '',
     },
     variationData: {},
     variations: [],
-    importSubscribers: [],
-    importData: {},
 })
 
 const state = initialState()
@@ -114,6 +115,10 @@ const mutations = {
 
     [marketingTypes.SET_IMPORT_DATA](state, { importData }) {
         state.importData = importData
+    },
+
+    [marketingTypes.SET_CURRENT_SUBSCRIBER](state, { subscriber }) {
+        state.currentSubscriber = subscriber
     },
 
     [marketingTypes.SET_SPLIT_TEST_DATA](state, { splitTestData }) {
@@ -228,6 +233,9 @@ const actions = {
     async setImportData({ commit }, params) {
         commit(marketingTypes.SET_IMPORT_DATA, { importData: params })
     },
+    async setCurrentSubscriber({ commit }, params) {
+        commit(marketingTypes.SET_CURRENT_SUBSCRIBER, { subscriber: params })
+    },
 
     async setSplitTestData({ commit }, params) {
         commit(marketingTypes.SET_SPLIT_TEST_DATA, { splitTestData: params })
@@ -254,6 +262,7 @@ const getters = {
     variations: ({ variations }) => variations,
     importSubscribers: ({ importSubscribers }) => importSubscribers,
     importData: ({ importData }) => importData,
+    currentSubscriber: ({ currentSubscriber }) => currentSubscriber,
 }
 
 export default {

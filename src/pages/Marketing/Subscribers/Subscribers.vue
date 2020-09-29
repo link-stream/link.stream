@@ -99,7 +99,6 @@
                             :to="{
                                 name: 'subscriberDetails',
                                 params: {
-                                    subscribers: realSubscribers,
                                     index: parseInt(data.index),
                                 },
                             }"

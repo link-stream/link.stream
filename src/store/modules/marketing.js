@@ -184,10 +184,13 @@ const actions = {
             commit(marketingTypes.DELETE_MESSAGE, { message_id: id })
         return response
     },
-    async getSubscribers({ commit, rootGetters }) {
+    async getSubscribers({ commit, rootGetters }, searchString = '') {
         // if (state.subscribers.length > 0) return
         const user = rootGetters['auth/user']
-        const response = await api.marketing.getSubscribers(user.id)
+        const response = await api.marketing.getSubscribers(
+            user.id,
+            searchString
+        )
         const { status, data } = response
         status === 'success' &&
             commit(marketingTypes.SET_SUBSCRIBERS, { subscribers: data })
@@ -200,10 +203,7 @@ const actions = {
         return response
     },
     async updateSubscriber({ commit }, { id, params }) {
-        console.log('api id', id)
-        console.log('api params', params)
         const response = await api.marketing.updateSubscriber(id, params)
-        console.log('api response', response)
         const { status, data } = response
         status === 'success' &&
             commit(marketingTypes.UPDATE_SUBSCRIBER, { subscriber: data })

@@ -17,8 +17,8 @@
                         {{ subscriber.name }}
                     </h1>
                     <DropdownActions
-                        @unsubscribe="handleUnsubscribeClick"
-                        @resubscribe="handleResubscribeClick"
+                        @unsubscribe="updateStatus('unsubscribe')"
+                        @resubscribe="updateStatus('resubscribe')"
                         @archive="handleArchiveClick"
                     />
                 </div>
@@ -60,7 +60,7 @@
                 <p>
                     Added via
                     <span class="font-weight-bold">
-                        {{ subscriber['created in'] }}
+                        {{ subscriber.created_in }}
                     </span>
                     on
                     {{ subscriber.created_at | customizeDate('MMMM Do') }}
@@ -70,7 +70,7 @@
                 <p>
                     Gender:
                     <span v-if="subscriber.gender">
-                        {{ subscriber.gender }}
+                        {{ subscriber.gender === 'M' ? 'Male' : 'Female' }}
                     </span>
                     <span v-else>
                         unknown
@@ -136,7 +136,7 @@
                         Write a note about this subscriber
                     </div>
                     <div class="right-title">
-                        {{ 1000 - note.length }}
+                        {{ 1000 - (note ? note.length : 0) }}
                         characters remaining
                     </div>
                 </div>
@@ -167,12 +167,6 @@
                     >
                         {{ tag.text }}
                     </span>
-                    <!-- <TaggerInput
-                        v-model="tag"
-                        :tags="tags"
-                        :allTags="allTags"
-                        @tags-changed="handleTagsChange"
-                    /> -->
                 </div>
             </div>
             <div class="detail-container profile">
@@ -317,7 +311,6 @@ export default {
         subscriber() {
             this.note = this.subscriber.note
             this.updateSubscriberDetails()
-            console.log(this.note)
         },
     },
     async created() {
@@ -325,12 +318,6 @@ export default {
         await this.$store.dispatch('marketing/getTags')
     },
     methods: {
-        handleUnsubscribeClick() {
-            console.log('Unsubscribe')
-        },
-        handleResubscribeClick() {
-            console.log('Resubscribe')
-        },
         handleArchiveClick() {
             console.log('Archive')
         },
@@ -343,9 +330,6 @@ export default {
             if (this.currentIndex < this.subscribers.length - 1) {
                 this.currentIndex++
             }
-        },
-        handleTagsChange(tags) {
-            console.log('tags', tags)
         },
         async updateSubscriberDetails() {
             this.loading = true
@@ -382,6 +366,28 @@ export default {
                 ...this.subscriber,
             })
             this.$bus.$emit('modal.editSubscriber.open')
+        },
+        async updateStatus(action) {
+            const selIdList = [
+                {
+                    id: this.subscriber.id,
+                },
+            ]
+            const params = {
+                user_id: this.user.id,
+                action: action,
+                list: JSON.stringify(selIdList),
+            }
+            const { status, message, error } = await this.$store.dispatch(
+                'marketing/updateSubscribersStatus',
+                params
+            )
+            if (status === 'success') {
+                this.$toast.success(message)
+            } else {
+                this.$toast.error(error)
+            }
+            this.statusAll = false
         },
     },
 }

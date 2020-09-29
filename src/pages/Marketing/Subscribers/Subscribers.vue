@@ -190,8 +190,40 @@ export default {
                 name: 'addSubscriber',
             })
         },
-        searchContact() {},
-        handleExportClick() {},
+        async searchContact() {
+            this.loading = true
+            await this.$store.dispatch(
+                'marketing/getSubscribers',
+                this.searchString
+            )
+            this.loading = false
+        },
+        handleExportClick() {
+            let export_data = ''
+            const delimeter = ','
+            const newLine = '\r\n'
+            export_data = 'Email,Name,Phone,Birthday,Gender,Tags' + newLine
+            const selData = this.realSubscribers.filter(
+                ({ selected }) => selected
+            )
+            selData.forEach(element => {
+                export_data += element.email + delimeter
+                export_data += element.name + delimeter
+                export_data += element.phone + delimeter
+                export_data += element.birthday + delimeter
+                export_data += element.gender + delimeter
+                export_data += "'" + element.tags + "'" + newLine
+            })
+            var downloadLink = document.createElement('a')
+            var blob = new Blob(['\ufeff', export_data])
+            var url = URL.createObjectURL(blob)
+            downloadLink.href = url
+            downloadLink.download = 'data_download.csv'
+
+            document.body.appendChild(downloadLink)
+            downloadLink.click()
+            document.body.removeChild(downloadLink)
+        },
         selectAll() {
             this.realSubscribers.forEach(item => {
                 item.selected = true

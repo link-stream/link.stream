@@ -122,7 +122,7 @@ export default {
             gender: null,
             tags: [],
         },
-        genders: ['', 'Male', 'Female'],
+        genders: ['', 'M', 'F'],
         tag: '',
     }),
     computed: {

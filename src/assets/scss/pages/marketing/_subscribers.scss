@@ -74,16 +74,12 @@
         line-height: px2rem(24);
     }
     .birthday-group  {
-        .txt-month,
-        .txt-day {
-            width: 55px;
-            float: left;
-        }
-        .separator {
-            font-size: px2rem(16);
-            font-weight: bold;
-            margin: 10px;
-            float: left;
+        .date-input-group {
+            .DatePicker {
+                input {
+                    border-right-width: 1px;
+                }
+            }
         }
     }
 }

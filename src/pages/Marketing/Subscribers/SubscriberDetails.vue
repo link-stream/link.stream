@@ -31,7 +31,7 @@
             </div>
             <div class="right-col move-actions">
                 <span class="move-numbers">
-                    {{ index + 1 }}
+                    {{ currentIndex + 1 }}
                     of
                     {{ subscribers.length }}
                 </span>
@@ -40,7 +40,7 @@
                     size="sm"
                     class="btn-previous"
                     @click="handlePreviousClick"
-                    :disabled="index === 0"
+                    :disabled="currentIndex === 0"
                 >
                     <font-awesome-icon :icon="['fas', 'chevron-left']" />
                 </b-button>
@@ -49,7 +49,7 @@
                     size="sm"
                     class="btn-next"
                     @click="handleNextClick"
-                    :disabled="index === subscribers.length - 1"
+                    :disabled="currentIndex === subscribers.length - 1"
                 >
                     <font-awesome-icon :icon="['fas', 'chevron-right']" />
                 </b-button>
@@ -60,7 +60,7 @@
                 <p>
                     Added via
                     <span class="font-weight-bold">
-                        Landing Page Name
+                        {{ subscriber['created in'] }}
                     </span>
                     on
                     {{ subscriber.created_at | customizeDate('MMMM Do') }}
@@ -68,35 +68,48 @@
                     {{ subscriber.created_at | customizeDate('hh:mm A') }}
                 </p>
                 <p>
-                    Email Marketing Engagement: Rarely
-                </p>
-                <p>
-                    Gender unknown | Age unknown |
-                    <a href="#">Edit</a>
+                    Gender:
+                    <span v-if="subscriber.gender">
+                        {{ subscriber.gender }}
+                    </span>
+                    <span v-else>
+                        unknown
+                    </span>
+                    | Age:
+                    <span v-if="subscriber.birthday">
+                        {{ subscriber.birthday | age }}
+                    </span>
+                    <span v-else>
+                        unknown
+                    </span>
                 </p>
             </div>
-            <b-row>
-                <b-col cols="6" md="3">
+            <b-row v-if="!loading">
+                <b-col cols="6">
                     <div class="recipient-container">
                         <div class="recipient-status">
-                            <h2 class="number">0%</h2>
+                            <h2 class="number">
+                                {{ subscriberDetails.open_rate }}%
+                            </h2>
                             <p class="description">
                                 Open Rate
                             </p>
                         </div>
                     </div>
                 </b-col>
-                <b-col cols="6" md="3">
+                <b-col cols="6">
                     <div class="recipient-container">
                         <div class="recipient-status">
-                            <h2 class="number">0%</h2>
+                            <h2 class="number">
+                                {{ subscriberDetails.click_rate }}%
+                            </h2>
                             <p class="description">
                                 Click Rate
                             </p>
                         </div>
                     </div>
                 </b-col>
-                <b-col cols="6" md="3">
+                <!-- <b-col cols="6" md="3">
                     <div class="recipient-container">
                         <div class="recipient-status">
                             <h2 class="number">$0.00</h2>
@@ -115,7 +128,7 @@
                             </p>
                         </div>
                     </div>
-                </b-col>
+                </b-col> -->
             </b-row>
             <div class="note-container">
                 <div class="note-title">
@@ -136,6 +149,7 @@
                     variant="outline-light"
                     size="sm"
                     class="btn-add-note"
+                    @click="addNote"
                 >
                     Add Note
                 </basic-button>
@@ -188,27 +202,23 @@
                     </div>
                 </div>
             </div>
-            <div class="detail-container activity-feed">
+            <div class="detail-container activity-feed" v-if="!loading">
                 <div class="title-container">
                     <h1 class="title">Activity feed</h1>
                 </div>
                 <div
                     class="one-activity"
-                    v-for="(activity, index) in activities"
+                    v-for="(activity, index) in subscriberDetails.feed"
                     :key="`activity-${index}`"
                 >
                     <h4 class="title">
-                        {{ activity.datetime | customizeDate('MMMM Do') }}
+                        {{ activity.date | customizeDate('MMMM Do') }}
                     </h4>
                     <div class="activity">
-                        Was Sent the
-                        {{ activity.type }}
-                        <a href="#">
-                            {{ activity.title }}
-                        </a>
+                        {{ activity.log }}
                     </div>
                     <div class="time">
-                        {{ activity.datetime | customizeDate('h:mm A') }}
+                        {{ activity.date | customizeDate('h:mm A') }}
                     </div>
                 </div>
             </div>
@@ -216,7 +226,7 @@
         <footer class="page-header">
             <div class="ml-auto move-actions">
                 <span class="move-numbers">
-                    {{ index + 1 }}
+                    {{ currentIndex + 1 }}
                     of
                     {{ subscribers.length }}
                 </span>
@@ -225,7 +235,7 @@
                     size="sm"
                     class="btn-previous"
                     @click="handlePreviousClick"
-                    :disabled="index === 0"
+                    :disabled="currentIndex === 0"
                 >
                     <font-awesome-icon :icon="['fas', 'chevron-left']" />
                 </b-button>
@@ -234,7 +244,7 @@
                     size="sm"
                     class="btn-next"
                     @click="handleNextClick"
-                    :disabled="index === subscribers.length - 1"
+                    :disabled="currentIndex === subscribers.length - 1"
                 >
                     <font-awesome-icon :icon="['fas', 'chevron-right']" />
                 </b-button>
@@ -246,6 +256,7 @@
 import DropdownActions from '~/components/Form/DropdownActions'
 import CustomStarRating from '~/components/Form/CustomStarRating'
 import { mapGetters } from 'vuex'
+import { api } from '~/services'
 export default {
     name: 'SubscriberDetails',
     components: {
@@ -262,21 +273,12 @@ export default {
         },
     },
     data: () => ({
+        loading: false,
+        subscriberDetails: {},
+        currentIndex: 0,
         rating: 3,
         note: '',
         tag: '',
-        activities: [
-            {
-                type: 'mail',
-                title: 'Someone To Love You',
-                datetime: '2020/09/08 12:21:00',
-            },
-            {
-                type: 'mail',
-                title: 'Welcome',
-                datetime: '2020/09/07 12:20:00',
-            },
-        ],
     }),
     computed: {
         ...mapGetters({
@@ -284,7 +286,7 @@ export default {
             allTags: 'marketing/tags',
         }),
         subscriber() {
-            return this.subscribers[this.index]
+            return this.subscribers[this.currentIndex]
         },
         tags() {
             if (this.subscriber.tags) {
@@ -297,9 +299,15 @@ export default {
             }
         },
     },
+    watch: {
+        subscriber() {
+            this.note = this.subscriber.note
+            this.updateSubscriberDetails()
+        },
+    },
     async created() {
+        this.currentIndex = this.index
         await this.$store.dispatch('marketing/getTags')
-        console.log(this.subscriber)
     },
     methods: {
         handleUnsubscribeClick() {
@@ -312,17 +320,49 @@ export default {
             console.log('Archive')
         },
         handlePreviousClick() {
-            if (this.index > 0) {
-                this.index--
+            if (this.currentIndex > 0) {
+                this.currentIndex--
             }
         },
         handleNextClick() {
-            if (this.index < this.subscribers.length - 1) {
-                this.index++
+            if (this.currentIndex < this.subscribers.length - 1) {
+                this.currentIndex++
             }
         },
         handleTagsChange(tags) {
             console.log('tags', tags)
+        },
+        async updateSubscriberDetails() {
+            this.loading = true
+            const { status, data } = await api.marketing.getSubscriber(
+                this.user.id,
+                this.subscriber.id
+            )
+            if (status === 'success') {
+                this.subscriberDetails = data[0]
+            }
+            this.loading = false
+            console.log(this.subscriberDetails)
+        },
+        async addNote() {
+            const params = {
+                email: this.subscriber.email,
+                phone: this.subscriber.phone,
+                name: this.subscriber.name,
+                birthday: this.subscriber.birthday,
+                tags: this.subscriber.tags,
+                gender: this.subscriber.gender,
+                note: this.note,
+            }
+            const { status, message, error } = await this.$store.dispatch('marketing/updateSubscriber', {
+                id: this.subscriber.id,
+                params: params,
+            })
+            if (status === 'success') {
+                this.$toast.success(message)
+            } else {
+                this.$toast.error(error)
+            }
         },
     },
 }

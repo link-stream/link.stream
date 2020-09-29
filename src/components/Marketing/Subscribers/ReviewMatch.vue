@@ -124,7 +124,9 @@ export default {
             this.colsData = []
             this.importSubscribers.forEach(item => {
                 for (const [key, value] of Object.entries(item)) {
-                    const findIndex = that.colsData.findIndex(({ title }) => title.toLowerCase() === key.toLowerCase())
+                    const findIndex = that.colsData.findIndex(
+                        ({ title }) => title.toLowerCase() === key.toLowerCase()
+                    )
                     if (findIndex > -1) {
                         that.colsData[findIndex].data.push(value)
                     } else {
@@ -133,7 +135,10 @@ export default {
                         )
                         that.colsData.push({
                             title: key,
-                            matchTitle: findRealIndex > -1 ? that.realCols[findRealIndex].value : '',
+                            matchTitle:
+                                findRealIndex > -1
+                                    ? that.realCols[findRealIndex].value
+                                    : '',
                             data: [value],
                         })
                     }
@@ -145,21 +150,25 @@ export default {
                 this.$toast.error('Please select the correct column!')
                 return
             }
-            const matchedColumn = this.colsData.filter(({ matchTitle }) => matchTitle === data.matchTitle)
+            const matchedColumn = this.colsData.filter(
+                ({ matchTitle }) => matchTitle === data.matchTitle
+            )
             if (matchedColumn && matchedColumn.length > 1) {
-                this.$toast.error('The current column already exist. please select another column!')
+                this.$toast.error(
+                    'The current column already exist. please select another column!'
+                )
                 return
             }
         },
         async handleNextClick() {
-            if (this.errorCols > 0 ) {
+            if (this.errorCols > 0) {
                 this.$toast.error('Please fix the mismatched columns!')
                 return
             }
             let fixedSubscribers = []
             this.colsData.forEach((item, index) => {
                 if (index === 0) {
-                    for(let k = 0; k < item.data.length; k++) {
+                    for (let k = 0; k < item.data.length; k++) {
                         fixedSubscribers.push({})
                     }
                 }

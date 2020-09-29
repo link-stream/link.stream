@@ -64,21 +64,13 @@
                         </b-form-invalid-feedback>
                     </b-form-group>
                     <b-form-group label="Birthday" class="birthday-group">
-                        <b-form-input
-                            v-model="$v.form.month.$model"
-                            placeholder="MM"
-                            :state="!$v.form.month.$error"
-                            class="txt-month"
-                        >
-                        </b-form-input>
-                        <span class="separator">/</span>
-                        <b-form-input
-                            v-model="$v.form.day.$model"
-                            placeholder="DD"
-                            :state="!$v.form.day.$error"
-                            class="txt-day"
-                        >
-                        </b-form-input>
+                        <b-input-group class="date-input-group">
+                            <DatePicker
+                                v-model="form.birthday"
+                                :min-date="null"
+                                :max-date="new Date()"
+                            />
+                        </b-input-group>
                     </b-form-group>
                     <b-form-group label="Phone">
                         <b-form-input
@@ -129,6 +121,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { required, email } from 'vuelidate/lib/validators'
+import moment from 'moment'
 export default {
     name: 'AddSubscriber',
     data: () => ({
@@ -136,11 +129,11 @@ export default {
         form: {
             name: null,
             email: null,
-            day: null,
-            month: null,
+            birthday: null,
             phone: null,
             tags: [],
         },
+        genders: ['', 'Male', 'Female'],
         tag: '',
         tags: '',
     }),
@@ -160,12 +153,6 @@ export default {
                 email,
             },
             phone: {
-                required,
-            },
-            day: {
-                required,
-            },
-            month: {
                 required,
             },
             tags: {
@@ -188,7 +175,7 @@ export default {
                 email: this.form.email,
                 phone: this.form.phone,
                 name: this.form.name,
-                birthday: this.form.month + '/' + this.form.day,
+                birthday: this.form.birthday ? moment(this.form.birthday).format('MM/DD/YYYY') : '',
                 tags: this.form.tags.map(({ text }) => text).join(','),
             }
             const { status, message, error } = await this.$store.dispatch(

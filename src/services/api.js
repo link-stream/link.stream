@@ -607,6 +607,14 @@ export const api = {
                 method,
             })
         },
+        async getSubscriber(userId, id) {
+            const endpoint = `/marketing/subscribers/${userId}/${id}`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
         async insertSubscriber(params) {
             const endpoint = '/marketing/subscribers/'
             const method = METHOD_POST

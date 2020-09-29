@@ -39,3 +39,6 @@ Vue.filter('fullDateTime', function(value) {
 Vue.filter('normalTime', function(value) {
     return moment(value).format('h:mma')
 })
+Vue.filter('age', function(value) {
+    return moment().diff(moment(value), 'years')
+})

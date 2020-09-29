@@ -195,7 +195,10 @@ const actions = {
         return response
     },
     async updateSubscriber({ commit }, { id, params }) {
+        console.log('api id', id)
+        console.log('api params', params)
         const response = await api.marketing.updateSubscriber(id, params)
+        console.log('api response', response)
         const { status, data } = response
         status === 'success' &&
             commit(marketingTypes.UPDATE_SUBSCRIBER, { subscriber: data })

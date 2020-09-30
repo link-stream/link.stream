@@ -8,11 +8,11 @@
                     <span class="active-number">
                         {{ cntEmails | thousandCNumber }}
                     </span>
-                    mail subscribers and
+                    mails and
                     <span class="active-number">
                         {{ cntSms | thousandCNumber }}
                     </span>
-                    SMS subscribers
+                    SMS
                 </h6>
             </div>
             <div class="right-col">

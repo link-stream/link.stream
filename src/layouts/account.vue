@@ -38,7 +38,8 @@ export default {
         isShowPlanBar() {
             return (
                 this.$route.name === 'marketingMessages' ||
-                this.$route.name === 'editMessage'
+                this.$route.name === 'editMessage' ||
+                this.$route.name === 'selectEmailTemplate'
             )
         },
     },

@@ -33,11 +33,15 @@ export default {
         },
         minDate: {
             type: Date,
-            default: new Date(),
+            default: () => {
+                return new Date()
+            },
         },
         maxDate: {
             type: Date,
-            default: null,
+            default: () => {
+                return null
+            },
         },
     },
     methods: {

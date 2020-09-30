@@ -202,6 +202,7 @@ export default {
                     : this.$toast.error(error)
             }
             this.saving == false
+            await this.$store.dispatch('marketing/setSMSData', params)
             this.$router.push({
                 name: 'sentSMS',
             })

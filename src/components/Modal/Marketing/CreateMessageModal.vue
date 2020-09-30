@@ -86,7 +86,7 @@ export default {
                 campaing_name: this.campaignName,
             }
             await this.$store.dispatch('marketing/setSMSData', params)
-            this.$router.push({ name: 'editMessage' })
+            this.$router.push({ name: 'selectEmailTemplate' })
             this.close()
         },
     },

@@ -67,10 +67,10 @@ export default {
             this.open = true
         },
         handleSendTestClick() {
-            if (!this.emails) {
-                this.$toast.error('Please enter the mails to test.')
-                return
-            }
+            // if (!this.emails) {
+            //     this.$toast.error('Please enter the mails to test.')
+            //     return
+            // }
             this.$router.push({ name: 'editMessage' })
             this.close()
         },

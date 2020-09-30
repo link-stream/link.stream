@@ -39,6 +39,7 @@ import {
     CustomizeMessage,
     SentSMS,
     ReportMessage,
+    SelectEmailTemplate,
     AddSubscriber,
     SubscriberDetails,
     ImportSubscribers,
@@ -323,6 +324,12 @@ const routes = [
         path: '/app/marketing/messages/report',
         name: 'reportMessage',
         component: ReportMessage,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/messages/select-template',
+        name: 'selectEmailTemplate',
+        component: SelectEmailTemplate,
         meta: { requiresAuth: true, layout: 'account' },
     },
     {

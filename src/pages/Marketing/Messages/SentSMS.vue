@@ -59,6 +59,7 @@ export default {
     },
     async created() {
         await this.$store.dispatch('common/loadTimezones')
+        console.log(this.smsData)
     },
 }
 </script>

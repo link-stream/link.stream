@@ -318,9 +318,7 @@ export default {
         await this.$store.dispatch('marketing/getTags')
     },
     methods: {
-        handleArchiveClick() {
-            console.log('Archive')
-        },
+        handleArchiveClick() {},
         handlePreviousClick() {
             if (this.currentIndex > 0) {
                 this.currentIndex--
@@ -341,7 +339,6 @@ export default {
                 this.subscriberDetails = data[0]
             }
             this.loading = false
-            console.log(this.subscriberDetails)
         },
         async addNote() {
             const params = {

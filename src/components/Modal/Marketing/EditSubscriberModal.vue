@@ -133,7 +133,6 @@ export default {
     },
     watch: {
         subscriber(value) {
-            console.log(value)
             this.form = {
                 ...value,
                 tags: value.tags

@@ -192,7 +192,6 @@ export default {
         this.loading = true
         await this.$store.dispatch('marketing/getSubscribers')
         this.loading = false
-        console.log(this.subscribers)
     },
     methods: {
         handleAddClick() {
@@ -280,12 +279,7 @@ export default {
             }
             this.statusAll = false
         },
-        handleResubscribeClick() {
-            console.log('Resubscribe')
-        },
-        handleArchiveClick() {
-            console.log('Archive')
-        },
+        handleArchiveClick() {},
     },
 }
 </script>

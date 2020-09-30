@@ -45,8 +45,10 @@
                     Export List
                 </basic-button>
                 <div class="page-status">
-                    1-20 Of
-                    {{ 6095 | thousandCNumber }}
+                    1-
+                    {{ this.subscribers.length }}
+                    Of
+                    {{ this.subscribers.length | thousandCNumber }}
                 </div>
             </div>
             <div class="page-empty" v-if="!loading && !subscribers.length">
@@ -159,14 +161,22 @@ export default {
             },
         ],
         realSubscribers: [],
-        cntEmail: 5748,
-        cntSms: 2257,
     }),
     computed: {
         ...mapGetters({
             user: 'me/user',
             subscribers: 'marketing/subscribers',
         }),
+        cntEmail() {
+            return this.subscribers.filter(
+                ({ email_status }) => email_status === 'subscribed'
+            ).length
+        },
+        cntSms() {
+            return this.subscribers.filter(
+                ({ sms_status }) => sms_status === 'subscribed'
+            ).length
+        },
     },
     watch: {
         subscribers() {

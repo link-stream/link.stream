@@ -21,13 +21,14 @@
             <form action="/" method="post" @submit="handleSubmit">
                 <h1 class="page-title">
                     The Missing Link<br />
-                    Will Be Revealed Soon
+                    Will Be Here Soon
                 </h1>
                 <p class="join-text">
-                    You are about to discover the missing link between producing
-                    music and building a successful business selling beats,
-                    instrumentals and sound kits online. Sign-up to receive a
-                    notification for early access.
+                    Discover the missing link between streaming artists and
+                    music producers. LinkStream was built by tech entrepreneurs
+                    and marketing experts to help artists and producers buy and
+                    sell their songs and instrumentals. Sign-up to receive an
+                    email for early access to the platform.
                 </p>
                 <div class="form-group">
                     <input
@@ -54,8 +55,8 @@
             </div>
         </main>
         <footer class="page-footer">
-            &copy; {{ new Date().getFullYear() }} LinkStream LLC. All Rights
-            Reserved.<span class="pipe">&vert;</span>
+            &copy; {{ new Date().getFullYear() }} LinkStream
+            <span class="pipe">&vert;</span>
             <router-link
                 :to="{ name: 'legal' }"
                 v-html="'Privacy&nbsp;Policy'"

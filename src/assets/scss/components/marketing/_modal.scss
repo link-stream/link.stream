@@ -104,6 +104,9 @@
             margin-right: 10px;
         }
     }
+    .file-upload {
+        display: none;
+    }
     .one-media-container {
         margin-bottom: 10px;
         .one-media {
@@ -113,6 +116,19 @@
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
+            }
+            .sel-overlay {
+                background-color: rgba(0, 0, 0, 0.15);
+                position: absolute;
+                left: 0;
+                top: 0;
+                color: white;
+                width: 100%;
+                height: 100%;
+                svg {
+                    margin: 10px;
+                    font-size: 24px;
+                }
             }
         }
     }

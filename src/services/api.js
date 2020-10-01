@@ -662,5 +662,30 @@ export const api = {
                 method,
             })
         },
+        async insertMedia(params) {
+            let endpoint = 'marketing/user_media_files'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async deleteMedia(id) {
+            let endpoint = 'marketing/user_media_files/' + id
+            const method = METHOD_DELETE
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getMedias(userId) {
+            let endpoint = 'marketing/user_media_files/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
 }

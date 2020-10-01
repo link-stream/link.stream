@@ -15,26 +15,58 @@
                     class="search-form"
                     @keyupEnter="searchMedia"
                 />
-                <BasicButton @click="handleUploadClick" size="sm">
-                    Upload
-                </BasicButton>
+                <UploadImage @add-file="handleImageAdd" />
             </div>
             <b-form-row>
                 <b-col
                     cols="6"
                     sm="3"
-                    v-for="(media, index) in mediaList"
+                    v-for="(media, index) in medias"
                     :key="index"
                     class="one-media-container"
                 >
-                    <b-aspect class="one-media">
-                        <img :src="media.url" />
-                    </b-aspect>
+                    <a
+                        href="#"
+                        @click.prevent="selectMedia(media)"
+                        class="position-relative"
+                    >
+                        <b-aspect class="one-media">
+                            <img
+                                :src="`${media.image_url}${media.image_name}`"
+                                :alt="media.image_name"
+                            />
+                            <div
+                                v-if="media.id === selectedId"
+                                class="sel-overlay"
+                            >
+                                <font-awesome-icon
+                                    :icon="['fas', 'check-circle']"
+                                />
+                            </div>
+                        </b-aspect>
+                    </a>
                 </b-col>
             </b-form-row>
         </template>
         <template v-slot:modal-footer>
-            <div>
+            <div v-if="selectedId > -1" class="w-100">
+                <spinner-button
+                    variant="secondary"
+                    size="md"
+                    :loading="saving"
+                    @click="handleDeleteClick"
+                >
+                    Delete
+                </spinner-button>
+                <spinner-button
+                    size="md"
+                    class="float-right"
+                    @click="handleInsertClick"
+                >
+                    Insert
+                </spinner-button>
+            </div>
+            <div v-else>
                 <b-pagination-nav
                     number-of-pages="9"
                     base-url=""
@@ -46,43 +78,32 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import UploadImage from '~/components/Uploader/UploadImage'
 export default {
     name: 'SelectMediaModal',
+    components: {
+        UploadImage,
+    },
     data() {
         return {
             open: false,
             searchString: '',
-            mediaList: [
-                {
-                    url: '/static/media/logo1.png',
-                },
-                {
-                    url: '/static/media/artwork1.jpg',
-                },
-                {
-                    url: '/static/media/placeholder.png',
-                },
-                {
-                    url: '/static/media/placeholder.png',
-                },
-                {
-                    url: '/static/media/placeholder.png',
-                },
-                {
-                    url: '/static/media/placeholder.png',
-                },
-                {
-                    url: '/static/media/placeholder.png',
-                },
-                {
-                    url: '/static/media/placeholder.png',
-                },
-            ],
+            mediaList: [],
+            selectedId: -1,
+            saving: false,
         }
     },
-    created() {
+    computed: {
+        ...mapGetters({
+            medias: 'marketing/medias',
+        }),
+    },
+    async created() {
         this.$bus.$on('modal.selectMedia.open', this.handleOpen)
         this.$bus.$on('modal.selectMedia.close', this.handleClose)
+        await this.$store.dispatch('marketing/getMedias')
+        console.log(this.medias)
     },
     methods: {
         close() {
@@ -95,9 +116,46 @@ export default {
             this.open = true
         },
         searchMedia() {},
-        handleUploadClick() {
-            this.close()
+        async handleImageAdd(file) {
+            const params = {
+                media: file.base64,
+            }
+            const { status, message, error } = await this.$store.dispatch(
+                'marketing/addMedia',
+                params
+            )
+            status === 'success'
+                ? this.$toast.success(message)
+                : this.$toast.error(error)
         },
+        selectMedia(media) {
+            if (media.id === this.selectedId) {
+                this.selectedId = -1
+            } else {
+                this.selectedId = media.id
+            }
+        },
+        handleDeleteClick() {
+            this.$alert.confirm({
+                title: 'Delete media?',
+                message: 'This media will be permanently deleted.',
+                onOk: async () => {
+                    this.saving = true
+                    const {
+                        status,
+                        message,
+                        error,
+                    } = await this.$store.dispatch(
+                        'marketing/deleteMedia',
+                        this.selectedId
+                    )
+                    status === 'success'
+                        ? this.$toast.success(message)
+                        : this.$toast.error(error)
+                },
+            })
+        },
+        handleInsertClick() {},
     },
 }
 </script>

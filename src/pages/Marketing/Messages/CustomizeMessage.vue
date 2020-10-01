@@ -15,7 +15,10 @@
             </b-button>
         </div>
         <div class="page-body">
-            <div class="left-col">
+            <div
+                class="left-col"
+                :style="emailBackStyle"
+            >
                 <div class="message-content">
                     <b-row>
                         <div class="select-view-type">
@@ -30,7 +33,7 @@
                     <div class="message-container">
                         <div class="message-header">
                             <div class="message-logo">
-                                <img src="/static/media/logo1.png" />
+                                <img :src="form.logo" alt="Logo" />
                             </div>
                             <div class="new-release">
                                 New release
@@ -38,15 +41,20 @@
                         </div>
                         <div class="message-body">
                             <div class="artwork-container">
-                                <img src="/static/media/placeholder.png" />
+                                <img :src="form.artwork" alt="Artwork" />
                             </div>
                             <h1 class="message-title">
-                                Title of Your Release
+                                {{ form.headline }}
                             </h1>
                             <div class="more-info">
-                                Add more information about this media here
+                                {{ form.body }}
                             </div>
-                            <basic-button class="btn-listen">
+                            <basic-button
+                                class="btn-listen"
+                                :style="{
+                                    backgroundColor: form.button_color,
+                                }"
+                            >
                                 Listen Now
                             </basic-button>
                         </div>
@@ -78,15 +86,28 @@
                     <div class="thumb-upload has-image">
                         <h6>Logo</h6>
                         <div class="d-flex">
-                            <div class="logo-container has-image">
+                            <div
+                                v-if="form.logo"
+                                class="logo-container has-image"
+                            >
                                 <div class="logo">
-                                    <img src="/static/media/logo1.png" />
+                                    <img :src="form.logo" />
                                 </div>
                                 <IconButton
                                     class="btn-camera"
                                     icon="photo-camera"
-                                    @click="showSelectMedia"
+                                    @click="showSelectMedia('logo')"
                                 />
+                            </div>
+                            <div v-else class="logo-container">
+                                <div class="logo">
+                                    <IconButton
+                                        class="btn-add-image"
+                                        icon="add-image"
+                                        @click="showSelectMedia('logo')"
+                                    />
+                                    <p class="lb-add-image">Add Logo</p>
+                                </div>
                             </div>
                             <div class="text-container">
                                 <div class="logo-text">
@@ -96,7 +117,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <b-form-group label="Choose a release to promote">
+                    <b-form-group label="Choose a release to promote">
                         <BasicSelect
                             v-model="promoteName"
                             placeholder="Search by name"
@@ -104,22 +125,41 @@
                             :reduce="audience => audience.id"
                             label="name"
                         />
-                    </b-form-group> -->
+                    </b-form-group>
                     <div class="thumb-upload no-image">
                         <h6>Artwork</h6>
                         <div class="d-flex">
-                            <div class="logo-container">
+                            <div
+                                v-if="form.artwork"
+                                class="logo-container has-image"
+                            >
+                                <div class="logo">
+                                    <img :src="form.artwork" />
+                                </div>
+                                <IconButton
+                                    class="btn-camera"
+                                    icon="photo-camera"
+                                    @click="showSelectMedia('artwork')"
+                                />
+                            </div>
+                            <div v-else class="logo-container">
                                 <div class="logo">
                                     <IconButton
                                         class="btn-add-image"
                                         icon="add-image"
-                                        @click="showSelectMedia"
+                                        @click="showSelectMedia('artwork')"
                                     />
                                     <p class="lb-add-image">Add Image</p>
                                 </div>
                             </div>
                             <div class="text-container">
-                                <div class="logo-text">
+                                <div v-if="form.artwork" class="logo-text">
+                                    <h6>Artwork Image</h6>
+                                    <a href="#" @click.prevent="removeArtwork">
+                                        Remove image
+                                    </a>
+                                </div>
+                                <div v-else class="logo-text">
                                     <small class="text-muted">
                                         suggested Minimum Size: 600x600
                                     </small>
@@ -129,7 +169,7 @@
                     </div>
                     <b-form-group label="Headline">
                         <b-form-input
-                            v-model="headLine"
+                            v-model="form.headline"
                             required
                             placeholder="Headline"
                         >
@@ -137,7 +177,7 @@
                     </b-form-group>
                     <b-form-group label="Body">
                         <b-form-textarea
-                            v-model="message"
+                            v-model="form.body"
                             placeholder="Please enter message content"
                             rows="3"
                         ></b-form-textarea>
@@ -152,15 +192,15 @@
                                     <b-input-group>
                                         <template v-slot:prepend>
                                             <a
-                                                href="#"
                                                 class="current-color"
                                                 :style="{
-                                                    backgroundColor: buttonColorHex,
+                                                    backgroundColor:
+                                                        form.button_color,
                                                 }"
                                             ></a>
                                         </template>
                                         <b-form-input
-                                            v-model="buttonColorHex"
+                                            v-model="form.button_color"
                                             class="txt-color-value"
                                         ></b-form-input>
                                     </b-input-group>
@@ -182,18 +222,18 @@
                                     <b-input-group>
                                         <template v-slot:prepend>
                                             <a
-                                                href="#"
                                                 class="current-color"
                                                 :class="{
-                                                    noColor: !backColorHex,
+                                                    noColor: !form.background_color,
                                                 }"
                                                 :style="{
-                                                    backgroundColor: backColorHex,
+                                                    backgroundColor:
+                                                        form.background_color,
                                                 }"
                                             ></a>
                                         </template>
                                         <b-form-input
-                                            v-model="backColorHex"
+                                            v-model="form.background_color"
                                             class="txt-color-value"
                                         ></b-form-input>
                                     </b-input-group>
@@ -209,14 +249,37 @@
                     </b-form-row>
                     <div class="thumb-upload no-image">
                         <h6>Background image</h6>
-                        <div class="logo-container">
-                            <div class="logo">
+                        <div class="d-flex">
+                            <div
+                                v-if="form.background_image"
+                                class="logo-container has-image"
+                            >
+                                <div class="logo">
+                                    <img :src="form.background_image" />
+                                </div>
                                 <IconButton
-                                    class="btn-add-image"
-                                    icon="add-image"
-                                    @click="showSelectMedia"
+                                    class="btn-camera"
+                                    icon="photo-camera"
+                                    @click="showSelectMedia('background')"
                                 />
-                                <p class="lb-add-image">Add Image</p>
+                            </div>
+                            <div v-else class="logo-container">
+                                <div class="logo">
+                                    <IconButton
+                                        class="btn-add-image"
+                                        icon="add-image"
+                                        @click="showSelectMedia('background')"
+                                    />
+                                    <p class="lb-add-image">Add Image</p>
+                                </div>
+                            </div>
+                            <div class="text-container">
+                                <div v-if="form.background_image" class="logo-text">
+                                    <h6>Background Image</h6>
+                                    <a href="#" @click.prevent="removeBackgroundImage">
+                                        Remove image
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -228,7 +291,7 @@
                 </div>
             </div>
         </div>
-        <SelectMediaModal />
+        <SelectMediaModal @select="setMedia" />
         <SendTestModal />
     </b-container>
 </template>
@@ -245,35 +308,35 @@ export default {
         SendTestModal,
     },
     data: () => ({
-        // promoteName: null,
-        headLine: null,
-        message: null,
-        // nameList: [],
+        promoteName: null,
+        nameList: [],
         isButtonColorPicker: false,
-        buttonColorHex: '#DC2EA6',
         buttonColor: {
             hex: '#DC2EA6',
         },
         isBackColorPicker: false,
-        backColorHex: '',
         backColor: {
             hex: '',
         },
+        form: {
+            headline: 'Title of Your Release',
+            body: 'Add more information about this media here',
+            logo: '',
+            artwork: '',
+            button_color: '#DC2EA6',
+            background_color: '',
+            background_image: '',
+        },
+        selMediaType: null,
     }),
     computed: {
         ...mapGetters({
             smsData: 'marketing/smsData',
         }),
-    },
-    watch: {
-        buttonColorHex(val) {
-            this.buttonColor = {
-                hex: val,
-            }
-        },
-        backColorHex(val) {
-            this.backColor = {
-                hex: val,
+        emailBackStyle() {
+            return {
+                backgroundColor: this.form.background_color,
+                backgroundImage: `url(${this.form.background_image})`,
             }
         },
     },
@@ -291,11 +354,11 @@ export default {
         },
         onChangeButtonColor(val) {
             this.buttonColor = val
-            this.buttonColorHex = val.hex
+            this.form.button_color = val.hex
         },
         onChangeBackColor(val) {
             this.backColor = val
-            this.backColorHex = val.hex
+            this.form.background_color = val.hex
         },
         handleDocumentClick(e) {
             const el = this.$refs.buttonColorPicker
@@ -313,7 +376,8 @@ export default {
                 this.isBackColorPicker = true
             }
         },
-        showSelectMedia() {
+        showSelectMedia(type) {
+            this.selMediaType = type
             this.$bus.$emit('modal.selectMedia.open')
         },
         handleNextClick() {
@@ -323,6 +387,24 @@ export default {
         },
         handleTestClick() {
             this.$bus.$emit('modal.sendTest.open')
+        },
+        removeArtwork() {
+            this.form.artwork = ''
+        },
+        removeBackgroundImage() {
+            this.form.background_image = ''
+        },
+        setMedia(url) {
+            switch (this.selMediaType) {
+                case 'logo':
+                    this.form.logo = url
+                    break
+                case 'artwork':
+                    this.form.artwork = url
+                    break
+                case 'background':
+                    this.form.background_image = url
+            }
         },
     },
 }

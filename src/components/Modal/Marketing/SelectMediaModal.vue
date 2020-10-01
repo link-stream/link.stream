@@ -155,7 +155,17 @@ export default {
                 },
             })
         },
-        handleInsertClick() {},
+        handleInsertClick() {
+            const selectedMedia = this.medias.find(
+                ({ id }) => id === this.selectedId
+            )
+            this.$emit(
+                'select',
+                selectedMedia.image_url + selectedMedia.image_name
+            )
+            this.selectedId = -1
+            this.close()
+        },
     },
 }
 </script>

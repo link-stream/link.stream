@@ -265,7 +265,7 @@ export default {
         isShowSendto: false,
         isShowFrom: false,
         isShowSubject: false,
-        templateImageUrl: '/static/img/email-template-release.jpg',
+        templateImageUrl: '/static/img/email-template_1.jpg',
     }),
     computed: {
         ...mapGetters({

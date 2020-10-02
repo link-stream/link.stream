@@ -298,8 +298,20 @@ export default {
             this.isShowSubject = true
         },
         handleEditContentClick() {
+            let routerName = 'customizeMessage'
+            switch(this.smsData.template) {
+                case 'release':
+                    routerName = 'customizeMessage'
+                    break
+                case 'plain':
+                    routerName = 'customizeMessagePlain'
+                    break
+                case 'video':
+                    routerName = 'customizeMessageVideo'
+                    break
+            }
             this.$router.push({
-                name: 'customizeMessage',
+                name: routerName,
             })
         },
         async handleSendClick() {

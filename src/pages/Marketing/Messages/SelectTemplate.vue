@@ -23,7 +23,7 @@
                     v-for="(template, index) in templates"
                     :key="`template-${index}`"
                 >
-                    <div class="template-container" @click="showEditMessage">
+                    <div class="template-container" @click="showEditMessage(template.type)">
                         <img :src="template.src" />
                         <h5 class="title">
                             {{ template.title }}
@@ -36,6 +36,7 @@
     </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: 'SelectEmailTemplate',
     data: () => ({
@@ -43,24 +44,37 @@ export default {
             {
                 src: '/static/img/email-template_1.jpg',
                 title: 'Promote a Release',
+                type: 'release',
                 description:
                     'Let everyone know about your latest Beat, Beat Pack or Sound Kit',
             },
             {
                 src: '/static/img/email-template_2.jpg',
                 title: 'Plain Text',
+                type: 'plain',
                 description:
                     'Send a simple, plain text email to your subscribers.',
             },
             {
                 src: '/static/img/email-template_3.jpg',
                 title: 'Highlight a Video',
+                type: 'video',
                 description: 'Use a video URL to showcase a video.',
             },
         ],
     }),
+    computed: {
+        ...mapGetters({
+            smsData: 'marketing/smsData',
+        }),
+    },
     methods: {
-        showEditMessage() {
+        async showEditMessage(type) {
+            const params = {
+                ...this.smsData,
+                template: type,
+            }
+            await this.$store.dispatch('marketing/setSMSData', params)
             this.$router.push({
                 name: 'editMessage',
             })

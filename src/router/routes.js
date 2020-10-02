@@ -37,6 +37,8 @@ import {
     AdPromos,
     EditMessage,
     CustomizeMessage,
+    CustomizeMessagePlain,
+    CustomizeMessageVideo,
     SentSMS,
     ReportMessage,
     SelectEmailTemplate,
@@ -312,6 +314,18 @@ const routes = [
         path: '/app/marketing/messages/customize',
         name: 'customizeMessage',
         component: CustomizeMessage,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: '/app/marketing/messages/customize-plain',
+        name: 'customizeMessagePlain',
+        component: CustomizeMessagePlain,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: '/app/marketing/messages/customize-video',
+        name: 'customizeMessageVideo',
+        component: CustomizeMessageVideo,
         meta: { requiresAuth: true },
     },
     {

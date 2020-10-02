@@ -308,6 +308,7 @@ export default {
                 scheduled: false,
                 date: null,
                 time: null,
+                status: 'Pending',
             }
             console.log('smsData', params)
             await this.$store.dispatch('marketing/setSMSData', params)
@@ -330,8 +331,34 @@ export default {
         showEditEmail() {
             this.isEditEmailName = true
         },
-        handleSaveLaterClick() {
-            console.log('save later')
+        async handleSaveLaterClick() {
+            const params = {
+                ...this.smsData,
+                scheduled: false,
+                date: null,
+                time: null,
+                status: 'Draft',
+            }
+            await this.$store.dispatch('marketing/setSMSData', params)
+            let response
+            if (this.smsData.id) {
+                response = await this.$store.dispatch(
+                    'marketing/updateMessage',
+                    {
+                        id: this.smsData.id,
+                        params: params,
+                    }
+                )
+            } else {
+                response = await this.$store.dispatch(
+                    'marketing/insertMessage',
+                    params
+                )
+            }
+            const { status, message, error } = response
+            status === 'success'
+                ? this.$toast.success(message)
+                : this.$toast.error(error)
         },
         handleCancelClick() {
             this.form.campaing_name = this.smsData.campaing_name

@@ -42,7 +42,7 @@
                         class="message-status"
                         :class="getStatusString.toLowerCase()"
                     >
-                        {{ getStatusString }}
+                        {{ message.status }}
                     </div>
                 </b-col>
                 <b-col v-if="message.status === 'Sent'" cols="12" sm="4">

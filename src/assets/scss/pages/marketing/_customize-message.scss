@@ -56,6 +56,8 @@
                     width: 75px;
                     height: 30px;
                     background-color: white;
+                    color: black;
+                    text-decoration: none;
                     text-align: center;
                     &.left {
                         border-radius: 30px 4px 4px 30px;
@@ -66,6 +68,7 @@
                     &.active {
                         border: 1px solid $color-pink-1;
                         background: rgba(220,46,166,0.2);
+                        font-weight: 600;
                     }
                 }
             }
@@ -98,9 +101,12 @@
                     padding: 20px 30px 12px;
                     text-align: center;
                     .artwork-container {
-                        width: 500px;
-                        height: 500px;
+                        width: 100%;
+                        min-height: 500px;
                         margin-bottom: 20px;
+                        img {
+                            width: 100%;
+                        }
                     }
                     .message-title {
                         font-size: px2rem(24);
@@ -109,7 +115,7 @@
                     }
                     .more-info {
                         font-size: px2rem(16);
-                        line-height: px2rem(25);
+                        line-height: px2rem(24);
                     }
                     .btn-listen {
                         margin: 20px auto;
@@ -144,6 +150,46 @@
                         a {
                             color: white;
                             text-decoration: underline;
+                        }
+                    }
+                }
+            }
+            &.mobile {
+                .phone-frame {
+                    width: 350px;
+                    border-radius: 29px;
+                    border: 3px solid black;
+                    background-color: white;
+                    margin-left: auto;
+                    margin-right: auto;
+                    padding: 32px 15px 30px;
+                    .message-frame {
+                        padding: 15px 5px;
+                        .message-container {
+                            .message-header {
+                                padding: 10px 15px;
+                                .message-logo {
+                                    height: 35px;
+                                    max-height: 35px;
+                                }
+                                .new-release {
+                                    font-size: px2rem(11);
+                                    margin-top: 16px;
+                                }
+                            }
+                            .message-body {
+                                padding: 0 15px 16px;
+                                .artwork-container {
+                                    min-height: 200px;
+                                }
+                                .message-title {
+                                    line-height: px2rem(26);
+                                    margin-bottom: 5px;
+                                }
+                            }
+                            .message-footer {
+                                display: none;
+                            }
                         }
                     }
                 }

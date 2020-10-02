@@ -108,6 +108,7 @@ export default {
                 scheduled: true,
                 date: moment(this.date).format('YYYY-MM-DD'),
                 time: this.time,
+                status: 'Scheduled',
             }
             if (this.smsData.id) {
                 const { status, message, error } = await this.$store.dispatch(

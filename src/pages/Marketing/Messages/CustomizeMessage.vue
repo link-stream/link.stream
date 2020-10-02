@@ -15,66 +15,77 @@
             </b-button>
         </div>
         <div class="page-body">
-            <div
-                class="left-col"
-                :style="emailBackStyle"
-            >
-                <div class="message-content">
+            <div class="left-col" :style="viewType === 'desktop' ? emailBackStyle: ''">
+                <div class="message-content" :class="viewType">
                     <b-row>
                         <div class="select-view-type">
-                            <div class="view-type left active">
+                            <a
+                                href="#"
+                                class="view-type left"
+                                :class="{ active: viewType === 'desktop' }"
+                                @click.prevent="viewType = 'desktop'"
+                            >
                                 Desktop
-                            </div>
-                            <div class="view-type right">
+                            </a>
+                            <a
+                                href="#"
+                                class="view-type right"
+                                :class="{ active: viewType === 'mobile' }"
+                                @click.prevent="viewType = 'mobile'"
+                            >
                                 Mobile
-                            </div>
+                            </a>
                         </div>
                     </b-row>
-                    <div class="message-container">
-                        <div class="message-header">
-                            <div class="message-logo">
-                                <img :src="form.logo" alt="Logo" />
+                    <div class="phone-frame">
+                        <div class="message-frame" :style="viewType === 'mobile' ? emailBackStyle : ''">
+                            <div class="message-container">
+                                <div class="message-header">
+                                    <div class="message-logo">
+                                        <img :src="form.logo" alt="Logo" />
+                                    </div>
+                                    <div class="new-release">
+                                        New release
+                                    </div>
+                                </div>
+                                <div class="message-body">
+                                    <div class="artwork-container">
+                                        <img :src="form.artwork" alt="Artwork" />
+                                    </div>
+                                    <h1 class="message-title">
+                                        {{ form.headline }}
+                                    </h1>
+                                    <div class="more-info">
+                                        {{ form.body }}
+                                    </div>
+                                    <basic-button
+                                        class="btn-listen"
+                                        :style="{
+                                            backgroundColor: form.button_color,
+                                        }"
+                                    >
+                                        Listen Now
+                                    </basic-button>
+                                </div>
+                                <div class="message-footer">
+                                    <div class="logo-container">
+                                        <img src="@/assets/img/logo/logo-h-lg.png" />
+                                    </div>
+                                    <div class="text">
+                                        <p>
+                                            You are receiving this email because you
+                                            opted in via our website.
+                                        </p>
+                                        <p>
+                                            You can
+                                            <a href="#"> update your preferences </a>
+                                            for this artist or
+                                            <a hre="#"> unsubscribe</a>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="new-release">
-                                New release
-                            </div>
-                        </div>
-                        <div class="message-body">
-                            <div class="artwork-container">
-                                <img :src="form.artwork" alt="Artwork" />
-                            </div>
-                            <h1 class="message-title">
-                                {{ form.headline }}
-                            </h1>
-                            <div class="more-info">
-                                {{ form.body }}
-                            </div>
-                            <basic-button
-                                class="btn-listen"
-                                :style="{
-                                    backgroundColor: form.button_color,
-                                }"
-                            >
-                                Listen Now
-                            </basic-button>
-                        </div>
-                        <div class="message-footer">
-                            <div class="logo-container">
-                                <img src="@/assets/img/logo/logo-h-lg.png" />
-                            </div>
-                            <div class="text">
-                                <p>
-                                    You are receiving this email because you
-                                    opted in via our website.
-                                </p>
-                                <p>
-                                    You can
-                                    <a href="#"> update your preferences </a>
-                                    for this artist or
-                                    <a hre="#"> unsubscribe</a>
-                                </p>
-                            </div>
-                        </div>
+                        </div>    
                     </div>
                 </div>
             </div>
@@ -274,9 +285,15 @@
                                 </div>
                             </div>
                             <div class="text-container">
-                                <div v-if="form.background_image" class="logo-text">
+                                <div
+                                    v-if="form.background_image"
+                                    class="logo-text"
+                                >
                                     <h6>Background Image</h6>
-                                    <a href="#" @click.prevent="removeBackgroundImage">
+                                    <a
+                                        href="#"
+                                        @click.prevent="removeBackgroundImage"
+                                    >
                                         Remove image
                                     </a>
                                 </div>
@@ -326,8 +343,10 @@ export default {
             button_color: '#DC2EA6',
             background_color: '',
             background_image: '',
+            content: '',
         },
         selMediaType: null,
+        viewType: 'desktop',
     }),
     computed: {
         ...mapGetters({
@@ -341,6 +360,10 @@ export default {
         },
     },
     mounted() {
+        this.form = {
+            ...this.smsData,
+        }
+        console.log(this.smsData)
         document.addEventListener('click', this.handleDocumentClick)
     },
     beforeDestroy() {
@@ -380,7 +403,13 @@ export default {
             this.selMediaType = type
             this.$bus.$emit('modal.selectMedia.open')
         },
-        handleNextClick() {
+        async handleNextClick() {
+            const params = {
+                ...this.smsData,
+                ...this.form,
+                content: this.form.headline,
+            }
+            await this.$store.dispatch('marketing/setSMSData', params)
             this.$router.push({
                 name: 'editMessage',
             })

@@ -32,7 +32,7 @@
                     <div class="message-container">
                         <div class="message-header">
                             <div class="message-logo">
-                                <img :src="emailData.logo" alt="Logo" />
+                                <img :src="`${mediaURL}${emailData.logo}`" alt="Logo" />
                             </div>
                             <div class="new-release">
                                 New release
@@ -40,7 +40,7 @@
                         </div>
                         <div class="message-body">
                             <div class="artwork-container">
-                                <img :src="emailData.artwork" alt="Artwork" />
+                                <img :src="`${mediaURL}${emailData.artwork}`" alt="Artwork" />
                             </div>
                             <h1 class="message-title">
                                 {{ emailData.headline }}
@@ -81,6 +81,7 @@
     </div>
 </template>
 <script>
+import { appConstants } from '~/constants'
 export default {
     name: 'EmailPreviewRelease',
     props: {
@@ -90,12 +91,13 @@ export default {
     },
     data: () => ({
         viewType: 'desktop',
+        mediaURL: appConstants.mediaURL,
     }),
     computed: {
         emailBackStyle() {
             return {
                 backgroundColor: this.emailData.background_color,
-                backgroundImage: `url(${this.emailData.background_image})`,
+                backgroundImage: `url(${this.mediaURL}${this.emailData.background_image})`,
             }
         },
     }

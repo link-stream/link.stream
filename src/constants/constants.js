@@ -128,4 +128,5 @@ export const constants = {
     maxMessageLength: 918,
     sampleSubscribersFile:
         '/static/files/sample-linkstream-subscribers-import.xlsx',
+    mediaURL: 'https://s3.us-east-2.amazonaws.com/files.link.stream/Dev/Media/',
 }

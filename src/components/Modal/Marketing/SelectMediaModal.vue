@@ -32,7 +32,7 @@
                     >
                         <b-aspect class="one-media">
                             <img
-                                :src="`${media.image_url}${media.image_name}`"
+                                :src="`${mediaURL}${media.image_name}`"
                                 :alt="media.image_name"
                             />
                             <div
@@ -80,6 +80,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import UploadImage from '~/components/Uploader/UploadImage'
+import { appConstants } from '~/constants'
 export default {
     name: 'SelectMediaModal',
     components: {
@@ -92,6 +93,7 @@ export default {
             mediaList: [],
             selectedId: -1,
             saving: false,
+            mediaURL: appConstants.mediaURL,
         }
     },
     computed: {
@@ -160,7 +162,7 @@ export default {
             )
             this.$emit(
                 'select',
-                selectedMedia.image_url + selectedMedia.image_name
+                selectedMedia.image_name
             )
             this.selectedId = -1
             this.close()

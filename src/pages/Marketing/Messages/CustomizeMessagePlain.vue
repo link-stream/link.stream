@@ -31,7 +31,7 @@
                                 class="logo-container has-image"
                             >
                                 <div class="logo">
-                                    <img :src="form.logo" />
+                                    <img :src="`${mediaURL}${form.logo}`" />
                                 </div>
                                 <IconButton
                                     class="btn-camera"
@@ -74,7 +74,7 @@
                                 class="logo-container has-image"
                             >
                                 <div class="logo">
-                                    <img :src="form.artwork" />
+                                    <img :src="`${mediaURL}${form.artwork}`" />
                                 </div>
                                 <IconButton
                                     class="btn-camera"
@@ -195,7 +195,7 @@
                                 class="logo-container has-image"
                             >
                                 <div class="logo">
-                                    <img :src="form.background_image" />
+                                    <img :src="`${mediaURL}${form.background_image}`" />
                                 </div>
                                 <IconButton
                                     class="btn-camera"
@@ -247,6 +247,7 @@ import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
 import SendTestModal from '@/components/Modal/Marketing/SendTestModal'
 import EmailPreviewRelease from '@/components/Marketing/Messages/EmailPreviewRelease'
 import { mapGetters } from 'vuex'
+import { appConstants } from '~/constants'
 export default {
     name: 'CustomizeMessage',
     components: {
@@ -277,6 +278,7 @@ export default {
             content: '',
         },
         selMediaType: null,
+        mediaURL: appConstants.mediaURL,
     }),
     computed: {
         ...mapGetters({

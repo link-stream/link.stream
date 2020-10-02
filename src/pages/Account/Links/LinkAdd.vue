@@ -72,13 +72,13 @@
                                     </b-input-group>
                                 </b-form-group>
                                 <b-form-group>
-                                    <b-form-checkbox v-model="endDateEnabled">
+                                    <b-form-checkbox v-model="showEndDate">
                                         Set end date
                                     </b-form-checkbox>
                                 </b-form-group>
                                 <b-form-group
                                     label="End Date"
-                                    v-if="endDateEnabled"
+                                    v-if="showEndDate"
                                 >
                                     <b-input-group class="date-input-group">
                                         <DatePicker v-model="form.endDate" />

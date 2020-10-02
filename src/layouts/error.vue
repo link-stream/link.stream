@@ -1,5 +1,5 @@
 <template>
-    <div class="layout layout--error">
+    <div class="layout layout-error">
         <div class="secion-overlay"></div>
         <b-container>
             <b-row>

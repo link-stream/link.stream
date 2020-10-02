@@ -28,15 +28,27 @@
             </div>
         </header>
         <main class="page-body">
-            <div class="page-spinner" v-if="loading">
-                <LoadingSpinner />
+            <div class="page-empty" v-if="!loading && !sortableList.length">
+                <div class="empty-text">
+                    Your Videos will appear here.
+                </div>
+                <basic-button
+                    class="empty-link"
+                    variant="link"
+                    :to="{
+                        name: 'accountVideoAdd',
+                    }"
+                >
+                    Add a Video
+                </basic-button>
             </div>
+            <LoadingSpinner class="page-loader" v-if="loading" />
             <Container
                 v-else
-                drag-handle-selector=".drag-icon"
+                drag-handle-selector=".card-drag-icon"
                 @drop="handleReorder"
             >
-                <Draggable v-for="video in sortableVideos" :key="video.id">
+                <Draggable v-for="video in sortableList" :key="video.id">
                     <VideoCard
                         :video="video"
                         @edit-click="handleEditClick"
@@ -50,8 +62,8 @@
 </template>
 
 <script>
-import { VideoEditModal } from '~/components/Modal'
-import { VideoCard } from '~/components/Account/Videos'
+import VideoEditModal from '~/components/Modal/VideoEditModal'
+import VideoCard from '~/components/Account/Videos/VideoCard'
 import { appConstants } from '~/constants'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import { mapGetters } from 'vuex'
@@ -67,7 +79,7 @@ export default {
     data() {
         return {
             loading: false,
-            sortableVideos: [],
+            sortableList: [],
         }
     },
     computed: {
@@ -77,8 +89,11 @@ export default {
         }),
     },
     watch: {
-        videos(newValue) {
-            this.sortableVideos = [...newValue]
+        videos: {
+            immediate: true,
+            handler(newValue) {
+                this.sortableList = [...newValue]
+            },
         },
     },
     async created() {
@@ -116,10 +131,11 @@ export default {
         },
         handleReorder(dropResult) {
             const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
-            const video = this.sortableVideos[oldIndex]
-            this.sortableVideos.splice(oldIndex, 1)
-            this.sortableVideos.splice(newIndex, 0, video)
-            const sorts = this.sortableVideos.map(({ id }, index) => {
+            const list = [...this.sortableList]
+            const item = list[oldIndex]
+            list.splice(oldIndex, 1)
+            list.splice(newIndex, 0, item)
+            const sorts = list.map(({ id }, index) => {
                 return {
                     id,
                     sort: (index + 1).toString(),

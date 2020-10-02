@@ -6,7 +6,7 @@ export default {
     methods: {
         async emailConfirm() {
             const { param1: param_1, param2: param_2 } = this.$route.params
-            const { status, error } = await api.users.emailConfirm({
+            const { status, error } = await api.users.confirmEmail({
                 param_1,
                 param_2,
             })

@@ -10,13 +10,10 @@ export const uploaderMixin = {
         },
         filename: {
             type: String,
-            default: '',
         },
         acceptTypes: {
             type: Array,
-            default() {
-                return []
-            },
+            default: () => [],
         },
     },
     data() {
@@ -26,7 +23,7 @@ export const uploaderMixin = {
     },
     computed: {
         isFileAdded() {
-            return this.src ? true : false
+            return !!this.src
         },
     },
     methods: {

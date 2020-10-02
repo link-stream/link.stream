@@ -2,13 +2,13 @@
  * Account Module
  */
 
-import { types, meTypes } from '../mutationTypes'
+import { commonTypes, meTypes } from '../mutationTypes'
 import { api } from '~/services'
 import { appConstants } from '~/constants'
 
 const initialState = () => ({
     /**
-     * @type {object}
+     * @type {null|object}
      */
     user: null,
     licenses: [],
@@ -16,157 +16,222 @@ const initialState = () => ({
     links: [],
     beats: [],
     soundKits: [],
+    beatPacks: [],
+    relatedTracks: [],
+    relatedBeatPacks: [],
+    purchases: [],
+    paymentMethods: [],
+    bankInfo: {},
+    notification: {},
 })
 
 const state = initialState()
 
 const mutations = {
-    [types.RESET](state) {
+    [commonTypes.RESET](state) {
         const s = initialState()
         for (let key in state) {
             state[key] = s[key]
         }
     },
 
-    /**
-     * User
-     */
+    // User
 
     [meTypes.SET_USER](state, { user }) {
         state.user = user
     },
 
-    /**
-     * Licenses
-     */
+    // Licenses
 
     [meTypes.SET_LICENSES](state, { licenses }) {
         state.licenses = licenses
     },
 
-    [meTypes.UPDATE_LICENSE](state, { license }) {
-        const { licenses } = state
+    [meTypes.UPDATE_LICENSE]({ licenses }, { license }) {
         const index = licenses.findIndex(({ id }) => id == license.id)
         index > -1 && licenses.splice(index, 1, license)
     },
 
-    /**
-     * Beats
-     */
+    // Beats
 
     [meTypes.SET_BEATS](state, { beats }) {
         state.beats = beats
     },
 
-    [meTypes.UPDATE_BEAT](state, { beat }) {
-        const { beats } = state
+    [meTypes.ADD_BEAT](state, { beat }) {
+        state.beats.push(beat)
+    },
+
+    [meTypes.UPDATE_BEAT]({ beats }, { beat }) {
         const index = beats.findIndex(({ id }) => id == beat.id)
         index > -1 && beats.splice(index, 1, beat)
     },
 
-    [meTypes.DELETE_BEAT](state, { beat }) {
-        const { beats } = state
+    [meTypes.DELETE_BEAT]({ beats }, { beat }) {
         const index = beats.findIndex(({ id }) => id == beat.id)
         beats.splice(index, 1)
     },
 
-    [meTypes.REORDER_BEAT](state, { oldIndex, newIndex }) {
-        const { beats } = state
+    [meTypes.REORDER_BEAT]({ beats }, { oldIndex, newIndex }) {
         const beat = beats[oldIndex]
         beats.splice(oldIndex, 1)
         beats.splice(newIndex, 0, beat)
     },
 
-    /**
-     * Sound Kits
-     */
+    // Sound Kits
 
     [meTypes.SET_SOUND_KITS](state, { soundKits }) {
         state.soundKits = soundKits
     },
 
-    [meTypes.UPDATE_SOUND_KIT](state, { soundKit }) {
-        const { soundKits } = state
+    [meTypes.ADD_SOUND_KIT](state, { soundKit }) {
+        state.soundKits.push(soundKit)
+    },
+
+    [meTypes.UPDATE_SOUND_KIT]({ soundKits }, { soundKit }) {
         const index = soundKits.findIndex(({ id }) => id == soundKit.id)
         index > -1 && soundKits.splice(index, 1, soundKit)
     },
 
-    [meTypes.DELETE_SOUND_KIT](state, { soundKit }) {
-        const { soundKits } = state
+    [meTypes.DELETE_SOUND_KIT]({ soundKits }, { soundKit }) {
         const index = soundKits.findIndex(({ id }) => id == soundKit.id)
         soundKits.splice(index, 1)
     },
 
-    [meTypes.REORDER_SOUND_KIT](state, { oldIndex, newIndex }) {
-        const { soundKits } = state
+    [meTypes.REORDER_SOUND_KIT]({ soundKits }, { oldIndex, newIndex }) {
         const soundKit = soundKits[oldIndex]
         soundKits.splice(oldIndex, 1)
         soundKits.splice(newIndex, 0, soundKit)
     },
 
-    /**
-     * Videos
-     */
+    // Beat Packs
+
+    [meTypes.SET_BEAT_PACKS](state, { beatPacks }) {
+        state.beatPacks = beatPacks
+    },
+
+    [meTypes.ADD_BEAT_PACK](state, { beatPack }) {
+        state.beatPacks.push(beatPack)
+    },
+
+    [meTypes.UPDATE_BEAT_PACK]({ beatPacks }, { beatPack }) {
+        const index = beatPacks.findIndex(({ id }) => id == beatPack.id)
+        index > -1 && beatPacks.splice(index, 1, beatPack)
+    },
+
+    [meTypes.DELETE_BEAT_PACK]({ beatPacks }, { beatPack }) {
+        const index = beatPacks.findIndex(({ id }) => id == beatPack.id)
+        beatPacks.splice(index, 1)
+    },
+
+    [meTypes.REORDER_BEAT_PACK]({ beatPacks }, { oldIndex, newIndex }) {
+        const beatPack = beatPacks[oldIndex]
+        beatPacks.splice(oldIndex, 1)
+        beatPacks.splice(newIndex, 0, beatPack)
+    },
+
+    [meTypes.SET_RELATED_BEAT_PACK](state, { relatedBeatPacks }) {
+        state.relatedBeatPacks = relatedBeatPacks
+    },
+
+    // Videos
 
     [meTypes.SET_VIDEOS](state, { videos }) {
         state.videos = videos
     },
 
-    [meTypes.UPDATE_VIDEO](state, { video }) {
-        const { videos } = state
+    [meTypes.ADD_VIDEO](state, { video }) {
+        state.videos.push(video)
+    },
+
+    [meTypes.UPDATE_VIDEO]({ videos }, { video }) {
         const index = videos.findIndex(({ id }) => id == video.id)
         index > -1 && videos.splice(index, 1, video)
     },
 
-    [meTypes.DELETE_VIDEO](state, { video }) {
-        const { videos } = state
+    [meTypes.DELETE_VIDEO]({ videos }, { video }) {
         const index = videos.findIndex(({ id }) => id == video.id)
         videos.splice(index, 1)
     },
 
-    [meTypes.REORDER_VIDEO](state, { oldIndex, newIndex }) {
-        const { videos } = state
+    [meTypes.REORDER_VIDEO]({ videos }, { oldIndex, newIndex }) {
         const video = videos[oldIndex]
         videos.splice(oldIndex, 1)
         videos.splice(newIndex, 0, video)
     },
 
-    /**
-     * Links
-     */
+    [meTypes.SET_RELATED_TRACKS](state, { relatedTracks }) {
+        state.relatedTracks = relatedTracks
+    },
+
+    // Links
 
     [meTypes.SET_LINKS](state, { links }) {
         state.links = links
     },
 
-    [meTypes.UPDATE_LINK](state, { link }) {
-        const { links } = state
+    [meTypes.ADD_LINK](state, { link }) {
+        state.links.push(link)
+    },
+
+    [meTypes.UPDATE_LINK]({ links }, { link }) {
         const index = links.findIndex(({ id }) => id == link.id)
         index > -1 && links.splice(index, 1, link)
     },
 
-    [meTypes.DELETE_LINK](state, { link }) {
-        const { links } = state
+    [meTypes.DELETE_LINK]({ links }, { link }) {
         const index = links.findIndex(({ id }) => id == link.id)
         links.splice(index, 1)
     },
 
-    [meTypes.REORDER_LINK](state, { oldIndex, newIndex }) {
-        const { links } = state
+    [meTypes.REORDER_LINK]({ links }, { oldIndex, newIndex }) {
         const link = links[oldIndex]
         links.splice(oldIndex, 1)
         links.splice(newIndex, 0, link)
+    },
+
+    //Account
+
+    [meTypes.SET_PURCHASES](state, { purchases }) {
+        state.purchases = purchases
+    },
+
+    [meTypes.SET_PAYMENT_METHODS](state, { paymentMethods }) {
+        state.paymentMethods = paymentMethods
+    },
+
+    [meTypes.ADD_PAYMENT_METHOD](state, { paymentMethod }) {
+        state.paymentMethods.push(paymentMethod)
+    },
+
+    [meTypes.UPDATE_PAYMENT_METHOD]({ paymentMethods }, { payment_id }) {
+        paymentMethods.forEach(element => {
+            element.is_default = element.id === payment_id ? 1 : 0
+        })
+    },
+
+    [meTypes.DELETE_PAYMENT_METHOD]({ paymentMethods }, { paymentMethod }) {
+        const index = paymentMethods.findIndex(
+            ({ id }) => id == paymentMethod.id
+        )
+        paymentMethods.splice(index, 1)
+    },
+
+    [meTypes.SET_BANK_INFO](state, { params }) {
+        state.bankInfo = params
+    },
+
+    [meTypes.SET_NOTIFICATION](state, { notification }) {
+        state.notification = notification
     },
 }
 
 const actions = {
     reset({ commit }) {
-        commit(types.RESET)
+        commit(commonTypes.RESET)
     },
 
-    /**
-     * User
-     */
+    // User
 
     loadAccount({ dispatch }) {
         dispatch('loadProfile')
@@ -176,15 +241,22 @@ const actions = {
         commit(meTypes.SET_USER, { user })
     },
 
+    async updateUser({ commit }, { id, params }) {
+        const response = await api.users.updateUser(id, params)
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.SET_USER, { user: data })
+        }
+        return response
+    },
+
     async loadProfile({ commit, rootGetters }) {
         const user = rootGetters['auth/user']
         const { status, data } = await api.users.getUser(user.id)
         status === 'success' && commit(meTypes.SET_USER, { user: data })
     },
 
-    /**
-     * Licenses
-     */
+    // Licenses
 
     async loadLicenses({ state, commit, rootGetters }) {
         if (state.licenses.length) {
@@ -206,11 +278,12 @@ const actions = {
         return response
     },
 
-    /**
-     * Beats
-     */
+    // Beats
 
-    async loadBeats({ commit, rootGetters }) {
+    async loadBeats({ state, commit, rootGetters }) {
+        if (state.beats.length) {
+            return
+        }
         const user = rootGetters['auth/user']
         const { status, data } = await api.audios.getBeatsByUser(user.id)
         commit({
@@ -219,8 +292,13 @@ const actions = {
         })
     },
 
-    async createBeat(context, { params }) {
-        return await api.audios.createAudio(params)
+    async createBeat({ commit }, { params }) {
+        const response = await api.audios.createAudio(params)
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.ADD_BEAT, { beat: data })
+        }
+        return response
     },
 
     async updateBeat({ commit }, { id, params }) {
@@ -245,11 +323,12 @@ const actions = {
         })
     },
 
-    /**
-     * Sound Kits
-     */
+    // Sound Kits
 
-    async loadSoundKits({ commit, rootGetters }) {
+    async loadSoundKits({ state, commit, rootGetters }) {
+        if (state.soundKits.length) {
+            return
+        }
         const user = rootGetters['auth/user']
         const { status, data } = await api.audios.getSoundKitsByUser(user.id)
         commit({
@@ -258,8 +337,13 @@ const actions = {
         })
     },
 
-    async createSoundKit(context, { params }) {
-        return await api.audios.createAudio(params)
+    async createSoundKit({ commit }, { params }) {
+        const response = await api.audios.createAudio(params)
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.ADD_SOUND_KIT, { soundKit: data })
+        }
+        return response
     },
 
     async updateSoundKit({ commit }, { id, params }) {
@@ -285,11 +369,76 @@ const actions = {
         })
     },
 
-    /**
-     * Videos
-     */
+    // Beat Packs
+
+    async loadBeatPacks({ state, commit, rootGetters }) {
+        if (state.beatPacks.length) {
+            return
+        }
+        const user = rootGetters['auth/user']
+        const { status, data } = await api.albums.getAlbumsByUser(user.id)
+        commit({
+            type: meTypes.SET_BEAT_PACKS,
+            beatPacks: status === 'success' ? data : [],
+        })
+    },
+
+    async createBeatPack({ commit }, { params }) {
+        const response = await api.albums.createAlbum(params)
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.ADD_BEAT_PACK, { beatPack: data })
+        }
+        return response
+    },
+
+    async updateBeatPack({ commit }, { id, params }) {
+        const response = await api.albums.updateAlbum(id, params)
+        const { status, data } = response
+        status === 'success' &&
+            commit(meTypes.UPDATE_BEAT_PACK, { beatPack: data })
+        return response
+    },
+
+    async deleteBeatPack({ commit }, beatPack) {
+        const response = await api.albums.deleteAlbum(beatPack.id)
+        const { status } = response
+        status === 'success' && commit(meTypes.DELETE_BEAT_PACK, { beatPack })
+        return response
+    },
+
+    reorderBeatPack({ state, commit }, { oldIndex, newIndex, sorts }) {
+        commit(meTypes.REORDER_BEAT_PACK, { oldIndex, newIndex })
+        api.albums.sortAlbums({
+            user_id: state.user.id,
+            list: JSON.stringify(sorts),
+        })
+    },
+
+    async loadRelatedTracks({ commit, rootGetters }) {
+        const user = rootGetters['auth/user']
+        const { status, data } = await api.audios.getRelatedTracks(user.id)
+        commit({
+            type: meTypes.SET_RELATED_TRACKS,
+            relatedTracks: status === 'success' ? data : [],
+        })
+    },
+
+    async loadRelatedBeatPacks({ commit, rootGetters }) {
+        const user = rootGetters['auth/user']
+        const { status, data } = await api.albums.getRelatedAlbums(user.id, 2)
+        commit({
+            type: meTypes.SET_RELATED_BEAT_PACK,
+            relatedBeatPacks: status === 'success' ? data : [],
+        })
+    },
+
+    // Videos
 
     async loadVideos({ state, commit }, { params }) {
+        if (state.videos.length) {
+            return
+        }
         const { status, data } = await api.videos.getVideosByUser(
             state.user.id,
             params
@@ -300,8 +449,13 @@ const actions = {
         })
     },
 
-    async createVideo(context, { params }) {
-        return await api.videos.createVideo(params)
+    async createVideo({ commit }, { params }) {
+        const response = await api.videos.createVideo(params)
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.ADD_VIDEO, { video: data })
+        }
+        return response
     },
 
     async updateVideo({ commit }, { id, params }) {
@@ -326,17 +480,23 @@ const actions = {
         })
     },
 
-    /**
-     * Links
-     */
+    // Links
 
     async loadLinks({ state, commit }) {
+        if (state.links.length) {
+            return
+        }
         const { status, data } = await api.links.getLinksByUser(state.user.id)
         status === 'success' && commit(meTypes.SET_LINKS, { links: data })
     },
 
-    async createLink(context, { params }) {
-        return await api.links.createLink(params)
+    async createLink({ commit }, { params }) {
+        const response = await api.links.createLink(params)
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.ADD_LINK, { link: data })
+        }
+        return response
     },
 
     async updateLink({ commit }, { id, params }) {
@@ -360,16 +520,91 @@ const actions = {
             list: JSON.stringify(sorts),
         })
     },
+
+    //Account
+
+    async loadPurchases({ state, commit }) {
+        if (state.purchases.length) {
+            return
+        }
+        const { status, data } = await api.account.getPurchases(state.user.id)
+        status === 'success' &&
+            commit(meTypes.SET_PURCHASES, { purchases: data })
+    },
+
+    async loadPaymentMethods({ state, commit }) {
+        const { status, data } = await api.account.getPaymentMethodsByUser(
+            state.user.id
+        )
+        commit({
+            type: meTypes.SET_PAYMENT_METHODS,
+            paymentMethods: status === 'success' ? data : [],
+        })
+    },
+
+    // eslint-disable-next-line
+    async createPaymentMethod({ commit }, { params }) {
+        const response = await api.account.insertPaymentMethod(params)
+        return response
+    },
+
+    async updatePaymentMethod({ commit }, { payment_id, params }) {
+        const response = await api.account.updatePaymentMethod(
+            payment_id,
+            params
+        )
+        const { status } = response
+        status === 'success' &&
+            commit(meTypes.UPDATE_PAYMENT_METHOD, { payment_id })
+        return response
+    },
+
+    async deletePaymentMethod({ commit }, paymentMethod) {
+        const response = await api.account.deletePaymentMethod(paymentMethod.id)
+        const { status } = response
+        status === 'success' &&
+            commit(meTypes.DELETE_PAYMENT_METHOD, { paymentMethod })
+        return response
+    },
+
+    async addBankInfo({ commit }, { params }) {
+        commit(meTypes.SET_BANK_INFO, { params })
+        return {
+            status: 'success',
+            message: 'The Bank info has been added successfully',
+        }
+    },
+
+    async loadNotification({ state, commit }) {
+        const response = await api.account.getNotification(state.user.id)
+        const { status, data } = response
+        status === 'success' &&
+            commit({
+                type: meTypes.SET_NOTIFICATION,
+                notification: data.length > 0 ? data[0] : {},
+            })
+    },
+
+    async updateNotification({ commit }, { id, params }) {
+        const response = await api.account.updateNotification(id, params)
+        const { status, data } = response
+        status === 'success' &&
+            commit({
+                type: meTypes.SET_NOTIFICATION,
+                notification: data,
+            })
+        return response
+    },
 }
 
 const getters = {
     licenses: ({ licenses }) => licenses,
-    licenseById: ({ licenses }) => {
+    findLicenseById: ({ licenses }) => {
         return id => {
             return licenses.find(license => license.id == id)
         }
     },
-    beatById: ({ beats }) => {
+    findBeatById: ({ beats }) => {
         return id => {
             return beats.find(beat => beat.id == id)
         }
@@ -414,15 +649,43 @@ const getters = {
         })
     },
     soundKits: ({ soundKits }) => {
-        return soundKits.map(sk => {
+        return soundKits.map(kit => {
             return {
-                ...sk,
-                coverart: sk.data_image || appConstants.defaultCoverArt,
-                isPublic: sk.public == '1',
-                isPrivate: sk.public == '2',
+                ...kit,
+                coverart: kit.data_image || appConstants.defaultCoverArt,
+                isPublic: kit.public == '1',
+                isPrivate: kit.public == '2',
             }
         })
     },
+    beatPacks: ({ beatPacks }) => {
+        return beatPacks.map(pack => {
+            return {
+                ...pack,
+                coverart: pack.data_image || appConstants.defaultCoverArt,
+                isPublic: pack.public == '1',
+                isPrivate: pack.public == '2',
+            }
+        })
+    },
+
+    relatedTracks: ({ relatedTracks }) => relatedTracks,
+    relatedBeatPacks: ({ relatedBeatPacks, beatPacks }) => {
+        return relatedBeatPacks.map(pack => {
+            let findBeatPack = beatPacks.find(item => item.id == pack.id)
+            return {
+                ...findBeatPack,
+                coverart:
+                    findBeatPack.data_image || appConstants.defaultCoverArt,
+                isPublic: findBeatPack.public == '1',
+                isPrivate: findBeatPack.public == '2',
+            }
+        })
+    },
+    purchases: ({ purchases }) => purchases,
+    paymentMethods: ({ paymentMethods }) => paymentMethods,
+    bankInfo: ({ bankInfo }) => bankInfo,
+    notification: ({ notification }) => notification,
 }
 
 export default {

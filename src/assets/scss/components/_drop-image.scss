@@ -1,11 +1,11 @@
 .DropImage {
-    .drop-box,
-    .preview-box {
+    .upload-dd,
+    .preview-thumb {
         height: 140px;
         width: 140px;
     }
 
-    .preview-container {
+    .preview-section {
         display: flex;
         flex-direction: column;
     }
@@ -19,7 +19,7 @@
         margin-left: 10px;
     }
 
-    .preview-box {
+    .preview-thumb {
         position: relative;
         img {
             max-width: 100%;
@@ -48,25 +48,25 @@
         font-size: px2rem(12);
     }
 
-    .upload-container {
+    .upload-section {
         display: flex;
     }
 
-    .upload-body {
+    .upload-controls {
         align-self: center;
     }
 
-    .drop-box {
+    .upload-dd {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        border: 2px dashed $linkstream-30;
+        border: 2px dashed $gray-330;
         background-color: $white;
         &.highlight,
         &:hover {
-            border-color: $linkstream-20;
+            border-color: $color-yellow-1;
         }
     }
 
@@ -77,7 +77,7 @@
     .upload-icon {
         &:before {
             @extend .ico:before;
-            background-image: url(~@/../public/static/ico/cam-plus-md.svg);
+            background-image: url(~@/assets/img/ico/cam-plus-md.svg);
             width: 40px;
             height: 36px;
         }
@@ -97,14 +97,14 @@
         display: none;
     }
 
-    &.--inline {
-        .preview-box,
-        .drop-box {
+    &.is-inline {
+        .preview-thumb,
+        .upload-dd {
             width: 60px;
             height: 60px;
             margin-bottom: 0;
         }
-        .preview-container {
+        .preview-section {
             flex-direction: row;
             align-items: center;
         }
@@ -125,7 +125,7 @@
         }
         .upload-icon {
             &:before {
-                background-image: url(~@/../public/static/ico/cam-plus-sm.svg);
+                background-image: url(~@/assets/img/ico/cam-plus-sm.svg);
                 width: 34px;
                 height: 30px;
             }
@@ -133,14 +133,14 @@
     }
 
     @include media-breakpoint-up(md) {
-        .drop-box,
-        .preview-box {
+        .upload-dd,
+        .preview-thumb {
             width: 215px;
             height: 215px;
             cursor: pointer;
         }
         .upload-icon:before {
-            background-image: url(~@/../public/static/ico/cam-plus-lg.svg);
+            background-image: url(~@/assets/img/ico/cam-plus-lg.svg);
             width: 49px;
             height: 44px;
         }
@@ -153,14 +153,14 @@
         .upload-msg-l {
             display: block;
         }
-        &.--inline {
-            .preview-box,
-            .drop-box {
+        &.is-inline {
+            .preview-thumb,
+            .upload-dd {
                 width: 215px;
                 height: 215px;
                 margin-bottom: 0;
             }
-            .preview-container {
+            .preview-section {
                 flex-direction: column;
                 align-items: flex-start;
             }
@@ -179,7 +179,7 @@
                 margin: 10px 0 0 0;
             }
             .upload-icon:before {
-                background-image: url(~@/../public/static/ico/cam-plus-lg.svg);
+                background-image: url(~@/assets/img/ico/cam-plus-lg.svg);
                 width: 49px;
                 height: 44px;
             }

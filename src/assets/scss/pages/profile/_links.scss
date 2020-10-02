@@ -1,0 +1,46 @@
+.link-item {
+    position: relative;
+    min-height: 300px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 6px;
+    background-color: white;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.22);
+    height: calc(100% - 20px);
+    .img-container {
+        img {
+            width: 100%;
+            border-radius: 6px;
+        }
+    }
+    .link-desc {
+        text-align: center;
+        padding: 15px 12px;
+        .title {
+            font-size: px2rem(14);
+            line-height: px2rem(18);
+            color: $text-color;
+            font-weight: bold;
+            margin-bottom: 5px;
+            min-height: 34px;
+        }
+        .link {
+            font-size: px2rem(12);
+            line-height: px2rem(22);
+            color: black;
+            word-wrap: break-word;
+        }
+        @include media-breakpoint-up(sm) {
+            &.no-img {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100%;
+            }
+        }
+    }
+    @include media-breakpoint-down(sm) {
+        min-height: inherit;
+    }
+}

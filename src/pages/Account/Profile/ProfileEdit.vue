@@ -1,12 +1,12 @@
 <template>
-    <b-container class="page page-profile-edit p-sm-5">
+    <b-container class="page page-profile-edit">
         <b-form
             @submit.stop.prevent="onSubmit"
             @reset="resetForm"
             :novalidate="true"
         >
             <b-row>
-                <b-col cols="12" class="d-none d-sm-block">
+                <b-col cols="12" class="d-none d-md-block">
                     <h2 class="page-title">Edit your profile</h2>
                 </b-col>
                 <b-col cols="12" class="profile-images-container mt-sm-4">
@@ -211,7 +211,7 @@
                                 label-for="country"
                                 class="mb-4"
                             >
-                                <BaseSelect
+                                <BasicSelect
                                     v-model="form.country"
                                     :options="allCountries"
                                     :reduce="country => country.code"
@@ -236,7 +236,7 @@
                         </b-col>
                     </b-row>
                 </b-col>
-                <b-col cols="12" class="mb-5">
+                <b-col cols="12">
                     <spinner-button
                         type="submit"
                         class="mt-5"
@@ -358,7 +358,7 @@ export default {
         Validator.extend('uniqueUrl', {
             validate: async value => {
                 this.validating.url = true
-                const { status, error } = await api.users.availability({
+                const { status, error } = await api.users.getAvailability({
                     type: 'url',
                     value,
                     userId: this.user.id,

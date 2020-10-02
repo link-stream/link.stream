@@ -23,10 +23,22 @@
                                 <mask id="mask-2" fill="white">
                                     <use xlink:href="#path-1"></use>
                                 </mask>
-                                <use fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
+                                <use
+                                    fill="#000000"
+                                    fill-rule="nonzero"
+                                    xlink:href="#path-1"
+                                />
                                 <g mask="url(#mask-2)" fill="#FFFFFF">
-                                    <g transform="translate(-1.000000, -2.000000)" id="Purple">
-                                        <rect x="0" y="0" width="20" height="20"></rect>
+                                    <g
+                                        transform="translate(-1.000000, -2.000000)"
+                                        id="Purple"
+                                    >
+                                        <rect
+                                            x="0"
+                                            y="0"
+                                            width="20"
+                                            height="20"
+                                        ></rect>
                                     </g>
                                 </g>
                             </g>
@@ -44,22 +56,44 @@
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
         >
-            <g id="Sign-Up-/-Sign-In" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g
+                id="Sign-Up-/-Sign-In"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+            >
                 <g
                     id="Desktop-Nav---Side-Nav-Sub-Menu-Open"
                     transform="translate(-83.000000, -34.000000)"
                     fill-rule="nonzero"
                 >
                     <g id="Top-Nav">
-                        <g id="Left-Nav-Items" transform="translate(11.000000, 10.000000)">
-                            <g id="icon-close-sharp" transform="translate(67.000000, 19.000000)">
-                                <g id="Icon" transform="translate(5.031250, 5.031250)" fill="#FFFFFF">
+                        <g
+                            id="Left-Nav-Items"
+                            transform="translate(11.000000, 10.000000)"
+                        >
+                            <g
+                                id="icon-close-sharp"
+                                transform="translate(67.000000, 19.000000)"
+                            >
+                                <g
+                                    id="Icon"
+                                    transform="translate(5.031250, 5.031250)"
+                                    fill="#FFFFFF"
+                                >
                                     <polygon
                                         id="Icon-Path"
                                         points="14.375 1.67159288 12.7034071 0 7.1875 5.51590712 1.67159288 0 0 1.67159288 5.51590712 7.1875 0 12.7034071 1.67159288 14.375 7.1875 8.85909288 12.7034071 14.375 14.375 12.7034071 8.85909288 7.1875"
                                     ></polygon>
                                 </g>
-                                <rect id="ViewBox" x="0" y="0" width="23" height="23"></rect>
+                                <rect
+                                    id="ViewBox"
+                                    x="0"
+                                    y="0"
+                                    width="23"
+                                    height="23"
+                                ></rect>
                             </g>
                         </g>
                     </g>

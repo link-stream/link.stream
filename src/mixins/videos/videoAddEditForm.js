@@ -1,11 +1,12 @@
 import { mapGetters } from 'vuex'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required } from 'vuelidate/lib/validators'
 import { helpers } from 'vuelidate/lib/validators'
 import moment from 'moment'
 
 export const videoAddEditForm = {
     created() {
         this.$store.dispatch('common/loadGenres')
+        this.$store.dispatch('me/loadRelatedTracks')
     },
     data() {
         return {
@@ -26,6 +27,7 @@ export const videoAddEditForm = {
         ...mapGetters({
             user: ['me/user'],
             genres: ['common/genres'],
+            relatedTracks: ['me/relatedTracks'],
         }),
         ytVidId() {
             return this.$youtube.getIdFromUrl(this.form.url)
@@ -44,7 +46,6 @@ export const videoAddEditForm = {
             },
             title: {
                 required,
-                minLength: minLength(10),
             },
         },
     },
@@ -102,8 +103,9 @@ export const videoAddEditForm = {
                 }
             } else {
                 this.$toast.error(error)
-                this.saving = false
             }
+
+            this.saving = false
         },
     },
 }

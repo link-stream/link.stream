@@ -2,7 +2,7 @@
     <div
         class="DropImage"
         :class="{
-            '--inline': variant === 'inline',
+            'is-inline': variant === 'inline',
         }"
     >
         <input
@@ -12,8 +12,8 @@
             ref="fileInput"
             @change="handleFileSelected"
         />
-        <section class="preview-container" v-if="isFileAdded">
-            <div class="preview-box">
+        <section class="preview-section" v-if="isFileAdded">
+            <div class="preview-thumb">
                 <img :src="src" @click="showFileDialog" />
                 <IconButton
                     class="file-remove-icon"
@@ -42,7 +42,7 @@
                     no-caret
                 >
                     <template v-slot:button-content>
-                        <BaseIcon icon="dot-menu-v" />
+                        <Icon icon="dot-menu-v" />
                     </template>
                     <b-dropdown-item @click="showFileDialog">
                         Replace
@@ -53,9 +53,9 @@
                 </b-dropdown>
             </div>
         </section>
-        <section class="upload-container" v-else>
+        <section class="upload-section" v-else>
             <div
-                class="drop-box"
+                class="upload-dd"
                 :class="{ highlight: isDraggingFile }"
                 @drop="handleDrop"
                 @dragleave="handleDragLeave"
@@ -69,8 +69,8 @@
                     <div class="upload-msg-l" v-html="msgLong"></div>
                 </div>
             </div>
-            <div class="upload-body">
-                <slot name="upload-body" :showFileDialog="showFileDialog">
+            <div class="upload-controls">
+                <slot name="upload-controls" :showFileDialog="showFileDialog">
                     <basic-button
                         class="file-add-btn"
                         variant="link"
@@ -111,9 +111,7 @@ export default {
         },
         acceptTypes: {
             type: Array,
-            default() {
-                return ['.png', '.jpg', '.jpeg']
-            },
+            default: () => ['.png', '.jpg', '.jpeg'],
         },
         msgShort: {
             type: String,
@@ -131,7 +129,7 @@ export default {
     },
     computed: {
         isFileSelected() {
-            return this.tmpFile ? true : false
+            return !!this.tmpFile
         },
     },
     methods: {

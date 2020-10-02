@@ -1,17 +1,13 @@
-import { types, trackAddWizardTypes } from '../mutationTypes'
+import { commonTypes, trackAddWizardTypes } from '../mutationTypes'
 import { appConstants } from '~/constants'
 import { cloneDeep } from 'lodash'
 import { required } from 'vuelidate/lib/validators'
 
 const initialState = () => ({
     licenses: [],
-    /**
-     * Free download options.
-     */
+    // Free download options
     freeDls: [...appConstants.marketingOptions],
-    /**
-     * Form values.
-     */
+    // Form values
     form: {
         selectedLicenseIds: [],
         selectedFreeDlIds: [],
@@ -20,39 +16,35 @@ const initialState = () => ({
         title: null,
         genre: {},
         tags: [],
-        bpm: '',
+        bpm: null,
         key: {},
-        trackPack: null,
+        trackPack: [],
         time: null,
         date: null,
         scheduled: false,
         isPublic: false,
         files: {
-            /**
-             * e.g.
-             * tagged: {
-             *   name: null,
-             *   base64: null
-             * }
-             */
+            // e.g.
+            // tagged: {
+            //     name: null,
+            //     base64: null,
+            // },
             stems: null,
             tagged: null,
             untaggedMp3: null,
             untaggedWav: null,
         },
         collabs: [
-            /**
-             * e.g.
-             * {
-             *   profit: null,
-             *   publishing: null,
-             *   user: {
-             *     id: null,
-             *     name: null,
-             *     photo: null,
-             *   }
-             * }
-             */
+            // e.g.
+            // {
+            //     profit: null,
+            //     publishing: null,
+            //     user: {
+            //         id: null,
+            //         name: null,
+            //         photo: null,
+            //     },
+            // },
         ],
     },
 })
@@ -60,7 +52,7 @@ const initialState = () => ({
 const state = initialState()
 
 const mutations = {
-    [types.RESET](state) {
+    [commonTypes.RESET](state) {
         const s = initialState()
         for (let key in state) {
             state[key] = s[key]
@@ -81,14 +73,14 @@ const mutations = {
         state.licenses = cloneDeep(licenses)
     },
 
-    [trackAddWizardTypes.UPDATE_LICENSE](state, { index, license }) {
-        state.licenses.splice(index, 1, cloneDeep(license))
+    [trackAddWizardTypes.UPDATE_LICENSE]({ licenses }, { index, license }) {
+        licenses.splice(index, 1, cloneDeep(license))
     },
 }
 
 const actions = {
     reset({ commit }) {
-        commit(types.RESET)
+        commit(commonTypes.RESET)
     },
 
     async updateForm({ commit }, values) {

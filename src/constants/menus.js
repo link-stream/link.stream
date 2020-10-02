@@ -9,7 +9,7 @@ export const menus = [
         id: 'profile',
         icon: ['fas', 'user-circle'],
         label: 'Profile',
-        to: '/app/profile',
+        to: '/app/profile/edit',
         subs: [
             {
                 label: 'Edit Profile',
@@ -25,7 +25,7 @@ export const menus = [
         id: 'tracks',
         icon: ['fas', 'music'],
         label: 'Tracks',
-        to: '/app/beats',
+        to: '/app/beats/manage',
         subs: [
             {
                 label: 'Beats',
@@ -39,13 +39,17 @@ export const menus = [
                 label: 'Sound Kits',
                 to: '/app/kits/manage',
             },
+            {
+                label: 'Beat Packs',
+                to: '/app/beat-packs/manage',
+            },
         ],
     },
     {
         id: 'links',
         icon: ['fas', 'link'],
         label: 'Links',
-        to: '/app/links',
+        to: '/app/links/manage',
         subs: [
             {
                 label: 'Add new link',
@@ -61,7 +65,7 @@ export const menus = [
         id: 'videos',
         icon: ['fas', 'play-circle'],
         label: 'Videos',
-        to: '/app/videos',
+        to: '/app/videos/manage',
         subs: [
             {
                 label: 'Add new video',
@@ -77,7 +81,7 @@ export const menus = [
         id: 'analytics',
         icon: ['fas', 'chart-bar'],
         label: 'Analytics',
-        to: '/app/analytics',
+        to: '/app/analytics/trafic',
         subs: [
             {
                 label: 'Trafic',
@@ -90,18 +94,54 @@ export const menus = [
         ],
     },
     {
+        id: 'marketing',
+        icon: ['fas', 'bullhorn'],
+        label: 'Marketing',
+        to: '/app/marketing/messages',
+        subs: [
+            {
+                label: 'Messages',
+                to: '/app/marketing/messages',
+            },
+            {
+                label: 'Subscribers',
+                to: '/app/marketing/subscribers',
+            },
+            {
+                label: 'Landing Pages',
+                to: '/app/marketing/landing-pages',
+            },
+            {
+                label: 'Ad Promos',
+                to: '/app/marketing/ad-promos',
+            },
+        ],
+    },
+    {
         id: 'account',
         icon: ['fas', 'user'],
         label: 'Account',
-        to: '/app/account',
+        to: '/app/account/info',
         subs: [
             {
-                label: 'Settings',
-                to: '/app/account/settings',
+                label: 'Account Info',
+                to: '/app/account/info',
             },
             {
-                label: 'Billing',
-                to: '/app/account/billing',
+                label: 'Purchases',
+                to: '/app/account/purchases',
+            },
+            {
+                label: 'Payments',
+                to: '/app/account/payments',
+            },
+            {
+                label: 'Payouts',
+                to: '/app/account/payouts',
+            },
+            {
+                label: 'Notifications',
+                to: '/app/account/notifications',
             },
         ],
     },

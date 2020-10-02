@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import notifications from '~/data/notifications'
+// import notifications from '~/data/notifications'
 
 export default {
     name: 'TopNavNotifications',

@@ -1,7 +1,7 @@
 <template>
     <div class="page page-licenses">
         <h1 class="page-title">Licenses</h1>
-        <LoadingSpinner v-if="loading" />
+        <LoadingSpinner class="page-loader" v-if="loading" />
         <div v-else class="page-body">
             <div class="Card" v-for="license in licenses" :key="license.id">
                 <div class="card-body">
@@ -16,7 +16,7 @@
                 </div>
                 <BasicButton
                     variant="icon"
-                    class="edit-btn"
+                    class="card-edit-btn"
                     title="Edit"
                     :to="{
                         name: 'accountTracksLicenseEdit',

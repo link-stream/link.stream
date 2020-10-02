@@ -1,7 +1,7 @@
 .LicenseCard {
     padding: 15px 20px;
 
-    .view-container {
+    .view-section {
         display: flex;
         align-items: center;
         .form-group {
@@ -9,7 +9,7 @@
         }
     }
 
-    .edit-container {
+    .edit-section {
         display: none;
         margin-top: 5px;
     }
@@ -27,11 +27,11 @@
         line-height: 15px;
     }
 
-    .close-btn {
+    .card-close-btn {
         display: none;
     }
 
-    .edit-actions {
+    .card-edit-actions {
         flex-direction: column;
         margin-top: 30px;
         .left-col {
@@ -52,11 +52,11 @@
     }
 
     &.is-editing {
-        .edit-btn {
+        .card-edit-btn {
             visibility: hidden;
         }
-        .close-btn,
-        .edit-container {
+        .card-close-btn,
+        .edit-section {
             display: block;
         }
     }
@@ -65,7 +65,7 @@
         .edit-form {
             margin: 0 37px;
         }
-        .edit-actions {
+        .card-edit-actions {
             flex-direction: row;
             .left-col {
                 text-align: left;

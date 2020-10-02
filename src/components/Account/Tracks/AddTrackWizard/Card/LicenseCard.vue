@@ -2,11 +2,11 @@
     <div class="Card LicenseCard" :class="{ 'is-editing': isEditMode }">
         <IconButton
             icon="close"
-            class="close-btn"
+            class="card-close-btn"
             title="Close"
             @click="handleCancelClick"
         />
-        <div class="view-container">
+        <section class="view-section">
             <b-form-checkbox
                 :checked="checked"
                 @change="handleCheckChange"
@@ -21,12 +21,12 @@
             </div>
             <BasicButton
                 variant="icon"
-                class="edit-btn"
+                class="card-edit-btn"
                 title="Edit"
                 @click="handleEditClick"
             />
-        </div>
-        <div class="edit-container">
+        </section>
+        <section class="edit-section">
             <div class="edit-form">
                 <b-form-group label="Adjust price">
                     <b-form-input
@@ -40,7 +40,7 @@
                     </b-form-invalid-feedback>
                 </b-form-group>
             </div>
-            <div class="edit-actions">
+            <div class="card-edit-actions">
                 <div class="left-col">
                     To customize your default license terms, go to
                     <basic-button
@@ -68,7 +68,7 @@
                     </basic-button>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 </template>
 

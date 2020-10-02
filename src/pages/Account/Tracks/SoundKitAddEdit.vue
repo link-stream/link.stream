@@ -1,18 +1,18 @@
 <template>
     <div class="page page-kit-add-edit">
-        <LoadingSpinner v-if="loading" />
-        <div class="page-content" v-else>
-            <nav class="page-nav">
-                <basic-button
-                    class="back-btn"
-                    variant="text"
-                    :to="{ name: 'accountSoundKits' }"
-                >
-                    <i class="ico ico-back"></i>
-                    <span>Sound Kits</span>
-                </basic-button>
-            </nav>
-            <div class="alert alert-success" v-if="showCreatedSuccess">
+        <nav class="page-nav">
+            <basic-button
+                class="back-btn"
+                variant="text"
+                :to="{ name: 'accountSoundKits' }"
+            >
+                <i class="ico ico-back"></i>
+                <span>Sound Kits</span>
+            </basic-button>
+        </nav>
+        <LoadingSpinner class="page-loader" v-if="loading" />
+        <div v-else>
+            <div class="alert alert-success" v-if="showCreatedMessage">
                 <strong>Created {{ kit.title }}!&nbsp;</strong>
                 <basic-button variant="link">
                     View it
@@ -70,8 +70,8 @@
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group label="Price">
-                            <div class="dollar-input">
-                                <BaseIcon class="input-icon" icon="dollar" />
+                            <div class="money-input">
+                                <Icon class="input-icon" icon="dollar" />
                                 <input
                                     type="text"
                                     v-model="$v.form.price.$model"
@@ -91,7 +91,7 @@
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group label="Genre">
-                            <BaseSelect
+                            <BasicSelect
                                 v-model="form.genreId"
                                 placeholder="Select Genre"
                                 :options="genres"
@@ -111,7 +111,7 @@
                             <b-form-invalid-feedback
                                 :state="!$v.form.tags.$error"
                             >
-                                Add 3 or more tags to help people find this kit
+                                Add at most 3 tags to help people find this kit
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group label="Description">
@@ -139,7 +139,7 @@
                                     v-html="form.zipFile.name"
                                 ></div>
                             </template>
-                            <template v-slot:upload-container>
+                            <template v-slot:upload-section>
                                 <i class="upload-icon"></i>
                                 <div class="upload-msg">
                                     <div class="upload-msg-s">
@@ -196,7 +196,7 @@
                                     v-html="form.mp3File.name"
                                 ></div>
                             </template>
-                            <template v-slot:upload-container>
+                            <template v-slot:upload-section>
                                 <i class="upload-icon"></i>
                                 <div class="upload-msg">
                                     <div class="upload-msg-s">
@@ -259,7 +259,7 @@
                             @add-file="handleImageAdd"
                             @remove-file="handleImageRemove"
                         >
-                            <template v-slot:upload-body>
+                            <template v-slot:upload-controls>
                                 <small
                                     class="text-hint"
                                     v-if="!form.coverArtBase64"
@@ -299,7 +299,7 @@ import { MiniAudioPlayer } from '~/components/Player'
 import { api } from '~/services'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, maxLength } from 'vuelidate/lib/validators'
 import moment from 'moment'
 
 const FILES_PAGE_SIZE = 5
@@ -316,19 +316,19 @@ export default {
         return {
             loading: false,
             saving: false,
-            showCreatedSuccess: false,
+            showCreatedMessage: false,
             tag: '',
             files: [],
             filesCurrentPage: 1,
-            kit: null,
+            kit: {},
             form: {
-                isPublic: false,
-                title: '',
-                price: '',
-                genreId: '',
-                description: '',
-                coverArtBase64: '',
+                title: null,
+                price: null,
+                genreId: null,
+                description: null,
+                coverArtBase64: null,
                 tags: [],
+                isPublic: false,
                 scheduled: false,
                 date: new Date(),
                 time: '00:00:00',
@@ -343,7 +343,7 @@ export default {
             genres: 'common/genres',
         }),
         isEditMode() {
-            return !!this.kit
+            return !!this.kit.id
         },
         fileCount() {
             return this.files.length
@@ -368,7 +368,7 @@ export default {
             },
             tags: {
                 required,
-                minLength: minLength(3),
+                maxLength: maxLength(3),
             },
             zipFile: {
                 required,
@@ -450,12 +450,7 @@ export default {
         this.loading = false
     },
     mounted() {
-        const rouetParams = this.$route.params
-        if (rouetParams.createdSuccess) {
-            this.showCreatedSuccess = true
-        } else if (rouetParams.updatedSuccess) {
-            this.$toast.success(rouetParams.updatedSuccess)
-        }
+        this.showCreatedMessage = !!this.$route.query.c
     },
     methods: {
         handleTagsChange(tags) {
@@ -508,7 +503,7 @@ export default {
 
             if (this.$v.form.tags.$invalid) {
                 this.$toast.error(
-                    'Add 3 or more tags to help people find this kit.'
+                    'Add at most 3 tags to help people find this kit'
                 )
                 return
             }
@@ -569,7 +564,7 @@ export default {
                 params.tagged_file_name = mp3File.name || null
             }
 
-            const { status, message, error, data } = this.isEditMode
+            const { status, message, error } = this.isEditMode
                 ? await this.$store.dispatch('me/updateSoundKit', {
                       id: kit.id,
                       params,
@@ -578,23 +573,17 @@ export default {
 
             if (status === 'success') {
                 if (this.isEditMode) {
-                    this.$router.push({
-                        name: 'accountSoundKitEdit',
-                        params: {
-                            id: data.id,
-                            updatedSuccess: message,
+                    this.$router.replace(
+                        {
+                            name: 'accountSoundKits',
                         },
-                        query: {
-                            u: Date.now(),
-                        },
-                    })
+                        () => {
+                            this.$toast.success(message)
+                        }
+                    )
                 } else {
                     this.$router.push({
-                        name: 'accountSoundKitEdit',
-                        params: {
-                            id: data.id,
-                            createdSuccess: message,
-                        },
+                        name: 'accountSoundKits',
                     })
                 }
             } else {

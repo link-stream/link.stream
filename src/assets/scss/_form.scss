@@ -13,7 +13,7 @@
     }
     .invalid-feedback {
         font-size: px2rem(12);
-        color: $linkstream-120;
+        color: $danger;
         font-weight: 600;
         margin-top: 5px;
     }
@@ -58,7 +58,7 @@
     }
 
     .custom-control-label:before {
-        border: 2px solid $linkstream-30;
+        border: 2px solid $gray-330;
     }
 
     .custom-control-input:checked ~ .custom-control-label:before {
@@ -72,7 +72,7 @@
     }
 }
 
-.BaseSelect {
+.BasicSelect {
     cursor: pointer;
 
     .arrow-icon {
@@ -130,7 +130,7 @@
 
     .vs__dropdown-option--highlight {
         color: $white !important;
-        background: rgba($linkstream-1, 0.9) !important;
+        background: rgba($primary, 0.9) !important;
     }
 
     .vs__no-options {
@@ -161,13 +161,13 @@
     .vc-day-content:hover,
     .vc-day-content:focus {
         color: $white;
-        background: rgba($linkstream-1, 0.9) !important;
+        background: rgba($primary, 0.9) !important;
     }
 
     input {
         cursor: default;
         background-color: $white !important;
-        background-image: url(~@/../public/static/ico/datepicker.svg);
+        background-image: url(~@/assets/img/ico/datepicker.svg);
         background-repeat: no-repeat;
         background-position: 96% center;
         &::placeholder {
@@ -228,23 +228,39 @@
     }
 }
 
-.search-input {
+.SearchInput {
     position: relative;
     input {
-        padding-left: 37px;
+        padding-left: 30px;
+        height: 35px;
     }
     .input-icon {
         position: absolute;
-        top: 13px;
+        top: 10px;
         left: 13px;
+        cursor: pointer;
+        &.right {
+            left: inherit;
+            right: 13px;
+        }
+    }
+    .input-clear-btn {
+        position: absolute;
+        top: 12px;
+        right: 15px;
+        cursor: pointer;
+        &.right {
+            left: 13px;
+            right: inherit;
+        }
     }
 }
 
-.dollar-input {
+.money-input {
     position: relative;
     input {
         padding-left: 27px;
-        width: 100px;
+        width: 100%;
     }
     .input-icon {
         position: absolute;
@@ -257,7 +273,7 @@
     &.is-unlimited {
         .btn,
         .form-control {
-            background-color: $linkstream-80;
+            background-color: $gray-110;
         }
         .btn {
             box-shadow: inset -1px 1px 3px 0 rgba(0, 0, 0, 0.18);
@@ -266,18 +282,78 @@
     .btn {
         &,
         &:active {
-            border-color: $linkstream-30 !important;
+            border-color: $gray-330 !important;
         }
         &:hover {
-            background-color: $linkstream-80;
+            background-color: $gray-110;
         }
         font-size: px2rem(13);
         font-weight: 500;
         border-radius: 4px 0 0 4px;
         letter-spacing: 0;
         text-transform: none;
-        color: $linkstream-110;
+        color: $gray-810;
         background-color: $white;
         padding: 0 15px;
+    }
+}
+
+.MultiSelect {
+    position: relative;
+    &.is-open {
+        .select-menu {
+            display: block;
+        }
+    }
+    .select-menu {
+        position: absolute;
+        z-index: 1;
+        display: none;
+        width: 100%;
+        max-height: 297px;
+        overflow-y: scroll;
+        margin-top: 11px;
+        border: 1px solid $gray-420;
+        border-radius: 2px;
+        background-color: $white;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+    }
+}
+
+.dropdown-actions {
+    .dropdown-toggle {
+        display: flex;
+        text-transform: uppercase;
+        color: black;
+        font-size: px2rem(11);
+        font-weight: bold;
+        line-height: px2rem(35);
+        span {
+            margin-right: 5px;
+            letter-spacing: 1.5px;
+        }
+        .fa-chevron-up {
+            display: none;
+            margin-top: 12px;
+        }
+        .fa-chevron-down {
+            display: block;
+            margin-top: 12px;
+        }
+    }
+    &.show {
+        .fa-chevron-up {
+            display: block;
+        }
+        .fa-chevron-down {
+            display: none;
+        }
+    }
+}
+
+.vue-star-rating {
+    svg {
+        width: 16px;
+        height: 16px;
     }
 }

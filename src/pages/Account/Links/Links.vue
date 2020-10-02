@@ -28,15 +28,27 @@
             </div>
         </header>
         <main class="page-body">
-            <div class="page-spinner" v-if="loading">
-                <LoadingSpinner />
+            <div class="page-empty" v-if="!loading && !sortableList.length">
+                <div class="empty-text">
+                    Your Links will appear here.
+                </div>
+                <basic-button
+                    class="empty-link"
+                    variant="link"
+                    :to="{
+                        name: 'accountLinkAdd',
+                    }"
+                >
+                    Add a Link
+                </basic-button>
             </div>
+            <LoadingSpinner class="page-loader" v-if="loading" />
             <Container
                 v-else
                 @drop="handleReorder"
-                drag-handle-selector=".drag-icon"
+                drag-handle-selector=".card-drag-icon"
             >
-                <Draggable v-for="link in sortableLinks" :key="link.id">
+                <Draggable v-for="link in sortableList" :key="link.id">
                     <LinkCard
                         :link="link"
                         @schedule-click="handleScheduleClick"
@@ -49,8 +61,8 @@
 </template>
 
 <script>
-import { LinkCard } from '~/components/Account/Links'
-import { LinkScheduleModal } from '~/components/Modal'
+import LinkCard from '~/components/Account/Links/LinkCard'
+import LinkScheduleModal from '~/components/Modal/LinkScheduleModal'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import { mapGetters } from 'vuex'
 
@@ -65,7 +77,7 @@ export default {
     data() {
         return {
             loading: false,
-            sortableLinks: [],
+            sortableList: [],
         }
     },
     computed: {
@@ -75,8 +87,11 @@ export default {
         }),
     },
     watch: {
-        links(newValue) {
-            this.sortableLinks = [...newValue]
+        links: {
+            immediate: true,
+            handler(newValue) {
+                this.sortableList = [...newValue]
+            },
         },
     },
     async created() {
@@ -90,10 +105,11 @@ export default {
         },
         handleReorder(dropResult) {
             const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
-            const link = this.sortableLinks[oldIndex]
-            this.sortableLinks.splice(oldIndex, 1)
-            this.sortableLinks.splice(newIndex, 0, link)
-            const sorts = this.sortableLinks.map(({ id }, index) => {
+            const list = [...this.sortableList]
+            const item = list[oldIndex]
+            list.splice(oldIndex, 1)
+            list.splice(newIndex, 0, item)
+            const sorts = list.map(({ id }, index) => {
                 return {
                     id,
                     sort: (index + 1).toString(),

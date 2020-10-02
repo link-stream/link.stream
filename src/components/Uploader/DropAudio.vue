@@ -7,7 +7,7 @@
             ref="fileInput"
             @change="handleFileSelected"
         />
-        <section class="preview-container" v-if="isFileAdded">
+        <section class="preview-section" v-if="isFileAdded">
             <MiniAudioPlayer :src="src" />
             <div class="preview-body">
                 <slot name="preview-body">
@@ -30,7 +30,7 @@
                     no-caret
                 >
                     <template v-slot:button-content>
-                        <BaseIcon icon="dot-menu-v" />
+                        <Icon icon="dot-menu-v" />
                     </template>
                     <b-dropdown-item @click="showFileDialog">
                         Replace File
@@ -43,7 +43,7 @@
         </section>
         <section
             v-else
-            class="upload-container"
+            class="upload-section"
             :class="{ highlight: isDraggingFile }"
             @drop="handleDrop"
             @dragleave="handleDragLeave"
@@ -51,7 +51,7 @@
             @dragenter="handleDragEnter"
             @click="showFileDialog"
         >
-            <slot name="upload-container">
+            <slot name="upload-section">
                 <div class="upload-body">
                     <div class="upload-title" v-html="title"></div>
                     <div class="upload-subtitle">No File Added</div>
@@ -75,9 +75,7 @@ export default {
     props: {
         acceptTypes: {
             type: Array,
-            default() {
-                return ['.wav', '.mp3']
-            },
+            default: () => ['.wav', '.mp3'],
         },
     },
 }

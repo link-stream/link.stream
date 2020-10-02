@@ -31,3 +31,14 @@ Vue.filter('customizeDate', function(value, format) {
 Vue.filter('mmddyyyy', function(value) {
     return moment(value).format('MM/DD/YYYY')
 })
+
+Vue.filter('fullDateTime', function(value) {
+    return moment(value).format('ddd, MMMM Do hh:mm A')
+})
+
+Vue.filter('normalTime', function(value) {
+    return moment(value).format('h:mma')
+})
+Vue.filter('age', function(value) {
+    return moment().diff(moment(value), 'years')
+})

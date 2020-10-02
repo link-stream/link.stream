@@ -1,22 +1,25 @@
-.layout--account {
+.layout-account {
     @import 'components/account/topnav';
-    @import 'components/account/sidenav';
+    // @import 'components/account/sidenav';
+    @import 'components/account/sidebar';
 
     .smooth-dnd-draggable-wrapper {
         overflow: visible !important;
     }
 
     .layout-content {
-        padding-top: $navbar-height;
-        padding-bottom: $main-margin;
+        @include media-breakpoint-down(sm) {
+            margin-top: $navbar-height;
+        }
+        // margin-bottom: $main-margin;
     }
 
     // Mobile device
     &.menu-mobile .layout-content {
         margin-left: $main-margin-mobile-x !important;
         margin-right: $main-margin-mobile-x !important;
-        padding-top: $navbar-height !important;
-        padding-bottom: $main-margin-mobile-y;
+        margin-top: $navbar-height !important;
+        margin-bottom: $main-margin-mobile-y;
         .page {
             padding-top: $main-margin-mobile-y;
         }
@@ -25,7 +28,7 @@
     .page-nav {
         margin-bottom: 15px;
         .back-btn {
-            color: $linkstream-70;
+            color: $gray-520;
             font-size: px2rem(11);
             font-weight: bold;
             letter-spacing: 2px;
@@ -38,7 +41,7 @@
         }
     }
 
-    .page-spinner {
+    .page-loader {
         margin-top: 75px;
     }
 
@@ -49,12 +52,7 @@
     }
 
     .page-title {
-        font-weight: 800;
-        color: $black;
-        font-size: px2rem(30);
-        line-height: 34px;
-        margin: 0;
-        margin-bottom: $spacer * 0.5;
+        margin: 0 0 $spacer * 0.5 0;
     }
 
     .page-subtitle {
@@ -72,7 +70,7 @@
         letter-spacing: 0.5px;
         margin: 15px 0;
         .text-light {
-            color: $linkstream-70 !important;
+            color: $gray-520 !important;
             font-size: 12px;
             font-weight: 600;
             letter-spacing: 0;
@@ -86,9 +84,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: $linkstream-160;
+        background-color: $gray-10;
         padding: 38px 0;
-        color: $linkstream-170 !important;
+        color: $gray-530 !important;
         &,
         .empty-link {
             font-size: px2rem(13);
@@ -121,6 +119,8 @@
             padding-top: $main-margin;
             margin-left: auto;
             margin-right: auto;
+            min-height: calc(100vh - 120px);
+            margin-bottom: $main-margin;
         }
 
         .page-header {
@@ -143,6 +143,11 @@
             .empty-text {
                 margin-right: 5px;
             }
+        }
+    }
+    @include media-breakpoint-only(lg) {
+        .page {
+            max-width: $layout-account-page-max-width-lg;
         }
     }
 }

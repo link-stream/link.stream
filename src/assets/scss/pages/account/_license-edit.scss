@@ -1,6 +1,6 @@
 .page-license-edit {
     .page-header {
-        border-bottom: 1px solid $linkstream-130;
+        border-bottom: 1px solid $gray-410;
         padding-bottom: 15px;
         .right-col {
             margin-top: 15px;
@@ -18,7 +18,7 @@
 
     .page-footer {
         text-align: right;
-        border-top: 1px solid $linkstream-30;
+        border-top: 1px solid $gray-330;
         padding-top: 20px;
         margin-top: 30px;
     }
@@ -58,14 +58,14 @@
     }
 
     .default-text {
-        color: $linkstream-40;
+        color: $gray-550;
         font-size: px2rem(14);
         font-style: italic;
         letter-spacing: 0;
         margin-top: 10px;
     }
 
-    .dollar-input {
+    .money-input {
         input {
             width: 125px;
         }

@@ -6,6 +6,7 @@
 @import '~bootstrap-vue/src/index';
 @import '~vue-toastification/src/scss/index';
 @import '~vue-select/src/scss/vue-select';
+@import '~vue-slider-component/lib/theme/default.scss';
 
 // Configuration
 @import 'mixins';
@@ -18,6 +19,7 @@
 @import 'form';
 @import 'icons';
 @import 'alerts';
+@import 'typography';
 @import 'vendor/perfect-scrollbar';
 @import 'vendor/vue-toastification';
 
@@ -31,22 +33,30 @@
 @import 'components/user-avatar';
 @import 'components/mini-audio-player';
 @import 'components/base-card';
+@import 'components/beat-multi-select';
 @import 'components/account/form-wizard';
 @import 'components/account/video-card';
 @import 'components/account/link-card';
 @import 'components/account/beat-card';
 @import 'components/account/license-card';
+@import 'components/profile/art-player';
+@import 'components/profile/filter';
+@import 'components/profile/modal';
+@import 'components/marketing/selectplan';
+@import 'components/marketing/pagecard';
 
 // Modals
 @import 'modals/base-modal';
 @import 'modals/video-edit-modal';
 @import 'modals/link-schedule-modal';
 @import 'modals/user-search-modal';
+@import 'components/marketing/modal';
 
 // Layouts
 @import 'layouts/error';
-@import 'layouts/account';
 @import 'layouts/auth';
+@import 'layouts/account';
+@import 'layouts/profile';
 
 // Pages - Auth
 @import 'pages/auth/login';
@@ -64,7 +74,21 @@
 @import 'pages/account/licenses';
 @import 'pages/account/license-edit';
 @import 'pages/account/soundkit-add-edit';
+@import 'pages/account/beatpack-add-edit';
+@import 'pages/account/settings';
 
 // Pages - Other
 @import 'pages/other/coming-soon';
 @import 'pages/other/legal';
+
+//Pages - Public Profile
+@import 'pages/profile/main';
+@import 'pages/profile/beats';
+@import 'pages/profile/videos';
+@import 'pages/profile/links';
+
+//Pages - Marketing
+@import 'pages/marketing/messages';
+@import 'pages/marketing/customize-message';
+@import 'pages/marketing/subscribers';
+@import 'pages/marketing/landingpage';

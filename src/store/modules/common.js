@@ -1,4 +1,4 @@
-import { types } from '../mutationTypes'
+import { commonTypes } from '../mutationTypes'
 import { api } from '~/services'
 
 const initialState = () => ({
@@ -10,15 +10,15 @@ const initialState = () => ({
 const state = initialState()
 
 const mutations = {
-    [types.SET_TIMEZONES](state, { timezones }) {
+    [commonTypes.SET_TIMEZONES](state, { timezones }) {
         state.timezones = timezones
     },
 
-    [types.SET_GENRES](state, { genres }) {
+    [commonTypes.SET_GENRES](state, { genres }) {
         state.genres = genres
     },
 
-    [types.SET_AUDIO_KEYS](state, { audioKeys }) {
+    [commonTypes.SET_AUDIO_KEYS](state, { audioKeys }) {
         state.audioKeys = audioKeys
     },
 }
@@ -30,7 +30,7 @@ const actions = {
         }
         const { status, data } = await api.common.getTimezones()
         commit({
-            type: types.SET_TIMEZONES,
+            type: commonTypes.SET_TIMEZONES,
             timezones: status === 'success' ? data : [],
         })
     },
@@ -41,7 +41,7 @@ const actions = {
         }
         const { status, data } = await api.common.getGenres()
         commit({
-            type: types.SET_GENRES,
+            type: commonTypes.SET_GENRES,
             genres: status === 'success' ? data : [],
         })
     },
@@ -52,7 +52,7 @@ const actions = {
         }
         const { status, data } = await api.audios.getKeys()
         commit({
-            type: types.SET_AUDIO_KEYS,
+            type: commonTypes.SET_AUDIO_KEYS,
             audioKeys: status === 'success' ? data : [],
         })
     },
@@ -61,6 +61,13 @@ const actions = {
 const getters = {
     genres: ({ genres }) => genres,
     audioKeys: ({ audioKeys }) => audioKeys,
+    genreLabelById: ({ genres }) => {
+        return id => {
+            const genre = genres.find(genre => genre.id == id)
+            return genre ? genre.genre : ''
+        }
+    },
+    timezones: ({ timezones }) => timezones,
 }
 
 export default {

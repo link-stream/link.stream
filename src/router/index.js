@@ -11,26 +11,24 @@ const router = new Router({
 })
 
 router.beforeResolve((to, from, next) => {
-    // If this isn't an initial page load.
+    // If this isn't an initial page load
     if (to.name) {
-        // Start the route progress bar.
+        // Start the route progress bar
         router.app.$Progress.start()
     }
     next()
 })
 
 router.beforeEach(async (to, from, next) => {
-    // middleware for access controlled pages
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (!store.getters['auth/user']) {
-            // redirect to login if attempting to access authed page
-            next({ name: 'login' })
-        } else {
+        if (store.getters['auth/isLoggedIn']()) {
             next()
+        } else {
+            next({ name: 'login' })
+            store.dispatch('auth/logout')
         }
     } else if (to.matched.some(record => record.meta.requiresGuest)) {
-        if (store.getters['auth/user']) {
-            // redirect home if attempting to access guest-only page
+        if (store.getters['auth/isLoggedIn']()) {
             next({ name: 'accountDashboard' })
             store.dispatch('me/loadAccount')
         } else {
@@ -42,7 +40,8 @@ router.beforeEach(async (to, from, next) => {
 })
 
 router.afterEach(() => {
-    // Complete the animation of the route progress bar.
+    // store.dispatch('loading/reset')
+    // Complete the animation of the route progress bar
     router.app.$Progress.finish()
 })
 

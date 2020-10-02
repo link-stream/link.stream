@@ -1,6 +1,6 @@
 .DropFile {
     &.is-invalid {
-        .upload-container {
+        .upload-section {
             border-color: $danger;
             border-width: 2px;
         }
@@ -12,15 +12,15 @@
             display: none;
             &:before {
                 @extend .ico:before;
-                background-image: url(~@/../public/static/ico/zip-file.svg);
+                background-image: url(~@/assets/img/ico/zip-file.svg);
                 width: 18px;
                 height: 24px;
             }
         }
     }
 
-    .preview-container,
-    .upload-container {
+    .preview-section,
+    .upload-section {
         display: flex;
         align-items: center;
         border-radius: 4px;
@@ -28,7 +28,7 @@
         height: 80px;
     }
 
-    .preview-container {
+    .preview-section {
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.22);
     }
 
@@ -36,12 +36,12 @@
         display: none;
     }
 
-    .upload-container {
-        border: 2px dashed $linkstream-130;
+    .upload-section {
+        border: 2px dashed $gray-410;
         cursor: pointer;
         &.highlight,
         &:hover {
-            border-color: $linkstream-20;
+            border-color: $color-yellow-1;
         }
     }
 
@@ -70,7 +70,7 @@
         @extend .ico;
         &:before {
             @extend .ico:before;
-            background-image: url(~@/../public/static/ico/cloud-upload-sm.svg);
+            background-image: url(~@/assets/img/ico/cloud-upload-sm.svg);
             width: 35px;
             height: 28px;
         }
@@ -88,7 +88,7 @@
         }
 
         .upload-icon:before {
-            background-image: url(~@/../public/static/ico/cloud-upload-lg.svg);
+            background-image: url(~@/assets/img/ico/cloud-upload-lg.svg);
             width: 43px;
             height: 34px;
         }

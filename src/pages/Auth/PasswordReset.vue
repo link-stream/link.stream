@@ -139,7 +139,7 @@ export default {
                 this.status.loading.reset = true
                 const { password: new_password } = this.form
                 const { param1: param_1, param2: param_2 } = this.$route.params
-                const { status, error } = await api.users.passwordReset({
+                const { status, error } = await api.users.resetPassword({
                     param_1,
                     param_2,
                     new_password,

@@ -1,0 +1,18 @@
+.select-plan-bar {
+    height: 80px;
+    margin-top: 40px;
+    background: linear-gradient(45deg, #A624D2 0%, #CE5353 47.8%, #FFB02D 100%);
+    span {
+        font-size: px2rem(14);
+        font-weight: 600;
+    }
+    .btn-upgrade {
+        background-color: transparent;
+        color: white;
+        border-width: 2px;
+        margin-left: 20px;
+    }
+    line-height: 80px;
+    text-align: center;
+    color: white;
+}

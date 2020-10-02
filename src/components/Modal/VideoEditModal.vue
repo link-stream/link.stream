@@ -40,17 +40,13 @@
                 ></b-form-input>
                 <b-form-invalid-feedback>
                     <template v-if="!$v.form.title.required">
-                        Enter a title
-                    </template>
-                    <template v-else-if="!$v.form.title.minLength">
-                        Title should be at least
-                        {{ $v.form.title.$params.minLength.min }} characters
+                        Enter the title
                     </template>
                 </b-form-invalid-feedback>
             </b-form-group>
 
             <b-form-group label="Primary Genre" label-for="genreInput">
-                <BaseSelect
+                <BasicSelect
                     v-model="form.genre"
                     id="genreInput"
                     placeholder="Select Genre"
@@ -61,11 +57,11 @@
             </b-form-group>
 
             <b-form-group label="Related Track" label-for="trackInput">
-                <BaseSelect
-                    v-model="form.related_track"
+                <BasicSelect
+                    v-model="form.relatedTrack"
                     id="trackInput"
                     placeholder="Select Related Track"
-                    :options="[]"
+                    :options="relatedTracks"
                     :reduce="track => track.id"
                     label="title"
                 />
@@ -136,12 +132,13 @@ export default {
     data() {
         return {
             open: false,
-            video: null,
+            video: {},
         }
     },
     created() {
         this.$bus.$on('modal.videoEdit.open', this.handleOpen)
         this.$bus.$on('modal.videoEdit.close', this.handleClose)
+        console.log(this.relatedTracks)
     },
     methods: {
         close() {

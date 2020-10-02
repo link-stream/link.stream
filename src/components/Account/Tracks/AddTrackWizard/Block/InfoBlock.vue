@@ -9,7 +9,7 @@
                 ></b-form-input>
                 <b-form-invalid-feedback>
                     <template v-if="!$v.form.title.required">
-                        Enter a title
+                        Enter the title
                     </template>
                     <template v-else-if="!$v.form.title.isUnique">
                         You already have a beat with this title, pick a new one.
@@ -18,7 +18,7 @@
             </b-form-group>
 
             <b-form-group label="Primary Genre">
-                <BaseSelect
+                <BasicSelect
                     v-model="form.genre"
                     placeholder="Select Genre"
                     :options="genres"
@@ -36,7 +36,7 @@
                     @tags-changed="handleTagsChange"
                 />
                 <b-form-invalid-feedback :state="!$v.form.tags.$error">
-                    Add 3 or more tags to help people find this beat
+                    Add at most 3 tags to help people find this beat
                 </b-form-invalid-feedback>
             </b-form-group>
 
@@ -51,7 +51,7 @@
                 </b-col>
                 <b-col md="6">
                     <b-form-group label="Key">
-                        <BaseSelect
+                        <BasicSelect
                             v-model="form.key"
                             placeholder="Select"
                             :options="audioKeys"
@@ -61,16 +61,11 @@
                 </b-col>
             </b-form-row>
 
-            <b-form-group :label="`Add to ${isSong ? 'Song' : 'Beat'} Pack`">
-                <div class="search-input">
-                    <BaseIcon class="input-icon" icon="search" />
-                    <b-form-input
-                        v-model="form.trackPack"
-                        :placeholder="
-                            `Search for ${isSong ? 'song' : 'beat'} pack`
-                        "
-                    ></b-form-input>
-                </div>
+            <b-form-group label="Add to Beat Pack">
+                <beat-packs-multi-select
+                    placeholder="Search for beat packs"
+                    v-model="form.trackPack"
+                />
             </b-form-group>
 
             <div class="collabs">
@@ -131,7 +126,7 @@
                     class="add-btn"
                     @click="showCollabSearchModal"
                 >
-                    <BaseIcon icon="plus" />
+                    <Icon icon="plus" />
                     Add Collaborator
                 </basic-button>
             </div>
@@ -140,8 +135,9 @@
 </template>
 
 <script>
+import BeatPacksMultiSelect from '~/components/Account/Tracks/Beats/BeatPacksMultiSelect'
 import { collabsProfitFormMixin } from '~/mixins/tracks/collabsProfitForm'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, maxLength } from 'vuelidate/lib/validators'
 import { api } from '~/services'
 import { mapGetters } from 'vuex'
 import { cloneDeep } from 'lodash'
@@ -149,6 +145,9 @@ import { cloneDeep } from 'lodash'
 export default {
     name: 'InfoBlock',
     mixins: [collabsProfitFormMixin],
+    components: {
+        BeatPacksMultiSelect,
+    },
     data() {
         const {
             trackType,
@@ -169,7 +168,7 @@ export default {
                 tags: [...tags],
                 bpm,
                 key: { ...key },
-                trackPack,
+                trackPack: [...trackPack],
                 collabs: cloneDeep(collabs),
             },
         }
@@ -186,7 +185,7 @@ export default {
         form: {
             tags: {
                 required,
-                minLength: minLength(3),
+                maxLength: maxLength(3),
             },
             title: {
                 required,
@@ -226,7 +225,7 @@ export default {
             this.$v.form.$touch()
 
             if (!this.$v.form.title.required) {
-                this.$toast.error('Enter a title.')
+                this.$toast.error('Enter the title.')
                 return
             }
 
@@ -239,7 +238,7 @@ export default {
 
             if (this.$v.form.tags.$invalid) {
                 this.$toast.error(
-                    'Add 3 or more tags to help people find this beat.'
+                    'Add at most 3 tags to help people find this beat.'
                 )
                 return
             }

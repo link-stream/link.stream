@@ -1,17 +1,14 @@
 <template>
     <div class="page page-beat-add">
         <div class="page-body">
-            <div class="page-spinner" v-if="loading">
-                <LoadingSpinner />
-            </div>
-            <Wizard v-else />
+            <Wizard />
+            <UserInviteModal />
+            <UserSearchModal />
+            <InfoEditModal />
+            <LicensesEditModal />
+            <FilesEditModal />
+            <MarketingEditModal />
         </div>
-        <UserInviteModal />
-        <UserSearchModal />
-        <InfoEditModal />
-        <LicensesEditModal />
-        <FilesEditModal />
-        <MarketingEditModal />
     </div>
 </template>
 
@@ -36,16 +33,6 @@ export default {
         LicensesEditModal,
         FilesEditModal,
         MarketingEditModal,
-    },
-    data() {
-        return {
-            loading: false,
-        }
-    },
-    async created() {
-        this.loading = true
-        await this.$store.dispatch('trackAddWizard/loadWizard')
-        this.loading = false
     },
 }
 </script>

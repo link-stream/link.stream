@@ -7,6 +7,7 @@
         :placeholder="tags.length ? '' : 'Tags'"
         :tags="tags"
         @tags-changed="handleTagsChange"
+        :autocomplete-items="filteredItems"
     />
 </template>
 
@@ -21,10 +22,13 @@ export default {
     props: {
         value: {
             type: String,
-            default: '',
             required: true,
         },
         tags: {
+            type: Array,
+            default: () => [],
+        },
+        allTags: {
             type: Array,
             default: () => [],
         },
@@ -33,6 +37,15 @@ export default {
         return {
             tag: this.value,
         }
+    },
+    computed: {
+        filteredItems() {
+            return this.allTags.filter(i => {
+                return (
+                    i.text.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1
+                )
+            })
+        },
     },
     methods: {
         handleTagsChange(value) {

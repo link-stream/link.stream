@@ -1,5 +1,6 @@
 import qs from 'qs'
 import axios from '~/plugins/axios'
+import app from '~/main'
 
 const METHOD_GET = 'GET'
 const METHOD_POST = 'POST'
@@ -15,6 +16,11 @@ const call = async function({
     const headers = {
         'X-API-KEY': process.env.VUE_APP_API_KEY,
         'Content-Type': 'application/x-www-form-urlencoded',
+    }
+
+    const authToken = app.$store.getters['auth/token']
+    if (authToken) {
+        headers.Token = authToken
     }
 
     const auth = {
@@ -66,25 +72,15 @@ export const api = {
     users: {
         async getUser(id) {
             const endpoint = '/users/' + id
-            return await call({ endpoint, showProgress: false })
+            return await call({ endpoint })
         },
         async updateUser(id, params) {
             const endpoint = '/users/' + id
             const method = METHOD_PUT
             return await call({ endpoint, params, method })
         },
-        async emailConfirm(params) {
+        async confirmEmail(params) {
             const endpoint = '/users/email_confirm'
-            const method = METHOD_POST
-            return await call({ endpoint, params, method })
-        },
-        async google(params) {
-            const endpoint = '/users/google'
-            const method = METHOD_POST
-            return await call({ endpoint, params, method })
-        },
-        async instagram(params) {
-            const endpoint = '/users/instagram'
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
@@ -93,12 +89,22 @@ export const api = {
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
+        async googleLogin(params) {
+            const endpoint = '/users/google'
+            const method = METHOD_POST
+            return await call({ endpoint, params, method })
+        },
+        async instagramLogin(params) {
+            const endpoint = '/users/instagram'
+            const method = METHOD_POST
+            return await call({ endpoint, params, method })
+        },
         async logout() {
             const endpoint = '/users/logout'
             const method = METHOD_POST
             return await call({ endpoint, method })
         },
-        async registration(params) {
+        async signup(params) {
             const endpoint = '/users/registration'
             const method = METHOD_POST
             return await call({ endpoint, params, method })
@@ -108,17 +114,18 @@ export const api = {
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
-        async passwordReset(params) {
+        async resetPassword(params) {
             const endpoint = '/users/password_reset'
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
-        async availability({ type, value, userId = '' }) {
+        async getAvailability({ type, value, userId = '' }) {
+            value = encodeURIComponent(value)
             const endpoint = `/users/availability/${type}/${value}/${userId}`
             const method = METHOD_GET
             return await call({ endpoint, method, showProgress: false })
         },
-        async resendEmailConfirm(params) {
+        async resendConfirmEmail(params) {
             const endpoint = '/users/resend_email_confirm'
             const method = METHOD_POST
             return await call({ endpoint, params, method })
@@ -129,8 +136,9 @@ export const api = {
             const method = METHOD_GET
             return await call({ endpoint, method })
         },
-        async inviteCollab({ user_id, email }) {
-            const endpoint = `/users/invite_collaborator/${user_id}/${email}`
+        async inviteCollab({ userId, email }) {
+            email = encodeURIComponent(email)
+            const endpoint = `/users/invite_collaborator/${userId}/${email}`
             const method = METHOD_POST
             return await call({ endpoint, method })
         },
@@ -151,12 +159,12 @@ export const api = {
         async getBeatsByUser(userId) {
             const endpoint = `/audios/${userId}/2`
             const method = METHOD_GET
-            return await call({ endpoint, method, showProgress: false })
+            return await call({ endpoint, method })
         },
         async getSoundKitsByUser(userId) {
             const endpoint = `/audios/${userId}/3`
             const method = METHOD_GET
-            return await call({ endpoint, method, showProgress: false })
+            return await call({ endpoint, method })
         },
         async getKeys() {
             const endpoint = '/audios/audio_key'
@@ -207,6 +215,51 @@ export const api = {
             const method = METHOD_GET
             return await call({ endpoint, method })
         },
+        async getRelatedTracks(userId) {
+            const endpoint = '/audios/related_track/' + userId
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
+    },
+    albums: {
+        async createAlbum(params) {
+            const endpoint = '/albums'
+            const method = METHOD_POST
+            return await call({ endpoint, method, params })
+        },
+        async updateAlbum(id, params) {
+            const endpoint = '/albums/' + id
+            const method = METHOD_PUT
+            return await call({ endpoint, method, params })
+        },
+        async getAlbumsByUser(userId) {
+            const endpoint = '/albums/' + userId
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
+        async getAlbum(id, userId) {
+            const endpoint = `/albums/${userId}/${id}`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async deleteAlbum(id) {
+            const endpoint = '/albums/' + id
+            const method = METHOD_DELETE
+            return await call({ endpoint, method })
+        },
+        async sortAlbums(params) {
+            const endpoint = '/albums/sort_albums/'
+            const method = METHOD_POST
+            return await call({ endpoint, params, method })
+        },
+        async getRelatedAlbums(userId, trackType) {
+            const endpoint = `/albums/related_album/${userId}/${trackType}`
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
     },
     videos: {
         async createVideo(params) {
@@ -236,7 +289,6 @@ export const api = {
                 endpoint,
                 params,
                 method,
-                showProgress: false,
             })
         },
     },
@@ -247,7 +299,6 @@ export const api = {
             return await call({
                 endpoint,
                 method,
-                showProgress: false,
             })
         },
         async createLink(params) {
@@ -257,7 +308,6 @@ export const api = {
                 endpoint,
                 params,
                 method,
-                showProgress: false,
             })
         },
         async updateLink(id, params) {
@@ -271,7 +321,6 @@ export const api = {
             return await call({
                 endpoint,
                 method,
-                showProgress: false,
             })
         },
         async sortLinks(params) {
@@ -318,6 +367,323 @@ export const api = {
             return await call({
                 endpoint,
                 params,
+                method,
+            })
+        },
+    },
+    account: {
+        async getPurchases(userId) {
+            const endpoint = '/users/purchases/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getPaymentMethodsByUser(userId) {
+            const endpoint = '/users/payment_method/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async insertPaymentMethod(params) {
+            const endpoint = '/users/payment_method'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async updatePaymentMethod(payment_id, params) {
+            const endpoint = '/users/payment_method/' + payment_id
+            const method = METHOD_PUT
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async deletePaymentMethod(id) {
+            const endpoint = '/users/payment_method/' + id
+            const method = METHOD_DELETE
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getNotification(userId) {
+            const endpoint = '/users/notification/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async updateNotification(id, params) {
+            const endpoint = '/users/notification/' + id
+            const method = METHOD_PUT
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+    },
+    profiles: {
+        async getProfileMain(userUrl) {
+            const endpoint = '/profiles/' + userUrl
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileBeats(producerId, params) {
+            let endpoint = '/profiles/beats/' + producerId
+            endpoint += '?page=1'
+            if (params) {
+                endpoint += params.sort ? '&sort=' + params.sort : ''
+                endpoint += params.tag ? '&tag=' + params.tag : ''
+                endpoint += params.genre ? '&genre=' + params.genre : ''
+                endpoint += params.bpm_min ? '&bpm_min=' + params.bpm_min : ''
+                endpoint += params.bpm_max ? '&bpm_max=' + params.bpm_max : ''
+                endpoint += params.type ? '&type=' + params.type : ''
+            }
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileKits(producerId, params) {
+            let endpoint = '/profiles/sound_kits/' + producerId
+            endpoint += '?page=1'
+            if (params) {
+                endpoint += params.sort ? '&sort=' + params.sort : ''
+                endpoint += params.tag ? '&tag=' + params.tag : ''
+                endpoint += params.genre ? '&genre=' + params.genre : ''
+            }
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileVideos(producerId, params) {
+            let endpoint = '/profiles/videos/' + producerId
+            endpoint += '?page=1'
+            if (params) {
+                endpoint += params.sort ? '&sort=' + params.sort : ''
+                endpoint += params.tag ? '&tag=' + params.tag : ''
+                endpoint += params.genre ? '&genre=' + params.genre : ''
+            }
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileLinks(producerId, params) {
+            let endpoint = '/profiles/links/' + producerId
+            endpoint += '?page=1'
+            if (params) {
+                endpoint += params.sort ? '&sort=' + params.sort : ''
+                endpoint += params.tag ? '&tag=' + params.tag : ''
+            }
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileGenres(producerId, type) {
+            let endpoint = `/profiles/genres/${producerId}/${type}`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileBeatPackById(producerId, beatId, type) {
+            let endpoint = `/profiles/beats/${producerId}/${beatId}?type=${type}`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileKitById(producerId, kitId) {
+            let endpoint = `/profiles/sound_kits/${producerId}/${kitId}`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileLicenses(producerId) {
+            let endpoint = `/profiles/licenses/${producerId}`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileMoreBeats(producerId, type) {
+            let endpoint = `/profiles/beats/${producerId}?type=${type}&sort=random&page_size=4`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileKitFileByName(producerId, kitId, fileNamme) {
+            let endpoint = `/profiles/sound_kit_file/${producerId}/${kitId}/${fileNamme}`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileMoreKits(producerId) {
+            let endpoint = `/profiles/sound_kits/${producerId}?sort=random&page_size=4`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+    },
+    marketing: {
+        async getMessageSendto(userId) {
+            const endpoint = '/marketing/messages_sent_to/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getMessages(userId) {
+            const endpoint = '/marketing/messages/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async insertMessage(params) {
+            const endpoint = '/marketing/messages/'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async updateMessage(id, params) {
+            const endpoint = '/marketing/messages/' + id
+            const method = METHOD_PUT
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async deleteMessage(id) {
+            const endpoint = '/marketing/messages/' + id
+            const method = METHOD_DELETE
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getSubscribers(userId, searchString) {
+            let endpoint = '/marketing/subscribers/' + userId
+            if (searchString) {
+                endpoint += '?search=' + searchString
+            }
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getSubscriber(userId, id) {
+            const endpoint = `/marketing/subscribers/${userId}/${id}`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async insertSubscriber(params) {
+            const endpoint = '/marketing/subscribers/'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async updateSubscriber(id, params) {
+            const endpoint = '/marketing/subscribers/' + id
+            const method = METHOD_PUT
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async getSubscriberTags(userId) {
+            const endpoint = '/marketing/tags/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async updateSubscribersStatus(params) {
+            let endpoint = 'marketing/subscribers_action_bulk'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async importSubscribers(params) {
+            let endpoint = 'marketing/subscribers_import'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async insertMedia(params) {
+            let endpoint = 'marketing/user_media_files'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async deleteMedia(id) {
+            let endpoint = 'marketing/user_media_files/' + id
+            const method = METHOD_DELETE
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getMedias(userId) {
+            let endpoint = 'marketing/user_media_files/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
                 method,
             })
         },

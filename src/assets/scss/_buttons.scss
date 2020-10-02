@@ -29,7 +29,7 @@
 }
 
 .btn-secondary {
-    color: $linkstream-40;
+    color: $gray-550;
     border-color: $secondary;
     &:hover {
         border-color: $secondary;
@@ -37,7 +37,7 @@
     &:hover,
     &:focus,
     &:active {
-        color: $linkstream-40 !important;
+        color: $gray-550 !important;
     }
 }
 
@@ -59,7 +59,7 @@
     &.btn-md {
         font-size: px2rem(13);
     }
-    border: 1px solid $linkstream-90;
+    border: 1px solid $gray-320;
     background-color: $white;
     color: $black;
     text-transform: none;
@@ -67,7 +67,7 @@
     letter-spacing: 0;
     &:active,
     &:hover {
-        background-color: $linkstream-80 !important;
+        background-color: $gray-110 !important;
     }
 }
 
@@ -102,7 +102,7 @@
     padding: 0;
     margin: 0;
     &:hover {
-        color: $linkstream-60;
+        color: $gray-540;
     }
 }
 
@@ -127,11 +127,11 @@
     margin-bottom: 0;
     &.toggled {
         .v-switch-core {
-            background-color: $linkstream-150 !important;
+            background-color: $color-green-2 !important;
         }
     }
     .v-switch-core {
-        background-color: $linkstream-120 !important;
+        background-color: $danger !important;
     }
 }
 

@@ -1,4 +1,4 @@
-import { AlertBox } from '~/components/Alert'
+import AlertBox from '~/components/Alert/AlertBox'
 
 export default {
     install(Vue) {

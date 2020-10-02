@@ -61,18 +61,13 @@
                             ></b-form-input>
                             <b-form-invalid-feedback>
                                 <template v-if="!$v.form.title.required">
-                                    Enter a title
-                                </template>
-                                <template v-else-if="!$v.form.title.minLength">
-                                    Title should be at least
-                                    {{ $v.form.title.$params.minLength.min }}
-                                    characters
+                                    Enter the title
                                 </template>
                             </b-form-invalid-feedback>
                         </b-form-group>
 
                         <b-form-group label="Genre" label-for="genreInput">
-                            <BaseSelect
+                            <BasicSelect
                                 v-model="form.genre"
                                 id="genreInput"
                                 placeholder="Select Genre"
@@ -86,11 +81,11 @@
                             label="Related Track"
                             label-for="trackInput"
                         >
-                            <BaseSelect
+                            <BasicSelect
                                 v-model="form.relatedTrack"
                                 id="trackInput"
                                 placeholder="Select Related Track"
-                                :options="[]"
+                                :options="relatedTracks"
                                 :reduce="track => track.id"
                                 label="title"
                             />

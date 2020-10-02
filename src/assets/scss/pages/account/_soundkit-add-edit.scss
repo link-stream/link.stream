@@ -17,7 +17,7 @@
     .page-footer {
         display: flex;
         justify-content: space-between;
-        border-top: 1px solid $linkstream-30;
+        border-top: 1px solid $gray-330;
         padding: 20px 0;
         .btn {
             width: 130px;
@@ -52,7 +52,7 @@
         .files {
             margin-top: 20px;
             .file-count {
-                color: $linkstream-140;
+                color: $gray-510;
                 font-size: px2rem(11);
                 font-weight: bold;
                 letter-spacing: 1px;
@@ -65,7 +65,7 @@
                     color: $black;
                     font-size: px2rem(12);
                     letter-spacing: 0;
-                    border-bottom: 1px solid $linkstream-210;
+                    border-bottom: 1px solid $gray-120;
                     padding: 18px 10px;
                     .MiniAudioPlayer {
                         margin-right: 15px;
@@ -81,14 +81,8 @@
         }
     }
 
-    .dollar-input {
-        input {
-            width: 100%;
-        }
-    }
-
     .DropImage {
-        .drop-box {
+        .upload-dd {
             margin-right: 15px;
         }
     }
@@ -98,7 +92,7 @@
             display: block;
             margin-right: 18px;
         }
-        .upload-container {
+        .upload-section {
             flex-direction: column;
             height: auto;
             padding: 30px;
@@ -146,16 +140,16 @@
         }
 
         .DropImage {
-            .upload-container {
+            .upload-section {
                 flex-direction: column;
             }
-            .drop-box {
+            .upload-dd {
                 margin: 0 0 5px 0;
             }
         }
 
         .DropFile {
-            .upload-container {
+            .upload-section {
                 padding: 40px 0;
             }
             .upload-msg-l {

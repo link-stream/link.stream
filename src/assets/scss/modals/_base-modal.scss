@@ -1,14 +1,14 @@
 .modal {
     .action-btn {
         padding: 0;
-        width: 135px;
+        width: 125px;
         height: 40px;
         font-size: px2rem(11);
     }
 }
 
 .modal-dialog {
-    max-width: 320px !important;
+    max-width: 300px !important;
     margin-left: auto;
     margin-right: auto;
 }
@@ -21,6 +21,20 @@
     z-index: 1;
     &:before {
         @extend .ico-close:before;
+    }
+}
+.modal-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 15px;
+    z-index: 1;
+    width: 24px;
+    height: 24px;
+    svg {
+        width: 12px !important;
+        height: 24px;
+        color: black;
     }
 }
 
@@ -61,7 +75,7 @@
 
 .modal-footer {
     justify-content: space-between;
-    border-top: 1px solid $linkstream-130;
+    border-top: 1px solid $gray-410;
     padding: 20px 0 0 0;
     margin: 30px 20px 0 20px;
     & > * {
@@ -87,7 +101,7 @@
         .modal-close {
             margin: 4px;
             &:before {
-                background-image: url(~@/../public/static/ico/close-lg.svg);
+                background-image: url(~@/assets/img/ico/close-lg.svg);
                 width: 16px;
                 height: 16px;
             }

@@ -26,14 +26,9 @@
         margin-top: 30px;
     }
 
-    .search-input {
+    .SearchInput {
         input {
             padding-right: 35px;
-        }
-        .search-clear {
-            position: absolute;
-            top: 15px;
-            right: 15px;
         }
     }
 
@@ -46,7 +41,7 @@
         li {
             display: flex;
             padding: 15px 0;
-            border-bottom: 1px solid $linkstream-90;
+            border-bottom: 1px solid $gray-320;
             align-items: center;
             &:not(.invite) {
                 cursor: pointer;

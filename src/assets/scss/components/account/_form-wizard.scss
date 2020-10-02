@@ -1,5 +1,5 @@
 .fwz-counter {
-    color: $linkstream-70;
+    color: $gray-520;
     font-size: px2rem(12);
     font-weight: bold;
     letter-spacing: 1px;
@@ -31,13 +31,13 @@
 .fwz-pager {
     display: flex;
     flex-direction: column-reverse;
-    border-top: 1px solid $linkstream-30;
+    border-top: 1px solid $gray-330;
     padding-top: 20px;
     margin-top: 29px;
 }
 
 .fwz-prev-btn {
-    color: $linkstream-70;
+    color: $gray-520;
 }
 
 .fwz-next-btn {

@@ -72,7 +72,7 @@ export default {
             }
             this.processing = true
             const { status, data } = await api.users.inviteCollab({
-                user_id: this.user.id,
+                userId: this.user.id,
                 email: this.email,
             })
             if (status === 'success') {

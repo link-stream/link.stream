@@ -1,4 +1,4 @@
-import { types, authTypes } from '../mutationTypes'
+import { commonTypes, authTypes } from '../mutationTypes'
 import { api } from '~/services/api'
 import router from '~/router'
 import { isEmpty } from 'lodash'
@@ -7,7 +7,7 @@ import {
     setAuthCookie,
     getPendingUserCookie,
     setPendingUserCookie,
-    destroySession,
+    clearLocalStorage,
 } from '~/utils/auth'
 
 const initialState = () => ({
@@ -27,7 +27,7 @@ const state = {
 }
 
 const mutations = {
-    [types.RESET](state) {
+    [commonTypes.RESET](state) {
         const s = initialState()
         for (let key in state) {
             state[key] = s[key]
@@ -36,54 +36,51 @@ const mutations = {
 
     [authTypes.SIGNUP](state, { user }) {
         state.pendingUser = user
-        setPendingUserCookie(user)
     },
 
     [authTypes.LOGIN](state, { user }) {
         const { id, token } = user
         state.user = { id, token }
-        setAuthCookie({ id, token })
-    },
-
-    [authTypes.LOGOUT]() {
-        // Do nothing
     },
 }
 
 const actions = {
     reset({ commit }) {
-        commit(types.RESET)
+        commit(commonTypes.RESET)
     },
 
     signup({ commit }, { user }) {
         if (!isEmpty(user)) {
             commit(authTypes.SIGNUP, { user })
+            setPendingUserCookie(user)
             router.push({ name: 'signupConfirm' })
         }
     },
 
     async login({ commit, dispatch }, { user }) {
         if (!isEmpty(user)) {
-            commit(types.RESET)
+            commit(commonTypes.RESET)
             commit(authTypes.LOGIN, { user })
+            setAuthCookie({ id: user.id, token: user.token })
             await dispatch('me/loadAccount', null, { root: true })
             router.push({ name: 'accountDashboard' })
         }
     },
 
-    async logout({ commit, dispatch }) {
+    async logout({ dispatch }) {
         await api.users.logout()
-        commit(authTypes.LOGOUT)
         dispatch('reset')
         dispatch('me/reset', null, { root: true })
-        destroySession()
+        clearLocalStorage()
     },
 }
 
 const getters = {
     user: ({ user }) => user,
-    isLoggedIn: ({ user }) => (user ? true : false),
-    token: ({ user }, getters) => (getters.isLoggedIn ? user.token : null),
+    isLoggedIn: ({ user }) => {
+        return () => !!(getAuthCookie() && user)
+    },
+    token: ({ user }) => (user ? user.token : null),
     pendingUser: ({ pendingUser }) => pendingUser,
 }
 

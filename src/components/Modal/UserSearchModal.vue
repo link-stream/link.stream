@@ -16,25 +16,12 @@
         </template>
 
         <template v-slot:default>
-            <div class="search-input">
-                <BaseIcon class="input-icon" icon="search" />
-                <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Username or email"
-                    maxlength="35"
-                    v-model.trim="searchText"
-                />
-                <IconButton
-                    icon="close"
-                    class="search-clear"
-                    @click="handleClearClick"
-                    v-show="searchText ? true : false"
-                />
-            </div>
-
+            <SearchInput
+                placeholder="Username or email"
+                maxlength="35"
+                v-model.trim="searchText"
+            />
             <LoadingSpinner animation="bounce" />
-
             <ul class="search-results">
                 <li
                     v-for="user in results"
@@ -74,7 +61,7 @@ export default {
         return {
             open: false,
             status: STATUS_IDLE,
-            searchText: '',
+            searchText: null,
             results: [
                 // e.g.
                 // {
@@ -150,9 +137,6 @@ export default {
             }
 
             this.status = STATUS_SHOW_RESULTS
-        },
-        handleClearClick() {
-            this.searchText = ''
         },
         handleInviteClick() {
             this.close()

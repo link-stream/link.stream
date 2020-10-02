@@ -1,21 +1,21 @@
 <template>
     <div class="page page-license-edit">
-        <LoadingSpinner v-if="loading" />
-        <div v-else class="page-content">
-            <nav class="page-nav">
-                <basic-button
-                    class="back-btn"
-                    variant="text"
-                    :to="{ name: 'accountTracksLicenses' }"
-                >
-                    <i class="ico ico-back"></i>
-                    <span>Licenses</span>
-                </basic-button>
-            </nav>
+        <nav class="page-nav">
+            <basic-button
+                class="back-btn"
+                variant="text"
+                :to="{ name: 'accountTracksLicenses' }"
+            >
+                <i class="ico ico-back"></i>
+                <span>Licenses</span>
+            </basic-button>
+        </nav>
+        <LoadingSpinner class="page-loader" v-if="loading" />
+        <div v-else>
             <header class="page-header">
                 <div class="left-col">
                     <h1 class="page-title">
-                        Standard License
+                        {{ license.title }}
                     </h1>
                     <h4 class="page-subtitle">
                         Edit contract terms to apply to new track uploads
@@ -34,8 +34,8 @@
                         <label>Default Price</label>
                     </div>
                     <div class="form-col">
-                        <div class="dollar-input">
-                            <BaseIcon class="input-icon" icon="dollar" />
+                        <div class="money-input">
+                            <Icon class="input-icon" icon="dollar" />
                             <input
                                 type="text"
                                 v-model="form.price"
@@ -206,13 +206,13 @@ export default {
     },
     async created() {
         this.loading = true
-        const licenseId = this.$route.params.id
 
-        let license = this.$store.getters['me/licenseById'](licenseId)
+        const licenseId = this.$route.params.id
+        let license = this.$store.getters['me/findLicenseById'](licenseId)
 
         if (!license) {
             await this.$store.dispatch('me/loadLicenses')
-            license = this.$store.getters['me/licenseById'](licenseId)
+            license = this.$store.getters['me/findLicenseById'](licenseId)
             if (!license) {
                 this.$router.push({ name: 'accountTracksLicenses' })
                 this.$toast.error('License not found.')

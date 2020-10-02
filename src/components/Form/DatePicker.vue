@@ -4,7 +4,8 @@
         class="DatePicker"
         :value="value"
         :class="{ 'is-invalid': !state }"
-        :min-date="new Date()"
+        :min-date="minDate"
+        :max-date="maxDate"
         :popover="{ visibility: 'click' }"
         :input-props="{
             class: 'form-control',
@@ -29,6 +30,18 @@ export default {
         state: {
             type: Boolean,
             default: true,
+        },
+        minDate: {
+            type: Date,
+            default: () => {
+                return new Date()
+            },
+        },
+        maxDate: {
+            type: Date,
+            default: () => {
+                return null
+            },
         },
     },
     methods: {

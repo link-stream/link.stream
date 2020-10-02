@@ -3,12 +3,12 @@
 
     &.is-private {
         .card-title,
-        .private-badge {
-            color: $linkstream-40;
+        .card-viz-badge {
+            color: $gray-550;
         }
     }
 
-    .view-container {
+    .view-section {
         display: flex;
         align-items: center;
         padding: 15px;
@@ -28,12 +28,12 @@
         height: 60px;
     }
 
-    .private-badge {
+    .card-viz-badge {
         font-size: px2rem(11);
         color: $black;
     }
 
-    .edit-container {
+    .edit-section {
         position: relative;
         padding: 20px;
         .card-body {
@@ -48,7 +48,7 @@
         }
     }
 
-    .edit-actions {
+    .card-edit-actions {
         .right-col {
             .btn {
                 margin-left: 10px;
@@ -70,13 +70,13 @@
     .DropImage {
         margin-bottom: 10px;
 
-        .preview-container {
+        .preview-section {
             flex-direction: row;
             align-items: center;
         }
 
-        .drop-box,
-        .preview-box {
+        .upload-dd,
+        .preview-thumb {
             width: 65px;
             height: 65px;
         }
@@ -89,7 +89,7 @@
         }
 
         .upload-icon:before {
-            background-image: url(~@/../public/static/ico/cam-plus-sm.svg);
+            background-image: url(~@/assets/img/ico/cam-plus-sm.svg);
             width: 34px;
             height: 31px;
         }
@@ -110,7 +110,7 @@
     }
 
     @include media-breakpoint-up(md) {
-        .edit-container {
+        .edit-section {
             .card-body {
                 flex-direction: row;
             }
@@ -138,13 +138,13 @@
         .DropImage {
             margin-bottom: 0;
 
-            .preview-container {
+            .preview-section {
                 flex-direction: column;
                 align-items: flex-start;
             }
 
-            .drop-box,
-            .preview-box {
+            .upload-dd,
+            .preview-thumb {
                 width: 120px;
                 height: 120px;
             }

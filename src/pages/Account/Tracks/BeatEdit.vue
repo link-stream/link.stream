@@ -1,17 +1,17 @@
 <template>
     <div class="page page-beat-edit">
-        <LoadingSpinner v-if="isLoading" />
-        <div class="page-content" v-else>
-            <nav class="page-nav">
-                <basic-button
-                    class="back-btn"
-                    variant="text"
-                    :to="{ name: 'accountBeats' }"
-                >
-                    <i class="ico ico-back"></i>
-                    <span>Beats</span>
-                </basic-button>
-            </nav>
+        <nav class="page-nav">
+            <basic-button
+                class="back-btn"
+                variant="text"
+                :to="{ name: 'accountBeats' }"
+            >
+                <i class="ico ico-back"></i>
+                <span>Beats</span>
+            </basic-button>
+        </nav>
+        <LoadingSpinner class="page-loader" v-if="isLoading" />
+        <div v-else>
             <header class="page-header">
                 <div class="left-col">
                     <h1 class="page-title">{{ beat.title }}</h1>
@@ -66,7 +66,7 @@
                             ></b-form-input>
                             <b-form-invalid-feedback>
                                 <template v-if="!$v.form.title.required">
-                                    Enter a title
+                                    Enter the title
                                 </template>
                                 <template v-else-if="!$v.form.title.isUnique">
                                     You already have a beat with this title,
@@ -75,7 +75,7 @@
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group label="Primary Genre">
-                            <BaseSelect
+                            <BasicSelect
                                 v-model="form.genreId"
                                 placeholder="Select Genre"
                                 :options="genres"
@@ -95,7 +95,7 @@
                             <b-form-invalid-feedback
                                 :state="!$v.form.tags.$error"
                             >
-                                Add 3 or more tags to help people find this beat
+                                Add at most 3 tags to help people find this beat
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-row>
@@ -109,7 +109,7 @@
                             </b-col>
                             <b-col md="6">
                                 <b-form-group label="Key">
-                                    <BaseSelect
+                                    <BasicSelect
                                         v-model="form.keyId"
                                         placeholder="Select"
                                         :options="audioKeys"
@@ -182,12 +182,10 @@
 
                     <!-- Beat Pack Card -->
                     <base-card title="Add to Beat Pack">
-                        <div class="search-input">
-                            <BaseIcon class="input-icon" icon="search" />
-                            <b-form-input
-                                placeholder="Search for beat packs"
-                            ></b-form-input>
-                        </div>
+                        <beat-packs-multi-select
+                            placeholder="Search for beat packs"
+                            v-model="form.trackPack"
+                        />
                     </base-card>
 
                     <!-- Marketing Card -->
@@ -299,7 +297,7 @@
                                 class="add-btn"
                                 @click="showCollabSearchModal"
                             >
-                                <BaseIcon icon="plus" />
+                                <Icon icon="plus" />
                                 Add Collaborator
                             </basic-button>
                         </div>
@@ -389,11 +387,12 @@
 import { LicenseCard } from '~/components/Account/Tracks/AddTrackWizard'
 import { DropAudio, DropFile, DropImage } from '~/components/Uploader'
 import { UserInviteModal, UserSearchModal } from '~/components/Modal'
+import BeatPacksMultiSelect from '~/components/Account/Tracks/Beats/BeatPacksMultiSelect'
 import { collabsProfitFormMixin } from '~/mixins/tracks/collabsProfitForm'
 import { api } from '~/services'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, maxLength } from 'vuelidate/lib/validators'
 import moment from 'moment'
 
 const STATUS_IDLE = 'idle'
@@ -410,6 +409,7 @@ export default {
         LicenseCard,
         UserInviteModal,
         UserSearchModal,
+        BeatPacksMultiSelect,
     },
     data() {
         return {
@@ -426,6 +426,7 @@ export default {
             user: 'me/user',
             genres: 'common/genres',
             audioKeys: 'common/audioKeys',
+            packs: 'me/relatedBeatPacks',
         }),
         isLoading() {
             return this.status === STATUS_LOADING
@@ -473,7 +474,7 @@ export default {
                 files,
                 tags: {
                     required,
-                    minLength: minLength(3),
+                    maxLength: maxLength(3),
                 },
                 title: {
                     required,
@@ -521,7 +522,6 @@ export default {
             this.$toast.error('Licenses not found.')
             return
         }
-
         const form = {
             title: beat.title,
             genreId: beat.genre_id || null,
@@ -588,8 +588,15 @@ export default {
                       }
                     : {},
             },
+            trackPack: [],
         }
 
+        if (Array.isArray(beat.beat_packs)) {
+            beat.beat_packs.forEach(({ id_album }) => {
+                const pack = this.packs.find(({ id }) => id == id_album)
+                pack && form.trackPack.push(pack)
+            })
+        }
         this.form = form
         this.beat = beat
         this.licenses = licenses
@@ -701,7 +708,7 @@ export default {
             this.$v.form.$touch()
 
             if (!this.$v.form.title.required) {
-                this.$toast.error('Enter a title.')
+                this.$toast.error('Enter the title.')
                 return
             }
 
@@ -714,7 +721,7 @@ export default {
 
             if (this.$v.form.tags.$invalid) {
                 this.$toast.error(
-                    'Add 3 or more tags to help people find this beat.'
+                    'Add at most 3 tags to help people find this beat.'
                 )
                 return
             }
@@ -769,6 +776,7 @@ export default {
                         connect_id: '',
                     }
                 }),
+                beat_packs: JSON.stringify(form.trackPack.map(pack => pack.id)),
             }
 
             // Schedule
@@ -820,7 +828,6 @@ export default {
             params.licenses = JSON.stringify(params.licenses)
             params.collaborators = JSON.stringify(params.collaborators)
             params.marketing = JSON.stringify(params.marketing)
-
             const { status, message, error } = await this.$store.dispatch(
                 'me/updateBeat',
                 {

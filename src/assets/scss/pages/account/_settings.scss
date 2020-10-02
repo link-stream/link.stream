@@ -1,0 +1,340 @@
+.page-account-settings {
+    .tabnav {
+        margin-bottom: 30px;
+        li {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: px2rem(12);
+            font-weight: bold;
+            letter-spacing: 0;
+            &.active {
+                border-bottom: 3px solid $primary;
+            }
+            a {
+                color: $gray-810;
+                text-decoration: none;
+                line-height: 40px;
+            }
+        }
+    }
+
+    .InfoTab {
+        .main-info {
+            margin-top: px2rem(15);
+            margin-bottom: px2rem(40);
+        }
+        .social-accounts {
+            margin-top: px2rem(13);
+            margin-bottom: px2rem(36);
+            .list-item {
+                display: flex;
+                padding: 18px 11px;
+                align-items: center;
+                i {
+                    font-size: px2rem(24);
+                    margin-right: 14px;
+                }
+                .username {
+                    flex-grow: 1;
+                    color: $black;
+                    font-size: px2rem(13);
+                    font-weight: 500;
+                }
+                .connect-btn {
+                    text-decoration: none;
+                }
+                img {
+                    margin-right: 14px;
+                }
+            }
+            .list-item-fb {
+                i {
+                    color: $color-facebook;
+                }
+            }
+            .list-item-twitter {
+                i {
+                    color: $color-twitter;
+                }
+            }
+        }
+        .page-footer {
+            padding-top: px2rem(21);
+        }
+    }
+    .PurchasesTab {
+        .purchases-card {
+            margin-bottom: 20px;
+        }
+        .purchase-item {
+            padding: 15px 0px;
+            border-bottom: 1px solid $gray-320;
+            &:last-child {
+                border-bottom: 0;
+                padding-bottom: 0;
+            }
+            .purchase-item-content {
+                display: flex;
+                align-items: center;
+                img {
+                    width: 68px;
+                    height: 68px;
+                }
+                .item-title {
+                    font-size: px2rem(14);
+                    font-weight: bold;
+                }
+                .item-subtitle {
+                    color: $gray-520;
+                }
+                .item-body {
+                    flex-grow: 1;
+                }
+                .item-cover {
+                    margin-right: 12px;
+                }
+            }
+        }
+        .purchases-main-info {
+            padding-top: px2rem(3);
+            padding-bottom: px2rem(15);
+            margin-bottom: px2rem(15);
+            font-size: 12px;
+            line-height: 16px;
+            @include media-breakpoint-down(sm) {
+                .individual-info {
+                    display: block;
+                    margin-bottom: 7px;
+                    &.float-right {
+                        float: left !important;
+                    }
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+    .PaymentsTab {
+        .section-title {
+            margin-bottom: 0.5rem;
+        }
+        .payment-method {
+            margin-bottom: 40px;
+            .description {
+                margin-bottom: 14px;
+            }
+            .btn-payment {
+                padding: 15px 35px;
+                text-transform: capitalize;
+                letter-spacing: normal;
+            }
+        }
+        .subscription {
+            .section-title {
+                margin-bottom: 15px;
+            }
+            .sub-title {
+                font-weight: bold;
+                line-height: 24px;
+            }
+        }
+        .upgrade-pro {
+            margin-top: 30px;
+            padding: 24px 25px;
+            background: linear-gradient(45deg, #A624D2 0%, #CE5353 47.8%, #FFB02D 100%);
+            color: white;
+            .title {
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 24px;
+            }
+            .text {
+                float: left !important;
+            }
+            .action {
+                margin-top: 4px;
+                float: right !important;
+            }
+            .btn-upgrade {
+                background-color: transparent;
+                color: white;
+                border-width: 2px;
+            }
+            @include media-breakpoint-down(sm) {
+                .action {
+                    float: left !important;
+                }
+            }
+        }
+        .payment-method-content {
+            margin-bottom: 30px;
+            .payment-method-item {
+                display: flex;
+                align-items: center;
+                padding: 16px 0px;
+                border-bottom: 1px solid $gray-320;
+            }
+            img {
+                width: 40px;
+                height: 40px;
+            }
+            .item-title {
+                font-size: px2rem(14);
+                font-weight: bold;
+            }
+            .item-subtitle {
+                color: $gray-520;
+            }
+            .item-body {
+                flex-grow: 1;
+            }
+            .item-cover {
+                margin-right: 23px;
+            }
+        }
+    }
+}
+.AddPaymentModal {
+    .tabnav {
+        *margin-bottom: 30px;
+        li {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: px2rem(18);
+            font-weight: bold;
+            letter-spacing: 0;
+            &.active {
+                border-bottom: 3px solid $primary;
+            }
+            a {
+                color: $gray-810;
+                text-decoration: none;
+                line-height: 30px;
+            }
+        }
+    }
+    .paypal-action {
+        margin: 60px 0px;
+        text-align: center;
+        .btn {
+            padding: 15px 35px;
+            text-transform: capitalize;
+        }
+    }
+}
+.PayoutsTab {
+    .section-title {
+        font-size: px2rem(18);
+        line-height: px2rem(24);
+    }
+    .payout {
+        margin-bottom: 30px;
+    }
+    .sub-title {
+        font-weight: bold;
+    }
+    ul.desc-list {
+        margin: 10px 1.25rem; 
+        li {
+            list-style: initial;
+            line-height: px2rem(24);
+        }
+    }
+    .btn-bank, .btn-paypal {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-transform: capitalize;
+        padding: 15px 35px;
+        letter-spacing: normal;
+    }
+    .bank{
+        padding-bottom: 30px;
+        border-bottom: 1px solid $gray-320;
+        margin-bottom: 30px;
+        
+    }
+    .btn-paypal {
+        img {
+            margin-top: -0.5rem;
+        }
+    }
+    .payout-item {
+        display: flex;
+        align-items: center;
+        padding-top: 20px;
+        *padding: 15px 0px;
+        img {
+            width: 40px;
+            height: 40px;
+        }
+        .item-title {
+            font-size: px2rem(14);
+            font-weight: bold;
+        }
+        .item-subtitle {
+            color: $gray-520;
+        }
+        .item-body {
+            flex-grow: 1;
+        }
+        .item-cover {
+            margin-right: 12px;
+        }
+    }
+}
+.NotificationsTab {
+    .notification {
+        margin-bottom: 30px;
+        &.ls-update {
+            .title {
+                font-size: px2rem(18);
+                line-height: px2rem(24);
+                margin-top: 7px;
+                margin-bottom: 10px;
+            }
+            .notification-item {
+                padding: 22px 0px;
+                .item-action {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+    .notification-item {
+        align-items: center;
+        padding: 20px 0px;
+        .item-title {
+            font-size: px2rem(14);
+            font-weight: bold;
+            line-height: px2rem(16);
+        }
+        .item-subtitle {
+            color: $gray-520;
+        }
+        .item-body {
+            flex-grow: 1;
+            small {
+                font-size: px2rem(12);
+            }
+        }
+        .item-action {
+            .custom-control-inline:first-child {
+                margin-right: 30px;
+            }
+        }
+        @include media-breakpoint-up(xs) {
+            .only-email {
+                margin-right: 193px !important;
+            }
+        }
+        @include media-breakpoint-down(sm) {
+            .item-action {
+                margin-top: 15px !important;
+            }
+        }
+        @include media-breakpoint-up(md) {
+            display: flex;
+        }
+    }
+}

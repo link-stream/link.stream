@@ -7,10 +7,10 @@
     padding: 15px;
 
     &.is-private {
-        .lock-thumb {
+        .card-lock {
             display: block;
         }
-        .private-badge {
+        .card-viz-badge {
             display: inline;
         }
     }
@@ -24,7 +24,7 @@
     }
 
     .card-title {
-        color: $linkstream-110;
+        color: $gray-810;
         font-size: px2rem(12);
         font-weight: bold;
         margin-bottom: 0;
@@ -38,56 +38,52 @@
         border-radius: 0;
     }
 
-    .drag-icon {
-        cursor: move;
-    }
-
-    .private-badge {
+    .card-viz-badge {
         display: none;
     }
 
-    .lock-thumb {
+    .card-lock {
         display: none;
         position: absolute;
-        background-image: url(~@/../public/static/img/lock-thumb.svg);
+        background-image: url(~@/assets/img/lock-overlay-square.svg);
         background-repeat: no-repeat;
         background-size: cover;
     }
 
-    .close-btn {
+    .card-close-btn {
         position: absolute;
         top: 0;
         right: 0;
         padding: 20px;
     }
 
-    .edit-btn {
+    .card-edit-btn {
         padding: 0;
         &:before {
-            background-image: url(~@/../public/static/ico/edit-cir-white-sm.svg);
+            background-image: url(~@/assets/img/ico/edit-cir-white-sm.svg);
             width: 40px;
             height: 40px;
         }
     }
 
-    .trash-btn {
+    .card-trash-btn {
         visibility: hidden;
         display: none;
         opacity: 0;
         transition: visibility 0.3s, opacity 0.3s;
     }
 
-    .edit-actions {
+    .card-edit-actions {
         display: flex;
         justify-content: space-between;
-        border-top: 1px solid $linkstream-30;
+        border-top: 1px solid $gray-330;
         padding-top: 16px;
         margin-top: 16px;
     }
 
     @include media-breakpoint-up(md) {
         &:hover {
-            .trash-btn {
+            .card-trash-btn {
                 visibility: visible;
                 opacity: 1;
             }
@@ -97,28 +93,28 @@
             font-size: px2rem(14);
         }
 
-        .trash-btn,
-        .edit-btn {
+        .card-trash-btn,
+        .card-edit-btn {
             margin-left: 10px;
         }
 
-        .edit-btn {
+        .card-edit-btn {
             &:before {
-                background-image: url(~@/../public/static/ico/edit-cir-white-lg.svg);
+                background-image: url(~@/assets/img/ico/edit-cir-white-lg.svg);
                 width: 50px;
                 height: 50px;
             }
             &:hover {
                 &:before {
-                    background-image: url(~@/../public/static/ico/edit-cir-gray-lg.svg);
+                    background-image: url(~@/assets/img/ico/edit-cir-gray-lg.svg);
                 }
             }
         }
 
-        .trash-btn {
+        .card-trash-btn {
             display: block;
             &:before {
-                background-image: url(~@/../public/static/ico/trash-lg.svg);
+                background-image: url(~@/assets/img/ico/trash-lg.svg);
                 width: 50px;
                 height: 50px;
             }

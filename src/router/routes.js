@@ -1,5 +1,7 @@
 import { NotFound } from '~/pages/Error'
+
 import { Legal, ComingSoon } from '~/pages/Others'
+
 import {
     Login,
     Signup,
@@ -8,6 +10,7 @@ import {
     PasswordForgot,
     PasswordReset,
 } from '~/pages/Auth'
+
 import {
     AccountDashboard,
     AccountProfileEdit,
@@ -22,12 +25,39 @@ import {
     AccountTracksLicenseEdit,
     AccountSoundKits,
     AccountSoundKitAddEdit,
+    AccountBeatPacks,
+    AccountBeatPackAddEdit,
+    AccountSettings,
 } from '~/pages/Account'
 
+import {
+    MarketingMessages,
+    Subscribers,
+    LandingPages,
+    AdPromos,
+    EditMessage,
+    CustomizeMessage,
+    SentSMS,
+    ReportMessage,
+    SelectEmailTemplate,
+    AddSubscriber,
+    SubscriberDetails,
+    ImportSubscribers,
+    SelectPageTemplate,
+    EditLandingPage,
+    EditSplitTest,
+    AddVariations,
+    ResultSplitTest,
+} from '~/pages/Marketing'
+
+import PublicProfile from '@/pages/Profile/PublicProfile'
+import PublicBeatDetails from '@/pages/Profile/PublicBeatDetails'
+import PublicPackDetails from '@/pages/Profile/PublicPackDetails'
+import PublicKitDetails from '@/pages/Profile/PublicKitDetails'
+
 const routes = [
-    /**
-     * Misc pages
-     */
+    // Misc
+
     {
         path: '/',
         name: 'home',
@@ -41,9 +71,8 @@ const routes = [
         meta: { layout: 'landing' },
     },
 
-    /**
-     * Auth
-     */
+    // Auth
+
     {
         path: '/login',
         name: 'login',
@@ -86,9 +115,8 @@ const routes = [
         meta: { requiresGuest: true, layout: 'auth' },
     },
 
-    /**
-     * Account
-     */
+    // Account
+
     {
         path: '/app',
         name: 'accountDashboard',
@@ -101,6 +129,12 @@ const routes = [
         name: 'accountProfileEdit',
         component: AccountProfileEdit,
         meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/profile/view',
+        name: 'accountProfileView',
+        component: NotFound,
+        meta: { layout: 'error' },
     },
     {
         path: '/app/videos/manage',
@@ -174,10 +208,247 @@ const routes = [
         component: AccountSoundKitAddEdit,
         meta: { requiresAuth: true, layout: 'account' },
     },
+    {
+        path: '/app/beat-packs/manage',
+        name: 'accountBeatPacks',
+        component: AccountBeatPacks,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/beat-packs/add',
+        name: 'accountBeatPackAdd',
+        component: AccountBeatPackAddEdit,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/beat-packs/:id/edit',
+        name: 'accountBeatPackEdit',
+        component: AccountBeatPackAddEdit,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/account/info',
+        name: 'accountSettingsInfo',
+        component: AccountSettings,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/account/purchases',
+        name: 'accountSettingsPurchases',
+        component: AccountSettings,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
 
-    /**
-     * 404 catcher
-     */
+    {
+        path: '/app/account/payments',
+        name: 'accountSettingsPayments',
+        component: AccountSettings,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/account/payouts',
+        name: 'accountSettingsPayouts',
+        component: AccountSettings,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/account/notifications',
+        name: 'accountSettingsNotifs',
+        component: AccountSettings,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/analytics/trafic',
+        name: 'analyticsTrafic',
+        component: NotFound,
+        meta: { layout: 'error' },
+    },
+    {
+        path: '/app/analytics/revenue',
+        name: 'analyticsRevenue',
+        component: NotFound,
+        meta: { layout: 'error' },
+    },
+    {
+        path: '/app/upgrade',
+        name: 'upgrade',
+        component: NotFound,
+        meta: { layout: 'error' },
+    },
+
+    //Marketing
+
+    {
+        path: '/app/marketing/messages',
+        name: 'marketingMessages',
+        component: MarketingMessages,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/subscribers',
+        name: 'subscribers',
+        component: Subscribers,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/landing-pages',
+        name: 'landingPages',
+        component: LandingPages,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/ad-promos',
+        name: 'adPromos',
+        component: AdPromos,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/messages/edit',
+        name: 'editMessage',
+        component: EditMessage,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/messages/customize',
+        name: 'customizeMessage',
+        component: CustomizeMessage,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: '/app/marketing/messages/sent-sms',
+        name: 'sentSMS',
+        component: SentSMS,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/messages/report',
+        name: 'reportMessage',
+        component: ReportMessage,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/messages/select-template',
+        name: 'selectEmailTemplate',
+        component: SelectEmailTemplate,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/subscriber/add',
+        name: 'addSubscriber',
+        component: AddSubscriber,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/subscribers/details',
+        name: 'subscriberDetails',
+        component: SubscriberDetails,
+        props: true,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/subscribers/import',
+        name: 'importSubscribers',
+        component: ImportSubscribers,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/landing-pages/select',
+        name: 'selectPageTemplate',
+        component: SelectPageTemplate,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/landing-page/edit',
+        name: 'editLandingPage',
+        component: EditLandingPage,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: '/app/marketing/landing-page/split-edit',
+        name: 'editSplitTest',
+        component: EditSplitTest,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/landing-page/add-variations',
+        name: 'addVariations',
+        component: AddVariations,
+        props: true,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/landing-page/result',
+        name: 'resultSplitTest',
+        component: ResultSplitTest,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+
+    //Public Profile
+    {
+        path: '/:url',
+        name: 'publicProfile',
+        component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/:url/beats',
+        name: 'profileBeats',
+        component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/:url/kits',
+        name: 'profileSoundKits',
+        component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/:url/videos',
+        name: 'profileVideos',
+        component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/:url/links',
+        name: 'profileLinks',
+        component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/:url/about',
+        name: 'profileAbout',
+        component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/:url/beats/:beatId',
+        name: 'profileBeatDetails',
+        component: PublicBeatDetails,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/:url/beat-packs/:packId',
+        name: 'profilePackDetails',
+        component: PublicPackDetails,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/:url/kits/:kitId',
+        name: 'profileKitDetails',
+        component: PublicKitDetails,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    // 404 catch all
+
     {
         path: '/404',
         alias: '*',

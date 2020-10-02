@@ -2,7 +2,7 @@
     <div class="page page-signup my-4">
         <b-container>
             <b-row class="text-center">
-                <b-col cols="12" class="my-2">
+                <!-- <b-col cols="12" class="my-2">
                     <spinner-button
                         instagram
                         class="auth-btn"
@@ -13,7 +13,7 @@
                         <i class="ig-ico fab fa-instagram fa-lg"></i>
                         Sign up with Instagram
                     </spinner-button>
-                </b-col>
+                </b-col> -->
                 <b-col cols="12" class="my-2">
                     <GoogleLogin
                         class="g-login-btn-wrap col"
@@ -256,7 +256,7 @@ export default {
         },
         async availabilityValidator(field, value) {
             this.validating[field] = true
-            const { status, error } = await api.users.availability({
+            const { status, error } = await api.users.getAvailability({
                 type: field,
                 value,
             })
@@ -277,9 +277,7 @@ export default {
                     email: this.form.email,
                     password: this.form.password,
                 }
-                const { status, data, error } = await api.users.registration(
-                    params
-                )
+                const { status, data, error } = await api.users.signup(params)
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.signup', false)
                     setTimeout(() => {

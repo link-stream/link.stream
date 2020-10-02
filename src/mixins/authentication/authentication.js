@@ -32,7 +32,7 @@ export default {
             const { id_token: platform_token } = googleUser.getAuthResponse()
             if (platform_token) {
                 this.status.loading.google = true
-                const { status, data, error } = await api.users.google({
+                const { status, data, error } = await api.users.googleLogin({
                     platform_token,
                 })
                 if (status === 'success') {

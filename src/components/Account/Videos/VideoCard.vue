@@ -1,27 +1,27 @@
 <template>
     <div class="Card VideoCard" :class="{ 'is-private': video.isPrivate }">
-        <BaseIcon class="drag-icon" icon="drag" />
+        <Icon class="card-drag-icon" icon="drag" />
         <main class="video-content" @click="handleEditClick">
             <div class="card-media">
-                <div class="lock-thumb"></div>
+                <span class="card-lock"></span>
                 <img class="card-img" :src="thumbUrl" :alt="video.title" />
             </div>
             <div class="card-body">
                 <h4 class="card-title">{{ video.title }}</h4>
-                <small class="private-badge">
+                <small class="card-viz-badge">
                     Private
                 </small>
             </div>
         </main>
         <BasicButton
             variant="icon"
-            class="trash-btn"
+            class="card-trash-btn"
             title="Delete"
             @click="handleDeleteClick"
         />
         <BasicButton
             variant="icon"
-            class="edit-btn"
+            class="card-edit-btn"
             title="Edit"
             @click="handleEditClick"
         />

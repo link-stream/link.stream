@@ -9,11 +9,13 @@ import {
     BFormGroup,
     BFormInput,
     BFormCheckbox,
+    BFormCheckboxGroup,
     BFormRadio,
     BFormRadioGroup,
     BFormInvalidFeedback,
     BFormTextarea,
     BInputGroup,
+    BInputGroupText,
     BContainer,
     BRow,
     BCol,
@@ -27,6 +29,11 @@ import {
     BDropdown,
     BDropdownItem,
     BDropdownDivider,
+    BootstrapVueIcons,
+    BAspect,
+    BPaginationNav,
+    BTable,
+    BFormFile,
 } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'
@@ -52,12 +59,14 @@ import {
 } from '~/components/Button'
 import { LoadingSpinner, LoadingMask } from '~/components/Loading'
 import {
-    BaseSelect,
+    BasicSelect,
+    MultiSelect,
     DatePicker,
     TimePicker,
     TaggerInput,
+    SearchInput,
 } from '~/components/Form'
-import { BaseIcon } from '~/components/Icon'
+import Icon from '~/components/Icon/Icon'
 import UserAvatar from '~/components/Avatar/UserAvatar'
 import { BaseCard } from '~/components/Card'
 
@@ -70,11 +79,13 @@ Vue.component('BFormRow', BFormRow)
 Vue.component('BFormGroup', BFormGroup)
 Vue.component('BFormInput', BFormInput)
 Vue.component('BFormCheckbox', BFormCheckbox)
+Vue.component('BFormCheckboxGroup', BFormCheckboxGroup)
 Vue.component('BFormRadio', BFormRadio)
 Vue.component('BFormRadioGroup', BFormRadioGroup)
 Vue.component('BFormInvalidFeedback', BFormInvalidFeedback)
 Vue.component('BFormTextarea', BFormTextarea)
 Vue.component('BInputGroup', BInputGroup)
+Vue.component('BInputGroupText', BInputGroupText)
 Vue.component('BContainer', BContainer)
 Vue.component('BRow', BRow)
 Vue.component('BCol', BCol)
@@ -88,6 +99,11 @@ Vue.component('BLink', BLink)
 Vue.component('BDropdown', BDropdown)
 Vue.component('BDropdownItem', BDropdownItem)
 Vue.component('BDropdownDivider', BDropdownDivider)
+Vue.component('BAspect', BAspect)
+Vue.component('BPaginationNav', BPaginationNav)
+Vue.component('BTable', BTable)
+Vue.component('BFormFile', BFormFile)
+Vue.use(BootstrapVueIcons)
 
 // Install VueProgressBar
 Vue.use(VueProgressBar, {
@@ -154,10 +170,24 @@ Vue.component('SpinnerButton', SpinnerButton)
 Vue.component('IconButton', IconButton)
 Vue.component('TogglerButton', TogglerButton)
 Vue.component('TogglerButtonGroup', TogglerButtonGroup)
-Vue.component('BaseSelect', BaseSelect)
+Vue.component('BasicSelect', BasicSelect)
+Vue.component('MultiSelect', MultiSelect)
 Vue.component('DatePicker', DatePicker)
 Vue.component('TimePicker', TimePicker)
 Vue.component('TaggerInput', TaggerInput)
-Vue.component('BaseIcon', BaseIcon)
+Vue.component('SearchInput', SearchInput)
+Vue.component('Icon', Icon)
 Vue.component('LoadingSpinner', LoadingSpinner)
 Vue.component('LoadingMask', LoadingMask)
+
+import VueCardFormat from 'vue-credit-card-validation'
+import VueSlider from 'vue-slider-component'
+import VueSocialSharing from 'vue-social-sharing'
+import CountryFlag from 'vue-country-flag'
+import StarRating from 'vue-star-rating'
+
+Vue.use(VueCardFormat)
+Vue.component('VueSlider', VueSlider)
+Vue.use(VueSocialSharing)
+Vue.component('country-flag', CountryFlag)
+Vue.component('star-rating', StarRating)

@@ -25,10 +25,8 @@
             </div>
         </header>
         <main class="page-body">
-            <div class="page-spinner" v-if="loading">
-                <LoadingSpinner />
-            </div>
-            <div class="page-empty" v-if="!loading && !sortableBeats.length">
+            <LoadingSpinner class="page-loader" v-if="loading" />
+            <div class="page-empty" v-if="!loading && !sortableList.length">
                 <div class="empty-text">
                     Your beats will appear here.
                 </div>
@@ -44,10 +42,10 @@
             </div>
             <Container
                 v-else
-                drag-handle-selector=".drag-icon"
+                drag-handle-selector=".card-drag-icon"
                 @drop="handleReorder"
             >
-                <Draggable v-for="beat in sortableBeats" :key="beat.id">
+                <Draggable v-for="beat in sortableList" :key="beat.id">
                     <BeatCard :beat="beat" />
                 </Draggable>
             </Container>
@@ -56,7 +54,7 @@
 </template>
 
 <script>
-import { BeatCard } from '~/components/Account/Tracks'
+import BeatCard from '~/components/Account/Tracks/Beats/BeatCard'
 import { Container, Draggable } from 'vue-smooth-dnd'
 import { mapGetters } from 'vuex'
 
@@ -70,7 +68,7 @@ export default {
     data() {
         return {
             loading: false,
-            sortableBeats: [],
+            sortableList: [],
         }
     },
     computed: {
@@ -80,8 +78,11 @@ export default {
         }),
     },
     watch: {
-        beats(newValue) {
-            this.sortableBeats = [...newValue]
+        beats: {
+            immediate: true,
+            handler(newValue) {
+                this.sortableList = [...newValue]
+            },
         },
     },
     async created() {
@@ -92,10 +93,11 @@ export default {
     methods: {
         handleReorder(dropResult) {
             const { removedIndex: oldIndex, addedIndex: newIndex } = dropResult
-            const beat = this.sortableBeats[oldIndex]
-            this.sortableBeats.splice(oldIndex, 1)
-            this.sortableBeats.splice(newIndex, 0, beat)
-            const sorts = this.sortableBeats.map(({ id }, index) => {
+            const list = [...this.sortableList]
+            const item = list[oldIndex]
+            list.splice(oldIndex, 1)
+            list.splice(newIndex, 0, item)
+            const sorts = list.map(({ id }, index) => {
                 return {
                     id,
                     sort: (index + 1).toString(),

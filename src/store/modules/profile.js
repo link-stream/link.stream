@@ -12,6 +12,7 @@ const initialState = () => ({
      */
     profile: null,
     beats: [],
+    beatsLoad: [],
     soundKits: [],
     videos: [],
     links: [],
@@ -56,6 +57,10 @@ const mutations = {
 
     [profileTypes.SET_LICENSES](state, { licenses }) {
         state.licenses = licenses
+    },
+
+    [profileTypes.ADD_PLAYER_ITEM]({ beatsLoad }, { playerItem }) {
+        beatsLoad.push(playerItem)
     },
 
     [profileTypes.ADD_CART_ITEM]({ cartItems }, { cartItem }) {
@@ -173,6 +178,10 @@ const actions = {
         return response
     },
 
+    async addPlayerItem({ commit }, item) {
+        commit(profileTypes.ADD_PLAYER_ITEM, { playerItem: item })
+    },
+
     async addCartItem({ commit }, item) {
         commit(profileTypes.ADD_CART_ITEM, { cartItem: item })
     },
@@ -193,6 +202,8 @@ const getters = {
             }
         })
     },
+
+    beatsLoad: ({ beatsLoad }) => beatsLoad,
 
     soundKits: ({ soundKits }) => {
         return soundKits.map(soundKit => {

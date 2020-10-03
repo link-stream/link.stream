@@ -54,6 +54,7 @@ export default {
     computed: {
         ...mapGetters({
             beats: 'profile/beats',
+            beatsLoad: 'profile/beatsLoad',
             profile: 'profile/profile',
         }),
     },
@@ -99,34 +100,42 @@ export default {
                 return
             }
             this.individualLoading = true
-            const response = await api.profiles.getProfileBeatPackById(
-                this.profile.id,
-                this.beats[this.currentIndex].id,
-                this.beats[this.currentIndex].type
+            const item = this.beatsLoad.find(
+                beatsLoad => beatsLoad.id === this.beats[this.currentIndex].id
             )
-            if (response.status !== 'success' || !response.data.length) {
-                return {}
-            }
-            const beat = response.data[0]
-            let srcAudio = null
-            if (beat.type === 'beat') {
-                if (beat.data_tagged_file) {
-                    srcAudio = beat.data_tagged_file
-                } else if (beat.data_untagged_mp3) {
-                    srcAudio = beat.data_untagged_mp3
-                } else if (beat.data_untagged_wav) {
-                    srcAudio = beat.data_untagged_wav
+            if (item === undefined) {
+                const response = await api.profiles.getProfileBeatPackById(
+                    this.profile.id,
+                    this.beats[this.currentIndex].id,
+                    this.beats[this.currentIndex].type
+                )
+                if (response.status !== 'success' || !response.data.length) {
+                    return {}
                 }
+                const beat = response.data[0]
+                let srcAudio = null
+                if (beat.type === 'beat') {
+                    if (beat.data_tagged_file) {
+                        srcAudio = beat.data_tagged_file
+                    } else if (beat.data_untagged_mp3) {
+                        srcAudio = beat.data_untagged_mp3
+                    } else if (beat.data_untagged_wav) {
+                        srcAudio = beat.data_untagged_wav
+                    }
+                }
+                this.playerItem = {
+                    id: beat.id,
+                    coverart: beat.data_image || appConstants.defaultCoverArt,
+                    title: beat.title,
+                    producer_name: this.profile.display_name,
+                    src: srcAudio,
+                    type: beat.type,
+                }
+                this.$store.dispatch('profile/addPlayerItem', this.playerItem)
+                this.curBeat = { ...beat }
+            } else {
+                this.playerItem = { ...item }
             }
-            this.playerItem = {
-                id: beat.id,
-                coverart: beat.data_image || appConstants.defaultCoverArt,
-                title: beat.title,
-                producer_name: this.profile.display_name,
-                src: srcAudio,
-                type: beat.type,
-            }
-            this.curBeat = { ...beat }
             this.individualLoading = false
         },
         prevItem() {

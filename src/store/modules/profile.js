@@ -91,6 +91,19 @@ const actions = {
         commit(commonTypes.RESET)
     },
 
+    async getProfileBeatsTab({ commit }, { url }) {
+        await api.profiles.getProfileBeatsTab(url).then(response => {
+            const { status, data } = response
+            if (status === 'success') {
+                commit(profileTypes.SET_PROFILE, { profile: data.profile })
+                commit(profileTypes.SET_BEATS, { beats: data.beats })
+                commit(profileTypes.SET_GENRES, { genres: data.genres })
+                commit(profileTypes.SET_LICENSES, { licenses: data.licenses })
+                return response
+            }
+        })
+    },
+
     async getProfileMain({ commit }, { url }) {
         const response = await api.profiles.getProfileMain(url)
         const { status, data } = response

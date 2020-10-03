@@ -1,18 +1,13 @@
 <template>
     <div class="beats-container">
-        <p v-if="!loading && !beats.length" class="text-center my-5">
-            There are no public beats or beat packs.
-        </p>
+        <p
+            v-if="!loading && !beats.length"
+            class="text-center my-5"
+        >There are no public beats or beat packs.</p>
         <LoadingSpinner class="page-loader" v-if="loading" />
         <div v-else>
             <b-form-row>
-                <b-col
-                    cols="12"
-                    lg="3"
-                    md="6"
-                    v-for="(item, index) in beats"
-                    :key="index"
-                >
+                <b-col cols="12" lg="3" md="6" v-for="(item, index) in beats" :key="index">
                     <ArtItem
                         :artItem="item"
                         :selected="index === currentIndex"
@@ -24,13 +19,7 @@
                 </b-col>
             </b-form-row>
             <div class="text-center mb-5">
-                <basic-button
-                    variant="outline-black"
-                    size="md"
-                    class="btn-view-more"
-                >
-                    View More
-                </basic-button>
+                <basic-button variant="outline-black" size="md" class="btn-view-more">View More</basic-button>
             </div>
         </div>
         <ArtPlayer
@@ -99,10 +88,9 @@ export default {
     },
     async created() {
         this.loading = true
-        await this.$store.dispatch('profile/getProfileMain', { url: this.url })
-        await this.$store.dispatch('profile/getProfileBeats')
-        await this.$store.dispatch('profile/getProfileGenres', 'beats')
-        await this.$store.dispatch('profile/getProfileLicenses')
+        await this.$store.dispatch('profile/getProfileBeatsTab', {
+            url: this.url,
+        })
         this.loading = false
     },
     methods: {

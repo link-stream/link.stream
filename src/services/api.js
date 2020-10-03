@@ -433,6 +433,14 @@ export const api = {
         },
     },
     profiles: {
+        async getProfileBeatsTab(userUrl) {
+            const endpoint = '/profiles/beats_tab/' + userUrl
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
         async getProfileMain(userUrl) {
             const endpoint = '/profiles/' + userUrl
             const method = METHOD_GET

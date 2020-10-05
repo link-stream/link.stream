@@ -2,11 +2,7 @@
     <div class="art-item">
         <a href="#" class="img-container" @click.prevent="selectImage">
             <img :src="artItem.coverart" />
-            <LoadingSpinner
-                v-if="selected && loading"
-                class="center-img"
-                animation="bounce"
-            />
+            <LoadingSpinner v-if="selected && loading" class="center-img" animation="bounce" />
             <img
                 v-if="selected && !loading && status"
                 src="@/assets/img/ico/pause-red.svg"
@@ -31,27 +27,17 @@
                           params: { packId: artItem.id },
                       }
             "
-            target="_blank"
         >
-            <div class="title">
-                {{ artItem.title }}
-            </div>
+            <div class="title">{{ artItem.title }}</div>
             <div v-if="artItem.type === 'beat'" class="price">
-                {{ minPrice | currencyFormat }}
+                {{
+                minPrice | currencyFormat
+                }}
             </div>
-            <div v-else class="price">
-                {{ artItem.price | currencyFormat }}
-            </div>
-            <div v-if="artItem.bogo" class="bogo">
-                BOGO
-            </div>
+            <div v-else class="price">{{ artItem.price | currencyFormat }}</div>
+            <div v-if="artItem.bogo" class="bogo">BOGO</div>
         </router-link>
-        <b-dropdown
-            class="actions-menu d-none d-md-block"
-            variant="icon"
-            right
-            no-caret
-        >
+        <b-dropdown class="actions-menu d-none d-md-block" variant="icon" right no-caret>
             <template v-slot:button-content>
                 <Icon icon="dot-menu-v-s" />
             </template>
@@ -69,34 +55,24 @@
                 "
                 target="_blank"
             >
-                {{ artItem.type === 'beat' ? 'Go to Beat' : 'Go to Beat Pack' }}
+                {{
+                artItem.type === 'beat' ? 'Go to Beat' : 'Go to Beat Pack'
+                }}
             </b-dropdown-item>
-            <b-dropdown-item>
-                Save
-            </b-dropdown-item>
-            <b-dropdown-item @click="handleShareClick">
-                Share
-            </b-dropdown-item>
-            <b-dropdown-item>
-                Free Download
-            </b-dropdown-item>
+            <b-dropdown-item v-show="false">Save</b-dropdown-item>
+            <b-dropdown-item @click="handleShareClick">Share</b-dropdown-item>
+            <b-dropdown-item v-show="false">Free Download</b-dropdown-item>
         </b-dropdown>
         <div class="action">
-            <basic-button size="sm" class="btn-buy" @click="handleBuyClick">
-                Buy
-            </basic-button>
-            <IconButton class="btn-download" icon="download" />
+            <basic-button size="sm" class="btn-buy" @click="handleBuyClick">Buy</basic-button>
+            <IconButton class="btn-download" icon="download" v-show="false" />
         </div>
         <BuyLicenseModal
             v-if="isShowBuyLicenses"
             :curItem="artItem"
             @close="isShowBuyLicenses = false"
         />
-        <ShareArtModal
-            v-if="isShowShare"
-            :curItem="artItem"
-            @close="isShowShare = false"
-        />
+        <ShareArtModal v-if="isShowShare" :curItem="artItem" @close="isShowShare = false" />
     </div>
 </template>
 <script>

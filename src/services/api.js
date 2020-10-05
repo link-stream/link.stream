@@ -433,8 +433,10 @@ export const api = {
         },
     },
     profiles: {
-        async getProfileBeatsTab(userUrl) {
-            const endpoint = '/profiles/beats_tab/' + userUrl
+        async getProfileBeatsTab(userUrl, audio_id, type) {
+            let endpoint = '/profiles/beats_tab/' + userUrl
+            endpoint += audio_id != undefined ? `/${audio_id}` : ''
+            endpoint += type != undefined ? `/${type}` : ''
             const method = METHOD_GET
             return await call({
                 endpoint,
@@ -466,6 +468,16 @@ export const api = {
                 method,
             })
         },
+        async getProfileKitsTab(producerId, audio_id, type) {
+            let endpoint = '/profiles/sound_kits_tab/' + producerId
+            endpoint += audio_id != undefined ? `/${audio_id}` : ''
+            endpoint += type != undefined ? `/${type}` : ''
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
         async getProfileKits(producerId, params) {
             let endpoint = '/profiles/sound_kits/' + producerId
             endpoint += '?page=1'
@@ -480,6 +492,15 @@ export const api = {
                 method,
             })
         },
+        async getProfileVideosTab(userUrl, video_id) {
+            let endpoint = '/profiles/videos_tab/' + userUrl
+            endpoint += video_id != undefined ? `/${video_id}` : ''
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
         async getProfileVideos(producerId, params) {
             let endpoint = '/profiles/videos/' + producerId
             endpoint += '?page=1'
@@ -488,6 +509,15 @@ export const api = {
                 endpoint += params.tag ? '&tag=' + params.tag : ''
                 endpoint += params.genre ? '&genre=' + params.genre : ''
             }
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileLinksTab(userUrl, audio_id) {
+            let endpoint = '/profiles/links_tab/' + userUrl
+            endpoint += audio_id != undefined ? `/${audio_id}` : ''
             const method = METHOD_GET
             return await call({
                 endpoint,
@@ -560,6 +590,15 @@ export const api = {
             const method = METHOD_GET
             return await call({
                 endpoint,
+                method,
+            })
+        },
+        async insertAudioAction(params) {
+            let endpoint = '/profiles/audio_action'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
                 method,
             })
         },

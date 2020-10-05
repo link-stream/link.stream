@@ -1,17 +1,7 @@
 <template>
-    <b-modal
-        modal-class="ShareArtModal"
-        v-model="open"
-        centered
-        size="lg"
-        hide-footer
-    >
+    <b-modal modal-class="ShareArtModal" v-model="open" centered size="lg" hide-footer>
         <template v-slot:modal-header>
-            <BasicButton
-                variant="icon"
-                class="modal-close"
-                @click="$emit('close')"
-            />
+            <BasicButton variant="icon" class="modal-close" @click="$emit('close')" />
             <h2>Share this {{ shareData.type }}</h2>
         </template>
         <template v-slot:default>
@@ -19,11 +9,9 @@
                 <div class="item-cover">
                     <img :src="shareData.coverart" :alt="shareData.title" />
                 </div>
-                <MiniAudioPlayer :src="shareData.src" />
-                <div class="item-body">
-                    <h4 class="item-title">
-                        {{ shareData.title }}
-                    </h4>
+                <!-- <MiniAudioPlayer :src="shareData.src" /> -->
+                <div class="item-body ml-4">
+                    <h4 class="item-title">{{ shareData.title }}</h4>
                     <small class="item-subtitle">
                         {{ shareData.type }}
                         from
@@ -32,7 +20,7 @@
                 </div>
             </div>
             <div class="social-share-links">
-                <a href="#">
+                <a href="#" v-show="false">
                     <i class="fab fa-instagram-square"></i>
                 </a>
                 <ShareNetwork
@@ -42,8 +30,8 @@
                     :description="
                         `${shareData.type} from ${shareData.user_name}`
                     "
-                    quote=""
-                    hashtags=""
+                    quote
+                    hashtags
                 >
                     <i class="fab fa-facebook-square"></i>
                 </ShareNetwork>
@@ -52,7 +40,7 @@
                     :url="shareData.shareUrl"
                     :title="shareData.title"
                     :twitter-user="`${shareData.user_name}`"
-                    hashtags=""
+                    hashtags
                 >
                     <i class="fab fa-twitter-square"></i>
                 </ShareNetwork>
@@ -60,7 +48,7 @@
                     network="telegram"
                     :url="shareData.shareUrl"
                     :title="shareData.title"
-                    description=""
+                    description
                 >
                     <i class="fas fa-paper-plane"></i>
                     <!-- <img src="@/assets/img/ico/mail.svg" /> -->
@@ -72,7 +60,7 @@
                         <img src="@/assets/img/ico/link.svg" />
                     </b-input-group-text>
                 </template>
-                <b-form-input v-model="shareData.shareUrl" />
+                <b-form-input v-model="shareData.shareUrl" readonly />
             </b-input-group>
         </template>
     </b-modal>
@@ -109,7 +97,7 @@ export default {
                     break
                 case 'pack':
                     typeString = 'Beat Pack'
-                    subTypeURL = 'beats'
+                    subTypeURL = 'beat-packs'
                     break
                 case 'kit':
                     typeString = 'Sounf Kit'

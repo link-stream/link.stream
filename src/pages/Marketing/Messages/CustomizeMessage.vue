@@ -195,7 +195,13 @@
                                 class="logo-container has-image"
                             >
                                 <div class="logo">
-                                    <img :src="`${mediaURL}${form.background_image}`" />
+                                    <img
+                                        :src="
+                                            getFullMediaURL(
+                                                form.background_image
+                                            )
+                                        "
+                                    />
                                 </div>
                                 <IconButton
                                     class="btn-camera"
@@ -361,6 +367,9 @@ export default {
                 case 'background':
                     this.form.background_image = url
             }
+        },
+        getFullMediaURL(url) {
+            return appConstants.mediaURL + url
         },
     },
 }

@@ -1,5 +1,8 @@
 .email-preview-release {
     height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     .message-content {
         width: 560px;
         margin-left: auto;
@@ -32,6 +35,17 @@
         }
         .message-container {
             background-color: white;
+            &.video {
+                margin-top: 45px;
+                .message-body {
+                    margin-bottom: 40px;
+                }
+            }
+            &.plain {
+                .message-body {
+                    margin: 30px 30px 60px;
+                }
+            }
             .message-header {
                 padding: 25px 30px 0;
                 display: flex;
@@ -85,9 +99,7 @@
                     }
                     margin-bottom: 15px;
                 }
-                &.video {
-                    margin-bottom: 40px;
-                }
+                
             }
             .message-footer {
                 width: 100%;
@@ -132,6 +144,9 @@
                 padding: 32px 15px 30px;
                 .message-frame {
                     padding: 15px 5px;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
                     .message-container {
                         .message-header {
                             padding: 10px 15px;

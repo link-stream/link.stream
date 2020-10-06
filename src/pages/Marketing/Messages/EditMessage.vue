@@ -299,7 +299,7 @@ export default {
         },
         handleEditContentClick() {
             let routerName = 'customizeMessage'
-            switch(this.smsData.template) {
+            switch (this.smsData.template_type) {
                 case 'release':
                     routerName = 'customizeMessage'
                     break

@@ -110,7 +110,7 @@ export default {
         await this.$store.dispatch('marketing/getMessages')
         this.loading = false
         // console.log(moment(new Date('2020/02/01')).startOf('month'))
-        // console.log(this.messages)
+        console.log(this.messages)
         this.refreshRealMessages()
     },
     methods: {
@@ -145,6 +145,14 @@ export default {
                     messages: previousWeek,
                 })
             }
+            const previousMonth = tempMessages.filter(
+                ({ created_at }) =>
+                    created_at < startOfMonth
+            )
+            sortMessages.push({
+                dateTitle: 'Previous Month',
+                messages: previousMonth,
+            })
             // const curMonth = moment().get('month')
             // let curStartOfMonth = moment().startOf('month')
             // for (let m = curMonth - 1; m >= 0; m--) {

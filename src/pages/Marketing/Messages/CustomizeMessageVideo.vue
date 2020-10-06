@@ -73,7 +73,7 @@
                                             <a
                                                 class="current-color"
                                                 :class="{
-                                                    noColor: !form.background_color,
+                                                    nocolor: !form.background_color,
                                                 }"
                                                 :style="{
                                                     backgroundColor:

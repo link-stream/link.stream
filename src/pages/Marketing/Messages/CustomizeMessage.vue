@@ -133,6 +133,9 @@
                                         <template v-slot:prepend>
                                             <a
                                                 class="current-color"
+                                                :class="{
+                                                    nocolor: !form.button_color,
+                                                }"
                                                 :style="{
                                                     backgroundColor:
                                                         form.button_color,
@@ -164,7 +167,7 @@
                                             <a
                                                 class="current-color"
                                                 :class="{
-                                                    noColor: !form.background_color,
+                                                    nocolor: !form.background_color,
                                                 }"
                                                 :style="{
                                                     backgroundColor:

@@ -90,7 +90,7 @@
             <b-dropdown-item @click="handleViewReportClick">
                 View Report
             </b-dropdown-item>
-            <b-dropdown-item>
+            <b-dropdown-item @click="handleViewEmailClick">
                 View Email
             </b-dropdown-item>
             <b-dropdown-item>
@@ -120,16 +120,12 @@ export default {
     },
     methods: {
         handleEditClick() {
+            this.$store.dispatch('marketing/setSMSData', {
+                ...this.message,
+            })
             if (this.message.type === 'SMS') {
-                this.$store.dispatch('marketing/setSMSData', {
-                    ...this.message,
-                })
                 this.$bus.$emit('modal.createSMS.open')
             } else if (this.message.type === 'Email') {
-                console.log('Set message', this.message)
-                this.$store.dispatch('marketing/setSMSData', {
-                    ...this.message,
-                })
                 this.$router.push({
                     name: 'editMessage',
                 })
@@ -140,6 +136,15 @@ export default {
                 name: 'reportMessage',
             })
         },
+        handleViewEmailClick() {
+            let routeData = this.$router.resolve({
+                name: 'viewEmail',
+                params: {
+                    id: this.message.id,
+                },
+            })
+            window.open(routeData.href, '_blank')
+        }
     },
 }
 </script>

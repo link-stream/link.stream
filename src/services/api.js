@@ -620,6 +620,14 @@ export const api = {
                 method,
             })
         },
+        async getMessage(userId, id) {
+            const endpoint = '/marketing/messages/' + userId + '/' + id
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
         async insertMessage(params) {
             const endpoint = '/marketing/messages/'
             const method = METHOD_POST

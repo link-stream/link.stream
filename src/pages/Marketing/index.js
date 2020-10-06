@@ -6,6 +6,7 @@ export { default as CustomizeMessageVideo } from './Messages/CustomizeMessageVid
 export { default as SentSMS } from './Messages/SentSMS'
 export { default as ReportMessage } from './Messages/ReportMessage'
 export { default as SelectEmailTemplate } from './Messages/SelectTemplate'
+export { default as ViewEmail } from './Messages/ViewEmail'
 export { default as Subscribers } from './Subscribers/Subscribers'
 export { default as AddSubscriber } from './Subscribers/AddSubscriber'
 export { default as SubscriberDetails } from './Subscribers/SubscriberDetails'

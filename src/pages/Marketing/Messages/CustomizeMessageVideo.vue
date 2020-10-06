@@ -4,7 +4,7 @@
             <a href="#" class="btn-back" @click.prevent="back">
                 <font-awesome-icon :icon="['fas', 'chevron-left']" />
             </a>
-            <h4 class="title">Add a Subject Line</h4>
+            <h4 class="title">Customize</h4>
             <b-button
                 pill
                 class="btn-send-test"

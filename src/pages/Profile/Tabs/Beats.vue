@@ -101,7 +101,7 @@ export default {
             }
             this.individualLoading = true
             const item = this.beatsLoad.find(
-                beatsLoad => beatsLoad.id === this.beats[this.currentIndex].id
+                (beatsLoad) => beatsLoad.id === this.beats[this.currentIndex].id
             )
             if (item === undefined) {
                 const response = await api.profiles.getProfileBeatPackById(
@@ -131,7 +131,7 @@ export default {
                     src: srcAudio,
                     type: beat.type,
                 }
-                this.$store.dispatch('profile/addPlayerItem', this.playerItem)
+                this.$store.dispatch('profile/addPlayerBeat', this.playerItem)
                 this.curBeat = { ...beat }
             } else {
                 this.playerItem = { ...item }

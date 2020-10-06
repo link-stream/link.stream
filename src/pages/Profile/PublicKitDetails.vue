@@ -7,31 +7,22 @@
                     <div class="img-back d-sm-none"></div>
                     <div class="img-container">
                         <img :src="kit.coverart" />
-                        <img
-                            src="@/assets/img/ico/play-light.svg"
-                            class="center-img d-sm-none"
-                        />
+                        <img src="@/assets/img/ico/play-light.svg" class="center-img d-sm-none" />
                     </div>
                 </div>
                 <div class="right-col">
                     <div class="title-container">
-                        <MiniAudioPlayer
-                            :src="kit.src"
-                            class="d-none d-sm-block"
-                        />
+                        <MiniAudioPlayer :src="kit.src" class="d-none d-sm-block" />
                         <div class="title-desc">
-                            <div class="title">
-                                {{ kit.title }}
-                            </div>
-                            <div class="sub-title">
-                                Sound Kit from {{ profile.display_name }}
-                            </div>
+                            <div class="title">{{ kit.title }}</div>
+                            <div class="sub-title">Sound Kit from {{ profile.display_name }}</div>
                         </div>
                     </div>
                     <div class="actions d-sm-none">
-                        <basic-button class="btn-buy" @click="handleBuyClick()">
-                            {{ kit.price | currencyFormat }} - Buy Kit
-                        </basic-button>
+                        <basic-button
+                            class="btn-buy"
+                            @click="handleBuyClick()"
+                        >{{ kit.price | currencyFormat }} - Buy Kit</basic-button>
                     </div>
                     <div class="desc" v-if="kit.description && !readMore">
                         <div class="d-none d-sm-block">
@@ -41,9 +32,7 @@
                                 href="#"
                                 class="read-more"
                                 @click.prevent="readMore = true"
-                            >
-                                Read More
-                            </a>
+                            >Read More</a>
                         </div>
                         <div class="d-sm-none">
                             {{ kit.description | truncate(100) }}
@@ -52,9 +41,7 @@
                                 href="#"
                                 class="read-more"
                                 @click.prevent="readMore = true"
-                            >
-                                Read More
-                            </a>
+                            >Read More</a>
                         </div>
                     </div>
                     <div class="desc" v-if="kit.description && readMore">
@@ -63,14 +50,13 @@
                             href="#"
                             class="read-more"
                             @click.prevent="readMore = false"
-                        >
-                            Less
-                        </a>
+                        >Less</a>
                     </div>
                     <div class="actions d-none d-sm-block">
-                        <basic-button class="btn-buy" @click="handleBuyClick()">
-                            {{ kit.price | currencyFormat }} - Buy Kit
-                        </basic-button>
+                        <basic-button
+                            class="btn-buy"
+                            @click="handleBuyClick()"
+                        >{{ kit.price | currencyFormat }} - Buy Kit</basic-button>
                         <basic-button
                             variant="outline-black"
                             class="btn-share"
@@ -80,55 +66,33 @@
                                 :icon="['fas', 'share-alt-square']"
                                 size="lg"
                                 class="mr-2"
-                            />
-                            Share
+                            />Share
                         </basic-button>
                     </div>
                 </div>
             </div>
             <div class="beat-container">
                 <div class="header">
-                    <div class="float-left">
-                        {{ this.samples.length }} SAMPLES
-                    </div>
+                    <div class="float-left">{{ this.samples.length }} SAMPLES</div>
                 </div>
-                <div
-                    v-for="(sample, index) in samples"
-                    :key="index"
-                    class="beat-info"
-                >
+                <div v-for="(sample, index) in samples" :key="index" class="beat-info">
                     <ListAudioPlayer :src="sample.src" />
-                    <div class="beat-title">
-                        {{ sample.title }}
-                    </div>
+                    <div class="beat-title">{{ sample.title }}</div>
                     <b-icon-three-dots-vertical class="btn-menu" />
                 </div>
                 <basic-button
                     variant="outline-light"
                     size="sm"
                     class="btn-show-more"
-                >
-                    Load More Samples
-                </basic-button>
+                >Load More Samples</basic-button>
             </div>
             <div class="actions d-sm-none">
-                <basic-button
-                    variant="outline-black"
-                    class="btn-share"
-                    @click="handleShareClick()"
-                >
-                    <font-awesome-icon
-                        :icon="['fas', 'share-alt-square']"
-                        size="lg"
-                        class="mr-2"
-                    />
-                    Share Kit
+                <basic-button variant="outline-black" class="btn-share" @click="handleShareClick()">
+                    <font-awesome-icon :icon="['fas', 'share-alt-square']" size="lg" class="mr-2" />Share Kit
                 </basic-button>
             </div>
             <div class="more-artist">
-                <div class="section-title separator">
-                    More Sound Kits
-                </div>
+                <div class="section-title separator">More Sound Kits</div>
                 <b-form-row>
                     <b-col
                         cols="6"
@@ -149,12 +113,8 @@
                             <div class="img-container">
                                 <img :src="artist.coverart" />
                             </div>
-                            <h4 class="title">
-                                {{ artist.title }}
-                            </h4>
-                            <div class="desc">
-                                {{ profile.display_name }}
-                            </div>
+                            <h4 class="title">{{ artist.title }}</h4>
+                            <div class="desc">{{ profile.display_name }}</div>
                         </router-link>
                     </b-col>
                 </b-form-row>
@@ -183,19 +143,24 @@ export default {
     }),
     async created() {
         this.isLoading = true
-        await this.$store.dispatch('profile/getProfileMain', { url: this.url })
-        this.profile = this.$store.getters['profile/profile']
 
-        const kitResponse = await api.profiles.getProfileKitById(
-            this.profile.id,
-            this.kitId
-        )
-        if (kitResponse.status !== 'success' || !kitResponse.data.length) {
-            this.$router.push({ name: 'profileSoundKits' })
-            this.$toast.error('Sound kit not found.')
-            return
+        await this.$store.dispatch('profile/getProfileKitsTab', {
+            url: this.url,
+            audio_id: this.kitId,
+        })
+        this.profile = this.$store.getters['profile/profile']
+        const moreArtists = this.$store.getters['profile/moreElements']
+        if (moreArtists.length) {
+            this.moreArtists = moreArtists.map(artist => {
+                return {
+                    ...artist,
+                    coverart: artist.data_image || appConstants.defaultCoverArt,
+                    producer_name: this.profile.display_name,
+                }
+            })
         }
-        const kit = kitResponse.data[0]
+
+        const kit = this.$store.getters['profile/soundKits'][0]
         this.kit = {
             ...kit,
             coverart: kit.data_image || appConstants.defaultCoverArt,
@@ -208,20 +173,6 @@ export default {
                 src: null,
             })
         }
-        const moreArtists = await api.profiles.getProfileMoreKits(
-            this.profile.id
-        )
-        if (moreArtists.status == 'success') {
-            this.moreArtists = moreArtists.data.map(artist => {
-                return {
-                    ...artist,
-                    coverart: artist.data_image || appConstants.defaultCoverArt,
-                    producer_name: this.profile.display_name,
-                }
-            })
-        } else {
-            this.moreArtists = []
-        }
         this.isLoading = false
 
         for (const item of this.samples) {
@@ -230,7 +181,6 @@ export default {
                 kit.id,
                 item.title
             )
-            console.log(response.data)
             if (response.status === 'success') {
                 item.src = response.data.audio
             }

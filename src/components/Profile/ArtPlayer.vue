@@ -1,10 +1,7 @@
 <template>
     <b-container fluid class="art-player" v-if="playerItem">
         <div class="player-progress" @click="seek">
-            <div
-                class="current-progress"
-                :style="`width: ${percentComplete}%`"
-            ></div>
+            <div class="current-progress" :style="`width: ${percentComplete}%`"></div>
         </div>
         <div class="player-container">
             <div class="img-thumb">
@@ -13,11 +10,11 @@
             <div class="control-container">
                 <div class="art-info">
                     <div class="title">
-                        {{ loading ? 'Loading...' : playerItem.title }}
+                        {{
+                        loading ? 'Loading...' : playerItem.title
+                        }}
                     </div>
-                    <div class="art-user">
-                        {{ playerItem.producer_name }}
-                    </div>
+                    <div class="art-user">{{ playerItem.producer_name }}</div>
                 </div>
                 <div class="center-control d-none d-md-block">
                     <IconButton
@@ -53,7 +50,7 @@
                         @click="showVolume = !showVolume"
                     />
                     <b-dropdown
-                        class="actions-menu"
+                        class="actions-menu d-none d-md-block"
                         variant="icon"
                         dropleft
                         no-caret
@@ -61,6 +58,32 @@
                         <template v-slot:button-content>
                             <Icon icon="dot-menu-v-w" />
                         </template>
+                        <div style="line-height: 1.5">
+                            <b-dropdown-item
+                                :to="
+                                    playerItem.type === 'beat'
+                                        ? {
+                                              name: 'profileBeatDetails',
+                                              params: {
+                                                  beatId: playerItem.id,
+                                              },
+                                          }
+                                        : {
+                                              name: 'profileKitDetails',
+                                              params: { kitId: playerItem.id },
+                                          }
+                                "
+                                target="_blank"
+                            >
+                                {{
+                                playerItem.type === 'beat'
+                                ? 'Go to Beat'
+                                : 'Go to Sound Kit'
+                                }}
+                            </b-dropdown-item>
+                            <b-dropdown-item href="#">Buy</b-dropdown-item>
+                            <b-dropdown-item href="#">Share</b-dropdown-item>
+                        </div>
                     </b-dropdown>
                     <IconButton
                         class="btn-pause d-md-none"
@@ -74,6 +97,7 @@
     </b-container>
 </template>
 <script>
+import { api } from '~/services'
 export default {
     name: 'ArtPlayer',
     props: {
@@ -110,10 +134,12 @@ export default {
         previousVolume: 35,
         showVolume: false,
         volume: 100,
+        pause: false,
     }),
     watch: {
         playerItem(value) {
             this.playing = false
+            this.pause = false
             if (this.audioObj) {
                 this.audioObj.src = value.src
                 this.audioObj.load()
@@ -121,10 +147,23 @@ export default {
                 this.load(value.src)
             }
         },
-        playing(value) {
+        async playing(value) {
             if (value) {
                 this.audioObj.play()
+                if (!this.pause) {
+                    const params = {
+                        audio_id: this.playerItem.id,
+                        audio_type: this.playerItem.type,
+                        action: 'play',
+                    }
+                    const {
+                        status,
+                        env,
+                        message,
+                    } = await api.profiles.insertAudioAction(params)
+                }
             } else {
+                this.pause = true
                 this.audioObj.pause()
             }
             this.$emit('setStatus', value)

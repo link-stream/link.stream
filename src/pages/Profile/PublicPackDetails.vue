@@ -7,21 +7,17 @@
                     <div class="img-back d-sm-none"></div>
                     <div class="img-container">
                         <img :src="pack.coverart" />
-                        <img
-                            src="@/assets/img/ico/play-light.svg"
-                            class="center-img d-sm-none"
-                        />
+                        <img src="@/assets/img/ico/play-light.svg" class="center-img d-sm-none" />
                     </div>
                 </div>
                 <div class="right-col">
                     <div class="title-container">
-                        <MiniAudioPlayer src="" class="d-none d-sm-block" />
+                        <MiniAudioPlayer src class="d-none d-sm-block" />
                         <div class="title-desc">
-                            <div class="title">
-                                {{ pack.title }}
-                            </div>
+                            <div class="title">{{ pack.title }}</div>
                             <div class="sub-title">
-                                Ambient Beat Pack by {{ profile.display_name }}
+                                Ambient Beat Pack by
+                                {{ profile.display_name }}
                             </div>
                         </div>
                     </div>
@@ -33,9 +29,7 @@
                                 href="#"
                                 class="read-more"
                                 @click.prevent="readMore = true"
-                            >
-                                Read More
-                            </a>
+                            >Read More</a>
                         </div>
                         <div class="d-sm-none">
                             {{ pack.description | truncate(100) }}
@@ -44,9 +38,7 @@
                                 href="#"
                                 class="read-more"
                                 @click.prevent="readMore = true"
-                            >
-                                Read More
-                            </a>
+                            >Read More</a>
                         </div>
                     </div>
                     <div class="desc" v-if="pack.description && readMore">
@@ -55,9 +47,7 @@
                             href="#"
                             class="read-more"
                             @click.prevent="readMore = false"
-                        >
-                            Less
-                        </a>
+                        >Less</a>
                     </div>
                     <div class="actions">
                         <basic-button class="btn-buy" @click="handleBuyClick()">
@@ -69,29 +59,17 @@
             </div>
             <div class="beat-container" v-if="!isBeatLoading">
                 <div class="header">
-                    <div class="float-left">
-                        {{ this.beats.length }} BEATS
-                    </div>
-                    <div class="float-right">
-                        {{ Math.ceil(sumDurations / 60) }} mins
-                    </div>
+                    <div class="float-left">{{ this.beats.length }} BEATS</div>
+                    <div class="float-right">{{ Math.ceil(sumDurations / 60) }} mins</div>
                 </div>
-                <div
-                    v-for="(beat, index) in beats"
-                    :key="index"
-                    class="beat-info"
-                >
+                <div v-for="(beat, index) in beats" :key="index" class="beat-info">
                     <ListAudioPlayer :src="beat.src" />
-                    <div class="beat-title">
-                        {{ beat.title }}
-                    </div>
+                    <div class="beat-title">{{ beat.title }}</div>
                     <b-icon-three-dots-vertical class="btn-menu" />
                 </div>
             </div>
             <div class="more-artist">
-                <div class="section-title separator">
-                    More Beat Packs
-                </div>
+                <div class="section-title separator">More Beat Packs</div>
                 <b-form-row>
                     <b-col
                         cols="6"
@@ -119,12 +97,8 @@
                             <div class="img-container">
                                 <img :src="artist.coverart" />
                             </div>
-                            <h4 class="title">
-                                {{ artist.title }}
-                            </h4>
-                            <div class="desc">
-                                {{ profile.display_name }}
-                            </div>
+                            <h4 class="title">{{ artist.title }}</h4>
+                            <div class="desc">{{ profile.display_name }}</div>
                         </router-link>
                     </b-col>
                 </b-form-row>
@@ -156,39 +130,30 @@ export default {
     }),
     async created() {
         this.isLoading = true
-        await this.$store.dispatch('profile/getProfileMain', { url: this.url })
-        this.profile = this.$store.getters['profile/profile']
 
-        const packResponse = await api.profiles.getProfileBeatPackById(
-            this.profile.id,
-            this.packId,
-            'pack'
-        )
-        console.log('pack', packResponse)
-        if (packResponse.status !== 'success' || !packResponse.data.length) {
-            this.$router.push({ name: 'profileBeats' })
-            this.$toast.error('Beat pack not found.')
-            return
-        }
-        const pack = packResponse.data[0]
+        await this.$store.dispatch('profile/getProfileBeatsTab', {
+            url: this.url,
+            audio_id: this.packId,
+            type: 'pack',
+        })
+
+        this.profile = this.$store.getters['profile/profile']
+        const moreArtists = this.$store.getters['profile/moreElements']
+        const pack = this.$store.getters['profile/beats'][0]
+
         this.pack = {
             ...pack,
             coverart: pack.data_image || appConstants.defaultCoverArt,
         }
-        const moreArtists = await api.profiles.getProfileMoreBeats(
-            this.profile.id,
-            'pack'
-        )
-        if (moreArtists.status == 'success') {
-            this.moreArtists = moreArtists.data.map(artist => {
+
+        if (moreArtists.length) {
+            this.moreArtists = moreArtists.map(artist => {
                 return {
                     ...artist,
                     coverart: artist.data_image || appConstants.defaultCoverArt,
                     producer_name: this.profile.display_name,
                 }
             })
-        } else {
-            this.moreArtists = []
         }
         this.isLoading = false
 

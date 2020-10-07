@@ -662,6 +662,14 @@ export const api = {
                 method,
             })
         },
+        async getMarketingPromote(userId) {
+            const endpoint = '/marketing/marketing_promote/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
         async getSubscribers(userId, searchString) {
             let endpoint = '/marketing/subscribers/' + userId
             if (searchString) {

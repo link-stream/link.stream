@@ -133,6 +133,9 @@
                                         <template v-slot:prepend>
                                             <a
                                                 class="current-color"
+                                                :class="{
+                                                    nocolor: !form.button_color,
+                                                }"
                                                 :style="{
                                                     backgroundColor:
                                                         form.button_color,
@@ -164,7 +167,7 @@
                                             <a
                                                 class="current-color"
                                                 :class="{
-                                                    noColor: !form.background_color,
+                                                    nocolor: !form.background_color,
                                                 }"
                                                 :style="{
                                                     backgroundColor:
@@ -195,7 +198,13 @@
                                 class="logo-container has-image"
                             >
                                 <div class="logo">
-                                    <img :src="`${mediaURL}${form.background_image}`" />
+                                    <img
+                                        :src="
+                                            getFullMediaURL(
+                                                form.background_image
+                                            )
+                                        "
+                                    />
                                 </div>
                                 <IconButton
                                     class="btn-camera"
@@ -361,6 +370,9 @@ export default {
                 case 'background':
                     this.form.background_image = url
             }
+        },
+        getFullMediaURL(url) {
+            return appConstants.mediaURL + url
         },
     },
 }

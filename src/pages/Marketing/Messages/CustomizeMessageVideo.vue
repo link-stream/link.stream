@@ -4,7 +4,7 @@
             <a href="#" class="btn-back" @click.prevent="back">
                 <font-awesome-icon :icon="['fas', 'chevron-left']" />
             </a>
-            <h4 class="title">Add a Subject Line</h4>
+            <h4 class="title">Customize</h4>
             <b-button
                 pill
                 class="btn-send-test"
@@ -40,8 +40,11 @@
                         </b-form-input>
                     </b-form-group>
                     <small>
-                        Your video preview image will link to this URL. Preview images are generated automatically for
-                        <a href="https://www.youtube.com/" target="_blank">YouTube</a>
+                        Your video preview image will link to this URL. Preview
+                        images are generated automatically for
+                        <a href="https://www.youtube.com/" target="_blank">
+                            YouTube
+                        </a>
                         and
                         <a href="https://vimeo.com/" target="_blank">Vimeo</a>
                         URLs.
@@ -73,7 +76,7 @@
                                             <a
                                                 class="current-color"
                                                 :class="{
-                                                    noColor: !form.background_color,
+                                                    nocolor: !form.background_color,
                                                 }"
                                                 :style="{
                                                     backgroundColor:

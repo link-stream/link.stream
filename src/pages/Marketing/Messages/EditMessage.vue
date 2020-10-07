@@ -299,7 +299,7 @@ export default {
         },
         handleEditContentClick() {
             let routerName = 'customizeMessage'
-            switch(this.smsData.template) {
+            switch (this.smsData.template_type) {
                 case 'release':
                     routerName = 'customizeMessage'
                     break
@@ -321,6 +321,9 @@ export default {
                 date: null,
                 time: null,
                 status: 'Pending',
+                template_type: this.smsData.template_type
+                    ? this.smsData.template_type
+                    : 'release',
             }
             console.log('smsData', params)
             await this.$store.dispatch('marketing/setSMSData', params)
@@ -350,8 +353,12 @@ export default {
                 date: null,
                 time: null,
                 status: 'Draft',
+                template_type: this.smsData.template_type
+                    ? this.smsData.template_type
+                    : 'release',
             }
             await this.$store.dispatch('marketing/setSMSData', params)
+            console.log(this.smsData)
             let response
             if (this.smsData.id) {
                 response = await this.$store.dispatch(

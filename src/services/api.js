@@ -620,6 +620,14 @@ export const api = {
                 method,
             })
         },
+        async getMessage(userId, id) {
+            const endpoint = '/marketing/messages/' + userId + '/' + id
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
         async insertMessage(params) {
             const endpoint = '/marketing/messages/'
             const method = METHOD_POST
@@ -641,6 +649,14 @@ export const api = {
         async deleteMessage(id) {
             const endpoint = '/marketing/messages/' + id
             const method = METHOD_DELETE
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getMessageReport(userId, id) {
+            const endpoint = '/marketing/messages_report/' + userId + '/' + id
+            const method = METHOD_GET
             return await call({
                 endpoint,
                 method,

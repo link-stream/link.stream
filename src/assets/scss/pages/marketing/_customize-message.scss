@@ -35,9 +35,6 @@
         display: flex;
         .left-col {
             width: calc(100% - 320px);
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
         }
         .right-col {
             width: 320px;
@@ -127,8 +124,8 @@
                 height: 26px;
                 margin: 8px;
                 z-index: 9;
-                &.no-color {
-                    border:1px solid #8A8197;
+                &.nocolor {
+                    border:1px solid $gray-330;
 
                     &:after{
                         content: "";

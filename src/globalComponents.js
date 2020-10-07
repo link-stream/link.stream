@@ -34,6 +34,7 @@ import {
     BPaginationNav,
     BTable,
     BFormFile,
+    BTooltip,
 } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'
@@ -103,6 +104,7 @@ Vue.component('BAspect', BAspect)
 Vue.component('BPaginationNav', BPaginationNav)
 Vue.component('BTable', BTable)
 Vue.component('BFormFile', BFormFile)
+Vue.component('BTooltip', BTooltip)
 Vue.use(BootstrapVueIcons)
 
 // Install VueProgressBar

@@ -23,7 +23,10 @@
                     v-for="(template, index) in templates"
                     :key="`template-${index}`"
                 >
-                    <div class="template-container" @click="showEditMessage(template.type)">
+                    <div
+                        class="template-container"
+                        @click="showEditMessage(template.type)"
+                    >
                         <img :src="template.src" />
                         <h5 class="title">
                             {{ template.title }}
@@ -72,7 +75,7 @@ export default {
         async showEditMessage(type) {
             const params = {
                 ...this.smsData,
-                template: type,
+                template_type: type,
             }
             await this.$store.dispatch('marketing/setSMSData', params)
             this.$router.push({

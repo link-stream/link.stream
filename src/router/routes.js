@@ -39,7 +39,6 @@ import {
     CustomizeMessage,
     SentSMS,
     ReportMessage,
-    SelectEmailTemplate,
     AddSubscriber,
     SubscriberDetails,
     ImportSubscribers,
@@ -54,6 +53,11 @@ import PublicProfile from '@/pages/Profile/PublicProfile'
 import PublicBeatDetails from '@/pages/Profile/PublicBeatDetails'
 import PublicPackDetails from '@/pages/Profile/PublicPackDetails'
 import PublicKitDetails from '@/pages/Profile/PublicKitDetails'
+
+import Cart from '@/pages/Profile/Checkout/Cart'
+import CheckoutSignin from '@/pages/Profile/Checkout/CheckoutSignin'
+import CheckoutContactInfo from '@/pages/Profile/Checkout/CheckoutContactInfo'
+import PayWithCard from '@/pages/Profile/Checkout/PayWithCard'
 
 const routes = [
     // Misc
@@ -327,12 +331,6 @@ const routes = [
         meta: { requiresAuth: true, layout: 'account' },
     },
     {
-        path: '/app/marketing/messages/select-template',
-        name: 'selectEmailTemplate',
-        component: SelectEmailTemplate,
-        meta: { requiresAuth: true, layout: 'account' },
-    },
-    {
         path: '/app/marketing/subscriber/add',
         name: 'addSubscriber',
         component: AddSubscriber,
@@ -447,8 +445,35 @@ const routes = [
         props: true,
         meta: { layout: 'profile' },
     },
+    {
+        path: '/:url/cart/',
+        name: 'cart',
+        component: Cart,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/:url/checkout-signin',
+        name: 'checkoutSignin',
+        component: CheckoutSignin,
+        props: true,
+        meta: { layout: 'auth' },
+    },
+    {
+        path: '/:url/checkout-contact-info',
+        name: 'checkoutContactInfo',
+        component: CheckoutContactInfo,
+        props: true,
+        //meta: { layout: 'auth' },
+    },
+    {
+        path: '/:url/checkout-pay',
+        name: 'payWithCard',
+        component: PayWithCard,
+        props: true,
+        //meta: { layout: 'auth' },
+    },
     // 404 catch all
-
     {
         path: '/404',
         alias: '*',

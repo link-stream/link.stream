@@ -34,6 +34,14 @@ import {
     BPaginationNav,
     BTable,
     BFormFile,
+    BCard,
+    BCardSubTitle,
+    BCardText,
+    BCardBody,
+    BAvatar,
+    BListGroup,
+    BListGroupItem,
+    BFormSelect
 } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'
@@ -103,6 +111,14 @@ Vue.component('BAspect', BAspect)
 Vue.component('BPaginationNav', BPaginationNav)
 Vue.component('BTable', BTable)
 Vue.component('BFormFile', BFormFile)
+Vue.component('BCard', BCard)
+Vue.component('BCardSubTitle', BCardSubTitle)
+Vue.component('BCardText', BCardText)
+Vue.component('BCardBody', BCardBody)
+Vue.component('BAvatar', BAvatar)
+Vue.component('BListGroup', BListGroup)
+Vue.component('BListGroupItem', BListGroupItem)
+Vue.component('BFormSelect', BFormSelect)
 Vue.use(BootstrapVueIcons)
 
 // Install VueProgressBar

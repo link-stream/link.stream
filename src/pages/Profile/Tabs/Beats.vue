@@ -5,6 +5,7 @@
             class="text-center my-5"
         >There are no public beats or beat packs.</p>
         <LoadingSpinner class="page-loader" v-if="loading" />
+
         <div v-else>
             <b-form-row>
                 <b-col cols="12" lg="3" md="6" v-for="(item, index) in beats" :key="index">
@@ -22,6 +23,8 @@
                 <basic-button variant="outline-black" size="md" class="btn-view-more">View More</basic-button>
             </div>
         </div>
+        <BuyLicenseModal @close="handleCloseBuy" />
+        <ShareArtModal @close="handleCloseShare" />
         <ArtPlayer
             :playerItem="playerItem"
             :isFirst="currentIndex === 0"
@@ -40,11 +43,15 @@ import { api } from '~/services'
 import { appConstants } from '~/constants'
 import ArtItem from '@/components/Profile/ArtItem'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
+import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
+import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'ProfileBeats',
     components: {
         ArtItem,
         ArtPlayer,
+        BuyLicenseModal,
+        ShareArtModal,
     },
     props: {
         url: {
@@ -101,7 +108,7 @@ export default {
             }
             this.individualLoading = true
             const item = this.beatsLoad.find(
-                (beatsLoad) => beatsLoad.id === this.beats[this.currentIndex].id
+                beatsLoad => beatsLoad.id === this.beats[this.currentIndex].id
             )
             if (item === undefined) {
                 const response = await api.profiles.getProfileBeatPackById(
@@ -167,6 +174,12 @@ export default {
             } else {
                 this.currentIndex = index
             }
+        },
+        handleCloseBuy() {
+            this.$bus.$emit('modal.buyLicense.close')
+        },
+        handleCloseShare() {
+            this.$bus.$emit('modal.share.close')
         },
     },
 }

@@ -1,7 +1,10 @@
 <template>
     <b-container fluid class="art-player" v-if="playerItem">
         <div class="player-progress" @click="seek">
-            <div class="current-progress" :style="`width: ${percentComplete}%`"></div>
+            <div
+                class="current-progress"
+                :style="`width: ${percentComplete}%`"
+            ></div>
         </div>
         <div class="player-container">
             <div class="img-thumb">
@@ -10,9 +13,7 @@
             <div class="control-container">
                 <div class="art-info">
                     <div class="title">
-                        {{
-                        loading ? 'Loading...' : playerItem.title
-                        }}
+                        {{ loading ? 'Loading...' : playerItem.title }}
                     </div>
                     <div class="art-user">{{ playerItem.producer_name }}</div>
                 </div>
@@ -52,7 +53,7 @@
                     <b-dropdown
                         class="actions-menu d-none d-md-block"
                         variant="icon"
-                        dropleft
+                        dropup
                         no-caret
                     >
                         <template v-slot:button-content>
@@ -76,13 +77,17 @@
                                 target="_blank"
                             >
                                 {{
-                                playerItem.type === 'beat'
-                                ? 'Go to Beat'
-                                : 'Go to Sound Kit'
+                                    playerItem.type === 'beat'
+                                        ? 'Go to Beat'
+                                        : 'Go to Sound Kit'
                                 }}
                             </b-dropdown-item>
-                            <b-dropdown-item href="#">Buy</b-dropdown-item>
-                            <b-dropdown-item href="#">Share</b-dropdown-item>
+                            <b-dropdown-item @click="handleBuyClick"
+                                >Buy</b-dropdown-item
+                            >
+                            <b-dropdown-item @click="handleShareClick"
+                                >Share</b-dropdown-item
+                            >
                         </div>
                     </b-dropdown>
                     <IconButton
@@ -98,6 +103,7 @@
 </template>
 <script>
 import { api } from '~/services'
+import { mapGetters } from 'vuex'
 export default {
     name: 'ArtPlayer',
     props: {
@@ -118,6 +124,10 @@ export default {
         },
     },
     computed: {
+        ...mapGetters({
+            beats: 'profile/beats',
+            soundKits: 'profile/soundKits',
+        }),
         percentComplete() {
             return parseInt((this.currentSeconds / this.durationSeconds) * 100)
         },
@@ -156,11 +166,7 @@ export default {
                         audio_type: this.playerItem.type,
                         action: 'play',
                     }
-                    const {
-                        status,
-                        env,
-                        message,
-                    } = await api.profiles.insertAudioAction(params)
+                    await api.profiles.insertAudioAction(params)
                 }
             } else {
                 this.pause = true
@@ -222,6 +228,36 @@ export default {
         },
         handleUpdate() {
             this.currentSeconds = this.audioObj.currentTime
+        },
+        handleBuyClick() {
+            if (this.playerItem.type === 'beat') {
+                let buyItem = this.beats.find(
+                    beats => beats.id === this.playerItem.id
+                )
+                this.$bus.$emit('modal.buyLicense.open', buyItem)
+            } else {
+                let buyItem = this.soundKits.find(
+                    soundKits => soundKits.id === this.playerItem.id
+                )
+                this.$store.dispatch('profile/addCartItem', {
+                    ...buyItem,
+                })
+                this.$bus.$emit('modal.addedCart.open')
+            }
+        },
+        handleShareClick() {
+            let shareItem = null
+            if (this.playerItem.type === 'beat') {
+                shareItem = this.beats.find(
+                    beats => beats.id === this.playerItem.id
+                )
+            } else {
+                shareItem = this.soundKits.find(
+                    soundKits => soundKits.id === this.playerItem.id
+                )
+                shareItem.type = 'kit'
+            }
+            this.$bus.$emit('modal.share.open', shareItem)
         },
         mute() {
             if (this.muted) {

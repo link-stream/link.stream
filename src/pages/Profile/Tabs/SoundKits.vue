@@ -22,6 +22,7 @@
                 <basic-button variant="outline-black" size="md" class="btn-view-more">view More</basic-button>
             </div>
         </div>
+        <ShareArtModal @close="handleCloseShare" />
         <ArtPlayer
             :playerItem="curItem"
             :isFirst="currentIndex === 0"
@@ -40,11 +41,13 @@ import { api } from '~/services'
 import { appConstants } from '~/constants'
 import SoundKitItem from '@/components/Profile/SoundKitItem'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
+import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'ProfileSoundKits',
     components: {
         SoundKitItem,
         ArtPlayer,
+        ShareArtModal,
     },
     props: {
         url: {
@@ -138,6 +141,9 @@ export default {
             } else {
                 this.currentIndex = index
             }
+        },
+        handleCloseShare() {
+            this.$bus.$emit('modal.share.close')
         },
     },
 }

@@ -9,7 +9,6 @@
                 <div class="item-cover">
                     <img :src="shareData.coverart" :alt="shareData.title" />
                 </div>
-                <!-- <MiniAudioPlayer :src="shareData.src" /> -->
                 <div class="item-body ml-4">
                     <h4 class="item-title">{{ shareData.title }}</h4>
                     <small class="item-subtitle">
@@ -51,7 +50,6 @@
                     description
                 >
                     <i class="fas fa-paper-plane"></i>
-                    <!-- <img src="@/assets/img/ico/mail.svg" /> -->
                 </ShareNetwork>
             </div>
             <b-input-group>
@@ -67,21 +65,13 @@
 </template>
 
 <script>
-import { MiniAudioPlayer } from '~/components/Player'
 import { mapGetters } from 'vuex'
 import { appConstants } from '~/constants'
 export default {
     name: 'ShareArtModal',
-    components: {
-        MiniAudioPlayer,
-    },
-    props: {
-        curItem: {
-            type: Object,
-        },
-    },
     data: () => ({
-        open: true,
+        open: false,
+        curItem: null,
     }),
     computed: {
         ...mapGetters({
@@ -115,10 +105,16 @@ export default {
             }
         },
     },
-    created() {},
+    created() {
+        this.$bus.$on('modal.share.open', payload => {
+            this.curItem = payload
+            this.open = true
+        })
+        this.$bus.$on('modal.share.close', this.close)
+    },
     methods: {
         close() {
-            this.$emit('close')
+            this.open = false
         },
     },
 }

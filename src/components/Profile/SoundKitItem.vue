@@ -45,11 +45,10 @@
             <basic-button size="sm" class="btn-buy" @click="handleBuyClick">Buy</basic-button>
             <IconButton class="btn-download" icon="download" v-show="false" />
         </div>
-        <ShareArtModal v-if="isShowShare" :curItem="curItem" @close="isShowShare = false" />
     </div>
 </template>
 <script>
-import ShareArtModal from '@/components/Modal/ShareArtModal'
+import { mapGetters } from 'vuex'
 export default {
     name: 'SoundKitItemm',
     props: {
@@ -69,13 +68,13 @@ export default {
             type: Boolean,
         },
     },
-    components: {
-        ShareArtModal,
-    },
     data: () => ({
         isShowShare: false,
     }),
     computed: {
+        ...mapGetters({
+            soundKits: 'profile/soundKits',
+        }),
         curItem() {
             return {
                 ...this.artItem,
@@ -85,11 +84,11 @@ export default {
     },
     methods: {
         handleBuyClick() {
-            this.$store.dispatch('profile/addCartItem', { ...this.artItem })
+            this.$store.dispatch('profile/addCartItem', { ...this.curItem })
             this.$bus.$emit('modal.addedCart.open')
         },
         handleShareClick() {
-            this.isShowShare = true
+            this.$bus.$emit('modal.share.open', this.curItem)
         },
     },
 }

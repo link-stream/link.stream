@@ -67,18 +67,10 @@
             <basic-button size="sm" class="btn-buy" @click="handleBuyClick">Buy</basic-button>
             <IconButton class="btn-download" icon="download" v-show="false" />
         </div>
-        <BuyLicenseModal
-            v-if="isShowBuyLicenses"
-            :curItem="artItem"
-            @close="isShowBuyLicenses = false"
-        />
-        <ShareArtModal v-if="isShowShare" :curItem="artItem" @close="isShowShare = false" />
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
-import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'ArtItemm',
     props: {
@@ -98,14 +90,6 @@ export default {
             type: Boolean,
         },
     },
-    components: {
-        BuyLicenseModal,
-        ShareArtModal,
-    },
-    data: () => ({
-        isShowBuyLicenses: false,
-        isShowShare: false,
-    }),
     computed: {
         ...mapGetters({
             licenses: 'profile/licenses',
@@ -126,14 +110,14 @@ export default {
     methods: {
         handleBuyClick() {
             if (this.artItem.type === 'beat') {
-                this.isShowBuyLicenses = true
+                this.$bus.$emit('modal.buyLicense.open', this.artItem)
             } else {
                 this.$store.dispatch('profile/addCartItem', { ...this.artItem })
                 this.$bus.$emit('modal.addedCart.open')
             }
         },
         handleShareClick() {
-            this.isShowShare = true
+            this.$bus.$emit('modal.share.open', this.artItem)
         },
         selectImage() {
             if (this.artItem.type === 'beat') {

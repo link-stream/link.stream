@@ -66,14 +66,10 @@ import { mapGetters } from 'vuex'
 
 export default {
     name: 'Licenses',
-    props: {
-        curItem: {
-            type: Object,
-        },
-    },
     data() {
         return {
-            open: true,
+            open: false,
+            curItem: null,
             licenseDetails: [
                 'Used for Music Recording',
                 'Distribute up to 25000 copies',
@@ -91,11 +87,16 @@ export default {
         }),
     },
     async created() {
-        this.initLicense()
+        this.$bus.$on('modal.buyLicense.open', payload => {
+            this.curItem = payload
+            this.initLicense()
+            this.open = true
+        })
+        this.$bus.$on('modal.buyLicense.close', this.close)
     },
     methods: {
         close() {
-            this.$emit('close')
+            this.open = false
         },
         handleBuyClick(license) {
             this.close()
@@ -107,7 +108,7 @@ export default {
             this.$bus.$emit('modal.addedCart.open')
         },
         initLicense() {
-            this.realLicenses = this.curItem.licenses.map((item) => {
+            this.realLicenses = this.curItem.licenses.map(item => {
                 const findLicense = this.licenses.find(
                     ({ id }) => id === item.license_id
                 )

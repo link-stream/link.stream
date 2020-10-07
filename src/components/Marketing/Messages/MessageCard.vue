@@ -42,7 +42,7 @@
                         class="message-status"
                         :class="getStatusString.toLowerCase()"
                     >
-                        {{ getStatusString }}
+                        {{ message.status }}
                     </div>
                 </b-col>
                 <b-col v-if="message.status === 'Sent'" cols="12" sm="4">
@@ -90,7 +90,7 @@
             <b-dropdown-item @click="handleViewReportClick">
                 View Report
             </b-dropdown-item>
-            <b-dropdown-item>
+            <b-dropdown-item @click="handleViewEmailClick">
                 View Email
             </b-dropdown-item>
             <b-dropdown-item>
@@ -120,25 +120,34 @@ export default {
     },
     methods: {
         handleEditClick() {
+            this.$store.dispatch('marketing/setSMSData', {
+                ...this.message,
+            })
             if (this.message.type === 'SMS') {
-                this.$store.dispatch('marketing/setSMSData', {
-                    ...this.message,
-                })
                 this.$bus.$emit('modal.createSMS.open')
             } else if (this.message.type === 'Email') {
-                console.log('Set message', this.message)
-                this.$store.dispatch('marketing/setSMSData', {
-                    ...this.message,
-                })
                 this.$router.push({
                     name: 'editMessage',
                 })
             }
         },
         handleViewReportClick() {
-            this.$router.push({
+            let routeData = this.$router.resolve({
                 name: 'reportMessage',
+                params: {
+                    id: this.message.id,
+                },
             })
+            window.open(routeData.href, '_blank')
+        },
+        handleViewEmailClick() {
+            let routeData = this.$router.resolve({
+                name: 'viewEmail',
+                params: {
+                    id: this.message.id,
+                },
+            })
+            window.open(routeData.href, '_blank')
         },
     },
 }

@@ -16,59 +16,7 @@
         </div>
         <div class="page-body">
             <div class="left-col">
-                <div class="message-content">
-                    <b-row>
-                        <div class="select-view-type">
-                            <div class="view-type left active">
-                                Desktop
-                            </div>
-                            <div class="view-type right">
-                                Mobile
-                            </div>
-                        </div>
-                    </b-row>
-                    <div class="message-container">
-                        <div class="message-header">
-                            <div class="message-logo">
-                                <img src="/static/media/logo1.png" />
-                            </div>
-                            <div class="new-release">
-                                New release
-                            </div>
-                        </div>
-                        <div class="message-body">
-                            <div class="artwork-container">
-                                <img src="/static/media/placeholder.png" />
-                            </div>
-                            <h1 class="message-title">
-                                Title of Your Release
-                            </h1>
-                            <div class="more-info">
-                                Add more information about this media here
-                            </div>
-                            <basic-button class="btn-listen">
-                                Listen Now
-                            </basic-button>
-                        </div>
-                        <div class="message-footer">
-                            <div class="logo-container">
-                                <img src="@/assets/img/logo/logo-h-lg.png" />
-                            </div>
-                            <div class="text">
-                                <p>
-                                    You are receiving this email because you
-                                    opted in via our website.
-                                </p>
-                                <p>
-                                    You can
-                                    <a href="#"> update your preferences </a>
-                                    for this artist or
-                                    <a hre="#"> unsubscribe</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <EmailPreviewRelease :email-data="form" />
             </div>
             <div class="right-col">
                 <div class="customize-panel">
@@ -78,15 +26,28 @@
                     <div class="thumb-upload has-image">
                         <h6>Logo</h6>
                         <div class="d-flex">
-                            <div class="logo-container has-image">
+                            <div
+                                v-if="form.logo"
+                                class="logo-container has-image"
+                            >
                                 <div class="logo">
-                                    <img src="/static/media/logo1.png" />
+                                    <img :src="`${mediaURL}${form.logo}`" />
                                 </div>
                                 <IconButton
                                     class="btn-camera"
                                     icon="photo-camera"
-                                    @click="showSelectMedia"
+                                    @click="showSelectMedia('logo')"
                                 />
+                            </div>
+                            <div v-else class="logo-container">
+                                <div class="logo">
+                                    <IconButton
+                                        class="btn-add-image"
+                                        icon="add-image"
+                                        @click="showSelectMedia('logo')"
+                                    />
+                                    <p class="lb-add-image">Add Logo</p>
+                                </div>
                             </div>
                             <div class="text-container">
                                 <div class="logo-text">
@@ -96,7 +57,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <b-form-group label="Choose a release to promote">
+                    <b-form-group label="Choose a release to promote">
                         <BasicSelect
                             v-model="promoteName"
                             placeholder="Search by name"
@@ -104,22 +65,41 @@
                             :reduce="audience => audience.id"
                             label="name"
                         />
-                    </b-form-group> -->
+                    </b-form-group>
                     <div class="thumb-upload no-image">
                         <h6>Artwork</h6>
                         <div class="d-flex">
-                            <div class="logo-container">
+                            <div
+                                v-if="form.artwork"
+                                class="logo-container has-image"
+                            >
+                                <div class="logo">
+                                    <img :src="`${mediaURL}${form.artwork}`" />
+                                </div>
+                                <IconButton
+                                    class="btn-camera"
+                                    icon="photo-camera"
+                                    @click="showSelectMedia('artwork')"
+                                />
+                            </div>
+                            <div v-else class="logo-container">
                                 <div class="logo">
                                     <IconButton
                                         class="btn-add-image"
                                         icon="add-image"
-                                        @click="showSelectMedia"
+                                        @click="showSelectMedia('artwork')"
                                     />
                                     <p class="lb-add-image">Add Image</p>
                                 </div>
                             </div>
                             <div class="text-container">
-                                <div class="logo-text">
+                                <div v-if="form.artwork" class="logo-text">
+                                    <h6>Artwork Image</h6>
+                                    <a href="#" @click.prevent="removeArtwork">
+                                        Remove image
+                                    </a>
+                                </div>
+                                <div v-else class="logo-text">
                                     <small class="text-muted">
                                         suggested Minimum Size: 600x600
                                     </small>
@@ -129,7 +109,7 @@
                     </div>
                     <b-form-group label="Headline">
                         <b-form-input
-                            v-model="headLine"
+                            v-model="form.headline"
                             required
                             placeholder="Headline"
                         >
@@ -137,7 +117,7 @@
                     </b-form-group>
                     <b-form-group label="Body">
                         <b-form-textarea
-                            v-model="message"
+                            v-model="form.body"
                             placeholder="Please enter message content"
                             rows="3"
                         ></b-form-textarea>
@@ -152,15 +132,18 @@
                                     <b-input-group>
                                         <template v-slot:prepend>
                                             <a
-                                                href="#"
                                                 class="current-color"
+                                                :class="{
+                                                    nocolor: !form.button_color,
+                                                }"
                                                 :style="{
-                                                    backgroundColor: buttonColorHex,
+                                                    backgroundColor:
+                                                        form.button_color,
                                                 }"
                                             ></a>
                                         </template>
                                         <b-form-input
-                                            v-model="buttonColorHex"
+                                            v-model="form.button_color"
                                             class="txt-color-value"
                                         ></b-form-input>
                                     </b-input-group>
@@ -182,18 +165,18 @@
                                     <b-input-group>
                                         <template v-slot:prepend>
                                             <a
-                                                href="#"
                                                 class="current-color"
                                                 :class="{
-                                                    noColor: !backColorHex,
+                                                    nocolor: !form.background_color,
                                                 }"
                                                 :style="{
-                                                    backgroundColor: backColorHex,
+                                                    backgroundColor:
+                                                        form.background_color,
                                                 }"
                                             ></a>
                                         </template>
                                         <b-form-input
-                                            v-model="backColorHex"
+                                            v-model="form.background_color"
                                             class="txt-color-value"
                                         ></b-form-input>
                                     </b-input-group>
@@ -209,14 +192,49 @@
                     </b-form-row>
                     <div class="thumb-upload no-image">
                         <h6>Background image</h6>
-                        <div class="logo-container">
-                            <div class="logo">
+                        <div class="d-flex">
+                            <div
+                                v-if="form.background_image"
+                                class="logo-container has-image"
+                            >
+                                <div class="logo">
+                                    <img
+                                        :src="
+                                            getFullMediaURL(
+                                                form.background_image
+                                            )
+                                        "
+                                    />
+                                </div>
                                 <IconButton
-                                    class="btn-add-image"
-                                    icon="add-image"
-                                    @click="showSelectMedia"
+                                    class="btn-camera"
+                                    icon="photo-camera"
+                                    @click="showSelectMedia('background')"
                                 />
-                                <p class="lb-add-image">Add Image</p>
+                            </div>
+                            <div v-else class="logo-container">
+                                <div class="logo">
+                                    <IconButton
+                                        class="btn-add-image"
+                                        icon="add-image"
+                                        @click="showSelectMedia('background')"
+                                    />
+                                    <p class="lb-add-image">Add Image</p>
+                                </div>
+                            </div>
+                            <div class="text-container">
+                                <div
+                                    v-if="form.background_image"
+                                    class="logo-text"
+                                >
+                                    <h6>Background Image</h6>
+                                    <a
+                                        href="#"
+                                        @click.prevent="removeBackgroundImage"
+                                    >
+                                        Remove image
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -228,7 +246,7 @@
                 </div>
             </div>
         </div>
-        <SelectMediaModal />
+        <SelectMediaModal @select="setMedia" />
         <SendTestModal />
     </b-container>
 </template>
@@ -236,48 +254,52 @@
 import { Chrome } from 'vue-color'
 import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
 import SendTestModal from '@/components/Modal/Marketing/SendTestModal'
+import EmailPreviewRelease from '@/components/Marketing/Messages/EmailPreviewRelease'
 import { mapGetters } from 'vuex'
+import { appConstants } from '~/constants'
 export default {
     name: 'CustomizeMessage',
     components: {
         'color-picker': Chrome,
         SelectMediaModal,
         SendTestModal,
+        EmailPreviewRelease,
     },
     data: () => ({
-        // promoteName: null,
-        headLine: null,
-        message: null,
-        // nameList: [],
+        promoteName: null,
+        nameList: [],
         isButtonColorPicker: false,
-        buttonColorHex: '#DC2EA6',
         buttonColor: {
             hex: '#DC2EA6',
         },
         isBackColorPicker: false,
-        backColorHex: '',
         backColor: {
             hex: '',
         },
+        form: {
+            headline: 'Title of Your Release',
+            body: 'Add more information about this media here',
+            logo: '',
+            artwork: '',
+            button_color: '#DC2EA6',
+            background_color: '',
+            background_image: '',
+            content: '',
+        },
+        selMediaType: null,
+        mediaURL: appConstants.mediaURL,
     }),
     computed: {
         ...mapGetters({
             smsData: 'marketing/smsData',
         }),
     },
-    watch: {
-        buttonColorHex(val) {
-            this.buttonColor = {
-                hex: val,
-            }
-        },
-        backColorHex(val) {
-            this.backColor = {
-                hex: val,
-            }
-        },
-    },
     mounted() {
+        this.form = {
+            ...this.form,
+            ...this.smsData,
+        }
+        console.log(this.smsData)
         document.addEventListener('click', this.handleDocumentClick)
     },
     beforeDestroy() {
@@ -291,11 +313,11 @@ export default {
         },
         onChangeButtonColor(val) {
             this.buttonColor = val
-            this.buttonColorHex = val.hex
+            this.form.button_color = val.hex
         },
         onChangeBackColor(val) {
             this.backColor = val
-            this.backColorHex = val.hex
+            this.form.background_color = val.hex
         },
         handleDocumentClick(e) {
             const el = this.$refs.buttonColorPicker
@@ -313,16 +335,44 @@ export default {
                 this.isBackColorPicker = true
             }
         },
-        showSelectMedia() {
+        showSelectMedia(type) {
+            this.selMediaType = type
             this.$bus.$emit('modal.selectMedia.open')
         },
-        handleNextClick() {
+        async handleNextClick() {
+            const params = {
+                ...this.smsData,
+                ...this.form,
+                content: this.form.headline,
+            }
+            await this.$store.dispatch('marketing/setSMSData', params)
             this.$router.push({
                 name: 'editMessage',
             })
         },
         handleTestClick() {
             this.$bus.$emit('modal.sendTest.open')
+        },
+        removeArtwork() {
+            this.form.artwork = ''
+        },
+        removeBackgroundImage() {
+            this.form.background_image = ''
+        },
+        setMedia(url) {
+            switch (this.selMediaType) {
+                case 'logo':
+                    this.form.logo = url
+                    break
+                case 'artwork':
+                    this.form.artwork = url
+                    break
+                case 'background':
+                    this.form.background_image = url
+            }
+        },
+        getFullMediaURL(url) {
+            return appConstants.mediaURL + url
         },
     },
 }

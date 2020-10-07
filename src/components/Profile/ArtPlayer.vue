@@ -15,9 +15,7 @@
                     <div class="title">
                         {{ loading ? 'Loading...' : playerItem.title }}
                     </div>
-                    <div class="art-user">
-                        {{ playerItem.producer_name }}
-                    </div>
+                    <div class="art-user">{{ playerItem.producer_name }}</div>
                 </div>
                 <div class="center-control d-none d-md-block">
                     <IconButton
@@ -53,14 +51,44 @@
                         @click="showVolume = !showVolume"
                     />
                     <b-dropdown
-                        class="actions-menu"
+                        class="actions-menu d-none d-md-block"
                         variant="icon"
-                        dropleft
+                        dropup
                         no-caret
                     >
                         <template v-slot:button-content>
                             <Icon icon="dot-menu-v-w" />
                         </template>
+                        <div style="line-height: 1.5">
+                            <b-dropdown-item
+                                :to="
+                                    playerItem.type === 'beat'
+                                        ? {
+                                              name: 'profileBeatDetails',
+                                              params: {
+                                                  beatId: playerItem.id,
+                                              },
+                                          }
+                                        : {
+                                              name: 'profileKitDetails',
+                                              params: { kitId: playerItem.id },
+                                          }
+                                "
+                                target="_blank"
+                            >
+                                {{
+                                    playerItem.type === 'beat'
+                                        ? 'Go to Beat'
+                                        : 'Go to Sound Kit'
+                                }}
+                            </b-dropdown-item>
+                            <b-dropdown-item @click="handleBuyClick"
+                                >Buy</b-dropdown-item
+                            >
+                            <b-dropdown-item @click="handleShareClick"
+                                >Share</b-dropdown-item
+                            >
+                        </div>
                     </b-dropdown>
                     <IconButton
                         class="btn-pause d-md-none"
@@ -74,6 +102,8 @@
     </b-container>
 </template>
 <script>
+import { api } from '~/services'
+import { mapGetters } from 'vuex'
 export default {
     name: 'ArtPlayer',
     props: {
@@ -94,6 +124,10 @@ export default {
         },
     },
     computed: {
+        ...mapGetters({
+            beats: 'profile/beats',
+            soundKits: 'profile/soundKits',
+        }),
         percentComplete() {
             return parseInt((this.currentSeconds / this.durationSeconds) * 100)
         },
@@ -110,10 +144,12 @@ export default {
         previousVolume: 35,
         showVolume: false,
         volume: 100,
+        pause: false,
     }),
     watch: {
         playerItem(value) {
             this.playing = false
+            this.pause = false
             if (this.audioObj) {
                 this.audioObj.src = value.src
                 this.audioObj.load()
@@ -121,10 +157,19 @@ export default {
                 this.load(value.src)
             }
         },
-        playing(value) {
+        async playing(value) {
             if (value) {
                 this.audioObj.play()
+                if (!this.pause) {
+                    const params = {
+                        audio_id: this.playerItem.id,
+                        audio_type: this.playerItem.type,
+                        action: 'play',
+                    }
+                    await api.profiles.insertAudioAction(params)
+                }
             } else {
+                this.pause = true
                 this.audioObj.pause()
             }
             this.$emit('setStatus', value)
@@ -183,6 +228,36 @@ export default {
         },
         handleUpdate() {
             this.currentSeconds = this.audioObj.currentTime
+        },
+        handleBuyClick() {
+            if (this.playerItem.type === 'beat') {
+                let buyItem = this.beats.find(
+                    beats => beats.id === this.playerItem.id
+                )
+                this.$bus.$emit('modal.buyLicense.open', buyItem)
+            } else {
+                let buyItem = this.soundKits.find(
+                    soundKits => soundKits.id === this.playerItem.id
+                )
+                this.$store.dispatch('profile/addCartItem', {
+                    ...buyItem,
+                })
+                this.$bus.$emit('modal.addedCart.open')
+            }
+        },
+        handleShareClick() {
+            let shareItem = null
+            if (this.playerItem.type === 'beat') {
+                shareItem = this.beats.find(
+                    beats => beats.id === this.playerItem.id
+                )
+            } else {
+                shareItem = this.soundKits.find(
+                    soundKits => soundKits.id === this.playerItem.id
+                )
+                shareItem.type = 'kit'
+            }
+            this.$bus.$emit('modal.share.open', shareItem)
         },
         mute() {
             if (this.muted) {

@@ -1,0 +1,180 @@
+.email-preview-release {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    .message-content {
+        width: 560px;
+        margin-left: auto;
+        margin-right: auto;
+        .select-view-type {
+            display: flex;
+            justify-content: center;
+            margin: 20px auto;
+            .view-type {
+                font-size: px2rem(11);
+                line-height: 29px;
+                width: 75px;
+                height: 30px;
+                background-color: white;
+                color: black;
+                text-decoration: none;
+                text-align: center;
+                &.left {
+                    border-radius: 30px 4px 4px 30px;
+                }
+                &.right {
+                    border-radius: 4px 30px 30px 4px;
+                }
+                &.active {
+                    border: 1px solid $color-pink-1;
+                    background: rgba(220,46,166,0.2);
+                    font-weight: 600;
+                }
+            }
+        }
+        .message-container {
+            background-color: white;
+            &.video {
+                margin-top: 45px;
+                .message-body {
+                    margin-bottom: 40px;
+                }
+            }
+            &.plain {
+                .message-body {
+                    margin: 30px 30px 60px;
+                }
+            }
+            .message-header {
+                padding: 25px 30px 0;
+                display: flex;
+                .message-logo {
+                    width: 125px;
+                    height: 50px;
+                    max-height: 50px;
+                    max-width: 125px;
+                    img {
+                        height: 100%;
+                    }
+                }
+                .new-release {
+                    font-size: px2rem(12);
+                    line-height: px2rem(20);
+                    color: $gray-520;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    margin-left: auto;
+                    margin-top: 30px;
+                    letter-spacing: 1px;
+                }
+            }
+            .message-body {
+                padding: 20px 30px 12px;
+                text-align: center;
+                .artwork-container {
+                    width: 100%;
+                    min-height: 500px;
+                    margin-bottom: 20px;
+                    img {
+                        width: 100%;
+                    }
+                }
+                .message-title {
+                    font-size: px2rem(24);
+                    line-height: px2rem(34);
+                    font-weight: bold;
+                }
+                .more-info {
+                    font-size: px2rem(16);
+                    line-height: px2rem(24);
+                }
+                .btn-listen {
+                    margin: 20px auto;
+                    border: 0;
+                }
+                .video-container {
+                    .video-wrapper {
+                        width: 100%;
+                    }
+                    margin-bottom: 15px;
+                }
+                
+            }
+            .message-footer {
+                width: 100%;
+                height: 70px;
+                background-color: black;
+                padding: 15px;
+                display: flex;
+                .logo-container {
+                    min-width: 130px;
+                    width: 130px;
+                    margin: 4px;
+                    img {
+                        width: 100%;
+                    }
+                }
+                .text {
+                    flex-basis: 100%;
+                    margin-left: 24px;
+                    color: white;
+                    opacity: 0.8;
+                    font-size: px2rem(12);
+                    line-height: px2rem(18);
+                    letter-spacing: -0.5px;
+                    p {
+                        margin-bottom: 0;
+                    }
+                    a {
+                        color: white;
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+        &.mobile {
+            .phone-frame {
+                width: 350px;
+                border-radius: 29px;
+                border: 3px solid black;
+                background-color: white;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 32px 15px 30px;
+                .message-frame {
+                    padding: 15px 5px;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
+                    .message-container {
+                        .message-header {
+                            padding: 10px 15px;
+                            .message-logo {
+                                height: 35px;
+                                max-height: 35px;
+                            }
+                            .new-release {
+                                font-size: px2rem(11);
+                                margin-top: 16px;
+                            }
+                        }
+                        .message-body {
+                            padding: 0 15px 16px;
+                            .artwork-container {
+                                min-height: 200px;
+                            }
+                            .message-title {
+                                line-height: px2rem(26);
+                                margin-bottom: 5px;
+                            }
+                        }
+                        .message-footer {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

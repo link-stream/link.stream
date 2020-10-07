@@ -14,11 +14,7 @@
         <template v-slot:default>
             <div class="page page-licenses">
                 <div v-if="realLicenses.length" class="page-body">
-                    <div
-                        class="Card"
-                        v-for="(license, index) in realLicenses"
-                        :key="index"
-                    >
+                    <div class="Card" v-for="(license, index) in realLicenses" :key="index">
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="text">
@@ -26,9 +22,7 @@
                                         {{ license.price | currencyFormat }} -
                                         {{ license.title }}
                                     </h4>
-                                    <small>
-                                        {{ license.descripcion }}
-                                    </small>
+                                    <small>{{ license.descripcion }}</small>
                                     <basic-button
                                         v-if="!license.isExpanded"
                                         variant="link"
@@ -42,14 +36,9 @@
                                     size="sm"
                                     class="btn-buy"
                                     @click="handleBuyClick(license)"
-                                >
-                                    Buy
-                                </basic-button>
+                                >Buy</basic-button>
                             </div>
-                            <ul
-                                v-if="license.isExpanded"
-                                class="license-details"
-                            >
+                            <ul v-if="license.isExpanded" class="license-details">
                                 <li v-for="item in license.details" :key="item">
                                     <b-icon-check />
                                     {{ item }}
@@ -65,9 +54,7 @@
                             </basic-button>
                         </div>
                     </div>
-                    <basic-button variant="link" class="float-right text-black">
-                        Negotiate Price
-                    </basic-button>
+                    <basic-button variant="link" class="float-right text-black">Negotiate Price</basic-button>
                 </div>
             </div>
         </template>
@@ -79,14 +66,10 @@ import { mapGetters } from 'vuex'
 
 export default {
     name: 'Licenses',
-    props: {
-        curItem: {
-            type: Object,
-        },
-    },
     data() {
         return {
-            open: true,
+            open: false,
+            curItem: null,
             licenseDetails: [
                 'Used for Music Recording',
                 'Distribute up to 25000 copies',
@@ -104,11 +87,16 @@ export default {
         }),
     },
     async created() {
-        this.initLicense()
+        this.$bus.$on('modal.buyLicense.open', payload => {
+            this.curItem = payload
+            this.initLicense()
+            this.open = true
+        })
+        this.$bus.$on('modal.buyLicense.close', this.close)
     },
     methods: {
         close() {
-            this.$emit('close')
+            this.open = false
         },
         handleBuyClick(license) {
             this.close()

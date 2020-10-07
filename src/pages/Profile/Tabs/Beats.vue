@@ -1,18 +1,14 @@
 <template>
     <div class="beats-container">
-        <p v-if="!loading && !beats.length" class="text-center my-5">
-            There are no public beats or beat packs.
-        </p>
+        <p
+            v-if="!loading && !beats.length"
+            class="text-center my-5"
+        >There are no public beats or beat packs.</p>
         <LoadingSpinner class="page-loader" v-if="loading" />
+
         <div v-else>
             <b-form-row>
-                <b-col
-                    cols="12"
-                    lg="3"
-                    md="6"
-                    v-for="(item, index) in beats"
-                    :key="index"
-                >
+                <b-col cols="12" lg="3" md="6" v-for="(item, index) in beats" :key="index">
                     <ArtItem
                         :artItem="item"
                         :selected="index === currentIndex"
@@ -24,15 +20,11 @@
                 </b-col>
             </b-form-row>
             <div class="text-center mb-5">
-                <basic-button
-                    variant="outline-black"
-                    size="md"
-                    class="btn-view-more"
-                >
-                    View More
-                </basic-button>
+                <basic-button variant="outline-black" size="md" class="btn-view-more">View More</basic-button>
             </div>
         </div>
+        <BuyLicenseModal @close="handleCloseBuy" />
+        <ShareArtModal @close="handleCloseShare" />
         <ArtPlayer
             :playerItem="playerItem"
             :isFirst="currentIndex === 0"
@@ -51,11 +43,15 @@ import { api } from '~/services'
 import { appConstants } from '~/constants'
 import ArtItem from '@/components/Profile/ArtItem'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
+import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
+import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'ProfileBeats',
     components: {
         ArtItem,
         ArtPlayer,
+        BuyLicenseModal,
+        ShareArtModal,
     },
     props: {
         url: {
@@ -65,6 +61,7 @@ export default {
     computed: {
         ...mapGetters({
             beats: 'profile/beats',
+            beatsLoad: 'profile/beatsLoad',
             profile: 'profile/profile',
         }),
     },
@@ -99,10 +96,9 @@ export default {
     },
     async created() {
         this.loading = true
-        await this.$store.dispatch('profile/getProfileMain', { url: this.url })
-        await this.$store.dispatch('profile/getProfileBeats')
-        await this.$store.dispatch('profile/getProfileGenres', 'beats')
-        await this.$store.dispatch('profile/getProfileLicenses')
+        await this.$store.dispatch('profile/getProfileBeatsTab', {
+            url: this.url,
+        })
         this.loading = false
     },
     methods: {
@@ -111,34 +107,42 @@ export default {
                 return
             }
             this.individualLoading = true
-            const response = await api.profiles.getProfileBeatPackById(
-                this.profile.id,
-                this.beats[this.currentIndex].id,
-                this.beats[this.currentIndex].type
+            const item = this.beatsLoad.find(
+                beatsLoad => beatsLoad.id === this.beats[this.currentIndex].id
             )
-            if (response.status !== 'success' || !response.data.length) {
-                return {}
-            }
-            const beat = response.data[0]
-            let srcAudio = null
-            if (beat.type === 'beat') {
-                if (beat.data_tagged_file) {
-                    srcAudio = beat.data_tagged_file
-                } else if (beat.data_untagged_mp3) {
-                    srcAudio = beat.data_untagged_mp3
-                } else if (beat.data_untagged_wav) {
-                    srcAudio = beat.data_untagged_wav
+            if (item === undefined) {
+                const response = await api.profiles.getProfileBeatPackById(
+                    this.profile.id,
+                    this.beats[this.currentIndex].id,
+                    this.beats[this.currentIndex].type
+                )
+                if (response.status !== 'success' || !response.data.length) {
+                    return {}
                 }
+                const beat = response.data[0]
+                let srcAudio = null
+                if (beat.type === 'beat') {
+                    if (beat.data_tagged_file) {
+                        srcAudio = beat.data_tagged_file
+                    } else if (beat.data_untagged_mp3) {
+                        srcAudio = beat.data_untagged_mp3
+                    } else if (beat.data_untagged_wav) {
+                        srcAudio = beat.data_untagged_wav
+                    }
+                }
+                this.playerItem = {
+                    id: beat.id,
+                    coverart: beat.data_image || appConstants.defaultCoverArt,
+                    title: beat.title,
+                    producer_name: this.profile.display_name,
+                    src: srcAudio,
+                    type: beat.type,
+                }
+                this.$store.dispatch('profile/addPlayerBeat', this.playerItem)
+                this.curBeat = { ...beat }
+            } else {
+                this.playerItem = { ...item }
             }
-            this.playerItem = {
-                id: beat.id,
-                coverart: beat.data_image || appConstants.defaultCoverArt,
-                title: beat.title,
-                producer_name: this.profile.display_name,
-                src: srcAudio,
-                type: beat.type,
-            }
-            this.curBeat = { ...beat }
             this.individualLoading = false
         },
         prevItem() {
@@ -170,6 +174,12 @@ export default {
             } else {
                 this.currentIndex = index
             }
+        },
+        handleCloseBuy() {
+            this.$bus.$emit('modal.buyLicense.close')
+        },
+        handleCloseShare() {
+            this.$bus.$emit('modal.share.close')
         },
     },
 }

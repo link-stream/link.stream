@@ -357,3 +357,21 @@
         height: 16px;
     }
 }
+.editor {
+    padding: 0;
+    .menubar {
+        margin-bottom: 10px;
+    }
+    .menububble__text {
+        white-space: nowrap;
+        padding-right: 5px;
+    }
+    .icon.icon--remove {
+        width: 16px;
+    }
+    &__content {
+        height: 300px;
+        border: 1px solid $gray-330;
+        padding: 10px;
+    }
+}

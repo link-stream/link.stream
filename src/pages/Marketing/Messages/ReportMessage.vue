@@ -13,7 +13,7 @@
         <header class="page-header">
             <div class="left-col">
                 <h1 class="page-title">
-                    Placeholder Email Title
+                    {{ message.campaing_name }}
                 </h1>
                 <div class="page-preview">
                     <span class="text-light">link.stream/</span>
@@ -51,7 +51,11 @@
         </div>
         <main class="page-body">
             <ReportOverview v-if="currentItem === 'overview'" />
-            <ReportActivity v-if="currentItem === 'activity'" />
+            <ReportActivity
+                v-if="currentItem === 'activity'"
+                :message="message"
+                :activities="activities"
+            />
         </main>
     </div>
 </template>
@@ -59,19 +63,39 @@
 import ReportOverview from './ReportOverview'
 import ReportActivity from './ReportActivity'
 import { mapGetters } from 'vuex'
+import { api } from '~/services'
 export default {
     name: 'ReportMessage',
     components: {
         ReportOverview,
         ReportActivity,
     },
+    props: ['id'],
     data: () => ({
         currentItem: 'overview',
+        loading: false,
+        message: {},
+        overviewes: {},
+        activities: {},
     }),
     computed: {
         ...mapGetters({
             user: 'me/user',
         }),
+    },
+    async created() {
+        this.loading = true
+        const { status, data } = await api.marketing.getMessageReport(
+            this.user.id,
+            this.id
+        )
+        if (status === 'success') {
+            console.log(data)
+            this.message = data.Message
+            this.overview = data.Overview
+            this.activities = data.Activity
+        }
+        this.loading = false
     },
     methods: {
         duplicateMessage() {},

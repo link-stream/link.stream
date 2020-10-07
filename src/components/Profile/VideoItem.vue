@@ -2,9 +2,7 @@
     <div class="video-item">
         <youtube class="video-wrapper" :video-id="ytVidId"></youtube>
         <div class="video-desc">
-            <div class="title">
-                {{ videoItem.title }}
-            </div>
+            <div class="title">{{ videoItem.title }}</div>
             <div class="cnt-view">
                 {{ videoItem.cnt_view | thousandNumber }}
                 Views
@@ -14,24 +12,12 @@
             <template v-slot:button-content>
                 <Icon icon="dot-menu-v-s" />
             </template>
-            <b-dropdown-item>
-                Go to Video Page
-            </b-dropdown-item>
-            <b-dropdown-item :href="videoItem.url" target="_blank">
-                View on YouTube
-            </b-dropdown-item>
-            <b-dropdown-item>
-                Save
-            </b-dropdown-item>
-            <b-dropdown-item @click="handleShareClick">
-                Share
-            </b-dropdown-item>
+            <b-dropdown-item>Go to Video Page</b-dropdown-item>
+            <b-dropdown-item :href="videoItem.url" target="_blank">View on YouTube</b-dropdown-item>
+            <b-dropdown-item v-show="false">Save</b-dropdown-item>
+            <b-dropdown-item @click="handleShareClick">Share</b-dropdown-item>
         </b-dropdown>
-        <ShareArtModal
-            v-if="isShowShare"
-            :curItem="curItem"
-            @close="isShowShare = false"
-        />
+        <ShareArtModal v-if="isShowShare" :curItem="curItem" @close="isShowShare = false" />
     </div>
 </template>
 <script>

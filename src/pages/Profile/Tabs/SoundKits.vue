@@ -1,18 +1,13 @@
 <template>
     <div class="beats-container">
-        <p v-if="!loading && !soundKits.length" class="text-center my-5">
-            There are no public sound kits.
-        </p>
+        <p
+            v-if="!loading && !soundKits.length"
+            class="text-center my-5"
+        >There are no public sound kits.</p>
         <LoadingSpinner class="page-loader" v-if="loading" />
         <div v-else>
             <b-form-row>
-                <b-col
-                    cols="12"
-                    lg="3"
-                    md="6"
-                    v-for="(item, index) in soundKits"
-                    :key="index"
-                >
+                <b-col cols="12" lg="3" md="6" v-for="(item, index) in soundKits" :key="index">
                     <SoundKitItem
                         :artItem="item"
                         :selected="index === currentIndex"
@@ -24,15 +19,10 @@
                 </b-col>
             </b-form-row>
             <div class="text-center mb-5">
-                <basic-button
-                    variant="outline-black"
-                    size="md"
-                    class="btn-view-more"
-                >
-                    view More
-                </basic-button>
+                <basic-button variant="outline-black" size="md" class="btn-view-more">view More</basic-button>
             </div>
         </div>
+        <ShareArtModal @close="handleCloseShare" />
         <ArtPlayer
             :playerItem="curItem"
             :isFirst="currentIndex === 0"
@@ -51,11 +41,13 @@ import { api } from '~/services'
 import { appConstants } from '~/constants'
 import SoundKitItem from '@/components/Profile/SoundKitItem'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
+import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'ProfileSoundKits',
     components: {
         SoundKitItem,
         ArtPlayer,
+        ShareArtModal,
     },
     props: {
         url: {
@@ -65,6 +57,7 @@ export default {
     computed: {
         ...mapGetters({
             soundKits: 'profile/soundKits',
+            soundKitsLoad: 'profile/soundKitsLoad',
             profile: 'profile/profile',
         }),
     },
@@ -90,9 +83,9 @@ export default {
     },
     async created() {
         this.loading = true
-        await this.$store.dispatch('profile/getProfileMain', { url: this.url })
-        await this.$store.dispatch('profile/getProfileKits')
-        await this.$store.dispatch('profile/getProfileGenres', 'kits')
+        await this.$store.dispatch('profile/getProfileKitsTab', {
+            url: this.url,
+        })
         this.loading = false
     },
     methods: {
@@ -101,21 +94,31 @@ export default {
                 return
             }
             this.individualLoading = true
-            const response = await api.profiles.getProfileKitById(
-                this.profile.id,
-                this.soundKits[this.currentIndex].id
+            const item = this.soundKitsLoad.find(
+                soundKitsLoad =>
+                    soundKitsLoad.id === this.soundKits[this.currentIndex].id
             )
-            if (response.status !== 'success' || !response.data.length) {
-                return {}
-            }
-            const soundKit = response.data[0]
-            this.curItem = {
-                id: soundKit.id,
-                coverart: soundKit.data_image || appConstants.defaultCoverArt,
-                title: soundKit.title,
-                producer_name: this.profile.display_name,
-                src: soundKit.data_tagged_file,
-                type: 'kit',
+            if (item === undefined) {
+                const response = await api.profiles.getProfileKitById(
+                    this.profile.id,
+                    this.soundKits[this.currentIndex].id
+                )
+                if (response.status !== 'success' || !response.data.length) {
+                    return {}
+                }
+                const soundKit = response.data[0]
+                this.curItem = {
+                    id: soundKit.id,
+                    coverart:
+                        soundKit.data_image || appConstants.defaultCoverArt,
+                    title: soundKit.title,
+                    producer_name: this.profile.display_name,
+                    src: soundKit.data_tagged_file,
+                    type: 'kit',
+                }
+                this.$store.dispatch('profile/addPlayerSoundKit', this.curItem)
+            } else {
+                this.curItem = { ...item }
             }
             this.individualLoading = false
         },
@@ -138,6 +141,9 @@ export default {
             } else {
                 this.currentIndex = index
             }
+        },
+        handleCloseShare() {
+            this.$bus.$emit('modal.share.close')
         },
     },
 }

@@ -265,7 +265,7 @@ export default {
         isShowSendto: false,
         isShowFrom: false,
         isShowSubject: false,
-        templateImageUrl: '/static/img/email-template-release.jpg',
+        templateImageUrl: '/static/img/email-template_1.jpg',
     }),
     computed: {
         ...mapGetters({
@@ -298,8 +298,20 @@ export default {
             this.isShowSubject = true
         },
         handleEditContentClick() {
+            let routerName = 'customizeMessage'
+            switch (this.smsData.template_type) {
+                case 'release':
+                    routerName = 'customizeMessage'
+                    break
+                case 'plain':
+                    routerName = 'customizeMessagePlain'
+                    break
+                case 'video':
+                    routerName = 'customizeMessageVideo'
+                    break
+            }
             this.$router.push({
-                name: 'customizeMessage',
+                name: routerName,
             })
         },
         async handleSendClick() {
@@ -308,6 +320,10 @@ export default {
                 scheduled: false,
                 date: null,
                 time: null,
+                status: 'Pending',
+                template_type: this.smsData.template_type
+                    ? this.smsData.template_type
+                    : 'release',
             }
             console.log('smsData', params)
             await this.$store.dispatch('marketing/setSMSData', params)
@@ -330,8 +346,38 @@ export default {
         showEditEmail() {
             this.isEditEmailName = true
         },
-        handleSaveLaterClick() {
-            console.log('save later')
+        async handleSaveLaterClick() {
+            const params = {
+                ...this.smsData,
+                scheduled: false,
+                date: null,
+                time: null,
+                status: 'Draft',
+                template_type: this.smsData.template_type
+                    ? this.smsData.template_type
+                    : 'release',
+            }
+            await this.$store.dispatch('marketing/setSMSData', params)
+            console.log(this.smsData)
+            let response
+            if (this.smsData.id) {
+                response = await this.$store.dispatch(
+                    'marketing/updateMessage',
+                    {
+                        id: this.smsData.id,
+                        params: params,
+                    }
+                )
+            } else {
+                response = await this.$store.dispatch(
+                    'marketing/insertMessage',
+                    params
+                )
+            }
+            const { status, message, error } = response
+            status === 'success'
+                ? this.$toast.success(message)
+                : this.$toast.error(error)
         },
         handleCancelClick() {
             this.form.campaing_name = this.smsData.campaing_name

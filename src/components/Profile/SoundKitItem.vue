@@ -1,16 +1,8 @@
 <template>
     <div class="art-item">
-        <a
-            href="#"
-            class="img-container"
-            @click.prevent="$emit('select', index)"
-        >
+        <a href="#" class="img-container" @click.prevent="$emit('select', index)">
             <img :src="artItem.coverart" />
-            <LoadingSpinner
-                v-if="selected && loading"
-                class="center-img"
-                animation="bounce"
-            />
+            <LoadingSpinner v-if="selected && loading" class="center-img" animation="bounce" />
             <img
                 v-if="selected && !loading && status"
                 src="@/assets/img/ico/pause-red.svg"
@@ -30,22 +22,11 @@
             }"
             target="_blank"
         >
-            <div class="title">
-                {{ artItem.title }}
-            </div>
-            <div class="price">
-                {{ artItem.price | currencyFormat }}
-            </div>
-            <div v-if="artItem.bogo" class="bogo">
-                BOGO
-            </div>
+            <div class="title">{{ artItem.title }}</div>
+            <div class="price">{{ artItem.price | currencyFormat }}</div>
+            <div v-if="artItem.bogo" class="bogo">BOGO</div>
         </router-link>
-        <b-dropdown
-            class="actions-menu d-none d-md-block"
-            variant="icon"
-            right
-            no-caret
-        >
+        <b-dropdown class="actions-menu d-none d-md-block" variant="icon" right no-caret>
             <template v-slot:button-content>
                 <Icon icon="dot-menu-v-s" />
             </template>
@@ -55,34 +36,19 @@
                     params: { kitId: artItem.id },
                 }"
                 target="_blank"
-            >
-                Go to Sound Kit
-            </b-dropdown-item>
-            <b-dropdown-item>
-                Save
-            </b-dropdown-item>
-            <b-dropdown-item @click="handleShareClick">
-                Share
-            </b-dropdown-item>
-            <b-dropdown-item>
-                Free Download
-            </b-dropdown-item>
+            >Go to Sound Kit</b-dropdown-item>
+            <b-dropdown-item v-show="false">Save</b-dropdown-item>
+            <b-dropdown-item @click="handleShareClick">Share</b-dropdown-item>
+            <b-dropdown-item v-show="false">Free Download</b-dropdown-item>
         </b-dropdown>
         <div class="action">
-            <basic-button size="sm" class="btn-buy" @click="handleBuyClick">
-                Buy
-            </basic-button>
-            <IconButton class="btn-download" icon="download" />
+            <basic-button size="sm" class="btn-buy" @click="handleBuyClick">Buy</basic-button>
+            <IconButton class="btn-download" icon="download" v-show="false" />
         </div>
-        <ShareArtModal
-            v-if="isShowShare"
-            :curItem="curItem"
-            @close="isShowShare = false"
-        />
     </div>
 </template>
 <script>
-import ShareArtModal from '@/components/Modal/ShareArtModal'
+import { mapGetters } from 'vuex'
 export default {
     name: 'SoundKitItemm',
     props: {
@@ -102,13 +68,13 @@ export default {
             type: Boolean,
         },
     },
-    components: {
-        ShareArtModal,
-    },
     data: () => ({
         isShowShare: false,
     }),
     computed: {
+        ...mapGetters({
+            soundKits: 'profile/soundKits',
+        }),
         curItem() {
             return {
                 ...this.artItem,
@@ -118,11 +84,11 @@ export default {
     },
     methods: {
         handleBuyClick() {
-            this.$store.dispatch('profile/addCartItem', { ...this.artItem })
+            this.$store.dispatch('profile/addCartItem', { ...this.curItem })
             this.$bus.$emit('modal.addedCart.open')
         },
         handleShareClick() {
-            this.isShowShare = true
+            this.$bus.$emit('modal.share.open', this.curItem)
         },
     },
 }

@@ -433,6 +433,16 @@ export const api = {
         },
     },
     profiles: {
+        async getProfileBeatsTab(userUrl, audio_id, type) {
+            let endpoint = '/profiles/beats_tab/' + userUrl
+            endpoint += audio_id != undefined ? `/${audio_id}` : ''
+            endpoint += type != undefined ? `/${type}` : ''
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
         async getProfileMain(userUrl) {
             const endpoint = '/profiles/' + userUrl
             const method = METHOD_GET
@@ -458,6 +468,16 @@ export const api = {
                 method,
             })
         },
+        async getProfileKitsTab(producerId, audio_id, type) {
+            let endpoint = '/profiles/sound_kits_tab/' + producerId
+            endpoint += audio_id != undefined ? `/${audio_id}` : ''
+            endpoint += type != undefined ? `/${type}` : ''
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
         async getProfileKits(producerId, params) {
             let endpoint = '/profiles/sound_kits/' + producerId
             endpoint += '?page=1'
@@ -472,6 +492,15 @@ export const api = {
                 method,
             })
         },
+        async getProfileVideosTab(userUrl, video_id) {
+            let endpoint = '/profiles/videos_tab/' + userUrl
+            endpoint += video_id != undefined ? `/${video_id}` : ''
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
         async getProfileVideos(producerId, params) {
             let endpoint = '/profiles/videos/' + producerId
             endpoint += '?page=1'
@@ -480,6 +509,15 @@ export const api = {
                 endpoint += params.tag ? '&tag=' + params.tag : ''
                 endpoint += params.genre ? '&genre=' + params.genre : ''
             }
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getProfileLinksTab(userUrl, audio_id) {
+            let endpoint = '/profiles/links_tab/' + userUrl
+            endpoint += audio_id != undefined ? `/${audio_id}` : ''
             const method = METHOD_GET
             return await call({
                 endpoint,
@@ -555,6 +593,15 @@ export const api = {
                 method,
             })
         },
+        async insertAudioAction(params) {
+            let endpoint = '/profiles/audio_action'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
     },
     marketing: {
         async getMessageSendto(userId) {
@@ -567,6 +614,14 @@ export const api = {
         },
         async getMessages(userId) {
             const endpoint = '/marketing/messages/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getMessage(userId, id) {
+            const endpoint = '/marketing/messages/' + userId + '/' + id
             const method = METHOD_GET
             return await call({
                 endpoint,
@@ -594,6 +649,14 @@ export const api = {
         async deleteMessage(id) {
             const endpoint = '/marketing/messages/' + id
             const method = METHOD_DELETE
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getMessageReport(userId, id) {
+            const endpoint = '/marketing/messages_report/' + userId + '/' + id
+            const method = METHOD_GET
             return await call({
                 endpoint,
                 method,
@@ -659,6 +722,31 @@ export const api = {
             return await call({
                 endpoint,
                 params,
+                method,
+            })
+        },
+        async insertMedia(params) {
+            let endpoint = 'marketing/user_media_files'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async deleteMedia(id) {
+            let endpoint = 'marketing/user_media_files/' + id
+            const method = METHOD_DELETE
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getMedias(userId) {
+            let endpoint = 'marketing/user_media_files/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
                 method,
             })
         },

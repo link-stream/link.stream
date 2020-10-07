@@ -70,8 +70,8 @@ export default {
             this.saving = true
             const params = {
                 ...this.smsData,
+                status: 'Pending',
             }
-            console.log(params)
             if (this.smsData.id) {
                 const { status, message, error } = await this.$store.dispatch(
                     'marketing/updateMessage',

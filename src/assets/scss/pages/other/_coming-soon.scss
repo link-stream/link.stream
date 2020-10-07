@@ -1,5 +1,5 @@
 .page-coming-soon {
-    padding: 20px;
+    padding: 0px 0px 20px;
 
     background: linear-gradient(
         180deg,
@@ -8,21 +8,25 @@
     );
 
     .logo:before {
-        background-image: url(~@/assets/img/logo/logo-no-text-sm.svg);
+        background-image: url(~@/assets/img/logo/logo-h-lg-w.jpg);
         background-size: 100%;
-        width: 30px;
-        height: 34px;
+        width: 150px;
+        height: 33px;
     }
 
     .page-header {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        background-color: white;
+        height: 70px;
+        padding: 20px;
+        color: black;
     }
 
     .page-title {
         color: $white;
-        font-size: px2rem(32);
+        font-size: 2rem;
         font-weight: 800;
         letter-spacing: 0;
         line-height: 42px;
@@ -33,15 +37,18 @@
         flex-direction: column;
         padding-top: 50px;
         padding-bottom: 60px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
     .page-footer {
-        color: $white;
-        font-size: px2rem(12);
+        color: #fff;
+        font-size: 0.85714rem;
         font-weight: 600;
         letter-spacing: 0;
         line-height: 24px;
         text-align: center;
+        
         .pipe {
             margin: 0 10px;
         }
@@ -92,7 +99,7 @@
             &:active,
             &:visited,
             &:hover {
-                color: $white;
+                color: black;
             }
         }
     }
@@ -113,12 +120,13 @@
             $color-pink-2 100%
         );
         .logo:before {
-            background-image: url(~@/assets/img/logo/logo-h-lg.png);
-            width: 157px;
-            height: 34px;
+            // background-image: url(~@/assets/img/logo/logo-h-lg.png);
+            width: 180px;
+            height: 40px;
         }
         .page-header {
-            padding: 3px 10px;
+            // padding: 3px 10px;
+            height: 80px;
         }
         .page-title {
             font-size: px2rem(42);
@@ -137,6 +145,12 @@
         }
         .join-text {
             font-size: px2rem(14);
+        }
+        .page-footer {
+            bottom: 20px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
     }
 }

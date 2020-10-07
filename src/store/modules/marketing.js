@@ -25,6 +25,7 @@ const initialState = () => ({
     },
     variationData: {},
     variations: [],
+    medias: [],
 })
 
 const state = initialState()
@@ -119,6 +120,19 @@ const mutations = {
 
     [marketingTypes.SET_CURRENT_SUBSCRIBER](state, { subscriber }) {
         state.currentSubscriber = subscriber
+    },
+
+    [marketingTypes.SET_MEDIAS](state, { medias }) {
+        state.medias = medias
+    },
+
+    [marketingTypes.ADD_MEDIA](state, { media }) {
+        state.medias.push(media)
+    },
+
+    [marketingTypes.DELETE_MEDIA](state, { media_id }) {
+        const findIndex = state.medias.findIndex(({ id }) => id === media_id)
+        state.medias.splice(findIndex, 1)
     },
 
     [marketingTypes.SET_SPLIT_TEST_DATA](state, { splitTestData }) {
@@ -236,6 +250,32 @@ const actions = {
     async setCurrentSubscriber({ commit }, params) {
         commit(marketingTypes.SET_CURRENT_SUBSCRIBER, { subscriber: params })
     },
+    async getMedias({ commit, rootGetters }) {
+        const user = rootGetters['auth/user']
+        const response = await api.marketing.getMedias(user.id)
+        const { status, data } = response
+        status === 'success' &&
+            commit(marketingTypes.SET_MEDIAS, { medias: data })
+        return response
+    },
+    async addMedia({ commit, rootGetters }, params) {
+        const user = rootGetters['auth/user']
+        const response = await api.marketing.insertMedia({
+            user_id: user.id,
+            ...params,
+        })
+        const { status, data } = response
+        status === 'success' &&
+            commit(marketingTypes.ADD_MEDIA, { media: data })
+        return response
+    },
+    async deleteMedia({ commit }, id) {
+        const response = await api.marketing.deleteMedia(id)
+        const { status } = response
+        status === 'success' &&
+            commit(marketingTypes.DELETE_MEDIA, { media_id: id })
+        return response
+    },
 
     async setSplitTestData({ commit }, params) {
         commit(marketingTypes.SET_SPLIT_TEST_DATA, { splitTestData: params })
@@ -263,6 +303,7 @@ const getters = {
     importSubscribers: ({ importSubscribers }) => importSubscribers,
     importData: ({ importData }) => importData,
     currentSubscriber: ({ currentSubscriber }) => currentSubscriber,
+    medias: ({ medias }) => medias,
 }
 
 export default {

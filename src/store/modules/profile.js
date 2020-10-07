@@ -12,7 +12,10 @@ const initialState = () => ({
      */
     profile: null,
     beats: [],
+    beatsLoad: [],
+    soundKitsLoad: [],
     soundKits: [],
+    moreElements: [],
     videos: [],
     links: [],
     profileGenres: [],
@@ -42,6 +45,10 @@ const mutations = {
         state.soundKits = soundKits
     },
 
+    [profileTypes.SET_MORE_ELEMENTS](state, { elements }) {
+        state.moreElements = elements
+    },
+
     [profileTypes.SET_VIDEOS](state, { videos }) {
         state.videos = videos
     },
@@ -56,6 +63,14 @@ const mutations = {
 
     [profileTypes.SET_LICENSES](state, { licenses }) {
         state.licenses = licenses
+    },
+
+    [profileTypes.ADD_PLAYER_BEAT]({ beatsLoad }, { playerItem }) {
+        beatsLoad.push(playerItem)
+    },
+
+    [profileTypes.ADD_PLAYER_SOUND_KIT]({ soundKitsLoad }, { playerItem }) {
+        soundKitsLoad.push(playerItem)
     },
 
     [profileTypes.ADD_CART_ITEM]({ cartItems }, { cartItem }) {
@@ -91,6 +106,26 @@ const actions = {
         commit(commonTypes.RESET)
     },
 
+    async getProfileBeatsTab({ commit }, { url, audio_id, type }) {
+        await api.profiles
+            .getProfileBeatsTab(url, audio_id, type)
+            .then(response => {
+                const { status, data } = response
+                if (status === 'success') {
+                    commit(profileTypes.SET_PROFILE, { profile: data.profile })
+                    commit(profileTypes.SET_BEATS, { beats: data.beats })
+                    commit(profileTypes.SET_MORE_ELEMENTS, {
+                        elements: data.extra,
+                    })
+                    commit(profileTypes.SET_GENRES, { genres: data.genres })
+                    commit(profileTypes.SET_LICENSES, {
+                        licenses: data.licenses,
+                    })
+                    return response
+                }
+            })
+    },
+
     async getProfileMain({ commit }, { url }) {
         const response = await api.profiles.getProfileMain(url)
         const { status, data } = response
@@ -109,6 +144,21 @@ const actions = {
         return response
     },
 
+    async getProfileKitsTab({ commit }, { url, audio_id }) {
+        await api.profiles.getProfileKitsTab(url, audio_id).then(response => {
+            const { status, data } = response
+            if (status === 'success') {
+                commit(profileTypes.SET_PROFILE, { profile: data.profile })
+                commit(profileTypes.SET_SOUND_KITS, {
+                    soundKits: data.sound_kits,
+                })
+                commit(profileTypes.SET_MORE_ELEMENTS, { elements: data.extra })
+                commit(profileTypes.SET_GENRES, { genres: data.genres })
+                return response
+            }
+        })
+    },
+
     async getProfileKits({ state, commit }, params) {
         const response = await api.profiles.getProfileKits(
             state.profile.id,
@@ -120,6 +170,22 @@ const actions = {
         return response
     },
 
+    async getMoreElements({ commit }, item) {
+        commit(profileTypes.SET_MORE_ELEMENTS, { elements: item })
+    },
+
+    async getProfileVideosTab({ commit }, { url, video_id }) {
+        await api.profiles.getProfileVideosTab(url, video_id).then(response => {
+            const { status, data } = response
+            if (status === 'success') {
+                commit(profileTypes.SET_PROFILE, { profile: data.profile })
+                commit(profileTypes.SET_VIDEOS, { videos: data.videos })
+                commit(profileTypes.SET_GENRES, { genres: data.genres })
+                return response
+            }
+        })
+    },
+
     async getProfileVideos({ state, commit }, params) {
         const response = await api.profiles.getProfileVideos(
             state.profile.id,
@@ -129,6 +195,17 @@ const actions = {
         status === 'success' &&
             commit(profileTypes.SET_VIDEOS, { videos: data })
         return response
+    },
+
+    async getProfileLinksTab({ commit }, { url, audio_id }) {
+        await api.profiles.getProfileLinksTab(url, audio_id).then(response => {
+            const { status, data } = response
+            if (status === 'success') {
+                commit(profileTypes.SET_PROFILE, { profile: data.profile })
+                commit(profileTypes.SET_LINKS, { links: data.links })
+                return response
+            }
+        })
     },
 
     async getProfileLinks({ state, commit }, params) {
@@ -160,6 +237,14 @@ const actions = {
         return response
     },
 
+    async addPlayerBeat({ commit }, item) {
+        commit(profileTypes.ADD_PLAYER_BEAT, { playerItem: item })
+    },
+
+    async addPlayerSoundKit({ commit }, item) {
+        commit(profileTypes.ADD_PLAYER_SOUND_KIT, { playerItem: item })
+    },
+
     async addCartItem({ commit }, item) {
         commit(profileTypes.ADD_CART_ITEM, { cartItem: item })
     },
@@ -180,6 +265,10 @@ const getters = {
             }
         })
     },
+
+    beatsLoad: ({ beatsLoad }) => beatsLoad,
+    soundKitsLoad: ({ soundKitsLoad }) => soundKitsLoad,
+    moreElements: ({ moreElements }) => moreElements,
 
     soundKits: ({ soundKits }) => {
         return soundKits.map(soundKit => {

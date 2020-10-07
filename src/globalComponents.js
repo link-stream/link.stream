@@ -34,6 +34,7 @@ import {
     BPaginationNav,
     BTable,
     BFormFile,
+    BTooltip,
     BCard,
     BCardSubTitle,
     BCardText,
@@ -111,6 +112,7 @@ Vue.component('BAspect', BAspect)
 Vue.component('BPaginationNav', BPaginationNav)
 Vue.component('BTable', BTable)
 Vue.component('BFormFile', BFormFile)
+Vue.component('BTooltip', BTooltip)
 Vue.component('BCard', BCard)
 Vue.component('BCardSubTitle', BCardSubTitle)
 Vue.component('BCardText', BCardText)

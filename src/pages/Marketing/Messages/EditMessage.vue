@@ -321,7 +321,9 @@ export default {
                 date: null,
                 time: null,
                 status: 'Pending',
-                template_type: this.smsData.template_type ? this.smsData.template_type : 'release'
+                template_type: this.smsData.template_type
+                    ? this.smsData.template_type
+                    : 'release',
             }
             console.log('smsData', params)
             await this.$store.dispatch('marketing/setSMSData', params)
@@ -351,7 +353,9 @@ export default {
                 date: null,
                 time: null,
                 status: 'Draft',
-                template_type: this.smsData.template_type ? this.smsData.template_type : 'release'
+                template_type: this.smsData.template_type
+                    ? this.smsData.template_type
+                    : 'release',
             }
             await this.$store.dispatch('marketing/setSMSData', params)
             console.log(this.smsData)

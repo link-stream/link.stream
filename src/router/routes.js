@@ -336,9 +336,10 @@ const routes = [
         meta: { requiresAuth: true, layout: 'account' },
     },
     {
-        path: '/app/marketing/messages/report',
+        path: '/app/marketing/messages/report/:id',
         name: 'reportMessage',
         component: ReportMessage,
+        props: true,
         meta: { requiresAuth: true, layout: 'account' },
     },
     {

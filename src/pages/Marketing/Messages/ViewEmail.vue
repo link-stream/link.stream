@@ -2,9 +2,18 @@
     <div class="page page-email-view">
         <LoadingSpinner class="page-loader pt-5" v-if="loading" />
         <div v-else>
-            <EmailPreviewRelease v-if="message.template_type === 'release'" :emailData="message" />
-            <EmailPreviewPlain v-if="message.template_type === 'plain'" :emailData="message" />
-            <EmailPreviewVideo v-if="message.template_type === 'video'" :emailData="message" />
+            <EmailPreviewRelease
+                v-if="message.template_type === 'release'"
+                :emailData="message"
+            />
+            <EmailPreviewPlain
+                v-if="message.template_type === 'plain'"
+                :emailData="message"
+            />
+            <EmailPreviewVideo
+                v-if="message.template_type === 'video'"
+                :emailData="message"
+            />
         </div>
     </div>
 </template>
@@ -33,11 +42,14 @@ export default {
     },
     async created() {
         this.loading = true
-        const { status, data } = await api.marketing.getMessage(this.user.id, this.id)
+        const { status, data } = await api.marketing.getMessage(
+            this.user.id,
+            this.id
+        )
         if (status === 'success') {
             this.message = data[0]
         }
         this.loading = false
-    }
+    },
 }
 </script>

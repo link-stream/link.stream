@@ -132,9 +132,13 @@ export default {
             }
         },
         handleViewReportClick() {
-            this.$router.push({
+            let routeData = this.$router.resolve({
                 name: 'reportMessage',
+                params: {
+                    id: this.message.id,
+                },
             })
+            window.open(routeData.href, '_blank')
         },
         handleViewEmailClick() {
             let routeData = this.$router.resolve({
@@ -144,7 +148,7 @@ export default {
                 },
             })
             window.open(routeData.href, '_blank')
-        }
+        },
     },
 }
 </script>

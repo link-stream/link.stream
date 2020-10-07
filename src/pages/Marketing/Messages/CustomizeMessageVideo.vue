@@ -40,8 +40,11 @@
                         </b-form-input>
                     </b-form-group>
                     <small>
-                        Your video preview image will link to this URL. Preview images are generated automatically for
-                        <a href="https://www.youtube.com/" target="_blank">YouTube</a>
+                        Your video preview image will link to this URL. Preview
+                        images are generated automatically for
+                        <a href="https://www.youtube.com/" target="_blank">
+                            YouTube
+                        </a>
                         and
                         <a href="https://vimeo.com/" target="_blank">Vimeo</a>
                         URLs.

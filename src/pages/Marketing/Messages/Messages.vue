@@ -143,8 +143,7 @@ export default {
                 })
             }
             const previousMonth = tempMessages.filter(
-                ({ created_at }) =>
-                    created_at < startOfMonth
+                ({ created_at }) => created_at < startOfMonth
             )
             sortMessages.push({
                 dateTitle: 'Previous Month',

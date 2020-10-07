@@ -654,6 +654,14 @@ export const api = {
                 method,
             })
         },
+        async getMessageReport(userId, id) {
+            const endpoint = '/marketing/messages_report/' + userId + '/' + id
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
         async getSubscribers(userId, searchString) {
             let endpoint = '/marketing/subscribers/' + userId
             if (searchString) {

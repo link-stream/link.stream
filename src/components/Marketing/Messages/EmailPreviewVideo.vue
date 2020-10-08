@@ -6,7 +6,12 @@
                     <div class="message-container video">
                         <div class="message-header">
                             <div class="message-logo">
-                                <img src="/static/media/logo1.png" alt="Logo" />
+                                <img
+                                    v-if="emailData.logo"
+                                    :src="`${mediaURL}${emailData.logo}`"
+                                    alt="Logo"
+                                />
+                                <img v-else :src="defaultLogo" alt="Logo" />
                             </div>
                             <div class="new-release">
                                 New video
@@ -29,7 +34,12 @@
                         </div>
                         <div class="message-footer">
                             <div class="logo-container">
-                                <img src="@/assets/img/logo/logo-h-lg.png" />
+                                <img
+                                    v-if="emailData.logo"
+                                    :src="`${mediaURL}${emailData.logo}`"
+                                    alt="Logo"
+                                />
+                                <img v-else :src="defaultLogo" alt="Logo" />
                             </div>
                             <div class="text">
                                 <p>
@@ -51,7 +61,7 @@
     </div>
 </template>
 <script>
-// import { getYtVideoThumbUrl } from '~/utils'
+import { appConstants } from '~/constants'
 export default {
     name: 'EmailPreviewVideo',
     props: {
@@ -59,6 +69,9 @@ export default {
             type: Object,
         },
     },
+    data: () => ({
+        defaultLogo: appConstants.emailDefaultLogo,
+    }),
     computed: {
         ytVidId() {
             return this.$youtube.getIdFromUrl(this.emailData.artwork)

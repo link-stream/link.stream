@@ -173,19 +173,17 @@ export default {
         handleDeleteClick() {
             this.$alert.confirm({
                 title: 'Delete message?',
-                message: 'This message and its data will be permanently deleted.',
+                message:
+                    'This message and its data will be permanently deleted.',
                 onOk: async () => {
                     this.processing = true
                     const {
                         status,
                         message,
                         error,
-                    } = await this.$store.dispatch(
-                        'marketing/deleteMessage',
-                        {
-                            id: this.message.id,
-                        }
-                    )
+                    } = await this.$store.dispatch('marketing/deleteMessage', {
+                        id: this.message.id,
+                    })
                     status === 'success'
                         ? this.$toast.success(message)
                         : this.$toast.error(error)
@@ -194,9 +192,12 @@ export default {
             })
         },
         async duplicateMessage() {
-             const params = {
+            const params = {
                 ...this.message,
-                status: this.message.status === 'Sent' ? 'Pending' : this.message.status,
+                status:
+                    this.message.status === 'Sent'
+                        ? 'Pending'
+                        : this.message.status,
             }
             let response = await this.$store.dispatch(
                 'marketing/insertMessage',
@@ -207,7 +208,7 @@ export default {
                 ? this.$toast.success(message)
                 : this.$toast.error(error)
             this.$router.push({
-                name: 'marketingMessages'
+                name: 'marketingMessages',
             })
             await this.$store.dispatch('marketing/getMessages')
         },

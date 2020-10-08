@@ -32,7 +32,12 @@
                     <div class="message-container plain">
                         <div class="message-header">
                             <div class="message-logo">
-                                <img src="/static/media/logo1.png" alt="Logo" />
+                                <img
+                                    v-if="emailData.logo"
+                                    :src="`${mediaURL}${emailData.logo}`"
+                                    alt="Logo"
+                                />
+                                <img v-else :src="defaultLogo" alt="Logo" />
                             </div>
                         </div>
                         <div class="message-body">
@@ -62,6 +67,7 @@
     </div>
 </template>
 <script>
+import { appConstants } from '~/constants'
 export default {
     name: 'EmailPreviewPlain',
     props: {
@@ -71,6 +77,7 @@ export default {
     },
     data: () => ({
         viewType: 'desktop',
+        defaultLogo: appConstants.emailDefaultLogo,
     }),
     computed: {
         emailBackStyle() {

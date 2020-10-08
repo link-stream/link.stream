@@ -18,7 +18,7 @@
 import BeatPackListItem from './BeatPackListItem'
 
 export default {
-    name: 'BeatPacList',
+    name: 'BeatPackList',
     components: {
         BeatPackListItem,
     },

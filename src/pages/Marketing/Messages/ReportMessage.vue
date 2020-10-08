@@ -19,7 +19,10 @@
                     </h1>
                     <div class="page-preview">
                         <span class="text-light">link.stream/</span>
-                        <span>{{ user.user_name }}/placeholder-email-title</span>
+                        <span>
+                            {{ user.user_name }}
+                            /placeholder-email-title
+                        </span>
                         <basic-button variant="outline-light" size="xs">
                             View
                         </basic-button>
@@ -105,9 +108,12 @@ export default {
     },
     methods: {
         async duplicateMessage() {
-             const params = {
+            const params = {
                 ...this.message,
-                status: this.message.status === 'Sent' ? 'Pending' : this.message.status,
+                status:
+                    this.message.status === 'Sent'
+                        ? 'Pending'
+                        : this.message.status,
             }
             let response = await this.$store.dispatch(
                 'marketing/insertMessage',
@@ -118,9 +124,8 @@ export default {
                 ? this.$toast.success(message)
                 : this.$toast.error(error)
             this.$router.push({
-                name: 'marketingMessages'
+                name: 'marketingMessages',
             })
-
         },
     },
 }

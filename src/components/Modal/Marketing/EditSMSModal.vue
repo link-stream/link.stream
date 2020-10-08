@@ -129,7 +129,9 @@ export default {
         smsData(value) {
             this.form = {
                 ...value,
-                date: value.date ? new Date(value.date + " 23:59:59") : new Date(),
+                date: value.date
+                    ? new Date(value.date + ' 23:59:59')
+                    : new Date(),
             }
         },
     },
@@ -181,7 +183,7 @@ export default {
                     ? moment(this.form.date).format('YYYY-MM-DD')
                     : null,
                 time: this.form.scheduled ? this.form.time : null,
-                status: this.form.scheduled ? 'Scheduled' : 'Pending'
+                status: this.form.scheduled ? 'Scheduled' : 'Pending',
             }
             if (this.smsData.id) {
                 const { status, message, error } = await this.$store.dispatch(

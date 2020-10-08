@@ -85,7 +85,9 @@ export default {
         this.$bus.$on('modal.scheduleEmail.open', this.handleOpen)
         this.$bus.$on('modal.scheduleEmail.close', this.handleClose)
         await this.$store.dispatch('common/loadTimezones')
-        this.date = this.smsData.date ? new Date(this.smsData.date + " 23:59:59") : new Date()
+        this.date = this.smsData.date
+            ? new Date(this.smsData.date + ' 23:59:59')
+            : new Date()
         this.time = this.smsData.time
         // console.log(this.smsData.date)
         // console.log(moment(this.smsData.date))
@@ -135,7 +137,7 @@ export default {
             this.saving == false
             this.close()
             this.$router.push({
-                name: 'marketingMessages'
+                name: 'marketingMessages',
             })
         },
     },

@@ -58,13 +58,39 @@
                         </div>
                     </div>
                     <b-form-group label="Choose a release to promote">
-                        <BasicSelect
-                            v-model="promoteName"
+                        <vue-select
+                            v-model="promote"
                             placeholder="Search by name"
-                            :options="nameList"
-                            :reduce="audience => audience.id"
-                            label="name"
-                        />
+                            :options="promotes"
+                            label="title"
+                            class="BasicSelect"
+                            @input="setPromoteUrl"
+                        >
+                            <template v-slot:open-indicator>
+                                <Icon icon="select-arrow" class="arrow-icon" />
+                            </template>
+                            <template v-slot:option="option">
+                                <div class="promote-container">
+                                    <div class="image-container">
+                                        <img
+                                            :src="
+                                                option.data_image
+                                                    ? option.data_image
+                                                    : defaultCoverArt
+                                            "
+                                        />
+                                    </div>
+                                    <div class="promote-text">
+                                        <div class="promote-title">
+                                            {{ option.title }}
+                                        </div>
+                                        <div class="promote-type">
+                                            {{ option.type }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </vue-select>
                     </b-form-group>
                     <div class="thumb-upload no-image">
                         <h6>Artwork</h6>
@@ -257,6 +283,7 @@ import SendTestModal from '@/components/Modal/Marketing/SendTestModal'
 import EmailPreviewRelease from '@/components/Marketing/Messages/EmailPreviewRelease'
 import { mapGetters } from 'vuex'
 import { appConstants } from '~/constants'
+import VueSelect from 'vue-select'
 export default {
     name: 'CustomizeMessage',
     components: {
@@ -264,9 +291,10 @@ export default {
         SelectMediaModal,
         SendTestModal,
         EmailPreviewRelease,
+        VueSelect,
     },
     data: () => ({
-        promoteName: null,
+        promote: null,
         nameList: [],
         isButtonColorPicker: false,
         buttonColor: {
@@ -285,13 +313,17 @@ export default {
             background_color: '',
             background_image: '',
             content: '',
+            promote_id: '',
         },
         selMediaType: null,
         mediaURL: appConstants.mediaURL,
+        defaultCoverArt: appConstants.defaultCoverArt,
     }),
     computed: {
         ...mapGetters({
+            user: 'me/user',
             smsData: 'marketing/smsData',
+            promotes: 'marketing/promotes',
         }),
     },
     mounted() {
@@ -299,7 +331,7 @@ export default {
             ...this.form,
             ...this.smsData,
         }
-        console.log(this.smsData)
+        this.initPromote()
         document.addEventListener('click', this.handleDocumentClick)
     },
     beforeDestroy() {
@@ -373,6 +405,44 @@ export default {
         },
         getFullMediaURL(url) {
             return appConstants.mediaURL + url
+        },
+        setPromoteUrl() {
+            let typeUrl = ''
+            switch (this.promote.type) {
+                case 'beat':
+                    typeUrl = 'beats'
+                    break
+                case 'pack':
+                    typeUrl = 'beat-packs'
+                    break
+                case 'kit':
+                    typeUrl = 'kits'
+                    break
+            }
+            const linkUrl = `${appConstants.baseAppUrl}${this.user.url}/${typeUrl}/${this.promote.id}`
+            this.form.promote_id = linkUrl
+        },
+        initPromote() {
+            if (this.smsData.promote_id) {
+                let aryData = this.smsData.promote_id.split('/')
+                const curType = aryData[aryData.length - 2]
+                const curId = aryData[aryData.length - 1]
+                let realType = ''
+                switch (curType) {
+                    case 'beats':
+                        realType = 'beat'
+                        break
+                    case 'beat-packs':
+                        realType = 'pack'
+                        break
+                    case 'kits':
+                        realType = 'kit'
+                        break
+                }
+                this.promote = this.promotes.find(
+                    ({ id, type }) => id == curId && type == realType
+                )
+            }
         },
     },
 }

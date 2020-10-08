@@ -62,17 +62,17 @@
             <div class="left-col">
                 <div class="add-desc-item">
                     <span class="font-weight-bold">Audience: </span>
-                    Hydro Kitty
+                    {{ message.reply_to_name }}
                 </div>
                 <div class="add-desc-item">
                     <span class="font-weight-bold">Subject: </span>
-                    25% off through the 4th
+                    {{ message.subject }}
                 </div>
             </div>
             <div class="right-col">
                 <div class="add-desc-item">
                     <span class="font-weight-bold">Delivered: </span>
-                    Sat, May 23, 2020 1:10 pm
+                    {{ message.created_at | fullDateTime }}
                 </div>
                 <a href="#" class="link-download-report">
                     Download Report
@@ -87,6 +87,7 @@
             </div>
             <LineChart
                 v-if="loaded"
+                :height="200"
                 :chartdata="chartData"
                 :options="options"
             />
@@ -222,6 +223,7 @@ export default {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             title: {
                 display: false,
                 text: '24-hour performance',
@@ -267,16 +269,14 @@ export default {
             let aryValues2 = []
             for (let k = 0; k < 24; k++) {
                 today.set('hour', k)
-                if (k % 4 === 0) {
-                    aryHours.push(today.format('h:mma'))
-                } else {
-                    aryHours.push('')
-                }
-                let maxValue = 20
-                if (k > 10) maxValue = 5
-                let randomValue = Math.floor(Math.random() * maxValue)
-                aryValues1.push(randomValue)
-                aryValues2.push(Math.floor(Math.random() * randomValue))
+                aryHours.push(today.format('h:mma'))
+                aryValues1.push(0)
+                aryValues2.push(0)
+            }
+            for (const [key, value] of Object.entries(this.overview.Hours)) {
+                const curIndex = parseInt(parseInt(key) / 100)
+                aryValues1[curIndex] = value.Open
+                aryValues2[curIndex] = value.Click
             }
             this.chartData.labels = aryHours
             this.chartData.datasets[0].data = aryValues1

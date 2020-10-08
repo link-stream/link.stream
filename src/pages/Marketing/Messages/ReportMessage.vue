@@ -105,7 +105,21 @@ export default {
     },
     methods: {
         async duplicateMessage() {
-            
+             const params = {
+                ...this.message,
+                status: this.message.status === 'Sent' ? 'Pending' : this.message.status,
+            }
+            let response = await this.$store.dispatch(
+                'marketing/insertMessage',
+                params
+            )
+            const { status, message, error } = response
+            status === 'success'
+                ? this.$toast.success(message)
+                : this.$toast.error(error)
+            this.$router.push({
+                name: 'marketingMessages'
+            })
 
         },
     },

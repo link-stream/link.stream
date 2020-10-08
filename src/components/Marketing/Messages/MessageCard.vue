@@ -111,7 +111,7 @@
             <b-dropdown-item @click="handleViewEmailClick">
                 View Email
             </b-dropdown-item>
-            <b-dropdown-item>
+            <b-dropdown-item @click="duplicateMessage">
                 Duplicate
             </b-dropdown-item>
         </b-dropdown>
@@ -192,6 +192,24 @@ export default {
                     this.processing = false
                 },
             })
+        },
+        async duplicateMessage() {
+             const params = {
+                ...this.message,
+                status: this.message.status === 'Sent' ? 'Pending' : this.message.status,
+            }
+            let response = await this.$store.dispatch(
+                'marketing/insertMessage',
+                params
+            )
+            const { status, message, error } = response
+            status === 'success'
+                ? this.$toast.success(message)
+                : this.$toast.error(error)
+            this.$router.push({
+                name: 'marketingMessages'
+            })
+            await this.$store.dispatch('marketing/getMessages')
         },
     },
 }

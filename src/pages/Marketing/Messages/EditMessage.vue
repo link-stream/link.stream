@@ -379,7 +379,6 @@ export default {
                     : 'release',
             }
             await this.$store.dispatch('marketing/setSMSData', params)
-            console.log(this.smsData)
             let response
             if (this.smsData.id) {
                 response = await this.$store.dispatch(

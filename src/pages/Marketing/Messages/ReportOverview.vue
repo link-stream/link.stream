@@ -1,14 +1,18 @@
 <template>
     <div class="report-overview">
         <h5 class="recipient-title">
-            <span class="active-number font-weight-bold">150</span>
+            <span class="active-number font-weight-bold">
+                {{ overview.Total }}
+            </span>
             Recipients
         </h5>
         <b-row>
             <b-col cols="6" md="3">
                 <div class="recipient-container">
                     <div class="recipient-status">
-                        <h2 class="number">24%</h2>
+                        <h2 class="number">
+                            {{ overview.Open_rate }}
+                        </h2>
                         <p class="description">
                             Open Rate
                         </p>
@@ -18,7 +22,9 @@
             <b-col cols="6" md="3">
                 <div class="recipient-container">
                     <div class="recipient-status">
-                        <h2 class="number">4.66%</h2>
+                        <h2 class="number">
+                            {{ overview.Click_rate }}
+                        </h2>
                         <p class="description">
                             Click Rate
                         </p>
@@ -28,9 +34,13 @@
             <b-col cols="6" md="3">
                 <div class="recipient-container">
                     <div class="recipient-status">
-                        <h2 class="number">$33</h2>
+                        <h2 class="number">
+                            {{ overview.Revenue }}
+                        </h2>
                         <p class="description">
-                            Revenue from 2 Orders
+                            Revenue from
+                            {{ overview.Orders }}
+                            Orders
                         </p>
                     </div>
                 </div>
@@ -38,7 +48,9 @@
             <b-col cols="6" md="3">
                 <div class="recipient-container">
                     <div class="recipient-status">
-                        <h2 class="number">1</h2>
+                        <h2 class="number">
+                            {{ overview.Unsubscribed }}
+                        </h2>
                         <p class="description">
                             Unsubscribed
                         </p>
@@ -117,6 +129,14 @@ import LineChart from '~/components/Form/LineChart'
 import moment from 'moment'
 export default {
     name: 'ReportOverview',
+    props: {
+        message: {
+            type: Object,
+        },
+        overview: {
+            type: Object
+        },
+    },
     components: {
         LineChart,
     },

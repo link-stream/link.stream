@@ -50,7 +50,11 @@
             </ul>
         </div>
         <main class="page-body">
-            <ReportOverview v-if="currentItem === 'overview'" />
+            <ReportOverview
+                v-if="currentItem === 'overview'"
+                :message="message"
+                :overview="overview"
+            />
             <ReportActivity
                 v-if="currentItem === 'activity'"
                 :message="message"
@@ -75,7 +79,7 @@ export default {
         currentItem: 'overview',
         loading: false,
         message: {},
-        overviewes: {},
+        overview: {},
         activities: {},
     }),
     computed: {

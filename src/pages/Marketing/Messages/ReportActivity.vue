@@ -24,7 +24,11 @@
                             <span class="text-capitalize">
                                 {{ activity.type }}
                             </span>
-                            <span v-if="activity.type.trim().toLowerCase() === 'click'">
+                            <span
+                                v-if="
+                                    activity.type.trim().toLowerCase() === 'click'
+                                "
+                            >
                                 :
                                 <a :href="activity.link">
                                     {{ activity.link }}
@@ -65,10 +69,10 @@ export default {
             temps.forEach(element => {
                 const curDate = element.value.format('MM/DD/YYYY')
                 const curTime = element.value.format('h:mma')
-                if (prevDate && curDate != prevDate )  {
+                if (prevDate && curDate != prevDate) {
                     newActivities.push({
                         date: prevDate,
-                        values: [ ...tempData ],
+                        values: [...tempData],
                     })
                     tempData = Array()
                 }
@@ -78,16 +82,16 @@ export default {
                 tempData.push({
                     time: curTime,
                     type: aryData[0],
-                    link: aryData.length == 2 ? aryData[1] : '', 
+                    link: aryData.length === 2 ? aryData[1] : '',
                 })
-            });
+            })
             newActivities.push({
                 date: prevDate,
-                values: [ ...tempData ],
+                values: [...tempData],
             })
             console.log(newActivities)
             return newActivities
-        }
-    }
+        },
+    },
 }
 </script>

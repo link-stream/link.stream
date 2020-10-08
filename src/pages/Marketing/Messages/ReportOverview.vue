@@ -134,7 +134,7 @@ export default {
             type: Object,
         },
         overview: {
-            type: Object
+            type: Object,
         },
     },
     components: {

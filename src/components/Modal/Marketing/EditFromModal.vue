@@ -20,7 +20,7 @@
                     <b-form-group label="Name" label-for="from-name">
                         <b-form-input
                             id="from-name"
-                            v-model="form.user_name"
+                            v-model="form.reply_to_name"
                             required
                             placeholder="Name"
                         >
@@ -66,7 +66,7 @@ export default {
         return {
             open: true,
             form: {
-                user_name: null,
+                reply_to_name: null,
                 reply_to: null,
             },
         }
@@ -77,7 +77,7 @@ export default {
         }),
     },
     created() {
-        this.form.user_name = this.smsData.user_name
+        this.form.reply_to_name = this.smsData.reply_to_name
         this.form.reply_to = this.smsData.reply_to
     },
     methods: {
@@ -87,7 +87,7 @@ export default {
         async handleSaveClick() {
             const params = {
                 ...this.smsData,
-                user_name: this.form.user_name,
+                reply_to_name: this.form.reply_to_name,
                 reply_to: this.form.reply_to,
             }
             await this.$store.dispatch('marketing/setSMSData', params)

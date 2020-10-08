@@ -203,7 +203,7 @@ export default {
             const params = {
                 ...this.smsData,
                 ...this.form,
-                content: this.form.headline,
+                content: this.form.body,
             }
             await this.$store.dispatch('marketing/setSMSData', params)
             this.$router.push({

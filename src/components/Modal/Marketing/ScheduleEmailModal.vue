@@ -6,7 +6,8 @@
             <p class="mb-0">
                 This message will be sent to all
                 <span class="font-weight-bold">
-                    {{ cntSubscribers | thousandCNumber }}
+                    <!-- {{ cntSubscribers | thousandCNumber }} -->
+                    ( {{ smsData.send_to }})
                 </span>
                 subscribers
                 <a href="#" class="btn-link">Edit Recipients</a>
@@ -80,16 +81,14 @@ export default {
             return this.timezones.find(({ id }) => id === this.user.timezone)
         },
     },
-    watch: {
-        smsData(value) {
-            this.date = new Date(value.date)
-            this.time = value.time
-        },
-    },
     async created() {
         this.$bus.$on('modal.scheduleEmail.open', this.handleOpen)
         this.$bus.$on('modal.scheduleEmail.close', this.handleClose)
         await this.$store.dispatch('common/loadTimezones')
+        this.date = this.smsData.date ? new Date(this.smsData.date + " 23:59:59") : new Date()
+        this.time = this.smsData.time
+        // console.log(this.smsData.date)
+        // console.log(moment(this.smsData.date))
     },
     methods: {
         close() {
@@ -135,6 +134,9 @@ export default {
             }
             this.saving == false
             this.close()
+            this.$router.push({
+                name: 'marketingMessages'
+            })
         },
     },
 }

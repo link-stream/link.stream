@@ -24,7 +24,11 @@
                             <span class="text-capitalize">
                                 {{ activity.type }}
                             </span>
-                            <span v-if="activity.type.trim().toLowerCase() === 'click'">
+                            <span
+                                v-if="
+                                    activity.type.trim().toLowerCase() === 'click'
+                                "
+                            >
                                 :
                                 <a :href="activity.link">
                                     {{ activity.link }}
@@ -38,6 +42,7 @@
     </div>
 </template>
 <script>
+import moment from 'moment'
 export default {
     name: 'ReportActivity',
     props: {
@@ -53,7 +58,7 @@ export default {
             let temps = []
             for (const [key, value] of Object.entries(this.activities)) {
                 temps.push({
-                    value: key,
+                    value: moment(key),
                     text: value,
                 })
             }
@@ -62,13 +67,12 @@ export default {
             let tempData = []
             let prevDate = ''
             temps.forEach(element => {
-                const aryDateTime = element.value.split(' ')
-                const curDate = aryDateTime[0]
-                const curTime = aryDateTime[1]
-                if (prevDate && curDate != prevDate )  {
+                const curDate = element.value.format('MM/DD/YYYY')
+                const curTime = element.value.format('h:mma')
+                if (prevDate && curDate != prevDate) {
                     newActivities.push({
                         date: prevDate,
-                        values: [ ...tempData ],
+                        values: [...tempData],
                     })
                     tempData = Array()
                 }
@@ -78,16 +82,16 @@ export default {
                 tempData.push({
                     time: curTime,
                     type: aryData[0],
-                    link: aryData.length == 2 ? aryData[1] : '', 
+                    link: aryData.length === 2 ? aryData[1] : '',
                 })
-            });
+            })
             newActivities.push({
                 date: prevDate,
-                values: [ ...tempData ],
+                values: [...tempData],
             })
             console.log(newActivities)
             return newActivities
-        }
-    }
+        },
+    },
 }
 </script>

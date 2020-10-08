@@ -10,53 +10,60 @@
                 <span>Messages</span>
             </basic-button>
         </nav>
-        <header class="page-header">
-            <div class="left-col">
-                <h1 class="page-title">
-                    {{ message.campaing_name }}
-                </h1>
-                <div class="page-preview">
-                    <span class="text-light">link.stream/</span>
-                    <span>{{ user.user_name }}/placeholder-email-title</span>
-                    <basic-button variant="outline-light" size="xs">
-                        View
+        <LoadingSpinner class="page-loader" v-if="loading" />
+        <div v-else>
+            <header class="page-header">
+                <div class="left-col">
+                    <h1 class="page-title">
+                        {{ message.campaing_name }}
+                    </h1>
+                    <div class="page-preview">
+                        <span class="text-light">link.stream/</span>
+                        <span>{{ user.user_name }}/placeholder-email-title</span>
+                        <basic-button variant="outline-light" size="xs">
+                            View
+                        </basic-button>
+                    </div>
+                </div>
+                <div class="right-col">
+                    <basic-button
+                        v-if="currentItem === 'overview'"
+                        variant="outline-light"
+                        size="sm"
+                        class="btn-duplicate"
+                        @click="duplicateMessage"
+                    >
+                        Duplicate message
                     </basic-button>
                 </div>
+            </header>
+            <div class="tabnav">
+                <ul>
+                    <li :class="{ active: currentItem === 'overview' }">
+                        <a href="#" @click.prevent="currentItem = 'overview'">
+                            Overview
+                        </a>
+                    </li>
+                    <li :class="{ active: currentItem === 'activity' }">
+                        <a href="#" @click.prevent="currentItem = 'activity'">
+                            Activity
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <div class="right-col">
-                <basic-button
+            <main class="page-body">
+                <ReportOverview
                     v-if="currentItem === 'overview'"
-                    variant="outline-light"
-                    size="sm"
-                    class="btn-duplicate"
-                    @click="duplicateMessage"
-                >
-                    Duplicate message
-                </basic-button>
-            </div>
-        </header>
-        <div class="tabnav">
-            <ul>
-                <li :class="{ active: currentItem === 'overview' }">
-                    <a href="#" @click.prevent="currentItem = 'overview'">
-                        Overview
-                    </a>
-                </li>
-                <li :class="{ active: currentItem === 'activity' }">
-                    <a href="#" @click.prevent="currentItem = 'activity'">
-                        Activity
-                    </a>
-                </li>
-            </ul>
+                    :message="message"
+                    :overview="overview"
+                />
+                <ReportActivity
+                    v-if="currentItem === 'activity'"
+                    :message="message"
+                    :activities="activities"
+                />
+            </main>
         </div>
-        <main class="page-body">
-            <ReportOverview v-if="currentItem === 'overview'" />
-            <ReportActivity
-                v-if="currentItem === 'activity'"
-                :message="message"
-                :activities="activities"
-            />
-        </main>
     </div>
 </template>
 <script>
@@ -75,7 +82,7 @@ export default {
         currentItem: 'overview',
         loading: false,
         message: {},
-        overviewes: {},
+        overview: {},
         activities: {},
     }),
     computed: {
@@ -90,7 +97,6 @@ export default {
             this.id
         )
         if (status === 'success') {
-            console.log(data)
             this.message = data.Message
             this.overview = data.Overview
             this.activities = data.Activity
@@ -98,7 +104,24 @@ export default {
         this.loading = false
     },
     methods: {
-        duplicateMessage() {},
+        async duplicateMessage() {
+             const params = {
+                ...this.message,
+                status: this.message.status === 'Sent' ? 'Pending' : this.message.status,
+            }
+            let response = await this.$store.dispatch(
+                'marketing/insertMessage',
+                params
+            )
+            const { status, message, error } = response
+            status === 'success'
+                ? this.$toast.success(message)
+                : this.$toast.error(error)
+            this.$router.push({
+                name: 'marketingMessages'
+            })
+
+        },
     },
 }
 </script>

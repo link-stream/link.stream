@@ -41,7 +41,7 @@
                 <b-col cols="12" sm="2">
                     <div
                         class="message-status"
-                        :class="getStatusString.toLowerCase()"
+                        :class="message.status.toLowerCase()"
                     >
                         {{ message.status }}
                     </div>

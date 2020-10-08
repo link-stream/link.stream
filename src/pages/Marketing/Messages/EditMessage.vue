@@ -50,7 +50,7 @@
                         variant="outline-black"
                         size="md"
                         @click="handleScheduleClick"
-                        :disabled="isEditEmailName"
+                        :disabled="isEditEmailName || !isCompleted"
                     >
                         Schedule
                     </basic-button>
@@ -58,7 +58,7 @@
                         size="md"
                         :loading="saving"
                         @click="handleSendClick"
-                        :disabled="isEditEmailName"
+                        :disabled="isEditEmailName || !isCompleted"
                     >
                         Send
                     </spinner-button>
@@ -69,13 +69,17 @@
                     <div class="card-item">
                         <font-awesome-icon
                             :icon="['fas', 'check-circle']"
-                            class="item-status completed"
+                            class="item-status"
+                            :class="{ completed: form.send_to }"
                         />
                         <div class="left-col">
                             <h4 class="item-title">
                                 Send to
                             </h4>
                             <small class="item-subtitle">
+                                {{ sendToText }}
+                            </small>
+                            <!-- <small class="item-subtitle">
                                 All
                                 <span class="font-weight-bold">
                                     {{ cntSubscribers | thousandCNumber }}
@@ -83,7 +87,7 @@
                                 </span>
                                 subscribed contacts in the audience
                                 {{ form.user_name }}
-                            </small>
+                            </small> -->
                         </div>
                         <div class="right-col">
                             <BasicButton
@@ -98,14 +102,15 @@
                     <div class="card-item">
                         <font-awesome-icon
                             :icon="['fas', 'check-circle']"
-                            class="item-status completed"
+                            class="item-status"
+                            :class="{ completed: form.reply_to }"
                         />
                         <div class="left-col">
                             <h4 class="item-title">
                                 From
                             </h4>
                             <small class="item-subtitle">
-                                {{ form.user_name }}
+                                {{ form.reply_to_name }}
                                 &middot;
                                 {{ form.reply_to }}
                             </small>
@@ -209,7 +214,7 @@
                         variant="outline-black"
                         size="md"
                         @click="handleScheduleClick"
-                        :disabled="isEditEmailName"
+                        :disabled="isEditEmailName || !isCompleted"
                     >
                         Schedule
                     </basic-button>
@@ -217,7 +222,7 @@
                         size="md"
                         :loading="saving"
                         @click="handleSendClick"
-                        :disabled="isEditEmailName"
+                        :disabled="isEditEmailName || !isCompleted"
                     >
                         Send
                     </spinner-button>
@@ -255,6 +260,7 @@ export default {
         saving: false,
         cntSubscribers: 5749,
         form: {
+            send_to: null,
             user_name: null,
             email: null,
             campaing_name: null,
@@ -270,7 +276,22 @@ export default {
     computed: {
         ...mapGetters({
             smsData: 'marketing/smsData',
+            sendtos: 'marketing/sendtos',
         }),
+        sendToText() {
+            const findItem = this.sendtos.find(({ value }) => value === this.form.send_to)
+            if (findItem) {
+                return findItem.text
+            } else {
+                return ''
+            }
+        },
+        isCompleted() {
+            return this.form.send_to &&
+                this.form.reply_to &&
+                this.form.subject &&
+                this.form.content
+        }
     },
     watch: {
         smsData: {
@@ -286,6 +307,7 @@ export default {
         this.form = {
             ...this.smsData,
         }
+        console.log(this.smsData)
     },
     methods: {
         handleEditSendtoClick() {
@@ -325,7 +347,6 @@ export default {
                     ? this.smsData.template_type
                     : 'release',
             }
-            console.log('smsData', params)
             await this.$store.dispatch('marketing/setSMSData', params)
             this.$bus.$emit('modal.reviewEmail.open')
         },
@@ -378,6 +399,9 @@ export default {
             status === 'success'
                 ? this.$toast.success(message)
                 : this.$toast.error(error)
+            this.$router.push({
+                name: 'marketingMessages'
+            })
         },
         handleCancelClick() {
             this.form.campaing_name = this.smsData.campaing_name

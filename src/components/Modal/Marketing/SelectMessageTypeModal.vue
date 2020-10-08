@@ -95,12 +95,12 @@ export default {
                 send_to: null,
                 user_id: this.user.id,
                 reply_to: this.user.email,
-                user_name: this.user.display_name,
+                reply_to_name: this.user.display_name,
                 scheduled: false,
                 subject: null,
                 content: null,
-                date: new Date(),
-                time: '00:00:00',
+                date: '',
+                time: '',
             }
             this.$store.dispatch('marketing/setSMSData', { ...message })
             this.$bus.$emit('modal.createMessage.open')
@@ -113,12 +113,12 @@ export default {
                 send_to: null,
                 user_id: this.user.id,
                 reply_to: null,
-                user_name: null,
+                reply_to_name: null,
                 scheduled: false,
                 subject: '',
                 content: '',
-                date: new Date(),
-                time: '00:00:00',
+                date: '',
+                time: '',
             }
             this.$store.dispatch('marketing/setSMSData', { ...message })
             this.$bus.$emit('modal.createSMS.open')

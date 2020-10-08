@@ -7,7 +7,8 @@
             <p>
                 You're about to send this message to
                 <span class="font-weight-bold">
-                    {{ cntSubscribers | thousandCNumber }}
+                    <!-- {{ cntSubscribers | thousandCNumber }} -->
+                    ({{ smsData.send_to }})
                 </span>
                 subscribers from the audience
                 <span class="font-weight-bold">
@@ -94,6 +95,9 @@ export default {
             }
             this.saving == false
             this.close()
+            this.$router.push({
+                name: 'marketingMessages'
+            })
         },
     },
 }

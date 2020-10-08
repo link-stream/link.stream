@@ -57,7 +57,7 @@
                     margin-left: auto;
                     margin-right: auto;
                 }
-                &.scheduled {
+                &.scheduled, &.pending {
                     background-color: #FFF0C5;
                 }
                 &.draft {

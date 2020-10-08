@@ -593,8 +593,8 @@ export const api = {
                 method,
             })
         },
-        async insertAudioAction(params) {
-            let endpoint = '/profiles/audio_action'
+        async insertAction(params) {
+            let endpoint = '/profiles/action'
             const method = METHOD_POST
             return await call({
                 endpoint,

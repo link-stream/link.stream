@@ -38,6 +38,7 @@
     </div>
 </template>
 <script>
+import moment from 'moment'
 export default {
     name: 'ReportActivity',
     props: {
@@ -53,7 +54,7 @@ export default {
             let temps = []
             for (const [key, value] of Object.entries(this.activities)) {
                 temps.push({
-                    value: key,
+                    value: moment(key),
                     text: value,
                 })
             }
@@ -62,9 +63,8 @@ export default {
             let tempData = []
             let prevDate = ''
             temps.forEach(element => {
-                const aryDateTime = element.value.split(' ')
-                const curDate = aryDateTime[0]
-                const curTime = aryDateTime[1]
+                const curDate = element.value.format('MM/DD/YYYY')
+                const curTime = element.value.format('h:mma')
                 if (prevDate && curDate != prevDate )  {
                     newActivities.push({
                         date: prevDate,

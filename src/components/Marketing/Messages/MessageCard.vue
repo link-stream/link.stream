@@ -85,23 +85,12 @@
             @click="handleEditClick"
         /> -->
         <b-dropdown
-            v-if="message.status === 'Scheduled' || message.status === 'Draft'"
+            v-if="message.status === 'Sent'"
             class="actions-menu"
             variant="icon"
             right
             no-caret
         >
-            <template v-slot:button-content>
-                <Icon icon="dot-menu-h" />
-            </template>
-            <b-dropdown-item @click="handleEditClick">
-                Edit
-            </b-dropdown-item>
-            <b-dropdown-item @click="handleDeleteClick">
-                Delete
-            </b-dropdown-item>
-        </b-dropdown>
-        <b-dropdown v-else class="actions-menu" variant="icon" right no-caret>
             <template v-slot:button-content>
                 <Icon icon="dot-menu-h" />
             </template>
@@ -113,6 +102,17 @@
             </b-dropdown-item>
             <b-dropdown-item @click="duplicateMessage">
                 Duplicate
+            </b-dropdown-item>
+        </b-dropdown>
+        <b-dropdown v-else class="actions-menu" variant="icon" right no-caret>
+            <template v-slot:button-content>
+                <Icon icon="dot-menu-h" />
+            </template>
+            <b-dropdown-item @click="handleEditClick">
+                Edit
+            </b-dropdown-item>
+            <b-dropdown-item @click="handleDeleteClick">
+                Delete
             </b-dropdown-item>
         </b-dropdown>
     </div>

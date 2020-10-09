@@ -451,9 +451,15 @@ export default {
             if (this.form.background_image) {
                 backUrl = `url(${this.mediaURL}${this.form.background_image})`
             }
-            mailContent = mailContent.replace('EMAIL_CUSTOM_BACK_IMAGE', backUrl)
+            mailContent = mailContent.replace(
+                'EMAIL_CUSTOM_BACK_IMAGE',
+                backUrl
+            )
 
-            mailContent = mailContent.replace('EMAIL_CUSTOM_BACK_COLOR', this.form.background_color)
+            mailContent = mailContent.replace(
+                'EMAIL_CUSTOM_BACK_COLOR',
+                this.form.background_color
+            )
 
             let logoUrl = `${appConstants.baseAppUrl}${appConstants.emailDefaultLogo}`
             if (this.form.logo) {
@@ -467,12 +473,24 @@ export default {
             }
             mailContent = mailContent.replace('EMAIL_ARTWORK_URL', artworkUrl)
 
-            mailContent = mailContent.replace('EMAIL_CUSTOM_HEADLINE', this.form.headline)
-            mailContent = mailContent.replace('EMAIL_CUSTOM_BODY', this.form.body)
-            mailContent = mailContent.replace('EMAIL_CUSTOM_BUTTON_LINK', this.form.promote_id)
-            mailContent = mailContent.replace('EMAIL_CUSTOM_BUTTON_COLOR', this.form.button_color)
+            mailContent = mailContent.replace(
+                'EMAIL_CUSTOM_HEADLINE',
+                this.form.headline
+            )
+            mailContent = mailContent.replace(
+                'EMAIL_CUSTOM_BODY',
+                this.form.body
+            )
+            mailContent = mailContent.replace(
+                'EMAIL_CUSTOM_BUTTON_LINK',
+                this.form.promote_id
+            )
+            mailContent = mailContent.replace(
+                'EMAIL_CUSTOM_BUTTON_COLOR',
+                this.form.button_color
+            )
             return mailContent
-        }
+        },
     },
 }
 </script>

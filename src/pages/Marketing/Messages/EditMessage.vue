@@ -271,7 +271,6 @@ export default {
         isShowSendto: false,
         isShowFrom: false,
         isShowSubject: false,
-
     }),
     computed: {
         ...mapGetters({
@@ -372,6 +371,19 @@ export default {
             }
             await this.$store.dispatch('marketing/setSMSData', params)
             this.isEditEmailName = false
+            if (this.smsData.id) {
+                const response = await this.$store.dispatch(
+                    'marketing/updateMessage',
+                    {
+                        id: this.smsData.id,
+                        params: params,
+                    }
+                )
+                const { status, message, error } = response
+                status === 'success'
+                    ? this.$toast.success(message)
+                    : this.$toast.error(error)
+            }
         },
         showEditEmail() {
             this.isEditEmailName = true

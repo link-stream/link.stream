@@ -101,7 +101,7 @@ export default {
                 ...this.curItem,
                 type: typeString,
                 user_name: this.profile.display_name,
-                shareUrl: `${appConstants.baseAppUrl}/${this.profile.url}/${subTypeURL}/${this.curItem.id}`,
+                shareUrl: `${appConstants.baseAppUrl}${this.profile.url}/${subTypeURL}/${this.curItem.id}`,
             }
         },
     },

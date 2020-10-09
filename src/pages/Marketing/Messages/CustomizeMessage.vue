@@ -419,7 +419,7 @@ export default {
                     typeUrl = 'kits'
                     break
             }
-            const linkUrl = `${appConstants.baseAppUrl}/${this.user.url}/${typeUrl}/${this.promote.id}`
+            const linkUrl = `${appConstants.baseAppUrl}${this.user.url}/${typeUrl}/${this.promote.id}`
             this.form.promote_id = linkUrl
         },
         initPromote() {
@@ -488,6 +488,10 @@ export default {
             mailContent = mailContent.replace(
                 'EMAIL_CUSTOM_BUTTON_COLOR',
                 this.form.button_color
+            )
+            mailContent = mailContent.replace(
+                'EMAIL_FOOTER_LOGO_URL',
+                `${appConstants.baseAppUrl}${appConstants.emailFooterLogo}`
             )
             return mailContent
         },

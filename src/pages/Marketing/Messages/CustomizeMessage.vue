@@ -282,7 +282,7 @@ import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
 import SendTestModal from '@/components/Modal/Marketing/SendTestModal'
 import EmailPreviewRelease from '@/components/Marketing/Messages/EmailPreviewRelease'
 import { mapGetters } from 'vuex'
-import { appConstants } from '~/constants'
+import { appConstants, emailTemplates } from '~/constants'
 import VueSelect from 'vue-select'
 export default {
     name: 'CustomizeMessage',
@@ -375,7 +375,7 @@ export default {
             const params = {
                 ...this.smsData,
                 ...this.form,
-                content: this.form.headline,
+                content: this.complieContent(),
             }
             await this.$store.dispatch('marketing/setSMSData', params)
             this.$router.push({
@@ -419,7 +419,7 @@ export default {
                     typeUrl = 'kits'
                     break
             }
-            const linkUrl = `${appConstants.baseAppUrl}${this.user.url}/${typeUrl}/${this.promote.id}`
+            const linkUrl = `${appConstants.baseAppUrl}/${this.user.url}/${typeUrl}/${this.promote.id}`
             this.form.promote_id = linkUrl
         },
         initPromote() {
@@ -444,6 +444,35 @@ export default {
                 )
             }
         },
+        complieContent() {
+            let mailContent = emailTemplates.release
+
+            let backUrl = 'none'
+            if (this.form.background_image) {
+                backUrl = `url(${this.mediaURL}${this.form.background_image})`
+            }
+            mailContent = mailContent.replace('EMAIL_CUSTOM_BACK_IMAGE', backUrl)
+
+            mailContent = mailContent.replace('EMAIL_CUSTOM_BACK_COLOR', this.form.background_color)
+
+            let logoUrl = `${appConstants.baseAppUrl}${appConstants.emailDefaultLogo}`
+            if (this.form.logo) {
+                logoUrl = `${this.mediaURL}${this.form.logo}`
+            }
+            mailContent = mailContent.replace('EMAIL_LOGO_URL', logoUrl)
+
+            let artworkUrl = ''
+            if (this.form.artwork) {
+                artworkUrl = `${this.mediaURL}${this.form.artwork}`
+            }
+            mailContent = mailContent.replace('EMAIL_ARTWORK_URL', artworkUrl)
+
+            mailContent = mailContent.replace('EMAIL_CUSTOM_HEADLINE', this.form.headline)
+            mailContent = mailContent.replace('EMAIL_CUSTOM_BODY', this.form.body)
+            mailContent = mailContent.replace('EMAIL_CUSTOM_BUTTON_LINK', this.form.promote_id)
+            mailContent = mailContent.replace('EMAIL_CUSTOM_BUTTON_COLOR', this.form.button_color)
+            return mailContent
+        }
     },
 }
 </script>

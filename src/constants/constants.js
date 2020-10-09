@@ -124,7 +124,7 @@ export const constants = {
             value: 'price_high',
         },
     ],
-    baseAppUrl: 'https://link.stream/',
+    baseAppUrl: 'https://link.stream',
     maxMessageLength: 918,
     sampleSubscribersFile:
         '/static/files/sample-linkstream-subscribers-import.xlsx',

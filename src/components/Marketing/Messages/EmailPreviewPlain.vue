@@ -41,7 +41,11 @@
                             </div>
                         </div>
                         <div class="message-body">
-                            <div class="more-info" v-html="emailData.body" />
+                            <div
+                                class="more-info"
+                                v-html="emailData.body"
+                                :style="linkStyle"
+                            />
                         </div>
                         <div class="message-footer">
                             <div class="logo-container">
@@ -85,6 +89,16 @@ export default {
                 backgroundColor: this.emailData.background_color,
             }
         },
+        linkStyle() {
+            return {
+                '--user-link-color': this.emailData.button_color,
+            }
+        },
     },
 }
 </script>
+<style>
+.message-container.plain .message-body .more-info a {
+    color: var(--user-link-color);
+}
+</style>

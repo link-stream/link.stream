@@ -271,6 +271,7 @@ export default {
         isShowSendto: false,
         isShowFrom: false,
         isShowSubject: false,
+
     }),
     computed: {
         ...mapGetters({

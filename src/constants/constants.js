@@ -129,6 +129,6 @@ export const constants = {
     sampleSubscribersFile:
         '/static/files/sample-linkstream-subscribers-import.xlsx',
     mediaURL: 'https://s3.us-east-2.amazonaws.com/files.link.stream/Dev/Media/',
-    emailDefaultLogo: 'static/img/email-logo.jpg',
-    emailFooterLogo: 'static/img/email-logo_footer.png',
+    emailDefaultLogo: '/static/img/email-logo.jpg',
+    emailFooterLogo: '/static/img/email-logo_footer.png',
 }

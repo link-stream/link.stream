@@ -71,7 +71,7 @@
                         </div>
                         <div class="message-footer">
                             <div class="logo-container">
-                                <img src="@/assets/img/logo/logo-h-lg.png" />
+                                <img :src="footerLogo" />
                             </div>
                             <div class="text">
                                 <p>
@@ -105,6 +105,7 @@ export default {
         viewType: 'desktop',
         mediaURL: appConstants.mediaURL,
         defaultLogo: appConstants.emailDefaultLogo,
+        footerLogo: appConstants.emailFooterLogo,
     }),
     computed: {
         emailBackStyle() {

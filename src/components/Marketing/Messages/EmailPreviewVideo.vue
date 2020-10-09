@@ -6,12 +6,7 @@
                     <div class="message-container video">
                         <div class="message-header">
                             <div class="message-logo">
-                                <img
-                                    v-if="emailData.logo"
-                                    :src="`${mediaURL}${emailData.logo}`"
-                                    alt="Logo"
-                                />
-                                <img v-else :src="defaultLogo" alt="Logo" />
+                                <img :src="defaultLogo" alt="Logo" />
                             </div>
                             <div class="new-release">
                                 New video
@@ -34,12 +29,7 @@
                         </div>
                         <div class="message-footer">
                             <div class="logo-container">
-                                <img
-                                    v-if="emailData.logo"
-                                    :src="`${mediaURL}${emailData.logo}`"
-                                    alt="Logo"
-                                />
-                                <img v-else :src="defaultLogo" alt="Logo" />
+                                <img :src="footerLogo" alt="Logo" />
                             </div>
                             <div class="text">
                                 <p>
@@ -71,6 +61,7 @@ export default {
     },
     data: () => ({
         defaultLogo: appConstants.emailDefaultLogo,
+        footerLogo: appConstants.emailFooterLogo,
     }),
     computed: {
         ytVidId() {

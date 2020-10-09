@@ -111,7 +111,6 @@ export default {
         await this.$store.dispatch('marketing/getMarketingPromotes')
         this.loading = false
         this.refreshRealMessages()
-        console.log(this.messages)
     },
     methods: {
         handleCreateClick() {

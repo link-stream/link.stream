@@ -32,12 +32,7 @@
                     <div class="message-container plain">
                         <div class="message-header">
                             <div class="message-logo">
-                                <img
-                                    v-if="emailData.logo"
-                                    :src="`${mediaURL}${emailData.logo}`"
-                                    alt="Logo"
-                                />
-                                <img v-else :src="defaultLogo" alt="Logo" />
+                                <img :src="defaultLogo" alt="Logo" />
                             </div>
                         </div>
                         <div class="message-body">
@@ -49,7 +44,7 @@
                         </div>
                         <div class="message-footer">
                             <div class="logo-container">
-                                <img src="@/assets/img/logo/logo-h-lg.png" />
+                                <img :src="footerLogo" />
                             </div>
                             <div class="text">
                                 <p>
@@ -82,6 +77,7 @@ export default {
     data: () => ({
         viewType: 'desktop',
         defaultLogo: appConstants.emailDefaultLogo,
+        footerLogo: appConstants.emailFooterLogo,
     }),
     computed: {
         emailBackStyle() {

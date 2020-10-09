@@ -33,7 +33,7 @@
                     </b-form-group>
                     <b-form-group label="Body">
                         <Editor
-                            :initial-content="''"
+                            :initial-content="form.body"
                             :active-buttons="[
                                 'bold',
                                 'italic',
@@ -127,6 +127,7 @@ import { Chrome } from 'vue-color'
 import EmailPreviewPlain from '@/components/Marketing/Messages/EmailPreviewPlain'
 import Editor from '@/components/Form/Editor/Editor.vue'
 import { mapGetters } from 'vuex'
+import { appConstants, emailTemplates } from '~/constants'
 export default {
     name: 'CustomizeMessagePlain',
     components: {
@@ -144,7 +145,7 @@ export default {
             hex: '',
         },
         form: {
-            body: 'Add more information about this media here',
+            body: '',
             logo: '',
             artwork: '',
             button_color: '#DC2EA6',
@@ -158,12 +159,13 @@ export default {
             smsData: 'marketing/smsData',
         }),
     },
-    mounted() {
+    created() {
         this.form = {
             ...this.form,
             ...this.smsData,
         }
-        console.log(this.smsData)
+    },
+    mounted() {
         document.addEventListener('click', this.handleDocumentClick)
     },
     beforeDestroy() {
@@ -203,7 +205,7 @@ export default {
             const params = {
                 ...this.smsData,
                 ...this.form,
-                content: this.form.body,
+                content: this.complieContent(),
             }
             await this.$store.dispatch('marketing/setSMSData', params)
             this.$router.push({
@@ -215,6 +217,35 @@ export default {
         },
         updateContent(content) {
             this.form.body = content
+        },
+        complieContent() {
+            let mailContent = emailTemplates.plain
+
+            mailContent = mailContent.replace(
+                'EMAIL_CUSTOM_BACK_COLOR',
+                this.form.background_color
+            )
+
+            let logoUrl = `${appConstants.baseAppUrl}${appConstants.emailDefaultLogo}`
+            mailContent = mailContent.replace('EMAIL_LOGO_URL', logoUrl)
+
+            mailContent = mailContent.replace(
+                'EMAIL_CUSTOM_BODY',
+                this.form.body
+            )
+            mailContent = mailContent.replace(
+                'EMAIL_CUSTOM_BUTTON_COLOR',
+                this.form.button_color
+            )
+            mailContent = mailContent.replace(
+                'EMAIL_API_URL',
+                process.env.VUE_APP_API_URL
+            )
+            mailContent = mailContent.replace(
+                'EMAIL_FOOTER_LOGO_URL',
+                `${appConstants.baseAppUrl}${appConstants.emailFooterLogo}`
+            )
+            return mailContent
         },
     },
 }

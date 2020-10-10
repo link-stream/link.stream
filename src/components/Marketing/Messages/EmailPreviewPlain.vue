@@ -32,15 +32,19 @@
                     <div class="message-container plain">
                         <div class="message-header">
                             <div class="message-logo">
-                                <img src="/static/media/logo1.png" alt="Logo" />
+                                <img :src="defaultLogo" alt="Logo" />
                             </div>
                         </div>
                         <div class="message-body">
-                            <div class="more-info" v-html="emailData.body" />
+                            <div
+                                class="more-info"
+                                v-html="emailData.body"
+                                :style="linkStyle"
+                            />
                         </div>
                         <div class="message-footer">
                             <div class="logo-container">
-                                <img src="@/assets/img/logo/logo-h-lg.png" />
+                                <img :src="footerLogo" />
                             </div>
                             <div class="text">
                                 <p>
@@ -62,6 +66,7 @@
     </div>
 </template>
 <script>
+import { appConstants } from '~/constants'
 export default {
     name: 'EmailPreviewPlain',
     props: {
@@ -71,6 +76,8 @@ export default {
     },
     data: () => ({
         viewType: 'desktop',
+        defaultLogo: appConstants.emailDefaultLogo,
+        footerLogo: appConstants.emailFooterLogo,
     }),
     computed: {
         emailBackStyle() {
@@ -78,6 +85,16 @@ export default {
                 backgroundColor: this.emailData.background_color,
             }
         },
+        linkStyle() {
+            return {
+                '--user-link-color': this.emailData.button_color,
+            }
+        },
     },
 }
 </script>
+<style>
+.message-container.plain .message-body .more-info a {
+    color: var(--user-link-color);
+}
+</style>

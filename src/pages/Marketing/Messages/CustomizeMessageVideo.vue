@@ -115,6 +115,8 @@ import { Chrome } from 'vue-color'
 import SendTestModal from '@/components/Modal/Marketing/SendTestModal'
 import EmailPreviewVideo from '@/components/Marketing/Messages/EmailPreviewVideo'
 import { mapGetters } from 'vuex'
+import { appConstants, emailTemplates } from '~/constants'
+import { getYtVideoThumbUrl } from '~/utils'
 export default {
     name: 'CustomizeMessageVideo',
     components: {
@@ -140,6 +142,11 @@ export default {
         ...mapGetters({
             smsData: 'marketing/smsData',
         }),
+        thumbUrl() {
+            return getYtVideoThumbUrl(
+                this.$youtube.getIdFromUrl(this.form.artwork)
+            )
+        },
     },
     mounted() {
         this.form = {
@@ -174,7 +181,7 @@ export default {
             const params = {
                 ...this.smsData,
                 ...this.form,
-                content: this.form.headline,
+                content: this.complieContent(),
             }
             await this.$store.dispatch('marketing/setSMSData', params)
             this.$router.push({
@@ -183,6 +190,38 @@ export default {
         },
         handleTestClick() {
             this.$bus.$emit('modal.sendTest.open')
+        },
+        complieContent() {
+            let mailContent = emailTemplates.video
+
+            mailContent = mailContent.replace(
+                'EMAIL_CUSTOM_BACK_COLOR',
+                this.form.background_color
+            )
+
+            let logoUrl = `${appConstants.baseAppUrl}${appConstants.emailDefaultLogo}`
+            mailContent = mailContent.replace('EMAIL_LOGO_URL', logoUrl)
+
+            mailContent = mailContent.replaceAll('EMAIL_ARTWORK_URL', this.thumbUrl)
+            mailContent = mailContent.replaceAll('EMAIL_VIDEO_URL', this.form.artwork)
+
+            mailContent = mailContent.replace(
+                'EMAIL_CUSTOM_HEADLINE',
+                this.form.headline
+            )
+            mailContent = mailContent.replace(
+                'EMAIL_CUSTOM_BODY',
+                this.form.body
+            )
+            mailContent = mailContent.replace(
+                'EMAIL_API_URL',
+                process.env.VUE_APP_API_URL
+            )
+            mailContent = mailContent.replace(
+                'EMAIL_FOOTER_LOGO_URL',
+                `${appConstants.baseAppUrl}${appConstants.emailFooterLogo}`
+            )
+            return mailContent
         },
     },
 }

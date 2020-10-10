@@ -271,7 +271,6 @@ export default {
         isShowSendto: false,
         isShowFrom: false,
         isShowSubject: false,
-        templateImageUrl: '/static/img/email-template_1.jpg',
     }),
     computed: {
         ...mapGetters({
@@ -279,7 +278,9 @@ export default {
             sendtos: 'marketing/sendtos',
         }),
         sendToText() {
-            const findItem = this.sendtos.find(({ value }) => value === this.form.send_to)
+            const findItem = this.sendtos.find(
+                ({ value }) => value === this.form.send_to
+            )
             if (findItem) {
                 return findItem.text
             } else {
@@ -287,11 +288,19 @@ export default {
             }
         },
         isCompleted() {
-            return this.form.send_to &&
+            return (
+                this.form.send_to &&
                 this.form.reply_to &&
                 this.form.subject &&
                 this.form.content
-        }
+            )
+        },
+        templateImageUrl() {
+            const template_type = this.smsData.template_type
+                ? this.smsData.template_type
+                : 'release'
+            return `/static/img/email-template_${template_type}.jpg`
+        },
     },
     watch: {
         smsData: {
@@ -307,7 +316,6 @@ export default {
         this.form = {
             ...this.smsData,
         }
-        console.log(this.smsData)
     },
     methods: {
         handleEditSendtoClick() {
@@ -363,6 +371,19 @@ export default {
             }
             await this.$store.dispatch('marketing/setSMSData', params)
             this.isEditEmailName = false
+            if (this.smsData.id) {
+                const response = await this.$store.dispatch(
+                    'marketing/updateMessage',
+                    {
+                        id: this.smsData.id,
+                        params: params,
+                    }
+                )
+                const { status, message, error } = response
+                status === 'success'
+                    ? this.$toast.success(message)
+                    : this.$toast.error(error)
+            }
         },
         showEditEmail() {
             this.isEditEmailName = true
@@ -399,7 +420,7 @@ export default {
                 ? this.$toast.success(message)
                 : this.$toast.error(error)
             this.$router.push({
-                name: 'marketingMessages'
+                name: 'marketingMessages',
             })
         },
         handleCancelClick() {

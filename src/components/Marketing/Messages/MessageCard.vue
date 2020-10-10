@@ -85,7 +85,30 @@
             @click="handleEditClick"
         /> -->
         <b-dropdown
-            v-if="message.status === 'Scheduled' || message.status === 'Draft'"
+            v-if="message.status === 'Sent' || message.status === 'Pending'"
+            class="actions-menu"
+            variant="icon"
+            right
+            no-caret
+        >
+            <template v-slot:button-content>
+                <Icon icon="dot-menu-h" />
+            </template>
+            <b-dropdown-item
+                v-if="message.status === 'Sent'"
+                @click="handleViewReportClick"
+            >
+                View Report
+            </b-dropdown-item>
+            <b-dropdown-item @click="handleViewEmailClick">
+                View Email
+            </b-dropdown-item>
+            <b-dropdown-item @click="duplicateMessage">
+                Duplicate
+            </b-dropdown-item>
+        </b-dropdown>
+        <b-dropdown
+            v-if="message.status === 'Draft' || message.status === 'Scheduled'"
             class="actions-menu"
             variant="icon"
             right
@@ -99,20 +122,6 @@
             </b-dropdown-item>
             <b-dropdown-item @click="handleDeleteClick">
                 Delete
-            </b-dropdown-item>
-        </b-dropdown>
-        <b-dropdown v-else class="actions-menu" variant="icon" right no-caret>
-            <template v-slot:button-content>
-                <Icon icon="dot-menu-h" />
-            </template>
-            <b-dropdown-item @click="handleViewReportClick">
-                View Report
-            </b-dropdown-item>
-            <b-dropdown-item @click="handleViewEmailClick">
-                View Email
-            </b-dropdown-item>
-            <b-dropdown-item @click="duplicateMessage">
-                Duplicate
             </b-dropdown-item>
         </b-dropdown>
     </div>
@@ -173,19 +182,17 @@ export default {
         handleDeleteClick() {
             this.$alert.confirm({
                 title: 'Delete message?',
-                message: 'This message and its data will be permanently deleted.',
+                message:
+                    'This message and its data will be permanently deleted.',
                 onOk: async () => {
                     this.processing = true
                     const {
                         status,
                         message,
                         error,
-                    } = await this.$store.dispatch(
-                        'marketing/deleteMessage',
-                        {
-                            id: this.message.id,
-                        }
-                    )
+                    } = await this.$store.dispatch('marketing/deleteMessage', {
+                        id: this.message.id,
+                    })
                     status === 'success'
                         ? this.$toast.success(message)
                         : this.$toast.error(error)
@@ -194,9 +201,12 @@ export default {
             })
         },
         async duplicateMessage() {
-             const params = {
+            const params = {
                 ...this.message,
-                status: this.message.status === 'Sent' ? 'Pending' : this.message.status,
+                status:
+                    this.message.status === 'Sent'
+                        ? 'Pending'
+                        : this.message.status,
             }
             let response = await this.$store.dispatch(
                 'marketing/insertMessage',
@@ -207,7 +217,7 @@ export default {
                 ? this.$toast.success(message)
                 : this.$toast.error(error)
             this.$router.push({
-                name: 'marketingMessages'
+                name: 'marketingMessages',
             })
             await this.$store.dispatch('marketing/getMessages')
         },

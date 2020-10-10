@@ -122,4 +122,5 @@ export const marketingTypes = {
     SET_MEDIAS: 'SET_MEDIAS',
     ADD_MEDIA: 'ADD_MEDIA',
     DELETE_MEDIA: 'DELETE_MEDIA',
+    SET_PROMOTES: 'SET_PROMOTES',
 }

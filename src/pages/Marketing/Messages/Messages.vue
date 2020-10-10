@@ -108,6 +108,7 @@ export default {
     async created() {
         this.loading = true
         await this.$store.dispatch('marketing/getMessages')
+        await this.$store.dispatch('marketing/getMarketingPromotes')
         this.loading = false
         this.refreshRealMessages()
     },

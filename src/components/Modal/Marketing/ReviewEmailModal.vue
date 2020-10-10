@@ -96,7 +96,7 @@ export default {
             this.saving == false
             this.close()
             this.$router.push({
-                name: 'marketingMessages'
+                name: 'marketingMessages',
             })
         },
     },

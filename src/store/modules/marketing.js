@@ -26,6 +26,7 @@ const initialState = () => ({
     variationData: {},
     variations: [],
     medias: [],
+    promotes: [],
 })
 
 const state = initialState()
@@ -68,6 +69,10 @@ const mutations = {
     [marketingTypes.DELETE_MESSAGE](state, { message_id }) {
         const index = state.messages.findIndex(({ id }) => id == message_id)
         index > -1 && state.messages.splice(index, 1)
+    },
+
+    [marketingTypes.SET_PROMOTES](state, { promotes }) {
+        state.promotes = promotes
     },
 
     [marketingTypes.SET_SUBSCRIBERS](state, { subscribers }) {
@@ -198,6 +203,14 @@ const actions = {
             commit(marketingTypes.DELETE_MESSAGE, { message_id: id })
         return response
     },
+    async getMarketingPromotes({ commit, rootGetters }) {
+        if (state.promotes.length > 0) return
+        const user = rootGetters['auth/user']
+        const response = await api.marketing.getMarketingPromotes(user.id)
+        const { status, data } = response
+        status === 'success' &&
+            commit(marketingTypes.SET_PROMOTES, { promotes: data })
+    },
     async getSubscribers({ commit, rootGetters }, searchString = '') {
         // if (state.subscribers.length > 0) return
         const user = rootGetters['auth/user']
@@ -304,6 +317,7 @@ const getters = {
     importData: ({ importData }) => importData,
     currentSubscriber: ({ currentSubscriber }) => currentSubscriber,
     medias: ({ medias }) => medias,
+    promotes: ({ promotes }) => promotes,
 }
 
 export default {

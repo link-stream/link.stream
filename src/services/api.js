@@ -662,7 +662,7 @@ export const api = {
                 method,
             })
         },
-        async getMarketingPromote(userId) {
+        async getMarketingPromotes(userId) {
             const endpoint = '/marketing/marketing_promote/' + userId
             const method = METHOD_GET
             return await call({

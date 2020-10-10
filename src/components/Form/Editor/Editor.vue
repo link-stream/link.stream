@@ -130,7 +130,15 @@ export default {
     data: () => ({
         html: '',
         json: '',
-        editor: new Editor({
+        editor: null,
+        linkUrl: null,
+        linkMenuIsActive: false,
+    }),
+    beforeDestroy() {
+        this.editor.destroy()
+    },
+    created() {
+        this.editor = new Editor({
             extensions: [
                 new BulletList(),
                 new ListItem(),
@@ -139,15 +147,8 @@ export default {
                 new Italic(),
                 new Underline(),
             ],
-            content: '',
+            content: this.initialContent,
         }),
-        linkUrl: null,
-        linkMenuIsActive: false,
-    }),
-    beforeDestroy() {
-        this.editor.destroy()
-    },
-    created() {
         this.html = this.editor.getHTML()
         this.json = this.editor.getJSON()
 

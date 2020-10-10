@@ -31,13 +31,10 @@
                           params: { packId: artItem.id },
                       }
             "
+            target="_blank"
         >
             <div class="title">{{ artItem.title }}</div>
-            <div v-if="artItem.type === 'beat'" class="price">
-                {{
-                minPrice | currencyFormat
-                }}
-            </div>
+            <div v-if="artItem.type === 'beat'" class="price">{{ minPrice | currencyFormat }}</div>
             <div v-else class="price">{{ artItem.price | currencyFormat }}</div>
             <div v-if="artItem.bogo" class="bogo">BOGO</div>
         </router-link>
@@ -58,11 +55,7 @@
                           }
                 "
                 target="_blank"
-            >
-                {{
-                artItem.type === 'beat' ? 'Go to Beat' : 'Go to Beat Pack'
-                }}
-            </b-dropdown-item>
+            >{{ artItem.type === 'beat' ? 'Go to Beat' : 'Go to Beat Pack' }}</b-dropdown-item>
             <b-dropdown-item v-show="false">Save</b-dropdown-item>
             <b-dropdown-item @click="handleShareClick">Share</b-dropdown-item>
             <b-dropdown-item v-show="false">Free Download</b-dropdown-item>

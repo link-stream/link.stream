@@ -38,8 +38,8 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import SoundKitItem from '@/components/Profile/SoundKitItem'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
+import SoundKitItem from '@/components/Profile/SoundKitItem'
 import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'ProfileSoundKits',
@@ -55,9 +55,11 @@ export default {
     },
     computed: {
         ...mapGetters({
-            soundKits: 'profile/soundKits',
-            soundKitsLoad: 'profile/soundKitsLoad',
             profile: 'profile/profile',
+            soundKits: 'profile/soundKits',
+            startover: 'profile/startover',
+            soundKitsLoad: 'profile/soundKitsLoad',
+            individualLoading: 'profile/individualLoading',
         }),
     },
     data: () => ({
@@ -65,11 +67,16 @@ export default {
         currentIndex: -1,
         currentStatus: false,
         curItem: {},
-        individualLoading: false,
         itemId: '',
         type: '',
     }),
     watch: {
+        startover() {
+            if (this.startover) {
+                this.currentIndex = 0
+                this.$store.commit('profile/SET_STARTOVER', false)
+            }
+        },
         currentIndex() {
             this.updateCurrentItem()
         },

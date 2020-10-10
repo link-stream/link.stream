@@ -12,6 +12,11 @@
             <span class="dot2"></span>
             <span></span>
         </template>
+        <template v-else-if="animation === 'bounce-small'">
+            <span class="dot1"></span>
+            <span class="dot2"></span>
+            <span></span>
+        </template>
         <template v-else-if="animation === 'bars'">
             <span></span>
             <span class="dot2"></span>
@@ -38,7 +43,13 @@ export default {
             default: 'pulse',
             validator: function(value) {
                 return (
-                    ['bars', 'bounce', 'pulse', 'scale'].indexOf(value) !== -1
+                    [
+                        'bars',
+                        'bounce',
+                        'bounce-small',
+                        'pulse',
+                        'scale',
+                    ].indexOf(value) !== -1
                 )
             },
         },

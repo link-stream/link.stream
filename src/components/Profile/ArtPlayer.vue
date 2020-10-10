@@ -27,7 +27,7 @@
                         class="btn-pause"
                         :icon="playing ? 'player-pause' : 'player-play'"
                         @click="playing = !playing"
-                        :disabled="playerItem.type === 'pack'"
+                        :disabled="playerItem.type === 'pack' || loading"
                     />
                     <IconButton
                         class="btn-next"
@@ -125,11 +125,10 @@ export default {
     computed: {
         ...mapGetters({
             beats: 'profile/beats',
-            soundKits: 'profile/soundKits',
             profile: 'profile/profile',
+            soundKits: 'profile/soundKits',
             beatsLoad: 'profile/beatsLoad',
             soundKitsLoad: 'profile/soundKitsLoad',
-            individualLoading: 'profile/individualLoading',
         }),
         percentComplete() {
             return isNaN(
@@ -162,9 +161,9 @@ export default {
             this.pause = false
             const item =
                 this.type === 'beat'
-                    ? this.beats.find((beats) => beats.id === this.itemId)
+                    ? this.beats.find(beats => beats.id === this.itemId)
                     : this.soundKits.find(
-                          (soundKits) => soundKits.id === this.itemId
+                          soundKits => soundKits.id === this.itemId
                       )
             this.playerItem = {
                 id: item.id,
@@ -187,7 +186,7 @@ export default {
                         type: this.playerItem.type,
                         action: 'play',
                     }
-                    const temp = await api.profiles.insertAction(params)
+                    await api.profiles.insertAction(params)
                 }
             } else {
                 this.pause = true
@@ -212,10 +211,10 @@ export default {
             const item =
                 this.type === 'beat'
                     ? this.beatsLoad.find(
-                          (beatsLoad) => beatsLoad.id === this.playerItem.id
+                          beatsLoad => beatsLoad.id === this.playerItem.id
                       )
                     : this.soundKitsLoad.find(
-                          (soundKitsLoad) =>
+                          soundKitsLoad =>
                               soundKitsLoad.id === this.playerItem.id
                       )
             if (item === undefined) {
@@ -284,9 +283,15 @@ export default {
         handlePause() {
             this.playing = false
         },
-        handleEnded() {
-            this.playing = false
-            this.pause = false
+        async handleEnded() {
+            if (!this.isLast) {
+                await this.goNext()
+                this.playing = true
+            } else {
+                this.playing = false
+                this.pause = false
+                this.$store.commit('profile/SET_STARTOVER', true)
+            }
         },
         handleError() {
             this.audioObj = null
@@ -307,12 +312,12 @@ export default {
         handleBuyClick() {
             if (this.playerItem.type === 'beat') {
                 let buyItem = this.beats.find(
-                    (beats) => beats.id === this.playerItem.id
+                    beats => beats.id === this.playerItem.id
                 )
                 this.$bus.$emit('modal.buyLicense.open', buyItem)
             } else {
                 let buyItem = this.soundKits.find(
-                    (soundKits) => soundKits.id === this.playerItem.id
+                    soundKits => soundKits.id === this.playerItem.id
                 )
                 this.$store.dispatch('profile/addCartItem', {
                     ...buyItem,
@@ -324,11 +329,11 @@ export default {
             let shareItem = null
             if (this.playerItem.type === 'beat') {
                 shareItem = this.beats.find(
-                    (beats) => beats.id === this.playerItem.id
+                    beats => beats.id === this.playerItem.id
                 )
             } else {
                 shareItem = this.soundKits.find(
-                    (soundKits) => soundKits.id === this.playerItem.id
+                    soundKits => soundKits.id === this.playerItem.id
                 )
                 shareItem.type = 'kit'
             }
@@ -343,12 +348,14 @@ export default {
             }
         },
         seek(e) {
-            if (!this.playing || e.target.tagName === 'SPAN') {
-                return
+            if (this.audioObj) {
+                if (!this.playing || e.target.tagName === 'SPAN') {
+                    return
+                }
+                const el = e.target.getBoundingClientRect()
+                const seekPos = (e.clientX - el.left) / el.width
+                this.audioObj.currentTime = this.audioObj.duration * seekPos
             }
-            const el = e.target.getBoundingClientRect()
-            const seekPos = (e.clientX - el.left) / el.width
-            this.audioObj.currentTime = this.audioObj.duration * seekPos
         },
     },
 }

@@ -29,11 +29,18 @@ export default {
         src: {
             type: String,
         },
+        type: {
+            type: String,
+        },
+        id: {
+            type: String,
+        },
     },
     data() {
         return {
             audioObj: null,
             state: STATE_PAUSED,
+            pause: false,
         }
     },
     computed: {
@@ -62,7 +69,6 @@ export default {
                 this.$toast.error('No source provided.')
                 return
             }
-
             if (!this.audioObj) {
                 if (this.src.charAt(0) === '/') {
                     this.state = STATE_LOADING
@@ -92,6 +98,14 @@ export default {
                     .catch(e => {
                         this.$toast.error(e.message)
                     })
+                if (!this.pause) {
+                    const params = {
+                        id: this.id,
+                        type: this.type,
+                        action: 'play',
+                    }
+                    await api.profiles.insertAction(params)
+                }
             }
         },
         handlePlaying() {
@@ -99,9 +113,11 @@ export default {
         },
         handlePause() {
             this.state = STATE_PAUSED
+            this.pause = true
         },
         handleEnded() {
             this.state = STATE_PAUSED
+            this.pause = false
         },
         handleError() {
             this.audioObj = null

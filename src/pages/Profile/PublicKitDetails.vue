@@ -12,17 +12,22 @@
                 </div>
                 <div class="right-col">
                     <div class="title-container">
-                        <MiniAudioPlayer :src="kit.src" class="d-none d-sm-block" />
+                        <MiniAudioPlayer
+                            :src="kit.src"
+                            :type="kit.type"
+                            :id="kit.id"
+                            class="d-none d-sm-block"
+                        />
                         <div class="title-desc">
                             <div class="title">{{ kit.title }}</div>
                             <div class="sub-title">Sound Kit from {{ profile.display_name }}</div>
                         </div>
                     </div>
                     <div class="actions d-sm-none">
-                        <basic-button
-                            class="btn-buy"
-                            @click="handleBuyClick()"
-                        >{{ kit.price | currencyFormat }} - Buy Kit</basic-button>
+                        <basic-button class="btn-buy" @click="handleBuyClick()">
+                            {{ kit.price | currencyFormat }} - Buy
+                            Kit
+                        </basic-button>
                     </div>
                     <div class="desc" v-if="kit.description && !readMore">
                         <div class="d-none d-sm-block">
@@ -53,10 +58,10 @@
                         >Less</a>
                     </div>
                     <div class="actions d-none d-sm-block">
-                        <basic-button
-                            class="btn-buy"
-                            @click="handleBuyClick()"
-                        >{{ kit.price | currencyFormat }} - Buy Kit</basic-button>
+                        <basic-button class="btn-buy" @click="handleBuyClick()">
+                            {{ kit.price | currencyFormat }} - Buy
+                            Kit
+                        </basic-button>
                         <basic-button
                             variant="outline-black"
                             class="btn-share"
@@ -76,15 +81,9 @@
                     <div class="float-left">{{ this.samples.length }} SAMPLES</div>
                 </div>
                 <div v-for="(sample, index) in samples" :key="index" class="beat-info">
-                    <ListAudioPlayer :src="sample.src" />
+                    <ListAudioPlayer :src="sample.src" :type="sample.type" :id="sample.id" />
                     <div class="beat-title">{{ sample.title }}</div>
-                    <b-icon-three-dots-vertical class="btn-menu" />
                 </div>
-                <basic-button
-                    variant="outline-light"
-                    size="sm"
-                    class="btn-show-more"
-                >Load More Samples</basic-button>
             </div>
             <div class="actions d-sm-none">
                 <basic-button variant="outline-black" class="btn-share" @click="handleShareClick()">
@@ -119,17 +118,20 @@
                     </b-col>
                 </b-form-row>
             </div>
+            <ShareArtModal @close="handleCloseShare" />
         </div>
     </b-container>
 </template>
 <script>
 import { api } from '~/services'
 import { appConstants } from '~/constants'
+import ShareArtModal from '@/components/Modal/ShareArtModal'
 import { MiniAudioPlayer, ListAudioPlayer } from '~/components/Player'
 export default {
     name: 'PublicKitDetails',
     props: ['url', 'kitId'],
     components: {
+        ShareArtModal,
         MiniAudioPlayer,
         ListAudioPlayer,
     },
@@ -163,13 +165,16 @@ export default {
         const kit = this.$store.getters['profile/soundKits'][0]
         this.kit = {
             ...kit,
+            type: 'kit',
             coverart: kit.data_image || appConstants.defaultCoverArt,
             src: kit.data_tagged_file,
         }
         this.samples = []
         for (const item of kit.kit_files_name) {
             this.samples.push({
+                id: kit.id,
                 title: item,
+                type: 'kit',
                 src: null,
             })
         }
@@ -193,7 +198,13 @@ export default {
             })
             this.$bus.$emit('modal.addedCart.open')
         },
-        handleShareClick() {},
+        handleShareClick() {
+            this.kit.type = 'kit'
+            this.$bus.$emit('modal.share.open', this.kit)
+        },
+        handleCloseShare() {
+            this.$bus.$emit('modal.share.close')
+        },
     },
 }
 </script>

@@ -8,7 +8,7 @@ import { appConstants } from '~/constants'
 
 const initialState = () => ({
     /**
-     * @type {null|object}
+     * @type {null|object|boolean}
      */
     profile: null,
     beats: [],
@@ -22,6 +22,7 @@ const initialState = () => ({
     licenses: [],
     cartItems: [],
     individualLoading: false,
+    startover: false,
 })
 
 const state = initialState()
@@ -68,6 +69,10 @@ const mutations = {
 
     [profileTypes.SET_INDIVIDUAL_LOADING](state, value) {
         state.individualLoading = value
+    },
+
+    [profileTypes.SET_STARTOVER](state, value) {
+        state.startover = value
     },
 
     [profileTypes.ADD_PLAYER_BEAT]({ beatsLoad }, { playerItem }) {
@@ -290,6 +295,7 @@ const getters = {
     licenses: ({ licenses }) => licenses,
     cartItems: ({ cartItems }) => cartItems,
     individualLoading: ({ individualLoading }) => individualLoading,
+    startover: ({ startover }) => startover,
 }
 
 export default {

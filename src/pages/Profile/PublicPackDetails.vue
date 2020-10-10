@@ -12,8 +12,7 @@
                 </div>
                 <div class="right-col">
                     <div class="title-container">
-                        <MiniAudioPlayer src class="d-none d-sm-block" />
-                        <div class="title-desc">
+                        <div class="title-desc ml-0">
                             <div class="title">{{ pack.title }}</div>
                             <div class="sub-title">
                                 Ambient Beat Pack by
@@ -54,18 +53,42 @@
                             <img src="@/assets/img/ico/basket.svg" />
                             {{ pack.price | currencyFormat }} - Add to Cart
                         </basic-button>
+                        <basic-button
+                            variant="outline-black"
+                            class="btn-share"
+                            @click="handleShareClick()"
+                        >
+                            <font-awesome-icon
+                                :icon="['fas', 'share-alt-square']"
+                                size="lg"
+                                class="mr-2"
+                            />Share
+                        </basic-button>
                     </div>
                 </div>
             </div>
-            <div class="beat-container" v-if="!isBeatLoading">
+            <div class="beat-container">
                 <div class="header">
                     <div class="float-left">{{ this.beats.length }} BEATS</div>
                     <div class="float-right">{{ Math.ceil(sumDurations / 60) }} mins</div>
                 </div>
                 <div v-for="(beat, index) in beats" :key="index" class="beat-info">
-                    <ListAudioPlayer :src="beat.src" />
+                    <ListAudioPlayer :src="beat.src" :type="beat.type" :id="beat.id" />
                     <div class="beat-title">{{ beat.title }}</div>
-                    <b-icon-three-dots-vertical class="btn-menu" />
+                    <b-button
+                        class="btn-menu"
+                        variant="link"
+                        :to="{
+                            name: 'profileBeatDetails',
+                            params: {
+                                beatId: beat.id,
+                            },
+                        }"
+                        target="_blank"
+                    >
+                        <b-icon-box-arrow-in-right :id="`goto-button-${beat.id}`" font-scale="0.9" />
+                    </b-button>
+                    <b-tooltip :target="`goto-button-${beat.id}`" triggers="hover">Go to Beat</b-tooltip>
                 </div>
             </div>
             <div class="more-artist">
@@ -103,23 +126,24 @@
                     </b-col>
                 </b-form-row>
             </div>
+            <ShareArtModal @close="handleCloseShare" />
         </div>
     </b-container>
 </template>
 <script>
 import { api } from '~/services'
 import { appConstants } from '~/constants'
-import { MiniAudioPlayer, ListAudioPlayer } from '~/components/Player'
+import { ListAudioPlayer } from '~/components/Player'
+import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'PublicPackDetails',
     props: ['url', 'packId'],
     components: {
-        MiniAudioPlayer,
+        ShareArtModal,
         ListAudioPlayer,
     },
     data: () => ({
         isLoading: false,
-        isBeatLoading: false,
         profile: {},
         pack: {},
         moreArtists: [],
@@ -156,37 +180,37 @@ export default {
             })
         }
         this.isLoading = false
-
-        this.isBeatLoading = true
         this.beats = []
-        this.sumDurations = 0
-        this.audioObj = new Audio()
-        this.audioObj.addEventListener('loadeddata', this.handleLoaded)
         for (const item of pack.beats) {
+            this.beats.push({
+                id: item.id_audio,
+                type: 'pack',
+                title: item.title,
+                src: null,
+            })
+        }
+
+        for (const item of this.beats) {
             const response = await api.profiles.getProfileBeatPackById(
                 this.profile.id,
-                item.id_audio,
+                item.id,
                 'beat'
             )
+            const audio = response.data[0]
             if (response.status === 'success' && response.data.length) {
-                const beat = response.data[0]
-                let srcAudio = null
-                if (beat.data_tagged_file) {
-                    srcAudio = beat.data_tagged_file
-                } else if (beat.data_untagged_mp3) {
-                    srcAudio = beat.data_untagged_mp3
-                } else if (beat.data_untagged_wav) {
-                    srcAudio = beat.data_untagged_wav
+                this.audioObj = new Audio()
+                this.audioObj.addEventListener('loadeddata', this.handleLoaded)
+                if (audio.data_tagged_file) {
+                    item.src = audio.data_tagged_file
+                } else if (audio.data_untagged_mp3) {
+                    item.src = audio.data_untagged_mp3
+                } else if (audio.data_untagged_wav) {
+                    item.src = audio.data_untagged_wav
                 }
-                this.beats.push({
-                    ...beat,
-                    src: srcAudio,
-                })
-                this.audioObj.src = srcAudio
+                this.audioObj.src = item.src
                 this.audioObj.load()
             }
         }
-        this.isBeatLoading = false
     },
     methods: {
         handleBuyClick() {
@@ -194,6 +218,12 @@ export default {
                 ...this.pack,
             })
             this.$bus.$emit('modal.addedCart.open')
+        },
+        handleShareClick() {
+            this.$bus.$emit('modal.share.open', this.pack)
+        },
+        handleCloseShare() {
+            this.$bus.$emit('modal.share.close')
         },
         handleLoaded() {
             if (this.audioObj.readyState >= 2) {

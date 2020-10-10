@@ -42,8 +42,8 @@
 import { mapGetters } from 'vuex'
 import ArtItem from '@/components/Profile/ArtItem'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
-import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
 import ShareArtModal from '@/components/Modal/ShareArtModal'
+import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
 export default {
     name: 'ProfileBeats',
     components: {
@@ -61,6 +61,8 @@ export default {
         ...mapGetters({
             beats: 'profile/beats',
             profile: 'profile/profile',
+            startover: 'profile/startover',
+            individualLoading: 'profile/individualLoading',
         }),
     },
     data: () => ({
@@ -69,11 +71,18 @@ export default {
         currentStatus: false,
         playerItem: {},
         curBeat: {},
-        individualLoading: false,
         itemId: '',
         type: '',
     }),
     watch: {
+        startover() {
+            if (this.startover) {
+                this.currentIndex = this.beats.findIndex(
+                    beats => beats.type === 'beat'
+                )
+                this.$store.commit('profile/SET_STARTOVER', false)
+            }
+        },
         currentIndex() {
             this.updateCurrentItem()
         },

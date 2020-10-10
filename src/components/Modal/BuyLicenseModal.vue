@@ -33,10 +33,17 @@
                                     </basic-button>
                                 </div>
                                 <basic-button
+                                    v-if="license.price > 0"
                                     size="sm"
                                     class="btn-buy"
                                     @click="handleBuyClick(license)"
                                 >Buy</basic-button>
+                                <basic-button
+                                    v-else
+                                    size="sm"
+                                    class="btn-buy"
+                                    @click="handleDownloadClick(license)"
+                                >Download</basic-button>
                             </div>
                             <ul v-if="license.isExpanded" class="license-details">
                                 <li v-for="item in license.details" :key="item">
@@ -54,7 +61,11 @@
                             </basic-button>
                         </div>
                     </div>
-                    <basic-button variant="link" class="float-right text-black">Negotiate Price</basic-button>
+                    <basic-button
+                        variant="link"
+                        class="float-right text-black"
+                        v-show="false"
+                    >Negotiate Price</basic-button>
                 </div>
             </div>
         </template>
@@ -107,6 +118,7 @@ export default {
             })
             this.$bus.$emit('modal.addedCart.open')
         },
+        handleDownloadClick(license) {},
         initLicense() {
             this.realLicenses = this.curItem.licenses.map(item => {
                 const findLicense = this.licenses.find(

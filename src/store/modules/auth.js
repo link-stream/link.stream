@@ -57,13 +57,13 @@ const actions = {
         }
     },
 
-    async login({ commit, dispatch }, { user }) {
+    async login({ commit, dispatch }, { user, route }) {
         if (!isEmpty(user)) {
             commit(commonTypes.RESET)
             commit(authTypes.LOGIN, { user })
             setAuthCookie({ id: user.id, token: user.token })
             await dispatch('me/loadAccount', null, { root: true })
-            router.push({ name: 'accountDashboard' })
+            router.push({ name: route })
         }
     },
 

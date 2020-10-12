@@ -61,6 +61,7 @@ import Cart from '@/pages/Profile/Checkout/Cart'
 import CheckoutSignin from '@/pages/Profile/Checkout/CheckoutSignin'
 import CheckoutContactInfo from '@/pages/Profile/Checkout/CheckoutContactInfo'
 import PayWithCard from '@/pages/Profile/Checkout/PayWithCard'
+import CheckoutReceipt from '@/pages/Profile/Checkout/CheckoutReceipt'
 
 const routes = [
     // Misc
@@ -495,6 +496,13 @@ const routes = [
         component: PayWithCard,
         props: true,
         //meta: { layout: 'auth' },
+    },
+    {
+        path: '/:url/checkout-receipt',
+        name: 'checkoutReceipt',
+        component: CheckoutReceipt,
+        props: true,
+        meta: { layout: 'profile' },
     },
     // 404 catch all
     {

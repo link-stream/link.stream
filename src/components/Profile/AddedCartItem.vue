@@ -23,6 +23,9 @@
     </div>
 </template>
 <script>
+import { appConstants } from '~/constants'
+import Cookies from 'js-cookie'
+
 export default {
     name: 'AddedCartItem',
     props: {
@@ -32,7 +35,36 @@ export default {
     },
     methods: {
         removeItem() {
-            this.$store.dispatch('profile/removeCartItem', this.cartItem)
+            var cartItems = Cookies.getJSON(
+                'appConstants.cookies.cartItem.name'
+            )
+            const findIndex = cartItems.findIndex(item => {
+                if (
+                    this.cartItem.track_type === appConstants.tracks.types.beat
+                ) {
+                    if (item.type === 'beat') {
+                        return (
+                            item.id === this.cartItem.id &&
+                            item.license_id === this.cartItem.license_id
+                        )
+                    } else {
+                        return (
+                            item.type === this.cartItem.type &&
+                            item.id === this.cartItem.id
+                        )
+                    }
+                } else {
+                    return (
+                        item.track_type === this.cartItem.track_type &&
+                        item.id === this.cartItem.id
+                    )
+                }
+            })
+            cartItems.splice(findIndex, 1)
+            Cookies.set('appConstants.cookies.cartItem.name', cartItems)
+            this.$bus.$emit('modal.addedCart.open')
+
+            //this.$store.dispatch('profile/removeCartItem', this.cartItem)
         },
     },
 }

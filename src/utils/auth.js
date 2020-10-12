@@ -31,3 +31,6 @@ export function clearLocalStorage() {
     window.localStorage &&
         window.localStorage.removeItem(appConstants.vuexLocalStorage.key)
 }
+
+export const getCartCookie = () =>
+    Cookies.getJSON(appConstants.cookies.cartItem.name)

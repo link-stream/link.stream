@@ -199,6 +199,14 @@ import { authentication } from '~/mixins'
 export default {
     name: 'Signup',
     mixins: [authentication],
+    props: {
+        route: {
+            type: String,
+        },
+        type_client: {
+            type: String,
+        },
+    },
     data() {
         return {
             form: {
@@ -272,11 +280,22 @@ export default {
                     return
                 }
                 this.status.loading.signup = true
-                const params = {
-                    user_name: this.form.name,
-                    email: this.form.email,
-                    password: this.form.password,
+                var params = null
+                if (this.type_client) {
+                    params = {
+                        user_name: this.form.name,
+                        email: this.form.email,
+                        password: this.form.password,
+                        type: this.type_client,
+                    }
+                } else {
+                    params = {
+                        user_name: this.form.name,
+                        email: this.form.email,
+                        password: this.form.password,
+                    }
                 }
+
                 const { status, data, error } = await api.users.signup(params)
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.signup', false)

@@ -1,8 +1,16 @@
 <template>
     <div class="art-item">
-        <a href="#" class="img-container" @click.prevent="$emit('select', index)">
+        <a
+            href="#"
+            class="img-container"
+            @click.prevent="$emit('select', index)"
+        >
             <img :src="artItem.coverart" />
-            <LoadingSpinner v-if="selected && loading" class="center-img" animation="bounce" />
+            <LoadingSpinner
+                v-if="selected && loading"
+                class="center-img"
+                animation="bounce"
+            />
             <img
                 v-if="selected && !loading && status"
                 src="@/assets/img/ico/pause-red.svg"
@@ -26,7 +34,12 @@
             <div class="price">{{ artItem.price | currencyFormat }}</div>
             <div v-if="artItem.bogo" class="bogo">BOGO</div>
         </router-link>
-        <b-dropdown class="actions-menu d-none d-md-block" variant="icon" right no-caret>
+        <b-dropdown
+            class="actions-menu d-none d-md-block"
+            variant="icon"
+            right
+            no-caret
+        >
             <template v-slot:button-content>
                 <Icon icon="dot-menu-v-s" />
             </template>
@@ -36,19 +49,25 @@
                     params: { kitId: artItem.id },
                 }"
                 target="_blank"
-            >Go to Sound Kit</b-dropdown-item>
+                >Go to Sound Kit</b-dropdown-item
+            >
             <b-dropdown-item v-show="false">Save</b-dropdown-item>
             <b-dropdown-item @click="handleShareClick">Share</b-dropdown-item>
             <b-dropdown-item v-show="false">Free Download</b-dropdown-item>
         </b-dropdown>
         <div class="action">
-            <basic-button size="sm" class="btn-buy" @click="handleBuyClick">Buy</basic-button>
+            <basic-button size="sm" class="btn-buy" @click="handleBuyClick"
+                >Buy</basic-button
+            >
             <IconButton class="btn-download" icon="download" v-show="false" />
         </div>
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import Cookies from 'js-cookie'
+import { appConstants } from '~/constants'
+
 export default {
     name: 'SoundKitItemm',
     props: {
@@ -84,7 +103,18 @@ export default {
     },
     methods: {
         handleBuyClick() {
-            this.$store.dispatch('profile/addCartItem', { ...this.curItem })
+            var listItems = []
+            console.log('this.curItem', this.curItem)
+            listItems =
+                Cookies.getJSON('appConstants.cookies.cartItem.name') ===
+                undefined
+                    ? []
+                    : Cookies.getJSON('appConstants.cookies.cartItem.name')
+
+            listItems.push(this.curItem)
+
+            Cookies.set('appConstants.cookies.cartItem.name', listItems)
+            //this.$store.dispatch('profile/addCartItem', { ...this.curItem })
             this.$bus.$emit('modal.addedCart.open')
         },
         handleShareClick() {

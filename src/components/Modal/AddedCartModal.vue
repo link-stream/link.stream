@@ -19,7 +19,7 @@
                     variant="link"
                     @click="handleCheckoutClick"
                 >
-                    Checkout
+                    View cart
                 </basic-button>
             </div>
         </template>
@@ -27,27 +27,37 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+//import { mapGetters } from 'vuex'
 import AddedCartItem from '@/components/Profile/AddedCartItem'
+import Cookies from 'js-cookie'
+import { appConstants } from '~/constants'
+import router from '~/router'
 export default {
     name: 'AddedCartModal',
     components: {
         AddedCartItem,
     },
     computed: {
-        ...mapGetters({
+        /*...mapGetters({
             addedCarts: 'profile/cartItems',
         }),
+        addedCarts: {
+            get() {
+                return Cookies.getJSON('appConstants.cookies.cartItem.name')
+            },
+        },*/
     },
     data() {
         return {
             open: false,
+            addedCarts: '',
         }
     },
     created() {
         this.$bus.$on('modal.addedCart.open', this.handleOpen)
         this.$bus.$on('modal.addedCart.close', this.handleClose)
     },
+    mounted() {},
     methods: {
         close() {
             this.open = false
@@ -56,9 +66,14 @@ export default {
             this.open = false
         },
         handleOpen() {
+            this.addedCarts = Cookies.getJSON(
+                'appConstants.cookies.cartItem.name'
+            )
+            console.log('addedCarts', this.addedCarts)
             this.open = true
         },
         async handleCheckoutClick() {
+            if (this.addedCarts !== undefined && this.addedCarts.length !== 0) router.push({ name: 'cart' })
             this.close()
         },
     },

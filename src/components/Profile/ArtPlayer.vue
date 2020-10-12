@@ -104,6 +104,8 @@
 <script>
 import { api } from '~/services'
 import { mapGetters } from 'vuex'
+import Cookies from 'js-cookie'
+import { appConstants } from '~/constants'
 export default {
     name: 'ArtPlayer',
     props: {
@@ -239,9 +241,19 @@ export default {
                 let buyItem = this.soundKits.find(
                     soundKits => soundKits.id === this.playerItem.id
                 )
-                this.$store.dispatch('profile/addCartItem', {
+                var listItems = []
+                listItems =
+                    Cookies.getJSON('appConstants.cookies.cartItem.name') ===
+                    undefined
+                        ? []
+                        : Cookies.getJSON('appConstants.cookies.cartItem.name')
+
+                listItems.push(buyItem)
+
+                Cookies.set('appConstants.cookies.cartItem.name', listItems)
+                /*this.$store.dispatch('profile/addCartItem', {
                     ...buyItem,
-                })
+                })*/
                 this.$bus.$emit('modal.addedCart.open')
             }
         },

@@ -122,10 +122,16 @@
 import { setStatusChange } from '~/utils'
 import { api } from '~/services'
 import { authentication } from '~/mixins'
+import { getAuthCookie } from '~/utils/auth'
 
 export default {
     name: 'Login',
     mixins: [authentication],
+    props: {
+        route: {
+            type: String,
+        },
+    },
     data() {
         return {
             form: {
@@ -142,6 +148,11 @@ export default {
                 },
             },
         }
+    },
+    mounted() {
+        var test = getAuthCookie()
+        console.log('test', test)
+        console.log(this.route)
     },
     methods: {
         validateState(ref) {
@@ -175,9 +186,13 @@ export default {
                     password,
                 })
                 if (status === 'success') {
+                    var new_route = this.route ? this.route : 'accountDashboard'
                     setStatusChange(this, 'status.error.signin', false)
                     setTimeout(() => {
-                        this.$store.dispatch('auth/login', { user: data })
+                        this.$store.dispatch('auth/login', {
+                            user: data,
+                            route: new_route,
+                        })
                     }, 1500)
                 } else {
                     setStatusChange(this, 'status.error.signin')

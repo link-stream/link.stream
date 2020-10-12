@@ -14,6 +14,14 @@ export const constants = {
             name: 'pendingUser',
             expires: 1 / 3,
         },
+        cartItem: {
+            name: [],
+            expires: 1 / 3,
+        },
+        informationPay: {
+            name: [],
+            expires: 1 / 3,
+        },
     },
     links: {
         image: {

@@ -7,7 +7,7 @@ const METHOD_POST = 'POST'
 const METHOD_PUT = 'PUT'
 const METHOD_DELETE = 'DELETE'
 
-const call = async function({
+const call = async function ({
     endpoint,
     params = {},
     method = METHOD_GET,
@@ -747,6 +747,26 @@ export const api = {
             const method = METHOD_GET
             return await call({
                 endpoint,
+                method,
+            })
+        },
+    },
+    cart: {
+        async getConfigFees() {
+            let endpoint = '/config/fees'
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+
+        async creditCardPayment(params) {
+            let endpoint = '/payments/cc_payment'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
                 method,
             })
         },

@@ -2,7 +2,11 @@
     <div class="art-item">
         <a href="#" class="img-container" @click.prevent="selectImage">
             <img :src="artItem.coverart" />
-            <LoadingSpinner v-if="selected && loading" class="center-img" animation="bounce" />
+            <LoadingSpinner
+                v-if="selected && loading"
+                class="center-img"
+                animation="bounce"
+            />
             <img
                 v-if="selected && !loading && status"
                 src="@/assets/img/ico/pause-red.svg"
@@ -30,14 +34,17 @@
         >
             <div class="title">{{ artItem.title }}</div>
             <div v-if="artItem.type === 'beat'" class="price">
-                {{
-                minPrice | currencyFormat
-                }}
+                {{ minPrice | currencyFormat }}
             </div>
             <div v-else class="price">{{ artItem.price | currencyFormat }}</div>
             <div v-if="artItem.bogo" class="bogo">BOGO</div>
         </router-link>
-        <b-dropdown class="actions-menu d-none d-md-block" variant="icon" right no-caret>
+        <b-dropdown
+            class="actions-menu d-none d-md-block"
+            variant="icon"
+            right
+            no-caret
+        >
             <template v-slot:button-content>
                 <Icon icon="dot-menu-v-s" />
             </template>
@@ -55,22 +62,26 @@
                 "
                 target="_blank"
             >
-                {{
-                artItem.type === 'beat' ? 'Go to Beat' : 'Go to Beat Pack'
-                }}
+                {{ artItem.type === 'beat' ? 'Go to Beat' : 'Go to Beat Pack' }}
             </b-dropdown-item>
             <b-dropdown-item v-show="false">Save</b-dropdown-item>
             <b-dropdown-item @click="handleShareClick">Share</b-dropdown-item>
             <b-dropdown-item v-show="false">Free Download</b-dropdown-item>
         </b-dropdown>
         <div class="action">
-            <basic-button size="sm" class="btn-buy" @click="handleBuyClick">Buy</basic-button>
+            <basic-button size="sm" class="btn-buy" @click="handleBuyClick"
+                >Buy</basic-button
+            >
             <IconButton class="btn-download" icon="download" v-show="false" />
         </div>
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { getCartCookie } from '~/utils/cart'
+import { setCartCookie } from '~/utils/cart'
+import Cookies from 'js-cookie'
+import { appConstants } from '~/constants'
 export default {
     name: 'ArtItemm',
     props: {
@@ -93,7 +104,18 @@ export default {
     computed: {
         ...mapGetters({
             licenses: 'profile/licenses',
+            profile: 'profile/profile',
         }),
+        curItem() {
+            return {
+                ...this.artItem,
+                artistName: this.profile.first_name.concat(
+                    ' ',
+                    this.profile.last_name
+                ),
+                srcAvatar: this.profile.data_image,
+            }
+        },
         minPrice() {
             return Math.min.apply(
                 Math,
@@ -109,10 +131,21 @@ export default {
     },
     methods: {
         handleBuyClick() {
+            var listItems = []
             if (this.artItem.type === 'beat') {
-                this.$bus.$emit('modal.buyLicense.open', this.artItem)
+                this.$bus.$emit('modal.buyLicense.open', this.curItem)
             } else {
-                this.$store.dispatch('profile/addCartItem', { ...this.artItem })
+                listItems =
+                    Cookies.getJSON('appConstants.cookies.cartItem.name') ===
+                    undefined
+                        ? []
+                        : Cookies.getJSON('appConstants.cookies.cartItem.name')
+
+                listItems.push(this.curItem)
+
+                Cookies.set('appConstants.cookies.cartItem.name', listItems)
+
+                //this.$store.dispatch('profile/addCartItem', { ...this.curItem })
                 this.$bus.$emit('modal.addedCart.open')
             }
         },

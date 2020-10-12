@@ -41,7 +41,7 @@
                 Sign Up
             </b-button>
         </b-navbar-nav>
-        <b-navbar-nav class="left-padding">
+        <!--b-navbar-nav-- class="left-padding">
             <b-button
                 variant="link"
                 class="bg-transparent text-white"
@@ -50,10 +50,10 @@
             >
                 <img src="@/assets/img/ico/basket.svg" />
             </b-button>
-        </b-navbar-nav>
-        <!--b-navbar-nav-- class="left-padding" @click="showCart">
-            <img src="@/assets/img/ico/basket.svg" />
         </!--b-navbar-nav-->
+        <b-navbar-nav class="left-padding" @click="showCart">
+            <img src="@/assets/img/ico/basket.svg" />
+        </b-navbar-nav>
     </b-navbar>
 </template>
 

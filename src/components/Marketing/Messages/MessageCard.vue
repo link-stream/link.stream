@@ -100,7 +100,10 @@
             >
                 View Report
             </b-dropdown-item>
-            <b-dropdown-item @click="handleViewEmailClick">
+            <b-dropdown-item
+                v-if="message.type === 'Email'"
+                @click="handleViewEmailClick"
+            >
                 View Email
             </b-dropdown-item>
             <b-dropdown-item @click="duplicateMessage">

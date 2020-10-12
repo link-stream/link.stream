@@ -44,7 +44,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="right-col">
+                <div class="right-col d-none d-md-block">
                     <basic-button
                         class="btn-schedule"
                         variant="outline-black"
@@ -79,15 +79,6 @@
                             <small class="item-subtitle">
                                 {{ sendToText }}
                             </small>
-                            <!-- <small class="item-subtitle">
-                                All
-                                <span class="font-weight-bold">
-                                    {{ cntSubscribers | thousandCNumber }}
-                                    subscribers
-                                </span>
-                                subscribed contacts in the audience
-                                {{ form.user_name }}
-                            </small> -->
                         </div>
                         <div class="right-col">
                             <BasicButton
@@ -155,49 +146,67 @@
                             />
                         </div>
                     </div>
-                    <div class="card-item">
-                        <font-awesome-icon
-                            :icon="['fas', 'check-circle']"
-                            class="item-status"
-                            :class="{ completed: form.content }"
-                        />
-                        <div class="left-col">
-                            <h4 class="item-title">
-                                Content
-                            </h4>
-                            <small class="item-subtitle placeholder-text">
-                                Design and manage the content of your email
-                            </small>
-                            <div class="template-container">
-                                <div class="image-container">
-                                    <img :src="templateImageUrl" />
-                                    <IconButton
-                                        class="btn-visible"
-                                        icon="visible"
-                                    />
+                    <div class="card-item d-block">
+                        <div class="d-flex">
+                            <font-awesome-icon
+                                :icon="['fas', 'check-circle']"
+                                class="item-status"
+                                :class="{ completed: form.content }"
+                            />
+                            <div class="left-col">
+                                <h4 class="item-title">
+                                    Content
+                                </h4>
+                                <small class="item-subtitle placeholder-text">
+                                    Design and manage the content of your email
+                                </small>
+                                <div class="template-container d-none d-md-block">
+                                    <div class="image-container">
+                                        <img :src="templateImageUrl" />
+                                        <IconButton
+                                            class="btn-visible"
+                                            icon="visible"
+                                        />
+                                    </div>
+                                    <a
+                                        href="#"
+                                        class="test-link"
+                                        @click.prevent="handleSendTestClick"
+                                    >
+                                        Send a test email
+                                    </a>
                                 </div>
-                                <a
-                                    href="#"
-                                    class="test-link"
-                                    @click.prevent="handleSendTestClick"
-                                >
-                                    Send a test email
-                                </a>
+                            </div>
+                            <div class="right-col">
+                                <BasicButton
+                                    variant="icon"
+                                    title="Edit"
+                                    class="card-edit-btn"
+                                    size="sm"
+                                    @click="handleEditContentClick"
+                                />
                             </div>
                         </div>
-                        <div class="right-col">
-                            <BasicButton
-                                variant="icon"
-                                title="Edit"
-                                class="card-edit-btn"
-                                size="sm"
-                                @click="handleEditContentClick"
-                            />
+                        <div class="template-container d-block d-md-none">
+                            <div class="image-container">
+                                <img :src="templateImageUrl" />
+                                <IconButton
+                                    class="btn-visible"
+                                    icon="visible"
+                                />
+                            </div>
+                            <a
+                                href="#"
+                                class="test-link"
+                                @click.prevent="handleSendTestClick"
+                            >
+                                Send a test email
+                            </a>
                         </div>
                     </div>
                 </div>
             </main>
-            <footer class="page-footer">
+            <footer class="page-footer d-none d-md-block">
                 <div class="float-left">
                     <basic-button
                         class="link-save-later text-black"
@@ -226,6 +235,37 @@
                     >
                         Send
                     </spinner-button>
+                </div>
+            </footer>
+            <footer class="page-footer d-block d-md-none">
+                <div class="float-left">
+                    <basic-button
+                        class="btn-schedule"
+                        variant="outline-black"
+                        size="md"
+                        @click="handleScheduleClick"
+                        :disabled="isEditEmailName || !isCompleted"
+                    >
+                        Schedule
+                    </basic-button>
+                    <spinner-button
+                        size="md"
+                        :loading="saving"
+                        @click="handleSendClick"
+                        :disabled="isEditEmailName || !isCompleted"
+                    >
+                        Send
+                    </spinner-button>
+                </div>
+                <div class="float-right">
+                    <basic-button
+                        class="link-save-later text-black"
+                        variant="link"
+                        @click="handleSaveLaterClick"
+                        :disabled="isEditEmailName"
+                    >
+                        Save for later
+                    </basic-button>
                 </div>
             </footer>
         </div>

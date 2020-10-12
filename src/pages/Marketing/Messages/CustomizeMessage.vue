@@ -265,6 +265,13 @@
                         </div>
                     </div>
                     <div class="actions">
+                        <basic-button
+                            class="btn-preview"
+                            variant="outline-black"
+                            @click="handlePreviewClick"
+                        >
+                            Preview
+                        </basic-button>
                         <basic-button class="btn-next" @click="handleNextClick">
                             Next
                         </basic-button>
@@ -499,6 +506,7 @@ export default {
             )
             return mailContent
         },
+        handlePreviewClick() {}
     },
 }
 </script>

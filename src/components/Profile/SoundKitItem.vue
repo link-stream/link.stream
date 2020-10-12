@@ -46,7 +46,13 @@
             <b-dropdown-item v-show="false">Free Download</b-dropdown-item>
         </b-dropdown>
         <div class="action">
-            <basic-button size="sm" class="btn-buy" @click="handleBuyClick">Buy</basic-button>
+            <basic-button
+                v-if="artItem.price > 0"
+                size="sm"
+                class="btn-buy"
+                @click="handleBuyClick"
+            >Buy</basic-button>
+            <basic-button v-else size="sm" class="btn-buy" @click="handleDownloadClick">Download</basic-button>
             <IconButton class="btn-download" icon="download" v-show="false" />
         </div>
     </div>
@@ -92,6 +98,7 @@ export default {
             this.$store.dispatch('profile/addCartItem', { ...this.curItem })
             this.$bus.$emit('modal.addedCart.open')
         },
+        handleDownloadClick() {},
         handleShareClick() {
             this.$bus.$emit('modal.share.open', this.curItem)
         },

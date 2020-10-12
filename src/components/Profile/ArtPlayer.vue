@@ -89,7 +89,7 @@
                         class="btn-pause d-md-none"
                         :icon="playing ? 'player-pause' : 'player-play'"
                         @click="playing = !playing"
-                        :disabled="playerItem.type === 'pack' || !loaded"
+                        :disabled="playerItem.type === 'pack' || loading"
                     />
                 </div>
             </div>
@@ -131,11 +131,9 @@ export default {
             soundKitsLoad: 'profile/soundKitsLoad',
         }),
         percentComplete() {
-            return isNaN(
-                parseInt((this.currentSeconds / this.durationSeconds) * 100)
-            )
+            return isNaN((this.currentSeconds / this.durationSeconds) * 100)
                 ? 0
-                : parseInt((this.currentSeconds / this.durationSeconds) * 100)
+                : (this.currentSeconds / this.durationSeconds) * 100
         },
         muted() {
             return this.volume / 100 === 0

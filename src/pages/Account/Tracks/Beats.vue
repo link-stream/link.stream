@@ -13,38 +13,26 @@
                             name: 'userBeats',
                             params: { username: user.user_name },
                         }"
-                    >
-                        Preview
-                    </basic-button>
+                    >Preview</basic-button>
                 </div>
             </div>
             <div class="right-col">
-                <basic-button :to="{ name: 'accountBeatAdd' }">
-                    Add a Beat
-                </basic-button>
+                <basic-button :to="{ name: 'accountBeatAdd' }">Add a Beat</basic-button>
             </div>
         </header>
         <main class="page-body">
             <LoadingSpinner class="page-loader" v-if="loading" />
             <div class="page-empty" v-if="!loading && !sortableList.length">
-                <div class="empty-text">
-                    Your beats will appear here.
-                </div>
+                <div class="empty-text">Your beats will appear here.</div>
                 <basic-button
                     class="empty-link"
                     variant="link"
                     :to="{
                         name: 'accountBeatAdd',
                     }"
-                >
-                    Add a beat
-                </basic-button>
+                >Add a beat</basic-button>
             </div>
-            <Container
-                v-else
-                drag-handle-selector=".card-drag-icon"
-                @drop="handleReorder"
-            >
+            <Container v-else drag-handle-selector=".card-drag-icon" @drop="handleReorder">
                 <Draggable v-for="beat in sortableList" :key="beat.id">
                     <BeatCard :beat="beat" />
                 </Draggable>

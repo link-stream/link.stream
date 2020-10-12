@@ -61,8 +61,13 @@
             <b-dropdown-item v-show="false">Free Download</b-dropdown-item>
         </b-dropdown>
         <div class="action">
-            <basic-button size="sm" class="btn-buy" @click="handleBuyClick">Buy</basic-button>
-            <IconButton class="btn-download" icon="download" v-show="false" />
+            <basic-button
+                v-if="artItem.type === 'pack' && artItem.price == 0"
+                size="sm"
+                class="btn-buy"
+                @click="handleDownloadClick"
+            >Download</basic-button>
+            <basic-button v-else size="sm" class="btn-buy" @click="handleBuyClick">Buy</basic-button>
         </div>
     </div>
 </template>
@@ -114,6 +119,7 @@ export default {
                 this.$bus.$emit('modal.addedCart.open')
             }
         },
+        handleDownloadClick() {},
         handleShareClick() {
             this.$bus.$emit('modal.share.open', this.artItem)
         },

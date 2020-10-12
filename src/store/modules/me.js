@@ -347,6 +347,7 @@ const actions = {
     },
 
     async updateSoundKit({ commit }, { id, params }) {
+        console.log('updateSoundKit params', params)
         const response = await api.audios.updateAudio(id, params)
         const { status, data } = response
         status === 'success' &&

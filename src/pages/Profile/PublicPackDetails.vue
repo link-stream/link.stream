@@ -7,7 +7,6 @@
                     <div class="img-back d-sm-none"></div>
                     <div class="img-container">
                         <img :src="pack.coverart" />
-                        <img src="@/assets/img/ico/play-light.svg" class="center-img d-sm-none" />
                     </div>
                 </div>
                 <div class="right-col">
@@ -20,6 +19,22 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="actions d-sm-none">
+                        <basic-button
+                            v-if="pack.price > 0"
+                            class="btn-buy"
+                            @click="handleBuyClick()"
+                        >
+                            <img src="@/assets/img/ico/basket.svg" />
+                            {{ pack.price | currencyFormat }} - Buy
+                        </basic-button>
+                        <basic-button v-else class="btn-buy" @click="handleDownloadClick()">
+                            <img src="@/assets/img/ico/download-wh.svg" />
+                            Download
+                        </basic-button>
+                    </div>
+
                     <div class="desc" v-if="pack.description && !readMore">
                         <div class="d-none d-sm-block">
                             {{ pack.description | truncate(270) }}
@@ -48,10 +63,18 @@
                             @click.prevent="readMore = false"
                         >Less</a>
                     </div>
-                    <div class="actions">
-                        <basic-button class="btn-buy" @click="handleBuyClick()">
+                    <div class="actions d-none d-sm-block">
+                        <basic-button
+                            v-if="pack.price > 0"
+                            class="btn-buy"
+                            @click="handleBuyClick()"
+                        >
                             <img src="@/assets/img/ico/basket.svg" />
-                            {{ pack.price | currencyFormat }} - Add to Cart
+                            {{ pack.price | currencyFormat }} - Buy
+                        </basic-button>
+                        <basic-button v-else class="btn-buy" @click="handleDownloadClick()">
+                            <img src="@/assets/img/ico/download-wh.svg" />
+                            Download
                         </basic-button>
                         <basic-button
                             variant="outline-black"
@@ -76,7 +99,7 @@
                     <ListAudioPlayer :src="beat.src" :type="beat.type" :id="beat.id" />
                     <div class="beat-title">{{ beat.title }}</div>
                     <b-button
-                        class="btn-menu"
+                        class="btn-menu-xs"
                         variant="link"
                         :to="{
                             name: 'profileBeatDetails',
@@ -90,6 +113,11 @@
                     </b-button>
                     <b-tooltip :target="`goto-button-${beat.id}`" triggers="hover">Go to Beat</b-tooltip>
                 </div>
+            </div>
+            <div class="actions d-xl-none">
+                <basic-button variant="outline-black" class="btn-share" @click="handleShareClick()">
+                    <font-awesome-icon :icon="['fas', 'share-alt-square']" size="lg" class="mr-2" />Share
+                </basic-button>
             </div>
             <div class="more-artist">
                 <div class="section-title separator">More Beat Packs</div>
@@ -219,6 +247,7 @@ export default {
             })
             this.$bus.$emit('modal.addedCart.open')
         },
+        handleDownloadClick() {},
         handleShareClick() {
             this.$bus.$emit('modal.share.open', this.pack)
         },

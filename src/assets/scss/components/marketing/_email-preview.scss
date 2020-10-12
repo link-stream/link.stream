@@ -89,9 +89,21 @@
                     font-size: px2rem(16);
                     line-height: px2rem(24);
                 }
-                .btn-listen {
+                .btn-listen-container {
                     margin: 20px auto;
-                    border: 0;
+                    .btn-listen {
+                        background-color: $primary;
+                        border: 0;
+                        font-size: 13px;
+                        line-height: 55px;
+                        color: white;
+                        text-transform: uppercase;
+                        padding: 17px 55px;
+                        border-radius: 55px;
+                        text-decoration: none;
+                        letter-spacing: 2px;
+                        font-weight: bold;
+                    }
                 }
                 .video-container {
                     .video-wrapper {

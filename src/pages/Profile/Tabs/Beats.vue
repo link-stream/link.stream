@@ -26,7 +26,8 @@
         <BuyLicenseModal @close="handleCloseBuy" />
         <ShareArtModal @close="handleCloseShare" />
         <ArtPlayer
-            :playerItem="playerItem"
+            :itemId="itemId"
+            :type="type"
             :isFirst="currentIndex === 0"
             :isLast="currentIndex === beats.length - 1"
             :status="currentStatus"
@@ -39,12 +40,10 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { api } from '~/services'
-import { appConstants } from '~/constants'
 import ArtItem from '@/components/Profile/ArtItem'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
-import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
 import ShareArtModal from '@/components/Modal/ShareArtModal'
+import BuyLicenseModal from '@/components/Modal/BuyLicenseModal'
 export default {
     name: 'ProfileBeats',
     components: {
@@ -61,8 +60,9 @@ export default {
     computed: {
         ...mapGetters({
             beats: 'profile/beats',
-            beatsLoad: 'profile/beatsLoad',
             profile: 'profile/profile',
+            startover: 'profile/startover',
+            individualLoading: 'profile/individualLoading',
         }),
     },
     data: () => ({
@@ -71,9 +71,18 @@ export default {
         currentStatus: false,
         playerItem: {},
         curBeat: {},
-        individualLoading: false,
+        itemId: '',
+        type: '',
     }),
     watch: {
+        startover() {
+            if (this.startover) {
+                this.currentIndex = this.beats.findIndex(
+                    beats => beats.type === 'beat'
+                )
+                this.$store.commit('profile/SET_STARTOVER', false)
+            }
+        },
         currentIndex() {
             this.updateCurrentItem()
         },
@@ -83,6 +92,7 @@ export default {
             this.beats.some((beat, index) => {
                 if (beat.type === 'beat') {
                     that.currentIndex = index
+                    this.itemId = beat.id
                     return true
                 } else {
                     return false
@@ -106,44 +116,8 @@ export default {
             if (this.beats[this.currentIndex].id === this.playerItem.id) {
                 return
             }
-            this.individualLoading = true
-            const item = this.beatsLoad.find(
-                beatsLoad => beatsLoad.id === this.beats[this.currentIndex].id
-            )
-            if (item === undefined) {
-                const response = await api.profiles.getProfileBeatPackById(
-                    this.profile.id,
-                    this.beats[this.currentIndex].id,
-                    this.beats[this.currentIndex].type
-                )
-                if (response.status !== 'success' || !response.data.length) {
-                    return {}
-                }
-                const beat = response.data[0]
-                let srcAudio = null
-                if (beat.type === 'beat') {
-                    if (beat.data_tagged_file) {
-                        srcAudio = beat.data_tagged_file
-                    } else if (beat.data_untagged_mp3) {
-                        srcAudio = beat.data_untagged_mp3
-                    } else if (beat.data_untagged_wav) {
-                        srcAudio = beat.data_untagged_wav
-                    }
-                }
-                this.playerItem = {
-                    id: beat.id,
-                    coverart: beat.data_image || appConstants.defaultCoverArt,
-                    title: beat.title,
-                    producer_name: this.profile.display_name,
-                    src: srcAudio,
-                    type: beat.type,
-                }
-                this.$store.dispatch('profile/addPlayerBeat', this.playerItem)
-                this.curBeat = { ...beat }
-            } else {
-                this.playerItem = { ...item }
-            }
-            this.individualLoading = false
+            this.itemId = this.beats[this.currentIndex].id
+            this.type = this.beats[this.currentIndex].type
         },
         prevItem() {
             for (let k = this.currentIndex - 1; k >= 0; k--) {

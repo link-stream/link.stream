@@ -129,7 +129,9 @@ export default {
         smsData(value) {
             this.form = {
                 ...value,
-                date: new Date(value.date),
+                date: value.date
+                    ? new Date(value.date + ' 23:59:59')
+                    : new Date(),
             }
         },
     },
@@ -173,6 +175,7 @@ export default {
                 campaing_name: this.smsData.campaing_name,
                 send_to: this.form.send_to,
                 reply_to: '',
+                reply_to_name: '',
                 subject: '',
                 content: this.form.content,
                 scheduled: this.smsData.scheduled,
@@ -180,6 +183,7 @@ export default {
                     ? moment(this.form.date).format('YYYY-MM-DD')
                     : null,
                 time: this.form.scheduled ? this.form.time : null,
+                status: this.form.scheduled ? 'Scheduled' : 'Pending',
             }
             if (this.smsData.id) {
                 const { status, message, error } = await this.$store.dispatch(

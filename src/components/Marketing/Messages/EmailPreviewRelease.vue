@@ -32,7 +32,12 @@
                     <div class="message-container">
                         <div class="message-header">
                             <div class="message-logo">
-                                <img :src="`${mediaURL}${emailData.logo}`" alt="Logo" />
+                                <img
+                                    v-if="emailData.logo"
+                                    :src="`${mediaURL}${emailData.logo}`"
+                                    alt="Logo"
+                                />
+                                <img v-else :src="defaultLogo" alt="Logo" />
                             </div>
                             <div class="new-release">
                                 New release
@@ -40,7 +45,10 @@
                         </div>
                         <div class="message-body">
                             <div class="artwork-container">
-                                <img :src="`${mediaURL}${emailData.artwork}`" alt="Artwork" />
+                                <img
+                                    :src="`${mediaURL}${emailData.artwork}`"
+                                    alt="Artwork"
+                                />
                             </div>
                             <h1 class="message-title">
                                 {{ emailData.headline }}
@@ -48,18 +56,22 @@
                             <div class="more-info">
                                 {{ emailData.body }}
                             </div>
-                            <basic-button
-                                class="btn-listen"
-                                :style="{
-                                    backgroundColor: emailData.button_color,
-                                }"
-                            >
-                                Listen Now
-                            </basic-button>
+                            <div class="btn-listen-container">
+                                <a
+                                    class="btn-listen"
+                                    :style="{
+                                        backgroundColor: emailData.button_color,
+                                    }"
+                                    :href="emailData.promote_id"
+                                    target="_blank"
+                                >
+                                    Listen Now
+                                </a>
+                            </div>
                         </div>
                         <div class="message-footer">
                             <div class="logo-container">
-                                <img src="@/assets/img/logo/logo-h-lg.png" />
+                                <img :src="footerLogo" />
                             </div>
                             <div class="text">
                                 <p>
@@ -92,6 +104,8 @@ export default {
     data: () => ({
         viewType: 'desktop',
         mediaURL: appConstants.mediaURL,
+        defaultLogo: appConstants.emailDefaultLogo,
+        footerLogo: appConstants.emailFooterLogo,
     }),
     computed: {
         emailBackStyle() {
@@ -100,6 +114,6 @@ export default {
                 backgroundImage: `url(${this.mediaURL}${this.emailData.background_image})`,
             }
         },
-    }
+    },
 }
 </script>

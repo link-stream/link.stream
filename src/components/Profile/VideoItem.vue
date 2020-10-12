@@ -1,6 +1,12 @@
 <template>
     <div class="video-item">
-        <youtube class="video-wrapper" :video-id="ytVidId"></youtube>
+        <youtube
+            class="video-wrapper"
+            :video-id="ytVidId"
+            @playing="playing"
+            @paused="pause = true"
+            @ended="pause = false"
+        ></youtube>
         <div class="video-desc">
             <div class="title">{{ videoItem.title }}</div>
             <div class="cnt-view">
@@ -17,12 +23,13 @@
             <b-dropdown-item v-show="false">Save</b-dropdown-item>
             <b-dropdown-item @click="handleShareClick">Share</b-dropdown-item>
         </b-dropdown>
-        <ShareArtModal v-if="isShowShare" :curItem="curItem" @close="isShowShare = false" />
+        <ShareArtModal @close="handleCloseShare" />
     </div>
 </template>
 <script>
-import ShareArtModal from '@/components/Modal/ShareArtModal'
+import { api } from '~/services'
 import { getYtVideoThumbUrl } from '~/utils'
+import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'VideoItemm',
     props: {
@@ -35,6 +42,7 @@ export default {
     },
     data: () => ({
         isShowShare: false,
+        pause: false,
     }),
     computed: {
         ytVidId() {
@@ -54,8 +62,22 @@ export default {
         },
     },
     methods: {
+        async playing() {
+            if (!this.pause) {
+                const params = {
+                    id: this.ytVidId,
+                    type: 'video',
+                    action: 'play',
+                }
+                await api.profiles.insertAction(params)
+            }
+        },
         handleShareClick() {
-            this.isShowShare = true
+            this.videoItem.type = 'video'
+            this.$bus.$emit('modal.share.open', this.videoItem)
+        },
+        handleCloseShare() {
+            this.$bus.$emit('modal.share.close')
         },
     },
 }

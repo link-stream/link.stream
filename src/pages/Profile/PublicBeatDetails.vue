@@ -8,7 +8,11 @@
                 </div>
                 <div class="tags-container">
                     <div class="title">Beat Tags</div>
-                    <div v-for="tag in form.tags" :key="tag.text" class="tag">{{ tag.text }}</div>
+                    <div v-for="tag in form.tags" :key="tag.text" class="tag">
+                        {{
+                        tag.text
+                        }}
+                    </div>
                 </div>
                 <div class="collabs-container">
                     <div class="title">Collaborators</div>
@@ -30,34 +34,44 @@
                 <div class="header">
                     <div class="left-header">
                         <div class="title-container">
-                            <MiniAudioPlayer :src="form.src" />
+                            <MiniAudioPlayer :src="form.src" :type="form.type" :id="form.id" />
                             <div class="title">{{ form.title }}</div>
                         </div>
                         <div class="desc">Ambient beat by {{ profile.display_name }}</div>
                     </div>
                     <div class="right-header">
-                        <button class="btn btn-icon btn-download btn-round">
-                            <b-icon-download />
-                        </button>
-                        <b-dropdown class="actions-menu" variant="icon" right no-caret>
-                            <template v-slot:button-content>
-                                <button class="btn btn-icon btn-round">
-                                    <Icon icon="dot-menu-h " />
-                                </button>
-                            </template>
-                        </b-dropdown>
+                        <basic-button
+                            variant="outline-black"
+                            class="btn-share"
+                            @click="handleShareClick()"
+                        >
+                            <font-awesome-icon
+                                :icon="['fas', 'share-alt-square']"
+                                size="lg"
+                                class="mr-2"
+                            />Share
+                        </basic-button>
                     </div>
                 </div>
                 <div class="license-body">
                     <div class="Card" v-for="(license, index) in licenses" :key="index">
                         <div class="card-body">
                             <div class="d-flex">
-                                <div class="price">{{ license.price | currencyFormat }}</div>
+                                <div class="price">
+                                    {{
+                                    license.price | currencyFormat
+                                    }}
+                                </div>
                                 <div class="text">
-                                    <h4 class="card-title">{{ license.title }}</h4>
+                                    <h4 class="card-title">
+                                        {{
+                                        license.title
+                                        }}
+                                    </h4>
                                     <small>{{ license.descripcion }}</small>
                                 </div>
                                 <basic-button
+                                    v-if="license.price > 0"
                                     size="sm"
                                     class="btn-buy"
                                     @click="handleBuyClick(license)"
@@ -65,10 +79,23 @@
                                     <img src="@/assets/img/ico/basket.svg" />
                                     Buy
                                 </basic-button>
+                                <basic-button
+                                    v-else
+                                    size="sm"
+                                    class="btn-download"
+                                    @click="handleDownloadClick(license)"
+                                >
+                                    <img src="@/assets/img/ico/download-wh.svg" />
+                                    Download
+                                </basic-button>
                             </div>
                         </div>
                     </div>
-                    <basic-button variant="link" class="float-right text-black">Negotiate Price</basic-button>
+                    <basic-button
+                        variant="link"
+                        class="float-right text-black"
+                        v-show="false"
+                    >Negotiate Price</basic-button>
                 </div>
                 <div class="more-artist">
                     <div class="section-title">More from this artist</div>
@@ -109,20 +136,20 @@
                     </b-form-row>
                 </div>
             </div>
+            <ShareArtModal @close="handleCloseShare" />
         </div>
-        <!-- <ArtPlayer /> -->
     </b-container>
 </template>
 <script>
 import { appConstants } from '~/constants'
 import { MiniAudioPlayer } from '~/components/Player'
-// import ArtPlayer from '@/components/Profile/ArtPlayer'
+import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'PublicBeatDetails',
     props: ['url', 'beatId'],
     components: {
+        ShareArtModal,
         MiniAudioPlayer,
-        // ArtPlayer,
     },
     data: () => ({
         isLoading: false,
@@ -145,7 +172,7 @@ export default {
         const beatItem = this.$store.getters['profile/beats'][0]
         const moreArtists = this.$store.getters['profile/moreElements']
         if (moreArtists.length) {
-            this.moreArtists = moreArtists.map((artist) => {
+            this.moreArtists = moreArtists.map(artist => {
                 return {
                     ...artist,
                     coverart: artist.data_image || appConstants.defaultCoverArt,
@@ -156,10 +183,12 @@ export default {
 
         const beat = beatItem
         const form = {
+            id: beat.id,
+            type: beat.type,
             title: beat.title,
             coverart: beat.data_image || appConstants.defaultCoverArt,
             tags: beat.tags
-                ? beat.tags.split(', ').map((tag) => ({
+                ? beat.tags.split(', ').map(tag => ({
                       text: tag,
                   }))
                 : [],
@@ -200,7 +229,7 @@ export default {
 
         // Merge beat licenses into licenses
         if (Array.isArray(beat.licenses) && beat.licenses.length) {
-            this.licenses = beat.licenses.map((license) => {
+            this.licenses = beat.licenses.map(license => {
                 const findLicense = licenses.find(
                     ({ id }) => id == license.license_id
                 )
@@ -222,6 +251,12 @@ export default {
                 license_id: license.license_id,
             })
             this.$bus.$emit('modal.addedCart.open')
+        },
+        handleShareClick() {
+            this.$bus.$emit('modal.share.open', this.beat)
+        },
+        handleCloseShare() {
+            this.$bus.$emit('modal.share.close')
         },
     },
 }

@@ -14,11 +14,7 @@
         <template v-slot:default>
             <div class="page page-licenses">
                 <div v-if="realLicenses.length" class="page-body">
-                    <div
-                        class="Card"
-                        v-for="(license, index) in realLicenses"
-                        :key="index"
-                    >
+                    <div class="Card" v-for="(license, index) in realLicenses" :key="index">
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="text">
@@ -37,16 +33,19 @@
                                     </basic-button>
                                 </div>
                                 <basic-button
+                                    v-if="license.price > 0"
                                     size="sm"
                                     class="btn-buy"
                                     @click="handleBuyClick(license)"
-                                    >Buy</basic-button
-                                >
+                                >Buy</basic-button>
+                                <basic-button
+                                    v-else
+                                    size="sm"
+                                    class="btn-buy"
+                                    @click="handleDownloadClick(license)"
+                                >Download</basic-button>
                             </div>
-                            <ul
-                                v-if="license.isExpanded"
-                                class="license-details"
-                            >
+                            <ul v-if="license.isExpanded" class="license-details">
                                 <li v-for="item in license.details" :key="item">
                                     <b-icon-check />
                                     {{ item }}
@@ -62,9 +61,11 @@
                             </basic-button>
                         </div>
                     </div>
-                    <basic-button variant="link" class="float-right text-black"
-                        >Negotiate Price</basic-button
-                    >
+                    <basic-button
+                        variant="link"
+                        class="float-right text-black"
+                        v-show="false"
+                    >Negotiate Price</basic-button>
                 </div>
             </div>
         </template>
@@ -73,8 +74,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Cookies from 'js-cookie'
-import { appConstants } from '~/constants'
 
 export default {
     name: 'Licenses',
@@ -97,11 +96,6 @@ export default {
         ...mapGetters({
             licenses: 'profile/licenses',
         }),
-        /*addedCarts: {
-            get() {
-                return Cookies.getJSON('appConstants.cookies.cartItem.name')
-            },
-        },*/
     },
     async created() {
         this.$bus.$on('modal.buyLicense.open', payload => {
@@ -116,29 +110,15 @@ export default {
             this.open = false
         },
         handleBuyClick(license) {
-            var listItems = []
             this.close()
-            listItems =
-                Cookies.getJSON('appConstants.cookies.cartItem.name') ===
-                undefined
-                    ? []
-                    : Cookies.getJSON('appConstants.cookies.cartItem.name')
-
-            listItems.push({
-                ...this.curItem,
-                price: license.price,
-                license_id: license.license_id,
-            })
-
-            Cookies.set('appConstants.cookies.cartItem.name', listItems)
-
-            /*this.$store.dispatch('profile/addCartItem', {
+            this.$store.dispatch('profile/addCartItem', {
                 ...this.curItem,
                 price: license.price,
                 license_id: license.id,
-            })*/
+            })
             this.$bus.$emit('modal.addedCart.open')
         },
+        handleDownloadClick(license) {},
         initLicense() {
             this.realLicenses = this.curItem.licenses.map(item => {
                 const findLicense = this.licenses.find(

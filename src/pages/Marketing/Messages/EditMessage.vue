@@ -44,13 +44,13 @@
                         </a>
                     </div>
                 </div>
-                <div class="right-col">
+                <div class="right-col d-none d-md-block">
                     <basic-button
                         class="btn-schedule"
                         variant="outline-black"
                         size="md"
                         @click="handleScheduleClick"
-                        :disabled="isEditEmailName"
+                        :disabled="isEditEmailName || !isCompleted"
                     >
                         Schedule
                     </basic-button>
@@ -58,7 +58,7 @@
                         size="md"
                         :loading="saving"
                         @click="handleSendClick"
-                        :disabled="isEditEmailName"
+                        :disabled="isEditEmailName || !isCompleted"
                     >
                         Send
                     </spinner-button>
@@ -69,20 +69,15 @@
                     <div class="card-item">
                         <font-awesome-icon
                             :icon="['fas', 'check-circle']"
-                            class="item-status completed"
+                            class="item-status"
+                            :class="{ completed: form.send_to }"
                         />
                         <div class="left-col">
                             <h4 class="item-title">
                                 Send to
                             </h4>
                             <small class="item-subtitle">
-                                All
-                                <span class="font-weight-bold">
-                                    {{ cntSubscribers | thousandCNumber }}
-                                    subscribers
-                                </span>
-                                subscribed contacts in the audience
-                                {{ form.user_name }}
+                                {{ sendToText }}
                             </small>
                         </div>
                         <div class="right-col">
@@ -98,14 +93,15 @@
                     <div class="card-item">
                         <font-awesome-icon
                             :icon="['fas', 'check-circle']"
-                            class="item-status completed"
+                            class="item-status"
+                            :class="{ completed: form.reply_to }"
                         />
                         <div class="left-col">
                             <h4 class="item-title">
                                 From
                             </h4>
                             <small class="item-subtitle">
-                                {{ form.user_name }}
+                                {{ form.reply_to_name }}
                                 &middot;
                                 {{ form.reply_to }}
                             </small>
@@ -150,49 +146,67 @@
                             />
                         </div>
                     </div>
-                    <div class="card-item">
-                        <font-awesome-icon
-                            :icon="['fas', 'check-circle']"
-                            class="item-status"
-                            :class="{ completed: form.content }"
-                        />
-                        <div class="left-col">
-                            <h4 class="item-title">
-                                Content
-                            </h4>
-                            <small class="item-subtitle placeholder-text">
-                                Design and manage the content of your email
-                            </small>
-                            <div class="template-container">
-                                <div class="image-container">
-                                    <img :src="templateImageUrl" />
-                                    <IconButton
-                                        class="btn-visible"
-                                        icon="visible"
-                                    />
+                    <div class="card-item d-block">
+                        <div class="d-flex">
+                            <font-awesome-icon
+                                :icon="['fas', 'check-circle']"
+                                class="item-status"
+                                :class="{ completed: form.content }"
+                            />
+                            <div class="left-col">
+                                <h4 class="item-title">
+                                    Content
+                                </h4>
+                                <small class="item-subtitle placeholder-text">
+                                    Design and manage the content of your email
+                                </small>
+                                <div class="template-container d-none d-md-block">
+                                    <div class="image-container">
+                                        <img :src="templateImageUrl" />
+                                        <IconButton
+                                            class="btn-visible"
+                                            icon="visible"
+                                        />
+                                    </div>
+                                    <a
+                                        href="#"
+                                        class="test-link"
+                                        @click.prevent="handleSendTestClick"
+                                    >
+                                        Send a test email
+                                    </a>
                                 </div>
-                                <a
-                                    href="#"
-                                    class="test-link"
-                                    @click.prevent="handleSendTestClick"
-                                >
-                                    Send a test email
-                                </a>
+                            </div>
+                            <div class="right-col">
+                                <BasicButton
+                                    variant="icon"
+                                    title="Edit"
+                                    class="card-edit-btn"
+                                    size="sm"
+                                    @click="handleEditContentClick"
+                                />
                             </div>
                         </div>
-                        <div class="right-col">
-                            <BasicButton
-                                variant="icon"
-                                title="Edit"
-                                class="card-edit-btn"
-                                size="sm"
-                                @click="handleEditContentClick"
-                            />
+                        <div class="template-container d-block d-md-none">
+                            <div class="image-container">
+                                <img :src="templateImageUrl" />
+                                <IconButton
+                                    class="btn-visible"
+                                    icon="visible"
+                                />
+                            </div>
+                            <a
+                                href="#"
+                                class="test-link"
+                                @click.prevent="handleSendTestClick"
+                            >
+                                Send a test email
+                            </a>
                         </div>
                     </div>
                 </div>
             </main>
-            <footer class="page-footer">
+            <footer class="page-footer d-none d-md-block">
                 <div class="float-left">
                     <basic-button
                         class="link-save-later text-black"
@@ -209,7 +223,7 @@
                         variant="outline-black"
                         size="md"
                         @click="handleScheduleClick"
-                        :disabled="isEditEmailName"
+                        :disabled="isEditEmailName || !isCompleted"
                     >
                         Schedule
                     </basic-button>
@@ -217,10 +231,41 @@
                         size="md"
                         :loading="saving"
                         @click="handleSendClick"
-                        :disabled="isEditEmailName"
+                        :disabled="isEditEmailName || !isCompleted"
                     >
                         Send
                     </spinner-button>
+                </div>
+            </footer>
+            <footer class="page-footer d-block d-md-none">
+                <div class="float-left">
+                    <basic-button
+                        class="btn-schedule"
+                        variant="outline-black"
+                        size="md"
+                        @click="handleScheduleClick"
+                        :disabled="isEditEmailName || !isCompleted"
+                    >
+                        Schedule
+                    </basic-button>
+                    <spinner-button
+                        size="md"
+                        :loading="saving"
+                        @click="handleSendClick"
+                        :disabled="isEditEmailName || !isCompleted"
+                    >
+                        Send
+                    </spinner-button>
+                </div>
+                <div class="float-right">
+                    <basic-button
+                        class="link-save-later text-black"
+                        variant="link"
+                        @click="handleSaveLaterClick"
+                        :disabled="isEditEmailName"
+                    >
+                        Save for later
+                    </basic-button>
                 </div>
             </footer>
         </div>
@@ -255,6 +300,7 @@ export default {
         saving: false,
         cntSubscribers: 5749,
         form: {
+            send_to: null,
             user_name: null,
             email: null,
             campaing_name: null,
@@ -265,12 +311,36 @@ export default {
         isShowSendto: false,
         isShowFrom: false,
         isShowSubject: false,
-        templateImageUrl: '/static/img/email-template_1.jpg',
     }),
     computed: {
         ...mapGetters({
             smsData: 'marketing/smsData',
+            sendtos: 'marketing/sendtos',
         }),
+        sendToText() {
+            const findItem = this.sendtos.find(
+                ({ value }) => value === this.form.send_to
+            )
+            if (findItem) {
+                return findItem.text
+            } else {
+                return ''
+            }
+        },
+        isCompleted() {
+            return (
+                this.form.send_to &&
+                this.form.reply_to &&
+                this.form.subject &&
+                this.form.content
+            )
+        },
+        templateImageUrl() {
+            const template_type = this.smsData.template_type
+                ? this.smsData.template_type
+                : 'release'
+            return `/static/img/email-template_${template_type}.jpg`
+        },
     },
     watch: {
         smsData: {
@@ -325,7 +395,6 @@ export default {
                     ? this.smsData.template_type
                     : 'release',
             }
-            console.log('smsData', params)
             await this.$store.dispatch('marketing/setSMSData', params)
             this.$bus.$emit('modal.reviewEmail.open')
         },
@@ -342,6 +411,19 @@ export default {
             }
             await this.$store.dispatch('marketing/setSMSData', params)
             this.isEditEmailName = false
+            if (this.smsData.id) {
+                const response = await this.$store.dispatch(
+                    'marketing/updateMessage',
+                    {
+                        id: this.smsData.id,
+                        params: params,
+                    }
+                )
+                const { status, message, error } = response
+                status === 'success'
+                    ? this.$toast.success(message)
+                    : this.$toast.error(error)
+            }
         },
         showEditEmail() {
             this.isEditEmailName = true
@@ -358,7 +440,6 @@ export default {
                     : 'release',
             }
             await this.$store.dispatch('marketing/setSMSData', params)
-            console.log(this.smsData)
             let response
             if (this.smsData.id) {
                 response = await this.$store.dispatch(
@@ -378,6 +459,9 @@ export default {
             status === 'success'
                 ? this.$toast.success(message)
                 : this.$toast.error(error)
+            this.$router.push({
+                name: 'marketingMessages',
+            })
         },
         handleCancelClick() {
             this.form.campaing_name = this.smsData.campaing_name

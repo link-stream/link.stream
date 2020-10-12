@@ -45,21 +45,21 @@ export default {
     data: () => ({
         templates: [
             {
-                src: '/static/img/email-template_1.jpg',
+                src: '/static/img/email-template_release.jpg',
                 title: 'Promote a Release',
                 type: 'release',
                 description:
                     'Let everyone know about your latest Beat, Beat Pack or Sound Kit',
             },
             {
-                src: '/static/img/email-template_2.jpg',
+                src: '/static/img/email-template_plain.jpg',
                 title: 'Plain Text',
                 type: 'plain',
                 description:
                     'Send a simple, plain text email to your subscribers.',
             },
             {
-                src: '/static/img/email-template_3.jpg',
+                src: '/static/img/email-template_video.jpg',
                 title: 'Highlight a Video',
                 type: 'video',
                 description: 'Use a video URL to showcase a video.',

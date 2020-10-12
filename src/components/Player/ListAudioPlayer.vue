@@ -7,7 +7,9 @@
         }"
     >
         <span class="player-spinner spinner-border"></span>
+        <LoadingSpinner v-if="src === null" class="center-img mt-4" animation="bounce-small" />
         <b-icon
+            v-else
             :icon="playing ? 'pause-fill' : 'play-fill'"
             font-scale="2"
             class="btn-play"
@@ -30,11 +32,18 @@ export default {
         src: {
             type: String,
         },
+        type: {
+            type: String,
+        },
+        id: {
+            type: String,
+        },
     },
     data() {
         return {
             audioObj: null,
             state: STATE_PAUSED,
+            pause: false,
         }
     },
     computed: {
@@ -93,6 +102,14 @@ export default {
                     .catch(e => {
                         this.$toast.error(e.message)
                     })
+                if (!this.pause) {
+                    const params = {
+                        id: this.id,
+                        type: this.type,
+                        action: 'play',
+                    }
+                    await api.profiles.insertAction(params)
+                }
             }
         },
         handlePlaying() {
@@ -100,9 +117,11 @@ export default {
         },
         handlePause() {
             this.state = STATE_PAUSED
+            this.pause = true
         },
         handleEnded() {
             this.state = STATE_PAUSED
+            this.pause = false
         },
         handleError() {
             this.audioObj = null

@@ -1,6 +1,8 @@
 .select-plan-bar {
-    height: 80px;
-    margin-top: 40px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    min-height: 80px;
     background: linear-gradient(45deg, #A624D2 0%, #CE5353 47.8%, #FFB02D 100%);
     span {
         font-size: px2rem(14);
@@ -15,4 +17,8 @@
     line-height: 80px;
     text-align: center;
     color: white;
+    @include media-breakpoint-down(sm) {
+        line-height: 60px;
+        margin-top: 40px;
+    }
 }

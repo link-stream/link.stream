@@ -1,14 +1,18 @@
 <template>
     <div class="report-overview">
         <h5 class="recipient-title">
-            <span class="active-number font-weight-bold">150</span>
+            <span class="active-number font-weight-bold">
+                {{ overview.Total }}
+            </span>
             Recipients
         </h5>
         <b-row>
             <b-col cols="6" md="3">
                 <div class="recipient-container">
                     <div class="recipient-status">
-                        <h2 class="number">24%</h2>
+                        <h2 class="number">
+                            {{ overview.Open_rate }}
+                        </h2>
                         <p class="description">
                             Open Rate
                         </p>
@@ -18,7 +22,9 @@
             <b-col cols="6" md="3">
                 <div class="recipient-container">
                     <div class="recipient-status">
-                        <h2 class="number">4.66%</h2>
+                        <h2 class="number">
+                            {{ overview.Click_rate }}
+                        </h2>
                         <p class="description">
                             Click Rate
                         </p>
@@ -28,9 +34,13 @@
             <b-col cols="6" md="3">
                 <div class="recipient-container">
                     <div class="recipient-status">
-                        <h2 class="number">$33</h2>
+                        <h2 class="number">
+                            {{ overview.Revenue }}
+                        </h2>
                         <p class="description">
-                            Revenue from 2 Orders
+                            Revenue from
+                            {{ overview.Orders }}
+                            Orders
                         </p>
                     </div>
                 </div>
@@ -38,7 +48,9 @@
             <b-col cols="6" md="3">
                 <div class="recipient-container">
                     <div class="recipient-status">
-                        <h2 class="number">1</h2>
+                        <h2 class="number">
+                            {{ overview.Unsubscribed }}
+                        </h2>
                         <p class="description">
                             Unsubscribed
                         </p>
@@ -50,17 +62,17 @@
             <div class="left-col">
                 <div class="add-desc-item">
                     <span class="font-weight-bold">Audience: </span>
-                    Hydro Kitty
+                    {{ message.reply_to_name }}
                 </div>
                 <div class="add-desc-item">
                     <span class="font-weight-bold">Subject: </span>
-                    25% off through the 4th
+                    {{ message.subject }}
                 </div>
             </div>
             <div class="right-col">
                 <div class="add-desc-item">
                     <span class="font-weight-bold">Delivered: </span>
-                    Sat, May 23, 2020 1:10 pm
+                    {{ message.created_at | fullDateTime }}
                 </div>
                 <a href="#" class="link-download-report">
                     Download Report
@@ -75,6 +87,7 @@
             </div>
             <LineChart
                 v-if="loaded"
+                :height="200"
                 :chartdata="chartData"
                 :options="options"
             />
@@ -117,6 +130,14 @@ import LineChart from '~/components/Form/LineChart'
 import moment from 'moment'
 export default {
     name: 'ReportOverview',
+    props: {
+        message: {
+            type: Object,
+        },
+        overview: {
+            type: Object,
+        },
+    },
     components: {
         LineChart,
     },
@@ -202,6 +223,7 @@ export default {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             title: {
                 display: false,
                 text: '24-hour performance',
@@ -247,16 +269,14 @@ export default {
             let aryValues2 = []
             for (let k = 0; k < 24; k++) {
                 today.set('hour', k)
-                if (k % 4 === 0) {
-                    aryHours.push(today.format('h:mma'))
-                } else {
-                    aryHours.push('')
-                }
-                let maxValue = 20
-                if (k > 10) maxValue = 5
-                let randomValue = Math.floor(Math.random() * maxValue)
-                aryValues1.push(randomValue)
-                aryValues2.push(Math.floor(Math.random() * randomValue))
+                aryHours.push(today.format('h:mma'))
+                aryValues1.push(0)
+                aryValues2.push(0)
+            }
+            for (const [key, value] of Object.entries(this.overview.Hours)) {
+                const curIndex = parseInt(parseInt(key) / 100)
+                aryValues1[curIndex] = value.Open
+                aryValues2[curIndex] = value.Click
             }
             this.chartData.labels = aryHours
             this.chartData.datasets[0].data = aryValues1

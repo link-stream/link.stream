@@ -34,7 +34,7 @@
                     class="message-list"
                     :key="item.dateTitlle"
                 >
-                    <h4 class="date-title">
+                    <h4 v-if="item.messages.length" class="date-title">
                         {{ item.dateTitle }}
                         (
                         {{ item.messages.length }}
@@ -108,8 +108,10 @@ export default {
     async created() {
         this.loading = true
         await this.$store.dispatch('marketing/getMessages')
+        await this.$store.dispatch('marketing/getMarketingPromotes')
         this.loading = false
         this.refreshRealMessages()
+        console.log(this.messages)
     },
     methods: {
         handleCreateClick() {

@@ -593,8 +593,8 @@ export const api = {
                 method,
             })
         },
-        async insertAudioAction(params) {
-            let endpoint = '/profiles/audio_action'
+        async insertAction(params) {
+            let endpoint = '/profiles/action'
             const method = METHOD_POST
             return await call({
                 endpoint,
@@ -656,6 +656,14 @@ export const api = {
         },
         async getMessageReport(userId, id) {
             const endpoint = '/marketing/messages_report/' + userId + '/' + id
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async getMarketingPromotes(userId) {
+            const endpoint = '/marketing/marketing_promote/' + userId
             const method = METHOD_GET
             return await call({
                 endpoint,

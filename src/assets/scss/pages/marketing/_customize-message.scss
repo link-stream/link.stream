@@ -114,6 +114,14 @@
                 .btn-next {
                     width: 100%;
                 }
+                .btn-preview {
+                    width: 100%;
+                    margin-bottom: 10px;
+                    display: none;
+                    @include media-breakpoint-down(sm) {
+                        display: block;
+                    }
+                }
             }
         }
         .color-picker-container {
@@ -149,6 +157,45 @@
                 .vc-chrome {
                     right: 0;
                 }
+            }
+        }
+        .BasicSelect {
+            .vs__dropdown-option {
+                padding: 0px 12px !important;
+            }
+            .promote-container {
+                display: flex;
+                padding: 15px 10px;
+                border-bottom: 1px solid $gray-320;
+                .image-container {
+                    width: 60px;
+                    height: 60px;
+                    img {
+                        height: 100%;
+                    }
+                }
+                .promote-text {
+                    margin: 10px 0px 0px 15px;
+                    .promote-title {
+                        font-size: px2rem(13);
+                        line-height: px2rem(18);
+                        font-weight: 600;
+                        margin-bottom: 5px;
+                    }
+                    .promote-type {
+                        font-size: px2rem(11);
+                        line-height:px2rem(14);
+                        text-transform: capitalize
+                    }
+                }
+            }
+        }
+        @include media-breakpoint-down(sm) {
+            .left-col {
+                display: none;
+            }
+            .right-col {
+                width: 100%;
             }
         }
     }

@@ -35,7 +35,7 @@
                 float: left;
             }
             .bogo {
-                background-color: #FEEBD3;
+                background-color: #feebd3;
                 color: black;
                 width: 42px;
                 height: 17px;
@@ -205,7 +205,7 @@
             .btn-download {
                 margin-right: 10px;
             }
-            .btn-icon .ico-dot-menu-h{
+            .btn-icon .ico-dot-menu-h {
                 margin-top: 20px;
                 margin-left: 6px;
             }
@@ -240,6 +240,17 @@
                     margin-top: -5px;
                 }
             }
+            .btn-download {
+                margin-left: auto;
+                max-height: 36px;
+                padding: 9px 20px;
+                min-width: 100px;
+                img {
+                    width: 18px;
+                    height: 18px;
+                    margin-top: -5px;
+                }
+            }
             @include media-breakpoint-down(sm) {
                 .d-flex {
                     display: inherit !important;
@@ -249,7 +260,6 @@
                 }
             }
         }
-        
     }
     .more-artist {
         margin-top: 48px;
@@ -266,7 +276,7 @@
             margin-bottom: 15px;
             .img-container {
                 img {
-                    width: 100%
+                    width: 100%;
                 }
             }
             .title {
@@ -367,9 +377,8 @@
                     text-align: center;
                 }
             }
-            
         }
-        .actions{
+        .actions {
             text-transform: capitalize;
             margin-top: 20px;
             .btn-buy {
@@ -413,13 +422,14 @@
                 display: flex;
                 align-items: center;
                 text-align: center;
-                &::before, &::after {
+                &::before,
+                &::after {
                     content: '';
                     flex: 1;
                     border-bottom: 1px solid black;
                 }
                 &::before {
-                    margin-right: 1rem
+                    margin-right: 1rem;
                 }
                 &::after {
                     margin-left: 1rem;
@@ -429,7 +439,7 @@
                 margin-bottom: 15px;
                 .img-container {
                     img {
-                        width: 100%
+                        width: 100%;
                     }
                 }
                 .title {
@@ -484,15 +494,16 @@
                 }
                 .btn-menu {
                     margin-left: auto;
-                    margin-top: 15px;
+                    margin-top: 8px;
                     font-size: 150%;
                     color: gray;
                     display: none;
                 }
                 // cursor: pointer;
-                &:active, &:hover {
-                    background-color: #FBFBFB;
-                    box-shadow: 0 -1px 0 0 #EDEDED, 0 1px 0 0 #EDEDED;
+                &:active,
+                &:hover {
+                    background-color: #fbfbfb;
+                    box-shadow: 0 -1px 0 0 #ededed, 0 1px 0 0 #ededed;
                     .btn-menu {
                         display: block;
                     }

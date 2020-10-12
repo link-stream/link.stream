@@ -1,5 +1,6 @@
 <template>
     <div class="Card MessageCard">
+        <LoadingMask v-if="processing" />
         <div class="item-body">
             <b-row>
                 <b-col cols="12" sm="6" class="d-flex">
@@ -40,7 +41,7 @@
                 <b-col cols="12" sm="2">
                     <div
                         class="message-status"
-                        :class="getStatusString.toLowerCase()"
+                        :class="message.status.toLowerCase()"
                     >
                         {{ message.status }}
                     </div>
@@ -75,26 +76,55 @@
                 </b-col>
             </b-row>
         </div>
-        <BasicButton
+        <!-- <BasicButton
             v-if="message.status === 'Scheduled' || message.status === 'Draft'"
             variant="icon"
             title="Edit"
             class="card-edit-btn"
             size="sm"
             @click="handleEditClick"
-        />
-        <b-dropdown v-else class="actions-menu" variant="icon" right no-caret>
+        /> -->
+        <b-dropdown
+            v-if="message.status === 'Sent' || message.status === 'Pending'"
+            class="actions-menu"
+            variant="icon"
+            right
+            no-caret
+        >
             <template v-slot:button-content>
                 <Icon icon="dot-menu-h" />
             </template>
-            <b-dropdown-item @click="handleViewReportClick">
+            <b-dropdown-item
+                v-if="message.status === 'Sent'"
+                @click="handleViewReportClick"
+            >
                 View Report
             </b-dropdown-item>
-            <b-dropdown-item @click="handleViewEmailClick">
+            <b-dropdown-item
+                v-if="message.type === 'Email'"
+                @click="handleViewEmailClick"
+            >
                 View Email
             </b-dropdown-item>
-            <b-dropdown-item>
+            <b-dropdown-item @click="duplicateMessage">
                 Duplicate
+            </b-dropdown-item>
+        </b-dropdown>
+        <b-dropdown
+            v-if="message.status === 'Draft' || message.status === 'Scheduled'"
+            class="actions-menu"
+            variant="icon"
+            right
+            no-caret
+        >
+            <template v-slot:button-content>
+                <Icon icon="dot-menu-h" />
+            </template>
+            <b-dropdown-item @click="handleEditClick">
+                Edit
+            </b-dropdown-item>
+            <b-dropdown-item @click="handleDeleteClick">
+                Delete
             </b-dropdown-item>
         </b-dropdown>
     </div>
@@ -109,6 +139,9 @@ export default {
             required: true,
         },
     },
+    data: () => ({
+        processing: false,
+    }),
     computed: {
         getStatusString() {
             if (this.message.status === 'Sent') {
@@ -148,6 +181,48 @@ export default {
                 },
             })
             window.open(routeData.href, '_blank')
+        },
+        handleDeleteClick() {
+            this.$alert.confirm({
+                title: 'Delete message?',
+                message:
+                    'This message and its data will be permanently deleted.',
+                onOk: async () => {
+                    this.processing = true
+                    const {
+                        status,
+                        message,
+                        error,
+                    } = await this.$store.dispatch('marketing/deleteMessage', {
+                        id: this.message.id,
+                    })
+                    status === 'success'
+                        ? this.$toast.success(message)
+                        : this.$toast.error(error)
+                    this.processing = false
+                },
+            })
+        },
+        async duplicateMessage() {
+            const params = {
+                ...this.message,
+                status:
+                    this.message.status === 'Sent'
+                        ? 'Pending'
+                        : this.message.status,
+            }
+            let response = await this.$store.dispatch(
+                'marketing/insertMessage',
+                params
+            )
+            const { status, message, error } = response
+            status === 'success'
+                ? this.$toast.success(message)
+                : this.$toast.error(error)
+            this.$router.push({
+                name: 'marketingMessages',
+            })
+            await this.$store.dispatch('marketing/getMessages')
         },
     },
 }

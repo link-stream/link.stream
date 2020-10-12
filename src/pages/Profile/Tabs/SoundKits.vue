@@ -24,7 +24,8 @@
         </div>
         <ShareArtModal @close="handleCloseShare" />
         <ArtPlayer
-            :playerItem="curItem"
+            :itemId="itemId"
+            :type="type"
             :isFirst="currentIndex === 0"
             :isLast="currentIndex === soundKits.length - 1"
             :status="currentStatus"
@@ -37,10 +38,8 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { api } from '~/services'
-import { appConstants } from '~/constants'
-import SoundKitItem from '@/components/Profile/SoundKitItem'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
+import SoundKitItem from '@/components/Profile/SoundKitItem'
 import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'ProfileSoundKits',
@@ -56,9 +55,11 @@ export default {
     },
     computed: {
         ...mapGetters({
-            soundKits: 'profile/soundKits',
-            soundKitsLoad: 'profile/soundKitsLoad',
             profile: 'profile/profile',
+            soundKits: 'profile/soundKits',
+            startover: 'profile/startover',
+            soundKitsLoad: 'profile/soundKitsLoad',
+            individualLoading: 'profile/individualLoading',
         }),
     },
     data: () => ({
@@ -66,15 +67,24 @@ export default {
         currentIndex: -1,
         currentStatus: false,
         curItem: {},
-        individualLoading: false,
+        itemId: '',
+        type: '',
     }),
     watch: {
+        startover() {
+            if (this.startover) {
+                this.currentIndex = 0
+                this.$store.commit('profile/SET_STARTOVER', false)
+            }
+        },
         currentIndex() {
             this.updateCurrentItem()
         },
         soundKits() {
             const prevIndex = this.currentIndex
             this.currentIndex = 0
+            this.itemId = this.soundKits[this.currentIndex].id
+            this.type = 'sound_kit'
             this.currentStatus = false
             if (prevIndex > -1) {
                 this.updateCurrentItem()
@@ -93,34 +103,8 @@ export default {
             if (this.soundKits[this.currentIndex].id === this.curItem.id) {
                 return
             }
-            this.individualLoading = true
-            const item = this.soundKitsLoad.find(
-                soundKitsLoad =>
-                    soundKitsLoad.id === this.soundKits[this.currentIndex].id
-            )
-            if (item === undefined) {
-                const response = await api.profiles.getProfileKitById(
-                    this.profile.id,
-                    this.soundKits[this.currentIndex].id
-                )
-                if (response.status !== 'success' || !response.data.length) {
-                    return {}
-                }
-                const soundKit = response.data[0]
-                this.curItem = {
-                    id: soundKit.id,
-                    coverart:
-                        soundKit.data_image || appConstants.defaultCoverArt,
-                    title: soundKit.title,
-                    producer_name: this.profile.display_name,
-                    src: soundKit.data_tagged_file,
-                    type: 'kit',
-                }
-                this.$store.dispatch('profile/addPlayerSoundKit', this.curItem)
-            } else {
-                this.curItem = { ...item }
-            }
-            this.individualLoading = false
+            this.itemId = this.soundKits[this.currentIndex].id
+            this.type = 'kit'
         },
         prevItem() {
             this.currentIndex =

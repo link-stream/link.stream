@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13px" height="16px" viewBox="0 0 13 16" version="1.1" fill="#dddddd">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>icon-download</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Final" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Profile---Beats---Centered" transform="translate(-100.000000, -799.000000)">
+            <g id="Beats" transform="translate(32.000000, 511.000000)">
+                <g id="Beat">
+                    <g id="icon-download" transform="translate(65.000000, 286.000000)">
+                        <g id="Icon" transform="translate(2.352941, 1.176471)" fill="#dddddd">
+                            <path d="M1.45955882,14.8235294 L12.8345588,14.8235294 C13.2832902,14.8235294 13.6470588,15.2712447 13.6470588,15.8235294 C13.6470588,16.3758142 13.2832902,16.8235294 12.8345588,16.8235294 L1.45955882,16.8235294 C1.01082746,16.8235294 0.647058824,16.3758142 0.647058824,15.8235294 C0.647058824,15.2712447 1.01082746,14.8235294 1.45955882,14.8235294 Z M7.95955882,10.2340557 L10.5944963,7.50395046 L11.7433713,8.69468731 L7.14705882,13.4584768 L2.55074632,8.69468731 L3.69962132,7.50395046 L6.33455882,10.2340557 L6.33455882,0.823529412 L7.95955882,0.823529412 L7.95955882,10.2340557 Z" id="Icon-Shape"/>
+                        </g>
+                        <rect id="ViewBox" fill-rule="nonzero" x="0" y="0" width="20" height="20"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

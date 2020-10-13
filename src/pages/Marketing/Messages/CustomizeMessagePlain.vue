@@ -113,6 +113,13 @@
                         </b-col>
                     </b-form-row>
                     <div class="actions">
+                        <basic-button
+                            class="btn-preview"
+                            variant="outline-black"
+                            @click="handlePreviewClick"
+                        >
+                            Preview
+                        </basic-button>
                         <basic-button class="btn-next" @click="handleNextClick">
                             Next
                         </basic-button>
@@ -120,11 +127,13 @@
                 </div>
             </div>
         </div>
+        <PreviewEmailModal />
     </b-container>
 </template>
 <script>
 import { Chrome } from 'vue-color'
 import EmailPreviewPlain from '@/components/Marketing/Messages/EmailPreviewPlain'
+import PreviewEmailModal from '@/components/Modal/Marketing/PreviewEmailModal'
 import Editor from '@/components/Form/Editor/Editor.vue'
 import { mapGetters } from 'vuex'
 import { appConstants, emailTemplates } from '~/constants'
@@ -134,6 +143,7 @@ export default {
         'color-picker': Chrome,
         EmailPreviewPlain,
         Editor,
+        PreviewEmailModal,
     },
     data: () => ({
         isButtonColorPicker: false,
@@ -246,6 +256,14 @@ export default {
                 `${appConstants.baseAppUrl}${appConstants.emailFooterLogo}`
             )
             return mailContent
+        },
+        async handlePreviewClick() {
+            const params = {
+                ...this.smsData,
+                ...this.form,
+            }
+            await this.$store.dispatch('marketing/setSMSData', params)
+            this.$bus.$emit('modal.previewEmail.open')
         },
     },
 }

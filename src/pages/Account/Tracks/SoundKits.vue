@@ -4,18 +4,18 @@
             <div class="left-col">
                 <h1 class="page-title">Your Sound Kits</h1>
                 <div class="page-preview">
-                    <span class="text-light">link.stream/</span>
-                    <span>{{ user.user_name }}/kits</span>
-                    <basic-button
-                        variant="outline-light"
-                        size="xs"
+                    <span class="text-light">{{ baseUrl }}/</span>
+                    <span>{{ user.url }}/kits</span>
+                    <b-link
+                        class="btn btn-outline-light btn-xs rounded-pill"
                         :to="{
-                            name: 'userSoundKits',
-                            params: { username: user.user_name },
+                            name: 'profileSoundKits',
+                            params: { url: user.url },
                         }"
+                        target="_blank"
                     >
                         Preview
-                    </basic-button>
+                    </b-link>
                 </div>
             </div>
             <div class="right-col">
@@ -69,6 +69,7 @@ export default {
         return {
             loading: false,
             sortableList: [],
+            baseUrl: ''
         }
     },
     computed: {
@@ -86,6 +87,8 @@ export default {
         },
     },
     async created() {
+        const getUrl = window.location
+        this.baseUrl = getUrl.host
         this.loading = true
         await this.$store.dispatch('me/loadSoundKits')
         this.loading = false

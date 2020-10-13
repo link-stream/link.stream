@@ -11,6 +11,8 @@
                             :src="kit.src"
                             :type="kit.type"
                             :id="kit.id"
+                            :fromprofile="true" 
+                            :user_id="profile.id"
                             class="center-img d-sm-none"
                         />
                         <!-- <img src="@/assets/img/ico/play-light.svg" class="center-img d-sm-none" /> -->
@@ -22,6 +24,8 @@
                             :src="kit.src"
                             :type="kit.type"
                             :id="kit.id"
+                            :fromprofile="true" 
+                            :user_id="profile.id"
                             class="d-none d-sm-block"
                         />
                         <div class="title-desc">
@@ -103,7 +107,7 @@
                     <div class="float-left">{{ this.samples.length }} SAMPLES</div>
                 </div>
                 <div v-for="(sample, index) in samples" :key="index" class="beat-info">
-                    <ListAudioPlayer :src="sample.src" :type="sample.type" :id="sample.id" />
+                    <ListAudioPlayer :src="sample.src" :type="sample.type" :id="sample.id" :fromprofile="true" :user_id="profile.id"/>
                     <div class="beat-title">{{ sample.title }}</div>
                 </div>
             </div>

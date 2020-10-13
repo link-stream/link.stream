@@ -7,18 +7,18 @@
                     Add, remove, edit &amp; order links anyway you'd like.
                 </h4>
                 <div class="page-preview">
-                    <span class="text-light">link.stream/</span>
-                    <span>{{ user.user_name }}/links</span>
-                    <basic-button
-                        variant="outline-light"
-                        size="xs"
+                    <span class="text-light">{{ baseUrl }}/</span>
+                    <span>{{ user.url }}/links</span>
+                    <b-link
+                        class="btn btn-outline-light btn-xs rounded-pill"
                         :to="{
-                            name: 'userLinks',
-                            params: { username: user.user_name },
+                            name: 'profileLinks',
+                            params: { url: user.url },
                         }"
+                        target="_blank"
                     >
                         Preview
-                    </basic-button>
+                    </b-link>
                 </div>
             </div>
             <div class="right-col">
@@ -78,6 +78,7 @@ export default {
         return {
             loading: false,
             sortableList: [],
+            baseUrl: ''
         }
     },
     computed: {
@@ -95,6 +96,8 @@ export default {
         },
     },
     async created() {
+        const getUrl = window.location
+        this.baseUrl = getUrl.host
         this.loading = true
         await this.$store.dispatch('me/loadLinks')
         this.loading = false

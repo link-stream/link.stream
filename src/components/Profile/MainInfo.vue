@@ -65,19 +65,19 @@
                         <div class="section-subtitle">
                             <span class="mr-3">
                                 <span class="font-weight-bold">
-                                    {{ 490 | thousandNumber }}
+                                    {{ profile.followers | thousandNumber }}
                                 </span>
                                 <span class="ml-1">Followers</span>
                             </span>
                             <span class="mr-3">
                                 <span class="font-weight-bold">
-                                    {{ 23900 | thousandNumber }}
+                                    {{ profile.plays | thousandNumber }}
                                 </span>
                                 <span class="ml-1">Plays</span>
                             </span>
                             <span>
                                 <span class="font-weight-bold">
-                                    {{ 213 | thousandNumber }}
+                                    {{ profile.beats | thousandNumber }}
                                 </span>
                                 <span class="ml-1">Beats</span>
                             </span>

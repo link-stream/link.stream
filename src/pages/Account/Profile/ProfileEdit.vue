@@ -116,7 +116,7 @@
                                 class="mb-4 error-l-100"
                             >
                                 <label class="small text-muted">
-                                    link.stream/
+                                    {{ baseUrl }}/
                                 </label>
                                 <template v-if="form.editableUrl">
                                     <b-form-input
@@ -271,7 +271,7 @@ export default {
         DokaModal,
         DokaOverlay,
     },
-    data() {
+    data() {        
         const user = this.$store.getters['me/user']
 
         return {
@@ -338,6 +338,7 @@ export default {
             validating: {
                 url: false,
             },
+            baseUrl: '',
         }
     },
     computed: {
@@ -352,6 +353,10 @@ export default {
                 }
             })
         },
+    },
+    created() {
+        const getUrl = window.location
+        this.baseUrl = getUrl.host
     },
     mounted() {
         // URL availability validations

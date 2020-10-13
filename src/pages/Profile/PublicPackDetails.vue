@@ -96,7 +96,7 @@
                     <div class="float-right">{{ Math.ceil(sumDurations / 60) }} mins</div>
                 </div>
                 <div v-for="(beat, index) in beats" :key="index" class="beat-info">
-                    <ListAudioPlayer :src="beat.src" :type="beat.type" :id="beat.id" />
+                    <ListAudioPlayer :src="beat.src" :type="beat.type" :id="beat.id" :fromprofile="true" :user_id="profile.id"/>
                     <div class="beat-title">{{ beat.title }}</div>
                     <b-button
                         class="btn-menu-xs"

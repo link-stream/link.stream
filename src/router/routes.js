@@ -134,10 +134,11 @@ const routes = [
         meta: { requiresAuth: true, layout: 'account' },
     },
     {
-        path: '/app/profile/view',
+        path: '/:url',
         name: 'accountProfileView',
-        component: NotFound,
-        meta: { layout: 'error' },
+        component: PublicProfile,
+        props: true,
+        meta: { layout: 'profile' },
     },
     {
         path: '/app/videos/manage',

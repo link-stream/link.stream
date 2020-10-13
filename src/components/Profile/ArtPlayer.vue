@@ -298,7 +298,7 @@ export default {
         handleLoaded() {
             if (this.audioObj.readyState >= 2) {
                 this.loaded = true
-                this.durationSeconds = parseInt(this.audioObj.duration)
+                this.durationSeconds = parseFloat(this.audioObj.duration)
                 this.currentSeconds = 0
             } else {
                 this.$toast.error('Failed to fetch audio.')

@@ -38,6 +38,13 @@ export default {
         id: {
             type: String,
         },
+        fromprofile: {
+            type: Boolean,
+            default: false,
+        },
+        user_id: {
+            type: String,
+        }
     },
     data() {
         return {
@@ -102,11 +109,12 @@ export default {
                     .catch(e => {
                         this.$toast.error(e.message)
                     })
-                if (!this.pause) {
+                if (!this.pause && this.fromprofile) {
                     const params = {
                         id: this.id,
                         type: this.type,
                         action: 'play',
+                        user_id: this.user_id,
                     }
                     await api.profiles.insertAction(params)
                 }

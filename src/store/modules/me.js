@@ -337,7 +337,7 @@ const actions = {
         })
     },
 
-    async createSoundKit({ commit }, { params }) {
+    async createSoundKit({ commit }, { params }) {        
         const response = await api.audios.createAudio(params)
         const { status, data } = response
         if (status === 'success') {
@@ -347,7 +347,6 @@ const actions = {
     },
 
     async updateSoundKit({ commit }, { id, params }) {
-        console.log('updateSoundKit params', params)
         const response = await api.audios.updateAudio(id, params)
         const { status, data } = response
         status === 'success' &&

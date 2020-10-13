@@ -34,7 +34,7 @@
                 <div class="header">
                     <div class="left-header">
                         <div class="title-container">
-                            <MiniAudioPlayer :src="form.src" :type="form.type" :id="form.id" />
+                            <MiniAudioPlayer :src="form.src" :type="form.type" :id="form.id" :fromprofile="true" :user_id="profile.id"/>
                             <div class="title">{{ form.title }}</div>
                         </div>
                         <div class="desc">Ambient beat by {{ profile.display_name }}</div>

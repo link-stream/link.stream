@@ -4,16 +4,16 @@
             <div class="left-col">
                 <h1 class="page-title">Your beats</h1>
                 <div class="page-preview">
-                    <span class="text-light">link.stream/</span>
-                    <span>{{ user.user_name }}/beats</span>
-                    <basic-button
-                        variant="outline-light"
-                        size="xs"
+                    <span class="text-light">{{ baseUrl }}/</span>
+                    <span>{{ user.url }}/beats</span>
+                    <b-link
+                        class="btn btn-outline-light btn-xs rounded-pill"
                         :to="{
-                            name: 'userBeats',
-                            params: { username: user.user_name },
-                        }"
-                    >Preview</basic-button>
+                            name: 'profileBeats',
+                            params: { url: user.url },
+                        }" 
+                        target="_blank"                       
+                    >Preview</b-link>
                 </div>
             </div>
             <div class="right-col">
@@ -29,7 +29,7 @@
                     variant="link"
                     :to="{
                         name: 'accountBeatAdd',
-                    }"
+                    }" 
                 >Add a beat</basic-button>
             </div>
             <Container v-else drag-handle-selector=".card-drag-icon" @drop="handleReorder">
@@ -57,6 +57,7 @@ export default {
         return {
             loading: false,
             sortableList: [],
+            baseUrl: ''
         }
     },
     computed: {
@@ -74,6 +75,8 @@ export default {
         },
     },
     async created() {
+        const getUrl = window.location
+        this.baseUrl = getUrl.host
         this.loading = true
         await this.$store.dispatch('me/loadBeats')
         this.loading = false

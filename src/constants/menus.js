@@ -17,7 +17,7 @@ export const menus = [
             },
             {
                 label: 'View Profile',
-                to: '/app/profile/view',
+                to: '/user_url',
             },
         ],
     },

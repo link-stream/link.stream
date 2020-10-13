@@ -100,6 +100,13 @@
                         </b-col>
                     </b-form-row>
                     <div class="actions">
+                        <basic-button
+                            class="btn-preview"
+                            variant="outline-black"
+                            @click="handlePreviewClick"
+                        >
+                            Preview
+                        </basic-button>
                         <basic-button class="btn-next" @click="handleNextClick">
                             Next
                         </basic-button>
@@ -108,12 +115,14 @@
             </div>
         </div>
         <SendTestModal />
+        <PreviewEmailModal />
     </b-container>
 </template>
 <script>
 import { Chrome } from 'vue-color'
 import SendTestModal from '@/components/Modal/Marketing/SendTestModal'
 import EmailPreviewVideo from '@/components/Marketing/Messages/EmailPreviewVideo'
+import PreviewEmailModal from '@/components/Modal/Marketing/PreviewEmailModal'
 import { mapGetters } from 'vuex'
 import { appConstants, emailTemplates } from '~/constants'
 import { getYtVideoThumbUrl } from '~/utils'
@@ -123,6 +132,7 @@ export default {
         'color-picker': Chrome,
         SendTestModal,
         EmailPreviewVideo,
+        PreviewEmailModal,
     },
     data: () => ({
         isBackColorPicker: false,
@@ -202,8 +212,14 @@ export default {
             let logoUrl = `${appConstants.baseAppUrl}${appConstants.emailDefaultLogo}`
             mailContent = mailContent.replace('EMAIL_LOGO_URL', logoUrl)
 
-            mailContent = mailContent.replaceAll('EMAIL_ARTWORK_URL', this.thumbUrl)
-            mailContent = mailContent.replaceAll('EMAIL_VIDEO_URL', this.form.artwork)
+            mailContent = mailContent.replaceAll(
+                'EMAIL_ARTWORK_URL',
+                this.thumbUrl
+            )
+            mailContent = mailContent.replaceAll(
+                'EMAIL_VIDEO_URL',
+                this.form.artwork
+            )
 
             mailContent = mailContent.replace(
                 'EMAIL_CUSTOM_HEADLINE',
@@ -222,6 +238,14 @@ export default {
                 `${appConstants.baseAppUrl}${appConstants.emailFooterLogo}`
             )
             return mailContent
+        },
+        async handlePreviewClick() {
+            const params = {
+                ...this.smsData,
+                ...this.form,
+            }
+            await this.$store.dispatch('marketing/setSMSData', params)
+            this.$bus.$emit('modal.previewEmail.open')
         },
     },
 }

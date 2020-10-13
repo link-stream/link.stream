@@ -69,7 +69,7 @@
                     <div class="card-item">
                         <font-awesome-icon
                             :icon="['fas', 'check-circle']"
-                            class="item-status"
+                            class="item-status d-none d-md-block"
                             :class="{ completed: form.send_to }"
                         />
                         <div class="left-col">
@@ -93,7 +93,7 @@
                     <div class="card-item">
                         <font-awesome-icon
                             :icon="['fas', 'check-circle']"
-                            class="item-status"
+                            class="item-status d-none d-md-block"
                             :class="{ completed: form.reply_to }"
                         />
                         <div class="left-col">
@@ -119,7 +119,7 @@
                     <div class="card-item">
                         <font-awesome-icon
                             :icon="['fas', 'check-circle']"
-                            class="item-status"
+                            class="item-status d-none d-md-block"
                             :class="{ completed: form.subject }"
                         />
                         <div class="left-col">
@@ -150,7 +150,7 @@
                         <div class="d-flex">
                             <font-awesome-icon
                                 :icon="['fas', 'check-circle']"
-                                class="item-status"
+                                class="item-status d-none d-md-block"
                                 :class="{ completed: form.content }"
                             />
                             <div class="left-col">
@@ -160,7 +160,9 @@
                                 <small class="item-subtitle placeholder-text">
                                     Design and manage the content of your email
                                 </small>
-                                <div class="template-container d-none d-md-block">
+                                <div
+                                    class="template-container d-none d-md-block"
+                                >
                                     <div class="image-container">
                                         <img :src="templateImageUrl" />
                                         <IconButton

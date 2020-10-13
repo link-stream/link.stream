@@ -317,8 +317,7 @@ export default {
             } else {
                 let buyItem = this.soundKits.find(
                     soundKits => soundKits.id === this.playerItem.id
-                )
-                this.$store.dispatch('profile/addCartItem', {
+                )                
                 var listItems = []
                 listItems =
                     Cookies.getJSON(appConstants.cookies.cartItem.name) ===
@@ -331,7 +330,7 @@ export default {
                 Cookies.set(appConstants.cookies.cartItem.name, listItems)
                 /*this.$store.dispatch('profile/addCartItem', {
                     ...buyItem,
-                })
+                })*/
                 this.$bus.$emit('modal.addedCart.open')
             }
         },

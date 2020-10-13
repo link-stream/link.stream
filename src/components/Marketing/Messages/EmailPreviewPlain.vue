@@ -4,7 +4,7 @@
         :style="viewType === 'desktop' ? emailBackStyle : ''"
     >
         <div class="message-content" :class="viewType">
-            <b-row>
+            <b-row class="d-none d-sm-block">
                 <div class="select-view-type">
                     <a
                         href="#"
@@ -50,8 +50,6 @@
                                 <p>
                                     You are receiving this email because you
                                     opted in via our website.
-                                </p>
-                                <p>
                                     You can
                                     <a href="#"> update your preferences </a>
                                     for this artist or

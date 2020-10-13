@@ -6,7 +6,7 @@
             </span>
             Recipients
         </h5>
-        <b-row>
+        <b-form-row>
             <b-col cols="6" md="3">
                 <div class="recipient-container">
                     <div class="recipient-status">
@@ -57,7 +57,7 @@
                     </div>
                 </div>
             </b-col>
-        </b-row>
+        </b-form-row>
         <div class="add-description">
             <div class="left-col">
                 <div class="add-desc-item">

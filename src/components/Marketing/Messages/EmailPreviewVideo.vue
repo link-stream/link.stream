@@ -35,8 +35,6 @@
                                 <p>
                                     You are receiving this email because you
                                     opted in via our website.
-                                </p>
-                                <p>
                                     You can
                                     <a href="#"> update your preferences </a>
                                     for this artist or

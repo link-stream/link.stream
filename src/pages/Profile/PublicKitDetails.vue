@@ -7,7 +7,15 @@
                     <div class="img-back d-sm-none"></div>
                     <div class="img-container">
                         <img :src="kit.coverart" />
-                        <img src="@/assets/img/ico/play-light.svg" class="center-img d-sm-none" />
+                        <MiniAudioPlayer
+                            :src="kit.src"
+                            :type="kit.type"
+                            :id="kit.id"
+                            :fromprofile="true" 
+                            :user_id="profile.id"
+                            class="center-img d-sm-none"
+                        />
+                        <!-- <img src="@/assets/img/ico/play-light.svg" class="center-img d-sm-none" /> -->
                     </div>
                 </div>
                 <div class="right-col">
@@ -16,6 +24,8 @@
                             :src="kit.src"
                             :type="kit.type"
                             :id="kit.id"
+                            :fromprofile="true" 
+                            :user_id="profile.id"
                             class="d-none d-sm-block"
                         />
                         <div class="title-desc">
@@ -24,9 +34,17 @@
                         </div>
                     </div>
                     <div class="actions d-sm-none">
-                        <basic-button class="btn-buy" @click="handleBuyClick()">
+                        <basic-button
+                            v-if="kit.price > 0"
+                            class="btn-buy"
+                            @click="handleBuyClick()"
+                        >
+                            <img src="@/assets/img/ico/basket.svg" />
                             {{ kit.price | currencyFormat }} - Buy
-                            Kit
+                        </basic-button>
+                        <basic-button v-else class="btn-buy" @click="handleDownloadClick()">
+                            <img src="@/assets/img/ico/download-wh.svg" />
+                            Download
                         </basic-button>
                     </div>
                     <div class="desc" v-if="kit.description && !readMore">
@@ -58,9 +76,17 @@
                         >Less</a>
                     </div>
                     <div class="actions d-none d-sm-block">
-                        <basic-button class="btn-buy" @click="handleBuyClick()">
+                        <basic-button
+                            v-if="kit.price > 0"
+                            class="btn-buy"
+                            @click="handleBuyClick()"
+                        >
+                            <img src="@/assets/img/ico/basket.svg" />
                             {{ kit.price | currencyFormat }} - Buy
-                            Kit
+                        </basic-button>
+                        <basic-button v-else class="btn-buy" @click="handleDownloadClick()">
+                            <img src="@/assets/img/ico/download-wh.svg" />
+                            Download
                         </basic-button>
                         <basic-button
                             variant="outline-black"
@@ -81,7 +107,7 @@
                     <div class="float-left">{{ this.samples.length }} SAMPLES</div>
                 </div>
                 <div v-for="(sample, index) in samples" :key="index" class="beat-info">
-                    <ListAudioPlayer :src="sample.src" :type="sample.type" :id="sample.id" />
+                    <ListAudioPlayer :src="sample.src" :type="sample.type" :id="sample.id" :fromprofile="true" :user_id="profile.id"/>
                     <div class="beat-title">{{ sample.title }}</div>
                 </div>
             </div>
@@ -198,6 +224,7 @@ export default {
             })
             this.$bus.$emit('modal.addedCart.open')
         },
+        handleDownloadClick() {},
         handleShareClick() {
             this.kit.type = 'kit'
             this.$bus.$emit('modal.share.open', this.kit)

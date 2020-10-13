@@ -1,26 +1,20 @@
 <template>
     <div class="video-item">
         <youtube
-            class="video-wrapper"
-            :video-id="ytVidId"
-            @playing="playing"
-            @paused="pause = true"
-            @ended="pause = false"
+            class = "video-wrapper"
+            :video-id = "ytVidId"
+            @playing = "playing"
+            @paused = "pause = true"
+            @ended = "pause = false"
         ></youtube>
         <div class="video-desc">
             <div class="title">{{ videoItem.title }}</div>
-            <div class="cnt-view">
-                {{ videoItem.cnt_view | thousandNumber }}
-                Views
-            </div>
         </div>
         <b-dropdown class="actions-menu" variant="icon" right no-caret>
             <template v-slot:button-content>
                 <Icon icon="dot-menu-v-s" />
             </template>
-            <b-dropdown-item>Go to Video Page</b-dropdown-item>
             <b-dropdown-item :href="videoItem.url" target="_blank">View on YouTube</b-dropdown-item>
-            <b-dropdown-item v-show="false">Save</b-dropdown-item>
             <b-dropdown-item @click="handleShareClick">Share</b-dropdown-item>
         </b-dropdown>
         <ShareArtModal @close="handleCloseShare" />
@@ -64,12 +58,13 @@ export default {
     methods: {
         async playing() {
             if (!this.pause) {
+                this.pause = true
                 const params = {
-                    id: this.ytVidId,
+                    id: this.videoItem.id,
                     type: 'video',
                     action: 'play',
                 }
-                await api.profiles.insertAction(params)
+                await api.profiles.insertAction(params)                
             }
         },
         handleShareClick() {

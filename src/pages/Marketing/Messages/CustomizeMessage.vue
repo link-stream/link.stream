@@ -281,6 +281,7 @@
         </div>
         <SelectMediaModal @select="setMedia" />
         <SendTestModal />
+        <PreviewEmailModal />
     </b-container>
 </template>
 <script>
@@ -291,6 +292,7 @@ import EmailPreviewRelease from '@/components/Marketing/Messages/EmailPreviewRel
 import { mapGetters } from 'vuex'
 import { appConstants, emailTemplates } from '~/constants'
 import VueSelect from 'vue-select'
+import PreviewEmailModal from '@/components/Modal/Marketing/PreviewEmailModal'
 export default {
     name: 'CustomizeMessage',
     components: {
@@ -299,6 +301,7 @@ export default {
         SendTestModal,
         EmailPreviewRelease,
         VueSelect,
+        PreviewEmailModal,
     },
     data: () => ({
         promote: null,
@@ -506,7 +509,14 @@ export default {
             )
             return mailContent
         },
-        handlePreviewClick() {}
+        async handlePreviewClick() {
+            const params = {
+                ...this.smsData,
+                ...this.form,
+            }
+            await this.$store.dispatch('marketing/setSMSData', params)
+            this.$bus.$emit('modal.previewEmail.open')
+        },
     },
 }
 </script>

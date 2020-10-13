@@ -30,7 +30,7 @@
         height: 30px;
     }
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(xs) {
         &.is-playing {
             .player-play-btn:before {
                 background-image: url(~@/assets/img/ico/pause-lg.svg);

@@ -154,37 +154,58 @@
                 margin-left: auto;
                 margin-right: auto;
                 padding: 32px 15px 30px;
-                .message-frame {
-                    padding: 15px 5px;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    background-size: cover;
-                    .message-container {
-                        .message-header {
-                            padding: 10px 15px;
-                            .message-logo {
-                                height: 35px;
-                                max-height: 35px;
-                            }
-                            .new-release {
-                                font-size: px2rem(11);
-                                margin-top: 16px;
-                            }
+            }
+            .message-frame {
+                padding: 15px 5px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                .message-container {
+                    .message-header {
+                        padding: 10px 15px;
+                        .message-logo {
+                            height: 35px;
+                            max-height: 35px;
                         }
-                        .message-body {
-                            padding: 0 15px 16px;
-                            .artwork-container {
-                                min-height: 200px;
-                            }
-                            .message-title {
-                                line-height: px2rem(26);
-                                margin-bottom: 5px;
-                            }
-                        }
-                        .message-footer {
-                            display: none;
+                        .new-release {
+                            font-size: px2rem(11);
+                            margin-top: 16px;
                         }
                     }
+                    .message-body {
+                        padding: 0 15px 16px;
+                        .artwork-container {
+                            min-height: 200px;
+                        }
+                        .message-title {
+                            line-height: px2rem(26);
+                            margin-bottom: 5px;
+                        }
+                    }
+                    .message-footer {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+.PreviewEmailModal {
+    .modal-dialog {
+        max-width: 100% !important;
+        .modal-content {
+            padding-bottom: 0;
+            .modal-body {
+                padding: 0;
+            }
+        }
+    }
+    .email-preview-release {
+        .message-content {
+            width: 100%;
+            .message-container {
+                &.video {
+                    margin-top: 0;
                 }
             }
         }

@@ -1,10 +1,7 @@
 <template>
     <b-container fluid class="art-player" v-if="playerItem">
         <div class="player-progress" @click="seek">
-            <div
-                class="current-progress"
-                :style="`width: ${percentComplete}%`"
-            ></div>
+            <div class="current-progress" :style="`width: ${percentComplete}%`"></div>
         </div>
         <div class="player-container">
             <div class="img-thumb">
@@ -13,7 +10,9 @@
             <div class="control-container">
                 <div class="art-info">
                     <div class="title">
-                        {{ loading ? 'Loading...' : playerItem.title }}
+                        {{
+                        loading ? 'Loading...' : playerItem.title
+                        }}
                     </div>
                     <div class="art-user">{{ playerItem.producer_name }}</div>
                 </div>
@@ -28,7 +27,7 @@
                         class="btn-pause"
                         :icon="playing ? 'player-pause' : 'player-play'"
                         @click="playing = !playing"
-                        :disabled="playerItem.type === 'pack' || !loaded"
+                        :disabled="playerItem.type === 'pack' || loading"
                     />
                     <IconButton
                         class="btn-next"
@@ -77,24 +76,20 @@
                                 target="_blank"
                             >
                                 {{
-                                    playerItem.type === 'beat'
-                                        ? 'Go to Beat'
-                                        : 'Go to Sound Kit'
+                                playerItem.type === 'beat'
+                                ? 'Go to Beat'
+                                : 'Go to Sound Kit'
                                 }}
                             </b-dropdown-item>
-                            <b-dropdown-item @click="handleBuyClick"
-                                >Buy</b-dropdown-item
-                            >
-                            <b-dropdown-item @click="handleShareClick"
-                                >Share</b-dropdown-item
-                            >
+                            <b-dropdown-item @click="handleBuyClick">Buy</b-dropdown-item>
+                            <b-dropdown-item @click="handleShareClick">Share</b-dropdown-item>
                         </div>
                     </b-dropdown>
                     <IconButton
                         class="btn-pause d-md-none"
                         :icon="playing ? 'player-pause' : 'player-play'"
                         @click="playing = !playing"
-                        :disabled="playerItem.type === 'pack' || !loaded"
+                        :disabled="playerItem.type === 'pack' || loading"
                     />
                 </div>
             </div>
@@ -109,8 +104,11 @@ import { appConstants } from '~/constants'
 export default {
     name: 'ArtPlayer',
     props: {
-        playerItem: {
-            type: Object,
+        itemId: {
+            type: String,
+        },
+        type: {
+            type: String,
         },
         isFirst: {
             type: Boolean,
@@ -128,16 +126,22 @@ export default {
     computed: {
         ...mapGetters({
             beats: 'profile/beats',
+            profile: 'profile/profile',
             soundKits: 'profile/soundKits',
+            beatsLoad: 'profile/beatsLoad',
+            soundKitsLoad: 'profile/soundKitsLoad',
         }),
         percentComplete() {
-            return parseInt((this.currentSeconds / this.durationSeconds) * 100)
+            return isNaN((this.currentSeconds / this.durationSeconds) * 100)
+                ? 0
+                : (this.currentSeconds / this.durationSeconds) * 100
         },
         muted() {
             return this.volume / 100 === 0
         },
     },
     data: () => ({
+        playerItem: null,
         audioObj: null,
         currentSeconds: 0,
         durationSeconds: 0,
@@ -149,26 +153,39 @@ export default {
         pause: false,
     }),
     watch: {
-        playerItem(value) {
+        async itemId() {
+            this.currentSeconds = 0
+            this.durationSeconds = 0
             this.playing = false
             this.pause = false
-            if (this.audioObj) {
-                this.audioObj.src = value.src
-                this.audioObj.load()
-            } else {
-                this.load(value.src)
+            const item =
+                this.type === 'beat'
+                    ? this.beats.find(beats => beats.id === this.itemId)
+                    : this.soundKits.find(
+                          soundKits => soundKits.id === this.itemId
+                      )
+            this.playerItem = {
+                id: item.id,
+                coverart: item.data_image || appConstants.defaultCoverArt,
+                title: item.title,
+                producer_name: this.profile.display_name,
+                src: '',
+                type: this.type,
             }
         },
         async playing(value) {
             if (value) {
+                if (this.playerItem.src === '') {
+                    await this.load()
+                }
                 this.audioObj.play()
                 if (!this.pause) {
                     const params = {
-                        audio_id: this.playerItem.id,
-                        audio_type: this.playerItem.type,
+                        id: this.playerItem.id,
+                        type: this.playerItem.type,
                         action: 'play',
                     }
-                    await api.profiles.insertAudioAction(params)
+                    await api.profiles.insertAction(params)
                 }
             } else {
                 this.pause = true
@@ -187,7 +204,57 @@ export default {
         this.audioObj && this.audioObj.pause()
     },
     methods: {
-        load(src) {
+        async load() {
+            this.$store.commit('profile/SET_INDIVIDUAL_LOADING', true)
+            this.pause = false
+            const item =
+                this.type === 'beat'
+                    ? this.beatsLoad.find(
+                          beatsLoad => beatsLoad.id === this.playerItem.id
+                      )
+                    : this.soundKitsLoad.find(
+                          soundKitsLoad =>
+                              soundKitsLoad.id === this.playerItem.id
+                      )
+            if (item === undefined) {
+                const response =
+                    this.type === 'beat'
+                        ? await api.profiles.getProfileBeatPackById(
+                              this.profile.id,
+                              this.itemId,
+                              this.type
+                          )
+                        : await api.profiles.getProfileKitById(
+                              this.profile.id,
+                              this.itemId
+                          )
+                if (response.status !== 'success' || !response.data.length) {
+                    return {}
+                }
+                const audio = response.data[0]
+                if (audio.type === 'beat') {
+                    if (audio.data_tagged_file) {
+                        this.playerItem.src = audio.data_tagged_file
+                    } else if (audio.data_untagged_mp3) {
+                        this.playerItem.src = audio.data_untagged_mp3
+                    } else if (audio.data_untagged_wav) {
+                        this.playerItem.src = audio.data_untagged_wav
+                    }
+                    this.$store.dispatch(
+                        'profile/addPlayerBeat',
+                        this.playerItem
+                    )
+                } else {
+                    this.playerItem.src = audio.data_tagged_file
+                    this.$store.dispatch(
+                        'profile/addPlayerSoundKit',
+                        this.playerItem
+                    )
+                }
+            } else {
+                this.playerItem.src = item.src
+            }
+
             this.audioObj = new Audio()
             this.audioObj.addEventListener('timeupdate', this.handleUpdate)
             this.audioObj.addEventListener('loadeddata', this.handleLoaded)
@@ -195,15 +262,18 @@ export default {
             this.audioObj.addEventListener('pause', this.handlePause)
             this.audioObj.addEventListener('error', this.handleError)
             this.audioObj.addEventListener('ended', this.handleEnded)
-            this.audioObj.src = src
+            this.audioObj.src = this.playerItem.src
             this.audioObj.load()
+            this.$store.commit('profile/SET_INDIVIDUAL_LOADING', false)
         },
         goPrev() {
             this.playing = false
+            this.pause = false
             this.$emit('prev')
         },
         goNext() {
             this.playing = false
+            this.pause = false
             this.$emit('next')
         },
         handlePlaying() {
@@ -212,8 +282,15 @@ export default {
         handlePause() {
             this.playing = false
         },
-        handleEnded() {
-            this.playing = false
+        async handleEnded() {
+            if (!this.isLast) {
+                await this.goNext()
+                this.playing = true
+            } else {
+                this.playing = false
+                this.pause = false
+                this.$store.commit('profile/SET_STARTOVER', true)
+            }
         },
         handleError() {
             this.audioObj = null
@@ -222,7 +299,7 @@ export default {
         handleLoaded() {
             if (this.audioObj.readyState >= 2) {
                 this.loaded = true
-                this.durationSeconds = parseInt(this.audioObj.duration)
+                this.durationSeconds = parseFloat(this.audioObj.duration)
                 this.currentSeconds = 0
             } else {
                 this.$toast.error('Failed to fetch audio.')
@@ -241,6 +318,7 @@ export default {
                 let buyItem = this.soundKits.find(
                     soundKits => soundKits.id === this.playerItem.id
                 )
+                this.$store.dispatch('profile/addCartItem', {
                 var listItems = []
                 listItems =
                     Cookies.getJSON(appConstants.cookies.cartItem.name) ===
@@ -253,7 +331,7 @@ export default {
                 Cookies.set(appConstants.cookies.cartItem.name, listItems)
                 /*this.$store.dispatch('profile/addCartItem', {
                     ...buyItem,
-                })*/
+                })
                 this.$bus.$emit('modal.addedCart.open')
             }
         },
@@ -280,12 +358,14 @@ export default {
             }
         },
         seek(e) {
-            if (!this.playing || e.target.tagName === 'SPAN') {
-                return
+            if (this.audioObj) {
+                if (!this.playing || e.target.tagName === 'SPAN') {
+                    return
+                }
+                const el = e.target.getBoundingClientRect()
+                const seekPos = (e.clientX - el.left) / el.width
+                this.audioObj.currentTime = this.audioObj.duration * seekPos
             }
-            const el = e.target.getBoundingClientRect()
-            const seekPos = (e.clientX - el.left) / el.width
-            this.audioObj.currentTime = this.audioObj.duration * seekPos
         },
     },
 }

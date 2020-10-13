@@ -570,7 +570,6 @@ export default {
                       params,
                   })
                 : await this.$store.dispatch('me/createSoundKit', { params })
-
             if (status === 'success') {
                 if (this.isEditMode) {
                     this.$router.replace(

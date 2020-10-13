@@ -66,12 +66,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { appConstants } from '~/constants'
 export default {
     name: 'ShareArtModal',
     data: () => ({
         open: false,
         curItem: null,
+        baseUrl: '',
     }),
     computed: {
         ...mapGetters({
@@ -101,11 +101,13 @@ export default {
                 ...this.curItem,
                 type: typeString,
                 user_name: this.profile.display_name,
-                shareUrl: `${appConstants.baseAppUrl}/${this.profile.url}/${subTypeURL}/${this.curItem.id}`,
+                shareUrl: `${this.baseUrl}/${this.profile.url}/${subTypeURL}/${this.curItem.id}`,
             }
         },
     },
     created() {
+        const getUrl = window.location
+        this.baseUrl = getUrl.protocol + '//' + getUrl.host
         this.$bus.$on('modal.share.open', payload => {
             this.curItem = payload
             this.open = true

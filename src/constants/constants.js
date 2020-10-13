@@ -15,11 +15,11 @@ export const constants = {
             expires: 1 / 3,
         },
         cartItem: {
-            name: [],
+            name: 'cartItem',
             expires: 1 / 3,
         },
         informationPay: {
-            name: [],
+            name: 'informationPay',
             expires: 1 / 3,
         },
     },

@@ -243,14 +243,14 @@ export default {
                 )
                 var listItems = []
                 listItems =
-                    Cookies.getJSON('appConstants.cookies.cartItem.name') ===
+                    Cookies.getJSON(appConstants.cookies.cartItem.name) ===
                     undefined
                         ? []
-                        : Cookies.getJSON('appConstants.cookies.cartItem.name')
+                        : Cookies.getJSON(appConstants.cookies.cartItem.name)
 
                 listItems.push(buyItem)
 
-                Cookies.set('appConstants.cookies.cartItem.name', listItems)
+                Cookies.set(appConstants.cookies.cartItem.name, listItems)
                 /*this.$store.dispatch('profile/addCartItem', {
                     ...buyItem,
                 })*/

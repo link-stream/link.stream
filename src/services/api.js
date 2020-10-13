@@ -778,5 +778,14 @@ export const api = {
                 method,
             })
         },
+
+        async getRecommendations(userId) {
+            let endpoint = '/profiles/recommendations/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
 }

@@ -67,13 +67,14 @@ export default {
         },
         handleOpen() {
             this.addedCarts = Cookies.getJSON(
-                'appConstants.cookies.cartItem.name'
+                appConstants.cookies.cartItem.name
             )
             console.log('addedCarts', this.addedCarts)
             this.open = true
         },
         async handleCheckoutClick() {
-            if (this.addedCarts !== undefined && this.addedCarts.length !== 0) router.push({ name: 'cart' })
+            if (this.addedCarts !== undefined && this.addedCarts.length !== 0)
+                router.push({ name: 'cart' })
             this.close()
         },
     },

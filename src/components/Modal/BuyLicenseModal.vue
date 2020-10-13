@@ -14,7 +14,11 @@
         <template v-slot:default>
             <div class="page page-licenses">
                 <div v-if="realLicenses.length" class="page-body">
-                    <div class="Card" v-for="(license, index) in realLicenses" :key="index">
+                    <div
+                        class="Card"
+                        v-for="(license, index) in realLicenses"
+                        :key="index"
+                    >
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="text">
@@ -37,15 +41,20 @@
                                     size="sm"
                                     class="btn-buy"
                                     @click="handleBuyClick(license)"
-                                >Buy</basic-button>
+                                    >Buy</basic-button
+                                >
                                 <basic-button
                                     v-else
                                     size="sm"
                                     class="btn-buy"
                                     @click="handleDownloadClick(license)"
-                                >Download</basic-button>
+                                    >Download</basic-button
+                                >
                             </div>
-                            <ul v-if="license.isExpanded" class="license-details">
+                            <ul
+                                v-if="license.isExpanded"
+                                class="license-details"
+                            >
                                 <li v-for="item in license.details" :key="item">
                                     <b-icon-check />
                                     {{ item }}
@@ -65,7 +74,8 @@
                         variant="link"
                         class="float-right text-black"
                         v-show="false"
-                    >Negotiate Price</basic-button>
+                        >Negotiate Price</basic-button
+                    >
                 </div>
             </div>
         </template>
@@ -74,6 +84,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Cookies from 'js-cookie'
+import { appConstants } from '~/constants'
+
+import { getAuthCookie } from '~/utils/auth'
+
+import { getCartCookie, setCartCookie, clearLocalStorage } from '~/utils/cart'
 
 export default {
     name: 'Licenses',
@@ -110,12 +126,23 @@ export default {
             this.open = false
         },
         handleBuyClick(license) {
+            var listItems = []
             this.close()
-            this.$store.dispatch('profile/addCartItem', {
+            listItems =
+                Cookies.getJSON(appConstants.cookies.cartItem.name) ===
+                undefined
+                    ? []
+                    : Cookies.getJSON(appConstants.cookies.cartItem.name)
+            this.curItem.data_image = ''
+            this.curItem.coverart = ''
+            listItems.push({
                 ...this.curItem,
                 price: license.price,
-                license_id: license.id,
+                license_id: license.license_id,
             })
+
+            Cookies.set(appConstants.cookies.cartItem.name, listItems)
+
             this.$bus.$emit('modal.addedCart.open')
         },
         handleDownloadClick(license) {},

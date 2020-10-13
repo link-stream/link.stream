@@ -1,7 +1,7 @@
 <template>
     <div class="AddedCartItem">
         <div class="item-cover">
-            <img :src="cartItem.coverart" :alt="cartItem.title" />
+            <img :src="cartItem.coverart_url" :alt="cartItem.title" />
         </div>
         <div class="item-body">
             <h4 class="item-title">
@@ -35,9 +35,7 @@ export default {
     },
     methods: {
         removeItem() {
-            var cartItems = Cookies.getJSON(
-                'appConstants.cookies.cartItem.name'
-            )
+            var cartItems = Cookies.getJSON(appConstants.cookies.cartItem.name)
             const findIndex = cartItems.findIndex(item => {
                 if (
                     this.cartItem.track_type === appConstants.tracks.types.beat
@@ -61,7 +59,7 @@ export default {
                 }
             })
             cartItems.splice(findIndex, 1)
-            Cookies.set('appConstants.cookies.cartItem.name', cartItems)
+            Cookies.set(appConstants.cookies.cartItem.name, cartItems)
             this.$bus.$emit('modal.addedCart.open')
 
             //this.$store.dispatch('profile/removeCartItem', this.cartItem)

@@ -75,7 +75,12 @@
                 v-else-if="subscribers.length > 0"
                 class="subscriber-container"
             >
-                <b-table :fields="fields" :items="realSubscribers" responsive class="d-none d-md-block">
+                <b-table
+                    :fields="fields"
+                    :items="realSubscribers"
+                    responsive
+                    class="d-none d-md-block"
+                >
                     <template v-slot:head(selected)="data">
                         <b-dropdown
                             class="select-actions"
@@ -133,7 +138,11 @@
                     </template>
                 </b-table>
                 <div class="d-block d-md-none">
-                    <div v-for="(subscriber, index) in realSubscribers" :key="subscriber.id" class="subscriber-sm">
+                    <div
+                        v-for="(subscriber, index) in realSubscribers"
+                        :key="subscriber.id"
+                        class="subscriber-sm"
+                    >
                         <b-form-checkbox
                             v-model="subscriber.selected"
                         ></b-form-checkbox>
@@ -154,16 +163,29 @@
                                 {{ subscriber.email }}
                             </p>
                             <p>
-                                <span class="font-weight-bold">Date Added: </span>
-                                {{ subscriber.created_at | customizeDate('MM/DD/YY h:mma') }}
+                                <span class="font-weight-bold">
+                                    Date Added:&nbsp;
+                                </span>
+                                {{
+                                    subscriber.created_at
+                                        | customizeDate('MM/DD/YY h:mma')
+                                }}
                             </p>
                             <p>
-                                <span class="font-weight-bold">Email Status: </span>
-                                <span class="text-capitalize">{{ subscriber.email_status }}</span>
+                                <span class="font-weight-bold">
+                                    Email Status:&nbsp;
+                                </span>
+                                <span class="text-capitalize">
+                                    {{ subscriber.email_status }}
+                                </span>
                             </p>
                             <p>
-                                <span class="font-weight-bold">SMS Status: </span>
-                                <span class="text-capitalize">{{ subscriber.sms_status }}</span>
+                                <span class="font-weight-bold">
+                                    SMS Status:&nbsp;
+                                </span>
+                                <span class="text-capitalize">
+                                    {{ subscriber.sms_status }}
+                                </span>
                             </p>
                         </div>
                     </div>

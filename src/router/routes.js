@@ -51,6 +51,7 @@ import {
     EditSplitTest,
     AddVariations,
     ResultSplitTest,
+    YoutubeUploader,
 } from '~/pages/Marketing'
 
 import PublicProfile from '@/pages/Profile/PublicProfile'
@@ -410,6 +411,12 @@ const routes = [
         path: '/app/marketing/landing-page/result',
         name: 'resultSplitTest',
         component: ResultSplitTest,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/youtube/uploader',
+        name: 'youtubeUploader',
+        component: YoutubeUploader,
         meta: { requiresAuth: true, layout: 'account' },
     },
 

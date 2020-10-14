@@ -23,6 +23,10 @@
         </header>
         <main class="page-body">
             <div class="action-bar">
+                <b-icon-search
+                    class="d-block d-sm-none"
+                    @click="isSearchBox = !isSearchBox"
+                />
                 <DropdownActions
                     @unsubscribe="updateStatus('unsubscribe')"
                     @resubscribe="updateStatus('resubscribe')"
@@ -34,11 +38,11 @@
                     v-model="searchString"
                     placeholder="Search contacts"
                     direction="right"
-                    class="search-form"
+                    class="search-form d-none d-sm-block"
                     @keyupEnter="searchContact"
                 />
                 <basic-button
-                    class="btn-export text-black"
+                    class="btn-export text-black d-none d-sm-block"
                     variant="link"
                     @click="handleExportClick"
                 >
@@ -51,6 +55,16 @@
                     {{ this.subscribers.length | thousandCNumber }}
                 </div>
             </div>
+            <SearchInput
+                v-if="isSearchBox"
+                pill
+                color="black"
+                v-model="searchString"
+                placeholder="Search contacts"
+                direction="right"
+                class="search-form search-sm"
+                @keyupEnter="searchContact"
+            />
             <div class="page-empty" v-if="!loading && !subscribers.length">
                 <div class="empty-text">
                     Your subscribers will appear here.
@@ -61,7 +75,7 @@
                 v-else-if="subscribers.length > 0"
                 class="subscriber-container"
             >
-                <b-table :fields="fields" :items="realSubscribers" responsive>
+                <b-table :fields="fields" :items="realSubscribers" responsive class="d-none d-md-block">
                     <template v-slot:head(selected)="data">
                         <b-dropdown
                             class="select-actions"
@@ -118,6 +132,42 @@
                         <span class="text-capitalize">{{ data.value }}</span>
                     </template>
                 </b-table>
+                <div class="d-block d-md-none">
+                    <div v-for="(subscriber, index) in realSubscribers" :key="subscriber.id" class="subscriber-sm">
+                        <b-form-checkbox
+                            v-model="subscriber.selected"
+                        ></b-form-checkbox>
+                        <div class="subscriber-data">
+                            <p>
+                                <router-link
+                                    :to="{
+                                        name: 'subscriberDetails',
+                                        params: {
+                                            index: index,
+                                        },
+                                    }"
+                                >
+                                    {{ subscriber.name }}
+                                </router-link>
+                            </p>
+                            <p>
+                                {{ subscriber.email }}
+                            </p>
+                            <p>
+                                <span class="font-weight-bold">Date Added: </span>
+                                {{ subscriber.created_at | customizeDate('MM/DD/YY h:mma') }}
+                            </p>
+                            <p>
+                                <span class="font-weight-bold">Email Status: </span>
+                                <span class="text-capitalize">{{ subscriber.email_status }}</span>
+                            </p>
+                            <p>
+                                <span class="font-weight-bold">SMS Status: </span>
+                                <span class="text-capitalize">{{ subscriber.sms_status }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -161,6 +211,7 @@ export default {
             },
         ],
         realSubscribers: [],
+        isSearchBox: false,
     }),
     computed: {
         ...mapGetters({

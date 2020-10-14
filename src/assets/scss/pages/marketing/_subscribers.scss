@@ -7,7 +7,10 @@
     .action-bar {
         display: flex;
         margin-top: 30px;
-        margin-bottom: 25px;
+        margin-bottom: 15px;
+        @include media-breakpoint-up(sm) {
+            margin-bottom: 25px;
+        }
         .dropdown-actions {
             margin-right: 20px;
         }
@@ -20,6 +23,7 @@
                     top: 12px;
                 }
             }
+            
         }
         .btn-export {
             font-size: px2rem(11);
@@ -39,6 +43,14 @@
             letter-spacing: 1px;
             margin-top: 15px;
             min-width: max-content;
+        }
+        .bi-search {
+            margin: 12px;
+        }
+    }
+    .search-form {
+        &.search-sm {
+            margin-bottom: 15px;
         }
     }
     .subscriber-container {
@@ -67,6 +79,17 @@
                 }
                 .fa-chevron-down {
                     display: none;
+                }
+            }
+        }
+        .subscriber-sm {
+            display: flex;
+            border-top: 1px solid $gray-330;
+            padding: 20px 0px 30px;
+            .subscriber-data {
+                margin-left: 20px;
+                p {
+                    margin-bottom: 10px;
                 }
             }
         }

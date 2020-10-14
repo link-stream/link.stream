@@ -42,6 +42,7 @@ import {
     SentSMS,
     ReportMessage,
     ViewEmail,
+    SelectEmailTemplate,
     AddSubscriber,
     SubscriberDetails,
     ImportSubscribers,
@@ -354,6 +355,12 @@ const routes = [
         component: ViewEmail,
         props: true,
         meta: { requiresAuth: true },
+    },
+    {
+        path: '/app/marketing/messages/select-template',
+        name: 'selectEmailTemplate',
+        component: SelectEmailTemplate,
+        meta: { requiresAuth: true, layout: 'account' },
     },
     {
         path: '/app/marketing/subscriber/add',

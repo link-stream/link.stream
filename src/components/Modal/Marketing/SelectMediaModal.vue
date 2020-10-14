@@ -5,7 +5,7 @@
             <h4 class="title">Your media files</h4>
         </template>
         <template v-slot:default>
-            <div class="search-bar">
+            <div class="search-bar d-none d-sm-flex">
                 <SearchInput
                     placeholder="Search media"
                     pill
@@ -16,6 +16,18 @@
                     @keyupEnter="searchMedia"
                 />
                 <UploadImage @add-file="handleImageAdd" />
+            </div>
+            <div class="search-bar d-block d-sm-none">
+                <UploadImage @add-file="handleImageAdd" />
+                <SearchInput
+                    placeholder="Search media"
+                    pill
+                    color="black"
+                    v-model="searchString"
+                    direction="right"
+                    class="search-form"
+                    @keyupEnter="searchMedia"
+                />
             </div>
             <b-form-row>
                 <b-col
@@ -71,6 +83,7 @@
                     number-of-pages="9"
                     base-url=""
                     align="center"
+                    class="d-none"
                 />
             </div>
         </template>

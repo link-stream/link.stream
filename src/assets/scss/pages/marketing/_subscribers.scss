@@ -1,4 +1,9 @@
 .page-subscribers {
+    @include media-breakpoint-down(sm) {
+        .right-col {
+            margin-top: 20px;
+        }
+    }
     .action-bar {
         display: flex;
         margin-top: 30px;

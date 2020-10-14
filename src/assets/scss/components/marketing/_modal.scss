@@ -98,10 +98,13 @@
 .SelectMediaModal {
     .search-bar {
         display: flex;
-        margin-bottom: 15px;
         .search-form {
             flex-basis: 100%;
             margin-right: 10px;
+            margin-bottom: 15px;
+        }
+        .DropImage {
+            margin-bottom: 15px;
         }
     }
     .file-upload {

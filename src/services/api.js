@@ -7,7 +7,7 @@ const METHOD_POST = 'POST'
 const METHOD_PUT = 'PUT'
 const METHOD_DELETE = 'DELETE'
 
-const call = async function ({
+const call = async function({
     endpoint,
     params = {},
     method = METHOD_GET,

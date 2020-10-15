@@ -271,7 +271,7 @@ export default {
         DokaModal,
         DokaOverlay,
     },
-    data() {        
+    data() {
         const user = this.$store.getters['me/user']
 
         return {

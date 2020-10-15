@@ -81,27 +81,27 @@ export const constants = {
     ],
     cardImages: [
         {
-            type: 'Visa',
+            type: 'visa',
             url: '/static/img/visa.svg',
         },
         {
-            type: 'Amex',
+            type: 'amex',
             url: '/static/img/amex.svg',
         },
         {
-            type: 'Mastercard',
+            type: 'mastercard',
             url: '/static/img/mastercard.svg',
         },
         {
-            type: 'Bank',
+            type: 'bank',
             url: '/static/img/bank.svg',
         },
         {
-            type: 'Discover',
+            type: 'discover',
             url: '/static/img/discover.svg',
         },
         {
-            type: 'Paypal',
+            type: 'paypal',
             url: '/static/img/paypal.svg',
         },
     ],

@@ -22,7 +22,7 @@
                             >{{ itemPay.artistName }}</b-button
                         >
                         <span class="details-items-pay">
-                            - $ {{ itemPay.price }}</span
+                            - {{ itemPay.price | currencyFormat }}</span
                         >
                     </b-row>
                 </b-col>

@@ -1,5 +1,5 @@
 <template>
-    <div class="cart ckeckout-pay pt-5">
+    <div class="page page-login btn-spinner cart ckeckout-pay pt-5">
         <b-col cols="12" xl="8" lg="7" md="6" class="d-md-none">
             <b-form class="pt-4 ">
                 <b-row>
@@ -40,7 +40,7 @@
                                         id="input-number"
                                         v-model="cardNumber"
                                         class="rectangle"
-                                        placeholder="1234 1234 1234"
+                                        placeholder="1234 1234 1234 1234"
                                         v-cardformat:formatCardNumber
                                         :data-error="
                                             cardErrors.cardNumber ? true : false
@@ -182,9 +182,9 @@
                         </b-row>
                         <b-row>
                             <b-col cols="1" xl="9" lg="7" md="6" sm="4">
-                                <!--b-button variant="link" class="center-vertical"
-                                >Return to information</b-button
-                            -->
+                                <b-button variant="link" class="center-vertical"
+                                    >Return to information</b-button
+                                >
                             </b-col>
                             <b-col cols="11" xl="3" lg="5" md="6" sm="8">
                                 <b-button
@@ -279,7 +279,7 @@
                                         id="input-number"
                                         v-model="cardNumber"
                                         class="rectangle"
-                                        placeholder="1234 1234 1234"
+                                        placeholder="1234 1234 1234 1234"
                                         v-cardformat:formatCardNumber
                                         :data-error="
                                             cardErrors.cardNumber ? true : false
@@ -421,9 +421,9 @@
                         </b-row>
                         <b-row>
                             <b-col cols="5" xl="4">
-                                <!--b-button variant="link" class="center-vertical"
-                                >Return to information</b-button
-                            -->
+                                <b-button variant="link" class="center-vertical"
+                                    >Return to information</b-button
+                                >
                             </b-col>
                             <b-col cols="3" xl="3">
                                 <b-button
@@ -505,19 +505,63 @@
                                     id="input-group-card-info"
                                     label="Card Information"
                                     label-for="input-number"
-                                    class="label"
+                                    class="label pwd-form-group"
                                 >
                                     <b-form-input
                                         ref="cardNumInput"
                                         id="input-number"
                                         v-model="cardNumber"
-                                        class="rectangle"
-                                        placeholder="1234 1234 1234"
+                                        class="pwd-input"
+                                        placeholder="1234 1234 1234 1234"
                                         v-cardformat:formatCardNumber
                                         :data-error="
                                             cardErrors.cardNumber ? true : false
                                         "
-                                    ></b-form-input>
+                                    >
+                                    </b-form-input>
+                                    <div
+                                        v-if="cardNumber == ''"
+                                        class="toggle-pwd-btn py-0"
+                                    >
+                                        <b-img
+                                            class="mr-1"
+                                            fluid
+                                            width="30px"
+                                            height="30px"
+                                            src="/static/img/visa.svg"
+                                        ></b-img>
+                                        <b-img
+                                            class="mr-1"
+                                            fluid
+                                            width="30px"
+                                            height="30px"
+                                            src="/static/img/mastercard.svg"
+                                        ></b-img>
+                                        <b-img
+                                            class="mr-1"
+                                            fluid
+                                            width="30px"
+                                            height="30px"
+                                            src="/static/img/discover.svg"
+                                        ></b-img>
+                                        <b-img
+                                            fluid
+                                            width="30px"
+                                            height="30px"
+                                            src="/static/img/amex.svg"
+                                        ></b-img>
+                                    </div>
+                                    <div
+                                        v-else
+                                        class="toggle-pwd-btn py-0 mt-2"
+                                    >
+                                        <b-img
+                                            fluid
+                                            width="30px"
+                                            height="30px"
+                                            :src="cardBrandClass"
+                                        ></b-img>
+                                    </div>
                                     <div
                                         v-if="cardErrors.cardNumber"
                                         class="error"
@@ -535,7 +579,6 @@
                                     <b-form-input
                                         id="input-date"
                                         v-model="cardExpiry"
-                                        class="rectangle"
                                         placeholder="MM / YYYY"
                                         :data-error="
                                             cardErrors.cardExpiry ? true : false
@@ -558,7 +601,6 @@
                                     <b-form-input
                                         id="input-cvc"
                                         v-model="cardCvc"
-                                        class="rectangle"
                                         placeholder="CVC"
                                         :data-error="
                                             cardErrors.cardCvc ? true : false
@@ -589,7 +631,6 @@
                                         id="nameCard"
                                         name="nameCard"
                                         v-model="form.nameCard"
-                                        class="rectangle"
                                         v-validate="{ required: true }"
                                         :state="validateState('nameCard')"
                                         aria-describedby="nameCard-live-feedback"
@@ -606,22 +647,21 @@
                         <b-row>
                             <b-col cols="12" xl="7">
                                 <b-form-group
-                                    id="input-group-place"
                                     label="Country or region"
-                                    label-for="input-place"
-                                    class="label"
+                                    label-for="country"
+                                    class="mb-4 label"
                                 >
-                                    <b-form-select
-                                        id="input-place"
+                                    <BasicSelect
+                                        v-model="form.country"
+                                        :options="allCountries"
+                                        :reduce="country => country.code"
+                                        label="country"
                                         name="place"
-                                        v-model="form.place"
-                                        :options="places"
-                                        class="rectangle"
                                         v-validate="{ required: true }"
                                         :state="validateState('place')"
                                         aria-describedby="place-live-feedback"
                                         data-vv-as="Place"
-                                    ></b-form-select>
+                                    />
                                     <b-form-invalid-feedback
                                         id="place-live-feedback"
                                     >
@@ -637,7 +677,6 @@
                                         id="input-zip"
                                         name="zip"
                                         v-model="form.zip"
-                                        class="rectangle"
                                         placeholder="ZIP"
                                         v-validate="{ required: true, max: 8 }"
                                         :state="validateState('zip')"
@@ -653,29 +692,45 @@
                             </b-col>
                         </b-row>
                         <b-row>
-                            <b-col cols="5" xl="4">
-                                <!--b-button variant="link" class="center-vertical"
-                                >Return to information</b-button
-                            -->
+                            <b-col cols="5" xl="4" class="mt-3">
+                                <b-link
+                                    :to="{ name: 'cart' }"
+                                    class="return-links center-vertical"
+                                >
+                                    <font-awesome-icon
+                                        :icon="['fas', 'chevron-left']"
+                                        size="1x"
+                                    />
+                                    Return to Cart
+                                </b-link>
                             </b-col>
                             <b-col cols="3" xl="3">
                                 <basic-button
                                     pill
                                     block
+                                    :disabled="status_loading_pay"
                                     class="ml-2 continue-to-payment"
-                                    style="background-color: #DC2EA6; color: #ffffff;"
                                     @click="creditCardPayment()"
-                                    >Pay ${{ total }}</basic-button
                                 >
-
-                                <!--b-button
-                                    pill
-                                    block
-                                    class="ml-2 continue-to-payment"
-                                    style="background-color: #DC2EA6; color: #ffffff;"
-                                    :to="{ name: 'checkoutReceipt' }"
-                                    >Pay Test</b-button
-                                -->
+                                    <div v-if="status_loading_pay">
+                                        <b-spinner
+                                            small
+                                            label="Small Spinner"
+                                            type="grow"
+                                        ></b-spinner>
+                                        <b-spinner
+                                            small
+                                            label="Small Spinner"
+                                            type="grow"
+                                        ></b-spinner>
+                                        <b-spinner
+                                            small
+                                            label="Small Spinner"
+                                            type="grow"
+                                        ></b-spinner>
+                                    </div>
+                                    <span v-else>Pay $ {{ total }}</span>
+                                </basic-button>
                             </b-col>
                         </b-row>
                     </b-col>
@@ -687,18 +742,21 @@
                             variant="link"
                             class="mr-3 card-links"
                             :to="{ name: 'legal' }"
+                            target="_blank"
                             >Refund policy</b-button
                         >
                         <b-button
                             variant="link"
                             class="mr-3 card-links"
                             :to="{ name: 'legal' }"
+                            target="_blank"
                             >Privacy policy</b-button
                         >
                         <b-button
                             variant="link"
                             class="mr-3 card-links"
                             :to="{ name: 'legal' }"
+                            target="_blank"
                             >Terms of services</b-button
                         >
                     </b-col>
@@ -710,6 +768,7 @@
             xl="4"
             lg="5"
             md="6"
+            style="background-color: #000000;  "
             class="right-side d-none d-md-block pr-0"
         >
             <InformationPay />
@@ -723,6 +782,7 @@ import InformationPay from '@/components/Cart/InformationPay'
 import { mapGetters } from 'vuex'
 import Cookies from 'js-cookie'
 import { appConstants } from '~/constants'
+import csc from 'country-state-city'
 
 export default {
     name: 'PayWithcard',
@@ -733,16 +793,30 @@ export default {
         ...mapGetters({
             user: 'me/user',
         }),
+        allCountries() {
+            return csc.getAllCountries().map(({ sortname, name }) => {
+                return {
+                    code: sortname,
+                    country: name,
+                }
+            })
+        },
+        cardBrandClass() {
+            return this.getBrandClass(this.cardBrand)
+        },
     },
     data() {
         return {
+            status_loading_pay: false,
             data_user: '',
-            cardNumber: null,
+            cardNumber: '',
             cardExpiry: null,
             cardCvc: null,
+            cardBrand: null,
             cardErrors: {},
 
             form: {
+                country: '',
                 number: '',
                 date: '',
                 cvc: '',
@@ -780,6 +854,7 @@ export default {
         // Note: since CVC can be 3 OR 4 digits we don't watch it
         cardNumber: function(val) {
             if (this.$cardFormat.validateCardNumber(val)) {
+                console.log('ttt', this.$cardFormat.validateCardNumber(val))
                 this.$refs.cardExpInput.focus()
             }
         },
@@ -790,23 +865,37 @@ export default {
         },
     },
     mounted() {
-        this.data_user = this.user.first_name.concat(
-            ' ',
-            this.user.last_name,
-            ' (',
-            this.user.email,
-            ')'
-        )
-        this.session = Cookies.getJSON(appConstants.cookies.auth.name)
         var itemsCookies = Cookies.getJSON(appConstants.cookies.cartItem.name)
-        this.informationPay = Cookies.getJSON(
-            appConstants.cookies.informationPay.name
-        )
-        this.total = this.informationPay[1].total
-        this.session = Cookies.getJSON(appConstants.cookies.auth.name)
-        this.$refs.cardNumInput.focus()
+        if (itemsCookies === undefined) {
+            this.$router.push({
+                name: 'publicProfile',
+            })
+        } else {
+            this.informationPay = Cookies.getJSON(
+                appConstants.cookies.informationPay.name
+            )
+            this.data_user = this.user.first_name.concat(
+                ' ',
+                this.user.last_name,
+                ' (',
+                this.user.email,
+                ')'
+            )
+            this.session = Cookies.getJSON(appConstants.cookies.auth.name)
+
+            this.total = this.informationPay[1].total
+            this.session = Cookies.getJSON(appConstants.cookies.auth.name)
+            this.$refs.cardNumInput.focus()
+        }
     },
     methods: {
+        getBrandClass(brand) {
+            let icon = ''
+            let temp = appConstants.cardImages.find(aux => aux.type === brand)
+            icon = temp !== undefined ? temp.url : '/static/img/credit-card.svg'
+
+            return icon
+        },
         validateState(ref) {
             if (
                 this.veeFields[ref] &&
@@ -842,11 +931,11 @@ export default {
             return errors
         },
         async creditCardPayment() {
-            //if (this.validate() === 0) {
             this.$validator.validateAll().then(async result => {
                 if (!result && this.validate() !== 0) {
                     return
                 }
+                this.status_loading_pay = true
                 var temp_feeService = this.informationPay[1].fees.find(
                     aux => aux.var === 'feeService'
                 )
@@ -869,7 +958,6 @@ export default {
                 var itemsCart = this.informationPay[0]
                 for (var i in itemsCart) {
                     var items = itemsCart[i].elements
-                    console.log('items', items)
                     for (var j in items) {
                         this.array.cart.push({
                             item_id: items[j].id,
@@ -886,6 +974,7 @@ export default {
                     data: JSON.stringify(this.array),
                 }
                 const response = await api.cart.creditCardPayment(params)
+                console.log('response', response)
                 if (response.status === 'success') {
                     var receipt = {
                         billingCC: response.billingCC,
@@ -899,7 +988,8 @@ export default {
                     this.$router.push({
                         name: 'checkoutReceipt',
                     })
-                }
+                } else Cookies.remove('receipt')
+                this.status_loading_pay = false
             })
         },
     },

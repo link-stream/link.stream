@@ -26,8 +26,7 @@
     }
     .summary-details-price{
         color: #333333;        
-        font-size: 12px;
-        text-align: right;
+        font-size: 12px;        
         letter-spacing: 0;
         line-height: 18px;
     }
@@ -36,8 +35,7 @@
         font-size: 14px;
         font-weight: bold;
         letter-spacing: 0;
-        line-height: 19px;
-        text-align: right;
+        line-height: 19px;       
     }
     .btn-summary-total{        
         color: #ffffff;        
@@ -112,12 +110,13 @@
 }
 .ckeckout-pay{
     .continue-to-payment {       
-        color: #FFFFFF;        
+        color: #FFFFFF !important;        
         font-size: 14px;
         font-weight: 600;
         letter-spacing: 0;
         line-height: 18px;
         text-align: center;
+        background-color: #DC2EA6;
     }
     .keep-me-up-to-date-o {       
         color: #000000;        
@@ -244,7 +243,7 @@
         background-color: #000000;  
         border-radius: 0px;  
         max-height: 100%;
-    }
+    }    
     @media only screen and (min-width: 768px) {
         .right-side{
             position: fixed;
@@ -397,6 +396,15 @@
         font-weight: 500;
         letter-spacing: 0;
         line-height: 18px;
+    }
+    .return-links {       
+        color: #DC2EA6;
+        font-family: Montserrat;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0;
+        line-height: 15px;
+        text-decoration: none !important;
     }
 
 }

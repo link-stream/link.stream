@@ -1,6 +1,6 @@
 <template>
     <div class="height100">
-        <b-card class="cart-item-dark height100 px-5 pt-5">
+        <b-card class="cart-item-dark height100 px-3 pt-5">
             <div v-for="(item, index) in itemsCart" :key="index">
                 <CartItemDark
                     :artistName="item.artistName"
@@ -11,14 +11,16 @@
             </div>
             <div class="mx-4">
                 <b-row>
-                    <b-col cols="9" xl="8" lg="8" md="8">
+                    <b-col cols="9" xl="8" lg="8" md="7">
                         <span class="summary-details-dark">Subtotal</span>
                     </b-col>
-                    <b-col cols="3" xl="4" lg="4" md="4">
-                        <span class="details-price-dark">$ {{ subTotal }}</span>
+                    <b-col cols="3" xl="4" lg="4" md="5" class="text-right">
+                        <span class="details-price-dark mr-2">$</span>
+                        <span class="details-price-dark">{{
+                            subTotal.toFixed(2)
+                        }}</span>
                     </b-col>
                 </b-row>
-
                 <b-row v-for="(item, index) in fees" :key="index">
                     <b-col
                         cols="9"
@@ -38,21 +40,29 @@
                         lg="4"
                         md="4"
                         v-show="item.value != 0 && item.type != 'Percent'"
-                        class="pt-2"
+                        class="pt-2 text-right"
                     >
-                        <span class="details-price-dark"
-                            >$ {{ item.value }}</span
-                        >
+                        <span class="details-price-dark mr-2">$</span>
+                        <span class="details-price-dark">{{
+                            parseFloat(item.value).toFixed(2)
+                        }}</span>
                     </b-col>
                 </b-row>
                 <b-row v-show="fees_percent.value != 0">
-                    <b-col cols="9" xl="8" lg="8" md="8" class="pt-2">
+                    <b-col cols="9" xl="8" lg="8" md="7" class="pt-2">
                         <span class="summary-details-dark">{{
                             fees_percent.name
                         }}</span>
                     </b-col>
-                    <b-col cols="3" xl="4" lg="4" md="4" class="pt-2">
-                        <span class="details-price-dark">$ {{ percent }}</span>
+                    <b-col
+                        cols="3"
+                        xl="4"
+                        lg="4"
+                        md="5"
+                        class="pt-2 text-right"
+                    >
+                        <span class="details-price-dark mr-2">$</span>
+                        <span class="details-price-dark">{{ percent }}</span>
                     </b-col>
                 </b-row>
                 <div class="divider"></div>
@@ -60,8 +70,9 @@
                     <b-col cols="9" xl="7" lg="7" md="7">
                         <span class="summary-total-dark">Order Total</span>
                     </b-col>
-                    <b-col cols="3" xl="5" lg="5" md="5">
-                        <span class="total-price-dark">$ {{ total }}</span>
+                    <b-col cols="3" xl="5" lg="5" md="5" class="text-right">
+                        <span class="total-price-dark">$</span>
+                        <span class="total-price-dark">{{ total }}</span>
                     </b-col>
                 </b-row>
             </div>

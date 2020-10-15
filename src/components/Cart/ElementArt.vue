@@ -17,9 +17,11 @@
                     </b-row>
                 </b-col>
                 <b-col cols="4" xl="2" lg="2" md="4" sm="4" class="center">
-                    <span class="price-item">$ {{ price }}</span>
+                    <span class="price-item mr-4">{{
+                        price | currencyFormat
+                    }}</span>
                     <IconButton
-                        class="ml-2 pb-1"
+                        class="ml-4 pb-1"
                         icon="close"
                         @click="removeItem"
                     />

@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-4 cart px-4">
+    <div class="pt-4 cart ckeckout-pay px-4">
         <b-form-row class=" mt-4">
             <b-col cols="12" xl="9" lg="9" md="8" sm="12" xs="12">
                 <div class="left-col">
@@ -31,10 +31,18 @@
                         <b-col cols="6" class="pt-2">
                             <span class="card-summary-details">Subtotal</span>
                         </b-col>
-                        <b-col cols="6" class="pt-2">
-                            <span class="summary-details-price"
-                                >$ {{ subTotal }}</span
-                            >
+                        <b-col
+                            cols="6"
+                            xl="4"
+                            lg="5"
+                            md="6"
+                            sm="4"
+                            class="pt-2 text-right"
+                        >
+                            <span class="summary-details-price mr-2">$</span>
+                            <span class="summary-details-price">{{
+                                subTotal.toFixed(2)
+                            }}</span>
                         </b-col>
                     </b-row>
                     <b-row v-for="(item, index) in fees" :key="index">
@@ -49,12 +57,17 @@
                         </b-col>
                         <b-col
                             cols="6"
+                            xl="4"
+                            lg="5"
+                            md="6"
+                            sm="4"
                             v-show="item.value != 0 && item.type != 'Percent'"
-                            class="pt-2"
+                            class="pt-2 text-right"
                         >
-                            <span class="summary-details-price"
-                                >$ {{ item.value }}</span
-                            >
+                            <span class="summary-details-price mr-2">$</span>
+                            <span class="summary-details-price text-right">{{
+                                parseFloat(item.value).toFixed(2)
+                            }}</span>
                         </b-col>
                     </b-row>
                     <b-row v-show="fees_percent.value != 0">
@@ -63,10 +76,18 @@
                                 fees_percent.name
                             }}</span>
                         </b-col>
-                        <b-col cols="6" class="pt-2">
-                            <span class="summary-details-price"
-                                >$ {{ percent }}</span
-                            >
+                        <b-col
+                            cols="6"
+                            xl="4"
+                            lg="5"
+                            md="6"
+                            sm="4"
+                            class="pt-2 text-right"
+                        >
+                            <span class="summary-details-price mr-2">$</span>
+                            <span class="summary-details-price">{{
+                                percent
+                            }}</span>
                         </b-col>
                     </b-row>
 
@@ -74,14 +95,32 @@
                         <b-col cols="6" class="pt-2">
                             <span class="card-summary-total">Order Total</span>
                         </b-col>
-                        <b-col cols="6" class="pt-2">
-                            <span class="summary-total-price"
-                                >$ {{ total }}</span
-                            >
+                        <b-col
+                            cols="6"
+                            xl="4"
+                            lg="5"
+                            md="6"
+                            sm="4"
+                            class="pt-2 text-right"
+                        >
+                            <span class="summary-total-price">$ </span>
+                            <span class="summary-total-price">{{ total }}</span>
                         </b-col>
                     </b-row>
                     <b-row>
-                        <b-col cols="12">
+                        <b-col cols="12" xl="6" class="mt-3">
+                            <b-link
+                                :to="{ name: 'publicProfile' }"
+                                class="return-links center-vertical"
+                            >
+                                <font-awesome-icon
+                                    :icon="['fas', 'chevron-left']"
+                                    size="1x"
+                                />
+                                Return to profile
+                            </b-link>
+                        </b-col>
+                        <b-col cols="12" xl="6">
                             <basic-button
                                 pill
                                 block
@@ -129,16 +168,18 @@ export default {
     },
     watch: {},
     async mounted() {
-        //Cookies.remove('appConstants.cookies.cartItem.name')
-        //Cookies.remove('appConstants.cookies.informationPay.name')
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
-        //var itemsCookiesPay = Cookies.getJSON('appConstants.cookies.informationPay.name')
-        //console.log('itemsCookiesPay', itemsCookiesPay)
         this.createItems()
-        const response = await api.cart.getConfigFees()
-        this.fees = response.data.fees
-        this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
-        this.sum()
+        if (this.itemsCart.length === 0) {
+            this.$router.push({
+                name: 'publicProfile',
+            })
+        } else {
+            const response = await api.cart.getConfigFees()
+            this.fees = response.data.fees
+            this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
+            this.sum()
+        }
     },
     methods: {
         createItems() {

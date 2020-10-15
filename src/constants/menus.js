@@ -115,6 +115,10 @@ export const menus = [
                 label: 'Ad Promos',
                 to: '/app/marketing/ad-promos',
             },
+            {
+                label: 'YouTube Uploader',
+                to: '/app/marketing/youtube/uploader',
+            },
         ],
     },
     {

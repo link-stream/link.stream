@@ -42,7 +42,7 @@ import {
     BAvatar,
     BListGroup,
     BListGroupItem,
-    BFormSelect
+    BFormSelect,
 } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'

@@ -34,10 +34,7 @@
                             <div class="text">
                                 <p>
                                     You are receiving this email because you
-                                    opted in via our website.
-                                </p>
-                                <p>
-                                    You can
+                                    opted in via our website. You can
                                     <a href="#"> update your preferences </a>
                                     for this artist or
                                     <a hre="#"> unsubscribe</a>

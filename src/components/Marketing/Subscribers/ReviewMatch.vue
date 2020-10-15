@@ -97,6 +97,10 @@ export default {
                 text: 'Birthday',
             },
             {
+                value: 'gender',
+                text: 'Gender',
+            },
+            {
                 value: 'tags',
                 text: 'Tags',
             },

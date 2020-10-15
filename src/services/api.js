@@ -7,7 +7,7 @@ const METHOD_POST = 'POST'
 const METHOD_PUT = 'PUT'
 const METHOD_DELETE = 'DELETE'
 
-const call = async function ({
+const call = async function({
     endpoint,
     params = {},
     method = METHOD_GET,
@@ -158,6 +158,15 @@ export const api = {
     audios: {
         async getBeatsByUser(userId) {
             const endpoint = `/audios/${userId}/2`
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
+        async getBeatsByUserTag(userId, tag) {
+            let endpoint = `/audios/${userId}/2`
+            if (tag) {
+                endpoint += '?tag=' + tag
+            }
+            console.log(endpoint)
             const method = METHOD_GET
             return await call({ endpoint, method })
         },

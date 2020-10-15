@@ -27,6 +27,10 @@ const initialState = () => ({
     variations: [],
     medias: [],
     promotes: [],
+    googleUserInfo: {
+        userName: '',
+        token: '',
+    },
 })
 
 const state = initialState()
@@ -154,6 +158,10 @@ const mutations = {
 
     [marketingTypes.SET_VARIATIONS](state, { variations }) {
         state.variations = variations
+    },
+
+    [marketingTypes.SET_GOOGLE_USER_INFO](state, params) {
+        state.googleUserInfo = params
     },
 }
 
@@ -302,6 +310,10 @@ const actions = {
     async addVariation({ commit }, params) {
         commit(marketingTypes.ADD_VARIATION, { variation: params })
     },
+
+    async setGoogleUserInfo({ commit }, params) {
+        commit(marketingTypes.SET_GOOGLE_USER_INFO, params)
+    },
 }
 
 const getters = {
@@ -318,6 +330,7 @@ const getters = {
     currentSubscriber: ({ currentSubscriber }) => currentSubscriber,
     medias: ({ medias }) => medias,
     promotes: ({ promotes }) => promotes,
+    googleUserInfo: ({ googleUserInfo }) => googleUserInfo,
 }
 
 export default {

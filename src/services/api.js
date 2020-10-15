@@ -161,6 +161,15 @@ export const api = {
             const method = METHOD_GET
             return await call({ endpoint, method })
         },
+        async getBeatsByUserTag(userId, tag) {
+            let endpoint = `/audios/${userId}/2`
+            if (tag) {
+                endpoint += '?tag=' + tag
+            }
+            console.log(endpoint)
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
         async getSoundKitsByUser(userId) {
             const endpoint = `/audios/${userId}/3`
             const method = METHOD_GET

@@ -166,7 +166,6 @@ export const api = {
             if (tag) {
                 endpoint += '?tag=' + tag
             }
-            console.log(endpoint)
             const method = METHOD_GET
             return await call({ endpoint, method })
         },

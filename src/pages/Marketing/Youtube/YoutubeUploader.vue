@@ -68,7 +68,12 @@
                         </span>
                     </div>
                     <b-row cols="2" cols-md="3" cols-lg="4" cols-xl="5">
-                        <b-col v-for="beat in beats" :key="beat.id">
+                        <b-col
+                            v-for="beat in beats"
+                            :key="beat.id"
+                            class="one-beat"
+                            @click="showPreviewVideo(beat)"
+                        >
                             <b-aspect class="img-container">
                                 <img
                                     v-if="beat.data_image"
@@ -139,6 +144,14 @@ export default {
         clearSearch() {
             this.searchString = ''
             this.isSearched = false
+        },
+        showPreviewVideo(beat) {
+            this.$router.push({
+                name: 'previewVideo',
+                params: {
+                    beat: beat,
+                },
+            })
         },
     },
 }

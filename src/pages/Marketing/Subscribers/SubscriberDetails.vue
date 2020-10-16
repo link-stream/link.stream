@@ -200,6 +200,15 @@
                     </div>
                     <div class="profile-item">
                         <div class="caption">
+                            Phone
+                        </div>
+                        <a href="#" v-if="subscriber.phone">
+                            {{ subscriber.phone }}
+                        </a>
+                        <span v-else>-</span>
+                    </div>
+                    <div class="profile-item">
+                        <div class="caption">
                             Birthday
                         </div>
                         <a href="#" v-if="subscriber.birthday">

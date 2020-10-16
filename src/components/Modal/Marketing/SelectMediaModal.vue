@@ -166,6 +166,7 @@ export default {
                     status === 'success'
                         ? this.$toast.success(message)
                         : this.$toast.error(error)
+                    this.saving= false
                 },
             })
         },

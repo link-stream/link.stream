@@ -774,7 +774,7 @@ export const api = {
                 params,
                 method,
             })
-        }
+        },
     },
     cart: {
         async getConfigFees() {

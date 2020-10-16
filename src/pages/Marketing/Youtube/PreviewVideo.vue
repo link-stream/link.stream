@@ -19,7 +19,10 @@
                 <a :href="result.link" target="_blank">
                     {{ result.link }}
                 </a>
-                <basic-button class="btn-another-upload" :to="{ name: 'youtubeUploader' }">
+                <basic-button
+                    class="btn-another-upload"
+                    :to="{ name: 'youtubeUploader' }"
+                >
                     Upload Another Video
                 </basic-button>
             </main>
@@ -28,16 +31,20 @@
             <header class="page-header">
                 <div class="left-col">
                     <h1 class="page-title">
-                        <LoadingSpinner class="m-2 float-left" animation="bounce" />
+                        <LoadingSpinner
+                            class="m-2 float-left"
+                            animation="bounce"
+                        />
                         Processing...
                     </h1>
                     <h6 class="page-subtitle">
-                        Please wait for files to be encoded and uploaded to YouTube
+                        Please wait for files to be encoded and uploaded to
+                        YouTube
                     </h6>
                 </div>
             </header>
         </div>
-        <div v-else>    
+        <div v-else>
             <nav class="page-nav">
                 <basic-button
                     class="back-btn"
@@ -151,12 +158,14 @@ export default {
             ...this.form,
             ...this.beat,
             tags: this.beat.tags
-                    ? this.beat.tags.split(',').map(tag => ({
-                          text: tag.trim(),
-                      }))
-                    : [],
+                ? this.beat.tags.split(',').map(tag => ({
+                      text: tag.trim(),
+                  }))
+                : [],
             isPublic: this.beat.public == appConstants.visibilities.public,
-            src: this.beat.data_image ? this.beat.data_image : this.defaultCoverArt,
+            src: this.beat.data_image
+                ? this.beat.data_image
+                : this.defaultCoverArt,
         }
         console.log(this.form.tags)
     },
@@ -187,7 +196,6 @@ export default {
                 this.$toast.error(error)
             }
             this.uploading = false
-            
         },
     },
 }

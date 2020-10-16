@@ -117,8 +117,14 @@ const mutations = {
             let findIndex = state.subscribers.findIndex(item => item.id === id)
             const newItem = {
                 ...state.subscribers[findIndex],
-                sms_status: flag >= 2 ? curStatus : state.subscribers[findIndex].sms_status,
-                email_status: flag <= 2 ? curStatus : state.subscribers[findIndex].email_status,
+                sms_status:
+                    flag >= 2
+                        ? curStatus
+                        : state.subscribers[findIndex].sms_status,
+                email_status:
+                    flag <= 2
+                        ? curStatus
+                        : state.subscribers[findIndex].email_status,
             }
             state.subscribers.splice(findIndex, 1, newItem)
         })

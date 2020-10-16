@@ -16,11 +16,7 @@
                     <h1 class="page-title">
                         {{ subscriber.name }}
                     </h1>
-                    <DropdownActions
-                        @unsubscribe="updateStatus('unsubscribe')"
-                        @resubscribe="updateStatus('resubscribe')"
-                        @archive="handleArchiveClick"
-                    />
+                    <DropdownActions @change="updateStatus" />
                 </div>
                 <div class="status-container">
                     <CustomStarRating :rating="rating" />

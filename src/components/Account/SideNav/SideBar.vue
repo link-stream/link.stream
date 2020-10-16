@@ -137,7 +137,7 @@ export default {
                     this.$store.commit('setMenuStatus', false)
                 }
                 window.scrollTo(0, top)
-            }            
+            }
         },
     },
 }

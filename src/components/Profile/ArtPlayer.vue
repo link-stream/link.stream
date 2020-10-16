@@ -122,6 +122,9 @@ export default {
         loading: {
             type: Boolean,
         },
+        user_id: {
+            type: String,
+        }
     },
     computed: {
         ...mapGetters({
@@ -132,9 +135,11 @@ export default {
             soundKitsLoad: 'profile/soundKitsLoad',
         }),
         percentComplete() {
-            return isNaN((this.currentSeconds / this.durationSeconds) * 100)
-                ? 0
-                : (this.currentSeconds / this.durationSeconds) * 100
+            if (isNaN((this.currentSeconds / this.durationSeconds) * 100)) {
+                return 0
+            } else {
+                return (this.currentSeconds / this.durationSeconds) * 100
+            }
         },
         muted() {
             return this.volume / 100 === 0
@@ -184,6 +189,7 @@ export default {
                         id: this.playerItem.id,
                         type: this.playerItem.type,
                         action: 'play',
+                        user_id: this.user_id, 
                     }
                     await api.profiles.insertAction(params)
                 }
@@ -194,7 +200,9 @@ export default {
             this.$emit('setStatus', value)
         },
         volume(value) {
-            this.audioObj.volume = value / 100
+            if (this.audioObj) {
+                this.audioObj.volume = value / 100
+            }
         },
         status(value) {
             this.playing = value
@@ -256,14 +264,17 @@ export default {
             }
 
             this.audioObj = new Audio()
+            this.audioObj.src = this.playerItem.src
             this.audioObj.addEventListener('timeupdate', this.handleUpdate)
             this.audioObj.addEventListener('loadeddata', this.handleLoaded)
+            this.audioObj.addEventListener('durationchange', this.handleDuration)
+            this.audioObj.addEventListener('loadedmetadata', this.handleMetadata)
             this.audioObj.addEventListener('playing', this.handlePlaying)
             this.audioObj.addEventListener('pause', this.handlePause)
             this.audioObj.addEventListener('error', this.handleError)
-            this.audioObj.addEventListener('ended', this.handleEnded)
-            this.audioObj.src = this.playerItem.src
-            this.audioObj.load()
+            this.audioObj.addEventListener('ended', this.handleEnded)  
+            this.audioObj.volume = this.volume / 100   
+            this.audioObj.load()           
             this.$store.commit('profile/SET_INDIVIDUAL_LOADING', false)
         },
         goPrev() {
@@ -299,10 +310,14 @@ export default {
         handleLoaded() {
             if (this.audioObj.readyState >= 2) {
                 this.loaded = true
-                this.durationSeconds = parseFloat(this.audioObj.duration)
                 this.currentSeconds = 0
             } else {
                 this.$toast.error('Failed to fetch audio.')
+            }
+        },
+        handleDuration() {
+            if (this.audioObj.duration !== 'Infinity') {
+                this.durationSeconds = this.audioObj.duration
             }
         },
         handleUpdate() {

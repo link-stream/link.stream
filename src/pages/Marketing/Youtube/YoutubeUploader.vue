@@ -68,7 +68,12 @@
                         </span>
                     </div>
                     <b-row cols="2" cols-md="3" cols-lg="4" cols-xl="5">
-                        <b-col v-for="beat in beats" :key="beat.id">
+                        <b-col
+                            v-for="beat in beats"
+                            :key="beat.id"
+                            class="one-beat"
+                            @click="showPreviewVideo(beat)"
+                        >
                             <b-aspect class="img-container">
                                 <img
                                     v-if="beat.data_image"
@@ -129,16 +134,25 @@ export default {
             this.isSearched = !!this.searchString
         },
         async onGoogleSuccess(googleUser) {
-            const { id_token } = googleUser.getAuthResponse()
+            console.log(googleUser.getAuthResponse())
+            const { login_hint } = googleUser.getAuthResponse()
             const params = {
                 userName: googleUser.getBasicProfile().getName(),
-                token: id_token,
+                token: login_hint,
             }
             await this.$store.dispatch('marketing/setGoogleUserInfo', params)
         },
         clearSearch() {
             this.searchString = ''
             this.isSearched = false
+        },
+        showPreviewVideo(beat) {
+            this.$router.push({
+                name: 'previewVideo',
+                params: {
+                    beat: beat,
+                },
+            })
         },
     },
 }

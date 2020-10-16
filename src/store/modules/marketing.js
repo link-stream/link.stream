@@ -106,14 +106,25 @@ const mutations = {
 
     [marketingTypes.UPDATE_SUBSCRIBERS_STATUS](state, { params }) {
         const selIdList = JSON.parse(params.list)
+        const aryTemp = params.action.split('_')
         const curStatus =
-            params.action === 'unsubscribe' ? 'unsubscribed' : 'subscribed'
+            aryTemp[0] === 'unsubscribe' ? 'unsubscribed' : 'subscribed'
+        let flag = 2
+        if (aryTemp.length === 2) {
+            flag = aryTemp[1] === 'email' ? 1 : 3
+        }
         selIdList.forEach(({ id }) => {
             let findIndex = state.subscribers.findIndex(item => item.id === id)
             const newItem = {
                 ...state.subscribers[findIndex],
-                sms_status: curStatus,
-                email_status: curStatus,
+                sms_status:
+                    flag >= 2
+                        ? curStatus
+                        : state.subscribers[findIndex].sms_status,
+                email_status:
+                    flag <= 2
+                        ? curStatus
+                        : state.subscribers[findIndex].email_status,
             }
             state.subscribers.splice(findIndex, 1, newItem)
         })

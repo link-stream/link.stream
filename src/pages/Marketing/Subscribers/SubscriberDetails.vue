@@ -16,11 +16,7 @@
                     <h1 class="page-title">
                         {{ subscriber.name }}
                     </h1>
-                    <DropdownActions
-                        @unsubscribe="updateStatus('unsubscribe')"
-                        @resubscribe="updateStatus('resubscribe')"
-                        @archive="handleArchiveClick"
-                    />
+                    <DropdownActions @change="updateStatus" />
                 </div>
                 <div class="status-container">
                     <CustomStarRating :rating="rating" />
@@ -195,6 +191,15 @@
                         </div>
                         <a href="#" v-if="subscriber.name">
                             {{ subscriber.name }}
+                        </a>
+                        <span v-else>-</span>
+                    </div>
+                    <div class="profile-item">
+                        <div class="caption">
+                            Phone
+                        </div>
+                        <a href="#" v-if="subscriber.phone">
+                            {{ subscriber.phone }}
                         </a>
                         <span v-else>-</span>
                     </div>

@@ -30,6 +30,7 @@
             :isLast="currentIndex === soundKits.length - 1"
             :status="currentStatus"
             :loading="individualLoading"
+            :user_id="user_id"
             @prev="prevItem"
             @next="nextItem"
             @setStatus="setStatus"
@@ -55,10 +56,8 @@ export default {
     },
     computed: {
         ...mapGetters({
-            profile: 'profile/profile',
             soundKits: 'profile/soundKits',
             startover: 'profile/startover',
-            soundKitsLoad: 'profile/soundKitsLoad',
             individualLoading: 'profile/individualLoading',
         }),
     },
@@ -69,6 +68,7 @@ export default {
         curItem: {},
         itemId: '',
         type: '',
+        user_id: '',
     }),
     watch: {
         startover() {
@@ -96,6 +96,7 @@ export default {
         await this.$store.dispatch('profile/getProfileKitsTab', {
             url: this.url,
         })
+        this.user_id = this.$store.getters['profile/profile'].id
         this.loading = false
     },
     methods: {

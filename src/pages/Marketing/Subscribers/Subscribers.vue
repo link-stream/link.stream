@@ -27,11 +27,7 @@
                     class="d-block d-sm-none"
                     @click="isSearchBox = !isSearchBox"
                 />
-                <DropdownActions
-                    @unsubscribe="updateStatus('unsubscribe')"
-                    @resubscribe="updateStatus('resubscribe')"
-                    @archive="handleArchiveClick"
-                />
+                <DropdownActions @change="updateStatus" />
                 <SearchInput
                     pill
                     color="black"
@@ -341,10 +337,11 @@ export default {
                 action: action,
                 list: JSON.stringify(selIdList),
             }
-            const { status, message, error } = await this.$store.dispatch(
+            const response = await this.$store.dispatch(
                 'marketing/updateSubscribersStatus',
                 params
             )
+            const { status, message, error } = response
             if (status === 'success') {
                 this.$toast.success(message)
             } else {
@@ -352,7 +349,6 @@ export default {
             }
             this.statusAll = false
         },
-        handleArchiveClick() {},
     },
 }
 </script>

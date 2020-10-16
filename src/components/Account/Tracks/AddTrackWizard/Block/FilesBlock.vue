@@ -26,9 +26,9 @@
             @remove-file="handleTaggedRemove"
         />
         <DropFile
-            title="Track Stems .ZIP (or .RAR)"
+            title="Track Stems .ZIP"
             :class="{ 'is-invalid': $v.files.stems.$error }"
-            :acceptTypes="['.rar', '.zip']"
+            :acceptTypes="['.zip']"
             :src="files.stems && files.stems.base64"
             :filename="files.stems && files.stems.name"
             @add-file="handleStemsAdd"

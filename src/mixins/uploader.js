@@ -51,14 +51,18 @@ export const uploaderMixin = {
             const extIndex = file.name.lastIndexOf('.')
             if (extIndex === -1) {
                 return false
-            }
+            }            
             const ext = file.name.substr(extIndex)
             return acceptTypes.indexOf(ext) !== -1
         },
-        async addFile(file) {
+        async addFile(file) {            
             if (!this.validateFile(file)) {
                 this.showInvalidFileAlert()
                 return
+            }
+            if ((file.size / (1024 * 1024)) > 100) {
+                this.$toast.error('The file cannot exceed 100MG.')
+                return 
             }
             const base64 = await blobToBase64(file)
             if (base64) {

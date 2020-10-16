@@ -166,7 +166,6 @@ export const api = {
             if (tag) {
                 endpoint += '?tag=' + tag
             }
-            console.log(endpoint)
             const method = METHOD_GET
             return await call({ endpoint, method })
         },
@@ -764,6 +763,15 @@ export const api = {
             const method = METHOD_GET
             return await call({
                 endpoint,
+                method,
+            })
+        },
+        async youtubeUploader(params) {
+            const endpoint = 'marketing/youtube_uploader'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
                 method,
             })
         },

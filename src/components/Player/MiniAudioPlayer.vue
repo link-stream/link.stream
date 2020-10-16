@@ -110,7 +110,7 @@ export default {
                         id: this.id,                        
                         type: this.type,
                         action: 'play',
-                        user_id: this.user_id,
+                        user_id: this.user_id, 
                     }
                     await api.profiles.insertAction(params)
                 }

@@ -11,11 +11,23 @@
             <font-awesome-icon :icon="['fas', 'chevron-down']" />
             <font-awesome-icon :icon="['fas', 'chevron-up']" />
         </template>
-        <b-dropdown-item @click="$emit('unsubscribe')">
+        <b-dropdown-item @click="$emit('change', 'unsubscribe')">
             Unsubscribe
         </b-dropdown-item>
-        <b-dropdown-item @click="$emit('resubscribe')">
+        <b-dropdown-item @click="$emit('change', 'unsubscribe_email')">
+            Unsubscribe Email
+        </b-dropdown-item>
+        <b-dropdown-item @click="$emit('change', 'unsubscribe_sms')">
+            Unsubscribe SMS
+        </b-dropdown-item>
+        <b-dropdown-item @click="$emit('change', 'resubscribe')">
             Resubscribe
+        </b-dropdown-item>
+        <b-dropdown-item @click="$emit('change', 'resubscribe_email')">
+            Resubscribe Email
+        </b-dropdown-item>
+        <b-dropdown-item @click="$emit('change', 'resubscribe_sms')">
+            Resubscribe SMS
         </b-dropdown-item>
         <!-- <b-dropdown-item @click="$emit('archive')">
             Archive

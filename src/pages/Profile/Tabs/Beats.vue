@@ -32,6 +32,7 @@
             :isLast="currentIndex === beats.length - 1"
             :status="currentStatus"
             :loading="individualLoading"
+            :user_id="user_id"
             @prev="prevItem"
             @next="nextItem"
             @setStatus="setStatus"
@@ -60,7 +61,6 @@ export default {
     computed: {
         ...mapGetters({
             beats: 'profile/beats',
-            profile: 'profile/profile',
             startover: 'profile/startover',
             individualLoading: 'profile/individualLoading',
         }),
@@ -73,6 +73,7 @@ export default {
         curBeat: {},
         itemId: '',
         type: '',
+        user_id: '',
     }),
     watch: {
         startover() {
@@ -109,6 +110,7 @@ export default {
         await this.$store.dispatch('profile/getProfileBeatsTab', {
             url: this.url,
         })
+        this.user_id = this.$store.getters['profile/profile'].id
         this.loading = false
     },
     methods: {

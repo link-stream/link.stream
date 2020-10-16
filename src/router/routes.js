@@ -52,6 +52,7 @@ import {
     AddVariations,
     ResultSplitTest,
     YoutubeUploader,
+    PreviewVideo,
 } from '~/pages/Marketing'
 
 import PublicProfile from '@/pages/Profile/PublicProfile'
@@ -417,6 +418,13 @@ const routes = [
         path: '/app/marketing/youtube/uploader',
         name: 'youtubeUploader',
         component: YoutubeUploader,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/marketing/youtube/preview',
+        name: 'previewVideo',
+        component: PreviewVideo,
+        props: true,
         meta: { requiresAuth: true, layout: 'account' },
     },
 

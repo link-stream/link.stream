@@ -134,10 +134,11 @@ export default {
             this.isSearched = !!this.searchString
         },
         async onGoogleSuccess(googleUser) {
-            const { id_token } = googleUser.getAuthResponse()
+            console.log(googleUser.getAuthResponse())
+            const { login_hint } = googleUser.getAuthResponse()
             const params = {
                 userName: googleUser.getBasicProfile().getName(),
-                token: id_token,
+                token: login_hint,
             }
             await this.$store.dispatch('marketing/setGoogleUserInfo', params)
         },

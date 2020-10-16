@@ -766,6 +766,15 @@ export const api = {
                 method,
             })
         },
+        async youtubeUploader(params) {
+            const endpoint = 'marketing/youtube_uploader'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        }
     },
     cart: {
         async getConfigFees() {

@@ -128,7 +128,7 @@
                             :class="{ 'is-invalid': $v.form.zipFile.$error }"
                             :filename="form.zipFile.name"
                             :src="form.zipFile.base64"
-                            :acceptTypes="['.zip', '.rar']"
+                            :acceptTypes="['.zip']"
                             @add-file="handleZipFileAdd"
                             @remove-file="handleZipFileRemove"
                         >

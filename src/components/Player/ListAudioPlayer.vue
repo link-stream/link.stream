@@ -111,7 +111,7 @@ export default {
                     })
                 if (!this.pause && this.fromprofile) {
                     const params = {
-                        id: this.id,
+                        id: this.id, 
                         type: this.type,
                         action: 'play',
                         user_id: this.user_id,

@@ -201,10 +201,14 @@
                                         Payment Method</span
                                     >
                                 </b-row>
+
                                 <b-row>
-                                    <span class="customer-information-details">
-                                        {{ receipt.cc_type }}</span
-                                    >
+                                    <b-img
+                                        fluid
+                                        width="30px"
+                                        height="30px"
+                                        :src="icon_card"
+                                    ></b-img>
                                     <span
                                         class="customer-information-details ml-2"
                                     >
@@ -254,10 +258,12 @@ export default {
             fees: [],
             percent: 0,
             fees_percent: '',
+            icon_card: '',
         }
     },
     watch: {},
     async mounted() {
+        console.log('this.user', this.user)
         this.data_user = this.user.first_name.concat(
             ' ',
             this.user.last_name,
@@ -275,6 +281,7 @@ export default {
         this.fees = infoPay[1].fees
         this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
         this.receipt = Cookies.getJSON('receipt')
+        this.icon_card = this.getBrandClass(this.receipt.cc_type.toLowerCase())
 
         const response = await api.cart.getRecommendations(this.user.id)
         if (response.status === 'success') {
@@ -284,6 +291,13 @@ export default {
         //Cookies.remove('receipt')
     },
     methods: {
+        getBrandClass(brand) {
+            let icon = ''
+            let temp = appConstants.cardImages.find(aux => aux.type === brand)
+            icon = temp !== undefined ? temp.url : '/static/img/credit-card.svg'
+
+            return icon
+        },
         createItemsPay(items_pay) {
             for (var i in items_pay) {
                 var item = items_pay[i]
@@ -294,6 +308,7 @@ export default {
                         type: item.elements[j].type,
                         price: item.elements[j].price,
                         artistName: item.artistName,
+                        artist_url: item.artist_url,
                     })
                 }
             }

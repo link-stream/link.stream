@@ -134,26 +134,26 @@
                         <b-row>
                             <b-col cols="12" xl="7">
                                 <b-form-group
-                                    id="input-group-place"
+                                    id="input-group-country"
                                     label="Country or region"
-                                    label-for="input-place"
+                                    label-for="input-country"
                                     class="label"
                                 >
                                     <b-form-select
-                                        id="input-place"
-                                        name="place"
-                                        v-model="form.place"
-                                        :options="places"
-                                        class="rectangle"
+                                        id="input-country"
+                                        name="country"
+                                        :reduce="country => country.code"
+                                        v-model="form.country"
+                                        :options="list_countries"
                                         v-validate="{ required: true }"
-                                        :state="validateState('place')"
-                                        aria-describedby="place-live-feedback"
-                                        data-vv-as="Place"
+                                        :state="validateState('country')"
+                                        aria-describedby="country-live-feedback"
+                                        data-vv-as="country"
                                     ></b-form-select>
                                     <b-form-invalid-feedback
-                                        id="place-live-feedback"
+                                        id="country-live-feedback"
                                     >
-                                        {{ veeErrors.first('place') }}
+                                        {{ veeErrors.first('country') }}
                                     </b-form-invalid-feedback>
                                 </b-form-group>
                             </b-col>
@@ -194,15 +194,6 @@
                                     style="background-color: #DC2EA6; color: #ffffff;"
                                     @click="creditCardPayment()"
                                     >Pay ${{ total }}</b-button
-                                >
-
-                                <b-button
-                                    pill
-                                    block
-                                    class="ml-2 continue-to-payment"
-                                    style="background-color: #DC2EA6; color: #ffffff;"
-                                    :to="{ name: 'checkoutReceipt' }"
-                                    >Pay Test</b-button
                                 >
                             </b-col>
                         </b-row>
@@ -373,26 +364,26 @@
                         <b-row>
                             <b-col cols="12" xl="7">
                                 <b-form-group
-                                    id="input-group-place"
+                                    id="input-group-country"
                                     label="Country or region"
-                                    label-for="input-place"
+                                    label-for="input-country"
                                     class="label"
                                 >
                                     <b-form-select
-                                        id="input-place"
-                                        name="place"
-                                        v-model="form.place"
-                                        :options="places"
+                                        id="input-country"
+                                        name="country"
+                                        v-model="form.country"
+                                        :options="list_countries"
                                         class="rectangle"
                                         v-validate="{ required: true }"
-                                        :state="validateState('place')"
-                                        aria-describedby="place-live-feedback"
-                                        data-vv-as="Place"
+                                        :state="validateState('country')"
+                                        aria-describedby="country-live-feedback"
+                                        data-vv-as="country"
                                     ></b-form-select>
                                     <b-form-invalid-feedback
-                                        id="place-live-feedback"
+                                        id="country-live-feedback"
                                     >
-                                        {{ veeErrors.first('place') }}
+                                        {{ veeErrors.first('country') }}
                                     </b-form-invalid-feedback>
                                 </b-form-group>
                             </b-col>
@@ -433,15 +424,6 @@
                                     style="background-color: #DC2EA6; color: #ffffff;"
                                     @click="creditCardPayment()"
                                     >Pay ${{ total }}</b-button
-                                >
-
-                                <b-button
-                                    pill
-                                    block
-                                    class="ml-2 continue-to-payment"
-                                    style="background-color: #DC2EA6; color: #ffffff;"
-                                    :to="{ name: 'checkoutReceipt' }"
-                                    >Pay Test</b-button
                                 >
                             </b-col>
                         </b-row>
@@ -653,19 +635,19 @@
                                 >
                                     <BasicSelect
                                         v-model="form.country"
-                                        :options="allCountries"
+                                        :options="list_countries"
                                         :reduce="country => country.code"
                                         label="country"
-                                        name="place"
+                                        name="country"
                                         v-validate="{ required: true }"
-                                        :state="validateState('place')"
-                                        aria-describedby="place-live-feedback"
-                                        data-vv-as="Place"
+                                        :state="validateState('country')"
+                                        aria-describedby="country-live-feedback"
+                                        data-vv-as="country"
                                     />
                                     <b-form-invalid-feedback
-                                        id="place-live-feedback"
+                                        id="country-live-feedback"
                                     >
-                                        {{ veeErrors.first('place') }}
+                                        {{ veeErrors.first('country') }}
                                     </b-form-invalid-feedback>
                                 </b-form-group>
                             </b-col>
@@ -814,6 +796,7 @@ export default {
             cardCvc: null,
             cardBrand: null,
             cardErrors: {},
+            list_countries: [],
 
             form: {
                 country: '',
@@ -821,11 +804,9 @@ export default {
                 date: '',
                 cvc: '',
                 nameCard: '',
-                place: '',
                 zip: '',
                 total: 0,
             },
-            places: ['United States', 'Canada', 'Spain'],
             total: 0,
             discounts: 0,
             informationPay: [],
@@ -854,7 +835,6 @@ export default {
         // Note: since CVC can be 3 OR 4 digits we don't watch it
         cardNumber: function(val) {
             if (this.$cardFormat.validateCardNumber(val)) {
-                console.log('ttt', this.$cardFormat.validateCardNumber(val))
                 this.$refs.cardExpInput.focus()
             }
         },
@@ -862,6 +842,9 @@ export default {
             if (this.$cardFormat.validateCardExpiry(val)) {
                 this.$refs.cardCvcInput.focus()
             }
+        },
+        'form.country': function(val) {
+            console.log('form.country', this.form.country)
         },
     },
     mounted() {
@@ -871,6 +854,18 @@ export default {
                 name: 'publicProfile',
             })
         } else {
+            this.list_countries = [
+                {
+                    code: 'EUA',
+                    country: 'United States',
+                },
+                {
+                    code: 'CAN',
+                    country: 'Canada',
+                },
+                ...this.allCountries,
+            ]
+            this.form.country = this.list_countries[0]
             this.informationPay = Cookies.getJSON(
                 appConstants.cookies.informationPay.name
             )

@@ -108,20 +108,15 @@
                         </b-col>
                     </b-row>
                     <b-row>
-                        <b-col cols="12" xl="6" class="mt-3">
-                            <b-link
-                                :to="{ name: 'publicProfile' }"
-                                class="return-links center-vertical"
-                            >
-                                <font-awesome-icon
-                                    :icon="['fas', 'chevron-left']"
-                                    size="1x"
-                                />
-                                Return to profile
-                            </b-link>
-                        </b-col>
-                        <b-col cols="12" xl="6">
-                            <basic-button
+                        <b-col
+                            cols="12"
+                            xl="10"
+                            lg="11"
+                            md="11"
+                            sm="10"
+                            class="center"
+                        >
+                            <b-button
                                 pill
                                 block
                                 class="mt-4 btn-summary-total"
@@ -132,7 +127,28 @@
                                 "
                             >
                                 Checkout
-                            </basic-button>
+                            </b-button>
+                        </b-col>
+                    </b-row>
+                    <b-row class="my-2">
+                        <b-col
+                            cols="12"
+                            xl="10"
+                            lg="11"
+                            md="11"
+                            sm="10"
+                            class="mt-3"
+                        >
+                            <b-link
+                                :to="{ name: 'publicProfile' }"
+                                class="return-links"
+                            >
+                                <font-awesome-icon
+                                    :icon="['fas', 'chevron-left']"
+                                    size="1x"
+                                />
+                                Return to profile
+                            </b-link>
                         </b-col>
                     </b-row>
                 </b-card>
@@ -209,6 +225,7 @@ export default {
                             avatarSrc: items[i].avatar_url,
                             user_id: items[i].user_id,
                             index: i,
+                            artist_url: items[i].artist_url,
                             elements: elements,
                         }
                         this.itemsCart.push(itemCart)

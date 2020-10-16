@@ -129,9 +129,10 @@ export default {
                     this.profile.last_name
                 ),
                 avatar_url: this.profile.avatar_url,
+                artist_url: this.profile.url,
             }
         },
-    },
+    },    
     methods: {
         handleBuyClick() {
             var listItems = []

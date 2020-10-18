@@ -121,6 +121,9 @@
             margin-right: auto;
             min-height: calc(100vh - 120px);
             margin-bottom: $main-margin;
+             b {
+                font-weight: 600;
+            }
         }
 
         .page-header {

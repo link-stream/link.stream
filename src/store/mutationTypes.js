@@ -28,6 +28,8 @@ export const trackAddWizardTypes = {
 export const meTypes = {
     // User
     SET_USER: 'SET_USER',
+    SET_PLAN_BAR: 'SET_PLAN_BAR',
+    SET_DASHBOARD_DATA: 'SET_DASHBOARD_DATA',
 
     // Licenses
     SET_LICENSES: 'SET_LICENSES',
@@ -123,5 +125,4 @@ export const marketingTypes = {
     ADD_MEDIA: 'ADD_MEDIA',
     DELETE_MEDIA: 'DELETE_MEDIA',
     SET_PROMOTES: 'SET_PROMOTES',
-    SET_GOOGLE_USER_INFO: 'SET_GOOGLE_USER_INFO',
 }

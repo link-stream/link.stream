@@ -10,7 +10,7 @@
             <transition name="page" mode="out-in">
                 <router-view :key="$route.fullPath"></router-view>
             </transition>
-            <SelectPlanBar v-if="isShowPlanBar" />
+            <SelectPlanBar v-if="showPlanBar" />
         </main>
         <TopNav class="d-lg-none" />
         <SideBar />
@@ -33,6 +33,8 @@ export default {
     computed: {
         ...mapGetters({
             getMenuType: 'getMenuType',
+            user: 'me/user',
+            showPlanBar: 'me/showPlanBar',
             //loading: 'loading/isStarted',
         }),
         isShowPlanBar() {
@@ -45,6 +47,7 @@ export default {
     },
     created() {
         this.$store.dispatch('me/loadProfile')
+        this.$store.commit('me/SET_PLAN_BAR', this.user.plan_id === '2')
     },
 }
 </script>

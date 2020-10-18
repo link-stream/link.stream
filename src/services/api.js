@@ -67,6 +67,58 @@ const call = async function({
     return payload
 }
 
+const callS3 = async function({ endpoint, params, showProgress = true }) {
+    const formData = new FormData()
+    formData.append('acl', params['acl'])
+    formData.append('key', params['key'])
+    formData.append('X-Amz-Credential', params['X-Amz-Credential'])
+    formData.append('X-Amz-Algorithm', params['X-Amz-Algorithm'])
+    formData.append('X-Amz-Date', params['X-Amz-Date'])
+    formData.append('Policy', params['Policy'])
+    formData.append('X-Amz-Signature', params['X-Amz-Signature'])
+    formData.append('file', params['file'])
+
+    let payload
+
+    try {
+        const response = await axios({
+            method: 'POST',
+            url: endpoint,
+            data: formData,
+            responseType: 'stream',
+            headers: { 'Content-Type': 'multipart/form-data' },
+            showProgress,
+        })
+
+        console.log('axios s3 response', response)
+
+        payload = response.data
+
+        if (typeof payload !== 'object') {
+            payload = {
+                status: 'false',
+                error: 'Unexpected error.',
+            }
+        }
+    } catch (e) {
+        const response =
+            typeof e === 'object' && typeof e.response === 'object'
+                ? e.response
+                : {}
+
+        if (typeof response.data === 'object') {
+            payload = response.data
+        } else {
+            payload = {
+                status: 'false',
+                error: response.statusText || 'Unexpected error.',
+            }
+        }
+    }
+
+    return payload
+}
+
 export const api = {
     call,
     users: {
@@ -142,6 +194,11 @@ export const api = {
             const method = METHOD_POST
             return await call({ endpoint, method })
         },
+        async getDashboard(user_id) {
+            const endpoint = '/users/dashboard/' + user_id
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
     },
     licenses: {
         async getLicensesByUser(userId) {
@@ -158,14 +215,6 @@ export const api = {
     audios: {
         async getBeatsByUser(userId) {
             const endpoint = `/audios/${userId}/2`
-            const method = METHOD_GET
-            return await call({ endpoint, method })
-        },
-        async getBeatsByUserTag(userId, tag) {
-            let endpoint = `/audios/${userId}/2`
-            if (tag) {
-                endpoint += '?tag=' + tag
-            }
             const method = METHOD_GET
             return await call({ endpoint, method })
         },
@@ -227,6 +276,14 @@ export const api = {
             const endpoint = '/audios/related_track/' + userId
             const method = METHOD_GET
             return await call({ endpoint, method })
+        },
+        async getPreSignedUrl(user_id, file_name) {
+            const endpoint = `/audios/pre_signed_url/${user_id}/${file_name}`
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
+        async putAudio({ endpoint, params }) {
+            return await callS3({ endpoint, params })
         },
     },
     albums: {
@@ -760,44 +817,6 @@ export const api = {
         },
         async getMedias(userId) {
             let endpoint = 'marketing/user_media_files/' + userId
-            const method = METHOD_GET
-            return await call({
-                endpoint,
-                method,
-            })
-        },
-        async youtubeUploader(params) {
-            const endpoint = 'marketing/youtube_uploader'
-            const method = METHOD_POST
-            return await call({
-                endpoint,
-                params,
-                method,
-            })
-        },
-    },
-    cart: {
-        async getConfigFees() {
-            let endpoint = '/config/fees'
-            const method = METHOD_GET
-            return await call({
-                endpoint,
-                method,
-            })
-        },
-
-        async creditCardPayment(params) {
-            let endpoint = '/payments/cc_payment'
-            const method = METHOD_POST
-            return await call({
-                endpoint,
-                params,
-                method,
-            })
-        },
-
-        async getRecommendations(userId) {
-            let endpoint = '/profiles/recommendations/' + userId
             const method = METHOD_GET
             return await call({
                 endpoint,

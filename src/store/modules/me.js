@@ -8,7 +8,7 @@ import { appConstants } from '~/constants'
 
 const initialState = () => ({
     /**
-     * @type {null|object}
+     * @type {null|object|boolean}
      */
     user: null,
     licenses: [],
@@ -23,6 +23,8 @@ const initialState = () => ({
     paymentMethods: [],
     bankInfo: {},
     notification: {},
+    dashboardData: null,
+    showPlanBar: false,
 })
 
 const state = initialState()
@@ -39,6 +41,14 @@ const mutations = {
 
     [meTypes.SET_USER](state, { user }) {
         state.user = user
+    },
+
+    [meTypes.SET_PLAN_BAR](state, value) {
+        state.showPlanBar = value
+    },
+
+    [meTypes.SET_DASHBOARD_DATA](state, { dashboardData }) {
+        state.dashboardData = dashboardData
     },
 
     // Licenses
@@ -254,6 +264,15 @@ const actions = {
         const user = rootGetters['auth/user']
         const { status, data } = await api.users.getUser(user.id)
         status === 'success' && commit(meTypes.SET_USER, { user: data })
+    },
+
+    async loadDashboard({ commit }, user_id) {
+        const response = await api.users.getDashboard(user_id)
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.SET_DASHBOARD_DATA, { dashboardData: data })
+        }
+        return response
     },
 
     // Licenses
@@ -686,6 +705,8 @@ const getters = {
     paymentMethods: ({ paymentMethods }) => paymentMethods,
     bankInfo: ({ bankInfo }) => bankInfo,
     notification: ({ notification }) => notification,
+    showPlanBar: ({ showPlanBar }) => showPlanBar,
+    dashboardData: ({ dashboardData }) => dashboardData,
 }
 
 export default {

@@ -210,7 +210,6 @@ import VueCardFormat from 'vue-credit-card-validation'
 import VueSlider from 'vue-slider-component'
 import VueSocialSharing from 'vue-social-sharing'
 import CountryFlag from 'vue-country-flag'
-import StarRating from 'vue-star-rating'
 import GAuth from 'vue-google-oauth2'
 const gauthOption = {
     clientId: process.env.VUE_APP_GOOGLE_CLIENT_ID,
@@ -222,4 +221,3 @@ Vue.use(VueCardFormat)
 Vue.component('VueSlider', VueSlider)
 Vue.use(VueSocialSharing)
 Vue.component('country-flag', CountryFlag)
-Vue.component('star-rating', StarRating)

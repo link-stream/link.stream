@@ -13,7 +13,7 @@
                 label-for="segmentTagInput"
             >
                 <BasicSelect
-                    v-model="form.send_to"
+                    v-model="segment"
                     id="segmentTagInput"
                     placeholder="Select Segment or Tag"
                     :options="sendtos"
@@ -98,6 +98,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { appConstants } from '~/constants'
+import { api } from '~/services'
 import { required } from 'vuelidate/lib/validators'
 import moment from 'moment'
 export default {
@@ -105,6 +106,7 @@ export default {
     data: () => ({
         open: false,
         saving: false,
+        segment: null,
         form: {
             send_to: null,
             date: new Date(),
@@ -134,6 +136,9 @@ export default {
                     : new Date(),
             }
         },
+        segment() {
+            this.getSubscribersCount()
+        }
     },
     validations: {
         form: {
@@ -211,6 +216,15 @@ export default {
                 name: 'sentSMS',
             })
             this.close()
+        },
+        async getSubscribersCount() {
+            const params = {
+                user_id: this.user.id,
+                segment: this.segment,
+                type: 'sms',
+            }
+            const response = await api.marketing.getSubscribersCount(params)
+            console.log(response)
         },
     },
 }

@@ -106,7 +106,7 @@
                 </template>
             </b-table>
         </div>
-        <div class="subscriber-container">
+        <!-- <div class="subscriber-container">
             <h4 class="title">
                 Subscribers with the most opens
             </h4>
@@ -122,7 +122,7 @@
                     {{ subscriber.opens }}
                 </span>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
@@ -242,23 +242,10 @@ export default {
                 ],
             },
         },
-        subscribers: [
-            {
-                email: 'alyssa@link.stream',
-                opens: 17,
-            },
-            {
-                email: 'klang11089@gmail.com',
-                opens: 4,
-            },
-            {
-                email: 'mail@mail.com',
-                opens: 3,
-            },
-        ],
     }),
     created() {
         this.initData()
+        console.log(this.overview)
     },
     methods: {
         initData() {

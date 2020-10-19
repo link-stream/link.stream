@@ -840,35 +840,14 @@ export const api = {
                 method,
             })
         },
-    },
-    cart: {
-        async getConfigFees() {
-            let endpoint = '/config/fees'
+        async getSubscribersCount(param) {
+            const endpoint = `marketing/subscribers_count_by_segment/${param.user_id}/${param.segment}/${param.type}` 
             const method = METHOD_GET
             return await call({
                 endpoint,
                 method,
             })
-        },
-
-        async creditCardPayment(params) {
-            let endpoint = '/payments/cc_payment'
-            const method = METHOD_POST
-            return await call({
-                endpoint,
-                params,
-                method,
-            })
-        },
-
-        async getRecommendations(userId) {
-            let endpoint = '/profiles/recommendations/' + userId
-            const method = METHOD_GET
-            return await call({
-                endpoint,
-                method,
-            })
-        },
+        }
     },
     cart: {
         async getConfigFees() {

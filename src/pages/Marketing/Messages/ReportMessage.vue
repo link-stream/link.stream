@@ -18,12 +18,14 @@
                         {{ message.campaing_name }}
                     </h1>
                     <div class="page-preview">
-                        <span class="text-light">link.stream/</span>
-                        <span>
-                            {{ user.user_name }}
-                            /placeholder-email-title
-                        </span>
-                        <basic-button variant="outline-light" size="xs">
+                        <span class="text-light">{{ appBaseUrl }}/</span>
+                        <span>app/marketing/messages/view/</span>
+                        <span>{{ message.id }}</span>
+                        <basic-button
+                            variant="outline-light"
+                            size="xs"
+                            @click="showViewEmail"
+                        >
                             View
                         </basic-button>
                     </div>
@@ -74,6 +76,7 @@ import ReportOverview from './ReportOverview'
 import ReportActivity from './ReportActivity'
 import { mapGetters } from 'vuex'
 import { api } from '~/services'
+import { appConstants } from '~/constants'
 export default {
     name: 'ReportMessage',
     components: {
@@ -87,6 +90,7 @@ export default {
         message: {},
         overview: {},
         activities: {},
+        appBaseUrl: appConstants.baseAppUrl.replace(/(^\w+:|^)\/\//, ''),
     }),
     computed: {
         ...mapGetters({
@@ -127,6 +131,15 @@ export default {
                 name: 'marketingMessages',
             })
         },
+        showViewEmail() {
+            let routeData = this.$router.resolve({
+                name: 'viewEmail',
+                params: {
+                    id: this.message.id,
+                },
+            })
+            window.open(routeData.href, '_blank')
+        }
     },
 }
 </script>

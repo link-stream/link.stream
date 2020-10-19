@@ -99,7 +99,6 @@
 <script>
 import { api } from '~/services'
 import { mapGetters } from 'vuex'
-import Cookies from 'js-cookie'
 import { appConstants } from '~/constants'
 export default {
     name: 'ArtPlayer',
@@ -332,20 +331,10 @@ export default {
             } else {
                 let buyItem = this.soundKits.find(
                     soundKits => soundKits.id === this.playerItem.id
-                )                
-                var listItems = []
-                listItems =
-                    Cookies.getJSON(appConstants.cookies.cartItem.name) ===
-                    undefined
-                        ? []
-                        : Cookies.getJSON(appConstants.cookies.cartItem.name)
-
-                listItems.push(buyItem)
-
-                Cookies.set(appConstants.cookies.cartItem.name, listItems)
-                /*this.$store.dispatch('profile/addCartItem', {
+                )
+                this.$store.dispatch('profile/addCartItem', {
                     ...buyItem,
-                })*/
+                })
                 this.$bus.$emit('modal.addedCart.open')
             }
         },

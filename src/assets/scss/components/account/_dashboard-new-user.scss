@@ -1,0 +1,111 @@
+.DashboardCardCollapse {
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+    .group-item {
+        padding: 0;
+        .card-item {
+            border: none;
+            .card-title {
+                margin-top: 10px;
+                h3 {
+                    color: $black;
+                    font-size: 18px;
+                    font-weight: bold;
+                    line-height: 24px;
+                }
+            }
+            .card-text {
+                margin: 0 30px 10px 27px;
+                font-size: 14px;
+                letter-spacing: 0;
+            }
+            .card-text2 {
+                margin: 0 30px 10px 7px;
+                font-size: 14px;
+                letter-spacing: 0;
+            }
+            .chevron-down {
+                color: $black;
+                font-size: 22px;
+                position: absolute;
+                top: 50%;
+                left: 95%;
+                transform: translate(-50%, -50%);
+            }
+        }
+        .hidden-card {
+            padding: 27px 35px 27px 35px;
+            border: none;
+            overflow: hidden;
+            border-left: 5px solid #fdd311;
+            .card-title {
+                color: $black;
+                font-size: 24px;
+                font-weight: 800;
+                letter-spacing: 0;
+                line-height: 24px;
+            }
+            .card-text {
+                color: $black;
+                font-size: 14px;
+                letter-spacing: 0;
+                line-height: 24px;
+                height: auto;
+                max-width: 323px;
+            }
+            .btn-card {
+                height: auto;
+            }
+            .img-card {
+                height: auto;
+                float: right;
+            }
+        }
+    }
+}
+
+.DashboardCard {
+    min-height: 191px;
+    max-width: 816px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+    margin: 20px 0px;
+    padding: 20px;
+
+    h3 {
+        color: $black;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 0.14px;
+        line-height: 24px;
+    }
+    p {
+        color: $black;
+        font-size: 14px;
+        letter-spacing: 0;
+        line-height: 24px;
+    }
+    .btn-resend {
+        box-sizing: border-box;
+        text-transform: none;
+        border: 1px solid #dbdbdb;
+        border-radius: 17px;
+        background-color: transparent;
+        color: $black;
+        font-weight: normal;
+        font-size: 12px;
+        letter-spacing: 0;
+        line-height: 15px;
+        margin-top: 10px;
+        height: 34px;
+        &:hover,
+        &:active {
+            color: $gray-550 !important;
+            background-color: $gray-110 !important;
+            outline: 0;
+            box-shadow: none !important;
+        }
+    }
+}

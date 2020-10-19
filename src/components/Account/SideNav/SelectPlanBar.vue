@@ -1,9 +1,7 @@
 <template>
     <div class="select-plan-bar">
-        <span>Your trial period has started</span>
-        <b-button pill class="btn-upgrade" size="md">
-            Select a plan
-        </b-button>
+        <span>Free Plan is active. Upgrade to unlock more features</span>
+        <b-button pill class="btn-upgrade" size="md">Upgrade</b-button>
     </div>
 </template>
 <script>

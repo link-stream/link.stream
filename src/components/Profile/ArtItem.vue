@@ -71,7 +71,18 @@
             <b-dropdown-item v-show="false">Free Download</b-dropdown-item>
         </b-dropdown>
         <div class="action">
-            <basic-button size="sm" class="btn-buy" @click="handleBuyClick"
+            <basic-button
+                v-if="artItem.type === 'pack' && artItem.price == 0"
+                size="sm"
+                class="btn-buy"
+                @click="handleDownloadClick"
+                >Download</basic-button
+            >
+            <basic-button
+                v-else
+                size="sm"
+                class="btn-buy"
+                @click="handleBuyClick"
                 >Buy</basic-button
             >
             <IconButton class="btn-download" icon="download" v-show="false" />
@@ -135,9 +146,7 @@ export default {
     },    
     methods: {
         handleBuyClick() {
-            var listItems = []
             if (this.artItem.type === 'beat') {
-                this.$bus.$emit('modal.buyLicense.open', this.curItem)
             } else {
                 listItems =
                     Cookies.getJSON(appConstants.cookies.cartItem.name) ===
@@ -154,6 +163,7 @@ export default {
                 this.$bus.$emit('modal.addedCart.open')
             }
         },
+        handleDownloadClick() {},
         handleShareClick() {
             this.$bus.$emit('modal.share.open', this.artItem)
         },

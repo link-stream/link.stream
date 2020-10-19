@@ -146,6 +146,7 @@ export default {
     },
     methods: {
         handleBuyClick() {
+            var listItems = []
             if (this.artItem.type === 'beat') {
                 this.$bus.$emit('modal.buyLicense.open', this.curItem)
             } else {

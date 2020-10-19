@@ -527,7 +527,7 @@
         <div
             class="page page-login btn-spinner cart ckeckout-pay pt-5 d-none d-md-block"
         >
-            <b-col cols="12" xl="8" lg="7" md="6" class="mt-4 pt-4">
+            <b-col cols="12" xl="8" lg="7" md="6" class="mt-4 pt-4n">
                 <b-form>
                     <b-row>
                         <b-col cols="12">
@@ -942,6 +942,7 @@ export default {
     },
     data() {
         return {
+            params_url: [],
             subTotal: 0,
             total: 0,
             itemsCart: [],
@@ -972,6 +973,8 @@ export default {
 
             array: {
                 user_id: '',
+                utm_source: '',
+                ref_id: '',
                 payment: {
                     exp_month: '',
                     exp_year: '',
@@ -1012,6 +1015,7 @@ export default {
                 name: 'publicProfile',
             })
         } else {
+            this.params_url = Cookies.getJSON('params_url')
             var cookiesInfoPay = Cookies.getJSON(
                 appConstants.cookies.informationPay.name
             )
@@ -1102,6 +1106,8 @@ export default {
                     aux => aux.var === 'feeService'
                 )
                 this.array.user_id = this.session.id
+                this.array.utm_source = this.params_url.utm_source
+                this.array.ref_id = this.params_url.ref_id
                 this.array.payment.exp_month = this.cardExpiry.substring(0, 2)
                 this.array.payment.exp_year = parseInt(
                     this.cardExpiry.substring(4, 9)
@@ -1135,6 +1141,7 @@ export default {
                 const params = {
                     data: JSON.stringify(this.array),
                 }
+                console.log('parms', params)
                 const response = await api.cart.creditCardPayment(params)
                 console.log('response', response)
                 if (response.status === 'success') {

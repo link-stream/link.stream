@@ -28,14 +28,14 @@
                             taken to Google Accounts so you can allow LinkStream
                             to interface with your YouTube Channel
                         </h6>
-                        <GoogleLogin
+                        <a
+                            href="#"
                             class="btn-google"
-                            :params="google"
-                            :onSuccess="onGoogleSuccess"
+                            @click.prevent="handleClickSignIn"
                         >
                             <img src="@/assets/img/ico/logo_google.svg" />
                             <span>Sign in with Google</span>
-                        </GoogleLogin>
+                        </a>
                     </b-col>
                 </b-row>
             </div>
@@ -95,20 +95,13 @@
 import { api } from '~/services'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
-import GoogleLogin from 'vue-google-login'
 export default {
     name: 'YoutubeUploader',
-    components: {
-        GoogleLogin,
-    },
     data: () => ({
         loading: false,
         searchString: '',
         beats: [],
         defaultCoverArt: appConstants.defaultCoverArt,
-        google: {
-            client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
-        },
         isSearched: false,
     }),
     computed: {
@@ -133,15 +126,6 @@ export default {
             this.loading = false
             this.isSearched = !!this.searchString
         },
-        async onGoogleSuccess(googleUser) {
-            console.log(googleUser.getAuthResponse())
-            const { login_hint } = googleUser.getAuthResponse()
-            const params = {
-                userName: googleUser.getBasicProfile().getName(),
-                token: login_hint,
-            }
-            await this.$store.dispatch('marketing/setGoogleUserInfo', params)
-        },
         clearSearch() {
             this.searchString = ''
             this.isSearched = false
@@ -153,6 +137,19 @@ export default {
                     beat: beat,
                 },
             })
+        },
+        async handleClickSignIn() {
+            const googleUser = await this.$gAuth.signIn()
+            if (!googleUser) {
+                return
+            }
+            const { access_token } = googleUser.getAuthResponse()
+            const params = {
+                userName: googleUser.getBasicProfile().getName(),
+                token: access_token,
+            }
+            // console.log(params)
+            await this.$store.dispatch('marketing/setGoogleUserInfo', params)
         },
     },
 }

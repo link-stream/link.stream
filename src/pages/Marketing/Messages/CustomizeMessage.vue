@@ -52,7 +52,12 @@
                             <div class="text-container">
                                 <div class="logo-text">
                                     <h6>Your Default Logo</h6>
-                                    <a href="#">Replace</a>
+                                    <a
+                                        href="#"
+                                        @click.prevent="showSelectMedia('logo')"
+                                    >
+                                        Replace
+                                    </a>
                                 </div>
                             </div>
                         </div>

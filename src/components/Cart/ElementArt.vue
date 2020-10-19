@@ -7,7 +7,9 @@
                 </b-col>
                 <b-col cols="4" xl="7" lg="6" md="5" sm="5" class="center">
                     <b-row class="d-block d-md-none" align="left">
-                        <span class="price-item">{{ price | currencyFormat }}</span>
+                        <span class="price-item">{{
+                            price | currencyFormat
+                        }}</span>
                     </b-row>
                     <b-row>
                         <span class="name-item mb-1">{{ name }}</span>
@@ -16,11 +18,22 @@
                         <span class="type-item">{{ type }}</span>
                     </b-row>
                 </b-col>
-                <b-col cols="4" xl="3" lg="4" md="5" sm="4" class="center" style="overflow: hidden;">
-                    <span class="price-item mr-4 d-none d-md-block" style="float: left;">{{
-                        price | currencyFormat
-                    }}</span>
-                    <IconButton style="float: left;"
+                <b-col
+                    cols="4"
+                    xl="3"
+                    lg="4"
+                    md="5"
+                    sm="4"
+                    class="center"
+                    style="overflow: hidden;"
+                >
+                    <span
+                        class="price-item mr-4 d-none d-md-block"
+                        style="float: left;"
+                        >{{ price | currencyFormat }}</span
+                    >
+                    <IconButton
+                        style="float: left;"
                         class="ml-4 pb-1"
                         icon="close"
                         @click="removeItem"
@@ -56,11 +69,13 @@ export default {
             type: String,
         },
     },
+    mounted() {
+        console.log('id', this.id)
+    },
     methods: {
         removeItem() {
-            var cartItems = Cookies.getJSON(
-                'appConstants.cookies.cartItem.name'
-            )
+            console.log('id', this.id)
+            var cartItems = Cookies.getJSON(appConstants.cookies.cartItem.name)
             var cartItem = cartItems.find(aux => aux.id === this.id)
             if (cartItem !== undefined) {
                 const findIndex = cartItems.findIndex(item => {
@@ -86,7 +101,7 @@ export default {
                     }
                 })
                 cartItems.splice(findIndex, 1)
-                Cookies.set('appConstants.cookies.cartItem.name', cartItems)
+                Cookies.set(appConstants.cookies.cartItem.name, cartItems)
                 this.$bus.$emit('cart.deleteItems')
             }
 

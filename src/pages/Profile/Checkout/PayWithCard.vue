@@ -1157,9 +1157,30 @@ export default {
                     this.$router.push({
                         name: 'checkoutReceipt',
                     })
-                } else Cookies.remove('receipt')
+                } else {
+                    this.$toast.error(response.error)
+                    this.resetValues()
+                    Cookies.remove('receipt')
+                }
                 this.status_loading_pay = false
             })
+        },
+
+        resetValues() {
+            this.array.user_id = ''
+            this.array.utm_source = ''
+            this.array.ref_id = ''
+            this.array.payment.exp_month = ''
+            this.array.payment.exp_year = ''
+            this.array.payment.number = ''
+            this.array.payment.cvc = ''
+            this.array.payment.name = ''
+            this.array.payment.address_zip = ''
+            this.array.payment.subtotal = ''
+            this.array.payment.feeCC = ''
+            this.array.payment.feeService = ''
+            this.array.payment.total = ''
+            this.array.cart = []
         },
     },
 }

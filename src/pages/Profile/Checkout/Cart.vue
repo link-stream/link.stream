@@ -165,7 +165,15 @@ export default {
     created() {
         this.$bus.$on('cart.deleteItems', this.deleteItems)
     },
-    watch: {},
+    watch: {
+        itemsCart() {
+            if (this.itemsCart.length === 0) {
+                this.$router.push({
+                    name: 'publicProfile',
+                })
+            }
+        },
+    },
     async mounted() {
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
         this.createItems()
@@ -180,6 +188,7 @@ export default {
             this.sum()
         }
     },
+
     methods: {
         createItems() {
             var items = Cookies.getJSON(appConstants.cookies.cartItem.name)

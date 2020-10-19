@@ -5,10 +5,10 @@
                 <b-col cols="4" xl="2" lg="2" md="2" sm="3">
                     <b-img :src="imgSrc" fluid></b-img>
                 </b-col>
-                <b-col cols="4" xl="8" lg="8" md="6" sm="5" class="center">
-                    <!--b-row-- class="d-block d-sm-none para ocultar lo otro d-none d-sm-block" align-h="start">
-                        <span class="price-item">$ {{ price }}</span>
-                    </!--b-row-->
+                <b-col cols="4" xl="7" lg="6" md="5" sm="5" class="center">
+                    <b-row class="d-block d-md-none" align="left">
+                        <span class="price-item">{{ price | currencyFormat }}</span>
+                    </b-row>
                     <b-row>
                         <span class="name-item mb-1">{{ name }}</span>
                     </b-row>
@@ -16,11 +16,11 @@
                         <span class="type-item">{{ type }}</span>
                     </b-row>
                 </b-col>
-                <b-col cols="4" xl="2" lg="2" md="4" sm="4" class="center">
-                    <span class="price-item mr-4">{{
+                <b-col cols="4" xl="3" lg="4" md="5" sm="4" class="center" style="overflow: hidden;">
+                    <span class="price-item mr-4 d-none d-md-block" style="float: left;">{{
                         price | currencyFormat
                     }}</span>
-                    <IconButton
+                    <IconButton style="float: left;"
                         class="ml-4 pb-1"
                         icon="close"
                         @click="removeItem"

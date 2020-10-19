@@ -1,14 +1,17 @@
 <template>
     <div class="pt-4 cart ckeckout-pay px-4">
-        <b-form-row class=" mt-4">
-            <b-col cols="12" xl="9" lg="9" md="8" sm="12" xs="12">
+        <b-form-row
+            class="mt-4"
+            style="display: flex; justify-content: center;"
+        >
+            <b-col cols="12" xl="7" lg="7" md="7" sm="7" class="mr-4 pr-4">
                 <div class="left-col">
                     <h1 class="pl-2 ml-3 pb-3 title-page">Your cart</h1>
                 </div>
                 <div
                     v-for="(item, index) in itemsCart"
                     :key="index"
-                    class="mt-2 mb-5"
+                    class="mt-3 mb-5 ml-3"
                 >
                     <CartItem
                         :artistName="item.artistName"
@@ -18,7 +21,7 @@
                     ></CartItem>
                 </div>
             </b-col>
-            <b-col cols="12" xl="3" lg="3" md="4" sm="12" xs="12" class="mt-3">
+            <b-col cols="12" xl="3" lg="4" md="4" sm="4">
                 <b-card class="card-summary">
                     <b-row>
                         <b-col cols="12">
@@ -31,14 +34,7 @@
                         <b-col cols="6" class="pt-2">
                             <span class="card-summary-details">Subtotal</span>
                         </b-col>
-                        <b-col
-                            cols="6"
-                            xl="4"
-                            lg="5"
-                            md="6"
-                            sm="4"
-                            class="pt-2 text-right"
-                        >
+                        <b-col cols="5" sm="6" class="pt-2 text-right">
                             <span class="summary-details-price mr-2">$</span>
                             <span class="summary-details-price">{{
                                 subTotal.toFixed(2)
@@ -56,11 +52,8 @@
                             }}</span>
                         </b-col>
                         <b-col
-                            cols="6"
-                            xl="4"
-                            lg="5"
-                            md="6"
-                            sm="4"
+                            cols="5"
+                            sm="6"
                             v-show="item.value != 0 && item.type != 'Percent'"
                             class="pt-2 text-right"
                         >
@@ -76,14 +69,7 @@
                                 fees_percent.name
                             }}</span>
                         </b-col>
-                        <b-col
-                            cols="6"
-                            xl="4"
-                            lg="5"
-                            md="6"
-                            sm="4"
-                            class="pt-2 text-right"
-                        >
+                        <b-col cols="5" sm="6" class="pt-2 text-right">
                             <span class="summary-details-price mr-2">$</span>
                             <span class="summary-details-price">{{
                                 percent
@@ -95,14 +81,7 @@
                         <b-col cols="6" class="pt-2">
                             <span class="card-summary-total">Order Total</span>
                         </b-col>
-                        <b-col
-                            cols="6"
-                            xl="4"
-                            lg="5"
-                            md="6"
-                            sm="4"
-                            class="pt-2 text-right"
-                        >
+                        <b-col cols="5" sm="6" class="pt-2 text-right">
                             <span class="summary-total-price">$ </span>
                             <span class="summary-total-price">{{ total }}</span>
                         </b-col>
@@ -113,13 +92,13 @@
                             xl="10"
                             lg="11"
                             md="11"
-                            sm="10"
+                            sm="12"
                             class="center"
                         >
                             <b-button
                                 pill
                                 block
-                                class="mt-4 btn-summary-total"
+                                class="mt-4 px-0 btn-summary-total"
                                 :to="
                                     session === undefined
                                         ? { name: 'checkoutSignin' }
@@ -130,7 +109,11 @@
                             </b-button>
                         </b-col>
                     </b-row>
-                    <b-row class="my-2">
+                    <b-row
+                        class="my-2"
+                        align="center"
+                        style="justify-content:center;"
+                    >
                         <b-col
                             cols="12"
                             xl="10"

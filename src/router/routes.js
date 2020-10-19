@@ -28,6 +28,7 @@ import {
     AccountBeatPacks,
     AccountBeatPackAddEdit,
     AccountSettings,
+    AccountSales,
 } from '~/pages/Account'
 
 import {
@@ -286,6 +287,13 @@ const routes = [
         name: 'upgrade',
         component: NotFound,
         meta: { layout: 'error' },
+    },
+    {
+        path: '/app/sales',
+        name: 'accountSales',
+        alias: '/app/sales',
+        component: AccountSales,
+        meta: { requiresAuth: true, layout: 'account' },
     },
 
     //Marketing

@@ -6,10 +6,10 @@
         variant="dark"
         fixed="top"
     >
-        <!--b-navbar-brand to="/">            
+        <b-navbar-brand to="/" class=" mr-auto d-md-none">
             <Logo1 />
-        </b-navbar-brand-->
-        <b-navbar-brand to="/" class="mr-auto">
+        </b-navbar-brand>
+        <b-navbar-brand to="/" class="mr-auto d-none d-md-block">
             <div>
                 <b-img
                     fluid
@@ -45,7 +45,7 @@
                 size="md"
                 :to="{ name: 'login' }"
             >
-                Sell Bits
+                Sell Beats
             </b-button>
             <!--b-button
                 pill
@@ -59,7 +59,7 @@
         <b-navbar-nav class="d-none d-md-block">
             <div class="vertical_divider"></div>
         </b-navbar-nav>
-        <b-navbar-nav class="d-none d-md-block">
+        <b-navbar-nav v-if="session == undefined">
             <b-button
                 pill
                 class="bg-transparent text-white btn-login sign-in"
@@ -69,38 +69,54 @@
                 Sign In
             </b-button>
         </b-navbar-nav>
-        <b-navbar-nav class="d-none d-md-block">
-            <div class="mr-4">
+        <b-navbar-nav v-else>
+            <div class="mx-4">
                 <b-dropdown
+                    dropdown
+                    id="dropdown-dropdown"
+                    no-flip
                     right
                     variant="link"
                     toggle-class="text-decoration-none"
                     no-caret
+                    menu-class="dropdown-items"
                 >
                     <template v-slot:button-content>
-                        <b-avatar badge-variant="info" class="mr-1" size="25px">
-                            <!--b-badge variant="light"
-                                >9
-                                <span class="sr-only"
-                                    >unread messages</span
-                                ></b-badge
-                            -->
-                        </b-avatar>
+                        <b-avatar
+                            class="mr-2"
+                            size="25px"
+                            badge
+                            badge-top
+                            badge-offset="-0.5em"
+                            badge-variant="danger"
+                        ></b-avatar>
                         <font-awesome-icon
                             style="color: #ffffff;"
                             :icon="['fas', 'chevron-down']"
                             size="1x"
                         />
                     </template>
-                    <b-dropdown-item href="#">Purchases</b-dropdown-item>
-                    <b-dropdown-item href="#"
-                        >Notifications (ctd)</b-dropdown-item
+                    <b-dropdown-item id="dropdown-item" href="#" class="py-0"
+                        >Purchases</b-dropdown-item
                     >
-                    <b-dropdown-item href="#">Saved Music</b-dropdown-item>
-                    <b-dropdown-item href="#">Account Settings</b-dropdown-item>
-                    <b-dropdown-item href="#">Sell your Beats</b-dropdown-item>
-                    <b-dropdown-item href="#"
-                        >Something else here...</b-dropdown-item
+                    <b-dropdown-item id="dropdown-item" href="#">
+                        <b-row class="pl-3">
+                            <span>Notifications (ctd)</span>
+                            <div class="oval ml-3 mt-3"></div>
+                        </b-row>
+                    </b-dropdown-item>
+                    <b-dropdown-item id="dropdown-item" href="#"
+                        >Saved Music</b-dropdown-item
+                    >
+                    <b-dropdown-item id="dropdown-item" href="#"
+                        >Account Settings</b-dropdown-item
+                    >
+                    <b-dropdown-item id="dropdown-item" href="#">
+                        <span style="color: #DC2EA6;">Sell your Beats</span>
+                    </b-dropdown-item>
+                    <b-dropdown-divider class="divider"></b-dropdown-divider>
+                    <b-dropdown-item id="dropdown-item" href="#"
+                        >Sign Out</b-dropdown-item
                     >
                 </b-dropdown>
             </div>
@@ -114,6 +130,7 @@
 <script>
 import { appConstants } from '~/constants'
 import { Logo1, ToggleMenu } from '~/components/Svg'
+import Cookies from 'js-cookie'
 
 export default {
     name: 'TopNav',
@@ -132,7 +149,11 @@ export default {
     },
     data: () => ({
         searchString: '',
+        session: '',
     }),
+    mounted() {
+        this.session = Cookies.getJSON(appConstants.cookies.auth.name)
+    },
     methods: {
         toggle() {},
         showCart() {

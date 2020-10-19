@@ -5,20 +5,20 @@
                 <span class="thank-you">Thank you, {{ user.first_name }}!</span>
             </b-row>
             <b-row class="mt-3">
-                <span your-files-are-now-a
+                <span class="your-files-are-now-a"
                     >Your files are now available to download below</span
                 >
             </b-row>
             <b-row>
                 <b-col cols="12" xl="9" lg="8" md="8" sm="12">
-                    <b-card class="card-summacry mt-4" no-body>
+                    <b-card class="card-summary mt-4" no-body>
                         <b-row class="px-4 py-4">
-                            <b-col cols="6" xl="10" lg="8" md="9" sm="7">
+                            <b-col cols="12" xl="10" lg="8" md="9" sm="7">
                                 <span class="items-purchased">
                                     Items purchased</span
                                 >
                             </b-col>
-                            <b-col cols="6" xl="2" lg="4" md="3" sm="5">
+                            <b-col cols="12" xl="2" lg="4" md="3" sm="5">
                                 <span class="order">{{ receipt.id }}</span>
                             </b-col>
                         </b-row>
@@ -32,28 +32,6 @@
                             </b-list-group-item>
                         </b-list-group>
                     </b-card>
-                    <b-row class="mt-4 ml-2">
-                        <span class="you-might-also-like"
-                            >You might also like</span
-                        >
-                    </b-row>
-                    <b-row class="mt-4 ml-2">
-                        <Recommendation
-                            v-for="(item, index) in recommendation"
-                            :key="index"
-                            :imgSrc="item.coverart_url"
-                            :name="item.title"
-                            :type="item.type"
-                        />
-                    </b-row>
-                    <b-row class="mt-4 ml-2">
-                        <basic-button
-                            pill
-                            class="continue-shopping"
-                            :to="{ name: 'publicProfile' }"
-                            >Continue Shopping</basic-button
-                        >
-                    </b-row>
                 </b-col>
                 <b-col cols="12" xl="3" lg="4" md="4" sm="12" class="mt-2">
                     <b-card class="card-summary">
@@ -223,6 +201,32 @@
                             </b-col>
                         </b-row>
                     </b-card>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col cols="12" xl="12" lg="12" md="12" sm="12">
+                    <b-row class="mt-4 ml-2">
+                        <span class="you-might-also-like"
+                            >You might also like</span
+                        >
+                    </b-row>
+                    <b-row class="mt-4 ml-2">
+                        <Recommendation
+                            v-for="(item, index) in recommendation"
+                            :key="index"
+                            :imgSrc="item.coverart_url"
+                            :name="item.title"
+                            :type="item.type"
+                        />
+                    </b-row>
+                    <b-row class="mt-4 ml-2">
+                        <basic-button
+                            pill
+                            class="continue-shopping"
+                            :to="{ name: 'publicProfile' }"
+                            >Continue Shopping</basic-button
+                        >
+                    </b-row>
                 </b-col>
             </b-row>
         </b-col>

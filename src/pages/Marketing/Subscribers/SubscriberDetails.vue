@@ -19,7 +19,6 @@
                     <DropdownActions @change="updateStatus" />
                 </div>
                 <div class="status-container">
-                    <CustomStarRating :rating="rating" />
                     <div class="subscriber-status">
                         {{ subscriber.email_status }}
                     </div>

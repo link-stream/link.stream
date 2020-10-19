@@ -840,6 +840,14 @@ export const api = {
                 method,
             })
         },
+        async getSubscribersCount(param) {
+            const endpoint = `marketing/subscribers_count_by_segment/${param.user_id}/${param.segment}/${param.type}` 
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        }
     },
     cart: {
         async getConfigFees() {

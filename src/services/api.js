@@ -878,33 +878,4 @@ export const api = {
             })
         },
     },
-    cart: {
-        async getConfigFees() {
-            let endpoint = '/config/fees'
-            const method = METHOD_GET
-            return await call({
-                endpoint,
-                method,
-            })
-        },
-
-        async creditCardPayment(params) {
-            let endpoint = '/payments/cc_payment'
-            const method = METHOD_POST
-            return await call({
-                endpoint,
-                params,
-                method,
-            })
-        },
-
-        async getRecommendations(userId) {
-            let endpoint = '/profiles/recommendations/' + userId
-            const method = METHOD_GET
-            return await call({
-                endpoint,
-                method,
-            })
-        },
-    },
 }

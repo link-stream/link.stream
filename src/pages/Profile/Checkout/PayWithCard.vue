@@ -527,14 +527,11 @@
         <div
             class="page page-login btn-spinner cart ckeckout-pay pt-5 d-none d-md-block"
         >
-            <b-col cols="12" xl="8" lg="7" md="6">
-                <b-form class="pt-4">
+            <b-col cols="12" xl="8" lg="7" md="6" class="mt-4 pt-4">
+                <b-form>
                     <b-row>
                         <b-col cols="12">
-                            <b-row
-                                style="justify-content: center;"
-                                class="pt-4"
-                            >
+                            <b-row style="justify-content: center;">
                                 <b-col cols="12" xl="7" lg="10" md="11">
                                     <b-avatar
                                         src="@/assets/img/ico/streamy-logo.svg"
@@ -545,7 +542,7 @@
                                 </b-col>
                             </b-row>
                         </b-col>
-                        <b-col cols="12" class="mt-4">
+                        <b-col cols="12">
                             <b-row
                                 style="justify-content: center;"
                                 class="mt-4"
@@ -559,10 +556,10 @@
                                 </b-col>
                             </b-row>
                         </b-col>
-                        <b-col cols="12" class="mt-4">
+                        <b-col cols="12">
                             <b-row
                                 style="justify-content: center;"
-                                class="mt-3"
+                                class="mt-2"
                             >
                                 <b-col cols="12" xl="7" lg="10" md="11">
                                     <b-card-sub-title>
@@ -577,10 +574,10 @@
                                 </b-col>
                             </b-row>
                         </b-col>
-                        <b-col cols="12" class="mt-4">
+                        <b-col cols="12">
                             <b-row
                                 style="justify-content: center;"
-                                class="mt-4"
+                                class="mt-3"
                             >
                                 <b-col cols="12" xl="7" lg="10" md="11">
                                     <span class="contact-information"
@@ -589,8 +586,11 @@
                                 </b-col>
                             </b-row>
                         </b-col>
-                        <b-col cols="12" class="mt-4">
-                            <b-row style="justify-content: center;">
+                        <b-col cols="12">
+                            <b-row
+                                style="justify-content: center;"
+                                class="mt-3"
+                            >
                                 <b-col cols="12" xl="7" lg="10" md="11">
                                     <b-form-group
                                         id="input-group-card-info"
@@ -901,7 +901,7 @@
                 style="background-color: #000000;  "
                 class="right-side d-none d-md-block pr-0"
             >
-                <b-row style="justify-content: center;" class="pt-4">
+                <b-row style="justify-content: center;">
                     <b-col cols="12" xl="11" lg="11" md="11">
                         <InformationPay />
                     </b-col>

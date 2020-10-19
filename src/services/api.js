@@ -7,7 +7,7 @@ const METHOD_POST = 'POST'
 const METHOD_PUT = 'PUT'
 const METHOD_DELETE = 'DELETE'
 
-const call = async function({
+const call = async function ({
     endpoint,
     params = {},
     method = METHOD_GET,
@@ -67,7 +67,7 @@ const call = async function({
     return payload
 }
 
-const callS3 = async function({ endpoint, params, showProgress = true }) {
+const callS3 = async function ({ endpoint, params, showProgress = true }) {
     const formData = new FormData()
     formData.append('acl', params['acl'])
     formData.append('key', params['key'])
@@ -817,6 +817,35 @@ export const api = {
         },
         async getMedias(userId) {
             let endpoint = 'marketing/user_media_files/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+    },
+    cart: {
+        async getConfigFees() {
+            let endpoint = '/config/fees'
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+
+        async creditCardPayment(params) {
+            let endpoint = '/payments/cc_payment'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+
+        async getRecommendations(userId) {
+            let endpoint = '/profiles/recommendations/' + userId
             const method = METHOD_GET
             return await call({
                 endpoint,

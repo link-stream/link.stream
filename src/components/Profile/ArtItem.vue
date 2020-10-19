@@ -143,10 +143,11 @@ export default {
                 artist_url: this.profile.url,
             }
         },
-    },    
+    },
     methods: {
         handleBuyClick() {
             if (this.artItem.type === 'beat') {
+                this.$bus.$emit('modal.buyLicense.open', this.curItem)
             } else {
                 listItems =
                     Cookies.getJSON(appConstants.cookies.cartItem.name) ===

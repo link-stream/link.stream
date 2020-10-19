@@ -155,4 +155,10 @@ export const menus = [
         label: 'Upgrade',
         to: '/app/upgrade',
     },
+    {
+        id: 'sales',
+        icon: ['fas', 'arrow-circle-up'],
+        label: 'Sales',
+        to: '/app/sales',
+    },
 ]

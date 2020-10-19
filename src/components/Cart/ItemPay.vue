@@ -5,7 +5,7 @@
                 <b-col cols="5" xl="1" lg="1" md="2" sm="2">
                     <b-img :src="itemPay.imgSrc" fluid></b-img>
                 </b-col>
-                <b-col cols="7" xl="8" lg="7" md="4" sm="4" class="center">
+                <b-col cols="7" xl="8" lg="6" md="4" sm="4" class="center">
                     <b-row>
                         <span class="details-items-pay mb-1">{{
                             itemPay.name
@@ -18,7 +18,10 @@
                         <b-button
                             variant="link"
                             class="mx-1 details-items-pay-link"
-                            :to="{ name: 'legal' }"
+                            :to="{
+                                name: 'publicProfile',
+                                params: { url: itemPay.artist_url },
+                            }"
                             >{{ itemPay.artistName }}</b-button
                         >
                         <span class="details-items-pay">
@@ -26,7 +29,7 @@
                         >
                     </b-row>
                 </b-col>
-                <b-col cols="12" xl="3" lg="4" md="6" sm="6" class="center">
+                <b-col cols="12" xl="3" lg="5" md="6" sm="6" class="center">
                     <b-button pill class="continue-shopping">
                         <b-icon font-scale="1" icon="download" class="mr-2" />
                         Download</b-button

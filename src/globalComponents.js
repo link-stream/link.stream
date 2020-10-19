@@ -43,8 +43,10 @@ import {
     BListGroup,
     BListGroupItem,
     BFormSelect,
+    BBadge,
     BCardTitle,
-    BCardHeader,    
+    BCardHeader,
+    BDropdownForm
 } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'
@@ -125,7 +127,8 @@ Vue.component('BListGroupItem', BListGroupItem)
 Vue.component('BFormSelect', BFormSelect)
 Vue.component('BCardTitle', BCardTitle)
 Vue.component('BCardHeader', BCardHeader)
-
+Vue.component('BBadge', BBadge)
+Vue.component('BDropdownForm', BDropdownForm)
 Vue.use(BootstrapVueIcons)
 
 // Install VueProgressBar

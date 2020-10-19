@@ -1,6 +1,6 @@
 <template>
     <div class="height100">
-        <b-card class="cart-item-dark height100 px-3 pt-5">
+        <b-card class="cart-item-dark height100 pt-5">
             <div v-for="(item, index) in itemsCart" :key="index">
                 <CartItemDark
                     :artistName="item.artistName"

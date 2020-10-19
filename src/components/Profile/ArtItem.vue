@@ -85,11 +85,16 @@
                 @click="handleBuyClick"
                 >Buy</basic-button
             >
+            <IconButton class="btn-download" icon="download" v-show="false" />
         </div>
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { getCartCookie } from '~/utils/cart'
+import { setCartCookie } from '~/utils/cart'
+import Cookies from 'js-cookie'
+import { appConstants } from '~/constants'
 export default {
     name: 'ArtItemm',
     props: {
@@ -113,6 +118,7 @@ export default {
         ...mapGetters({
             licenses: 'profile/licenses',
             individualLoading: 'profile/individualLoading',
+            profile: 'profile/profile',
         }),
         minPrice() {
             return Math.min.apply(
@@ -126,13 +132,36 @@ export default {
                 this.artItem.licenses.map(({ price }) => price)
             )
         },
+        curItem() {
+            return {
+                ...this.artItem,
+                artistName: this.profile.first_name.concat(
+                    ' ',
+                    this.profile.last_name
+                ),
+                avatar_url: this.profile.avatar_url,
+                artist_url: this.profile.url,
+            }
+        },
     },
     methods: {
         handleBuyClick() {
+            var listItems = []
             if (this.artItem.type === 'beat') {
-                this.$bus.$emit('modal.buyLicense.open', this.artItem)
+                this.$bus.$emit('modal.buyLicense.open', this.curItem)
             } else {
-                this.$store.dispatch('profile/addCartItem', { ...this.artItem })
+                listItems =
+                    Cookies.getJSON(appConstants.cookies.cartItem.name) ===
+                    undefined
+                        ? []
+                        : Cookies.getJSON(appConstants.cookies.cartItem.name)
+                this.curItem.data_image = ''
+                this.curItem.coverart = ''
+
+                listItems.push(this.curItem)
+
+                Cookies.set(appConstants.cookies.cartItem.name, listItems)
+                //this.$store.dispatch('profile/addCartItem', { ...this.artItem })
                 this.$bus.$emit('modal.addedCart.open')
             }
         },

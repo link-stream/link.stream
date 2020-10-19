@@ -32,5 +32,64 @@
             padding-right: 15px;
             margin-right: 5px;
         }
+        .sell-beats {                   
+            color: #FFFFFF;
+            font-family: Montserrat;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 18px;
+        }
+        .sign-in {           
+            color: #FFFFFF;
+            font-family: Montserrat;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 18px;
+            text-align: right;
+        }
+        .vertical_divider {
+            height: 28px;
+            width: 1px;
+            opacity: 0.8;
+            background-color: #FFFFFF;
+        }
+        .menu-drop{
+            height: 225px;
+            width: 200px;
+            border-radius: 2px;
+            background-color: #FFFFFF;
+            box-shadow: 0 0 4px 0 rgba(0,0,0,0.1);
+        }
+        #dropdown-item:hover{
+            background-color: #F5F5F5;
+            color: #333333;
+        }
+        #dropdown-item{
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .dropdown-items{
+            width: 200px;
+            color: #333333;
+            
+            font-size: 12px;
+            letter-spacing: 0;
+            line-height: 32px;
+            background-color: #FFFFFF;
+            font-weight: 600;  
+            
+            
+         
+        }
+        .oval{
+            height: 8px;
+            width: 8px;            
+            background-color: #FF4141;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+        }
     }
 }

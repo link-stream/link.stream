@@ -28,6 +28,7 @@ import {
     AccountBeatPacks,
     AccountBeatPackAddEdit,
     AccountSettings,
+    AccountSales,
 } from '~/pages/Account'
 
 import {
@@ -287,6 +288,13 @@ const routes = [
         component: NotFound,
         meta: { layout: 'error' },
     },
+    {
+        path: '/app/sales',
+        name: 'accountSales',
+        alias: '/app/sales',
+        component: AccountSales,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
 
     //Marketing
 
@@ -493,35 +501,35 @@ const routes = [
         meta: { layout: 'profile' },
     },
     {
-        path: '/:url/cart/',
+        path: '/cart/',
         name: 'cart',
         component: Cart,
         props: true,
         meta: { layout: 'profile' },
     },
     {
-        path: '/:url/checkout-signin',
+        path: '/checkout-signin',
         name: 'checkoutSignin',
         component: CheckoutSignin,
         props: true,
         meta: { layout: 'auth' },
     },
     {
-        path: '/:url/checkout-contact-info',
+        path: '/checkout-contact-info',
         name: 'checkoutContactInfo',
         component: CheckoutContactInfo,
         props: true,
         //meta: { layout: 'auth' },
     },
     {
-        path: '/:url/checkout-pay',
+        path: '/checkout-pay',
         name: 'payWithCard',
         component: PayWithCard,
         props: true,
         //meta: { layout: 'auth' },
     },
     {
-        path: '/:url/checkout-receipt',
+        path: '/checkout-confirmation',
         name: 'checkoutReceipt',
         component: CheckoutReceipt,
         props: true,

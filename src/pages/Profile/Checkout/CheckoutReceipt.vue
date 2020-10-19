@@ -5,20 +5,20 @@
                 <span class="thank-you">Thank you, {{ user.first_name }}!</span>
             </b-row>
             <b-row class="mt-3">
-                <span your-files-are-now-a
+                <span class="your-files-are-now-a"
                     >Your files are now available to download below</span
                 >
             </b-row>
             <b-row>
                 <b-col cols="12" xl="9" lg="8" md="8" sm="12">
-                    <b-card class="card-summacry mt-4" no-body>
+                    <b-card class="card-summary mt-4" no-body>
                         <b-row class="px-4 py-4">
-                            <b-col cols="6" xl="10" lg="8" md="9" sm="7">
+                            <b-col cols="12" xl="10" lg="8" md="9" sm="7">
                                 <span class="items-purchased">
                                     Items purchased</span
                                 >
                             </b-col>
-                            <b-col cols="6" xl="2" lg="4" md="3" sm="5">
+                            <b-col cols="12" xl="2" lg="4" md="3" sm="5">
                                 <span class="order">{{ receipt.id }}</span>
                             </b-col>
                         </b-row>
@@ -32,28 +32,6 @@
                             </b-list-group-item>
                         </b-list-group>
                     </b-card>
-                    <b-row class="mt-4 ml-2">
-                        <span class="you-might-also-like"
-                            >You might also like</span
-                        >
-                    </b-row>
-                    <b-row class="mt-4 ml-2">
-                        <Recommendation
-                            v-for="(item, index) in recommendation"
-                            :key="index"
-                            :imgSrc="item.coverart_url"
-                            :name="item.title"
-                            :type="item.type"
-                        />
-                    </b-row>
-                    <b-row class="mt-4 ml-2">
-                        <basic-button
-                            pill
-                            class="continue-shopping"
-                            :to="{ name: 'publicProfile' }"
-                            >Continue Shopping</basic-button
-                        >
-                    </b-row>
                 </b-col>
                 <b-col cols="12" xl="3" lg="4" md="4" sm="12" class="mt-2">
                     <b-card class="card-summary">
@@ -201,10 +179,14 @@
                                         Payment Method</span
                                     >
                                 </b-row>
+
                                 <b-row>
-                                    <span class="customer-information-details">
-                                        {{ receipt.cc_type }}</span
-                                    >
+                                    <b-img
+                                        fluid
+                                        width="30px"
+                                        height="30px"
+                                        :src="icon_card"
+                                    ></b-img>
                                     <span
                                         class="customer-information-details ml-2"
                                     >
@@ -219,6 +201,32 @@
                             </b-col>
                         </b-row>
                     </b-card>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col cols="12" xl="12" lg="12" md="12" sm="12">
+                    <b-row class="mt-4 ml-2">
+                        <span class="you-might-also-like"
+                            >You might also like</span
+                        >
+                    </b-row>
+                    <b-row class="mt-4 ml-2">
+                        <Recommendation
+                            v-for="(item, index) in recommendation"
+                            :key="index"
+                            :imgSrc="item.coverart_url"
+                            :name="item.title"
+                            :type="item.type"
+                        />
+                    </b-row>
+                    <b-row class="mt-4 ml-2">
+                        <basic-button
+                            pill
+                            class="continue-shopping"
+                            :to="{ name: 'publicProfile' }"
+                            >Continue Shopping</basic-button
+                        >
+                    </b-row>
                 </b-col>
             </b-row>
         </b-col>
@@ -254,10 +262,12 @@ export default {
             fees: [],
             percent: 0,
             fees_percent: '',
+            icon_card: '',
         }
     },
     watch: {},
     async mounted() {
+        console.log('this.user', this.user)
         this.data_user = this.user.first_name.concat(
             ' ',
             this.user.last_name,
@@ -275,6 +285,7 @@ export default {
         this.fees = infoPay[1].fees
         this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
         this.receipt = Cookies.getJSON('receipt')
+        this.icon_card = this.getBrandClass(this.receipt.cc_type.toLowerCase())
 
         const response = await api.cart.getRecommendations(this.user.id)
         if (response.status === 'success') {
@@ -284,6 +295,13 @@ export default {
         //Cookies.remove('receipt')
     },
     methods: {
+        getBrandClass(brand) {
+            let icon = ''
+            let temp = appConstants.cardImages.find(aux => aux.type === brand)
+            icon = temp !== undefined ? temp.url : '/static/img/credit-card.svg'
+
+            return icon
+        },
         createItemsPay(items_pay) {
             for (var i in items_pay) {
                 var item = items_pay[i]
@@ -294,6 +312,7 @@ export default {
                         type: item.elements[j].type,
                         price: item.elements[j].price,
                         artistName: item.artistName,
+                        artist_url: item.artist_url,
                     })
                 }
             }

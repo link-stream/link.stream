@@ -6,15 +6,30 @@
         variant="dark"
         fixed="top"
     >
-        <b-navbar-brand to="/">
+        <b-navbar-brand to="/" class=" mr-auto d-md-none">
             <Logo1 />
         </b-navbar-brand>
-        <b-navbar-nav class="mr-auto">
+        <b-navbar-brand to="/" class="mr-auto d-none d-md-block">
+            <div>
+                <b-img
+                    fluid
+                    src="@/assets/img/logo/logo-h-lg.png"
+                    width="156.73px"
+                    height="34px"
+                ></b-img>
+            </div>
+        </b-navbar-brand>
+        <!--b-navbar-nav class="mr-auto">
             <a href="#" @click.prevent.stop="toggle">
                 <ToggleMenu :isHidden="isHidden" />
             </a>
-        </b-navbar-nav>
-        <!-- <b-navbar-nav class="mr-auto left-padding">
+        </b-navbar-nav-->
+        <!--b-navbar-nav class="mr-auto">
+            <a href="#" @click.prevent.stop="toggle">
+                <ToggleMenu :isHidden="isHidden" />
+            </a>
+        </b-navbar-nav-->
+        <!--b-navbar-nav class="mr-auto left-padding">
             <SearchInput
                 pill
                 color="white"
@@ -22,36 +37,91 @@
                 placeholder="Search"
                 direction="right"
             />
-        </b-navbar-nav> -->
+        </b-navbar-nav-->
         <b-navbar-nav class="d-none d-md-block">
             <b-button
                 pill
-                class="bg-transparent text-white btn-login"
+                class="bg-transparent text-white btn-login sell-beats"
                 size="md"
                 :to="{ name: 'login' }"
             >
-                Sign In
+                Sell Beats
             </b-button>
-            <b-button
+            <!--b-button
                 pill
                 class="bg-transparent text-white"
                 size="md"
                 :to="{ name: 'signup' }"
             >
                 Sign Up
+            </b-button-->
+        </b-navbar-nav>
+        <b-navbar-nav class="d-none d-md-block">
+            <div class="vertical_divider"></div>
+        </b-navbar-nav>
+        <b-navbar-nav v-if="session == undefined">
+            <b-button
+                pill
+                class="bg-transparent text-white btn-login sign-in"
+                size="md"
+                :to="{ name: 'login' }"
+            >
+                Sign In
             </b-button>
         </b-navbar-nav>
-        <!--b-navbar-nav-- class="left-padding">
-            <b-button
-                variant="link"
-                class="bg-transparent text-white"
-                size="xs"
-                :to="{ name: 'cart' }"
-            >
-                <img src="@/assets/img/ico/basket.svg" />
-            </b-button>
-        </!--b-navbar-nav-->
-        <b-navbar-nav class="left-padding" @click="showCart">
+        <b-navbar-nav v-else>
+            <div class="mx-4">
+                <b-dropdown
+                    dropdown
+                    id="dropdown-dropdown"
+                    no-flip
+                    right
+                    variant="link"
+                    toggle-class="text-decoration-none"
+                    no-caret
+                    menu-class="dropdown-items"
+                >
+                    <template v-slot:button-content>
+                        <b-avatar
+                            class="mr-2"
+                            size="25px"
+                            badge
+                            badge-top
+                            badge-offset="-0.5em"
+                            badge-variant="danger"
+                        ></b-avatar>
+                        <font-awesome-icon
+                            style="color: #ffffff;"
+                            :icon="['fas', 'chevron-down']"
+                            size="1x"
+                        />
+                    </template>
+                    <b-dropdown-item id="dropdown-item" href="#" class="py-0"
+                        >Purchases</b-dropdown-item
+                    >
+                    <b-dropdown-item id="dropdown-item" href="#">
+                        <b-row class="pl-3">
+                            <span>Notifications (ctd)</span>
+                            <div class="oval ml-3 mt-3"></div>
+                        </b-row>
+                    </b-dropdown-item>
+                    <b-dropdown-item id="dropdown-item" href="#"
+                        >Saved Music</b-dropdown-item
+                    >
+                    <b-dropdown-item id="dropdown-item" href="#"
+                        >Account Settings</b-dropdown-item
+                    >
+                    <b-dropdown-item id="dropdown-item" href="#">
+                        <span style="color: #DC2EA6;">Sell your Beats</span>
+                    </b-dropdown-item>
+                    <b-dropdown-divider class="divider"></b-dropdown-divider>
+                    <b-dropdown-item id="dropdown-item" href="#"
+                        >Sign Out</b-dropdown-item
+                    >
+                </b-dropdown>
+            </div>
+        </b-navbar-nav>
+        <b-navbar-nav @click="showCart">
             <img src="@/assets/img/ico/basket.svg" />
         </b-navbar-nav>
     </b-navbar>
@@ -60,6 +130,7 @@
 <script>
 import { appConstants } from '~/constants'
 import { Logo1, ToggleMenu } from '~/components/Svg'
+import Cookies from 'js-cookie'
 
 export default {
     name: 'TopNav',
@@ -70,12 +141,19 @@ export default {
     computed: {
         isHidden() {
             // eslint-disable-next-line
-            return window.innerWidth >= appConstants.user.account.menuHiddenBreakpoint
+            return (
+                window.innerWidth >=
+                appConstants.user.account.menuHiddenBreakpoint
+            )
         },
     },
     data: () => ({
         searchString: '',
+        session: '',
     }),
+    mounted() {
+        this.session = Cookies.getJSON(appConstants.cookies.auth.name)
+    },
     methods: {
         toggle() {},
         showCart() {

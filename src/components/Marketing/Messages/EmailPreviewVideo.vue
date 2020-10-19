@@ -1,8 +1,34 @@
 <template>
-    <div class="email-preview-release" :style="emailBackStyle">
-        <div class="message-content">
+    <div
+        class="email-preview-release"
+        :style="viewType === 'desktop' ? emailBackStyle: ''"
+    >
+        <div class="message-content" :class="viewType">
+            <b-row class="d-none d-sm-block">
+                <div class="select-view-type">
+                    <a
+                        href="#"
+                        class="view-type left"
+                        :class="{ active: viewType === 'desktop' }"
+                        @click.prevent="viewType = 'desktop'"
+                    >
+                        Desktop
+                    </a>
+                    <a
+                        href="#"
+                        class="view-type right"
+                        :class="{ active: viewType === 'mobile' }"
+                        @click.prevent="viewType = 'mobile'"
+                    >
+                        Mobile
+                    </a>
+                </div>
+            </b-row>
             <div class="phone-frame">
-                <div class="message-frame">
+                <div
+                    class="message-frame"
+                    :style="viewType === 'mobile' ? emailBackStyle : ''"
+                >
                     <div class="message-container video">
                         <div class="message-header">
                             <div class="message-logo">
@@ -57,6 +83,7 @@ export default {
         },
     },
     data: () => ({
+        viewType: 'desktop',
         defaultLogo: appConstants.emailDefaultLogo,
         footerLogo: appConstants.emailFooterLogo,
     }),

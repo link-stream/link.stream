@@ -218,6 +218,14 @@ export const api = {
             const method = METHOD_GET
             return await call({ endpoint, method })
         },
+        async getBeatsByUserTag(userId, tag) {
+            let endpoint = `/audios/${userId}/2`
+            if (tag) {
+                endpoint += '?tag=' + tag
+            }
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
         async getSoundKitsByUser(userId) {
             const endpoint = `/audios/${userId}/3`
             const method = METHOD_GET
@@ -817,6 +825,44 @@ export const api = {
         },
         async getMedias(userId) {
             let endpoint = 'marketing/user_media_files/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async youtubeUploader(params) {
+            const endpoint = 'marketing/youtube_uploader'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+    },
+    cart: {
+        async getConfigFees() {
+            let endpoint = '/config/fees'
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+
+        async creditCardPayment(params) {
+            let endpoint = '/payments/cc_payment'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+
+        async getRecommendations(userId) {
+            let endpoint = '/profiles/recommendations/' + userId
             const method = METHOD_GET
             return await call({
                 endpoint,

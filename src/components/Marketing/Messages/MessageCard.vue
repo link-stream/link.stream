@@ -46,7 +46,11 @@
                         {{ message.status }}
                     </div>
                 </b-col>
-                <b-col v-if="message.status === 'Sent' && message.type === 'Email'" cols="12" sm="4">
+                <b-col
+                    v-if="message.status === 'Sent' && message.type === 'Email'"
+                    cols="12"
+                    sm="4"
+                >
                     <b-row class="mx-0">
                         <b-col class="px-0">
                             <div class="number-value">

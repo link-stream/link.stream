@@ -140,7 +140,7 @@ export default {
                 },
             })
             window.open(routeData.href, '_blank')
-        }
+        },
     },
 }
 </script>

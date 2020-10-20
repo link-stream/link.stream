@@ -151,8 +151,6 @@ export default {
     },
     mounted() {
         var test = getAuthCookie()
-        console.log('test', test)
-        console.log(this.route)
     },
     methods: {
         validateState(ref) {

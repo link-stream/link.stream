@@ -49,6 +49,7 @@ $yellow: #ffc107;
 $green: #28a745;
 $teal: #20c997;
 $cyan: #17a2b8;
+$grey: #e9ecef;
 
 $primary: $color-pink-1;
 $secondary: $gray-110;
@@ -73,6 +74,7 @@ $theme-colors: map-merge(
         'black': $black,
         'purple': $color-purple-1,
         'banana': $color-yellow-2,
+		'grey': $grey,
     ),
     $theme-colors
 );

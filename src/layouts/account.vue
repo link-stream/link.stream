@@ -45,9 +45,15 @@ export default {
             )
         },
     },
+	watch: {
+        async 'user' () {
+            if (this.user != null) {
+                this.$store.commit('me/SET_PLAN_BAR', this.user.plan_id === '1')        
+            }                    
+        }
+    },
     created() {
         this.$store.dispatch('me/loadProfile')
-        this.$store.commit('me/SET_PLAN_BAR', this.user.plan_id === '2')
     },
 }
 </script>

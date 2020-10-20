@@ -131,6 +131,7 @@
 </template>
 
 <script>
+import { api } from '~/services'
 export default {
     name: 'MessageCard',
     props: {
@@ -152,9 +153,11 @@ export default {
         },
     },
     methods: {
-        handleEditClick() {
+        async handleEditClick() {
+            const cntSubscribers = await this.getSubscribersCount()
             this.$store.dispatch('marketing/setSMSData', {
                 ...this.message,
+                cnt_subscribers: cntSubscribers,
             })
             if (this.message.type === 'SMS') {
                 this.$bus.$emit('modal.createSMS.open')
@@ -223,6 +226,21 @@ export default {
                 name: 'marketingMessages',
             })
             await this.$store.dispatch('marketing/getMessages')
+        },
+        async getSubscribersCount() {
+            const params = {
+                user_id: this.message.user_id,
+                segment: this.message.send_to,
+                type: this.message.type.toLowerCase(),
+            }
+            const { status, count } = await api.marketing.getSubscribersCount(
+                params
+            )
+            if (status === 'success') {
+                return count
+            } else {
+                return 0
+            }
         },
     },
 }

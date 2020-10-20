@@ -113,7 +113,7 @@ export default {
             time: '00:00:00',
             content: '',
         },
-        cntSubscribers: 'unknown',
+        cntSubscribers: null,
         maxLength: appConstants.maxMessageLength,
     }),
     computed: {
@@ -139,7 +139,7 @@ export default {
         },
         segment() {
             this.getSubscribersCount()
-        }
+        },
     },
     validations: {
         form: {
@@ -232,11 +232,13 @@ export default {
                 segment: this.segment,
                 type: 'sms',
             }
-            const { status, count } = await api.marketing.getSubscribersCount(params)
+            const { status, count } = await api.marketing.getSubscribersCount(
+                params
+            )
             if (status === 'success') {
                 this.cntSubscribers = count
             } else {
-                this.cntSubscribers = 'unknown'
+                this.cntSubscribers = 0
             }
         },
     },

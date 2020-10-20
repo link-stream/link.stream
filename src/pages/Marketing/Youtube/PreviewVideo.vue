@@ -19,12 +19,16 @@
                 <a :href="result.link" target="_blank">
                     {{ result.link }}
                 </a>
-                <basic-button
-                    class="btn-another-upload"
-                    :to="{ name: 'youtubeUploader' }"
-                >
-                    Upload Another Video
-                </basic-button>
+                <b-row>
+                    <b-col>
+                        <basic-button
+                            class="btn-another-upload"
+                            :to="{ name: 'youtubeUploader' }"
+                        >
+                            Upload Another Video
+                        </basic-button>
+                    </b-col>
+                </b-row>
             </main>
         </div>
         <div v-else-if="uploading">

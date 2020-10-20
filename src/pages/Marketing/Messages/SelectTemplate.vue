@@ -4,7 +4,7 @@
             <basic-button
                 class="back-btn"
                 variant="text"
-                :to="{ name: 'messages' }"
+                :to="{ name: 'marketingMessages' }"
             >
                 <i class="ico ico-back"></i>
                 <span>Messages</span>

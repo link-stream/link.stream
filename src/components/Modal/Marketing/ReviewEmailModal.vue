@@ -7,8 +7,7 @@
             <p>
                 You're about to send this message to
                 <span class="font-weight-bold">
-                    <!-- {{ cntSubscribers | thousandCNumber }} -->
-                    ({{ smsData.send_to }})
+                    {{ smsData.cnt_subscribers | thousandCNumber }}
                 </span>
                 subscribers from the audience
                 <span class="font-weight-bold">

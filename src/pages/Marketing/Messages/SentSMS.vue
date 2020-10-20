@@ -28,7 +28,7 @@
                 <p v-else class="description mb-0">
                     {{ smsData.campaing_name }}
                     is on its way to
-                    {{ smsData.cnt_subscribers }}
+                    {{ smsData.cnt_subscribers | thousandCNumber }}
                     SMS subscribers
                 </p>
             </div>

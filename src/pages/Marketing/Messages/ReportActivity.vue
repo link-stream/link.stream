@@ -26,7 +26,7 @@
                             </span>
                             <span
                                 v-if="
-                                    activity.type.trim().toLowerCase() === 'click'
+                                    activity.type.trim().toLowerCase() === 'click' && activity.link
                                 "
                             >
                                 :
@@ -78,7 +78,6 @@ export default {
                 }
                 prevDate = curDate
                 const aryData = element.text.split(': ')
-                console.log(aryData)
                 tempData.push({
                     time: curTime,
                     type: aryData[0],

@@ -101,6 +101,7 @@ export default {
                 content: null,
                 date: '',
                 time: '',
+                cnt_subscribers: 0,
             }
             this.$store.dispatch('marketing/setSMSData', { ...message })
             this.$bus.$emit('modal.createMessage.open')
@@ -119,6 +120,7 @@ export default {
                 content: '',
                 date: '',
                 time: '',
+                cnt_subscribers: 0
             }
             this.$store.dispatch('marketing/setSMSData', { ...message })
             this.$bus.$emit('modal.createSMS.open')

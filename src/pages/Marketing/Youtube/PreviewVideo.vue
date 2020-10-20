@@ -19,12 +19,16 @@
                 <a :href="result.link" target="_blank">
                     {{ result.link }}
                 </a>
-                <basic-button
-                    class="btn-another-upload"
-                    :to="{ name: 'youtubeUploader' }"
-                >
-                    Upload Another Video
-                </basic-button>
+                <b-row>
+                    <b-col>
+                        <basic-button
+                            class="btn-another-upload"
+                            :to="{ name: 'youtubeUploader' }"
+                        >
+                            Upload Another Video
+                        </basic-button>
+                    </b-col>
+                </b-row>
             </main>
         </div>
         <div v-else-if="uploading">
@@ -167,7 +171,6 @@ export default {
                 ? this.beat.data_image
                 : this.defaultCoverArt,
         }
-        console.log(this.form.tags)
     },
     methods: {
         handleTagsChange(tags) {
@@ -193,7 +196,11 @@ export default {
                 this.$toast.success(message)
                 this.isCompleted = true
             } else {
-                this.$toast.error(error)
+                if (error) {
+                    this.$toast.error(error)
+                } else {
+                    this.$toast.error(data.message)
+                }
             }
             this.uploading = false
         },

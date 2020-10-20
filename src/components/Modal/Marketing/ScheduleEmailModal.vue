@@ -6,8 +6,7 @@
             <p class="mb-0">
                 This message will be sent to all
                 <span class="font-weight-bold">
-                    <!-- {{ cntSubscribers | thousandCNumber }} -->
-                    ( {{ smsData.send_to }})
+                    {{ smsData.cnt_subscribers | thousandCNumber }}
                 </span>
                 subscribers
                 <a href="#" class="btn-link">Edit Recipients</a>

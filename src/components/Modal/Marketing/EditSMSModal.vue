@@ -113,7 +113,7 @@ export default {
             time: '00:00:00',
             content: '',
         },
-        cntSubscribers: 2257,
+        cntSubscribers: 'unknown',
         maxLength: appConstants.maxMessageLength,
     }),
     computed: {
@@ -135,6 +135,7 @@ export default {
                     ? new Date(value.date + ' 23:59:59')
                     : new Date(),
             }
+            this.segment = value.send_to
         },
         segment() {
             this.getSubscribersCount()
@@ -173,12 +174,16 @@ export default {
             if (this.$v.form.$invalid) {
                 return
             }
+            if (!this.segment) {
+                this.$toast.error('Please select the segment or tag!')
+                return
+            }
             this.saving = true
             const params = {
                 user_id: this.smsData.user_id,
                 type: this.smsData.type,
                 campaing_name: this.smsData.campaing_name,
-                send_to: this.form.send_to,
+                send_to: this.segment,
                 reply_to: '',
                 reply_to_name: '',
                 subject: '',
@@ -211,7 +216,11 @@ export default {
                     : this.$toast.error(error)
             }
             this.saving == false
-            await this.$store.dispatch('marketing/setSMSData', params)
+            const ext_params = {
+                ...params,
+                cnt_subscribers: this.cntSubscribers,
+            }
+            await this.$store.dispatch('marketing/setSMSData', ext_params)
             this.$router.push({
                 name: 'sentSMS',
             })
@@ -223,8 +232,12 @@ export default {
                 segment: this.segment,
                 type: 'sms',
             }
-            const response = await api.marketing.getSubscribersCount(params)
-            console.log(response)
+            const { status, count } = await api.marketing.getSubscribersCount(params)
+            if (status === 'success') {
+                this.cntSubscribers = count
+            } else {
+                this.cntSubscribers = 'unknown'
+            }
         },
     },
 }

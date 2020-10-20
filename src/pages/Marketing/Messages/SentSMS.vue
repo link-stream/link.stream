@@ -28,7 +28,7 @@
                 <p v-else class="description mb-0">
                     {{ smsData.campaing_name }}
                     is on its way to
-                    {{ cntSubscribers }}
+                    {{ smsData.cnt_subscribers }}
                     SMS subscribers
                 </p>
             </div>
@@ -44,9 +44,6 @@
 import { mapGetters } from 'vuex'
 export default {
     name: 'SentSMS',
-    data: () => ({
-        cntSubscribers: 200,
-    }),
     computed: {
         ...mapGetters({
             smsData: 'marketing/smsData',

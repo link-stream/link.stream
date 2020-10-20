@@ -23,6 +23,7 @@ export default {
     },
     mounted() {
         var fullPath = this.$route.fullPath
+        console.log(fullPath)
         var arrayFullPath = fullPath.split('?')
         var utm_source = ''
         var ref_id = ''
@@ -47,7 +48,6 @@ export default {
             utm_source: utm_source,
             ref_id: ref_id,
         }
-        console.log('params_url', params_url)
         Cookies.set('params_url', params_url)
     },
 }

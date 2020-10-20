@@ -20,7 +20,7 @@
                                         variant="outline-dark"
                                         block
                                         menu-class="w-100 menu-pay-responsive"
-                                        class="my-4"
+                                        class="my-4 px-2"
                                         id="dropdown-form"
                                         text="View Order Summary"
                                         ref="dropdown"
@@ -29,23 +29,15 @@
                                         <b-dropdown-form>
                                             <div class="mx-4">
                                                 <b-row>
-                                                    <b-col
-                                                        cols="9"
-                                                        xl="8"
-                                                        lg="8"
-                                                        md="7"
-                                                    >
+                                                    <b-col cols="8">
                                                         <span
                                                             class="summary-details-dark"
                                                             >Subtotal</span
                                                         >
                                                     </b-col>
                                                     <b-col
-                                                        cols="3"
-                                                        xl="4"
-                                                        lg="4"
-                                                        md="5"
-                                                        class="text-right"
+                                                        cols="4"
+                                                        class="text-right px-0"
                                                     >
                                                         <span
                                                             class="details-price-dark mr-2"
@@ -67,10 +59,7 @@
                                                     :key="index"
                                                 >
                                                     <b-col
-                                                        cols="9"
-                                                        xl="8"
-                                                        lg="8"
-                                                        md="8"
+                                                        cols="8"
                                                         v-show="
                                                             item.value != 0 &&
                                                                 item.type !=
@@ -86,16 +75,13 @@
                                                         >
                                                     </b-col>
                                                     <b-col
-                                                        cols="3"
-                                                        xl="4"
-                                                        lg="4"
-                                                        md="4"
+                                                        cols="4"
                                                         v-show="
                                                             item.value != 0 &&
                                                                 item.type !=
                                                                     'Percent'
                                                         "
-                                                        class="pt-2 text-right"
+                                                        class="pt-2 px-0 text-right"
                                                     >
                                                         <span
                                                             class="details-price-dark mr-2"
@@ -117,10 +103,7 @@
                                                     "
                                                 >
                                                     <b-col
-                                                        cols="9"
-                                                        xl="8"
-                                                        lg="8"
-                                                        md="7"
+                                                        cols="8"
                                                         class="pt-2"
                                                     >
                                                         <span
@@ -131,11 +114,8 @@
                                                         >
                                                     </b-col>
                                                     <b-col
-                                                        cols="3"
-                                                        xl="4"
-                                                        lg="4"
-                                                        md="5"
-                                                        class="pt-2 text-right"
+                                                        cols="4"
+                                                        class="pt-2 text-right px-0"
                                                     >
                                                         <span
                                                             class="details-price-dark mr-2"
@@ -149,23 +129,15 @@
                                                 </b-row>
                                                 <div class="divider"></div>
                                                 <b-row class="mt-2">
-                                                    <b-col
-                                                        cols="9"
-                                                        xl="7"
-                                                        lg="7"
-                                                        md="7"
-                                                    >
+                                                    <b-col cols="8">
                                                         <span
                                                             class="summary-total-dark"
                                                             >Order Total</span
                                                         >
                                                     </b-col>
                                                     <b-col
-                                                        cols="3"
-                                                        xl="5"
-                                                        lg="5"
-                                                        md="5"
-                                                        class="text-right"
+                                                        cols="4"
+                                                        class="text-right px-0"
                                                     >
                                                         <span
                                                             class="total-price-dark"
@@ -432,16 +404,16 @@
                                     </b-form-group>
                                 </b-col>
                             </b-row>
-                            <b-row style="justify-content: center;">
+                            <b-row>
                                 <b-col
-                                    cols="5"
+                                    cols="12"
                                     sm="4"
-                                    align="left"
-                                    class="px-0"
+                                    class="px-0 mt-4"
+                                    align="center"
                                 >
                                     <b-link
                                         :to="{ name: 'cart' }"
-                                        class="return-links center-vertical"
+                                        class="return-links"
                                     >
                                         <font-awesome-icon
                                             :icon="['fas', 'chevron-left']"
@@ -450,11 +422,13 @@
                                         Return to Cart
                                     </b-link>
                                 </b-col>
+                            </b-row>
+                            <b-row>
                                 <b-col
-                                    cols="6"
+                                    cols="12"
                                     sm="5"
-                                    align="right"
-                                    class="px-0"
+                                    class="px-0 mt-3"
+                                    align="center"
                                 >
                                     <basic-button
                                         pill
@@ -981,6 +955,7 @@ export default {
                     number: '',
                     cvc: '',
                     name: '',
+                    country: '',
                     address_zip: '',
                     subtotal: 0,
                     feeCC: 0,
@@ -1004,9 +979,6 @@ export default {
                 this.$refs.cardCvcInput.focus()
             }
         },
-        'form.country': function(val) {
-            console.log('form.country', this.form.country)
-        },
     },
     mounted() {
         var itemsCookies = Cookies.getJSON(appConstants.cookies.cartItem.name)
@@ -1021,7 +993,7 @@ export default {
             )
             this.itemsCart = cookiesInfoPay[0]
             this.subTotal = cookiesInfoPay[1].sub_total
-            this.total = cookiesInfoPay[1].total
+            //this.total = cookiesInfoPay[1].total
             this.percent = cookiesInfoPay[1].percent
             this.fees = cookiesInfoPay[1].fees
             this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
@@ -1105,6 +1077,9 @@ export default {
                 var temp_feeService = this.informationPay[1].fees.find(
                     aux => aux.var === 'feeService'
                 )
+                var temp_country = this.list_countries.find(
+                    aux => aux.code === this.form.country
+                )
                 this.array.user_id = this.session.id
                 this.array.utm_source = this.params_url.utm_source
                 this.array.ref_id = this.params_url.ref_id
@@ -1116,6 +1091,7 @@ export default {
                 this.array.payment.name = this.form.nameCard
                 this.array.payment.cvc = this.cardCvc
                 this.array.payment.address_zip = this.form.zip
+                this.array.payment.country = temp_country.country
                 this.array.payment.subtotal = this.informationPay[1].sub_total
                 this.array.payment.total = this.informationPay[1].total
                 this.array.payment.feeCC = this.informationPay[1].percent
@@ -1141,9 +1117,7 @@ export default {
                 const params = {
                     data: JSON.stringify(this.array),
                 }
-                console.log('parms', params)
                 const response = await api.cart.creditCardPayment(params)
-                console.log('response', response)
                 if (response.status === 'success') {
                     var receipt = {
                         billingCC: response.billingCC,

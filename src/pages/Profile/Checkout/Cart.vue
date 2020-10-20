@@ -123,7 +123,10 @@
                             class="mt-3"
                         >
                             <b-link
-                                :to="{ name: 'publicProfile' }"
+                                :to="{
+                                    name: 'publicProfile',
+                                    params: { url: params_url.url_profile },
+                                }"
                                 class="return-links"
                             >
                                 <font-awesome-icon
@@ -160,6 +163,7 @@ export default {
             fees: [],
             session: [],
             fees_percent: '',
+            params_url: [],
         }
     },
     created() {
@@ -170,16 +174,20 @@ export default {
             if (this.itemsCart.length === 0) {
                 this.$router.push({
                     name: 'publicProfile',
+                    params: { url: this.params_url.url_profile },
                 })
             }
         },
     },
     async mounted() {
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
+        this.params_url = Cookies.getJSON('params_url')
+        console.log('this.params_url', this.params_url)
         this.createItems()
         if (this.itemsCart.length === 0) {
             this.$router.push({
                 name: 'publicProfile',
+                params: { url: this.params_url.url_profile },
             })
         } else {
             const response = await api.cart.getConfigFees()

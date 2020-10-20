@@ -841,7 +841,7 @@ export const api = {
             })
         },
         async getSubscribersCount(param) {
-            const endpoint = `marketing/subscribers_count_by_segment/${param.user_id}/${param.segment}/${param.type}` 
+            const endpoint = `marketing/subscribers_count_by_segment/${param.user_id}/${param.segment}/${param.type}`
             const method = METHOD_GET
             return await call({
                 endpoint,
@@ -878,4 +878,15 @@ export const api = {
             })
         },
     },
+    sales: {
+        async getCustomerOrders(userId, invoiceId) {
+            let endpoint = '/users/orders/' + userId + '/' + invoiceId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        }
+
+    }
 }

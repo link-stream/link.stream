@@ -446,41 +446,6 @@ const routes = [
 
     //Cart
 
-    {
-        path: '/order/cart',
-        name: 'cart',
-        component: Cart,
-        //props: true,
-        meta: { layout: 'profile' },
-    },
-    {
-        path: '/order/checkout-signin',
-        name: 'checkoutSignin',
-        component: CheckoutSignin,
-        props: true,
-        meta: { layout: 'auth' },
-    },
-    {
-        path: '/order/checkout-contact-info',
-        name: 'checkoutContactInfo',
-        component: CheckoutContactInfo,
-        props: true,
-        //meta: { layout: 'auth' },
-    },
-    {
-        path: '/order/checkout-pay',
-        name: 'payWithCard',
-        component: PayWithCard,
-        props: true,
-        //meta: { layout: 'auth' },
-    },
-    {
-        path: '/order/checkout-confirmation',
-        name: 'checkoutReceipt',
-        component: CheckoutReceipt,
-        props: true,
-        meta: { layout: 'profile' },
-    },
 
 
 
@@ -549,6 +514,45 @@ const routes = [
         props: true,
         meta: { layout: 'profile' },
     },
+    {
+        path: '/order/cart',
+        name: 'cart',
+        component: Cart,
+        //props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/order/checkout-signin',
+        name: 'checkoutSignin',
+        component: CheckoutSignin,
+        props: true,
+        meta: { layout: 'auth' },
+    },
+    {
+        path: '/order/checkout-contact-info',
+        name: 'checkoutContactInfo',
+        component: CheckoutContactInfo,
+        props: true,
+        //meta: { layout: 'auth' },
+    },
+    {
+        path: '/order/checkout-pay',
+        name: 'payWithCard',
+        component: PayWithCard,
+        props: true,
+        //meta: { layout: 'auth' },
+    },
+    {
+        path: '/order/checkout-confirmation',
+        name: 'checkoutReceipt',
+        component: CheckoutReceipt,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+
+
+
+
     // 404 catch all
     {
         path: '/404',

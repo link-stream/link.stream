@@ -878,4 +878,15 @@ export const api = {
             })
         },
     },
+    sales: {
+        async getCustomerOrders(userId, invoiceId) {
+            let endpoint = '/users/orders/' + userId + '/' + invoiceId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        }
+
+    }
 }

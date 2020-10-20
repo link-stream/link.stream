@@ -223,7 +223,10 @@
                         <basic-button
                             pill
                             class="continue-shopping"
-                            :to="{ name: 'publicProfile' }"
+                            :to="{
+                                name: 'publicProfile',
+                                params: { url: params_url.url_profile },
+                            }"
                             >Continue Shopping</basic-button
                         >
                     </b-row>
@@ -263,11 +266,14 @@ export default {
             percent: 0,
             fees_percent: '',
             icon_card: '',
+            params_url: [],
         }
     },
     watch: {},
     async mounted() {
         console.log('this.user', this.user)
+        this.params_url = Cookies.getJSON('params_url')
+
         this.data_user = this.user.first_name.concat(
             ' ',
             this.user.last_name,

@@ -982,12 +982,13 @@ export default {
     },
     mounted() {
         var itemsCookies = Cookies.getJSON(appConstants.cookies.cartItem.name)
+        this.params_url = Cookies.getJSON('params_url')
         if (itemsCookies === undefined) {
             this.$router.push({
                 name: 'publicProfile',
+                params: { url: this.params_url.url_profile },
             })
         } else {
-            this.params_url = Cookies.getJSON('params_url')
             var cookiesInfoPay = Cookies.getJSON(
                 appConstants.cookies.informationPay.name
             )
@@ -999,7 +1000,7 @@ export default {
             this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
             this.list_countries = [
                 {
-                    code: 'EUA',
+                    code: 'US',
                     country: 'United States',
                 },
                 {
@@ -1009,6 +1010,7 @@ export default {
                 ...this.allCountries,
             ]
             this.form.country = this.list_countries[0]
+
             this.informationPay = Cookies.getJSON(
                 appConstants.cookies.informationPay.name
             )
@@ -1077,8 +1079,9 @@ export default {
                 var temp_feeService = this.informationPay[1].fees.find(
                     aux => aux.var === 'feeService'
                 )
+                console.log('kmllljl', this.form.country)
                 var temp_country = this.list_countries.find(
-                    aux => aux.code === this.form.country
+                    aux => aux.code === this.form.country.code
                 )
                 this.array.user_id = this.session.id
                 this.array.utm_source = this.params_url.utm_source
@@ -1158,4 +1161,4 @@ export default {
         },
     },
 }
-</script>
+</script> 

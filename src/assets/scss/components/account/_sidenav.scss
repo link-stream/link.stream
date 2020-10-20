@@ -43,7 +43,9 @@
                 // box-shadow: 0 1px 0 0 $main-menu-border-color;
                 // transition: color $menu-collapse-time;
                 // transition: background $menu-collapse-time;
-
+				.nav-img {
+                    margin-bottom: 50px;
+                }
                 svg {
                     color: $main-menu-active-color;
                     margin-bottom: 0.25 * $spacer;

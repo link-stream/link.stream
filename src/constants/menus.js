@@ -2,29 +2,25 @@ export const menus = [
     {
         id: 'dashboard',
         icon: ['fas', 'tachometer-alt'],
-        label: 'Dashboard',
+        img: 'icon-home.svg',
+        active: 'icon-home-active.svg',
+        label: 'Home',
         to: '/app',
     },
-    {
-        id: 'profile',
-        icon: ['fas', 'user-circle'],
-        label: 'Profile',
-        to: '/app/profile/edit',
-        subs: [
-            {
-                label: 'Edit Profile',
-                to: '/app/profile/edit',
-            },
-            {
-                label: 'View Profile',
-                to: '/user_url',
-            },
-        ],
+	{
+        id: 'sales',
+        icon: ['fas', 'tachometer-alt'],
+        img: 'dollar-sign-solid-nav.svg',
+        active: 'dollar-sign-solid-active.svg',
+        label: 'Sales',
+        to: '/app/sales',
     },
-    {
+	{
         id: 'tracks',
         icon: ['fas', 'music'],
-        label: 'Tracks',
+        img: 'icon-tracks.svg',
+        active: 'icon-music-active.svg',
+        label: 'Your Music',
         to: '/app/beats/manage',
         subs: [
             {
@@ -45,9 +41,11 @@ export const menus = [
             },
         ],
     },
-    {
+	{
         id: 'links',
         icon: ['fas', 'link'],
+		img: 'icon-link.svg',
+        active: 'icon-link-active.svg',
         label: 'Links',
         to: '/app/links/manage',
         subs: [
@@ -61,9 +59,11 @@ export const menus = [
             },
         ],
     },
-    {
+	{
         id: 'videos',
         icon: ['fas', 'play-circle'],
+		img: 'icon-youtube-active.svg',
+        active: 'icon-youtube.svg',
         label: 'Videos',
         to: '/app/videos/manage',
         subs: [
@@ -77,9 +77,11 @@ export const menus = [
             },
         ],
     },
-    {
+	{
         id: 'analytics',
         icon: ['fas', 'chart-bar'],
+		img: 'icon-chart-bar.svg',
+        active: 'icon-chart-bar-active.svg',
         label: 'Analytics',
         to: '/app/analytics/trafic',
         subs: [
@@ -93,9 +95,11 @@ export const menus = [
             },
         ],
     },
-    {
+	{
         id: 'marketing',
         icon: ['fas', 'bullhorn'],
+		img: 'bullhorn-solid.svg',
+        active: 'bullhorn-solid-active.svg',
         label: 'Marketing',
         to: '/app/marketing/messages',
         subs: [
@@ -122,9 +126,29 @@ export const menus = [
         ],
     },
     {
+        id: 'profile',
+        icon: ['fas', 'user-circle'],
+        img: 'store-solid.svg',
+        active: 'store-solid-active.svg',
+        label: 'Online Store',
+        to: '/app/profile/edit',
+        subs: [
+            {
+                label: 'Edit Profile',
+                to: '/app/profile/edit',
+            },
+            {
+                label: 'View Profile',
+                to: '/user_url',
+            },
+        ],
+    },  
+    {
         id: 'account',
         icon: ['fas', 'user'],
-        label: 'Account',
+        img: 'ic-settings.svg',
+        active: 'ic-settings-active.svg',
+        label: 'Account Settings',
         to: '/app/account/info',
         subs: [
             {
@@ -152,13 +176,9 @@ export const menus = [
     {
         id: 'upgrade',
         icon: ['fas', 'arrow-circle-up'],
+		img: 'arrow-alt-circle-up.svg',
+        active: 'arrow-alt-circle-up-active.svg',
         label: 'Upgrade',
         to: '/app/upgrade',
-    },
-    {
-        id: 'sales',
-        icon: ['fas', 'arrow-circle-up'],
-        label: 'Sales',
-        to: '/app/sales',
     },
 ]

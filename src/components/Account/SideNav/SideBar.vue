@@ -17,12 +17,14 @@
                 }"
             >
                 <router-link
+					@mouseover.native="getImgHover(item)"
+                    @mouseleave.native="getImgLeave(item)"
                     :class="{
                         'has-submenu': item.subs && item.subs.length > 0,
                     }"
                     :to="item.to"
                 >
-                    <font-awesome-icon :icon="item.icon" size="lg" />
+                    <img :src="getImgUrl(item)"  :id="item.id" class="nav-img"/>     
                     {{ item.label }}
                 </router-link>
                 <div class="sub-menu" v-if="item.subs && item.subs.length > 0">
@@ -128,8 +130,34 @@ export default {
                 this.$store.commit('setMenuStatus', false)
             }
         },
+		getImgUrl(item) {
+            this.selectMenu()
+            return (this.selectedParentMenu === item.id) 
+                ? require('@/assets/img/ico/' + item.active) 
+                : require('@/assets/img/ico/' + item.img)
+        },
+        getImgHover(item) {
+            return document.getElementById(`${item.id}`).src = require('@/assets/img/ico/' + item.active) 
+        },
+        getImgLeave(item) {
+            this.selectMenu()
+            return (this.selectedParentMenu === item.id) 
+                ? document.getElementById(`${item.id}`).src = require('@/assets/img/ico/' + item.active) 
+                : document.getElementById(`${item.id}`).src = require('@/assets/img/ico/' + item.img)
+        },
     },
     watch: {
+		user() {
+            if (this.user != null){
+                const menuIndex = this.menuItems.findIndex(
+                    menuItems => menuItems.id === 'profile'
+                )
+                const submenuIndex = this.menuItems[menuIndex].subs.findIndex(
+                    submenu => submenu.label === 'View Profile'
+                )
+                this.menuItems[menuIndex].subs[submenuIndex].to = `/${this.user.url}`
+            }             
+        },
         $route(to, from) {
             if (to.path !== from.path) {
                 this.selectMenu()

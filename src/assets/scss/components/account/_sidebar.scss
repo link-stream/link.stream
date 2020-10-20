@@ -9,7 +9,7 @@
     background: $main-menu-bg;
     transition: transform $menu-collapse-time;
     z-index: 3;
-    min-height: 750px;
+    min-height: 585px;
     .navbar-brand {
         margin: 20px;
         padding: 0;
@@ -45,6 +45,11 @@
             color: $main-menu-color;
             text-decoration: none;
             font-size: px2rem(14);
+			.nav-img {
+                margin-left: 12px;
+                margin-right: 12px;
+                margin-bottom: 0.25 * $spacer;
+            }
             svg {
                 margin-top: 12px;
                 width: 40px;
@@ -117,12 +122,14 @@
     .user-nav {
         @include media-breakpoint-up(lg) {
             position: fixed;
-            bottom: 20px;
+            bottom: 10px;
         }
         @include media-breakpoint-down(lg) {
             margin-top: 70px;
         }
         .user-menu {
+			position: fixed;
+            bottom: 10px;
             margin-left: 20px;
             .dropdown {
                 .dropdown-toggle {

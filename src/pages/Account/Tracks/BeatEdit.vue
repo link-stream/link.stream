@@ -17,22 +17,20 @@
                     <h1 class="page-title">{{ beat.title }}</h1>
                     <div class="page-preview">
                         <span>
-                            <span class="text-light">link.stream/</span
-                            >{{ beat.url_user }}/beats/{{ beat.url_title }}
+                            <span class="text-light">{{ baseUrl }}/</span
+                            >{{ user.url }}/beats/{{ beat.id }}
                         </span>
-                        <basic-button
-                            variant="outline-light"
-                            size="xs"
+                        <b-link
+                            class="btn btn-outline-light btn-xs rounded-pill"
                             :to="{
-                                name: 'userBeats',
+                                name: 'profileBeatDetails',
                                 params: {
-                                    username: beat.url_user,
-                                    title: beat.url_title,
-                                },
-                            }"
-                        >
-                            Preview
-                        </basic-button>
+                                        url: user.url,
+                                        beatId: beat.id,
+                                    },
+                            }" 
+                            target="_blank"                       
+                        >Preview</b-link>
                     </div>
                 </div>
                 <div class="right-col">
@@ -153,11 +151,11 @@
                             @remove-file="handleTaggedRemove"
                         />
                         <DropFile
-                            title="Track Stems .ZIP (or .RAR)"
+                            title="Track Stems .ZIP"
                             :class="{
                                 'is-invalid': $v.form.files.stems.$error,
                             }"
-                            :acceptTypes="['.rar', '.zip']"
+                            :acceptTypes="['.zip']"
                             :src="form.files.stems.base64"
                             :filename="form.files.stems.name"
                             @add-file="handleStemsAdd"
@@ -499,6 +497,8 @@ export default {
     },
     async created() {
         this.status = STATUS_LOADING
+		const getUrl = window.location
+        this.baseUrl = getUrl.host
 
         const beatId = this.$route.params.id
         const beatResponse = await api.audios.getBeat(beatId, this.user.id)

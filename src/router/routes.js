@@ -299,7 +299,6 @@ const routes = [
     {
         path: '/app/sales',
         name: 'accountSales',
-        alias: '/app/sales',
         component: AccountSales,
         meta: { requiresAuth: true, layout: 'account' },
     },

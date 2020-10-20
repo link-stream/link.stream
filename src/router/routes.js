@@ -56,16 +56,24 @@ import {
     PreviewVideo,
 } from '~/pages/Marketing'
 
+import {
+    Cart,
+    CheckoutSignin,
+    PayWithCard,
+    CheckoutReceipt,
+    CheckoutContactInfo,
+} from '~/pages/Profile'
+
 import PublicProfile from '@/pages/Profile/PublicProfile'
 import PublicBeatDetails from '@/pages/Profile/PublicBeatDetails'
 import PublicPackDetails from '@/pages/Profile/PublicPackDetails'
 import PublicKitDetails from '@/pages/Profile/PublicKitDetails'
 
-import Cart from '@/pages/Profile/Checkout/Cart'
+/*import Cart from '@/pages/Profile/Checkout/Cart'
 import CheckoutSignin from '@/pages/Profile/Checkout/CheckoutSignin'
 import CheckoutContactInfo from '@/pages/Profile/Checkout/CheckoutContactInfo'
 import PayWithCard from '@/pages/Profile/Checkout/PayWithCard'
-import CheckoutReceipt from '@/pages/Profile/Checkout/CheckoutReceipt'
+import CheckoutReceipt from '@/pages/Profile/Checkout/CheckoutReceipt'*/
 
 const routes = [
     // Misc
@@ -291,7 +299,6 @@ const routes = [
     {
         path: '/app/sales',
         name: 'accountSales',
-        alias: '/app/sales',
         component: AccountSales,
         meta: { requiresAuth: true, layout: 'account' },
     },
@@ -436,6 +443,47 @@ const routes = [
         meta: { requiresAuth: true, layout: 'account' },
     },
 
+    //Cart
+
+    {
+        path: '/order/cart',
+        name: 'cart',
+        component: Cart,
+        //props: true,
+        meta: { layout: 'profile' },
+    },
+    {
+        path: '/order/checkout-signin',
+        name: 'checkoutSignin',
+        component: CheckoutSignin,
+        props: true,
+        meta: { layout: 'auth' },
+    },
+    {
+        path: '/order/checkout-contact-info',
+        name: 'checkoutContactInfo',
+        component: CheckoutContactInfo,
+        props: true,
+        //meta: { layout: 'auth' },
+    },
+    {
+        path: '/order/checkout-pay',
+        name: 'payWithCard',
+        component: PayWithCard,
+        props: true,
+        //meta: { layout: 'auth' },
+    },
+    {
+        path: '/order/checkout-confirmation',
+        name: 'checkoutReceipt',
+        component: CheckoutReceipt,
+        props: true,
+        meta: { layout: 'profile' },
+    },
+
+
+
+
     //Public Profile
     {
         path: '/:url',
@@ -497,41 +545,6 @@ const routes = [
         path: '/:url/kits/:kitId',
         name: 'profileKitDetails',
         component: PublicKitDetails,
-        props: true,
-        meta: { layout: 'profile' },
-    },
-    {
-        path: '/cart/',
-        name: 'cart',
-        component: Cart,
-        props: true,
-        meta: { layout: 'profile' },
-    },
-    {
-        path: '/checkout-signin',
-        name: 'checkoutSignin',
-        component: CheckoutSignin,
-        props: true,
-        meta: { layout: 'auth' },
-    },
-    {
-        path: '/checkout-contact-info',
-        name: 'checkoutContactInfo',
-        component: CheckoutContactInfo,
-        props: true,
-        //meta: { layout: 'auth' },
-    },
-    {
-        path: '/checkout-pay',
-        name: 'payWithCard',
-        component: PayWithCard,
-        props: true,
-        //meta: { layout: 'auth' },
-    },
-    {
-        path: '/checkout-confirmation',
-        name: 'checkoutReceipt',
-        component: CheckoutReceipt,
         props: true,
         meta: { layout: 'profile' },
     },

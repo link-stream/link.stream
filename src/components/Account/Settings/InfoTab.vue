@@ -321,7 +321,6 @@ export default {
     async created() {
         this.resetForm()
         await this.$store.dispatch('common/loadTimezones')
-        console.log(this.timezones)
     },
     methods: {
         async availabilityValidator(field, value) {

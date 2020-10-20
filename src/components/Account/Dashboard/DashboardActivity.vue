@@ -2,7 +2,7 @@
     <b-container class="DashboardActivity">
         <b-card class="activity-card" no-body>
             <b-card-text class="d-flex align-items-center text-card">
-                <b-avatar class="avatar-card" :src="activity.image"></b-avatar>
+                <b-avatar class="avatar-card" :src="activity.image_url"></b-avatar>
                 <span>
                     <b>{{ userName }}</b>
                     {{ activity.log }}

@@ -83,6 +83,12 @@
     }
 }
 
+.share-copy-btn {
+    border: 1px solid #d7d7d7;
+    height: 100%;
+    padding: 0 10px 0 10px;
+}
+
 @include media-breakpoint-up(md) {
     .modal-md {
         max-width: 460px !important;

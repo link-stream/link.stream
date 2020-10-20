@@ -5,7 +5,7 @@
                 <b-col cols="4" xl="2" lg="2" md="2" sm="3">
                     <b-img :src="imgSrc" fluid></b-img>
                 </b-col>
-                <b-col cols="4" xl="7" lg="6" md="5" sm="5" class="center">
+                <b-col cols="5" xl="7" lg="6" md="5" sm="5" class="center">
                     <b-row class="d-block d-md-none" align="left">
                         <span class="price-item">{{
                             price | currencyFormat
@@ -19,7 +19,7 @@
                     </b-row>
                 </b-col>
                 <b-col
-                    cols="4"
+                    cols="3"
                     xl="3"
                     lg="4"
                     md="5"

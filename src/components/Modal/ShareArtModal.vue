@@ -54,11 +54,11 @@
             </div>
             <b-input-group>
                 <template v-slot:append>
-                    <b-input-group-text>
-                        <img src="@/assets/img/ico/link.svg" />
-                    </b-input-group-text>
+                    <b-button squared class="share-copy-btn float-right" variant="grey" @click="copyToClipboard">
+                        <b-icon icon="clipboard" aria-hidden="true"></b-icon>
+                    </b-button >
                 </template>
-                <b-form-input v-model="shareData.shareUrl" readonly />
+                <b-form-input v-model="shareData.shareUrl" id="share-link" readonly />
             </b-input-group>
         </template>
     </b-modal>
@@ -95,13 +95,15 @@ export default {
                     break
                 case 'video':
                     typeString = 'Video'
-                    subTypeURL = 'videos'
+                    subTypeURL = this.curItem.url
             }
             return {
                 ...this.curItem,
                 type: typeString,
                 user_name: this.profile.display_name,
-                shareUrl: `${this.baseUrl}/${this.profile.url}/${subTypeURL}/${this.curItem.id}`,
+                shareUrl: (this.curItem.type !== 'video') 
+                    ? `${this.baseUrl}/${this.profile.url}/${subTypeURL}/${this.curItem.id}` 
+                    : subTypeURL,
             }
         },
     },
@@ -115,6 +117,12 @@ export default {
         this.$bus.$on('modal.share.close', this.close)
     },
     methods: {
+		copyToClipboard() {
+            const toCopy = document.querySelector('#share-link')
+            toCopy.setAttribute('type', 'text')
+            toCopy.select()
+            document.execCommand('copy')
+        },
         close() {
             this.open = false
         },

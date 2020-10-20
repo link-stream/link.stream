@@ -109,6 +109,7 @@ export default {
             this.activities = data.Activity
         }
         this.loading = false
+        console.log(this.activities)
     },
     methods: {
         async duplicateMessage() {

@@ -96,7 +96,7 @@
             <h4 class="title">
                 Opens by location
             </h4>
-            <b-table :fields="fields" :items="items" responsive>
+            <b-table :fields="fields" :items="overview.Location" responsive>
                 <template v-slot:cell(country)="data">
                     <country-flag class="img-flag" :country="data.value.code" />
                     {{ data.value.name }}

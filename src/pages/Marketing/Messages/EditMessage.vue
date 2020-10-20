@@ -77,7 +77,11 @@
                                 Send to
                             </h4>
                             <small class="item-subtitle">
-                                {{ sendToText }}
+                                <span class="font-weight-bold">
+                                    {{ smsData.cnt_subscribers | thousandCNumber }}
+                                    subscribers
+                                </span>
+                                subscribed contacts in then audience
                             </small>
                         </div>
                         <div class="right-col">

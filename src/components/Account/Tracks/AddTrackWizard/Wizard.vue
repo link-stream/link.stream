@@ -161,6 +161,7 @@ import { DropImage } from '~/components/Uploader'
 import { appConstants } from '~/constants'
 import { scrollToTop } from '~/utils'
 import { mapGetters } from 'vuex'
+import { api } from '~/services'
 import moment from 'moment'
 
 const STEP_TYPE = 'type'
@@ -400,22 +401,22 @@ export default {
             const { stems, tagged, untaggedMp3, untaggedWav } = form.files
 
             if (stems) {
-                params.track_stems = stems.base64
+                params.track_stems = await this.uploadFileAndName(stems)
                 params.track_stems_name = stems.name
             }
 
             if (tagged) {
-                params.tagged_file = tagged.base64
+                params.tagged_file = await this.uploadFileAndName(tagged)
                 params.tagged_file_name = tagged.name
             }
 
             if (untaggedMp3) {
-                params.untagged_mp3 = untaggedMp3.base64
+                params.untagged_mp3 = await this.uploadFileAndName(untaggedMp3)
                 params.untagged_mp3_name = untaggedMp3.name
             }
 
             if (untaggedWav) {
-                params.untagged_wav = untaggedWav.base64
+                params.untagged_wav = await this.uploadFileAndName(untaggedWav)
                 params.untagged_wav_name = untaggedWav.name
             }
 
@@ -437,6 +438,41 @@ export default {
                 this.$toast.error(error)
                 this.saving = false
             }
+        },
+        getRandomString() {
+            let randomString = Math.random()
+                .toString(36)
+                .substring(2, 15)
+            randomString += Math.random()
+                .toString(36)
+                .substring(2, 15)
+            randomString += Math.random()
+                .toString(36)
+                .substring(2, 15)
+            return randomString
+        },
+        async uploadFileAndName(src) {
+            const newFileName =
+                this.getRandomString() + '.' + this.getFileExtension(src.name)
+            const { status, data } = await api.audios.getPreSignedUrl(
+                this.user.id,
+                newFileName
+            )
+            if (status === 'success') {
+                const audio_params = {
+                    ...data.formInputs,
+                    type: src.blob.type,
+                    file: src.blob,
+                }
+                const response = await api.audios.putAudio({
+                    endpoint: data.formAttributes.action,
+                    params: audio_params,
+                })
+                return response.status === 'success' ? newFileName : ''
+            }
+        },
+        getFileExtension(filename) {
+            return filename.slice(((filename.lastIndexOf('.') - 1) >>> 0) + 2)
         },
     },
 }

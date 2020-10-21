@@ -7,7 +7,7 @@ const METHOD_POST = 'POST'
 const METHOD_PUT = 'PUT'
 const METHOD_DELETE = 'DELETE'
 
-const call = async function ({
+const call = async function({
     endpoint,
     params = {},
     method = METHOD_GET,
@@ -67,7 +67,7 @@ const call = async function ({
     return payload
 }
 
-const callS3 = async function ({ endpoint, params, showProgress = true }) {
+const callS3 = async function({ endpoint, params, showProgress = true }) {
     const formData = new FormData()
     formData.append('acl', params['acl'])
     formData.append('key', params['key'])
@@ -85,19 +85,24 @@ const callS3 = async function ({ endpoint, params, showProgress = true }) {
             method: 'POST',
             url: endpoint,
             data: formData,
-            responseType: 'stream',
             headers: { 'Content-Type': 'multipart/form-data' },
             showProgress,
         })
 
         console.log('axios s3 response', response)
 
-        payload = response.data
-
-        if (typeof payload !== 'object') {
+        if (response.status === 204) {
             payload = {
-                status: 'false',
-                error: 'Unexpected error.',
+                status: 'success',
+            }
+        } else {
+            payload = response.data
+
+            if (typeof payload !== 'object') {
+                payload = {
+                    status: 'false',
+                    error: 'Unexpected error.',
+                }
             }
         }
     } catch (e) {
@@ -886,7 +891,6 @@ export const api = {
                 endpoint,
                 method,
             })
-        }
-
-    }
+        },
+    },
 }

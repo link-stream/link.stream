@@ -76,12 +76,13 @@ export default {
             this.updateWizardForm()
             onSuccess()
         },
-        handleUntaggeMp3Add({ name, base64 }) {
+        handleUntaggeMp3Add({ name, base64, blob }) {
             this.files = {
                 ...this.files,
                 untaggedMp3: {
                     name,
                     base64,
+                    blob,
                 },
             }
         },
@@ -91,12 +92,13 @@ export default {
                 untaggedMp3: null,
             }
         },
-        handleUntaggedWavAdd({ name, base64 }) {
+        handleUntaggedWavAdd({ name, base64, blob }) {
             this.files = {
                 ...this.files,
                 untaggedWav: {
                     name,
                     base64,
+                    blob,
                 },
             }
         },
@@ -106,12 +108,13 @@ export default {
                 untaggedWav: null,
             }
         },
-        handleStemsAdd({ name, base64 }) {
+        handleStemsAdd({ name, base64, blob }) {
             this.files = {
                 ...this.files,
                 stems: {
                     name,
                     base64,
+                    blob,
                 },
             }
         },
@@ -121,12 +124,13 @@ export default {
                 stems: null,
             }
         },
-        handleTaggedAdd({ name, base64 }) {
+        handleTaggedAdd({ name, base64, blob }) {
             this.files = {
                 ...this.files,
                 tagged: {
                     name,
                     base64,
+                    blob,
                 },
             }
         },

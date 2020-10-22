@@ -1011,7 +1011,7 @@ export default {
                     sandbox: process.env === "production" ? "" : process.env.VUE_APP_PAYPAL_CLIENT_ID,
                     production: process.env === "production" ?  process.env.VUE_APP_PAYPAL_CLIENT_ID : "",
                 },
-                type: process.env === "production" ? 'production' : 'sandbox'
+                type: process.env === "production" ? 'sandbox' : 'sandbox'
             }
 
         }

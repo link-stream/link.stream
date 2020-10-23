@@ -1166,14 +1166,19 @@ export default {
             this.paypalAuth = data
         },
         async handlePaypalPaymentCompleted(data) {
+            console.log(data)
             var temp_feeService = this.informationPay[1].fees.find(
                 aux => aux.var === 'feeService'
+            )
+            var temp_country = this.list_countries.find(
+                aux => aux.code === data.payer.payer_info.country_code
             )
             this.status_loading_pay = true
             let p_data = {
                 user_id: this.session.id,
                 utm_source: this.params_url.utm_source,
                 ref_id: this.params_url.ref_id,
+                country: temp_country.country,
                 payment: {
                     paymentID: this.paypalAuth.paymentID,
                     paymentToken: this.paypalAuth.paymentToken,

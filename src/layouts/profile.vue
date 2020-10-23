@@ -33,26 +33,30 @@ export default {
         console.log('cookiesUrl', cookiesUrl)
         if (cookiesUrl === undefined && url_profile !== 'order') {
             //var url_profile = ''
-            var utm_source = ''
-            var ref_id = ''
+            var utm_source = this.$route.query.utm_source
+                ? this.$route.query.utm_source
+                : ''
+            var ref_id = this.$route.query.ref_id
+                ? this.$route.query.ref_id
+                : ''
 
-            if (arrayFullPath.length > 1) {
-                var paramsFullPath = arrayFullPath[1].split('&')
-                if (paramsFullPath.length > 1) {
-                    utm_source = paramsFullPath[0].split('=')[1]
-                    ref_id = paramsFullPath[1].split('=')[1]
-                }
-                if (paramsFullPath.length === 1) {
-                    var param = paramsFullPath[0].split('=')[0]
-                    if (param === 'utm_source') {
-                        utm_source = paramsFullPath[0].split('=')[1]
-                        ref_id = ''
-                    } else {
-                        utm_source = ''
-                        ref_id = paramsFullPath[0].split('=')[1]
-                    }
-                }
-            }
+            // if (arrayFullPath.length > 1) {
+            //     var paramsFullPath = arrayFullPath[1].split('&')
+            //     if (paramsFullPath.length > 1) {
+            //         utm_source = paramsFullPath[0].split('=')[1]
+            //         ref_id = paramsFullPath[1].split('=')[1]
+            //     }
+            //     if (paramsFullPath.length === 1) {
+            //         var param = paramsFullPath[0].split('=')[0]
+            //         if (param === 'utm_source') {
+            //             utm_source = paramsFullPath[0].split('=')[1]
+            //             ref_id = ''
+            //         } else {
+            //             utm_source = ''
+            //             ref_id = paramsFullPath[0].split('=')[1]
+            //         }
+            //     }
+            // }
             var params_url = {
                 url_profile: url_profile,
                 utm_source: utm_source,

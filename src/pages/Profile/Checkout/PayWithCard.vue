@@ -217,8 +217,14 @@
                                 </b-col>
                             </b-row>
                         </b-col>
-                        <b-col cols="12" v-if="currentTab === 'paypal'">
-                             <PayPal
+                        <b-col cols="12" v-if="currentTab === 'paypal'" class="paypal-container">
+                            <LoadingSpinner
+                                class="m-2 float-left"
+                                animation="bounce"
+                                v-if="status_loading_pay"
+                            />
+                            <PayPal
+                                v-else
                                 :amount="paypal.amount"
                                 currency="USD"
                                 :client="paypal_credentials.client"
@@ -608,7 +614,12 @@
                                 </b-col>
                             </b-row>
                         </b-col>
-                        <b-col cols="12" v-if="currentTab === 'paypal'">
+                        <b-col cols="12" v-if="currentTab === 'paypal'" class="paypal-container">
+                            <LoadingSpinner
+                                class="m-2 float-left"
+                                animation="bounce"
+                                v-if="status_loading_pay"
+                            />
                              <PayPal
                                 :amount="paypal.amount"
                                 currency="USD"
@@ -1088,12 +1099,14 @@ export default {
                 size: 'large',
                 shape: 'pill',
                 color: 'gold',
+                tagline: false,
             },
             paypal_mobile_style: {
                 label: 'checkout',
                 size: 'medium',
                 shape: 'pill',
                 color: 'gold',
+                tagline: false,
             },
             currentTab: 'card',
             paypalAuth: {},

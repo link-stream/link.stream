@@ -29,6 +29,7 @@ import {
     AccountBeatPackAddEdit,
     AccountSettings,
     AccountSales,
+    AccountSalesDetails,
 } from '~/pages/Account'
 
 import {
@@ -301,6 +302,13 @@ const routes = [
         path: '/app/sales',
         name: 'accountSales',
         component: AccountSales,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/sales-details/:id',
+        name: 'accountSalesDetails',
+        props: true,
+        component: AccountSalesDetails,
         meta: { requiresAuth: true, layout: 'account' },
     },
 

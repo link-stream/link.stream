@@ -999,7 +999,7 @@ export default {
                 fees.forEach(i => {
                     user_items.push({
                         name: 'Service Fee',
-                        price: String(i.value.toFixed(2)),
+                        price: String(parseFloat(i.value).toFixed(2)),
                         quantity: '1',
                         description: 'Service Fees',
                         currency: 'USD',
@@ -1021,7 +1021,9 @@ export default {
                     amount += c_fee
                 })
             }
-            return { items: user_items, amount: String(amount) }
+            const data = { items: user_items, amount: String(amount.toFixed(2)) }
+            console.log(data)
+            return data
         },
     },
     data() {
@@ -1179,7 +1181,9 @@ export default {
                     subtotal: this.informationPay[1].sub_total,
                     total: this.informationPay[1].total,
                     feeCC: this.informationPay[1].percent,
-                    feeService: temp_feeService,
+                    feeService: temp_feeService
+                        ? temp_feeService.value
+                        : ''
                 },
                 cart: [],
             }
@@ -1198,7 +1202,7 @@ export default {
                     })
                 }
             }
-            console.log(params)
+            console.log(p_data)
             const params = {
                 data: JSON.stringify(p_data),
             }

@@ -5,7 +5,7 @@
                 <b-col cols="5" xl="1" lg="2" md="2" sm="2">
                     <b-img :src="itemSale.data_image" fluid></b-img>
                 </b-col>
-                <b-col cols="7" xl="6" lg="3" md="3" sm="4" class="center">
+                <b-col cols="7" xl="6" lg="3" md="3" sm="4">
                     <b-row>
                         <span class="title-item-sale mb-1">{{
                             itemSale.item_title
@@ -26,7 +26,10 @@
                     md="7"
                     sm="6"
                     class="center px-0"
-                    v-show="itemSale.item_track_type === 'beat'"
+                    v-show="
+                        itemSale.item_track_type === 'beat' ||
+                            itemSale.item_track_type === 'pack'
+                    "
                 >
                     <b-button pill class="continue-shopping">
                         View License</b-button

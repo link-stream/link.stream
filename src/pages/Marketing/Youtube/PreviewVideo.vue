@@ -187,9 +187,7 @@ export default {
                 privacy: this.form.isPublic ? 'public' : 'private',
                 access_token: this.googleUserInfo.token,
             }
-            console.log(params)
             const response = await api.marketing.youtubeUploader(params)
-            console.log(response)
             const { status, data, message, error } = response
             if (status === 'success') {
                 this.result = data

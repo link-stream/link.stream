@@ -1004,7 +1004,6 @@ export default {
                 })
                 amount += i.price
             })
-            console.log('fee', this.fees)
             let fees = this.fees.filter(i => i.var === 'feeService')
             if (fees.length) {
                 fees.forEach(i => {
@@ -1033,7 +1032,6 @@ export default {
                 })
             }
             const data = { items: user_items, amount: String(amount.toFixed(2)) }
-            console.log(data)
             return data
         },
     },
@@ -1179,7 +1177,6 @@ export default {
             this.paypalAuth = data
         },
         async handlePaypalPaymentCompleted(data) {
-            console.log(data)
             var temp_feeService = this.informationPay[1].fees.find(
                 aux => aux.var === 'feeService'
             )
@@ -1220,7 +1217,6 @@ export default {
                     })
                 }
             }
-            console.log(p_data)
             const params = {
                 data: JSON.stringify(p_data),
             }

@@ -25,12 +25,14 @@
                             :to="{
                                 name: 'profileBeatDetails',
                                 params: {
-                                        url: user.url,
-                                        beatId: beat.id,
-                                    },
-                            }" 
-                            target="_blank"                       
-                        >Preview</b-link>
+                                    url: user.url,
+                                    beatId: beat.id,
+                                },
+                            }"
+                            target="_blank"
+                        >
+                            Preview
+                        </b-link>
                     </div>
                 </div>
                 <div class="right-col">
@@ -497,7 +499,7 @@ export default {
     },
     async created() {
         this.status = STATUS_LOADING
-		const getUrl = window.location
+        const getUrl = window.location
         this.baseUrl = getUrl.host
 
         const beatId = this.$route.params.id
@@ -649,37 +651,41 @@ export default {
             )
             this.licenses.splice(licenseIndex, 1, license)
         },
-        handleUntaggeMp3Add({ name, base64 }) {
+        handleUntaggeMp3Add({ name, base64, blob }) {
             this.form.files.untaggedMp3 = {
                 name,
                 base64,
+                blob,
             }
         },
         handleUntaggedMp3Remove() {
             this.form.files.untaggedMp3 = {}
         },
-        handleUntaggedWavAdd({ name, base64 }) {
+        handleUntaggedWavAdd({ name, base64, blob }) {
             this.form.files.untaggedWav = {
                 name,
                 base64,
+                blob,
             }
         },
         handleUntaggedWavRemove() {
             this.form.files.untaggedWav = {}
         },
-        handleStemsAdd({ name, base64 }) {
+        handleStemsAdd({ name, base64, blob }) {
             this.form.files.stems = {
                 name,
                 base64,
+                blob,
             }
         },
         handleStemsRemove() {
             this.form.files.stems = {}
         },
-        handleTaggedAdd({ name, base64 }) {
+        handleTaggedAdd({ name, base64, blob }) {
             this.form.files.tagged = {
                 name,
                 base64,
+                blob,
             }
         },
         handleTaggedRemove() {
@@ -793,36 +799,60 @@ export default {
             // Files
             const { stems, tagged, untaggedMp3, untaggedWav } = form.files
 
-            if (
-                stems.name !== beat.track_stems_name ||
-                stems.base64 !== beat.data_track_stems
-            ) {
-                params.track_stems = stems.base64 || null
-                params.track_stems_name = stems.name || null
+            if (stems.name !== beat.track_stems_name) {
+                if (stems.name) {
+                    params.track_stems = await this.uploadFileAndName(stems)
+                    params.track_stems_name = stems.name
+                } else {
+                    params.track_stems = null
+                    params.track_stems_name = null
+                }
+            } else {
+                params.track_stems = beat.track_stems
+                params.track_stems_name = beat.track_stems_name
             }
 
-            if (
-                tagged.name !== beat.tagged_file_name ||
-                tagged.base64 !== beat.data_tagged_file
-            ) {
-                params.tagged_file = tagged.base64 || null
-                params.tagged_file_name = tagged.name || null
+            if (tagged.name !== beat.tagged_file_name) {
+                if (tagged.name) {
+                    params.tagged_file = await this.uploadFileAndName(tagged)
+                    params.tagged_file_name = tagged.name
+                } else {
+                    params.tagged_file = null
+                    params.tagged_file_name = null
+                }
+            } else {
+                params.tagged_file = beat.tagged_file
+                params.tagged_file_name = beat.tagged_file_name
             }
 
-            if (
-                untaggedMp3.name !== beat.untagged_mp3_name ||
-                untaggedMp3.base64 !== beat.data_untagged_mp3
-            ) {
-                params.untagged_mp3 = untaggedMp3.base64 || null
-                params.untagged_mp3_name = untaggedMp3.name || null
+            if (untaggedMp3.name !== beat.untagged_mp3_name) {
+                if (untaggedMp3.name) {
+                    params.untagged_mp3 = await this.uploadFileAndName(
+                        untaggedMp3
+                    )
+                    params.untagged_mp3_name = untaggedMp3.name
+                } else {
+                    params.untagged_mp3 = null
+                    params.untagged_mp3_name = null
+                }
+            } else {
+                params.untagged_mp3 = beat.untagged_mp3
+                params.untagged_mp3_name = beat.untagged_mp3_name
             }
 
-            if (
-                untaggedWav.name !== beat.untagged_wav_name ||
-                untaggedWav.base64 !== beat.data_untagged_wav
-            ) {
-                params.untagged_wav = untaggedWav.base64 || null
-                params.untagged_wav_name = untaggedWav.name || null
+            if (untaggedWav.name !== beat.untagged_wav_name) {
+                if (untaggedWav.name) {
+                    params.untagged_wav = await this.uploadFileAndName(
+                        untaggedWav
+                    )
+                    params.untagged_wav_name = untaggedWav.name
+                } else {
+                    params.untagged_wav = null
+                    params.untagged_wav_name = null
+                }
+            } else {
+                params.untagged_wav = beat.untagged_wav
+                params.untagged_wav_name = beat.untagged_wav_name
             }
 
             params.licenses = JSON.stringify(params.licenses)
@@ -836,6 +866,7 @@ export default {
                 }
             )
 
+            this.status = STATUS_IDLE
             if (status === 'success') {
                 this.$toast.success(message)
                 this.$router.push({ name: 'accountBeats' })
@@ -843,6 +874,41 @@ export default {
                 this.$toast.error(error)
                 this.status = STATUS_IDLE
             }
+        },
+        getRandomString() {
+            let randomString = Math.random()
+                .toString(36)
+                .substring(2, 15)
+            randomString += Math.random()
+                .toString(36)
+                .substring(2, 15)
+            randomString += Math.random()
+                .toString(36)
+                .substring(2, 15)
+            return randomString
+        },
+        async uploadFileAndName(src) {
+            const newFileName =
+                this.getRandomString() + '.' + this.getFileExtension(src.name)
+            const { status, data } = await api.audios.getPreSignedUrl(
+                this.user.id,
+                newFileName
+            )
+            if (status === 'success') {
+                const audio_params = {
+                    ...data.formInputs,
+                    type: src.blob.type,
+                    file: src.blob,
+                }
+                const response = await api.audios.putAudio({
+                    endpoint: data.formAttributes.action,
+                    params: audio_params,
+                })
+                return response.status === 'success' ? newFileName : ''
+            }
+        },
+        getFileExtension(filename) {
+            return filename.slice(((filename.lastIndexOf('.') - 1) >>> 0) + 2)
         },
     },
 }

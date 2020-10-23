@@ -822,6 +822,20 @@
                                         <span v-else>Pay $ {{ total }}</span>
                                     </basic-button>
                                 </b-col>
+                                <b-col cols="11" xl="7" lg="10" md="11">
+                                    <PayPal
+                                        :amount="paypal.amount"
+                                        currency="USD"
+                                        :client="paypal_credentials.client"
+                                        :items="paypal.items"
+                                        :env="paypal_credentials.type"
+                                        :button-style="paypal_style"
+                                        @payment-authorized="handlePaypalPaymentAuthorized"
+                                        @payment-completed="handlePaypalPaymentCompleted"
+                                        @payment-cancelled="handlePaypalPaymentCancelled"
+                                    >
+                                    </PayPal>
+                                </b-col>
                             </b-row>
                         </b-col>
                         <b-col cols="12" class="mt-5">
@@ -892,11 +906,13 @@ import { mapGetters } from 'vuex'
 import Cookies from 'js-cookie'
 import { appConstants } from '~/constants'
 import csc from 'country-state-city'
+import PayPal from 'vue-paypal-checkout'
 
 export default {
     name: 'PayWithcard',
     components: {
         InformationPay,
+        PayPal,
     },
     computed: {
         ...mapGetters({
@@ -912,6 +928,37 @@ export default {
         },
         cardBrandClass() {
             return this.getBrandClass(this.cardBrand)
+        },
+        paypal() {
+            if (!this.itemsCart?.length || !this.fees?.length)
+                return { items: [], amount: '0' }
+            let user_items = []
+            let amount = 0
+            this.itemsCart[0].elements.forEach(i => {
+                user_items.push({
+                    name:
+                        i.name.length < 127 ? i.name : i.name.substring(0, 127),
+                    price: String(i.price.toFixed(2)),
+                    quantity: '1', // update later
+                    description: 'goods', // update later
+                    currency: 'USD',
+                })
+                amount += i.price // update later
+            })
+            let fees = this.fees.filter(i => i.name === 'Service Fee')
+            if (fees.length) {
+                fees.forEach(i => {
+                    user_items.push({
+                        name: 'Service Fee',
+                        price: String(i.value),
+                        quantity: '1',
+                        description: 'Service Fees - LinkStream',
+                        currency: 'USD',
+                    })
+                    amount += parseFloat(i.value) // update later
+                })
+            }
+            return { items: user_items, amount: String(amount) }
         },
     },
     data() {
@@ -963,6 +1010,19 @@ export default {
                     total: 0,
                 },
                 cart: [],
+            },
+            paypal_credentials: {
+                client: {
+                    sandbox: process.env.VUE_APP_PAYPAL_CLIENT_ID,
+                    production: process.env.VUE_APP_PAYPAL_CLIENT_ID,
+                },
+                type: 'sandbox',
+            },
+            paypal_style: {
+                label: 'checkout',
+                size: 'large',
+                shape: 'pill',
+                color: 'gold',
             },
         }
     },
@@ -1029,6 +1089,15 @@ export default {
         }
     },
     methods: {
+        handlePaypalPaymentAuthorized(data) {
+            console.log(data)
+        },
+        handlePaypalPaymentCompleted(data) {
+            console.log(data)
+        },
+        handlePaypalPaymentCancelled(data) {
+            console.log(data)
+        },
         getBrandClass(brand) {
             let icon = ''
             let temp = appConstants.cardImages.find(aux => aux.type === brand)
@@ -1161,4 +1230,4 @@ export default {
         },
     },
 }
-</script> 
+</script>

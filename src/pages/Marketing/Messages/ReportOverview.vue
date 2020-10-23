@@ -74,7 +74,11 @@
                     <span class="font-weight-bold">Delivered: </span>
                     {{ message.created_at | fullDateTime }}
                 </div>
-                <a href="#" class="link-download-report">
+                <a
+                    href="#"
+                    class="link-download-report"
+                    @click.prevent="downloadReport"
+                >
                     Download Report
                 </a>
             </div>
@@ -128,6 +132,7 @@
 <script>
 import LineChart from '~/components/Form/LineChart'
 import moment from 'moment'
+import XLSX from 'xlsx'
 export default {
     name: 'ReportOverview',
     props: {
@@ -156,48 +161,6 @@ export default {
             {
                 key: 'percent',
                 label: 'Percent',
-            },
-        ],
-        items: [
-            {
-                country: {
-                    name: 'USA',
-                    code: 'us',
-                },
-                opens: 392,
-                percent: 95.6,
-            },
-            {
-                country: {
-                    name: 'Canada',
-                    code: 'ca',
-                },
-                opens: 15,
-                percent: 3.7,
-            },
-            {
-                country: {
-                    name: 'United Kingdom',
-                    code: 'gb',
-                },
-                opens: 1,
-                percent: 0.2,
-            },
-            {
-                country: {
-                    name: 'Indonesia',
-                    code: 'id',
-                },
-                opens: 1,
-                percent: 0.2,
-            },
-            {
-                country: {
-                    name: 'South Africa',
-                    code: 'za',
-                },
-                opens: 1,
-                percent: 0.2,
             },
         ],
         chartData: {
@@ -242,10 +205,10 @@ export default {
                 ],
             },
         },
+        oc_data: [],
     }),
     created() {
         this.initData()
-        console.log(this.overview)
     },
     methods: {
         initData() {
@@ -264,11 +227,87 @@ export default {
                 const curIndex = parseInt(parseInt(key) / 100)
                 aryValues1[curIndex] = value.Open
                 aryValues2[curIndex] = value.Click
+                this.oc_data.push({
+                    Time: aryHours[curIndex],
+                    Open: value.Open,
+                    Click: value.Click,
+                })
             }
             this.chartData.labels = aryHours
             this.chartData.datasets[0].data = aryValues1
             this.chartData.datasets[1].data = aryValues2
             this.loaded = true
+        },
+        downloadReport() {
+            try {
+                const overview = [
+                    {
+                        Title: 'Audience',
+                        Value: this.message.reply_to_name,
+                    },
+                    {
+                        Title: 'Email',
+                        Value: this.message.reply_to,
+                    },
+                    {
+                        Title: 'Recipients',
+                        Value: this.overview.Total,
+                    },
+                    {
+                        Title: 'Subject',
+                        Value: this.overview.subject,
+                    },
+                    {
+                        Title: 'Delivered',
+                        Value: moment(this.message.created_at).format(
+                            'ddd, MMMM Do hh:mm A'
+                        ),
+                    },
+                    {
+                        Title: 'Open Rate',
+                        Value: this.overview.Open_rate,
+                    },
+                    {
+                        Title: 'Click Rate',
+                        Value: this.overview.Click_rate,
+                    },
+                    {
+                        Title: 'Revenue',
+                        Value: this.overview.Revenue,
+                    },
+                    {
+                        Title: 'Orders',
+                        Value: this.overview.Orders,
+                    },
+                    {
+                        Title: 'Unsubscribed',
+                        Value: this.overview.Unsubscribed,
+                    },
+                ]
+                const locations = this.overview.Location.map(item => {
+                    return {
+                        Country: item.country.name,
+                        Opens: item.opens,
+                        Percent: item.percent + '%',
+                    }
+                })
+
+                const data = XLSX.utils.json_to_sheet(overview)
+                const wb = XLSX.utils.book_new()
+                XLSX.utils.book_append_sheet(wb, data, 'overview')
+
+                const data_oc = XLSX.utils.json_to_sheet(this.oc_data)
+                XLSX.utils.book_append_sheet(wb, data_oc, '24-hour performance')
+
+                const data_ol = XLSX.utils.json_to_sheet(locations)
+                XLSX.utils.book_append_sheet(wb, data_ol, 'Opens by location')
+
+                const filename = `${this.message.campaing_name}_report.xlsx`
+                XLSX.writeFile(wb, filename)
+                this.$toast.success('The message report has been downloaded!')
+            } catch (error) {
+                this.$toast.error('Download Failed!')
+            }
         },
     },
 }

@@ -32,11 +32,13 @@
                         <li
                             v-for="(sub, subIndex) in item.subs"
                             :class="{
-                                active: $route.path === sub.to,
+                                active:
+                                    sub.label != 'View Profile' &&
+                                    $route.path === sub.to,
                             }"
                             :key="`menu_${index}_${subIndex}`"
                         >
-                            <router-link :to="sub.to">
+                            <router-link :to="sub.to" :target="sub.target">
                                 <span>{{ sub.label }}</span>
                             </router-link>
                         </li>

@@ -1,6 +1,6 @@
-<template>  
+<template>
     <div class="page">
-        <LoadingSpinner class="page-loader" v-if="!dashboardData && !analiticsItems.length" /> 
+        <LoadingSpinner class="page-loader" v-if="loading" />
         <div v-else>
             <h1>Welcome! {{ userName }}!</h1>
             <div v-if="showNewUser">
@@ -55,6 +55,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Cookies from 'js-cookie'
+import { appConstants } from '~/constants'
 import DashboardCard from '@/components/Account/Dashboard/DashboardCard'
 import DashboardSales from '@/components/Account/Dashboard/DashboardSales'
 import DashboardBeats from '@/components/Account/Dashboard/DashboardBeats'
@@ -80,7 +82,8 @@ export default {
             return this.dashboardData ? this.dashboardData.sales_count : 0
         },
         showNewUser() {
-            if (!this.beat ||
+            if (
+                !this.beat ||
                 !this.store ||
                 !this.campaign ||
                 !this.email_confirmed
@@ -91,69 +94,25 @@ export default {
             }
         },
         beat() {
-            return (this.dashboardData) ? this.dashboardData.beat : false
-        }, 
+            return this.dashboardData ? this.dashboardData.beat : false
+        },
         store() {
-            return (this.dashboardData) ? this.dashboardData.store : false
+            return this.dashboardData ? this.dashboardData.store : false
         },
         campaign() {
-            return (this.dashboardData) ? this.dashboardData.campaign : false
+            return this.dashboardData ? this.dashboardData.campaign : false
         },
         email_confirmed() {
-            return (this.dashboardData) ? this.dashboardData.email_confirmed : false
+            return this.dashboardData
+                ? this.dashboardData.email_confirmed
+                : false
         },
         activitiesItems() {
-            return (this.dashboardData) ? this.dashboardData.activity : []
+            return this.dashboardData ? this.dashboardData.activity : []
         },
         beatsItems() {
-            return (this.dashboardData) ? this.dashboardData.top_5 : []
-        },        
-    },
-    watch: {
-        async 'user'() {
-            if (this.user != null) {
-                this.loading = true
-                await this.$store.dispatch('me/loadDashboard', this.user.id)
-                this.userId = this.user.id
-                this.userEmail = this.user.email
-                this.userName =
-                    this.user.first_name && this.user.last_name
-                        ? `${this.user.first_name} ${this.user.last_name}`
-                        : this.user.display_name    
-
-                const salesAnalitics = {
-                    analitics: this.dashboardData.sales_amount,
-                    topic: `Earned from <b>${this.salesCount} sales</b>`,
-                    format: 'currency',
-                    color: '#2DBD9B',
-                }
-                const beatPlays = {
-                    analitics: this.dashboardData.plays,
-                    topic: 'Beat Plays',
-                    format: 'number',
-                    color: '#DC2EA6',
-                }
-                const conversionRate = {
-                    analitics: this.dashboardData.conversion,
-                    topic: 'Conversion Rate',
-                    format: 'percent',
-                    color: '#FDD311',
-                }
-                const freeDownloads = {
-                    analitics: this.dashboardData.free_downloads,
-                    topic: 'Free Downloads',
-                    format: 'number',
-                    color: '#32C5FF',
-                }   
-                this.analiticsItems = []         
-                this.analiticsItems.push.apply(this.analiticsItems, [
-                    salesAnalitics,
-                    beatPlays,
-                    conversionRate,
-                    freeDownloads,
-                ])
-            }            
-        }
+            return this.dashboardData ? this.dashboardData.top_5 : []
+        },
     },
     data() {
         return {
@@ -162,7 +121,53 @@ export default {
             userEmail: '',
             showCollapse: true,
             analiticsItems: [],
+            session: [],
+            loading: false,
         }
     },
+    async mounted() {
+        this.loading = true
+        this.session = Cookies.getJSON(appConstants.cookies.auth.name)        
+        await this.$store.dispatch('me/loadDashboard', this.session.id)
+        this.userId = this.user.id
+        this.userEmail = this.user.email
+        this.userName =
+            this.user.first_name && this.user.last_name
+                ? `${this.user.first_name} ${this.user.last_name}`
+                : this.user.display_name
+
+        const salesAnalitics = {
+            analitics: this.dashboardData.sales_amount,
+            topic: `Earned from <b>${this.salesCount} sales</b>`,
+            format: 'currency',
+            color: '#2DBD9B',
+        }
+        const beatPlays = {
+            analitics: this.dashboardData.plays,
+            topic: 'Beat Plays',
+            format: 'number',
+            color: '#DC2EA6',
+        }
+        const conversionRate = {
+            analitics: this.dashboardData.conversion,
+            topic: 'Conversion Rate',
+            format: 'percent',
+            color: '#FDD311',
+        }
+        const freeDownloads = {
+            analitics: this.dashboardData.free_downloads,
+            topic: 'Free Downloads',
+            format: 'number',
+            color: '#32C5FF',
+        }
+        this.analiticsItems = []
+        this.analiticsItems.push.apply(this.analiticsItems, [
+            salesAnalitics,
+            beatPlays,
+            conversionRate,
+            freeDownloads,
+        ])
+        this.loading = false
+    }
 }
 </script>

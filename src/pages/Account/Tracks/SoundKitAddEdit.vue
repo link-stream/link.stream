@@ -469,19 +469,21 @@ export default {
         handleImageRemove() {
             this.form.coverArtBase64 = null
         },
-        handleDemoFileAdd({ name, base64 }) {
+        handleDemoFileAdd({ name, base64, blob }) {
             this.form.mp3File = {
                 name,
                 base64,
+                blob,
             }
         },
         handleDemoFileRemove() {
             this.form.mp3File = {}
         },
-        async handleZipFileAdd({ name, base64 }) {
+        async handleZipFileAdd({ name, base64, blob }) {
             this.form.zipFile = {
                 name,
                 base64,
+                blob,
             }
         },
         handleZipFileRemove() {
@@ -548,28 +550,43 @@ export default {
 
             if (
                 !this.isEditMode ||
-                zipFile.name !== kit.track_stems_name ||
-                zipFile.base64 !== kit.data_track_stems
+                zipFile.name !== kit.track_stems_name
             ) {
-                params.track_stems = zipFile.base64 || null
-                params.track_stems_name = zipFile.name || null
+                if (zipFile.name) {
+                    params.track_stems = await this.uploadFileAndName(zipFile)
+                    params.track_stems_name = zipFile.name
+                } else {
+                    params.track_stems = null
+                    params.track_stems_name = null
+                }
+            } else {
+                params.track_stems = kit.track_stems
+                params.track_stems_name = kit.track_stems_name
             }
 
             if (
                 !this.isEditMode ||
-                mp3File.name !== kit.tagged_file_name ||
-                mp3File.base64 !== kit.data_tagged_file
+                mp3File.name !== kit.tagged_file_name
             ) {
-                params.tagged_file = mp3File.base64 || null
-                params.tagged_file_name = mp3File.name || null
+                if (mp3File.name) {
+                    params.tagged_file = await this.uploadFileAndName(mp3File)
+                    params.tagged_file_name = mp3File.name
+                } else {
+                    params.tagged_file = null
+                    params.tagged_file_name = null
+                }
+            } else {
+                params.tagged_file = kit.tagged_file
+                params.tagged_file_name = kit.tagged_file_name
             }
 
-            const { status, message, error } = this.isEditMode
+            const response = this.isEditMode
                 ? await this.$store.dispatch('me/updateSoundKit', {
                       id: kit.id,
                       params,
                   })
                 : await this.$store.dispatch('me/createSoundKit', { params })
+            const { status, message, error } = response
             if (status === 'success') {
                 if (this.isEditMode) {
                     this.$router.replace(
@@ -581,14 +598,54 @@ export default {
                         }
                     )
                 } else {
-                    this.$router.push({
-                        name: 'accountSoundKits',
-                    })
+                    this.$router.push(
+                        {
+                            name: 'accountSoundKits',
+                        },
+                        () => {
+                            this.$toast.success(message)
+                        }
+                    )
                 }
             } else {
                 this.$toast.error(error)
                 this.saving = false
             }
+        },
+        getRandomString() {
+            let randomString = Math.random()
+                .toString(36)
+                .substring(2, 15)
+            randomString += Math.random()
+                .toString(36)
+                .substring(2, 15)
+            randomString += Math.random()
+                .toString(36)
+                .substring(2, 15)
+            return randomString
+        },
+        async uploadFileAndName(src) {
+            const newFileName =
+                this.getRandomString() + '.' + this.getFileExtension(src.name)
+            const { status, data } = await api.audios.getPreSignedUrl(
+                this.user.id,
+                newFileName
+            )
+            if (status === 'success') {
+                const audio_params = {
+                    ...data.formInputs,
+                    type: src.blob.type,
+                    file: src.blob,
+                }
+                const response = await api.audios.putAudio({
+                    endpoint: data.formAttributes.action,
+                    params: audio_params,
+                })
+                return response.status === 'success' ? newFileName : ''
+            }
+        },
+        getFileExtension(filename) {
+            return filename.slice(((filename.lastIndexOf('.') - 1) >>> 0) + 2)
         },
     },
 }

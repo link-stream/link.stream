@@ -1,0 +1,88 @@
+.dropdown-div {
+    margin-top: 18px;
+    p {
+        margin: 0;
+    }
+}
+
+.analytics-dropdown-menu {
+    .dropdown {
+        .dropdown-toggle {
+            svg {
+                margin-top: auto;
+                margin-left: 7.5px;
+                &.fa-chevron-up {
+                    display: none !important;
+                }
+                &.fa-chevron-down {
+                    display: block !important;
+                }
+            }
+            opacity: 0.9;
+            color: $black;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 14px;
+            text-align: right;
+            display: inherit;
+        }
+        &.show {
+            svg {
+                &.fa-chevron-up {
+                    display: block !important;
+                }
+                &.fa-chevron-down {
+                    display: none !important;
+                }
+            }
+        }
+        .dropdown-item {
+            color: $black;
+            font-size: 12px;
+            letter-spacing: 0;
+            line-height: 14px;
+            padding: 10.5px 20px;
+            &.active,
+            &:hover {
+                font-weight: bold;
+                background-color: transparent;
+            }
+        }
+    }
+}
+
+.chart-div {
+    margin-top: 30px;
+    h4 {
+        color: $black;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 0;
+        line-height: 22px;
+        margin-bottom: 18px;
+    }
+}
+
+.AnalyticsList {
+    padding: 0 1rem 0 1rem !important;
+    margin-bottom: 1px;
+    .analytics-list-card {
+        border-radius: 0;
+        box-shadow: 0 1px 0 0 #dbdbdb;
+        border: 0;
+        width: 100%;
+        color: $black;
+        font-size: 13px;
+        letter-spacing: 0;
+        .text-card {
+            min-height: 50px;
+            line-height: 20px;
+            .avatar-card {
+                min-height: 40px;
+                min-width: 40px;
+                margin-right: 19px;
+            }
+        }
+    }
+}

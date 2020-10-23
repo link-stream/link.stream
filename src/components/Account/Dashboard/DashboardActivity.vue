@@ -27,7 +27,6 @@ export default {
     props: {
         activity: {
             type: Object,
-            default: () => [],
         },
     },
     data() {

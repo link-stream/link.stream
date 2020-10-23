@@ -23,7 +23,7 @@
                     {{ purchase.item_amount | currencyFormat }}
                 </small>
             </div>
-            <basic-button class="d-none d-md-block" size="md">
+            <basic-button class="d-none d-md-block" size="md" @click="handleDownload">
                 <b-icon-download
                     class="mr-2"
                     font-scale="1.5"
@@ -48,7 +48,7 @@
                 </b-dropdown-item>
             </b-dropdown>
         </div>
-        <basic-button class="d-md-none mt-3" size="md">
+        <basic-button class="d-md-none mt-3" size="md" @click="handleDownload">
             <b-icon-download class="mr-2" font-scale="1.5" />
             Download
         </basic-button>
@@ -63,6 +63,11 @@ export default {
             type: Object,
             required: true,
         },
+    },
+    methods: {
+        handleDownload() {
+            window.open(this.purchase.download_url, '_self')
+        }
     },
 }
 </script>

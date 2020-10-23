@@ -21,3 +21,4 @@ export { default as AccountBeatPackAddEdit } from './Tracks/BeatPackAddEdit'
 export { default as AccountSettings } from './Settings/Settings'
 
 export { default as AccountSales } from './Sales/Sales'
+export { default as AccountSalesDetails } from './Sales/SalesDetails'

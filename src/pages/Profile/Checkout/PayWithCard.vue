@@ -193,13 +193,45 @@
                                 class="mt-4"
                             >
                                 <b-col cols="12" sm="10">
-                                    <span class="contact-information"
-                                        >Pay with card</span
-                                    >
+                                    <b-col cols="12" xl="7" lg="10" md="11">
+                                        <div class="tabnav contact-information">
+                                            <ul>
+                                                <li :class="{ active: currentTab === 'card' }">
+                                                    <b-icon-credit-card class="mr-2" />
+                                                    <a href="#" @click.prevent="currentTab = 'card'">
+                                                        Pay with card
+                                                    </a>
+                                                </li>
+                                                <li :class="{ active: currentTab === 'paypal' }">
+                                                    <font-awesome-icon
+                                                        :icon="['fab', 'paypal']"
+                                                        class="mr-2"
+                                                    />
+                                                    <a href="#" @click.prevent="currentTab = 'paypal'">
+                                                        Pay with paypal
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </b-col>
                                 </b-col>
                             </b-row>
                         </b-col>
-                        <b-col cols="12" class="mt-4">
+                        <b-col cols="12" v-if="currentTab === 'paypal'">
+                             <PayPal
+                                :amount="paypal.amount"
+                                currency="USD"
+                                :client="paypal_credentials.client"
+                                :items="paypal.items"
+                                :env="paypal_credentials.type"
+                                :button-style="paypal_mobile_style"
+                                @payment-authorized="handlePaypalPaymentAuthorized"
+                                @payment-completed="handlePaypalPaymentCompleted"
+                                @payment-cancelled="handlePaypalPaymentCancelled"
+                            >
+                            </PayPal>
+                        </b-col>
+                        <b-col cols="12" class="mt-4" v-else-if="currentTab === 'card'">
                             <b-row style="justify-content: center;">
                                 <b-col cols="12" sm="10">
                                     <b-form-group
@@ -554,13 +586,43 @@
                                 class="mt-3"
                             >
                                 <b-col cols="12" xl="7" lg="10" md="11">
-                                    <span class="contact-information"
-                                        >Pay with card</span
-                                    >
+                                    <div class="tabnav contact-information">
+                                        <ul>
+                                            <li :class="{ active: currentTab === 'card' }">
+                                                <b-icon-credit-card class="mr-2" />
+                                                <a href="#" @click.prevent="currentTab = 'card'">
+                                                    Pay with card
+                                                </a>
+                                            </li>
+                                            <li :class="{ active: currentTab === 'paypal' }">
+                                                <font-awesome-icon
+                                                    :icon="['fab', 'paypal']"
+                                                    class="mr-2"
+                                                />
+                                                <a href="#" @click.prevent="currentTab = 'paypal'">
+                                                    Pay with paypal
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </b-col>
                             </b-row>
                         </b-col>
-                        <b-col cols="12">
+                        <b-col cols="12" v-if="currentTab === 'paypal'">
+                             <PayPal
+                                :amount="paypal.amount"
+                                currency="USD"
+                                :client="paypal_credentials.client"
+                                :items="paypal.items"
+                                :env="paypal_credentials.type"
+                                :button-style="paypal_style"
+                                @payment-authorized="handlePaypalPaymentAuthorized"
+                                @payment-completed="handlePaypalPaymentCompleted"
+                                @payment-cancelled="handlePaypalPaymentCancelled"
+                            >
+                            </PayPal>
+                        </b-col>
+                        <b-col cols="12" v-else-if="currentTab === 'card'">
                             <b-row
                                 style="justify-content: center;"
                                 class="mt-3"
@@ -823,18 +885,7 @@
                                     </basic-button>
                                 </b-col>
                                 <b-col cols="11" xl="7" lg="10" md="11">
-                                    <PayPal
-                                        :amount="paypal.amount"
-                                        currency="USD"
-                                        :client="paypal_credentials.client"
-                                        :items="paypal.items"
-                                        :env="paypal_credentials.type"
-                                        :button-style="paypal_style"
-                                        @payment-authorized="handlePaypalPaymentAuthorized"
-                                        @payment-completed="handlePaypalPaymentCompleted"
-                                        @payment-cancelled="handlePaypalPaymentCancelled"
-                                    >
-                                    </PayPal>
+                                   
                                 </b-col>
                             </b-row>
                         </b-col>
@@ -934,28 +985,44 @@ export default {
                 return { items: [], amount: '0' }
             let user_items = []
             let amount = 0
+            console.log('itemCart', this.itemsCart)
             this.itemsCart[0].elements.forEach(i => {
                 user_items.push({
                     name:
                         i.name.length < 127 ? i.name : i.name.substring(0, 127),
                     price: String(i.price.toFixed(2)),
-                    quantity: '1', // update later
-                    description: 'goods', // update later
+                    quantity: '1',
+                    description: i.type,
                     currency: 'USD',
                 })
-                amount += i.price // update later
+                amount += i.price
             })
-            let fees = this.fees.filter(i => i.name === 'Service Fee')
+            console.log('fee', this.fees)
+            let fees = this.fees.filter(i => i.var === 'feeService')
             if (fees.length) {
                 fees.forEach(i => {
                     user_items.push({
                         name: 'Service Fee',
                         price: String(i.value),
                         quantity: '1',
-                        description: 'Service Fees - LinkStream',
+                        description: 'Service Fees',
                         currency: 'USD',
                     })
-                    amount += parseFloat(i.value) // update later
+                    amount += parseFloat(i.value)
+                })
+            }
+            fees = this.fees.filter(i => i.var === 'feeCC')
+            if (fees.length) {
+                fees.forEach(i => {
+                    const c_fee = parseFloat(i.value) * amount / 100
+                    user_items.push({
+                        name: 'Convenience Fee',
+                        price: String(c_fee),
+                        quantity: '1',
+                        description: 'Convenience Fees',
+                        currency: 'USD',
+                    })
+                    amount += c_fee
                 })
             }
             return { items: user_items, amount: String(amount) }
@@ -1024,6 +1091,14 @@ export default {
                 shape: 'pill',
                 color: 'gold',
             },
+            paypal_mobile_style: {
+                label: 'checkout',
+                size: 'medium',
+                shape: 'pill',
+                color: 'gold',
+            },
+            currentTab: 'card',
+            paypalAuth: {},
         }
     },
     watch: {
@@ -1090,10 +1165,67 @@ export default {
     },
     methods: {
         handlePaypalPaymentAuthorized(data) {
-            console.log(data)
+            this.paypalAuth = data
         },
         handlePaypalPaymentCompleted(data) {
-            console.log(data)
+            var temp_feeService = this.informationPay[1].fees.find(
+                aux => aux.var === 'feeService'
+            )
+            this.status_loading_pay = true
+            let p_data = {
+                user_id: this.session.id,
+                utm_source: this.params_url.utm_source,
+                ref_id: this.params_url.ref_id,
+                payment: {
+                    paymentID: this.paypalAuth.paymentID,
+                    paymentToken: this.paypalAuth.paymentToken,
+                    name: '',
+                    subtotal: this.informationPay[1].sub_total,
+                    total: this.informationPay[1].total,
+                    feeCC: this.informationPay[1].percent,
+                    feeService: temp_feeService,
+                },
+                cart: [],
+            }
+            var itemsCart = this.informationPay[0]
+            for (var i in itemsCart) {
+                var items = itemsCart[i].elements
+                for (var j in items) {
+                    p_data.cart.push({
+                        item_id: items[j].id,
+                        item_title: items[j].name,
+                        item_amount: items[j].price,
+                        item_track_type: items[j].type,
+                        license_id: items[j].license_id,
+                        producer_id: itemsCart[i].user_id,
+                        genre_id: items[j].genre_id,
+                    })
+                }
+            }
+            console.log(params)
+            const params = {
+                data: JSON.stringify(p_data),
+            }
+            const response = await api.cart.paypalPayment(params)
+            if (response.status === 'success') {
+                var receipt = {
+                    billingCC: response.billingCC,
+                    cc_type: response.cc_type,
+                    email: response.email,
+                    id: response.id,
+                }
+                Cookies.set('receipt', receipt)
+                Cookies.remove(appConstants.cookies.cartItem.name)
+
+                this.$router.push({
+                    name: 'checkoutReceipt',
+                })
+            } else {
+                this.$toast.error(response.error)
+                this.resetValues()
+                Cookies.remove('receipt')
+            }
+            this.status_loading_pay = false
         },
         handlePaypalPaymentCancelled(data) {
             console.log(data)

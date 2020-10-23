@@ -879,6 +879,16 @@ export const api = {
             })
         },
 
+        async paypalPayment(params) {
+            let endpoint = '/payments/paypal_payment'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+
         async getRecommendations(userId) {
             let endpoint = '/profiles/recommendations/' + userId
             const method = METHOD_GET

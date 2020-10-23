@@ -425,7 +425,33 @@
         line-height: 15px;
         text-decoration: none !important;
     }
+    .contact-information {
+        ul {
+            @include media-breakpoint-up(md) {
+                display: flex;
+            }
+            li {
+                @include media-breakpoint-down(md) {
+                    margin-top: 20px;
+                }
+                padding-bottom: 5px;
+                &:first-child {
+                    margin-right: 20px;
+                }
+                &.active {
+                    border-bottom: 3px solid $color-pink-1;
+                }
+                a {
+                    color: black;
+                }
+            }
+        }
+    }
 
+}
+.paypal-button {
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 .paypal-button-context-iframe {
     text-align: center;

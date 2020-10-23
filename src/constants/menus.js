@@ -26,18 +26,22 @@ export const menus = [
             {
                 label: 'Beats',
                 to: '/app/beats/manage',
+                target: '_self',
             },
             {
                 label: 'Licenses',
                 to: '/app/licenses/manage',
+                target: '_self',
             },
             {
                 label: 'Sound Kits',
                 to: '/app/kits/manage',
+                target: '_self',
             },
             {
                 label: 'Beat Packs',
                 to: '/app/beat-packs/manage',
+                target: '_self',
             },
         ],
     },
@@ -52,10 +56,12 @@ export const menus = [
             {
                 label: 'Add new link',
                 to: '/app/links/add',
+                target: '_self',
             },
             {
                 label: 'Manage links',
                 to: '/app/links/manage',
+                target: '_self',
             },
         ],
     },
@@ -70,30 +76,22 @@ export const menus = [
             {
                 label: 'Add new video',
                 to: '/app/videos/add',
+                target: '_self',
             },
             {
                 label: 'Manage videos',
                 to: '/app/videos/manage',
+                target: '_self',
             },
         ],
     },
 	{
         id: 'analytics',
         icon: ['fas', 'chart-bar'],
-		img: 'icon-chart-bar.svg',
+        img: 'icon-chart-bar.svg',
         active: 'icon-chart-bar-active.svg',
         label: 'Analytics',
-        to: '/app/analytics/trafic',
-        subs: [
-            {
-                label: 'Trafic',
-                to: '/app/analytics/trafic',
-            },
-            {
-                label: 'Revenue',
-                to: '/app/analytics/revenue',
-            },
-        ],
+        to: '/app/analytics',
     },
 	{
         id: 'marketing',
@@ -106,22 +104,27 @@ export const menus = [
             {
                 label: 'Messages',
                 to: '/app/marketing/messages',
+                target: '_self',
             },
             {
                 label: 'Subscribers',
                 to: '/app/marketing/subscribers',
+                target: '_self',
             },
             {
                 label: 'Landing Pages',
                 to: '/app/marketing/landing-pages',
+                target: '_self',
             },
             {
                 label: 'Ad Promos',
                 to: '/app/marketing/ad-promos',
+                target: '_self',
             },
             {
                 label: 'YouTube Uploader',
                 to: '/app/marketing/youtube/uploader',
+                target: '_self',
             },
         ],
     },
@@ -136,10 +139,12 @@ export const menus = [
             {
                 label: 'Edit Profile',
                 to: '/app/profile/edit',
+                target: '_self',
             },
             {
                 label: 'View Profile',
                 to: '/user_url',
+                target: '_blank',
             },
         ],
     },  
@@ -154,22 +159,27 @@ export const menus = [
             {
                 label: 'Account Info',
                 to: '/app/account/info',
+                target: '_self',
             },
             {
                 label: 'Purchases',
                 to: '/app/account/purchases',
+                target: '_self',
             },
             {
                 label: 'Payments',
                 to: '/app/account/payments',
+                target: '_self',
             },
             {
                 label: 'Payouts',
                 to: '/app/account/payouts',
+                target: '_self',
             },
             {
                 label: 'Notifications',
                 to: '/app/account/notifications',
+                target: '_self',
             },
         ],
     },

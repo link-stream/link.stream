@@ -1,6 +1,6 @@
-<template>  
+<template>
     <div class="page">
-        <LoadingSpinner class="page-loader" v-if="!dashboardData && !analiticsItems.length" /> 
+        <LoadingSpinner class="page-loader" v-if="!dashboardData && !analiticsItems.length" />
         <div v-else>
             <h1>Welcome! {{ userName }}!</h1>
             <div v-if="showNewUser">
@@ -80,7 +80,8 @@ export default {
             return this.dashboardData ? this.dashboardData.sales_count : 0
         },
         showNewUser() {
-            if (!this.beat ||
+            if (
+                !this.beat ||
                 !this.store ||
                 !this.campaign ||
                 !this.email_confirmed
@@ -91,26 +92,28 @@ export default {
             }
         },
         beat() {
-            return (this.dashboardData) ? this.dashboardData.beat : false
-        }, 
+            return this.dashboardData ? this.dashboardData.beat : false
+        },
         store() {
-            return (this.dashboardData) ? this.dashboardData.store : false
+            return this.dashboardData ? this.dashboardData.store : false
         },
         campaign() {
-            return (this.dashboardData) ? this.dashboardData.campaign : false
+            return this.dashboardData ? this.dashboardData.campaign : false
         },
         email_confirmed() {
-            return (this.dashboardData) ? this.dashboardData.email_confirmed : false
+            return this.dashboardData
+                ? this.dashboardData.email_confirmed
+                : false
         },
         activitiesItems() {
-            return (this.dashboardData) ? this.dashboardData.activity : []
+            return this.dashboardData ? this.dashboardData.activity : []
         },
         beatsItems() {
-            return (this.dashboardData) ? this.dashboardData.top_5 : []
-        },        
+            return this.dashboardData ? this.dashboardData.top_5 : []
+        },
     },
     watch: {
-        async 'user'() {
+        async user() {
             if (this.user != null) {
                 this.loading = true
                 await this.$store.dispatch('me/loadDashboard', this.user.id)
@@ -119,7 +122,7 @@ export default {
                 this.userName =
                     this.user.first_name && this.user.last_name
                         ? `${this.user.first_name} ${this.user.last_name}`
-                        : this.user.display_name    
+                        : this.user.display_name
 
                 const salesAnalitics = {
                     analitics: this.dashboardData.sales_amount,
@@ -144,16 +147,16 @@ export default {
                     topic: 'Free Downloads',
                     format: 'number',
                     color: '#32C5FF',
-                }   
-                this.analiticsItems = []         
+                }
+                this.analiticsItems = []
                 this.analiticsItems.push.apply(this.analiticsItems, [
                     salesAnalitics,
                     beatPlays,
                     conversionRate,
                     freeDownloads,
                 ])
-            }            
-        }
+            }
+        },
     },
     data() {
         return {

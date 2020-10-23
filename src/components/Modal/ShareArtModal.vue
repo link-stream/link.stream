@@ -55,7 +55,7 @@
             <b-input-group>
                 <template v-slot:append>
                     <b-button squared class="share-copy-btn float-right" variant="grey" @click="copyToClipboard">
-                        <b-icon icon="clipboard" aria-hidden="true"></b-icon>
+                        <img src="@/assets/img/ico/link.svg" />
                     </b-button >
                 </template>
                 <b-form-input v-model="shareData.shareUrl" id="share-link" readonly />

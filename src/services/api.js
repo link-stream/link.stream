@@ -204,6 +204,11 @@ export const api = {
             const method = METHOD_GET
             return await call({ endpoint, method })
         },
+        async getAnalytics({ user_id, days }) {
+            const endpoint = `/users/analytics/${user_id}/${days}`
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
     },
     licenses: {
         async getLicensesByUser(userId) {

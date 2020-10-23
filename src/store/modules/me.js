@@ -25,6 +25,7 @@ const initialState = () => ({
     notification: {},
     dashboardData: null,
     showPlanBar: false,
+    analyticsData: null,
 })
 
 const state = initialState()
@@ -49,6 +50,10 @@ const mutations = {
 
     [meTypes.SET_DASHBOARD_DATA](state, { dashboardData }) {
         state.dashboardData = dashboardData
+    },
+
+    [meTypes.SET_ANALYTICS_DATA](state, { analyticsData }) {
+        state.analyticsData = analyticsData
     },
 
     // Licenses
@@ -271,6 +276,15 @@ const actions = {
         const { status, data } = response
         if (status === 'success') {
             commit(meTypes.SET_DASHBOARD_DATA, { dashboardData: data })
+        }
+        return response
+    },
+
+    async loadAnalytics({ commit }, { user_id, days }) {
+        const response = await api.users.getAnalytics({ user_id, days })
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.SET_ANALYTICS_DATA, { analyticsData: data })
         }
         return response
     },
@@ -707,6 +721,7 @@ const getters = {
     notification: ({ notification }) => notification,
     showPlanBar: ({ showPlanBar }) => showPlanBar,
     dashboardData: ({ dashboardData }) => dashboardData,
+    analyticsData: ({ analyticsData }) => analyticsData,
 }
 
 export default {

@@ -48,8 +48,14 @@
                         "
                     >
                         <template #cell(number)="data">
-                            <b class="number-tables">
-                                {{ data.item.name.no }}</b
+                            <b-link
+                                :to="{
+                                    name: 'accountSalesDetails',
+                                    params: { id: data.item.id },
+                                }"
+                                class="number-tables"
+                            >
+                                {{ data.item.name.no }}</b-link
                             >
                         </template>
                         <template #cell(total)="data">

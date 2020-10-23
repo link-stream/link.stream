@@ -1167,7 +1167,7 @@ export default {
         handlePaypalPaymentAuthorized(data) {
             this.paypalAuth = data
         },
-        handlePaypalPaymentCompleted(data) {
+        async handlePaypalPaymentCompleted(data) {
             var temp_feeService = this.informationPay[1].fees.find(
                 aux => aux.var === 'feeService'
             )
@@ -1179,7 +1179,7 @@ export default {
                 payment: {
                     paymentID: this.paypalAuth.paymentID,
                     paymentToken: this.paypalAuth.paymentToken,
-                    name: '',
+                    name: data.payer.payer_info.first_name + " " + data.payer.payer_info.first_name,
                     subtotal: this.informationPay[1].sub_total,
                     total: this.informationPay[1].total,
                     feeCC: this.informationPay[1].percent,

@@ -884,9 +884,6 @@
                                         <span v-else>Pay $ {{ total }}</span>
                                     </basic-button>
                                 </b-col>
-                                <b-col cols="11" xl="7" lg="10" md="11">
-                                   
-                                </b-col>
                             </b-row>
                         </b-col>
                         <b-col cols="12" class="mt-5">
@@ -982,10 +979,9 @@ export default {
         },
         paypal() {
             if (!this.itemsCart?.length || !this.fees?.length)
-                return { items: [], amount: '0' }
+                return { items: [], amount: '0.00' }
             let user_items = []
             let amount = 0
-            console.log('itemCart', this.itemsCart)
             this.itemsCart[0].elements.forEach(i => {
                 user_items.push({
                     name:
@@ -1003,7 +999,7 @@ export default {
                 fees.forEach(i => {
                     user_items.push({
                         name: 'Service Fee',
-                        price: String(i.value),
+                        price: String(i.value.toFixed(2)),
                         quantity: '1',
                         description: 'Service Fees',
                         currency: 'USD',
@@ -1014,10 +1010,10 @@ export default {
             fees = this.fees.filter(i => i.var === 'feeCC')
             if (fees.length) {
                 fees.forEach(i => {
-                    const c_fee = parseFloat(i.value) * amount / 100
+                    const c_fee = (parseFloat(i.value) * amount) / 100
                     user_items.push({
                         name: 'Convenience Fee',
-                        price: String(c_fee),
+                        price: String(c_fee.toFixed(2)),
                         quantity: '1',
                         description: 'Convenience Fees',
                         currency: 'USD',

@@ -15,11 +15,17 @@
                             <div class="title">{{ pack.title }}</div>
                             <div class="sub-title">
                                 Ambient Beat Pack by
-                                {{ profile.display_name }}
+                                <router-link                                    
+                                    :to="{
+                                        name: 'publicProfile',
+                                        params: { url: profile.url },
+                                    }"
+                                >
+                                    {{ profile.display_name }}
+                                </router-link>
                             </div>
                         </div>
                     </div>
-
                     <div class="actions d-sm-none">
                         <basic-button
                             v-if="pack.price > 0"
@@ -27,12 +33,17 @@
                             @click="handleBuyClick()"
                         >
                             <img src="@/assets/img/ico/basket.svg" />
-                            {{ pack.price | currencyFormat }} - Buy
+                            {{ pack.price | currencyFormat }} - Add to cart
                         </basic-button>
-                        <basic-button v-else class="btn-buy" @click="handleDownloadClick()">
+                        <spinner-button
+                            v-else
+                            class="btn-buy"
+                            :loading="loading"
+                            @click="handleDownloadClick"
+                        >
                             <img src="@/assets/img/ico/download-wh.svg" />
                             Download
-                        </basic-button>
+                        </spinner-button>
                     </div>
 
                     <div class="desc" v-if="pack.description && !readMore">
@@ -70,12 +81,21 @@
                             @click="handleBuyClick()"
                         >
                             <img src="@/assets/img/ico/basket.svg" />
-                            {{ pack.price | currencyFormat }} - Buy
+                            {{ pack.price | currencyFormat }} - Add to cart
                         </basic-button>
-                        <basic-button v-else class="btn-buy" @click="handleDownloadClick()">
+
+                        <spinner-button
+                            v-else
+                            class="btn-buy"
+                            :loading="loading"
+                            @click="handleDownloadClick"
+                        >
                             <img src="@/assets/img/ico/download-wh.svg" />
                             Download
-                        </basic-button>
+                        </spinner-button>
+
+
+                        <!--   -->
                         <basic-button
                             variant="outline-black"
                             class="btn-share"
@@ -96,7 +116,12 @@
                     <div class="float-right">{{ Math.ceil(sumDurations / 60) }} mins</div>
                 </div>
                 <div v-for="(beat, index) in beats" :key="index" class="beat-info">
-                    <ListAudioPlayer :src="beat.src" :type="beat.type" :id="beat.id" :fromprofile="true" :user_id="profile.id"/>
+                    <ListAudioPlayer
+                        :type="beat.type"
+                        :id="beat.id"
+                        :fromprofile="true"
+                        :user_id="profile.id"
+                    />
                     <div class="beat-title">{{ beat.title }}</div>
                     <b-button
                         class="btn-menu-xs"
@@ -159,7 +184,6 @@
     </b-container>
 </template>
 <script>
-import { api } from '~/services'
 import { appConstants } from '~/constants'
 import { ListAudioPlayer } from '~/components/Player'
 import ShareArtModal from '@/components/Modal/ShareArtModal'
@@ -179,6 +203,7 @@ export default {
         sumDurations: 0,
         audioObj: null,
         readMore: false,
+        loading: false,
     }),
     async created() {
         this.isLoading = true
@@ -212,32 +237,11 @@ export default {
         for (const item of pack.beats) {
             this.beats.push({
                 id: item.id_audio,
-                type: 'pack',
+                type: 'beat',
                 title: item.title,
-                src: null,
+                src: '',
+                profileId: this.profile.id,
             })
-        }
-
-        for (const item of this.beats) {
-            const response = await api.profiles.getProfileBeatPackById(
-                this.profile.id,
-                item.id,
-                'beat'
-            )
-            const audio = response.data[0]
-            if (response.status === 'success' && response.data.length) {
-                this.audioObj = new Audio()
-                this.audioObj.addEventListener('loadeddata', this.handleLoaded)
-                if (audio.data_tagged_file) {
-                    item.src = audio.data_tagged_file
-                } else if (audio.data_untagged_mp3) {
-                    item.src = audio.data_untagged_mp3
-                } else if (audio.data_untagged_wav) {
-                    item.src = audio.data_untagged_wav
-                }
-                this.audioObj.src = item.src
-                this.audioObj.load()
-            }
         }
     },
     methods: {
@@ -247,7 +251,12 @@ export default {
             })
             this.$bus.$emit('modal.addedCart.open')
         },
-        handleDownloadClick() {},
+        handleDownloadClick() {
+            this.loading = true
+            const downloadUrl = `${process.env.VUE_APP_API_URL}a/free_download/${this.profile.id}/${this.pack.id}/pack`
+            window.open(downloadUrl, '_self')
+            this.loading = false
+        },
         handleShareClick() {
             this.$bus.$emit('modal.share.open', this.pack)
         },

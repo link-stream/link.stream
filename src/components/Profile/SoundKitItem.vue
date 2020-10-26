@@ -63,13 +63,15 @@
                 @click="handleBuyClick"
                 >Buy</basic-button
             >
-            <basic-button
+            <spinner-button
                 v-else
                 size="sm"
                 class="btn-buy"
+                :loading="loadingDownload"
                 @click="handleDownloadClick"
-                >Download</basic-button
             >
+                Download
+            </spinner-button>
             <IconButton class="btn-download" icon="download" v-show="false" />
         </div>
     </div>
@@ -99,9 +101,11 @@ export default {
     },
     data: () => ({
         isShowShare: false,
+        loadingDownload: false,
     }),
     computed: {
         ...mapGetters({
+            profile: 'profile/profile',
             soundKits: 'profile/soundKits',
             individualLoading: 'profile/individualLoading',
         }),
@@ -132,8 +136,12 @@ export default {
             //this.$store.dispatch('profile/addCartItem', { ...this.curItem })
             this.$bus.$emit('modal.addedCart.open')
         },
-
-        handleDownloadClick() {},
+        handleDownloadClick() {
+            this.loadingDownload = true
+            const downloadUrl = `${process.env.VUE_APP_API_URL}a/free_download/${this.profile.id}/${this.artItem.id}/kit`
+            window.open(downloadUrl, '_self')
+            this.loadingDownload = false
+        },
         handleShareClick() {
             this.$bus.$emit('modal.share.open', this.curItem)
         },

@@ -23,10 +23,21 @@
                             v-if="collab.user.id == profile.id"
                             src="@/assets/img/ico/badge.svg"
                         />
-                        <span class="user-name">
-                            {{ collab.user.name | truncate(14) }}
-                            {{ collab.user.id == profile.id ? '(you)' : '' }}
-                        </span>
+
+                        <router-link
+                            class="artist text-black"
+                            :to="{
+                                name: 'publicProfile',
+                                params: { url: collab.user.url },
+                            }"
+                        >
+                            <span class="user-name" :id="`user-name-${index}`">
+                                {{
+                                collab.user.display_name | truncate(14)
+                                }}
+                            </span>
+                            <b-tooltip :target="`user-name-${index}`">{{ collab.user.display_name }}</b-tooltip>
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -34,10 +45,26 @@
                 <div class="header">
                     <div class="left-header">
                         <div class="title-container">
-                            <MiniAudioPlayer :src="form.src" :type="form.type" :id="form.id" :fromprofile="true" :user_id="profile.id"/>
+                            <MiniAudioPlayer
+                                :src="form.src"
+                                :type="form.type"
+                                :id="form.id"
+                                :fromprofile="true"
+                                :user_id="profile.id"
+                            />
                             <div class="title">{{ form.title }}</div>
                         </div>
-                        <div class="desc">Ambient beat by {{ profile.display_name }}</div>
+                        <div class="desc">
+                            Ambient beat by 
+                            <router-link                                    
+                                :to="{
+                                    name: 'publicProfile',
+                                    params: { url: profile.url },
+                                }"
+                            >
+                                {{ profile.display_name }}
+                            </router-link>
+                        </div>
                     </div>
                     <div class="right-header">
                         <basic-button
@@ -73,20 +100,29 @@
                                 <basic-button
                                     v-if="license.price > 0"
                                     size="sm"
-                                    class="btn-buy"
+                                    class="btn-buy px-md-1 px-lg-3"
                                     @click="handleBuyClick(license)"
                                 >
                                     <img src="@/assets/img/ico/basket.svg" />
-                                    Buy
+                                    Add to cart
                                 </basic-button>
                                 <basic-button
                                     v-else
                                     size="sm"
                                     class="btn-download"
-                                    @click="handleDownloadClick(license)"
+                                    @click="
+                                        handleDownloadClick(license.license_id)
+                                    "
                                 >
-                                    <img src="@/assets/img/ico/download-wh.svg" />
-                                    Download
+                                    <div v-if="!loadingState">
+                                        <img src="@/assets/img/ico/download-wh.svg" />
+                                        Download
+                                    </div>
+                                    <div v-else>
+                                        <b-spinner small type="grow"></b-spinner>
+                                        <b-spinner small type="grow"></b-spinner>
+                                        <b-spinner small type="grow"></b-spinner>
+                                    </div>
                                 </basic-button>
                             </div>
                         </div>
@@ -129,7 +165,7 @@
                                 <h4 class="title">{{ artist.title }}</h4>
                                 <div class="desc">
                                     {{ artist.bpm }} BPM •
-                                    {{ artist.plays }} plays
+                                    {{ artist.play }} plays
                                 </div>
                             </router-link>
                         </b-col>
@@ -152,6 +188,7 @@ export default {
         MiniAudioPlayer,
     },
     data: () => ({
+        loadingState: false,
         isLoading: false,
         profile: {},
         form: {},
@@ -198,14 +235,18 @@ export default {
                       ({
                           user_id,
                           user_name,
+                          display_name,
                           data_image,
                           profit,
+                          url,
                           publishing,
                       }) => ({
                           profit,
                           publishing,
                           user: {
                               id: user_id,
+                              url: url,
+                              display_name: display_name,
                               name: user_name,
                               photo: data_image,
                           },
@@ -251,6 +292,12 @@ export default {
                 license_id: license.license_id,
             })
             this.$bus.$emit('modal.addedCart.open')
+        },
+        handleDownloadClick(license_id) {
+            this.loadingState = true
+            const downloadUrl = `${process.env.VUE_APP_API_URL}a/free_download/${this.profile.id}/${this.beat.id}/${this.beat.type}/${license_id}`
+            window.open(downloadUrl, '_self')
+            this.loadingState = false
         },
         handleShareClick() {
             this.$bus.$emit('modal.share.open', this.beat)

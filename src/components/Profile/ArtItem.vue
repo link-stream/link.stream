@@ -71,13 +71,15 @@
             <b-dropdown-item v-show="false">Free Download</b-dropdown-item>
         </b-dropdown>
         <div class="action">
-            <basic-button
+            <spinner-button
                 v-if="artItem.type === 'pack' && artItem.price == 0"
                 size="sm"
                 class="btn-buy"
+                :loading="loadingDownload"
                 @click="handleDownloadClick"
-                >Download</basic-button
             >
+                Download
+            </spinner-button>
             <basic-button
                 v-else
                 size="sm"
@@ -144,6 +146,11 @@ export default {
             }
         },
     },
+    data() {
+        return {
+            loadingDownload: false,
+        }
+    },
     methods: {
         handleBuyClick() {
             var listItems = []
@@ -165,7 +172,12 @@ export default {
                 this.$bus.$emit('modal.addedCart.open')
             }
         },
-        handleDownloadClick() {},
+        handleDownloadClick() {
+            this.loadingDownload = true
+            const downloadUrl = `${process.env.VUE_APP_API_URL}a/free_download/${this.profile.id}/${this.artItem.id}/${this.artItem.type}`
+            window.open(downloadUrl, '_self')
+            this.loadingDownload = false
+        },
         handleShareClick() {
             this.$bus.$emit('modal.share.open', this.artItem)
         },

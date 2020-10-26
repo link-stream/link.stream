@@ -1,6 +1,6 @@
 <template>
     <div class="DashboardSales">
-        <b-button class="sales-btn">
+        <b-button class="sales-btn" :to="{ name: 'accountSales' }">
             <b-row no-gutters>
                 <b-col cols="2" sm="1" xs="2">
                     <img src="@/assets/img/ico/dollar-sign-solid.svg" />

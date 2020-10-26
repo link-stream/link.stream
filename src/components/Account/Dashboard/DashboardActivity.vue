@@ -8,6 +8,7 @@
                     {{ activity.log }}
                 </span>
                 <b-link
+                    v-if="activity.ref_user_id !== '0'"
                     size="xs"
                     :to="{
                         name: 'publicProfile',

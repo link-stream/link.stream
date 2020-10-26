@@ -1231,6 +1231,7 @@ export default {
             const response = await api.cart.paypalPayment(params)
             if (response.status === 'success') {
                 var receipt = {
+                    download: response.download,
                     billingCC: response.billingCC,
                     cc_type: response.cc_type,
                     email: response.email,
@@ -1302,7 +1303,6 @@ export default {
                 var temp_feeService = this.informationPay[1].fees.find(
                     aux => aux.var === 'feeService'
                 )
-                console.log('kmllljl', this.form.country)
                 var temp_country = this.list_countries.find(
                     aux => aux.code === this.form.country.code
                 )
@@ -1336,7 +1336,7 @@ export default {
                             item_track_type: items[j].type,
                             license_id: items[j].license_id,
                             producer_id: itemsCart[i].user_id,
-                            genre_id: items[j].genre_id,
+                            genre_id: items[j].genre_id,                            
                         })
                     }
                 }
@@ -1347,6 +1347,7 @@ export default {
                 if (response.status === 'success') {
                     var receipt = {
                         billingCC: response.billingCC,
+                        download: response.download,
                         cc_type: response.cc_type,
                         email: response.email,
                         id: response.id,

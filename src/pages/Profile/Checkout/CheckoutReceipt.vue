@@ -271,9 +271,7 @@ export default {
     },
     watch: {},
     async mounted() {
-        console.log('this.user', this.user)
         this.params_url = Cookies.getJSON('params_url')
-
         this.data_user = this.user.first_name.concat(
             ' ',
             this.user.last_name,
@@ -283,14 +281,13 @@ export default {
         )
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
         var infoPay = Cookies.getJSON(appConstants.cookies.informationPay.name)
-        console.log('infoPay', infoPay)
+        this.receipt = Cookies.getJSON('receipt')
         this.createItemsPay(infoPay[0])
         this.subTotal = infoPay[1].sub_total
         this.total = infoPay[1].total
         this.percent = infoPay[1].percent
         this.fees = infoPay[1].fees
         this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
-        this.receipt = Cookies.getJSON('receipt')
         this.icon_card = this.getBrandClass(this.receipt.cc_type.toLowerCase())
 
         const response = await api.cart.getRecommendations(this.user.id)
@@ -319,6 +316,9 @@ export default {
                         price: item.elements[j].price,
                         artistName: item.artistName,
                         artist_url: item.artist_url,
+                        downloadUrl: this.receipt.download.find(
+                            x => x.item_id === item.elements[j].id
+                        ),
                     })
                 }
             }

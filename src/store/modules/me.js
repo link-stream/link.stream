@@ -23,7 +23,6 @@ const initialState = () => ({
     paymentMethods: [],
     bankInfo: {},
     notification: {},
-    dashboardData: null,
     showPlanBar: false,
     analyticsData: null,
 })
@@ -46,10 +45,6 @@ const mutations = {
 
     [meTypes.SET_PLAN_BAR](state, value) {
         state.showPlanBar = value
-    },
-
-    [meTypes.SET_DASHBOARD_DATA](state, { dashboardData }) {
-        state.dashboardData = dashboardData
     },
 
     [meTypes.SET_ANALYTICS_DATA](state, { analyticsData }) {
@@ -269,15 +264,6 @@ const actions = {
         const user = rootGetters['auth/user']
         const { status, data } = await api.users.getUser(user.id)
         status === 'success' && commit(meTypes.SET_USER, { user: data })
-    },
-
-    async loadDashboard({ commit }, user_id) {
-        const response = await api.users.getDashboard(user_id)
-        const { status, data } = response
-        if (status === 'success') {
-            commit(meTypes.SET_DASHBOARD_DATA, { dashboardData: data })
-        }
-        return response
     },
 
     async loadAnalytics({ commit }, { user_id, days }) {
@@ -720,7 +706,6 @@ const getters = {
     bankInfo: ({ bankInfo }) => bankInfo,
     notification: ({ notification }) => notification,
     showPlanBar: ({ showPlanBar }) => showPlanBar,
-    dashboardData: ({ dashboardData }) => dashboardData,
     analyticsData: ({ analyticsData }) => analyticsData,
 }
 

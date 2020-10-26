@@ -6,8 +6,12 @@
             'is-loading': loading,
         }"
     >
-        <span class="player-spinner spinner-border"></span>
-        <LoadingSpinner v-if="src === null" class="center-img mt-4" animation="bounce-small" />
+        <!-- <span class="player-spinner spinner-border"></span> -->
+        <LoadingSpinner 
+            v-if="(type === 'kit' && src === null) || (type === 'beat' && loadingAudio)" 
+            class="center-img mt-4" 
+            animation="bounce-small" 
+        />
         <b-icon
             v-else
             :icon="playing ? 'pause-fill' : 'play-fill'"
@@ -21,11 +25,9 @@
 
 <script>
 import { api } from '~/services/api'
-
 const STATE_PAUSED = 'paused'
 const STATE_PLAYING = 'playing'
 const STATE_LOADING = 'loading'
-
 export default {
     name: 'ListAudioPlayer',
     props: {
@@ -51,6 +53,7 @@ export default {
             audioObj: null,
             state: STATE_PAUSED,
             pause: false,
+            loadingAudio: false,
         }
     },
     computed: {
@@ -75,31 +78,60 @@ export default {
             this.audioObj.load()
         },
         async handlePlayClick() {
-            if (!this.src) {
-                this.$toast.error('No source provided.')
-                return
-            }
-
-            if (!this.audioObj) {
-                if (this.src.charAt(0) === '/') {
-                    this.state = STATE_LOADING
-                    const { status, data } = await api.call({
-                        endpoint: this.src,
-                        showProgress: false,
-                    })
+            if (this.type === 'kit') {
+                if (!this.src) {
+                    this.$toast.error('No source provided.')
+                    return
+                }
+                if (!this.audioObj) {
+                    if (this.src.charAt(0) === '/') {
+                        this.state = STATE_LOADING
+                        const { status, data } = await api.call({
+                            endpoint: this.src,
+                            showProgress: false,
+                        })
+                        if (status === 'success') {
+                            this.load(data.audio)
+                        } else {
+                            this.state = STATE_PAUSED
+                            this.$toast.error('Failed to fetch audio.')
+                            return
+                        }
+                    } else {
+                        // Base64 audio
+                        this.load(this.src)
+                    }
+                }
+            } else {
+                if (!this.audioObj) {
+                    this.loadingAudio = true
+                    const {
+                        status,
+                        data,
+                    } = await api.profiles.getProfileBeatPackById(
+                        this.user_id,
+                        this.id,
+                        'beat'
+                    )
                     if (status === 'success') {
-                        this.load(data.audio)
+                        const audio = data[0]
+                        let srcAudio = ''
+                        if (audio.data_tagged_file) {
+                            srcAudio = audio.data_tagged_file
+                        } else if (audio.data_untagged_mp3) {
+                            srcAudio = audio.data_untagged_mp3
+                        } else if (audio.data_untagged_wav) {
+                            srcAudio = audio.data_untagged_wav
+                        }
+                        this.load(srcAudio)                        
                     } else {
                         this.state = STATE_PAUSED
                         this.$toast.error('Failed to fetch audio.')
                         return
                     }
-                } else {
-                    // Base64 audio
-                    this.load(this.src)
+                    this.loadingAudio = false
                 }
-            }
-
+            }           
             if (this.playing) {
                 this.audioObj.pause()
             } else {

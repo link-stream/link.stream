@@ -89,8 +89,6 @@ const callS3 = async function({ endpoint, params, showProgress = true }) {
             showProgress,
         })
 
-        console.log('axios s3 response', response)
-
         if (response.status === 204) {
             payload = {
                 status: 'success',
@@ -200,7 +198,7 @@ export const api = {
             return await call({ endpoint, method })
         },
         async getDashboard(user_id) {
-            const endpoint = '/users/dashboard/' + user_id
+            const endpoint = `/users/dashboard/${user_id}`
             const method = METHOD_GET
             return await call({ endpoint, method })
         },

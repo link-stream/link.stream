@@ -4,6 +4,7 @@
     </div>
 </template>
 <script>
+import { api } from '~/services'
 import { mapGetters } from 'vuex'
 export default {
     name: 'ProfileAbout',
@@ -17,8 +18,15 @@ export default {
             profile: 'profile/profile',
         }),
     },
-    created() {
-        this.$store.dispatch('profile/getProfileMain', { url: this.url })
+    async created() {
+        const response = await api.profiles.getProfileMain(this.url)
+        if (response.status === 'false') {
+            this.$router.push({
+                name: 'home',
+            })            
+        } else {
+            this.$store.dispatch('profile/getProfileMain', { url: this.url })
+        }
     },
 }
 </script>

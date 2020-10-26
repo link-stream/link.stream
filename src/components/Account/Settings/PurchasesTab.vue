@@ -49,17 +49,20 @@
                 >
                 </purchase-item>
             </base-card>
+            <ShareArtModal @close="handleCloseShare" />
         </div>
     </div>
 </template>
 
 <script>
-import PurchaseItem from './PurchaseItem'
 import { mapGetters } from 'vuex'
+import PurchaseItem from './PurchaseItem'
+import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'PurchasesTab',
     components: {
         PurchaseItem,
+        ShareArtModal,
     },
     computed: {
         ...mapGetters({
@@ -73,6 +76,11 @@ export default {
         this.loading = true
         await this.$store.dispatch('me/loadPurchases')
         this.loading = false
+    },
+     methods: {
+        handleCloseShare() {
+            this.$bus.$emit('modal.share.close')
+        },
     },
 }
 </script>

@@ -36,13 +36,15 @@
                     <b-row>
                         <b-col cols="12" md="6" xs="12" class="pl-0">
                             <h6>Recent activity</h6>
-                            <b-row v-for="(activity, index) in activitiesItems" :key="index">
+                            <div v-if="!activitiesItems.length" class="page-empty empty-text">Your recent activity will appear here.</div>                              
+                            <b-row v-else v-for="(activity, index) in activitiesItems" :key="index">
                                 <DashboardActivity :activity="activity" class="pl-3" />
                             </b-row>
                         </b-col>
                         <b-col cols="12" md="6" xs="12" class="px-0 mx-0">
                             <h6>Top played beats</h6>
-                            <b-row v-for="(beat, index) in beatsItems" :key="index">
+                            <div v-if="!beatsItems.length" class="page-empty empty-text">Your top played beats will appear here.</div>  
+                            <b-row v-else v-for="(beat, index) in beatsItems" :key="index">
                                 <DashboardBeats :beat="beat" :index="index" class="pl-3" />
                             </b-row>
                         </b-col>
@@ -54,8 +56,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import Cookies from 'js-cookie'
+import { api } from '~/services/api'
 import { appConstants } from '~/constants'
 import DashboardCard from '@/components/Account/Dashboard/DashboardCard'
 import DashboardSales from '@/components/Account/Dashboard/DashboardSales'
@@ -74,44 +76,17 @@ export default {
         DashboardAnalitics,
     },
     computed: {
-        ...mapGetters({
-            user: 'me/user',
-            dashboardData: 'me/dashboardData',
-        }),
-        salesCount() {
-            return this.dashboardData ? this.dashboardData.sales_count : 0
-        },
         showNewUser() {
             if (
                 !this.beat ||
                 !this.store ||
                 !this.campaign ||
-                !this.email_confirmed
+                !this.emailConfirmed
             ) {
                 return true
             } else {
                 return false
             }
-        },
-        beat() {
-            return this.dashboardData ? this.dashboardData.beat : false
-        },
-        store() {
-            return this.dashboardData ? this.dashboardData.store : false
-        },
-        campaign() {
-            return this.dashboardData ? this.dashboardData.campaign : false
-        },
-        email_confirmed() {
-            return this.dashboardData
-                ? this.dashboardData.email_confirmed
-                : false
-        },
-        activitiesItems() {
-            return this.dashboardData ? this.dashboardData.activity : []
-        },
-        beatsItems() {
-            return this.dashboardData ? this.dashboardData.top_5 : []
         },
     },
     data() {
@@ -119,55 +94,74 @@ export default {
             userName: '',
             userId: null,
             userEmail: '',
+            dashboard: null,
+            salesCount: 0,
+            beat: false,
+            store: false,
+            campaign: false,
+            emailConfirmed: false,
             showCollapse: true,
             analiticsItems: [],
+            beatsItems: [],
+            activitiesItems: [],
             session: [],
             loading: false,
         }
     },
     async mounted() {
         this.loading = true
-        this.session = Cookies.getJSON(appConstants.cookies.auth.name)        
-        await this.$store.dispatch('me/loadDashboard', this.session.id)
-        this.userId = this.user.id
-        this.userEmail = this.user.email
-        this.userName =
-            this.user.first_name && this.user.last_name
-                ? `${this.user.first_name} ${this.user.last_name}`
-                : this.user.display_name
+        this.session = Cookies.getJSON(appConstants.cookies.auth.name)
+        const userResponse = await api.users.getUser(this.session.id)
+        const dashboardResponse = await api.users.getDashboard(this.session.id)
+        if (userResponse.status === 'success' && dashboardResponse.status) {
+            this.userId = userResponse.data.id
+            this.userEmail = userResponse.data.email
+            this.userName =
+                userResponse.data.first_name && userResponse.data.last_name
+                    ? `${userResponse.data.first_name} ${userResponse.data.last_name}`
+                    : userResponse.data.display_name
 
-        const salesAnalitics = {
-            analitics: this.dashboardData.sales_amount,
-            topic: `Earned from <b>${this.salesCount} sales</b>`,
-            format: 'currency',
-            color: '#2DBD9B',
+            this.dashboard = dashboardResponse.data
+            this.beat = this.dashboard.beat
+            this.store = this.dashboard.store
+            this.campaign = this.dashboard.campaign
+            this.emailConfirmed = this.dashboard.email_confirmed
+            this.salesCount = this.dashboard.sales_count
+            const salesAnalitics = {
+                analitics: this.dashboard.sales_amount,
+                topic: `Earned from <b>${this.salesCount} sales</b>`,
+                format: 'currency',
+                color: '#2DBD9B',
+            }
+            const beatPlays = {
+                analitics: this.dashboard.plays,
+                topic: 'Beat Plays',
+                format: 'number',
+                color: '#DC2EA6',
+            }
+            const conversionRate = {
+                analitics: this.dashboard.conversion,
+                topic: 'Conversion Rate',
+                format: 'percent',
+                color: '#FDD311',
+            }
+            const freeDownloads = {
+                analitics: this.dashboard.free_downloads,
+                topic: 'Free Downloads',
+                format: 'number',
+                color: '#32C5FF',
+            }
+            this.analiticsItems = []
+            this.analiticsItems.push.apply(this.analiticsItems, [
+                salesAnalitics,
+                beatPlays,
+                conversionRate,
+                freeDownloads,
+            ])
+            this.beatsItems = this.dashboard.top_5
+            this.activitiesItems = this.dashboard.activity
         }
-        const beatPlays = {
-            analitics: this.dashboardData.plays,
-            topic: 'Beat Plays',
-            format: 'number',
-            color: '#DC2EA6',
-        }
-        const conversionRate = {
-            analitics: this.dashboardData.conversion,
-            topic: 'Conversion Rate',
-            format: 'percent',
-            color: '#FDD311',
-        }
-        const freeDownloads = {
-            analitics: this.dashboardData.free_downloads,
-            topic: 'Free Downloads',
-            format: 'number',
-            color: '#32C5FF',
-        }
-        this.analiticsItems = []
-        this.analiticsItems.push.apply(this.analiticsItems, [
-            salesAnalitics,
-            beatPlays,
-            conversionRate,
-            freeDownloads,
-        ])
         this.loading = false
-    }
+    },
 }
 </script>

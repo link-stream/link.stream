@@ -30,10 +30,28 @@
                     </b-row>
                 </b-col>
                 <b-col cols="12" xl="3" lg="5" md="6" sm="6" class="center">
-                    <b-button pill class="continue-shopping">
+                    <basic-button
+                        pill
+                        block
+                        size="md"
+                        :disabled="status_loading_pay"
+                        class="continue-to-payment"
+                        @click="handleDownloadClick"
+                    >
+                        <div v-if="status_loading_pay">
+                            <b-spinner small label="Small Spinner" type="grow"></b-spinner>
+                            <b-spinner small label="Small Spinner" type="grow"></b-spinner>
+                            <b-spinner small label="Small Spinner" type="grow"></b-spinner>
+                        </div>
+                        <div v-else>
+                            <img class="img-icon" src="@/assets/img/ico/download-wh.svg" />
+                            Download
+                        </div>
+                    </basic-button>
+                    <!-- <b-button pill class="continue-shopping">
                         <b-icon font-scale="1" icon="download" class="mr-2" />
                         Download</b-button
-                    >
+                    > -->
                     <!--IconButton class="mx-2" icon="dot-menu-v" /-->
                 </b-col>
             </b-row>
@@ -54,9 +72,16 @@ export default {
     data() {
         return {
             soldBy: '',
+            status_loading_pay: false,
         }
     },
     mounted() {},
-    methods: {},
+    methods: {
+        handleDownloadClick() {
+            this.status_loading_pay = true
+            window.open(this.itemPay.downloadUrl.url, '_self')
+            this.status_loading_pay = false
+        },
+    },
 }
 </script>

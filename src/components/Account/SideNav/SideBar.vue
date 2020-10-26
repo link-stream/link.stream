@@ -75,14 +75,6 @@ export default {
         }),
     },
     mounted() {
-        const menuIndex = this.menuItems.findIndex(
-            menuItems => menuItems.id === 'profile'
-        )
-        const submenuIndex = this.menuItems[menuIndex].subs.findIndex(
-            submenu => submenu.label === 'View Profile'
-        )
-        this.menuItems[menuIndex].subs[submenuIndex].to = `/${this.user.url}`
-
         this.selectMenu()
         window.addEventListener('resize', this.handleWindowResize)
         document.addEventListener('click', this.handleDocumentClick)

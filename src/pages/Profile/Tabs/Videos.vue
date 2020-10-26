@@ -15,6 +15,7 @@
     </div>
 </template>
 <script>
+import { api } from '~/services'
 import { mapGetters } from 'vuex'
 import VideoItem from '@/components/Profile/VideoItem'
 export default {
@@ -29,7 +30,6 @@ export default {
     },
     computed: {
         ...mapGetters({
-            profile: 'profile/profile',
             videos: 'profile/videos',
         }),
     },
@@ -38,9 +38,16 @@ export default {
     }),
     async created() {
         this.loading = true
-        await this.$store.dispatch('profile/getProfileVideosTab', {
-            url: this.url,
-        })
+        const response = await api.profiles.getProfileMain(this.url)
+        if (response.status === 'false') {
+            this.$router.push({
+                name: 'home',
+            })            
+        } else {
+            await this.$store.dispatch('profile/getProfileVideosTab', {
+                url: this.url,
+            })
+        }
         this.loading = false
     },
 }

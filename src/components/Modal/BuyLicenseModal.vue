@@ -43,13 +43,15 @@
                                     @click="handleBuyClick(license)"
                                     >Buy</basic-button
                                 >
-                                <basic-button
+                                <spinner-button
                                     v-else
                                     size="sm"
                                     class="btn-buy"
+                                    :loading="loading"
                                     @click="handleDownloadClick(license)"
-                                    >Download</basic-button
                                 >
+                                    Download
+                                </spinner-button>
                             </div>
                             <ul
                                 v-if="license.isExpanded"
@@ -106,11 +108,13 @@ export default {
                 'Radio Broadcasting rights (Unlimited Stations)',
             ],
             realLicenses: [],
+            loading: false,
         }
     },
     computed: {
         ...mapGetters({
             licenses: 'profile/licenses',
+            profile: 'profile/profile',
         }),
     },
     async created() {
@@ -145,7 +149,12 @@ export default {
 
             this.$bus.$emit('modal.addedCart.open')
         },
-        handleDownloadClick(license) {},
+        handleDownloadClick(license) {
+            this.loading = true
+            const downloadUrl = `${process.env.VUE_APP_API_URL}a/free_download/${this.profile.id}/${this.curItem.id}/${this.curItem.type}/${license.license_id}`
+            window.open(downloadUrl, '_self')
+            this.loading = false
+        },
         initLicense() {
             this.realLicenses = this.curItem.licenses.map(item => {
                 const findLicense = this.licenses.find(

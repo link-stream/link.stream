@@ -15,6 +15,7 @@
     </div>
 </template>
 <script>
+import { api } from '~/services'
 import { mapGetters } from 'vuex'
 import LinkItem from '@/components/Profile/LinkItem'
 export default {
@@ -37,10 +38,17 @@ export default {
     }),
     async created() {
         this.loading = true
-        await this.$store.dispatch('profile/getProfileLinksTab', {
-            url: this.url,
-        })
-        this.loading = false
+        const response = await api.profiles.getProfileMain(this.url)
+        if (response.status === 'false') {
+            this.$router.push({
+                name: 'home',
+            })            
+        } else {
+            await this.$store.dispatch('profile/getProfileLinksTab', {
+                url: this.url,
+            })
+        }   
+        this.loading = false     
     },
 }
 </script>

@@ -11,7 +11,7 @@
                             :src="kit.src"
                             :type="kit.type"
                             :id="kit.id"
-                            :fromprofile="true" 
+                            :fromprofile="true"
                             :user_id="profile.id"
                             class="center-img d-sm-none"
                         />
@@ -24,13 +24,23 @@
                             :src="kit.src"
                             :type="kit.type"
                             :id="kit.id"
-                            :fromprofile="true" 
+                            :fromprofile="true"
                             :user_id="profile.id"
                             class="d-none d-sm-block"
                         />
                         <div class="title-desc">
                             <div class="title">{{ kit.title }}</div>
-                            <div class="sub-title">Sound Kit from {{ profile.display_name }}</div>
+                            <div class="sub-title">
+                                Sound Kit from 
+                                <router-link                                    
+                                    :to="{
+                                        name: 'publicProfile',
+                                        params: { url: profile.url },
+                                    }"
+                                >
+                                    {{ profile.display_name }}
+                                </router-link>
+                            </div>
                         </div>
                     </div>
                     <div class="actions d-sm-none">
@@ -40,12 +50,17 @@
                             @click="handleBuyClick()"
                         >
                             <img src="@/assets/img/ico/basket.svg" />
-                            {{ kit.price | currencyFormat }} - Buy
+                            {{ kit.price | currencyFormat }} - Add to cart
                         </basic-button>
-                        <basic-button v-else class="btn-buy" @click="handleDownloadClick()">
+                        <spinner-button
+                            v-else
+                            class="btn-buy"
+                            :loading="loading"
+                            @click="handleDownloadClick"
+                        >
                             <img src="@/assets/img/ico/download-wh.svg" />
                             Download
-                        </basic-button>
+                        </spinner-button>
                     </div>
                     <div class="desc" v-if="kit.description && !readMore">
                         <div class="d-none d-sm-block">
@@ -82,12 +97,18 @@
                             @click="handleBuyClick()"
                         >
                             <img src="@/assets/img/ico/basket.svg" />
-                            {{ kit.price | currencyFormat }} - Buy
+                            {{ kit.price | currencyFormat }} - Add to cart
                         </basic-button>
-                        <basic-button v-else class="btn-buy" @click="handleDownloadClick()">
+
+                        <spinner-button
+                            v-else
+                            class="btn-buy"
+                            :loading="loading"
+                            @click="handleDownloadClick"
+                        >
                             <img src="@/assets/img/ico/download-wh.svg" />
                             Download
-                        </basic-button>
+                        </spinner-button>
                         <basic-button
                             variant="outline-black"
                             class="btn-share"
@@ -107,7 +128,13 @@
                     <div class="float-left">{{ this.samples.length }} SAMPLES</div>
                 </div>
                 <div v-for="(sample, index) in samples" :key="index" class="beat-info">
-                    <ListAudioPlayer :src="sample.src" :type="sample.type" :id="sample.id" :fromprofile="true" :user_id="profile.id"/>
+                    <ListAudioPlayer
+                        :src="sample.src"
+                        :type="sample.type"
+                        :id="sample.id"
+                        :fromprofile="true"
+                        :user_id="profile.id"
+                    />
                     <div class="beat-title">{{ sample.title }}</div>
                 </div>
             </div>
@@ -168,10 +195,10 @@ export default {
         moreArtists: [],
         samples: [],
         readMore: false,
+        loading: false,
     }),
     async created() {
         this.isLoading = true
-
         await this.$store.dispatch('profile/getProfileKitsTab', {
             url: this.url,
             audio_id: this.kitId,
@@ -187,7 +214,6 @@ export default {
                 }
             })
         }
-
         const kit = this.$store.getters['profile/soundKits'][0]
         this.kit = {
             ...kit,
@@ -205,7 +231,6 @@ export default {
             })
         }
         this.isLoading = false
-
         for (const item of this.samples) {
             const response = await api.profiles.getProfileKitFileByName(
                 this.profile.id,
@@ -224,7 +249,12 @@ export default {
             })
             this.$bus.$emit('modal.addedCart.open')
         },
-        handleDownloadClick() {},
+        handleDownloadClick() {
+            this.loading = true
+            const downloadUrl = `${process.env.VUE_APP_API_URL}a/free_download/${this.profile.id}/${this.kit.id}/kit`
+            window.open(downloadUrl, '_self')
+            this.loading = false
+        },
         handleShareClick() {
             this.kit.type = 'kit'
             this.$bus.$emit('modal.share.open', this.kit)

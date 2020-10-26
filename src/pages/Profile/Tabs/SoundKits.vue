@@ -38,6 +38,7 @@
     </div>
 </template>
 <script>
+import { api } from '~/services'
 import { mapGetters } from 'vuex'
 import ArtPlayer from '@/components/Profile/ArtPlayer'
 import SoundKitItem from '@/components/Profile/SoundKitItem'
@@ -93,10 +94,17 @@ export default {
     },
     async created() {
         this.loading = true
-        await this.$store.dispatch('profile/getProfileKitsTab', {
-            url: this.url,
-        })
-        this.user_id = this.$store.getters['profile/profile'].id
+        const response = await api.profiles.getProfileMain(this.url)
+        if (response.status === 'false') {
+            this.$router.push({
+                name: 'home',
+            })            
+        } else {
+            await this.$store.dispatch('profile/getProfileKitsTab', {
+                url: this.url,
+            })
+            this.user_id = this.$store.getters['profile/profile'].id
+        }
         this.loading = false
     },
     methods: {

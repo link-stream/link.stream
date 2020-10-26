@@ -149,9 +149,6 @@ export default {
             },
         }
     },
-    mounted() {
-        var test = getAuthCookie()
-    },
     methods: {
         validateState(ref) {
             if (

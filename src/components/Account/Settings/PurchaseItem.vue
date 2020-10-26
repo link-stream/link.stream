@@ -23,35 +23,69 @@
                     {{ purchase.item_amount | currencyFormat }}
                 </small>
             </div>
-            <basic-button class="d-none d-md-block" size="md" @click="handleDownload">
-                <b-icon-download
-                    class="mr-2"
-                    font-scale="1.5"
-                ></b-icon-download>
+            <spinner-button
+                size="md"
+                class="d-none d-md-block"
+                :loading="loading"
+                @click="handleDownload"
+            >
+                <img src="@/assets/img/ico/download-wh.svg" class="img-icon" />
                 Download
-            </basic-button>
+            </spinner-button>
             <b-dropdown class="actions-menu" variant="icon" right no-caret>
                 <template v-slot:button-content>
                     <Icon icon="dot-menu-v" />
                 </template>
-                <b-dropdown-item>
-                    Download License
-                </b-dropdown-item>
-                <b-dropdown-item>
-                    Go to Track
-                </b-dropdown-item>
-                <b-dropdown-item>
-                    Go to Artist
-                </b-dropdown-item>
-                <b-dropdown-item>
-                    Share
-                </b-dropdown-item>
+                <b-dropdown-item @click="handleDownloadLicense">Download License</b-dropdown-item>
+                <b-dropdown-item
+                    :to="
+                        purchase.item_track_type === 'beat'
+                            ? {
+                                  name: 'profileBeatDetails',
+                                  params: {
+                                      url: purchase.url,
+                                      beatId: purchase.item_id,
+                                  },
+                              }
+                            : purchase.item_track_type === 'pack'
+                            ? {
+                                  name: 'profilePackDetails',
+                                  params: {
+                                      url: purchase.url,
+                                      packId: purchase.item_id,
+                                  },
+                              }
+                            : {
+                                  name: 'profileKitDetails',
+                                  params: {
+                                      url: purchase.url,
+                                      kitId: purchase.item_id,
+                                  },
+                              }
+                    "
+                    target="_blank"
+                >Go to Track</b-dropdown-item>
+                <b-dropdown-item
+                    :to="{
+                        name: 'publicProfile',
+                        params: {
+                            url: purchase.url,
+                        },
+                    }"
+                    target="_blank"
+                >Go to Artist</b-dropdown-item>
+                <b-dropdown-item @click="handleShareClick">Share</b-dropdown-item>
             </b-dropdown>
         </div>
-        <basic-button class="d-md-none mt-3" size="md" @click="handleDownload">
-            <b-icon-download class="mr-2" font-scale="1.5" />
+        <spinner-button
+            size="md"
+            class="d-md-none mt-3"
+            :loading="loading"
+            @click="handleDownload"
+        >
+            <img src="@/assets/img/ico/download-wh.svg" class="img-icon" />
             Download
-        </basic-button>
+        </spinner-button>
     </div>
 </template>
 
@@ -64,10 +98,32 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {
+            routeName: '',
+            params: {},
+            loading: false,
+        }
+    },
     methods: {
         handleDownload() {
+            this.loading = true
             window.open(this.purchase.download_url, '_self')
-        }
+            this.loading = false
+        },
+        handleDownloadLicense() {},
+        handleShareClick() {
+            const artItem = {
+                id: this.purchase.id,
+                type: this.purchase.item_track_type,
+                url: this.purchase.url,
+                producer_id: this.purchase.producer_id,
+                coverart: this.purchase.data_image,
+                display_name: this.purchase.display_name,
+                title: this.purchase.item_title,
+            }
+            this.$bus.$emit('modal.share.open', artItem)
+        },
     },
 }
 </script>

@@ -93,6 +93,10 @@
                 .item-cover {
                     margin-right: 12px;
                 }
+                .img-icon {
+                    width: 16px;
+                    height: 16px;
+                }
             }
         }
         .purchases-main-info {
@@ -142,7 +146,12 @@
         .upgrade-pro {
             margin-top: 30px;
             padding: 24px 25px;
-            background: linear-gradient(45deg, #A624D2 0%, #CE5353 47.8%, #FFB02D 100%);
+            background: linear-gradient(
+                45deg,
+                #a624d2 0%,
+                #ce5353 47.8%,
+                #ffb02d 100%
+            );
             color: white;
             .title {
                 font-weight: bold;
@@ -235,24 +244,24 @@
         font-weight: bold;
     }
     ul.desc-list {
-        margin: 10px 1.25rem; 
+        margin: 10px 1.25rem;
         li {
             list-style: initial;
             line-height: px2rem(24);
         }
     }
-    .btn-bank, .btn-paypal {
+    .btn-bank,
+    .btn-paypal {
         margin-top: 10px;
         margin-bottom: 10px;
         text-transform: capitalize;
         padding: 15px 35px;
         letter-spacing: normal;
     }
-    .bank{
+    .bank {
         padding-bottom: 30px;
         border-bottom: 1px solid $gray-320;
         margin-bottom: 30px;
-        
     }
     .btn-paypal {
         img {

@@ -54,9 +54,14 @@
             </div>
             <b-input-group>
                 <template v-slot:append>
-                    <b-button squared class="share-copy-btn float-right" variant="grey" @click="copyToClipboard">
+                    <b-button
+                        squared
+                        class="share-copy-btn float-right"
+                        variant="grey"
+                        @click="copyToClipboard"
+                    >
                         <img src="@/assets/img/ico/link.svg" />
-                    </b-button >
+                    </b-button>
                 </template>
                 <b-form-input v-model="shareData.shareUrl" id="share-link" readonly />
             </b-input-group>
@@ -100,10 +105,15 @@ export default {
             return {
                 ...this.curItem,
                 type: typeString,
-                user_name: this.profile.display_name,
-                shareUrl: (this.curItem.type !== 'video') 
-                    ? `${this.baseUrl}/${this.profile.url}/${subTypeURL}/${this.curItem.id}` 
-                    : subTypeURL,
+                user_name: this.profile
+                    ? this.profile.display_name
+                    : this.curItem.display_name,
+                shareUrl:
+                    this.curItem.type !== 'video'
+                        ? `${this.baseUrl}/${
+                              this.profile ? this.profile.url : this.curItem.url
+                          }/${subTypeURL}/${this.curItem.id}`
+                        : subTypeURL,
             }
         },
     },
@@ -117,7 +127,7 @@ export default {
         this.$bus.$on('modal.share.close', this.close)
     },
     methods: {
-		copyToClipboard() {
+        copyToClipboard() {
             const toCopy = document.querySelector('#share-link')
             toCopy.setAttribute('type', 'text')
             toCopy.select()

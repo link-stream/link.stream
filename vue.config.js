@@ -16,6 +16,7 @@ module.exports = {
                 '~': path.resolve('src'),
                 '@': path.resolve('src'),
                 jquery: 'jquery/dist/jquery.slim.js',
+                moment: 'moment/src/moment',
             },
         },
     },

@@ -133,6 +133,7 @@
 import LineChart from '~/components/Form/LineChart'
 import moment from 'moment'
 import XLSX from 'xlsx'
+import CountryFlag from 'vue-country-flag'
 export default {
     name: 'ReportOverview',
     props: {
@@ -145,6 +146,7 @@ export default {
     },
     components: {
         LineChart,
+        CountryFlag,
     },
     data: () => ({
         // loading: false,

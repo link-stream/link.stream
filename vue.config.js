@@ -19,6 +19,13 @@ module.exports = {
             },
         },
     },
+    pluginOptions: {
+        webpackBundleAnalyzer: {
+            openAnalyzer: false,
+            /** set to true to open webpack analysis after new builds
+                reports available at /dist/report.html              */
+        },
+    },
     chainWebpack: config => {
         config.module
             .rule('vue')

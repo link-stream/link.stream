@@ -78,6 +78,7 @@
     "sass-loader": "^8.0.2",
     "typeface-montserrat": "0.0.75",
     "vee-validate": "^2.2.0",
+    "vue-cli-plugin-webpack-bundle-analyzer": "~2.0.0",
     "vue-extend-layout": "^2.0.6",
     "vue-fragment": "^1.5.1",
     "vue-google-login": "^2.0.3",

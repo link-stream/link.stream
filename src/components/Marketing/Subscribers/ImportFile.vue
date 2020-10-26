@@ -70,8 +70,9 @@
 </template>
 <script>
 import { DropFile } from '~/components/Uploader'
-import XLSX from 'xlsx'
+// import XLSX from 'xlsx'
 import { appConstants } from '~/constants'
+
 export default {
     name: 'ImportFile',
     components: {
@@ -92,14 +93,15 @@ export default {
         },
     },
     methods: {
-        handleFileAdd({ name, base64, blob }) {
+        async handleFileAdd({ name, base64, blob }) {
             const that = this
             this.fileSubscribers = {
                 name,
                 base64,
             }
             var reader = new FileReader()
-            reader.onload = function(e) {
+            reader.onload = async function(e) {
+                const XLSX = await import('xlsx')
                 var data = new Uint8Array(e.target.result)
                 var workbook = XLSX.read(data, { type: 'array' })
                 let sheetName = workbook.SheetNames[0]

@@ -219,12 +219,12 @@
                         </b-col>
                         <b-col cols="12" v-if="currentTab === 'paypal'" class="paypal-container">
                             <LoadingSpinner
-                                class="m-2 float-left"
+                                class="m-2"
                                 animation="bounce"
                                 v-if="status_loading_pay"
                             />
                             <PayPal
-                                v-else
+                                v-show="status_loading_pay"
                                 :amount="paypal.amount"
                                 currency="USD"
                                 :client="paypal_credentials.client"
@@ -616,11 +616,12 @@
                         </b-col>
                         <b-col cols="12" v-if="currentTab === 'paypal'" class="paypal-container">
                             <LoadingSpinner
-                                class="m-2 float-left"
+                                class="m-2"
                                 animation="bounce"
                                 v-if="status_loading_pay"
                             />
                              <PayPal
+                                v-show="!status_loading_pay"
                                 :amount="paypal.amount"
                                 currency="USD"
                                 :client="paypal_credentials.client"
@@ -1174,6 +1175,7 @@ export default {
     },
     methods: {
         handlePaypalPaymentAuthorized(data) {
+            this.status_loading_pay = true
             this.paypalAuth = data
         },
         async handlePaypalPaymentCompleted(data) {
@@ -1241,8 +1243,8 @@ export default {
             }
             this.status_loading_pay = false
         },
-        handlePaypalPaymentCancelled(data) {
-            console.log(data)
+        handlePaypalPaymentCancelled() {
+            this.status_loading_pay = false
         },
         getBrandClass(brand) {
             let icon = ''

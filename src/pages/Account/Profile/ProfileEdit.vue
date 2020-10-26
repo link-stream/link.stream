@@ -257,11 +257,10 @@ import resize from 'vue-resize-directive'
 import { Validator } from 'vee-validate'
 import { DokaModal, DokaOverlay, toURL } from 'vue-doka'
 import { blobToBase64 } from 'base64-blob'
-import csc from 'country-state-city'
 import { setStatusChange } from '~/utils'
 import { api } from '~/services'
 import { appConstants } from '~/constants'
-
+const iso3311a2 = require('iso-3166-1-alpha-2')
 export default {
     name: 'ProfileEdit',
     directives: {
@@ -339,24 +338,18 @@ export default {
                 url: false,
             },
             baseUrl: '',
+            allCountries: [],
         }
     },
     computed: {
         ...mapGetters({
             user: 'me/user',
         }),
-        allCountries() {
-            return csc.getAllCountries().map(({ sortname, name }) => {
-                return {
-                    code: sortname,
-                    country: name,
-                }
-            })
-        },
     },
     created() {
         const getUrl = window.location
         this.baseUrl = getUrl.host
+        this.getAllCountries()
     },
     mounted() {
         // URL availability validations
@@ -378,6 +371,17 @@ export default {
         })
     },
     methods: {
+        //Get all countries
+        getAllCountries() {
+            this.allCountries = []
+            const countries = iso3311a2.getData()
+            for (const [key, value] of Object.entries(countries)) {
+                this.allCountries.push({
+                    code: key,
+                    country: value,
+                })
+            }
+        },
         // Resize
         onResize() {
             this.$refs['banner-container'].style.height =

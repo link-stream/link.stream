@@ -462,10 +462,6 @@ const routes = [
 
     //Cart
 
-
-
-
-
     //Public Profile
     {
         path: '/:url',
@@ -565,9 +561,6 @@ const routes = [
         props: true,
         meta: { layout: 'profile' },
     },
-
-
-
 
     // 404 catch all
     {

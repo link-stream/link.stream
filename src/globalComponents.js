@@ -58,9 +58,30 @@ import { Plugin } from 'vue-fragment'
 import VeeValidate from 'vee-validate'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { far } from '@fortawesome/free-regular-svg-icons'
+import { 
+    faChevronDown,
+    faChevronUp,
+    faChevronLeft,
+    faChevronRight,
+    faBell,
+    faKey,
+    faVial,
+    faEnvelopeOpenText,
+    faMobileAlt,
+    faCheckCircle,
+    faExclamationCircle,
+    faCamera,
+    faTimesCircle,
+    faShareAltSquare,
+} from '@fortawesome/free-solid-svg-icons'
+import {
+    faPaypal,
+    faInstagram,
+} from '@fortawesome/free-brands-svg-icons'
+import {
+    faFileAlt,
+    faCopy,
+} from '@fortawesome/free-regular-svg-icons'
 import Vuelidate from 'vuelidate'
 import { alertBox, eventBus } from '~/plugins'
 import {
@@ -180,7 +201,26 @@ Vue.use(VeeValidate, {
 })
 
 // Install Fontawesome
-library.add(fas, fab, far)
+library.add(
+    faChevronDown,
+    faChevronUp,
+    faChevronLeft,
+    faChevronRight,
+    faKey,
+    faBell,
+    faVial,
+    faEnvelopeOpenText,
+    faMobileAlt,
+    faCheckCircle,
+    faExclamationCircle,
+    faCamera,
+    faTimesCircle,
+    faShareAltSquare,
+    faPaypal,
+    faInstagram,
+    faFileAlt,
+    faCopy,
+)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // Install Vuelidate

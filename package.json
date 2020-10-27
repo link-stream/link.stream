@@ -17,6 +17,7 @@
     "cleave.js": "^1.6.0",
     "core-js": "^3.6.4",
     "firebase": "^7.16.0",
+    "sha1": "^1.1.1",
     "tiptap": "^1.30.0",
     "tiptap-extensions": "^1.33.1",
     "v-calendar": "^1.0.1",

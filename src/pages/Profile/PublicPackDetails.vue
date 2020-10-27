@@ -184,6 +184,9 @@
     </b-container>
 </template>
 <script>
+import moment from 'moment'
+import Cookies from 'js-cookie'
+import { api } from '~/services'
 import { appConstants } from '~/constants'
 import { ListAudioPlayer } from '~/components/Player'
 import ShareArtModal from '@/components/Modal/ShareArtModal'
@@ -217,6 +220,26 @@ export default {
         this.profile = this.$store.getters['profile/profile']
         const moreArtists = this.$store.getters['profile/moreElements']
         const pack = this.$store.getters['profile/beats'][0]
+
+        //Visitor Info        
+        if (!Cookies.getJSON('session_id')) {
+            const response = await api.users.getIpAddress()
+            const visitorIp = response.visitor_ip.split('.').join('')
+            const sessionId = `${visitorIp}${moment().format('YYYYMMDDHHmmss')}`
+            const sha1 = require('sha1')
+            const encryptSessionId = sha1(sessionId)
+            Cookies.set('session_id', encryptSessionId)
+            const utm = Cookies.getJSON('params_url.utm_source')
+            const ref_id = Cookies.getJSON('params_url.ref_id')
+            const visitorResponse = await api.users.insertVisitor({
+                user_id: this.profile.id,
+                session_id: encryptSessionId,
+                agent: window.navigator.userAgent,
+                url: window.location.href,
+                utm_source: utm ? utm : '',
+                ref_id: ref_id ? ref_id : '',
+            })
+        }  
 
         this.pack = {
             ...pack,

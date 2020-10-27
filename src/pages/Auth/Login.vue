@@ -1,7 +1,7 @@
 <template>
     <div class="page page-login my-4">
         <b-container>
-            <b-row class="text-center">
+            <b-row class="text-center d-flex justify-content-center">
                 <!-- <b-col cols="12" class="my-2">
                     <spinner-button
                         instagram
@@ -13,30 +13,11 @@
                         <i class="ig-ico fab fa-instagram fa-lg"></i>
                         Signin with Instagram
                     </spinner-button>
-                </b-col> -->
-                <b-col cols="12" class="my-2">
-                    <GoogleLogin
-                        class="g-login-btn-wrap col"
-                        :params="google"
-                        :onSuccess="onGoogleSuccess"
-                    >
-                        <spinner-button
-                            google
-                            class="auth-btn"
-                            :loading="status.loading.google"
-                            :error="status.error.google"
-                        >
-                            <i class="g-ico fab fa-google fa-1x"></i>
-                            Signin with Google
-                        </spinner-button>
-                    </GoogleLogin>
-                </b-col>
+                </b-col>-->
                 <b-col cols="12" class="mt-4">
-                    <label class="text-black fs-1 font-weight-bold">
-                        Or sign in with your email
-                    </label>
+                    <label class="sign-in-text">Sign In</label>
                 </b-col>
-                <b-col cols="12" class="my-3">
+                <b-col cols="12" class="my-3 d-flex justify-content-center">
                     <b-form
                         @submit.stop.prevent="onSubmit"
                         @reset="resetForm"
@@ -46,7 +27,7 @@
                         <b-form-group
                             label="Email Address"
                             label-for="input_email"
-                            class="mb-4 error-l-110"
+                            class="mb-3 error-l-110"
                         >
                             <b-form-input
                                 id="input_email"
@@ -59,15 +40,20 @@
                                 data-vv-as="email"
                                 autocomplete="username"
                             ></b-form-input>
-                            <b-form-invalid-feedback id="email-live-feedback">
-                                {{ veeErrors.first('input_email') }}
-                            </b-form-invalid-feedback>
+                            <b-form-invalid-feedback id="email-live-feedback">{{
+                                veeErrors.first('input_email')
+                            }}</b-form-invalid-feedback>
                         </b-form-group>
-                        <b-form-group
-                            label="Password"
-                            label-for="input_password"
-                            class="mb-4 pwd-form-group error-l-75"
-                        >
+
+                        <div class="mb-4 pwd-form-group error-l-75">
+                            <label
+                                for="input_password"
+                                class="mb-2 pwd-form-group error-l-75 float-left"
+                                >Password</label
+                            >
+                            <b-link class="float-right" to="/forgot"
+                                >Forgot?</b-link
+                            >
                             <b-form-input
                                 id="input_password"
                                 class="pwd-input"
@@ -92,24 +78,42 @@
                             </b-button>
                             <b-form-invalid-feedback
                                 id="password-live-feedback"
+                                >{{
+                                    veeErrors.first('input_password')
+                                }}</b-form-invalid-feedback
                             >
-                                {{ veeErrors.first('input_password') }}
-                            </b-form-invalid-feedback>
-                        </b-form-group>
+                        </div>
                         <spinner-button
                             type="submit"
-                            class="auth-btn mt-5"
+                            class="auth-btn mt-3 signin-btn"
                             :loading="status.loading.signin"
                             :error="status.error.signin"
+                            >Sign In</spinner-button
                         >
-                            Sign In
-                        </spinner-button>
                     </b-form>
                 </b-col>
-                <b-col cols="12" class="my-3">
-                    <b-link to="/forgot">Forgot Password?</b-link>
+                <b-col cols="12" class="btn-divider">
+                    <div class="separator">or</div>   
+                    <GoogleLogin
+                        class="g-login-btn-wrap google-component col"
+                        :params="google"
+                        :onSuccess="onGoogleSuccess"
+                    >
+                        <spinner-button
+                            google
+                            class="auth-btn google-btn"
+                            :loading="status.loading.google"
+                            :error="status.error.google"
+                        >
+                            <img
+                                class="float-left"
+                                src="@/assets/img/ico/logo_googleg.svg"
+                            />
+                            Signin with Google
+                        </spinner-button>
+                    </GoogleLogin>                 
                 </b-col>
-                <b-col cols="12" class="fs--1 my-4">
+                <b-col cols="12" class="fs--1 my-3">
                     Don't have an account?
                     <b-link to="/signup">Sign up</b-link>
                 </b-col>

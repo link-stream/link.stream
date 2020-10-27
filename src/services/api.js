@@ -207,6 +207,16 @@ export const api = {
             const method = METHOD_GET
             return await call({ endpoint, method })
         },
+         async getIpAddress() {
+            const endpoint = 'profiles/visitor'
+            const method = METHOD_GET
+            return await call({ endpoint, method })
+        },
+        async insertVisitor(params) {
+            const endpoint = 'profiles/visitor'
+            const method = METHOD_POST
+            return await call({ endpoint, method, params })
+        },
     },
     licenses: {
         async getLicensesByUser(userId) {

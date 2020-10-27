@@ -29,7 +29,6 @@ import {
     BDropdown,
     BDropdownItem,
     BDropdownDivider,
-    BootstrapVueIcons,
     BAspect,
     BPaginationNav,
     BTable,
@@ -47,6 +46,16 @@ import {
     BCardTitle,
     BCardHeader,
     BDropdownForm,
+    BIconCreditCard,
+    BIconX,
+    BIconCheck,
+    BIconPauseFill,
+    BIconPlayFill,
+    BIconFilter,
+    BIconSearch,
+    BIconEye,
+    BIconEyeSlash,
+    BIconBoxArrowInRight,
 } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'
@@ -144,7 +153,16 @@ Vue.component('BCardTitle', BCardTitle)
 Vue.component('BCardHeader', BCardHeader)
 Vue.component('BBadge', BBadge)
 Vue.component('BDropdownForm', BDropdownForm)
-Vue.use(BootstrapVueIcons)
+Vue.component('BIconCreditCard', BIconCreditCard)
+Vue.component('BIconX', BIconX)
+Vue.component('BIconCheck', BIconCheck)
+Vue.component('BIconPauseFill', BIconPauseFill)
+Vue.component('BIconPlayFill', BIconPlayFill)
+Vue.component('BIconFilter', BIconFilter)
+Vue.component('BIconSearch', BIconSearch)
+Vue.component('BIconEye', BIconEye)
+Vue.component('BIconEyeSlash', BIconEyeSlash)
+Vue.component('BIconBoxArrowInRight', BIconBoxArrowInRight)
 
 // Install VueProgressBar
 Vue.use(VueProgressBar, {

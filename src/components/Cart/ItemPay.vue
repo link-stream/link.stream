@@ -48,11 +48,6 @@
                             Download
                         </div>
                     </basic-button>
-                    <!-- <b-button pill class="continue-shopping">
-                        <b-icon font-scale="1" icon="download" class="mr-2" />
-                        Download</b-button
-                    > -->
-                    <!--IconButton class="mx-2" icon="dot-menu-v" /-->
                 </b-col>
             </b-row>
         </b-card>

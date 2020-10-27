@@ -46,7 +46,7 @@ import {
     BBadge,
     BCardTitle,
     BCardHeader,
-    BDropdownForm
+    BDropdownForm,
 } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'
@@ -58,7 +58,7 @@ import { Plugin } from 'vue-fragment'
 import VeeValidate from 'vee-validate'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { 
+import {
     faChevronDown,
     faChevronUp,
     faChevronLeft,
@@ -74,14 +74,8 @@ import {
     faTimesCircle,
     faShareAltSquare,
 } from '@fortawesome/free-solid-svg-icons'
-import {
-    faPaypal,
-    faInstagram,
-} from '@fortawesome/free-brands-svg-icons'
-import {
-    faFileAlt,
-    faCopy,
-} from '@fortawesome/free-regular-svg-icons'
+import { faPaypal, faInstagram } from '@fortawesome/free-brands-svg-icons'
+import { faFileAlt, faCopy } from '@fortawesome/free-regular-svg-icons'
 import Vuelidate from 'vuelidate'
 import { alertBox, eventBus } from '~/plugins'
 import {
@@ -219,7 +213,7 @@ library.add(
     faPaypal,
     faInstagram,
     faFileAlt,
-    faCopy,
+    faCopy
 )
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
@@ -253,7 +247,7 @@ import GAuth from 'vue-google-oauth2'
 const gauthOption = {
     clientId: process.env.VUE_APP_GOOGLE_CLIENT_ID,
     scope: 'profile https://www.googleapis.com/auth/youtube.upload',
-    prompt: 'select_account'
+    prompt: 'select_account',
 }
 Vue.use(GAuth, gauthOption)
 Vue.use(VueCardFormat)

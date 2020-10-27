@@ -27,7 +27,7 @@
                         <b-form-group
                             label="Email Address"
                             label-for="input_email"
-                            class="mb-3 error-l-110"
+                            class="mb-3 error-l-110 email-form-group"
                         >
                             <b-form-input
                                 id="input_email"

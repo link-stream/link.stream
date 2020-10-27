@@ -61,7 +61,7 @@
                 size="sm"
                 class="btn-buy"
                 @click="handleBuyClick"
-                >Buy</basic-button
+                >Add to cart</basic-button
             >
             <spinner-button
                 v-else
@@ -119,7 +119,6 @@ export default {
     methods: {
         handleBuyClick() {
             var listItems = []
-            console.log('this.curItem', this.curItem)
             listItems =
                 Cookies.getJSON(appConstants.cookies.cartItem.name) ===
                 undefined
@@ -130,7 +129,6 @@ export default {
             this.curItem.kit_files_name = []
 
             listItems.push(this.curItem)
-            console.log('soundkits')
 
             Cookies.set(appConstants.cookies.cartItem.name, listItems)
             //this.$store.dispatch('profile/addCartItem', { ...this.curItem })

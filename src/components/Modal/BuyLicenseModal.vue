@@ -41,7 +41,7 @@
                                     size="sm"
                                     class="btn-buy"
                                     @click="handleBuyClick(license)"
-                                    >Buy</basic-button
+                                    >Add to cart</basic-button
                                 >
                                 <spinner-button
                                     v-else

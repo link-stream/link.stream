@@ -1,7 +1,7 @@
 <template>
     <div class="page page-signup my-4">
         <b-container>
-            <b-row class="text-center">
+            <b-row class="text-center d-flex justify-content-center">
                 <!-- <b-col cols="12" class="my-2">
                     <spinner-button
                         instagram
@@ -14,26 +14,9 @@
                         Sign up with Instagram
                     </spinner-button>
                 </b-col> -->
-                <b-col cols="12" class="my-2">
-                    <GoogleLogin
-                        class="g-login-btn-wrap col"
-                        :params="google"
-                        :onSuccess="onGoogleSuccess"
-                    >
-                        <spinner-button
-                            google
-                            class="auth-btn"
-                            :loading="status.loading.google"
-                            :error="status.error.google"
-                        >
-                            <i class="g-ico fab fa-google fa-1x"></i>
-                            Sign up with Google
-                        </spinner-button>
-                    </GoogleLogin>
-                </b-col>
                 <b-col cols="12" class="mt-4">
-                    <label class="text-black fs-1 font-weight-bold">
-                        Or sign up with your email
+                    <label class="sign-in-text">
+                        Sign Up
                     </label>
                 </b-col>
                 <b-col cols="12" class="my-3">
@@ -46,7 +29,7 @@
                         <b-form-group
                             label="Username"
                             label-for="input_username"
-                            class="error-l-80 mb-4"
+                            class="error-l-80 mb-3"
                         >
                             <b-form-input
                                 id="input_username"
@@ -78,9 +61,9 @@
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group
-                            label="Email Address"
+                            label="Email"
                             label-for="input_email"
-                            class="error-l-110 mb-4"
+                            class="error-l-110 mb-3"
                         >
                             <b-form-input
                                 id="input_email"
@@ -112,7 +95,7 @@
                         <b-form-group
                             label="Password"
                             label-for="input_password"
-                            class="error-l-75 mb-4"
+                            class="error-l-75 mb-3"
                         >
                             <b-form-input
                                 id="input_password"
@@ -133,32 +116,6 @@
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group
-                            label="Retype Password"
-                            label-for="input_password_confirm"
-                            class="error-l-130 mb-4"
-                        >
-                            <b-form-input
-                                id="input_password_confirm"
-                                name="input_password_confirm"
-                                type="password"
-                                v-model="form.repassword"
-                                v-validate="{
-                                    required: true,
-                                    min: 8,
-                                    confirmed: 'password',
-                                }"
-                                :state="validateState('input_password_confirm')"
-                                aria-describedby="password-confirm-live-feedback"
-                                data-vv-as="password"
-                                autocomplete="new-password"
-                            ></b-form-input>
-                            <b-form-invalid-feedback
-                                id="password-confirm-live-feedback"
-                            >
-                                {{ veeErrors.first('input_password_confirm') }}
-                            </b-form-invalid-feedback>
-                        </b-form-group>
-                        <b-form-group
                             class="fs--2 text-center text-gray mb-2 px-md-5"
                         >
                             By clicking Sign Up below, you agree to our
@@ -173,7 +130,7 @@
                         </b-form-group>
                         <spinner-button
                             type="submit"
-                            class="auth-btn mt-5"
+                            class="auth-btn mt-3 signin-btn"
                             :loading="status.loading.signup"
                             :error="status.error.signup"
                         >
@@ -181,9 +138,30 @@
                         </spinner-button>
                     </b-form>
                 </b-col>
-                <b-col cols="12" class="fs--1 my-4">
+                <b-col cols="12" class="fs--1 my-3">
                     Already have an account?
                     <b-link to="/login">Sign in</b-link>
+                </b-col>
+                <b-col cols="12" class="btn-divider">
+                    <div class="separator">or</div>
+                    <GoogleLogin
+                        class="g-login-btn-wrap google-component col"
+                        :params="google"
+                        :onSuccess="onGoogleSuccess"
+                    >
+                        <spinner-button
+                            google
+                            class="auth-btn google-btn"
+                            :loading="status.loading.google"
+                            :error="status.error.google"
+                        >
+                            <img
+                                class="float-left"
+                                src="@/assets/img/ico/logo_googleg.svg"
+                            />
+                            Sign up with Google
+                        </spinner-button>
+                    </GoogleLogin>
                 </b-col>
             </b-row>
         </b-container>

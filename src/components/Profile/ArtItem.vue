@@ -85,7 +85,7 @@
                 size="sm"
                 class="btn-buy"
                 @click="handleBuyClick"
-                >Buy</basic-button
+                >Add to cart</basic-button
             >
             <IconButton class="btn-download" icon="download" v-show="false" />
         </div>

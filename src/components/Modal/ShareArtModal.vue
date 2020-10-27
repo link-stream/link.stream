@@ -7,7 +7,7 @@
         <template v-slot:default>
             <div class="Card">
                 <div class="item-cover">
-                    <img :src="shareData.coverart" :alt="shareData.title" />
+                    <img v-if="curItem.type !== 'video'" :src="shareData.coverart" :alt="shareData.title" />
                 </div>
                 <div class="item-body ml-4">
                     <h4 class="item-title">{{ shareData.title }}</h4>
@@ -63,7 +63,7 @@
                         <img src="@/assets/img/ico/link.svg" />
                     </b-button>
                 </template>
-                <b-form-input v-model="shareData.shareUrl" id="share-link" readonly />
+                <b-form-input v-model="shareData.shareUrl" :id="`share-link-${curItem.id}`" readonly />
             </b-input-group>
         </template>
     </b-modal>
@@ -128,7 +128,7 @@ export default {
     },
     methods: {
         copyToClipboard() {
-            const toCopy = document.querySelector('#share-link')
+            const toCopy = document.querySelector(`#share-link-${this.curItem.id}`)
             toCopy.setAttribute('type', 'text')
             toCopy.select()
             document.execCommand('copy')

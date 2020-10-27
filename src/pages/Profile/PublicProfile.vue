@@ -16,6 +16,9 @@ import {
     ProfileLinks,
     ProfileAbout,
 } from './Tabs'
+import moment from 'moment'
+import Cookies from 'js-cookie'
+import { api } from '~/services'
 import MainInfo from '@/components/Profile/MainInfo'
 import TabNav from '@/components/Profile/TabNav'
 export default {
@@ -53,7 +56,32 @@ export default {
             }
         },
     },
-    async created() {
+    data() {
+        return {
+            session: [],
+        }
+    },
+    async created() {        
+        const profile = await api.profiles.getProfileMain(this.url)
+        //Visitor Info                         
+        if (!Cookies.getJSON('session_id')) {
+            const response = await api.users.getIpAddress()
+            const visitorIp = response.visitor_ip.split('.').join('')
+            const sessionId = `${visitorIp}${moment().format('YYYYMMDDHHmmss')}`
+            const sha1 = require('sha1')
+            const encryptSessionId = sha1(sessionId)
+            Cookies.set('session_id', encryptSessionId)
+            const utm = Cookies.getJSON('params_url.utm_source')
+            const ref_id = Cookies.getJSON('params_url.ref_id')
+            const visitorResponse = await api.users.insertVisitor({
+                user_id: profile.data.id,
+                session_id: encryptSessionId,
+                agent: window.navigator.userAgent,
+                url: window.location.href,
+                utm_source: utm ? utm : '',
+                ref_id: ref_id ? ref_id : '',
+            })
+        } 
         await this.$store.dispatch('common/loadGenres')
     },
 }

@@ -132,7 +132,8 @@
 <script>
 import LineChart from '~/components/Form/LineChart'
 import moment from 'moment'
-import XLSX from 'xlsx'
+// import XLSX from 'xlsx'
+import CountryFlag from 'vue-country-flag'
 export default {
     name: 'ReportOverview',
     props: {
@@ -145,6 +146,7 @@ export default {
     },
     components: {
         LineChart,
+        CountryFlag,
     },
     data: () => ({
         // loading: false,
@@ -238,7 +240,7 @@ export default {
             this.chartData.datasets[1].data = aryValues2
             this.loaded = true
         },
-        downloadReport() {
+        async downloadReport() {
             try {
                 const overview = [
                     {
@@ -291,7 +293,7 @@ export default {
                         Percent: item.percent + '%',
                     }
                 })
-
+                const XLSX = await import('xlsx')
                 const data = XLSX.utils.json_to_sheet(overview)
                 const wb = XLSX.utils.book_new()
                 XLSX.utils.book_append_sheet(wb, data, 'overview')

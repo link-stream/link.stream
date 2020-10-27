@@ -965,9 +965,8 @@ import InformationPay from '@/components/Cart/InformationPay'
 import { mapGetters } from 'vuex'
 import Cookies from 'js-cookie'
 import { appConstants } from '~/constants'
-import csc from 'country-state-city'
 import PayPal from 'vue-paypal-checkout'
-
+const iso3311a2 = require('iso-3166-1-alpha-2')
 export default {
     name: 'PayWithcard',
     components: {
@@ -978,14 +977,6 @@ export default {
         ...mapGetters({
             user: 'me/user',
         }),
-        allCountries() {
-            return csc.getAllCountries().map(({ sortname, name }) => {
-                return {
-                    code: sortname,
-                    country: name,
-                }
-            })
-        },
         cardBrandClass() {
             return this.getBrandClass(this.cardBrand)
         },
@@ -1109,6 +1100,7 @@ export default {
             },
             currentTab: 'card',
             paypalAuth: {},
+            allCountries: [],
         }
     },
     watch: {
@@ -1124,6 +1116,9 @@ export default {
                 this.$refs.cardCvcInput.focus()
             }
         },
+    },
+    created() {
+        this.getAllCountries()
     },
     mounted() {
         var itemsCookies = Cookies.getJSON(appConstants.cookies.cartItem.name)
@@ -1174,6 +1169,17 @@ export default {
         }
     },
     methods: {
+        getAllCountries() {
+            this.allCountries = []
+            const countries = iso3311a2.getData()
+            for (const [key, value] of Object.entries(countries)) {
+                if (key === 'US') continue
+                this.allCountries.push({
+                    code: key,
+                    country: value,
+                })
+            }
+        },
         handlePaypalPaymentAuthorized(data) {
             this.status_loading_pay = true
             this.paypalAuth = data

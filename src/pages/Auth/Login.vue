@@ -126,7 +126,7 @@
 import { setStatusChange } from '~/utils'
 import { api } from '~/services'
 import { authentication } from '~/mixins'
-import { getAuthCookie } from '~/utils/auth'
+// import { getAuthCookie } from '~/utils/auth'
 
 export default {
     name: 'Login',

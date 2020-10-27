@@ -158,6 +158,8 @@ export default {
         }),
     },
     created() {
+        let description = 'Checkout our latest beat on LinkStream:\n'
+        description += `${appConstants.baseAppUrl}/${this.user.url}/beats/${this.beat.id}`
         this.form = {
             ...this.form,
             ...this.beat,
@@ -170,6 +172,7 @@ export default {
             src: this.beat.data_image
                 ? this.beat.data_image
                 : this.defaultCoverArt,
+            description: description,
         }
     },
     methods: {

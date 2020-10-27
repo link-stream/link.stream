@@ -266,7 +266,6 @@
 </template>
 <script>
 import DropdownActions from '~/components/Form/DropdownActions'
-import CustomStarRating from '~/components/Form/CustomStarRating'
 import { mapGetters } from 'vuex'
 import { api } from '~/services'
 import EditSubscriberModal from '~/components/Modal/Marketing/EditSubscriberModal'
@@ -274,7 +273,6 @@ export default {
     name: 'SubscriberDetails',
     components: {
         DropdownActions,
-        CustomStarRating,
         EditSubscriberModal,
     },
     props: {

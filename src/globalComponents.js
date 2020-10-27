@@ -29,7 +29,6 @@ import {
     BDropdown,
     BDropdownItem,
     BDropdownDivider,
-    BootstrapVueIcons,
     BAspect,
     BPaginationNav,
     BTable,
@@ -46,7 +45,17 @@ import {
     BBadge,
     BCardTitle,
     BCardHeader,
-    BDropdownForm
+    BDropdownForm,
+    BIconCreditCard,
+    BIconX,
+    BIconCheck,
+    BIconPauseFill,
+    BIconPlayFill,
+    BIconFilter,
+    BIconSearch,
+    BIconEye,
+    BIconEyeSlash,
+    BIconBoxArrowInRight,
 } from 'bootstrap-vue'
 import VueProgressBar from 'vue-progressbar'
 import VueLetterAvatar from 'vue-letter-avatar'
@@ -58,9 +67,24 @@ import { Plugin } from 'vue-fragment'
 import VeeValidate from 'vee-validate'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { far } from '@fortawesome/free-regular-svg-icons'
+import {
+    faChevronDown,
+    faChevronUp,
+    faChevronLeft,
+    faChevronRight,
+    faBell,
+    faKey,
+    faVial,
+    faEnvelopeOpenText,
+    faMobileAlt,
+    faCheckCircle,
+    faExclamationCircle,
+    faCamera,
+    faTimesCircle,
+    faShareAltSquare,
+} from '@fortawesome/free-solid-svg-icons'
+import { faPaypal, faInstagram } from '@fortawesome/free-brands-svg-icons'
+import { faFileAlt, faCopy } from '@fortawesome/free-regular-svg-icons'
 import Vuelidate from 'vuelidate'
 import { alertBox, eventBus } from '~/plugins'
 import {
@@ -129,7 +153,16 @@ Vue.component('BCardTitle', BCardTitle)
 Vue.component('BCardHeader', BCardHeader)
 Vue.component('BBadge', BBadge)
 Vue.component('BDropdownForm', BDropdownForm)
-Vue.use(BootstrapVueIcons)
+Vue.component('BIconCreditCard', BIconCreditCard)
+Vue.component('BIconX', BIconX)
+Vue.component('BIconCheck', BIconCheck)
+Vue.component('BIconPauseFill', BIconPauseFill)
+Vue.component('BIconPlayFill', BIconPlayFill)
+Vue.component('BIconFilter', BIconFilter)
+Vue.component('BIconSearch', BIconSearch)
+Vue.component('BIconEye', BIconEye)
+Vue.component('BIconEyeSlash', BIconEyeSlash)
+Vue.component('BIconBoxArrowInRight', BIconBoxArrowInRight)
 
 // Install VueProgressBar
 Vue.use(VueProgressBar, {
@@ -180,7 +213,26 @@ Vue.use(VeeValidate, {
 })
 
 // Install Fontawesome
-library.add(fas, fab, far)
+library.add(
+    faChevronDown,
+    faChevronUp,
+    faChevronLeft,
+    faChevronRight,
+    faKey,
+    faBell,
+    faVial,
+    faEnvelopeOpenText,
+    faMobileAlt,
+    faCheckCircle,
+    faExclamationCircle,
+    faCamera,
+    faTimesCircle,
+    faShareAltSquare,
+    faPaypal,
+    faInstagram,
+    faFileAlt,
+    faCopy
+)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // Install Vuelidate
@@ -209,15 +261,13 @@ Vue.component('LoadingMask', LoadingMask)
 import VueCardFormat from 'vue-credit-card-validation'
 import VueSlider from 'vue-slider-component'
 import VueSocialSharing from 'vue-social-sharing'
-import CountryFlag from 'vue-country-flag'
 import GAuth from 'vue-google-oauth2'
 const gauthOption = {
     clientId: process.env.VUE_APP_GOOGLE_CLIENT_ID,
     scope: 'profile https://www.googleapis.com/auth/youtube.upload',
-    prompt: 'select_account'
+    prompt: 'select_account',
 }
 Vue.use(GAuth, gauthOption)
 Vue.use(VueCardFormat)
 Vue.component('VueSlider', VueSlider)
 Vue.use(VueSocialSharing)
-Vue.component('country-flag', CountryFlag)

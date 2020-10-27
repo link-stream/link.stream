@@ -16,7 +16,15 @@ module.exports = {
                 '~': path.resolve('src'),
                 '@': path.resolve('src'),
                 jquery: 'jquery/dist/jquery.slim.js',
+                moment: 'moment/src/moment',
             },
+        },
+    },
+    pluginOptions: {
+        webpackBundleAnalyzer: {
+            openAnalyzer: false,
+            /** set to true to open webpack analysis after new builds
+                reports available at /dist/report.html              */
         },
     },
     chainWebpack: config => {

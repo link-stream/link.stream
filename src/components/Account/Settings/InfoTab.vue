@@ -226,7 +226,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
 import {
@@ -237,7 +238,7 @@ import {
     sameAs,
 } from 'vuelidate/lib/validators'
 import { api } from '~/services'
-import csc from 'country-state-city'
+const iso3311a2 = require('iso-3166-1-alpha-2')
 
 firebase.initializeApp(appConstants.firebaseConfig)
 const fbProvider = new firebase.auth.FacebookAuthProvider()
@@ -266,6 +267,7 @@ export default {
                 soundcloud: false,
             },
             saving: false,
+            allCountries: [],
         }
     },
     computed: {
@@ -273,14 +275,6 @@ export default {
             userInfo: 'me/user',
             timezones: 'common/timezones',
         }),
-        allCountries() {
-            return csc.getAllCountries().map(({ sortname, name }) => {
-                return {
-                    code: sortname,
-                    country: name,
-                }
-            })
-        },
     },
     validations: {
         form: {
@@ -321,8 +315,19 @@ export default {
     async created() {
         this.resetForm()
         await this.$store.dispatch('common/loadTimezones')
+        this.getAllCountries()
     },
     methods: {
+        getAllCountries() {
+            this.allCountries = []
+            const countries = iso3311a2.getData()
+            for (const [key, value] of Object.entries(countries)) {
+                this.allCountries.push({
+                    code: key,
+                    country: value,
+                })
+            }
+        },
         async availabilityValidator(field, value) {
             if (!value) {
                 return true

@@ -1,5 +1,5 @@
 <template>
-    <div class="page page-login my-4">
+    <div class="page page-login my-4"> 
         <b-container>
             <b-row class="text-center d-flex justify-content-center">
                 <!-- <b-col cols="12" class="my-2">

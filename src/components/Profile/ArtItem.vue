@@ -176,7 +176,7 @@ export default {
                     listItems.push(cartItem)
                     Cookies.set(appConstants.cookies.cartItem.name, listItems)
                     this.$bus.$emit('modal.addedCart.open')
-                } else this.$toast.info('The element is added')
+                } else this.$toast.info('The element is already added')
                 
                 //this.$store.dispatch('profile/addCartItem', { ...this.artItem })
             }

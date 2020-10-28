@@ -7,10 +7,13 @@
             <h4 class="item-title">
                 {{ cartItem.title }}
             </h4>
-            <small class="item-subtitle" v-if="cartItem.track_type == 2">
-                {{ cartItem.type === 'pack' ? 'Beat Pack' : 'Beat' }} |
+            <small class="item-subtitle" v-if="cartItem.type == 'beat'">
+                Beat |
             </small>
-            <small class="item-subtitle" v-else-if="cartItem.track_type == 3">
+             <small class="item-subtitle" v-else-if="cartItem.type == 'pack'">
+                Beat Pack |
+            </small>
+            <small class="item-subtitle" v-else>
                 Sound Kit |
             </small>
             <basic-button variant="link" class="btn-remove" @click="removeItem">

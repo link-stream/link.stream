@@ -10,12 +10,14 @@
                                 class="pt-4"
                             >
                                 <b-col cols="12" sm="11" class="mt-3">
-                                    <b-avatar
-                                        src="@/assets/img/ico/streamy-logo.svg"
-                                    ></b-avatar>
-                                    <span class="link-stream-llc-black pl-3"
-                                        >LinkSream, LLC</span
-                                    >
+                                    <div class="d-flex align-items-center">
+                                        <div class="streamy-logo">
+                                            <img src="@/assets/img/ico/streamy-logo.svg">
+                                        </div>
+                                        <span class="link-stream-llc-black pl-3"
+                                            >LinkSream, LLC</span
+                                        >
+                                    </div>                                    
                                     <b-dropdown
                                         variant="outline-dark"
                                         block
@@ -546,11 +548,11 @@
                 <b-form>
                     <b-row>
                         <b-col cols="12">
-                            <b-row style="justify-content: center;">
-                                <b-col cols="12" xl="7" lg="10" md="11">
-                                    <b-avatar
-                                        src="@/assets/img/ico/streamy-logo.svg"
-                                    ></b-avatar>
+                            <b-row style="justify-content: center;" >
+                                <b-col cols="12" xl="7" lg="10" md="11" class="d-flex align-items-center">
+                                    <div class="streamy-logo">
+                                        <img src="@/assets/img/ico/streamy-logo.svg">
+                                    </div>
                                     <span class="link-stream-llc pl-3"
                                         >LinkSream, LLC</span
                                     >
@@ -984,14 +986,14 @@ export default {
         ...mapGetters({
             user: 'me/user',
         }),
-		allCountries() {
-            return csc.getAllCountries().map(({ sortname, name }) => {
-                return {
-                    code: sortname,
-                    country: name,
-                }
-            })
-        },
+		// allCountries() {
+        //     return csc.getAllCountries().map(({ sortname, name }) => {
+        //         return {
+        //             code: sortname,
+        //             country: name,
+        //         }
+        //     })
+        // },
         cardBrandClass() {
             return this.getBrandClass(this.cardBrand)
         },
@@ -1148,7 +1150,7 @@ export default {
             this.$router.push({
                 name: 'publicProfile',
                 params: { url: this.params_url.url_profile },
-            })
+            }).catch(err => {})
         } else {
 			if (userResponse.status === 'success') {
                 this.data_user =
@@ -1199,7 +1201,6 @@ export default {
             this.informationPay = Cookies.getJSON(
                 appConstants.cookies.informationPay.name
             )
-                 
 
             this.total = this.informationPay[0].total           
             this.$refs.cardNumInput.focus()
@@ -1280,7 +1281,7 @@ export default {
 
                 this.$router.push({
                     name: 'checkoutReceipt',
-                })
+                }).catch(err => {})
             } else {
                 this.$toast.error(response.error)
                 this.resetValues()
@@ -1402,7 +1403,7 @@ export default {
 
                     this.$router.push({
                         name: 'checkoutReceipt',
-                    })
+                    }).catch(err => {})
                 } else {
                     this.$toast.error(response.error)
                     this.resetValues()

@@ -113,6 +113,14 @@
     }
 }
 .ckeckout-pay {
+    .streamy-logo {
+        height: 36px;
+        width: 36px;
+        background-color: #ffffff;
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.15);
+        border-radius: 50%;
+        padding: 7.5px 8px 8.4px 12px;
+    }
     .continue-to-payment {
         color: #ffffff !important;
         font-size: 14px;
@@ -174,7 +182,7 @@
     }
     .link-stream-llc {
         height: 19px;
-        width: 134px;
+        width: 150px;
         color: #000000;
         font-size: 16px;
         font-weight: 600;
@@ -189,7 +197,7 @@
     }
     .link-stream-llc-black {
         height: 19px;
-        width: 134px;
+        width: 150px;
         color: #ffffff;
         font-size: 16px;
         font-weight: 600;

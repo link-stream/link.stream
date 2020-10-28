@@ -5,18 +5,14 @@
                 <span class="thank-you">Thank you, {{ user.first_name }}!</span>
             </b-row>
             <b-row class="mt-3">
-                <span class="your-files-are-now-a"
-                    >Your files are now available to download below</span
-                >
+                <span class="your-files-are-now-a">Your files are now available to download below</span>
             </b-row>
             <b-row>
                 <b-col cols="12" xl="9" lg="8" md="8" sm="12">
                     <b-card class="card-summary mt-4" no-body>
                         <b-row class="px-4 py-4">
                             <b-col cols="12" xl="10" lg="8" md="9" sm="7">
-                                <span class="items-purchased">
-                                    Items purchased</span
-                                >
+                                <span class="items-purchased">Items purchased</span>
                             </b-col>
                             <b-col cols="12" xl="2" lg="4" md="3" sm="5">
                                 <span class="order">{{ receipt.id }}</span>
@@ -24,10 +20,7 @@
                         </b-row>
                         <div class="divider"></div>
                         <b-list-group flush>
-                            <b-list-group-item
-                                v-for="(item, index) in itemsPay"
-                                :key="index"
-                            >
+                            <b-list-group-item v-for="(item, index) in itemsPay" :key="index">
                                 <ItemPay :itemPay="item" />
                             </b-list-group-item>
                         </b-list-group>
@@ -37,31 +30,16 @@
                     <b-card class="card-summary">
                         <b-row>
                             <b-col cols="12">
-                                <span class="card-summary-title"
-                                    >Order Summary</span
-                                >
+                                <span class="card-summary-title">Order Summary</span>
                             </b-col>
                         </b-row>
                         <b-row>
                             <b-col cols="6" class="pt-2">
-                                <span class="card-summary-details"
-                                    >Subtotal</span
-                                >
+                                <span class="card-summary-details">Subtotal</span>
                             </b-col>
-                            <b-col
-                                cols="6"
-                                xl="4"
-                                lg="5"
-                                md="6"
-                                sm="4"
-                                class="pt-2 text-right"
-                            >
-                                <span class="summary-details-price mr-2"
-                                    >$</span
-                                >
-                                <span class="summary-details-price">{{
-                                    subTotal.toFixed(2)
-                                }}</span>
+                            <b-col cols="6" xl="4" lg="5" md="6" sm="4" class="pt-2 text-right">
+                                <span class="summary-details-price mr-2">$</span>
+                                <span class="summary-details-price">{{ subTotal.toFixed(2) }}</span>
                             </b-col>
                         </b-row>
                         <b-row v-for="(item, index) in fees" :key="index">
@@ -72,9 +50,7 @@
                                 "
                                 class="pt-2"
                             >
-                                <span class="card-summary-details">{{
-                                    item.name
-                                }}</span>
+                                <span class="card-summary-details">{{ item.name }}</span>
                             </b-col>
                             <b-col
                                 cols="6"
@@ -87,116 +63,56 @@
                                 "
                                 class="pt-2 text-right"
                             >
-                                <span class="summary-details-price mr-2"
-                                    >$</span
-                                >
+                                <span class="summary-details-price mr-2">$</span>
                                 <span
                                     class="summary-details-price text-right"
-                                    >{{
-                                        parseFloat(item.value).toFixed(2)
-                                    }}</span
-                                >
+                                >{{ parseFloat(item.value).toFixed(2) }}</span>
                             </b-col>
                         </b-row>
                         <b-row v-show="fees_percent.value != 0">
                             <b-col cols="6" class="pt-2">
-                                <span class="card-summary-details">{{
-                                    fees_percent.name
-                                }}</span>
+                                <span class="card-summary-details">{{ fees_percent.name }}</span>
                             </b-col>
-                            <b-col
-                                cols="6"
-                                xl="4"
-                                lg="5"
-                                md="6"
-                                sm="4"
-                                class="pt-2 text-right"
-                            >
-                                <span class="summary-details-price mr-2"
-                                    >$</span
-                                >
-                                <span class="summary-details-price">{{
-                                    percent
-                                }}</span>
+                            <b-col cols="6" xl="4" lg="5" md="6" sm="4" class="pt-2 text-right">
+                                <span class="summary-details-price mr-2">$</span>
+                                <span class="summary-details-price">{{ percent }}</span>
                             </b-col>
                         </b-row>
 
                         <b-row class="mt-2">
                             <b-col cols="6" class="pt-2">
-                                <span class="card-summary-total"
-                                    >Order Total</span
-                                >
+                                <span class="card-summary-total">Order Total</span>
                             </b-col>
-                            <b-col
-                                cols="6"
-                                xl="4"
-                                lg="5"
-                                md="6"
-                                sm="4"
-                                class="pt-2 text-right"
-                            >
-                                <span class="summary-total-price">$ </span>
-                                <span class="summary-total-price">{{
-                                    total
-                                }}</span>
+                            <b-col cols="6" xl="4" lg="5" md="6" sm="4" class="pt-2 text-right">
+                                <span class="summary-total-price">$</span>
+                                <span class="summary-total-price">{{ total }}</span>
                             </b-col>
                         </b-row>
                     </b-card>
                     <b-card class="card-summary mt-4" no-body>
                         <b-row class="px-4 py-4">
                             <b-col cols="12" xl="12" lg="12" md="12">
-                                <span class="customer-information">
-                                    Customer Information</span
-                                >
+                                <span class="customer-information">Customer Information</span>
                             </b-col>
-                            <b-col
-                                cols="12"
-                                xl="12"
-                                lg="12"
-                                md="12"
-                                sm="12"
-                                class="mt-3 ml-3"
-                            >
+                            <b-col cols="12" xl="12" lg="12" md="12" sm="12" class="mt-3 ml-3">
                                 <b-row>
-                                    <span class="email"> Email</span>
+                                    <span class="email">Email</span>
                                 </b-row>
                                 <b-row>
-                                    <span class="customer-information-details">
-                                        {{ receipt.email }}</span
-                                    >
+                                    <span class="customer-information-details">{{ receipt.email }}</span>
                                 </b-row>
                             </b-col>
-                            <b-col
-                                cols="12"
-                                xl="12"
-                                lg="12"
-                                md="12"
-                                sm="12"
-                                class="mt-3 ml-3"
-                            >
+                            <b-col cols="12" xl="12" lg="12" md="12" sm="12" class="mt-3 ml-3">
                                 <b-row>
-                                    <span class="payment-method">
-                                        Payment Method</span
-                                    >
+                                    <span class="payment-method">Payment Method</span>
                                 </b-row>
 
                                 <b-row>
-                                    <b-img
-                                        fluid
-                                        width="30px"
-                                        height="30px"
-                                        :src="icon_card"
-                                    ></b-img>
+                                    <b-img fluid width="30px" height="30px" :src="icon_card"></b-img>
+                                    <span class="customer-information-details ml-2">ending in</span>
                                     <span
                                         class="customer-information-details ml-2"
-                                    >
-                                        ending in</span
-                                    >
-                                    <span
-                                        class="customer-information-details ml-2"
-                                    >
-                                        {{ receipt.billingCC }}</span
-                                    >
+                                    >{{ receipt.billingCC }}</span>
                                 </b-row>
                             </b-col>
                         </b-row>
@@ -206,9 +122,7 @@
             <b-row>
                 <b-col cols="12" xl="12" lg="12" md="12" sm="12">
                     <b-row class="mt-4 ml-2">
-                        <span class="you-might-also-like"
-                            >You might also like</span
-                        >
+                        <span class="you-might-also-like">You might also like</span>
                     </b-row>
                     <b-row class="mt-4 ml-2">
                         <Recommendation
@@ -223,13 +137,8 @@
                         <basic-button
                             pill
                             class="continue-shopping"
-							@click="cleanCookies()"
-                            :to="{
-                                name: 'publicProfile',
-                                params: { url: params_url.url_profile },
-                            }"
-                            >Continue Shopping</basic-button
-                        >
+                            @click="cleanCookies()"
+                        >Continue Shopping</basic-button>
                     </b-row>
                 </b-col>
             </b-row>
@@ -269,7 +178,7 @@ export default {
             fees_percent: '',
             icon_card: '',
             params_url: [],
-			itemsCart: [],
+            itemsCart: [],
         }
     },
     watch: {},
@@ -285,22 +194,22 @@ export default {
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
         var infoPay = Cookies.getJSON(appConstants.cookies.informationPay.name)
         this.receipt = Cookies.getJSON('receipt')
-        this.downloadUrls = JSON.parse(localStorage.getItem("download"))
-		
-		var items_cart = Cookies.getJSON('infoPay')
+        this.downloadUrls = JSON.parse(localStorage.getItem('download'))
+
+        var items_cart = Cookies.getJSON('infoPay')
         const params = {
             data: JSON.stringify(items_cart),
         }
-		const response_cart = await api.cart.cardDetails(params)
-		
-		var items =
+        const response_cart = await api.cart.cardDetails(params)
+
+        var items =
             response_cart.status === 'success' ? response_cart.cart_details : []
-			
-		//this.itemsCart = cookiesInfoPay[0]
-        this.itemsCart = await this.createItems(items)	
-		
+
+        //this.itemsCart = cookiesInfoPay[0]
+        this.itemsCart = await this.createItems(items)
+
         //this.createItemsPay(infoPay[0])
-		this.createItemsPay(this.itemsCart)
+        this.createItemsPay(this.itemsCart)
         this.subTotal = infoPay[0].sub_total
         this.total = infoPay[0].total
         this.percent = infoPay[0].percent
@@ -341,7 +250,7 @@ export default {
                 }
             }
         },
-		createItems(items) {            
+        createItems(items) {
             if (items) {
                 this.itemsCart = []
                 for (var i = 0; i < items.length; i++) {
@@ -396,6 +305,12 @@ export default {
             Cookies.remove(appConstants.cookies.informationPay.name)
             Cookies.remove('receipt')
             Cookies.remove('infoPay')
+            this.$router
+                .push({
+                    name: 'publicProfile',
+                    params: { url: this.params_url.url_profile },
+                })
+                .catch(err => {})
         },
     },
 }

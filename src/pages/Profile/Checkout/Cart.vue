@@ -1,18 +1,11 @@
 <template>
     <div class="pt-4 cart ckeckout-pay px-4">
-        <b-form-row
-            class="mt-4"
-            style="display: flex; justify-content: center;"
-        >
+        <b-form-row class="mt-4" style="display: flex; justify-content: center;">
             <b-col cols="12" xl="7" lg="7" md="7" sm="7" class="mr-4 pr-4">
                 <div class="left-col">
                     <h1 class="pl-2 ml-3 pb-3 title-page">Your cart</h1>
                 </div>
-                <div
-                    v-for="(item, index) in itemsCart"
-                    :key="index"
-                    class="mt-3 mb-5 ml-3"
-                >
+                <div v-for="(item, index) in itemsCart" :key="index" class="mt-3 mb-5 ml-3">
                     <CartItem
                         :artistName="item.artistName"
                         :avatarSrc="item.avatarSrc"
@@ -25,9 +18,7 @@
                 <b-card class="card-summary">
                     <b-row>
                         <b-col cols="12">
-                            <span class="card-summary-title"
-                                >Order Summary</span
-                            >
+                            <span class="card-summary-title">Order Summary</span>
                         </b-col>
                     </b-row>
                     <b-row>
@@ -36,9 +27,7 @@
                         </b-col>
                         <b-col cols="5" sm="6" class="pt-2 text-right">
                             <span class="summary-details-price mr-2">$</span>
-                            <span class="summary-details-price">{{
-                                subTotal.toFixed(2)
-                            }}</span>
+                            <span class="summary-details-price">{{ subTotal.toFixed(2) }}</span>
                         </b-col>
                     </b-row>
                     <b-row v-for="(item, index) in fees" :key="index">
@@ -47,9 +36,7 @@
                             v-show="item.value != 0 && item.type != 'Percent'"
                             class="pt-2"
                         >
-                            <span class="card-summary-details">{{
-                                item.name
-                            }}</span>
+                            <span class="card-summary-details">{{ item.name }}</span>
                         </b-col>
                         <b-col
                             cols="5"
@@ -58,22 +45,18 @@
                             class="pt-2 text-right"
                         >
                             <span class="summary-details-price mr-2">$</span>
-                            <span class="summary-details-price text-right">{{
-                                parseFloat(item.value).toFixed(2)
-                            }}</span>
+                            <span
+                                class="summary-details-price text-right"
+                            >{{ parseFloat(item.value).toFixed(2) }}</span>
                         </b-col>
                     </b-row>
                     <b-row v-show="fees_percent.value != 0">
                         <b-col cols="6" class="pt-2">
-                            <span class="card-summary-details">{{
-                                fees_percent.name
-                            }}</span>
+                            <span class="card-summary-details">{{ fees_percent.name }}</span>
                         </b-col>
                         <b-col cols="5" sm="6" class="pt-2 text-right">
                             <span class="summary-details-price mr-2">$</span>
-                            <span class="summary-details-price">{{
-                                percent
-                            }}</span>
+                            <span class="summary-details-price">{{ percent }}</span>
                         </b-col>
                     </b-row>
 
@@ -82,46 +65,22 @@
                             <span class="card-summary-total">Order Total</span>
                         </b-col>
                         <b-col cols="5" sm="6" class="pt-2 text-right">
-                            <span class="summary-total-price">$ </span>
+                            <span class="summary-total-price">$</span>
                             <span class="summary-total-price">{{ total }}</span>
                         </b-col>
                     </b-row>
                     <b-row>
-                        <b-col
-                            cols="12"
-                            xl="10"
-                            lg="11"
-                            md="11"
-                            sm="12"
-                            class="center"
-                        >
+                        <b-col cols="12" xl="10" lg="11" md="11" sm="12" class="center">
                             <basic-button
                                 pill
                                 block
                                 class="mt-4 px-0 btn-summary-total d-none d-block"
-                                :to="
-                                    session === undefined
-                                        ? { name: 'checkoutSignin' }
-                                        : { name: 'payWithCard' }
-                                "
-                            >
-                                Checkout
-                            </basic-button>
+                                @click="checkoutTo"
+                            >Checkout</basic-button>
                         </b-col>
                     </b-row>
-                    <b-row
-                        class="my-2"
-                        align="center"
-                        style="justify-content:center;"
-                    >
-                        <b-col
-                            cols="12"
-                            xl="10"
-                            lg="11"
-                            md="11"
-                            sm="10"
-                            class="mt-3"
-                        >
+                    <b-row class="my-2" align="center" style="justify-content:center;">
+                        <b-col cols="12" xl="10" lg="11" md="11" sm="10" class="mt-3">
                             <b-link
                                 :to="{
                                     name: 'publicProfile',
@@ -129,11 +88,7 @@
                                 }"
                                 class="return-links"
                             >
-                                <font-awesome-icon
-                                    :icon="['fas', 'chevron-left']"
-                                    size="1x"
-                                />
-                                Return to profile
+                                <font-awesome-icon :icon="['fas', 'chevron-left']" size="1x" />Return to profile
                             </b-link>
                         </b-col>
                     </b-row>
@@ -164,7 +119,7 @@ export default {
             session: [],
             fees_percent: '',
             params_url: [],
-			items_details: [],
+            items_details: [],
         }
     },
     created() {
@@ -183,8 +138,8 @@ export default {
     async mounted() {
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
         this.params_url = Cookies.getJSON('params_url')
-		await this.createItems()		
-        
+        await this.createItems()
+
         if (this.itemsCart.length === 0) {
             this.$router.push({
                 name: 'publicProfile',
@@ -199,22 +154,37 @@ export default {
     },
 
     methods: {
+        checkoutTo() {
+            if (this.session === undefined) {
+                this.$router
+                    .push({
+                        name: 'checkoutSignin',
+                    })
+                    .catch(err => {})
+            } else {
+                this.$router
+                    .push({
+                        name: 'payWithCard',
+                    })
+                    .catch(err => {})
+            }
+        },
         async createItems() {
             var items_cart = Cookies.getJSON(appConstants.cookies.cartItem.name)
-			
-			const params = {
+
+            const params = {
                 data: JSON.stringify(items_cart),
             }
-			const response_cart = await api.cart.cardDetails(params)
-			
-			this.items_details =
+            const response_cart = await api.cart.cardDetails(params)
+
+            this.items_details =
                 response_cart.status === 'success'
                     ? response_cart.cart_details
                     : []
-					
-			var items = this.items_details			
+
+            var items = this.items_details
             if (items) {
-				this.itemsCart = []
+                this.itemsCart = []
                 for (var i = 0; i < items.length; i++) {
                     var temp = this.itemsCart.find(
                         aux => aux.user_id === items[i].user_id
@@ -290,8 +260,8 @@ export default {
                 fees: this.fees,
                 total: this.total,
             }
-			
-			var informationPay = [payDetails]
+
+            var informationPay = [payDetails]
             //var informationPay = [this.itemsCart, payDetails]
 
             Cookies.set(
@@ -300,7 +270,7 @@ export default {
             )
         },
         async deleteItems() {
-            await this.createItems()           
+            await this.createItems()
             this.subTotal = 0
             this.sum()
         },

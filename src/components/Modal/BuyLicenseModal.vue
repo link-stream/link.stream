@@ -14,11 +14,7 @@
         <template v-slot:default>
             <div class="page page-licenses">
                 <div v-if="realLicenses.length" class="page-body">
-                    <div
-                        class="Card"
-                        v-for="(license, index) in realLicenses"
-                        :key="index"
-                    >
+                    <div class="Card" v-for="(license, index) in realLicenses" :key="index">
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="text">
@@ -41,22 +37,16 @@
                                     size="sm"
                                     class="btn-buy"
                                     @click="handleBuyClick(license)"
-                                    >Add to cart</basic-button
-                                >
+                                >Add to cart</basic-button>
                                 <spinner-button
                                     v-else
                                     size="sm"
                                     class="btn-buy"
                                     :loading="loading"
                                     @click="handleDownloadClick(license)"
-                                >
-                                    Download
-                                </spinner-button>
+                                >Download</spinner-button>
                             </div>
-                            <ul
-                                v-if="license.isExpanded"
-                                class="license-details"
-                            >
+                            <ul v-if="license.isExpanded" class="license-details">
                                 <li v-for="item in license.details" :key="item">
                                     <b-icon-check />
                                     {{ item }}
@@ -76,8 +66,7 @@
                         variant="link"
                         class="float-right text-black"
                         v-show="false"
-                        >Negotiate Price</basic-button
-                    >
+                    >Negotiate Price</basic-button>
                 </div>
             </div>
         </template>
@@ -137,22 +126,24 @@ export default {
                 undefined
                     ? []
                     : Cookies.getJSON(appConstants.cookies.cartItem.name)
-					
+
             var cartItem = {
                 type: this.curItem.type,
                 price: license.price,
-                id:  this.curItem.id,
+                id: this.curItem.id,
                 license_id: license.license_id,
                 user_id: this.curItem.user_id,
             }
-			
-			var temp_id = listItems.find(aux => aux.id === cartItem.id)
-            var temp_license = listItems.find(aux => aux.license_id === cartItem.license_id)
+
+            var temp_id = listItems.find(aux => aux.id === cartItem.id)
+            var temp_license = listItems.find(
+                aux => aux.license_id === cartItem.license_id
+            )
             if (temp_id === undefined || temp_license === undefined) {
                 listItems.push(cartItem)
                 Cookies.set(appConstants.cookies.cartItem.name, listItems)
                 this.$bus.$emit('modal.addedCart.open')
-            } else this.$toast.info('The element is added')
+            } else this.$toast.info('The element is already added')
         },
         handleDownloadClick(license) {
             this.loading = true

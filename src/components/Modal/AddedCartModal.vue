@@ -32,6 +32,7 @@ import AddedCartItem from '@/components/Profile/AddedCartItem'
 import Cookies from 'js-cookie'
 import { appConstants } from '~/constants'
 import router from '~/router'
+import { api } from '~/services'
 export default {
     name: 'AddedCartModal',
     components: {
@@ -66,10 +67,14 @@ export default {
             this.open = false
         },
         handleOpen() {
-            this.addedCarts = Cookies.getJSON(
-                appConstants.cookies.cartItem.name
-            )
-            console.log('addedCarts', this.addedCarts)
+            var items = Cookies.getJSON(appConstants.cookies.cartItem.name)
+            const params = {
+                data: JSON.stringify(items),
+            }
+            const response = await api.cart.cardDetails(params)
+            if (response.status === 'success') {
+                this.addedCarts = response.cart_details
+            }
             this.open = true
         },
         async handleCheckoutClick() {

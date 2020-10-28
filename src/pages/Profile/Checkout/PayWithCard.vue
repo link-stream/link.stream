@@ -178,7 +178,7 @@
                                     <b-card-sub-title>
                                         <b-avatar
                                             variant="dark"
-                                            :src="user.photo"
+                                            :src="user_photo"
                                         ></b-avatar>
                                         <span class="data-user ml-2">{{
                                             data_user
@@ -376,7 +376,7 @@
                                         <b-form-input
                                             id="nameCard"
                                             name="nameCard"
-                                            v-model="form.nameCard"
+                                            v-model="nameCard"
                                             class="rectangle"
                                             v-validate="{ required: true }"
                                             :state="validateState('nameCard')"
@@ -399,7 +399,7 @@
                                         class="mb-4 label"
                                     >
                                         <BasicSelect
-                                            v-model="form.country"
+                                            v-model="country"
                                             :options="list_countries"
                                             :reduce="country => country.code"
                                             label="country"
@@ -423,7 +423,7 @@
                                         <b-form-input
                                             id="input-zip"
                                             name="zip"
-                                            v-model="form.zip"
+                                            v-model="zip"
                                             class="rectangle"
                                             placeholder="ZIP"
                                             v-validate="{
@@ -477,16 +477,19 @@
                                     >
                                         <div v-if="status_loading_pay">
                                             <b-spinner
+												size="sm"
                                                 small
                                                 label="Small Spinner"
                                                 type="grow"
                                             ></b-spinner>
                                             <b-spinner
+												size="sm"
                                                 small
                                                 label="Small Spinner"
                                                 type="grow"
                                             ></b-spinner>
                                             <b-spinner
+												size="sm"
                                                 small
                                                 label="Small Spinner"
                                                 type="grow"
@@ -577,7 +580,7 @@
                                     <b-card-sub-title>
                                         <b-avatar
                                             variant="dark"
-                                            :src="user.photo"
+                                            :src="user_photo"
                                         ></b-avatar>
                                         <span class="data-user ml-2">{{
                                             data_user
@@ -776,7 +779,7 @@
                                         <b-form-input
                                             id="nameCard"
                                             name="nameCard"
-                                            v-model="form.nameCard"
+                                            v-model="nameCard"
                                             class="rectangle"
                                             v-validate="{ required: true }"
                                             :state="validateState('nameCard')"
@@ -799,7 +802,7 @@
                                         class="mb-4 label"
                                     >
                                         <BasicSelect
-                                            v-model="form.country"
+                                            v-model="country"
                                             :options="list_countries"
                                             :reduce="country => country.code"
                                             label="country"
@@ -823,7 +826,7 @@
                                         <b-form-input
                                             id="input-zip"
                                             name="zip"
-                                            v-model="form.zip"
+                                            v-model="zip"
                                             class="rectangle"
                                             placeholder="ZIP"
                                             v-validate="{
@@ -878,16 +881,19 @@
                                     >
                                         <div v-if="status_loading_pay">
                                             <b-spinner
+												size="sm"
                                                 small
                                                 label="Small Spinner"
                                                 type="grow"
                                             ></b-spinner>
                                             <b-spinner
+												size="sm"
                                                 small
                                                 label="Small Spinner"
                                                 type="grow"
                                             ></b-spinner>
                                             <b-spinner
+												size="sm"
                                                 small
                                                 label="Small Spinner"
                                                 type="grow"
@@ -967,6 +973,7 @@ import Cookies from 'js-cookie'
 import { appConstants } from '~/constants'
 import PayPal from 'vue-paypal-checkout'
 const iso3311a2 = require('iso-3166-1-alpha-2')
+import csc from 'country-state-city'
 export default {
     name: 'PayWithcard',
     components: {
@@ -977,6 +984,14 @@ export default {
         ...mapGetters({
             user: 'me/user',
         }),
+		allCountries() {
+            return csc.getAllCountries().map(({ sortname, name }) => {
+                return {
+                    code: sortname,
+                    country: name,
+                }
+            })
+        },
         cardBrandClass() {
             return this.getBrandClass(this.cardBrand)
         },
@@ -1039,14 +1054,18 @@ export default {
 
             status_loading_pay: false,
             data_user: '',
+			user_photo: '',
             cardNumber: '',
             cardExpiry: null,
             cardCvc: null,
+			country: '',
+            zip: '',
+            nameCard: '',
             cardBrand: null,
             cardErrors: {},
             list_countries: [],
 
-            form: {
+            /*form: {
                 country: '',
                 number: '',
                 date: '',
@@ -1054,7 +1073,7 @@ export default {
                 nameCard: '',
                 zip: '',
                 total: 0,
-            },
+            },*/
             informationPay: [],
             session: [],
 
@@ -1120,51 +1139,69 @@ export default {
     created() {
         this.getAllCountries()
     },
-    mounted() {
+    async mounted() {
         var itemsCookies = Cookies.getJSON(appConstants.cookies.cartItem.name)
         this.params_url = Cookies.getJSON('params_url')
+		this.session = Cookies.getJSON(appConstants.cookies.auth.name)
+        const userResponse = await api.users.getUser(this.session.id)
         if (itemsCookies === undefined) {
             this.$router.push({
                 name: 'publicProfile',
                 params: { url: this.params_url.url_profile },
             })
         } else {
+			if (userResponse.status === 'success') {
+                this.data_user =
+                    userResponse.data.first_name && userResponse.data.last_name
+                        ? `${userResponse.data.first_name} ${userResponse.data.last_name}`
+                        : userResponse.data.display_name
+                this.user_photo = userResponse.data_image
+            }
             var cookiesInfoPay = Cookies.getJSON(
                 appConstants.cookies.informationPay.name
             )
-            this.itemsCart = cookiesInfoPay[0]
-            this.subTotal = cookiesInfoPay[1].sub_total
+			
+			var items_cart = Cookies.getJSON(appConstants.cookies.cartItem.name)
+            const params = {
+                data: JSON.stringify(items_cart),
+            }
+            const response_cart = await api.cart.cardDetails(params)
+
+            var items =
+                response_cart.status === 'success'
+                    ? response_cart.cart_details
+                    : []			
+			
+            //this.itemsCart = cookiesInfoPay[0]
+			this.itemsCart = await this.createItems(items)
+            this.subTotal = cookiesInfoPay[0].sub_total
             //this.total = cookiesInfoPay[1].total
-            this.percent = cookiesInfoPay[1].percent
-            this.fees = cookiesInfoPay[1].fees
+            this.percent = cookiesInfoPay[0].percent
+            this.fees = cookiesInfoPay[0].fees
             this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
+			
+			var deleteUS = this.allCountries.filter(i => i.code !== 'US')
+
+            var deleteCAN = deleteUS.filter(i => i.code !== 'CA')
             this.list_countries = [
                 {
                     code: 'US',
                     country: 'United States',
                 },
                 {
-                    code: 'CAN',
+                    code: 'CA',
                     country: 'Canada',
                 },
-                ...this.allCountries,
+                ...deleteCAN,
             ]
-            this.form.country = this.list_countries[0]
-
+            this.country = this.list_countries[0].code       
+            
             this.informationPay = Cookies.getJSON(
                 appConstants.cookies.informationPay.name
             )
-            this.data_user = this.user.first_name.concat(
-                ' ',
-                this.user.last_name,
-                ' (',
-                this.user.email,
-                ')'
-            )
-            this.session = Cookies.getJSON(appConstants.cookies.auth.name)
+                 
 
-            this.total = this.informationPay[1].total
-            this.session = Cookies.getJSON(appConstants.cookies.auth.name)
+            this.total = this.informationPay[0].total           
             this.$refs.cardNumInput.focus()
         }
     },
@@ -1210,7 +1247,8 @@ export default {
                 },
                 cart: [],
             }
-            var itemsCart = this.informationPay[0]
+            //var itemsCart = this.informationPay[0]
+			var itemsCart = this.itemsCart
             for (var i in itemsCart) {
                 var items = itemsCart[i].elements
                 for (var j in items) {
@@ -1300,11 +1338,11 @@ export default {
                     return
                 }
                 this.status_loading_pay = true
-                var temp_feeService = this.informationPay[1].fees.find(
+                var temp_feeService = this.informationPay[0].fees.find(
                     aux => aux.var === 'feeService'
                 )
                 var temp_country = this.list_countries.find(
-                    aux => aux.code === this.form.country.code
+                    aux => aux.code === this.country
                 )
                 this.array.user_id = this.session.id
                 this.array.utm_source = this.params_url.utm_source
@@ -1314,18 +1352,19 @@ export default {
                     this.cardExpiry.substring(4, 9)
                 )
                 this.array.payment.number = this.cardNumber
-                this.array.payment.name = this.form.nameCard
+                this.array.payment.name = this.nameCard
                 this.array.payment.cvc = this.cardCvc
-                this.array.payment.address_zip = this.form.zip
+                this.array.payment.address_zip = this.zip
                 this.array.payment.country = temp_country.country
-                this.array.payment.subtotal = this.informationPay[1].sub_total
-                this.array.payment.total = this.informationPay[1].total
-                this.array.payment.feeCC = this.informationPay[1].percent
+                this.array.payment.subtotal = this.informationPay[0].sub_total
+                this.array.payment.total = this.informationPay[0].total
+                this.array.payment.feeCC = this.informationPay[0].percent
                 this.array.payment.feeService = temp_feeService
                     ? temp_feeService.value
                     : ''
 
-                var itemsCart = this.informationPay[0]
+                //var itemsCart = this.informationPay[0]
+				var itemsCart = this.itemsCart
                 for (var i in itemsCart) {
                     var items = itemsCart[i].elements
                     for (var j in items) {
@@ -1353,6 +1392,12 @@ export default {
                         id: response.id,
                     }
                     Cookies.set('receipt', receipt)
+					
+					Cookies.set(
+                        'infoPay',
+                        Cookies.getJSON(appConstants.cookies.cartItem.name)
+                    )
+					
                     Cookies.remove(appConstants.cookies.cartItem.name)
 
                     this.$router.push({
@@ -1382,6 +1427,57 @@ export default {
             this.array.payment.feeService = ''
             this.array.payment.total = ''
             this.array.cart = []
+        },
+		createItems(items) {
+            if (items) {
+                this.itemsCart = []
+                for (var i = 0; i < items.length; i++) {
+                    var temp = this.itemsCart.find(
+                        aux => aux.user_id === items[i].user_id
+                    )
+
+                    if (temp === undefined) {
+                        var elements = []
+                        var element = {
+                            imgSrc: items[i].coverart_url,
+                            name: items[i].title,
+                            type: items[i].type,
+                            price: parseFloat(items[i].price),
+                            id: items[i].id,
+                            license_id:
+                                items[i].type === 'beat'
+                                    ? items[i].license_id
+                                    : '',
+                            genre_id: items[i].genre_id,
+                        }
+                        elements.push(element)
+
+                        var itemCart = {
+                            artistName: items[i].artistName,
+                            avatarSrc: items[i].avatar_url,
+                            user_id: items[i].user_id,
+                            index: i,
+                            artist_url: items[i].artist_url,
+                            elements: elements,
+                        }
+                        this.itemsCart.push(itemCart)
+                    } else {
+                        temp.elements.push({
+                            imgSrc: items[i].coverart_url,
+                            name: items[i].title,
+                            type: items[i].type,
+                            price: parseFloat(items[i].price),
+                            id: items[i].id,
+                            license_id:
+                                items[i].type === 'beat'
+                                    ? items[i].license_id
+                                    : '',
+                            genre_id: items[i].genre_id,
+                        })
+                    }
+                }
+            }
+            return this.itemsCart
         },
     },
 }

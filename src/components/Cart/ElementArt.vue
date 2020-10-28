@@ -69,12 +69,9 @@ export default {
             type: String,
         },
     },
-    mounted() {
-        console.log('id', this.id)
-    },
+    mounted() {},
     methods: {
-        removeItem() {
-            console.log('id', this.id)
+        removeItem() {            
             var cartItems = Cookies.getJSON(appConstants.cookies.cartItem.name)
             var cartItem = cartItems.find(aux => aux.id === this.id)
             if (cartItem !== undefined) {

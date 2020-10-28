@@ -100,6 +100,7 @@
 import { api } from '~/services'
 import { mapGetters } from 'vuex'
 import { appConstants } from '~/constants'
+import Cookies from 'js-cookie'
 export default {
     name: 'ArtPlayer',
     props: {
@@ -323,6 +324,7 @@ export default {
             this.currentSeconds = this.audioObj.currentTime
         },
         handleBuyClick() {
+			var listItems = []
             if (this.playerItem.type === 'beat') {
                 let buyItem = this.beats.find(
                     beats => beats.id === this.playerItem.id
@@ -332,10 +334,32 @@ export default {
                 let buyItem = this.soundKits.find(
                     soundKits => soundKits.id === this.playerItem.id
                 )
-                this.$store.dispatch('profile/addCartItem', {
+				
+				listItems =
+                    Cookies.getJSON(appConstants.cookies.cartItem.name) ===
+                    undefined
+                        ? []
+                        : Cookies.getJSON(appConstants.cookies.cartItem.name)
+						
+				var cartItem = {
+                    type: buyItem.type,
+                    price: buyItem.price,
+                    id: buyItem.id,
+                    license_id: '',
+                    user_id: buyItem.user_id,
+                }
+				
+				var temp_item = listItems.find(aux => aux.id === cartItem.id)
+                if (temp_item === undefined) {
+                    listItems.push(cartItem)
+                    Cookies.set(appConstants.cookies.cartItem.name, listItems)
+                    this.$bus.$emit('modal.addedCart.open')
+                } else this.$toast.info('The element is added')
+				
+                /*this.$store.dispatch('profile/addCartItem', {
                     ...buyItem,
                 })
-                this.$bus.$emit('modal.addedCart.open')
+                this.$bus.$emit('modal.addedCart.open')*/
             }
         },
         handleShareClick() {

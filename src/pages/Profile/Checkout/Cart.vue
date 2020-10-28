@@ -95,10 +95,10 @@
                             sm="12"
                             class="center"
                         >
-                            <b-button
+                            <basic-button
                                 pill
                                 block
-                                class="mt-4 px-0 btn-summary-total"
+                                class="mt-4 px-0 btn-summary-total d-none d-block"
                                 :to="
                                     session === undefined
                                         ? { name: 'checkoutSignin' }
@@ -106,7 +106,7 @@
                                 "
                             >
                                 Checkout
-                            </b-button>
+                            </basic-button>
                         </b-col>
                     </b-row>
                     <b-row
@@ -164,6 +164,7 @@ export default {
             session: [],
             fees_percent: '',
             params_url: [],
+			items_details: [],
         }
     },
     created() {
@@ -182,8 +183,8 @@ export default {
     async mounted() {
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
         this.params_url = Cookies.getJSON('params_url')
-        console.log('this.params_url', this.params_url)
-        this.createItems()
+		await this.createItems()		
+        
         if (this.itemsCart.length === 0) {
             this.$router.push({
                 name: 'publicProfile',
@@ -198,9 +199,22 @@ export default {
     },
 
     methods: {
-        createItems() {
-            var items = Cookies.getJSON(appConstants.cookies.cartItem.name)
+        async createItems() {
+            var items_cart = Cookies.getJSON(appConstants.cookies.cartItem.name)
+			
+			const params = {
+                data: JSON.stringify(items_cart),
+            }
+			const response_cart = await api.cart.cardDetails(params)
+			
+			this.items_details =
+                response_cart.status === 'success'
+                    ? response_cart.cart_details
+                    : []
+					
+			var items = this.items_details			
             if (items) {
+				this.itemsCart = []
                 for (var i = 0; i < items.length; i++) {
                     var temp = this.itemsCart.find(
                         aux => aux.user_id === items[i].user_id
@@ -276,7 +290,9 @@ export default {
                 fees: this.fees,
                 total: this.total,
             }
-            var informationPay = [this.itemsCart, payDetails]
+			
+			var informationPay = [payDetails]
+            //var informationPay = [this.itemsCart, payDetails]
 
             Cookies.set(
                 appConstants.cookies.informationPay.name,
@@ -284,8 +300,7 @@ export default {
             )
         },
         deleteItems() {
-            this.itemsCart = []
-            this.createItems()
+            await this.createItems()           
             this.subTotal = 0
             this.sum()
         },

@@ -267,10 +267,33 @@ export default {
     },
     methods: {
         handleBuyClick() {
-            this.$store.dispatch('profile/addCartItem', {
+			var listItems = []
+            listItems =
+                Cookies.getJSON(appConstants.cookies.cartItem.name) ===
+                undefined
+                    ? []
+                    : Cookies.getJSON(appConstants.cookies.cartItem.name)
+            var cartItem = {
+                type: this.kit.type,
+                price: this.kit.price,
+                id: this.kit.id,
+                license_id: this.kit.license_id,
+                user_id: this.kit.user_id,
+            }
+
+            var temp_item = listItems.find(aux => aux.id === cartItem.id)
+            if (temp_item === undefined) {
+                listItems.push(cartItem)
+                Cookies.set(appConstants.cookies.cartItem.name, listItems)
+                this.$bus.$emit('modal.addedCart.open')
+            } else this.$toast.info('The element is added')
+		
+		
+		
+            /*this.$store.dispatch('profile/addCartItem', {
                 ...this.kit,
             })
-            this.$bus.$emit('modal.addedCart.open')
+            this.$bus.$emit('modal.addedCart.open')*/
         },
         handleDownloadClick() {
             this.loading = true

@@ -311,12 +311,36 @@ export default {
     },
     methods: {
         handleBuyClick(license) {
-            this.$store.dispatch('profile/addCartItem', {
+			var listItems = []
+            listItems =
+                Cookies.getJSON(appConstants.cookies.cartItem.name) ===
+                undefined
+                    ? []
+                    : Cookies.getJSON(appConstants.cookies.cartItem.name)
+
+            var cartItem = {
+                type: this.beat.type,
+                price: license.price,
+                id:  this.beat.id,
+                license_id: license.license_id,
+                user_id: this.beat.user_id,
+            }
+
+            var temp_id = listItems.find(aux => aux.id === cartItem.id)
+            var temp_license = listItems.find(aux => aux.license_id === cartItem.license_id)
+            if (temp_id === undefined || temp_license === undefined) {
+                listItems.push(cartItem)
+                Cookies.set(appConstants.cookies.cartItem.name, listItems)
+                this.$bus.$emit('modal.addedCart.open')
+            } else this.$toast.info('The element is added')
+			
+			
+            /*this.$store.dispatch('profile/addCartItem', {
                 ...this.beat,
                 price: license.price,
                 license_id: license.license_id,
             })
-            this.$bus.$emit('modal.addedCart.open')
+            this.$bus.$emit('modal.addedCart.open')*/
         },
         handleDownloadClick(license_id) {
             this.loadingState = true

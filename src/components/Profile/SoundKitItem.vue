@@ -124,15 +124,23 @@ export default {
                 undefined
                     ? []
                     : Cookies.getJSON(appConstants.cookies.cartItem.name)
-            this.curItem.data_image = ''
-            this.curItem.coverart = ''
-            this.curItem.kit_files_name = []
-
-            listItems.push(this.curItem)
-
-            Cookies.set(appConstants.cookies.cartItem.name, listItems)
+            var cartItem = {
+                type: this.curItem.type,
+                price: this.curItem.price,
+                id: this.curItem.id,
+                license_id: this.curItem.license_id,
+                user_id: this.curItem.user_id,
+            }
+			
+			var temp_item = listItems.find(aux => aux.id === cartItem.id)
+            if (temp_item === undefined) {
+                listItems.push(cartItem)
+                Cookies.set(appConstants.cookies.cartItem.name, listItems)
+                this.$bus.$emit('modal.addedCart.open')
+            } else this.$toast.info('The element is added')            
+            
             //this.$store.dispatch('profile/addCartItem', { ...this.curItem })
-            this.$bus.$emit('modal.addedCart.open')
+            
         },
         handleDownloadClick() {
             this.loadingDownload = true

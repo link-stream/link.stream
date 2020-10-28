@@ -905,6 +905,16 @@ export const api = {
                 method,
             })
         },
+		
+		async cardDetails(params) {
+            let endpoint = '/payments/cart_details/'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
     },
     sales: {
         async getCustomerOrders(userId, invoiceId) {

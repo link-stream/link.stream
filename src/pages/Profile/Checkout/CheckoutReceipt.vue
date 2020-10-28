@@ -223,6 +223,7 @@
                         <basic-button
                             pill
                             class="continue-shopping"
+							@click="cleanCookies()"
                             :to="{
                                 name: 'publicProfile',
                                 params: { url: params_url.url_profile },
@@ -267,6 +268,7 @@ export default {
             fees_percent: '',
             icon_card: '',
             params_url: [],
+			itemsCart: [],
         }
     },
     watch: {},
@@ -282,11 +284,25 @@ export default {
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
         var infoPay = Cookies.getJSON(appConstants.cookies.informationPay.name)
         this.receipt = Cookies.getJSON('receipt')
-        this.createItemsPay(infoPay[0])
-        this.subTotal = infoPay[1].sub_total
-        this.total = infoPay[1].total
-        this.percent = infoPay[1].percent
-        this.fees = infoPay[1].fees
+		
+		var items_cart = Cookies.getJSON('infoPay')
+        const params = {
+            data: JSON.stringify(items_cart),
+        }
+		const response_cart = await api.cart.cardDetails(params)
+		
+		var items =
+            response_cart.status === 'success' ? response_cart.cart_details : []
+			
+		//this.itemsCart = cookiesInfoPay[0]
+        this.itemsCart = await this.createItems(items)	
+		
+        //this.createItemsPay(infoPay[0])
+		this.createItemsPay(this.itemsCart)
+        this.subTotal = infoPay[0].sub_total
+        this.total = infoPay[0].total
+        this.percent = infoPay[0].percent
+        this.fees = infoPay[0].fees
         this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
         this.icon_card = this.getBrandClass(this.receipt.cc_type.toLowerCase())
 
@@ -322,6 +338,62 @@ export default {
                     })
                 }
             }
+        },
+		createItems(items) {            
+            if (items) {
+                this.itemsCart = []
+                for (var i = 0; i < items.length; i++) {
+                    var temp = this.itemsCart.find(
+                        aux => aux.user_id === items[i].user_id
+                    )
+
+                    if (temp === undefined) {
+                        var elements = []
+                        var element = {
+                            imgSrc: items[i].coverart_url,
+                            name: items[i].title,
+                            type: items[i].type,
+                            price: parseFloat(items[i].price),
+                            id: items[i].id,
+                            license_id:
+                                items[i].type === 'beat'
+                                    ? items[i].license_id
+                                    : '',
+                            genre_id: items[i].genre_id,
+                        }
+                        elements.push(element)
+
+                        var itemCart = {
+                            artistName: items[i].artistName,
+                            avatarSrc: items[i].avatar_url,
+                            user_id: items[i].user_id,
+                            index: i,
+                            artist_url: items[i].artist_url,
+                            elements: elements,
+                        }
+                        this.itemsCart.push(itemCart)
+                    } else {
+                        temp.elements.push({
+                            imgSrc: items[i].coverart_url,
+                            name: items[i].title,
+                            type: items[i].type,
+                            price: parseFloat(items[i].price),
+                            id: items[i].id,
+                            license_id:
+                                items[i].type === 'beat'
+                                    ? items[i].license_id
+                                    : '',
+                            genre_id: items[i].genre_id,
+                        })
+                    }
+                }
+            }
+            return this.itemsCart
+        },
+        cleanCookies() {
+            Cookies.remove(appConstants.cookies.informationPay.name)
+            Cookies.remove('receipt')
+            Cookies.remove('infoPay')
         },
     },
 }

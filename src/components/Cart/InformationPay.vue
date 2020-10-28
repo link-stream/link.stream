@@ -84,6 +84,7 @@
 import CartItemDark from '@/components/Cart/CartItemDark'
 import Cookies from 'js-cookie'
 import { appConstants } from '~/constants'
+import { api } from '~/services'
 
 export default {
     name: 'InformationPay',
@@ -100,16 +101,82 @@ export default {
             fees_percent: '',
         }
     },
-    mounted() {
+    async mounted() {
+        var items_cart = Cookies.getJSON(appConstants.cookies.cartItem.name)
+        const params = {
+            data: JSON.stringify(items_cart),
+        }
+        const response_cart = await api.cart.cardDetails(params)
+
+        var items =
+            response_cart.status === 'success' ? response_cart.cart_details : []
+
+        //this.itemsCart = cookiesInfoPay[0]
+        this.itemsCart = await this.createItems(items)
+
         var itemsCookies = Cookies.getJSON(
             appConstants.cookies.informationPay.name
         )
-        this.itemsCart = itemsCookies[0]
-        this.subTotal = itemsCookies[1].sub_total
-        this.total = itemsCookies[1].total
-        this.percent = itemsCookies[1].percent
-        this.fees = itemsCookies[1].fees
+        //this.itemsCart = itemsCookies[0]
+        this.subTotal = itemsCookies[0].sub_total
+        this.total = itemsCookies[0].total
+        this.percent = itemsCookies[0].percent
+        this.fees = itemsCookies[0].fees
         this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
+    },
+	
+	methods: {
+        createItems(items) {
+            if (items) {
+                this.itemsCart = []
+                for (var i = 0; i < items.length; i++) {
+                    var temp = this.itemsCart.find(
+                        aux => aux.user_id === items[i].user_id
+                    )
+
+                    if (temp === undefined) {
+                        var elements = []
+                        var element = {
+                            imgSrc: items[i].coverart_url,
+                            name: items[i].title,
+                            type: items[i].type,
+                            price: parseFloat(items[i].price),
+                            id: items[i].id,
+                            license_id:
+                                items[i].type === 'beat'
+                                    ? items[i].license_id
+                                    : '',
+                            genre_id: items[i].genre_id,
+                        }
+                        elements.push(element)
+
+                        var itemCart = {
+                            artistName: items[i].artistName,
+                            avatarSrc: items[i].avatar_url,
+                            user_id: items[i].user_id,
+                            index: i,
+                            artist_url: items[i].artist_url,
+                            elements: elements,
+                        }
+                        this.itemsCart.push(itemCart)
+                    } else {
+                        temp.elements.push({
+                            imgSrc: items[i].coverart_url,
+                            name: items[i].title,
+                            type: items[i].type,
+                            price: parseFloat(items[i].price),
+                            id: items[i].id,
+                            license_id:
+                                items[i].type === 'beat'
+                                    ? items[i].license_id
+                                    : '',
+                            genre_id: items[i].genre_id,
+                        })
+                    }
+                }
+            }
+            return this.itemsCart
+        },
     },
 }
 </script>

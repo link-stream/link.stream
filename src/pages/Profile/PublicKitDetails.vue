@@ -206,6 +206,15 @@ export default {
             audio_id: this.kitId,
         })
         this.profile = this.$store.getters['profile/profile']
+        const kit = this.$store.getters['profile/soundKits'][0]
+        const moreArtists = this.$store.getters['profile/moreElements']
+
+        if (!kit) {
+            this.$router.push({
+                name: 'home',
+            })  
+            return 
+        }
 
         //Visitor Info        
         if (!Cookies.getJSON('session_id')) {
@@ -227,7 +236,6 @@ export default {
             })
         } 
 
-        const moreArtists = this.$store.getters['profile/moreElements']
         if (moreArtists.length) {
             this.moreArtists = moreArtists.map(artist => {
                 return {
@@ -236,8 +244,7 @@ export default {
                     producer_name: this.profile.display_name,
                 }
             })
-        }
-        const kit = this.$store.getters['profile/soundKits'][0]
+        }        
         this.kit = {
             ...kit,
             type: 'kit',

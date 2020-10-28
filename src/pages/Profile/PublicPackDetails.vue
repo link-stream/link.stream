@@ -221,6 +221,13 @@ export default {
         const moreArtists = this.$store.getters['profile/moreElements']
         const pack = this.$store.getters['profile/beats'][0]
 
+        if (!pack) {
+            this.$router.push({
+                name: 'home',
+            })  
+            return 
+        }
+
         //Visitor Info        
         if (!Cookies.getJSON('session_id')) {
             const response = await api.users.getIpAddress()

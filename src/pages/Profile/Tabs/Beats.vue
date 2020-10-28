@@ -109,7 +109,6 @@ export default {
     async created() {
         this.loading = true
         const response = await api.profiles.getProfileMain(this.url)
-        console.log('status',response)
         if (response.status === 'false') {
             this.$router.push({
                 name: 'home',

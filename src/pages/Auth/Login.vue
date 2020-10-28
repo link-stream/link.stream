@@ -109,7 +109,7 @@
                                 class="float-left"
                                 src="@/assets/img/ico/logo_googleg.svg"
                             />
-                            Signin with Google
+                            Sign in with Google
                         </spinner-button>
                     </GoogleLogin>                 
                 </b-col>

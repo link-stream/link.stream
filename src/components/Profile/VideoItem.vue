@@ -17,22 +17,17 @@
             <b-dropdown-item :href="videoItem.url" target="_blank">View on YouTube</b-dropdown-item>
             <b-dropdown-item @click="handleShareClick">Share</b-dropdown-item>
         </b-dropdown>
-        <ShareArtModal @close="handleCloseShare" />
     </div>
 </template>
 <script>
 import { api } from '~/services'
 import { getYtVideoThumbUrl } from '~/utils'
-import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'VideoItemm',
     props: {
         videoItem: {
             type: Object,
         },
-    },
-    components: {
-        ShareArtModal,
     },
     data: () => ({
         isShowShare: false,
@@ -70,9 +65,6 @@ export default {
         handleShareClick() {
             this.videoItem.type = 'video'
             this.$bus.$emit('modal.share.open', this.videoItem)
-        },
-        handleCloseShare() {
-            this.$bus.$emit('modal.share.close')
         },
     },
 }

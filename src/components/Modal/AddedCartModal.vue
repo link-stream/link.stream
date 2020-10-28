@@ -66,7 +66,7 @@ export default {
         handleClose() {
             this.open = false
         },
-        handleOpen() {
+        async handleOpen() {
             var items = Cookies.getJSON(appConstants.cookies.cartItem.name)
             const params = {
                 data: JSON.stringify(items),

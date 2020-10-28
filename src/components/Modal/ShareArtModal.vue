@@ -58,7 +58,7 @@
                         squared
                         class="share-copy-btn float-right"
                         variant="grey"
-                        @click="copyToClipboard"
+                        @click.stop.prevent="copyToClipboard"
                     >
                         <img src="@/assets/img/ico/link.svg" />
                     </b-button>

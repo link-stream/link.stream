@@ -1269,13 +1269,13 @@ export default {
             const response = await api.cart.paypalPayment(params)
             if (response.status === 'success') {
                 var receipt = {
-                    download: response.download,
                     billingCC: response.billingCC,
                     cc_type: response.cc_type,
                     email: response.email,
                     id: response.id,
                 }
                 Cookies.set('receipt', receipt)
+                localStorage.setItem('download', JSON.stringify(response.download));
                 Cookies.remove(appConstants.cookies.cartItem.name)
 
                 this.$router.push({
@@ -1386,12 +1386,12 @@ export default {
                 if (response.status === 'success') {
                     var receipt = {
                         billingCC: response.billingCC,
-                        download: response.download,
                         cc_type: response.cc_type,
                         email: response.email,
                         id: response.id,
                     }
                     Cookies.set('receipt', receipt)
+                    localStorage.setItem('download', JSON.stringify(response.download));
 					
 					Cookies.set(
                         'infoPay',

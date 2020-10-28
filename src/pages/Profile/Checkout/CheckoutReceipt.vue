@@ -260,6 +260,7 @@ export default {
         return {
             itemsPay: [],
             receipt: '',
+            downloadUrls: [],
             recommendation: [],
             subTotal: 0,
             total: 0,
@@ -284,6 +285,7 @@ export default {
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
         var infoPay = Cookies.getJSON(appConstants.cookies.informationPay.name)
         this.receipt = Cookies.getJSON('receipt')
+        this.downloadUrls = JSON.parse(localStorage.getItem("download"))
 		
 		var items_cart = Cookies.getJSON('infoPay')
         const params = {
@@ -332,7 +334,7 @@ export default {
                         price: item.elements[j].price,
                         artistName: item.artistName,
                         artist_url: item.artist_url,
-                        downloadUrl: this.receipt.download.find(
+                        downloadUrl: this.downloadUrls.find(
                             x => x.item_id === item.elements[j].id
                         ),
                     })

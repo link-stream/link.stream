@@ -299,7 +299,7 @@ export default {
                 informationPay
             )
         },
-        deleteItems() {
+        async deleteItems() {
             await this.createItems()           
             this.subTotal = 0
             this.sum()

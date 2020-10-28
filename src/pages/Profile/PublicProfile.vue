@@ -73,7 +73,7 @@ export default {
             Cookies.set('session_id', encryptSessionId)
             const utm = Cookies.getJSON('params_url.utm_source')
             const ref_id = Cookies.getJSON('params_url.ref_id')
-            const visitorResponse = await api.users.insertVisitor({
+            await api.users.insertVisitor({
                 user_id: profile.data.id,
                 session_id: encryptSessionId,
                 agent: window.navigator.userAgent,

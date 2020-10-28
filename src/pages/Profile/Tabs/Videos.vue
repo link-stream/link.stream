@@ -12,16 +12,19 @@
                 <basic-button variant="outline-black" size="md" class="btn-view-more">View More</basic-button>
             </div>
         </div>
+        <ShareArtModal @close="handleCloseShare" />
     </div>
 </template>
 <script>
 import { api } from '~/services'
 import { mapGetters } from 'vuex'
 import VideoItem from '@/components/Profile/VideoItem'
+import ShareArtModal from '@/components/Modal/ShareArtModal'
 export default {
     name: 'ProfileSoundKits',
     components: {
         VideoItem,
+        ShareArtModal,
     },
     props: {
         url: {
@@ -49,6 +52,11 @@ export default {
             })
         }
         this.loading = false
+    },
+    methods: {
+         handleCloseShare() {
+            this.$bus.$emit('modal.share.close')
+        },
     },
 }
 </script>

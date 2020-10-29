@@ -14,7 +14,7 @@ export default {
             return this.$route.query.code
         }
     },
-    mounted() {
+    async mounted() {
         const auth_code = this.$route.query.code
         const headers = {
             'Content-Type': 'application/x-www-form-urlencoded',

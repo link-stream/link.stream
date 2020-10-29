@@ -36,10 +36,11 @@
                 </li>
                 <li>May include fees</li>
             </ul>
-            <basic-button variant="warning" class="btn-paypal">
+            <!-- <basic-button variant="warning" class="btn-paypal">
                 <img src="@/assets/img/ico/paypal.png" class="mr-2" />
                 <span class="text-capitalize">Connect</span>
-            </basic-button>
+            </basic-button> -->
+            <span id='paypal_container'></span>
         </div>
         <AddBankModal />
     </div>
@@ -49,6 +50,7 @@
 import AddBankModal from '~/components/Modal/AddBankModal'
 import BankItem from './BankItem'
 import { mapGetters } from 'vuex'
+// import PayPal from 'vue-paypal-checkout'
 export default {
     name: 'PayoutsTab',
     data: () => ({
@@ -67,6 +69,22 @@ export default {
         this.loading = true
         // await this.$store.dispatch('me/loadPaymentMethods')
         this.loading = false
+    },
+    mounted() {
+        paypal.use( ['login'], function (login) {
+            login.render ({
+                "appid": process.env.VUE_APP_PAYPAL_CLIENT_ID,
+                "scopes": "openid",
+                "containerid": "paypal_container",
+                "responseType": "code",
+                "locale": "en-us",
+                "buttonType": "CWP",
+                "buttonShape": "pill",
+                "buttonSize": "lg",
+                "fullPage": "true",
+                "returnurl": "https://dev-link-vue.link.stream/app/account/payments/paypal_confirm"
+            })
+        })
     },
     methods: {
         handleAddClick() {

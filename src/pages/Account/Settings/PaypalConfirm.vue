@@ -45,7 +45,7 @@ export default {
     async created() {
         this.auth_code = this.$route.query.code
         if (this.auth_code) {
-            await this.getUserInfo()
+            await this.getAccessToken()
         }
         if (this.access_token) {
             await this.getUserInfo()
@@ -73,6 +73,7 @@ export default {
                 headers,
                 auth,
             })
+            console.log(data)
             if (status === 200) {
                 this.access_token = data.access_token
                 this.refresh_token = data.refresh_token
@@ -91,6 +92,7 @@ export default {
                 url: endpoint,
                 headers,
             })
+            console.log(data)
             if (status === 200) {
                 this.user_id = data.user_id
                 this.email = data.emails.value

@@ -74,6 +74,7 @@ export default {
         paypal.use( ['login'], function (login) {
             login.render ({
                 "appid": process.env.VUE_APP_PAYPAL_CLIENT_ID,
+                "authend":"sandbox",
                 "scopes": "openid",
                 "containerid": "paypal_container",
                 "responseType": "code",

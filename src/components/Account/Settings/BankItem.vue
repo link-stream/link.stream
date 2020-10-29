@@ -31,7 +31,7 @@
                     <span>PayPal</span>
                 </h4>
                 <small class="item-subtitle">
-                    <span>{{ bankInfo.email }},</span>
+                    <span>{{ bankInfo.paypal_email }},</span>
                 </small>
             </div>
         </div>

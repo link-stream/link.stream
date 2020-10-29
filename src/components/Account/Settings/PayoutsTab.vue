@@ -24,23 +24,24 @@
                     account.
                 </small>
             </div>
-            <bank-item v-else :bankInfo="bankInfo" />
+            <bank-item v-else :bankInfo="bankInfo" type="bank" />
         </div>
         <div class="paypal">
-            <h6 class="sub-title">PayPal</h6>
-            <ul class="desc-list">
-                <li>Connect using your existing PayPal account</li>
-                <li>
-                    Paypal is required to split the profit share of sales from
-                    collaborations.
-                </li>
-                <li>May include fees</li>
-            </ul>
-            <!-- <basic-button variant="warning" class="btn-paypal">
-                <img src="@/assets/img/ico/paypal.png" class="mr-2" />
-                <span class="text-capitalize">Connect</span>
-            </basic-button> -->
-            <span id='paypal_container'></span>
+            <div v-if="paypalInfo.paypal_email">
+                <bank-item :bankInfo="paypalInfo" type="paypal" />
+            </div>
+            <div v-else>
+                <h6 class="sub-title">PayPal</h6>
+                <ul class="desc-list">
+                    <li>Connect using your existing PayPal account</li>
+                    <li>
+                        Paypal is required to split the profit share of sales from
+                        collaborations.
+                    </li>
+                    <li>May include fees</li>
+                </ul>
+                <span id='paypal_container'></span>
+            </div>
         </div>
         <AddBankModal />
     </div>
@@ -50,15 +51,18 @@
 import AddBankModal from '~/components/Modal/AddBankModal'
 import BankItem from './BankItem'
 import { mapGetters } from 'vuex'
+import { api } from '~/services'
 // import PayPal from 'vue-paypal-checkout'
 export default {
     name: 'PayoutsTab',
     data: () => ({
         loading: false,
+        paypalInfo: {},
     }),
     computed: {
         ...mapGetters({
             bankInfo: 'me/bankInfo',
+            user: 'me/user',
         }),
     },
     components: {
@@ -68,6 +72,7 @@ export default {
     async created() {
         this.loading = true
         // await this.$store.dispatch('me/loadPaymentMethods')
+        await this.getPaypalInfo()
         this.loading = false
     },
     mounted() {
@@ -90,6 +95,15 @@ export default {
     methods: {
         handleAddClick() {
             this.$bus.$emit('modal.addBank.open')
+        },
+        async getPaypalInfo() {
+            const response = await api.account.getPaypalAccount(this.user.id)
+            if (response.status === 'success') {
+                this.paypalInfo = {
+                    payouts_enabled: response.payouts_enabled,
+                    paypal_email: response.paypal_email
+                }
+            }
         },
     },
 }

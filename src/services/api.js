@@ -531,6 +531,14 @@ export const api = {
                 method,
             })
         },
+        async getPaypalAccount(userId) {
+            const endpoint = '/users/paypal_account/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
     profiles: {
         async getProfileBeatsTab(userUrl, audio_id, type) {

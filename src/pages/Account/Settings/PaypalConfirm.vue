@@ -1,17 +1,15 @@
 <template>
     <div class="page page-account-settings">
-        <header class="page-header">
-            <h1 class="page-title">
-                <LoadingSpinner
-                    class="m-2 float-left"
-                    animation="bounce"
-                />
-                Processing...
-            </h1>
-            <h6 class="page-subtitle">
-                Please wait until be connected to paypal.
-            </h6>
-        </header>
+        <h1 class="page-title">
+            <LoadingSpinner
+                class="m-2 float-left"
+                animation="bounce"
+            />
+            Processing...
+        </h1>
+        <h6 class="page-subtitle">
+            Please wait until be connected to paypal.
+        </h6>
     </div>
 </template>
 <script>
@@ -103,7 +101,7 @@ export default {
                 paypal_user_id: this.user_id,
                 paypal_email: this.email
             }
-            const response = await api.confirmPaypalAccount(params)
+            const response = await api.account.confirmPaypalAccount(params)
             console.log(response)
         }
     }

@@ -10,21 +10,30 @@
             <img
                 v-if="cardImage"
                 :src="cardImage"
-                :alt="bankInfo.holder_name"
             />
             <b-icon-credit-card v-else class="mr-2" />
         </div>
         <div class="item-body">
-            <h4 class="item-title">
-                <span>Bank Account</span>
-            </h4>
-            <small class="item-subtitle">
-                <span>{{ bankInfo.holder_name }},</span>
-                <span>{{ bankInfo.status }}</span>
-                <span> .... </span>
-                <span> {{ bankInfo.number }}</span>
-                <span>(USD)</span>
-            </small>
+            <div v-if="type === 'bank'">
+                <h4 class="item-title">
+                    <span>Bank Account</span>
+                </h4>
+                <small class="item-subtitle">
+                    <span>{{ bankInfo.holder_name }},</span>
+                    <span>{{ bankInfo.status }}</span>
+                    <span> .... </span>
+                    <span> {{ bankInfo.number }}</span>
+                    <span>(USD)</span>
+                </small>
+            </div>
+            <div v-else>
+                <h4 class="item-title">
+                    <span>PayPal</span>
+                </h4>
+                <small class="item-subtitle">
+                    <span>{{ bankInfo.email }},</span>
+                </small>
+            </div>
         </div>
         <b-dropdown class="actions-menu" variant="icon" right no-caret>
             <template v-slot:button-content>
@@ -49,11 +58,15 @@ export default {
             type: Object,
             required: true,
         },
+        type: {
+            type: String,
+            default: 'bank',
+        },
     },
     computed: {
         cardImage() {
             const findIndex = appConstants.cardImages.findIndex(
-                item => item.type === 'Bank'
+                item => item.type === this.type
             )
             if (findIndex > -1) {
                 return appConstants.cardImages[findIndex].url

@@ -52,7 +52,7 @@ export default {
     computed: {
         cardImage() {
             const findIndex = appConstants.cardImages.findIndex(
-                item => item.type === this.paymentMethod.cc_type
+                item => item.type === this.paymentMethod.cc_type.toLowerCase()
             )
             if (findIndex > -1) {
                 return appConstants.cardImages[findIndex].url

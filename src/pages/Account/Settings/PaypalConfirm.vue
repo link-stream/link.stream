@@ -95,7 +95,7 @@ export default {
             console.log(data)
             if (status === 200) {
                 this.user_id = data.user_id
-                this.email = data.emails.value
+                this.email = data.emails.find(({ primary }) => primary).value
             } else {
                 this.$toast.error(response.data.error_description)
             }

@@ -522,6 +522,15 @@ export const api = {
                 method,
             })
         },
+        async confirmPaypalAccount(params) {
+            const endpoint = '/users/confirm_paypal_account/'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
     },
     profiles: {
         async getProfileBeatsTab(userUrl, audio_id, type) {

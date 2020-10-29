@@ -1,38 +1,24 @@
 <template>
     <div class="page page-account-settings">
-        <h1 class="page-title">Paypal information</h1>
-        <LoadingSpinner
-            class="m-5"
-            animation="bounce"
-            v-if="loading"
-        />
-        <div v-else class="page-body">
-            <p>
-                <span class="font-weight-bold">Auth Code:</span>
-                {{ this.auth_code }}
-            </p>
-            <p>
-                <span class="font-weight-bold">Access Token:</span>
-                {{ this.access_token }}
-            </p>
-            <p>
-                <span class="font-weight-bold">Refresh Token:</span>
-                {{ this.refresh_token }}
-            </p>
-            <p>
-                <span class="font-weight-bold">User Id:</span>
-                {{ this.user_id }}
-            </p>
-            <p>
-                <span class="font-weight-bold">Email:</span>
-                {{ this.email }}
-            </p>
-        </div>
+        <header class="page-header">
+            <h1 class="page-title">
+                <LoadingSpinner
+                    class="m-2 float-left"
+                    animation="bounce"
+                />
+                Processing...
+            </h1>
+            <h6 class="page-subtitle">
+                Please wait until be connected to paypal.
+            </h6>
+        </header>
     </div>
 </template>
 <script>
 import axios from '~/plugins/axios'
 import qs from 'qs'
+import { mapGetters } from 'vuex'
+import { api } from '~/services'
 export default {
     name: 'PaypalConfirm',
     data: () =>({
@@ -42,6 +28,11 @@ export default {
         user_id: '',
         email: '',
     }),
+    computed: {
+        ...mapGetters({
+            user: 'me/user',
+        }),
+    },
     async created() {
         this.auth_code = this.$route.query.code
         if (this.auth_code) {
@@ -50,6 +41,12 @@ export default {
         if (this.access_token) {
             await this.getUserInfo()
         }
+        if (this.user_id) {
+            await this.savePaypalInfo()
+        }
+        this.$router.push({
+            name: 'accountSettingsPayouts',
+        })
     },
     methods: {
         async getAccessToken() {
@@ -99,6 +96,15 @@ export default {
             } else {
                 this.$toast.error(response.data.error_description)
             }
+        },
+        async savePaypalInfo() {
+            const params = {
+                user_id: this.user.id,
+                paypal_user_id: this.user_id,
+                paypal_email: this.email
+            }
+            const response = await api.confirmPaypalAccount(params)
+            console.log(response)
         }
     }
 }

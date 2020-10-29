@@ -893,7 +893,7 @@ import Cookies from 'js-cookie'
 import { appConstants } from '~/constants'
 import PayPal from 'vue-paypal-checkout'
 const iso3311a2 = require('iso-3166-1-alpha-2')
-import csc from 'country-state-city'
+// import csc from 'country-state-city'
 export default {
     name: 'PayWithcard',
     components: {

@@ -28,6 +28,7 @@ import {
     AccountBeatPacks,
     AccountBeatPackAddEdit,
     AccountSettings,
+    AccountPaypalConfirm,
     AccountSales,
     AccountSalesDetails,
 } from '~/pages/Account'
@@ -261,11 +262,16 @@ const routes = [
         component: AccountSettings,
         meta: { requiresAuth: true, layout: 'account' },
     },
-
     {
         path: '/app/account/payments',
         name: 'accountSettingsPayments',
         component: AccountSettings,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/account/payments/paypal_confirm',
+        name: 'accountPaypalConfirm',
+        component: AccountPaypalConfirm,
         meta: { requiresAuth: true, layout: 'account' },
     },
     {

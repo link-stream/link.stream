@@ -52,7 +52,6 @@ import AddBankModal from '~/components/Modal/AddBankModal'
 import BankItem from './BankItem'
 import { mapGetters } from 'vuex'
 import { api } from '~/services'
-// import PayPal from 'vue-paypal-checkout'
 export default {
     name: 'PayoutsTab',
     data: () => ({
@@ -104,6 +103,7 @@ export default {
                     paypal_email: response.paypal_email
                 }
             }
+            console.log(response)
         },
     },
 }

@@ -1,14 +1,16 @@
 <template>
     <div class="height100">
         <b-card class="cart-item-dark height100 pt-5">
-            <div v-for="(item, index) in itemsCart" :key="index">
-                <CartItemDark
-                    :artistName="item.artistName"
-                    :avatarSrc="item.avatarSrc"
-                    :elements="item.elements"
-                    :index="item.index"
-                ></CartItemDark>
-            </div>
+			<div class="scrollbar style-scrollbar" >
+				<div v-for="(item, index) in itemsCart" :key="index" class="force-overflow">
+					<CartItemDark
+						:artistName="item.artistName"
+						:avatarSrc="item.avatarSrc"
+						:elements="item.elements"
+						:index="item.index"
+					></CartItemDark>
+				</div>
+			</div>	
             <div class="mx-4">
                 <b-row>
                     <b-col cols="9" xl="8" lg="8" md="7">

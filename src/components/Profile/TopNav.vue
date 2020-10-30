@@ -122,7 +122,9 @@
             </div>
         </b-navbar-nav>
         <b-navbar-nav @click="showCart">
-            <img src="@/assets/img/ico/basket.svg" />
+            <b-link>
+                <img src="@/assets/img/ico/basket.svg" />
+            </b-link>
         </b-navbar-nav>
     </b-navbar>
 </template>

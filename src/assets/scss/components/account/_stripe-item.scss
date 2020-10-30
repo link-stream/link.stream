@@ -1,0 +1,23 @@
+.stripe-item {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    *padding: 15px 0px;
+    img {
+        height: 22.14px;
+        width: 23.73px;
+    }
+    .item-title {
+        font-size: px2rem(14);
+        font-weight: bold;
+    }
+    .item-subtitle {
+        color: $gray-520;
+    }
+    .item-body {
+        flex-grow: 1;
+    }
+    .item-cover {
+        margin-right: 12px;
+    }
+}

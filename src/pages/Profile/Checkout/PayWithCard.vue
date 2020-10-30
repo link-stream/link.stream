@@ -369,15 +369,8 @@
                                             :options="list_countries"
                                             :reduce="country => country.code"
                                             label="country"
-                                            name="country"
-                                            v-validate="{ required: true }"
-                                            :state="validateState('country')"
-                                            aria-describedby="country-live-feedback"
-                                            data-vv-as="country"
-                                        />
-                                        <b-form-invalid-feedback
-                                            id="country-live-feedback"
-                                        >{{ veeErrors.first('country') }}</b-form-invalid-feedback>
+                                            name="country"                                           
+                                        />                                        
                                     </b-form-group>
                                 </b-col>
                             </b-row>
@@ -414,41 +407,21 @@
                                         <font-awesome-icon
                                             :icon="['fas', 'chevron-left']"
                                             size="1x"
+											class="mr-2"
                                         />Return to Cart
                                     </b-link>
                                 </b-col>
                             </b-row>
                             <b-row>
                                 <b-col cols="12" sm="5" class="px-0 mt-3" align="center">
-                                    <basic-button
-                                        pill
-                                        block
-                                        :disabled="status_loading_pay"
-                                        class="continue-to-payment"
-                                        @click="creditCardPayment()"
+                                    <spinner-button                                       
+                                        :loading="status_loading_pay"
+                                        :disabled="status_loading_pay"   
+                                        @click="creditCardPayment()" 
+                                        class="ml-2 continue-to-payment" 
                                     >
-                                        <div v-if="status_loading_pay">
-                                            <b-spinner
-                                                size="sm"
-                                                small
-                                                label="Small Spinner"
-                                                type="grow"
-                                            ></b-spinner>
-                                            <b-spinner
-                                                size="sm"
-                                                small
-                                                label="Small Spinner"
-                                                type="grow"
-                                            ></b-spinner>
-                                            <b-spinner
-                                                size="sm"
-                                                small
-                                                label="Small Spinner"
-                                                type="grow"
-                                            ></b-spinner>
-                                        </div>
-                                        <span v-else>Pay $ {{ total }}</span>
-                                    </basic-button>
+                                       <span class="continue-to-payment">Pay $ {{ total }}</span>
+                                    </spinner-button>  
                                 </b-col>
                             </b-row>
                         </b-col>
@@ -752,16 +725,9 @@
                                             :options="list_countries"
                                             :reduce="country => country.code"
                                             label="country"
-                                            name="country"
-                                            v-validate="{ required: true }"
-                                            :state="validateState('country')"
-                                            aria-describedby="country-live-feedback"
-                                            data-vv-as="country"
+                                            name="country"                                            
                                         />
-                                        <b-form-invalid-feedback
-                                            id="country-live-feedback"
-                                        >{{ veeErrors.first('country') }}</b-form-invalid-feedback>
-                                    </b-form-group>
+                                       </b-form-group>
                                 </b-col>
                             </b-row>
                             <b-row style="justify-content: center;">
@@ -795,41 +761,21 @@
                                         class="return-links center-vertical"
                                     >
                                         <font-awesome-icon
+											class="mr-2"
                                             :icon="['fas', 'chevron-left']"
                                             size="1x"
                                         />Return to Cart
                                     </b-link>
                                 </b-col>
                                 <b-col cols="11" xl="3" lg="4" md="6" align="right" class="px-0">
-                                    <basic-button
-                                        pill
-                                        block
-                                        :disabled="status_loading_pay"
-                                        class="ml-2 continue-to-payment"
-                                        @click="creditCardPayment()"
+                                    <spinner-button                                       
+                                        :loading="status_loading_pay"
+                                        :disabled="status_loading_pay"   
+                                        @click="creditCardPayment()" 
+                                        class="ml-2 continue-to-payment" 
                                     >
-                                        <div v-if="status_loading_pay">
-                                            <b-spinner
-                                                size="sm"
-                                                small
-                                                label="Small Spinner"
-                                                type="grow"
-                                            ></b-spinner>
-                                            <b-spinner
-                                                size="sm"
-                                                small
-                                                label="Small Spinner"
-                                                type="grow"
-                                            ></b-spinner>
-                                            <b-spinner
-                                                size="sm"
-                                                small
-                                                label="Small Spinner"
-                                                type="grow"
-                                            ></b-spinner>
-                                        </div>
-                                        <span v-else>Pay $ {{ total }}</span>
-                                    </basic-button>
+                                       <span class="continue-to-payment">Pay $ {{ total }}</span>
+                                    </spinner-button> 
                                 </b-col>
                             </b-row>
                         </b-col>

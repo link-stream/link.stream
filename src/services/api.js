@@ -539,6 +539,49 @@ export const api = {
                 method,
             })
         },
+        async connectStripeAccount(params) {
+            const endpoint = '/users/connect_stripe_account'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async confirmStripeAccount(params) {
+            const endpoint = '/users/confirm_stripe_account'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async getStripeAccount(userId) {
+            const endpoint = '/users/stripe_account/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async declinedStripeAccount(params) {
+            const endpoint = '/users/decline_stripe_account/'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async deleteStripeAccount(userId, accountId) {
+            const endpoint = `/users/decline_stripe_account/${userId}/${accountId}`
+            const method = METHOD_DELETE
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
     profiles: {
         async getProfileBeatsTab(userUrl, audio_id, type) {

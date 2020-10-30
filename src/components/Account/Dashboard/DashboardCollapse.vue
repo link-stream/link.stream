@@ -28,7 +28,7 @@
                                 </b-card-text>
                                 <basic-button
                                     class="btn-card"
-                                    :to="{ name: 'accountBeatAdd' }"
+                                    @click="goToAccountBeatAdd"
                                 >Add a Beat</basic-button>
                             </div>
                             <b-img fluid class="img-card" src="@/assets/img/dashboard/addBeat.jpg" />
@@ -62,7 +62,7 @@
                                 </b-card-text>
                                 <basic-button
                                     class="btn-card"
-                                    :to="{ name: 'accountProfileEdit' }"
+                                    @click="goToAccountProfileEdit"
                                 >Customize Store</basic-button>
                             </div>
                             <b-img
@@ -99,7 +99,7 @@
                                 </b-card-text>
                                 <basic-button
                                     class="btn-card"
-                                    :to="{ name: 'marketingMessages' }"
+                                    @click="goToMarketingMessages"
                                 >Start a Campaign</basic-button>
                             </div>
                             <b-img fluid class="img-card" src="@/assets/img/dashboard/market.jpg" />
@@ -136,25 +136,40 @@ export default {
     },
     methods: {
         handleCard1() {
-            if (!this.beat) {
-                this.visible_card1 = false
-                this.visible_card2 = true
-                this.visible_card3 = true
-            }
+            this.visible_card1 = false
+            this.visible_card2 = true
+            this.visible_card3 = true
         },
         handleCard2() {
-            if (!this.store) {
-                this.visible_card1 = true
-                this.visible_card2 = false
-                this.visible_card3 = true
-            }
+            this.visible_card1 = true
+            this.visible_card2 = false
+            this.visible_card3 = true
         },
         handleCard3() {
-            if (!this.campaign) {
-                this.visible_card1 = true
-                this.visible_card2 = true
-                this.visible_card3 = false
-            }
+            this.visible_card1 = true
+            this.visible_card2 = true
+            this.visible_card3 = false
+        },
+        goToAccountBeatAdd() {
+            this.$router
+                .push({
+                    name: 'accountBeatAdd',
+                })
+                .catch(err => {})
+        },
+        goToAccountProfileEdit() {
+            this.$router
+                .push({
+                    name: 'accountProfileEdit',
+                })
+                .catch(err => {})
+        },
+        goToMarketingMessages() {
+            this.$router
+                .push({
+                    name: 'marketingMessages',
+                })
+                .catch(err => {})
         },
     },
 }

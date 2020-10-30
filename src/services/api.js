@@ -582,6 +582,14 @@ export const api = {
                 method,
             })
         },
+        async deletePaypalAccount(userId) {
+            const endpoint = `/users/paypal_account/${userId}`
+            const method = METHOD_DELETE
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
     profiles: {
         async getProfileBeatsTab(userUrl, audio_id, type) {

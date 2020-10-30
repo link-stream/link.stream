@@ -34,7 +34,7 @@
         </div>
         <div class="paypal">
             <div v-if="paypalInfo.paypal_email">
-                <bank-item :bankInfo="paypalInfo" type="paypal" />
+                <bank-item :bankInfo="paypalInfo" type="paypal" @delete="paypalInfo = {}" />
             </div>
             <div v-else>
                 <h6 class="sub-title">PayPal</h6>

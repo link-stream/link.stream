@@ -51,6 +51,8 @@
 
 <script>
 import { appConstants } from '~/constants'
+import { api } from '~/services'
+import { mapGetters } from 'vuex'
 export default {
     name: 'BankItem',
     props: {
@@ -64,6 +66,9 @@ export default {
         },
     },
     computed: {
+        ...mapGetters({
+            user: 'me/user',
+        }),
         cardImage() {
             const findIndex = appConstants.cardImages.findIndex(
                 item => item.type === this.type
@@ -77,12 +82,19 @@ export default {
     },
     methods: {
         async deletePaymentMethod() {
-            // const { status, message, error } = await this.$store.dispatch('me/deletePaymentMethod', { ...this.paymentMethod })
-            // if (status === 'success') {
-            //     this.$toast.success(message)
-            // } else {
-            //     this.$toast.error(error)
-            // }
+            if (this.type === paypal) {
+                const response = await api.account.deletePaypalAccount(
+                    this.user.id,
+                )
+                if (response.status !== 'success') {
+                    this.$toast.error(
+                        'An error occurred while deleting the paypal account.'
+                    )
+                } else {
+                    this.$toast.success('The account was deleted successfully.')
+                    this.$emit('delete')
+                }
+            }
         },
         async setPrimary() {
             // const { status, message, error } = await this.$store.dispatch(

@@ -78,6 +78,7 @@ export default {
     components: {
         AddPaymentModal,
         PaymentMethodItem,
+        BankItem,
     },
     async created() {
         this.loading = true

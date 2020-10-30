@@ -115,7 +115,7 @@ export default {
             //this.$bus.$emit('modal.addBank.open')
             if (this.state === 3) {
                 const response = await api.account.connectStripeAccount({
-                    debug: true,
+                    debug: false,
                     user_id: this.userInfo.id,
                 })
                 if (response.status === 'success') {

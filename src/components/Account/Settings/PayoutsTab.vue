@@ -59,7 +59,6 @@ import StripeItem from './StripeItem'
 import AddBankModal from '~/components/Modal/AddBankModal'
 import BankItem from './BankItem'
 import { mapGetters } from 'vuex'
-import { api } from '~/services'
 export default {
     name: 'PayoutsTab',
     data: () => ({

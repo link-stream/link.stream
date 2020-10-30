@@ -1,13 +1,23 @@
 <template>
-    <div class="page page-login my-4">
+    <div class="page page-login my-4"> 
         <b-container>
-            <b-row class="text-center">
-                <b-col cols="12" class="mt-4">
-                    <label class="text-black fs-1 font-weight-bold"
-                        >Sign in</label
+            <b-row class="text-center d-flex justify-content-center">
+                <!-- <b-col cols="12" class="my-2">
+                    <spinner-button
+                        instagram
+                        class="auth-btn"
+                        :loading="status.loading.instagram"
+                        :error="status.error.instagram"
+                        @click="authenticateInstagram"
                     >
+                        <i class="ig-ico fab fa-instagram fa-lg"></i>
+                        Signin with Instagram
+                    </spinner-button>
+                </b-col>-->
+                <b-col cols="12" class="mt-4">
+                    <label class="sign-in-text">Sign In</label>
                 </b-col>
-                <b-col cols="12" class="my-3">
+                <b-col cols="12" class="my-3 d-flex justify-content-center">
                     <b-form
                         @submit.stop.prevent="onSubmit"
                         @reset="resetForm"
@@ -17,7 +27,7 @@
                         <b-form-group
                             label="Email Address"
                             label-for="input_email"
-                            class="mb-4 error-l-110"
+                            class="mb-3 error-l-110 email-form-group"
                         >
                             <b-form-input
                                 id="input_email"
@@ -34,11 +44,16 @@
                                 veeErrors.first('input_email')
                             }}</b-form-invalid-feedback>
                         </b-form-group>
-                        <b-form-group
-                            label="Password"
-                            label-for="input_password"
-                            class="mb-4 pwd-form-group error-l-75"
-                        >
+
+                        <div class="mb-4 pwd-form-group error-l-75">
+                            <label
+                                for="input_password"
+                                class="mb-2 pwd-form-group error-l-75 float-left"
+                                >Password</label
+                            >
+                            <b-link class="float-right" to="/forgot"
+                                >Forgot?</b-link
+                            >
                             <b-form-input
                                 id="input_password"
                                 class="pwd-input"
@@ -67,29 +82,53 @@
                                     veeErrors.first('input_password')
                                 }}</b-form-invalid-feedback
                             >
-                        </b-form-group>
-                        <b-col cols="12">
-                            <b-link to="/forgot">Forgot Password?</b-link>
-                        </b-col>
+                        </div>
                         <spinner-button
                             type="submit"
-                            class="auth-btn mt-3"
+                            class="auth-btn mt-3 signin-btn"
                             :loading="status.loading.signin"
                             :error="status.error.signin"
+                            >Sign In</spinner-button
                         >
-                            Sign In
-                        </spinner-button>
-                        <!--b-button
-                            pill
-                            class="mt-4"
-                            style="background-color: #DC2EA6; color: #ffffff;"
-                            :to="{ name: 'checkoutContactInfo' }"
-                            >Sign In</b-button
-                        -->
+                        <b-row class="my-2" align="center" style="justify-content:center;">
+                            <b-col cols="12" xl="10" lg="11" md="11" sm="10" class="mt-3">
+                                <b-link
+                                    :to="{
+                                        name: 'publicProfile',
+                                        params: { url: params_url.url_profile },
+                                    }"
+                                    class="return-links"
+                                >
+                                    <font-awesome-icon :icon="['fas', 'chevron-left']" size="1x" class="mr-2" />Return to profile
+                                </b-link>
+                            </b-col>
+                    </b-row>
                     </b-form>
                 </b-col>
-                <b-col cols="12" class="fs--1">
-                    <b-link to="/signup">Creat account</b-link>
+                <b-col cols="12" class="btn-divider">
+                    <div class="separator">or</div>   
+                    <GoogleLogin
+                        class="g-login-btn-wrap google-component col"
+                        :params="google"
+                        :onSuccess="onGoogleSuccess"
+                    >
+                        <spinner-button
+                            google
+                            class="auth-btn google-btn"
+                            :loading="status.loading.google"
+                            :error="status.error.google"
+                        >
+                            <img
+                                class="float-left"
+                                src="@/assets/img/ico/logo_googleg.svg"
+                            />
+                            Sign in with Google
+                        </spinner-button>
+                    </GoogleLogin>                 
+                </b-col>
+                <b-col cols="12" class="fs--1 my-3">
+                    Don't have an account?
+                    <b-link to="/signup">Sign up</b-link>
                 </b-col>
             </b-row>
         </b-container>
@@ -100,12 +139,14 @@
 import { setStatusChange } from '~/utils'
 import { api } from '~/services'
 import { authentication } from '~/mixins'
+import Cookies from 'js-cookie'
 
 export default {
     name: 'Login',
     mixins: [authentication],
     data() {
         return {
+            params_url: [],
             form: {
                 email: null,
                 password: null,
@@ -120,6 +161,9 @@ export default {
                 },
             },
         }
+    },
+    mounted(){
+        this.params_url = Cookies.getJSON('params_url')
     },
     methods: {
         validateState(ref) {

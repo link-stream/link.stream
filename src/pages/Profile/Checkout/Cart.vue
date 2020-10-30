@@ -71,10 +71,8 @@
                     </b-row>
                     <b-row>
                         <b-col cols="12" xl="10" lg="11" md="11" sm="12" class="center">
-                            <basic-button
-                                pill
-                                block
-                                class="mt-4 px-0 btn-summary-total d-none d-block"
+                            <basic-button                               
+                                class="mt-4 d-block center"
                                 @click="checkoutTo"
                             >Checkout</basic-button>
                         </b-col>
@@ -88,7 +86,7 @@
                                 }"
                                 class="return-links"
                             >
-                                <font-awesome-icon :icon="['fas', 'chevron-left']" size="1x" />Return to profile
+                                <font-awesome-icon :icon="['fas', 'chevron-left']" size="1x" class="mr-2" />Return to profile
                             </b-link>
                         </b-col>
                     </b-row>

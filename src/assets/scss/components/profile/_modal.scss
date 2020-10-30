@@ -26,6 +26,7 @@
     .modal-dialog {
         top: 60px;
         width: 350px;
+		max-height: 400px;
         border-radius: 2px;
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.15);
         @include media-breakpoint-up(sm) {

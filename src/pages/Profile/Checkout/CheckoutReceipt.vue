@@ -133,10 +133,9 @@
                             :type="item.type"
                         />
                     </b-row>
-                    <b-row class="mt-4 ml-2">
-                        <basic-button
-                            pill
-                            class="continue-shopping"
+                    <b-row class="mt-4 ml-2">                        
+                        <basic-button 
+                            class="mt-4 d-block"
                             @click="cleanCookies()"
                         >Continue Shopping</basic-button>
                     </b-row>

@@ -83,6 +83,7 @@ export default {
         this.loading = true
         await this.$store.dispatch('me/loadPaymentMethods')
         localStorage.setItem('paypal_type', 'payment')
+        await this.getPaypalInfo()
         this.loading = false
     },
     methods: {

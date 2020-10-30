@@ -92,7 +92,7 @@ export default {
         },
         async getPaypalInfo() {
             const accountType = localStorage.getItem('paypal_type') 
-            const response = await api.account.getPaypalAccount(this.userInfo.id, accountType)
+            const response = await api.account.getPaypalAccount(this.user.id, accountType)
             if (response.status === 'success') {
                 this.paypalInfo = {
                     payouts_enabled: response.payouts_enabled,

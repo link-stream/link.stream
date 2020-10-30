@@ -9,14 +9,16 @@
                 <div class="tags-container">
                     <div class="title">Beat Tags</div>
                     <div v-for="tag in form.tags" :key="tag.text" class="tag">
-                        {{
-                        tag.text
-                        }}
+                        {{ tag.text }}
                     </div>
                 </div>
                 <div class="collabs-container">
                     <div class="title">Collaborators</div>
-                    <div class="collab-row" v-for="(collab, index) in form.collabs" :key="index">
+                    <div
+                        class="collab-row"
+                        v-for="(collab, index) in form.collabs"
+                        :key="index"
+                    >
                         <UserAvatar :user="collab.user" />
                         <img
                             class="avatar-badge"
@@ -32,11 +34,11 @@
                             }"
                         >
                             <span class="user-name" :id="`user-name-${index}`">
-                                {{
-                                collab.user.display_name | truncate(14)
-                                }}
+                                {{ collab.user.display_name | truncate(14) }}
                             </span>
-                            <b-tooltip :target="`user-name-${index}`">{{ collab.user.display_name }}</b-tooltip>
+                            <b-tooltip :target="`user-name-${index}`">{{
+                                collab.user.display_name
+                            }}</b-tooltip>
                         </router-link>
                     </div>
                 </div>
@@ -55,8 +57,8 @@
                             <div class="title">{{ form.title }}</div>
                         </div>
                         <div class="desc">
-                            Ambient beat by 
-                            <router-link                                    
+                            Ambient beat by
+                            <router-link
                                 :to="{
                                     name: 'publicProfile',
                                     params: { url: profile.url },
@@ -81,19 +83,19 @@
                     </div>
                 </div>
                 <div class="license-body">
-                    <div class="Card" v-for="(license, index) in licenses" :key="index">
+                    <div
+                        class="Card"
+                        v-for="(license, index) in licenses"
+                        :key="index"
+                    >
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="price">
-                                    {{
-                                    license.price | currencyFormat
-                                    }}
+                                    {{ license.price | currencyFormat }}
                                 </div>
                                 <div class="text">
                                     <h4 class="card-title">
-                                        {{
-                                        license.title
-                                        }}
+                                        {{ license.title }}
                                     </h4>
                                     <small>{{ license.descripcion }}</small>
                                 </div>
@@ -115,13 +117,24 @@
                                     "
                                 >
                                     <div v-if="!loadingState">
-                                        <img src="@/assets/img/ico/download-wh.svg" />
+                                        <img
+                                            src="@/assets/img/ico/download-wh.svg"
+                                        />
                                         Download
                                     </div>
                                     <div v-else>
-                                        <b-spinner small type="grow"></b-spinner>
-                                        <b-spinner small type="grow"></b-spinner>
-                                        <b-spinner small type="grow"></b-spinner>
+                                        <b-spinner
+                                            small
+                                            type="grow"
+                                        ></b-spinner>
+                                        <b-spinner
+                                            small
+                                            type="grow"
+                                        ></b-spinner>
+                                        <b-spinner
+                                            small
+                                            type="grow"
+                                        ></b-spinner>
                                     </div>
                                 </basic-button>
                             </div>
@@ -131,7 +144,8 @@
                         variant="link"
                         class="float-right text-black"
                         v-show="false"
-                    >Negotiate Price</basic-button>
+                        >Negotiate Price</basic-button
+                    >
                 </div>
                 <div class="more-artist">
                     <div class="section-title">More from this artist</div>
@@ -216,11 +230,11 @@ export default {
         if (!beatItem) {
             this.$router.push({
                 name: 'home',
-            })  
-            return 
+            })
+            return
         }
 
-        //Visitor Info        
+        //Visitor Info
         if (!Cookies.getJSON('session_id')) {
             const response = await api.users.getIpAddress()
             const visitorIp = response.visitor_ip.split('.').join('')
@@ -230,7 +244,7 @@ export default {
             Cookies.set('session_id', encryptSessionId)
             const utm = Cookies.getJSON('params_url.utm_source')
             const ref_id = Cookies.getJSON('params_url.ref_id')
-            const visitorResponse = await api.users.insertVisitor({
+            await api.users.insertVisitor({
                 user_id: this.profile.id,
                 session_id: encryptSessionId,
                 agent: window.navigator.userAgent,
@@ -238,10 +252,10 @@ export default {
                 utm_source: utm ? utm : '',
                 ref_id: ref_id ? ref_id : '',
             })
-        }  
+        }
 
         if (moreArtists.length) {
-            this.moreArtists = moreArtists.map(artist => {
+            this.moreArtists = moreArtists.map((artist) => {
                 return {
                     ...artist,
                     coverart: artist.data_image || appConstants.defaultCoverArt,
@@ -257,7 +271,7 @@ export default {
             title: beat.title,
             coverart: beat.data_image || appConstants.defaultCoverArt,
             tags: beat.tags
-                ? beat.tags.split(', ').map(tag => ({
+                ? beat.tags.split(', ').map((tag) => ({
                       text: tag,
                   }))
                 : [],
@@ -302,7 +316,7 @@ export default {
 
         // Merge beat licenses into licenses
         if (Array.isArray(beat.licenses) && beat.licenses.length) {
-            this.licenses = beat.licenses.map(license => {
+            this.licenses = beat.licenses.map((license) => {
                 const findLicense = licenses.find(
                     ({ id }) => id == license.license_id
                 )
@@ -318,7 +332,7 @@ export default {
     },
     methods: {
         handleBuyClick(license) {
-			var listItems = []
+            var listItems = []
             listItems =
                 Cookies.getJSON(appConstants.cookies.cartItem.name) ===
                 undefined
@@ -328,20 +342,21 @@ export default {
             var cartItem = {
                 type: this.beat.type,
                 price: license.price,
-                id:  this.beat.id,
+                id: this.beat.id,
                 license_id: license.license_id,
                 user_id: this.beat.user_id,
             }
 
-            var temp_id = listItems.find(aux => aux.id === cartItem.id)
-            var temp_license = listItems.find(aux => aux.license_id === cartItem.license_id)
+            var temp_id = listItems.find((aux) => aux.id === cartItem.id)
+            var temp_license = listItems.find(
+                (aux) => aux.license_id === cartItem.license_id
+            )
             if (temp_id === undefined || temp_license === undefined) {
                 listItems.push(cartItem)
                 Cookies.set(appConstants.cookies.cartItem.name, listItems)
                 this.$bus.$emit('modal.addedCart.open')
             } else this.$toast.info('The element is added')
-			
-			
+
             /*this.$store.dispatch('profile/addCartItem', {
                 ...this.beat,
                 price: license.price,

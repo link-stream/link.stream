@@ -9,7 +9,7 @@
         </div>
         <div class="bank">
             <LoadingSpinner class="page-loader" v-if="loading" />
-            <div v-if="!loading && !bankInfo.number">
+            <div v-if="!loading && !payoutsEnabled">
                 <h6 class="sub-title">Deposit into bank account</h6>
                 <ul class="desc-list">
                     <li>Get paid faster</li>
@@ -24,7 +24,13 @@
                     account.
                 </small>
             </div>
-            <bank-item v-else :bankInfo="bankInfo" />
+            <StripeItem
+                v-else-if="payoutsEnabled"
+                :user="userInfo"
+                :url="loginUrl"
+                :accountId="accountId"
+                @delete="deleteStripeAccount"
+            />
         </div>
         <div class="paypal">
             <h6 class="sub-title">PayPal</h6>
@@ -46,6 +52,8 @@
 </template>
 
 <script>
+import { api } from '~/services'
+import StripeItem from './StripeItem'
 import AddBankModal from '~/components/Modal/AddBankModal'
 import BankItem from './BankItem'
 import { mapGetters } from 'vuex'
@@ -53,24 +61,84 @@ export default {
     name: 'PayoutsTab',
     data: () => ({
         loading: false,
+        payoutsEnabled: false,
+        state: 3,
+        loginUrl: '#',
+        connectUrl: '',
+        accountId: '',
     }),
     computed: {
         ...mapGetters({
             bankInfo: 'me/bankInfo',
+            userInfo: 'me/user',
         }),
     },
     components: {
         AddBankModal,
         BankItem,
+        StripeItem,
     },
     async created() {
         this.loading = true
         // await this.$store.dispatch('me/loadPaymentMethods')
+        const stripeAccount = await api.account.getStripeAccount(
+            this.userInfo.id
+        )
+        if (stripeAccount.status === 'success' && stripeAccount.data) {
+            switch (stripeAccount.data.status) {
+                case 'ACTIVE':
+                    this.state = 1
+                    this.accountId = stripeAccount.data.account_id
+                    this.payoutsEnabled = true
+                    this.loginUrl = stripeAccount.data.login_url
+                    break
+                case 'APPROVED':
+                    this.state = 2
+                    this.accountId = stripeAccount.data.account_id
+                    this.payoutsEnabled = false
+                    this.connectUrl = stripeAccount.data.login_url
+                    this.$toast.error(
+                        'You still have pending information to fill out. Go to -Connect Bank Account-.'
+                    )
+                    break
+                case 'PENDING':
+                    this.state = 3
+                    this.payoutsEnabled = false
+                    this.connectUrl = stripeAccount.data.login_url
+                    break
+            }
+        }
         this.loading = false
     },
     methods: {
-        handleAddClick() {
-            this.$bus.$emit('modal.addBank.open')
+        async handleAddClick() {
+            //this.$bus.$emit('modal.addBank.open')
+            if (this.state === 3) {
+                const response = await api.account.connectStripeAccount({
+                    debug: true,
+                    user_id: this.userInfo.id,
+                })
+                if (response.status === 'success') {
+                    this.accountId = response.account_id
+                    localStorage.setItem(
+                        'user_id',
+                        JSON.stringify(this.userInfo.id)
+                    )
+                    localStorage.setItem(
+                        'account_id',
+                        JSON.stringify(response.account_id)
+                    )
+                    window.open(response.account_url, '_self')
+                    return
+                }
+                this.$toast.error('Could not connect to stripe.')
+            } else {
+                window.open(this.connectUrl, '_self')
+            }
+        },
+        deleteStripeAccount() {
+            this.payoutsEnabled = false
+            this.state = 3
         },
     },
 }

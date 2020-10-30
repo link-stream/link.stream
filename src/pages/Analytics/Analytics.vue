@@ -96,14 +96,20 @@
                 <b-row>
                     <b-col cols="12" md="6" xs="12" class="pl-0">
                         <h6>Top beats by sales</h6>
-                        <div v-if="!topBeatsSalesItems.length" class="page-empty empty-text">Your top beats by sales will appear here.</div>  
+                        <div
+                            v-if="!topBeatsSalesItems.length"
+                            class="page-empty empty-text"
+                        >Your top beats by sales will appear here.</div>
                         <b-row v-else v-for="(beatSales, index) in topBeatsSalesItems" :key="index">
                             <AnalyticsTopSales :topSales="beatSales" class="pl-3" />
                         </b-row>
                     </b-col>
                     <b-col cols="12" md="6" xs="12" class="px-0 mx-0">
                         <h6>Top referrers by sessions</h6>
-                        <div v-if="!topReferrersItems.length" class="page-empty empty-text">Your top referrers by sessions will appear here.</div>  
+                        <div v-if="!topReferrersItems.length" class="page-empty empty-text">
+                            Your top referrers by sessions will appear
+                            here.
+                        </div>
                         <b-row
                             v-else
                             v-for="(topReferrers, index) in topReferrersItems"
@@ -148,7 +154,7 @@ export default {
             loading: false,
             analiticsItems: [],
             topBeatsSalesItems: [],
-            topReferrersItems: [],            
+            topReferrersItems: [],
             //VISITORS
             visitorsData: {},
             visitorsMin: 0,

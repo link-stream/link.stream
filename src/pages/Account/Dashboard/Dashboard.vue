@@ -2,12 +2,21 @@
     <div class="page">
         <LoadingSpinner class="page-loader" v-if="loading" />
         <div v-else>
-            <h1>Welcome! {{ userName }}!</h1>
+            <div class="d-md-flex align-items-center">
+                <div>
+                    <h1>Welcome! {{ userName }}!</h1>
+                    <p class="mt-2 mb-4" v-if="showNewUser">
+                        You’re well on your way to making the most out of your
+                        music!
+                    </p>
+                </div>
+                <basic-button
+                    class="btn-card ml-auto mb-4"
+                    @click="goToAccountBeatAdd"
+                    v-if="showNewUser"
+                >Add a Beat</basic-button>
+            </div>
             <div v-if="showNewUser">
-                <p class="mt-2 mb-4">
-                    You’re almost ready to sell your beats on LinkStream. Here’s
-                    some ideas to get started…
-                </p>
                 <DashboardCollapse :beat="beat" :store="store" :campaign="campaign" />
                 <DashboardCard :user_id="userId" :email="userEmail" />
             </div>
@@ -36,14 +45,20 @@
                     <b-row>
                         <b-col cols="12" md="6" xs="12" class="pl-0">
                             <h6>Recent activity</h6>
-                            <div v-if="!activitiesItems.length" class="page-empty empty-text">Your recent activity will appear here.</div>                              
+                            <div
+                                v-if="!activitiesItems.length"
+                                class="page-empty empty-text"
+                            >Your recent activity will appear here.</div>
                             <b-row v-else v-for="(activity, index) in activitiesItems" :key="index">
                                 <DashboardActivity :activity="activity" class="pl-3" />
                             </b-row>
                         </b-col>
                         <b-col cols="12" md="6" xs="12" class="px-0 mx-0">
                             <h6>Top played beats</h6>
-                            <div v-if="!beatsItems.length" class="page-empty empty-text">Your top played beats will appear here.</div>  
+                            <div
+                                v-if="!beatsItems.length"
+                                class="page-empty empty-text"
+                            >Your top played beats will appear here.</div>
                             <b-row v-else v-for="(beat, index) in beatsItems" :key="index">
                                 <DashboardBeats :beat="beat" :index="index" class="pl-3" />
                             </b-row>
@@ -162,6 +177,15 @@ export default {
             this.activitiesItems = this.dashboard.activity
         }
         this.loading = false
+    },
+    methods: {
+        goToAccountBeatAdd() {
+            this.$router
+                .push({
+                    name: 'accountBeatAdd',
+                })
+                .catch(err => {})
+        },
     },
 }
 </script>

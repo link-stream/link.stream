@@ -70,6 +70,8 @@ import PublicBeatDetails from '@/pages/Profile/PublicBeatDetails'
 import PublicPackDetails from '@/pages/Profile/PublicPackDetails'
 import PublicKitDetails from '@/pages/Profile/PublicKitDetails'
 import Analytics from '@/pages/Analytics/Analytics'
+import StripeConfirm from '@/pages/Account/Settings/StripeConfirm'
+import StripeCancel from '@/pages/Account/Settings/StripeCancel'
 
 /*import Cart from '@/pages/Profile/Checkout/Cart'
 import CheckoutSignin from '@/pages/Profile/Checkout/CheckoutSignin'
@@ -309,6 +311,18 @@ const routes = [
         name: 'accountSalesDetails',
         props: true,
         component: AccountSalesDetails,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/account/payments/stripe_confirm',
+        name: 'stripeConfirm',
+        component: StripeConfirm,
+        meta: { requiresAuth: true, layout: 'account' },
+    },
+    {
+        path: '/app/account/payments/stripe_cancel',
+        name: 'stripeCancel',
+        component: StripeCancel,
         meta: { requiresAuth: true, layout: 'account' },
     },
 

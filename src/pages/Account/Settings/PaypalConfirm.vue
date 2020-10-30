@@ -42,9 +42,16 @@ export default {
         if (this.user_id) {
             await this.savePaypalInfo()
         }
-        this.$router.push({
-            name: 'accountSettingsPayouts',
-        })
+        const accountType = localStorage.getItem('paypal_type')
+        if (accountType === 'payout') {
+            this.$router.push({
+                name: 'accountSettingsPayouts',
+            })
+        } else if( accountType === 'payment') {
+            this.$router.push({
+                name: 'accountSettingsPayments',
+            })
+        }
     },
     methods: {
         async getAccessToken() {
@@ -99,7 +106,8 @@ export default {
             const params = {
                 user_id: this.user.id,
                 paypal_user_id: this.user_id,
-                paypal_email: this.email
+                paypal_email: this.email,
+                account_type: localStorage.getItem('paypal_type'),
             }
             const response = await api.account.confirmPaypalAccount(params)
             console.log(response)

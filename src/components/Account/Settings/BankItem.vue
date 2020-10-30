@@ -42,7 +42,7 @@
             <b-dropdown-item @click.prevent="setPrimary">
                 Make Primary
             </b-dropdown-item>
-            <b-dropdown-item @click.prevent="deleteBank">
+            <b-dropdown-item @click.prevent="deletePaymentMethod">
                 Remove
             </b-dropdown-item>
         </b-dropdown>
@@ -82,9 +82,10 @@ export default {
     },
     methods: {
         async deletePaymentMethod() {
-            if (this.type === paypal) {
+            if (this.type === 'paypal') {
                 const response = await api.account.deletePaypalAccount(
                     this.user.id,
+                    localStorage.getItem('paypal_type')
                 )
                 if (response.status !== 'success') {
                     this.$toast.error(

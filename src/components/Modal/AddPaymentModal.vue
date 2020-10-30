@@ -118,10 +118,7 @@
                 </small>
             </div>
             <div v-else class="paypal-action">
-                <basic-button variant="warning">
-                    Connect to
-                    <img src="@/assets/img/ico/paypal.png" />
-                </basic-button>
+                <span id='paypal_payment'></span>
             </div>
         </template>
         <template v-slot:modal-footer>
@@ -195,6 +192,14 @@ export default {
     created() {
         this.$bus.$on('modal.addPayment.open', this.handleOpen)
         this.$bus.$on('modal.addPayment.close', this.handleClose)
+        localStorage.setItem('paypal_type', 'payment')
+    },
+    watch: {
+        currentTab(value) {
+            if (value === 'paypal') {
+                this.initPaypalButton()
+            }
+        },
     },
     methods: {
         close() {
@@ -204,7 +209,6 @@ export default {
             this.open = false
         },
         handleOpen() {
-            this.clearForm()
             this.open = true
         },
         async handleSaveClick() {
@@ -263,6 +267,23 @@ export default {
             }
             this.$v.form.$reset()
         },
+        initPaypalButton() {
+            paypal.use( ['login'], function (login) {
+                login.render ({
+                    "appid": process.env.VUE_APP_PAYPAL_CLIENT_ID,
+                    "authend":"sandbox",
+                    "scopes": "openid email",
+                    "containerid": "paypal_payment",
+                    "responseType": "code id_Token",
+                    "locale": "en-us",
+                    "buttonType": "CWP",
+                    "buttonShape": "pill",
+                    "buttonSize": "lg",
+                    "fullPage": "true",
+                    "returnurl": "https://dev-link-vue.link.stream/app/account/payments/paypal_confirm"
+                })
+            })
+        }
     },
 }
 </script>

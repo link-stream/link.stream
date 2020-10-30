@@ -18,6 +18,9 @@
                         :paymentMethod="paymentMethod"
                     >
                     </payment-method-item>
+                    <div v-if="paypalInfo.paypal_email">
+                        <bank-item :bankInfo="paypalInfo" type="paypal" @delete="deletePaypalAccount" />
+                    </div>
                 </div>
                 <basic-button @click="handleAddClick" class="btn-payment">
                     Add Payment Method
@@ -57,15 +60,19 @@
 <script>
 import AddPaymentModal from '~/components/Modal/AddPaymentModal'
 import PaymentMethodItem from './PaymentMethodItem'
+import BankItem from './BankItem'
 import { mapGetters } from 'vuex'
+import { api } from '~/services'
 export default {
     name: 'PaymentsTab',
     data: () => ({
         loading: false,
+        paypalInfo: {},
     }),
     computed: {
         ...mapGetters({
             paymentMethods: 'me/paymentMethods',
+            user: 'me/user',
         }),
     },
     components: {
@@ -75,12 +82,26 @@ export default {
     async created() {
         this.loading = true
         await this.$store.dispatch('me/loadPaymentMethods')
+        localStorage.setItem('paypal_type', 'payment')
         this.loading = false
     },
     methods: {
         handleAddClick() {
             this.$bus.$emit('modal.addPayment.open')
         },
+        async getPaypalInfo() {
+            const accountType = localStorage.getItem('paypal_type') 
+            const response = await api.account.getPaypalAccount(this.userInfo.id, accountType)
+            if (response.status === 'success') {
+                this.paypalInfo = {
+                    payouts_enabled: response.payouts_enabled,
+                    paypal_email: response.paypal_email
+                }
+            }
+        },
+        deletePaypalAccount() {
+            this.paypalInfo = {}
+        }
     },
 }
 </script>

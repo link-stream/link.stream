@@ -34,7 +34,7 @@
         </div>
         <div class="paypal">
             <div v-if="paypalInfo.paypal_email">
-                <bank-item :bankInfo="paypalInfo" type="paypal" @delete="paypalInfo = {}" />
+                <bank-item :bankInfo="paypalInfo" type="paypal" @delete="deletePaypalAccount" />
             </div>
             <div v-else>
                 <h6 class="sub-title">PayPal</h6>
@@ -112,26 +112,28 @@ export default {
                     break
             }
         }
+        this.initPaypalButton()
+        localStorage.setItem('paypal_type', 'payout')
         this.loading = false
     },
-    mounted() {
-        paypal.use( ['login'], function (login) {
-            login.render ({
-                "appid": process.env.VUE_APP_PAYPAL_CLIENT_ID,
-                "authend":"sandbox",
-                "scopes": "openid email",
-                "containerid": "paypal_container",
-                "responseType": "code id_Token",
-                "locale": "en-us",
-                "buttonType": "CWP",
-                "buttonShape": "pill",
-                "buttonSize": "lg",
-                "fullPage": "true",
-                "returnurl": "https://dev-link-vue.link.stream/app/account/payments/paypal_confirm"
-            })
-        })
-    },
     methods: {
+        initPaypalButton() {
+            paypal.use( ['login'], function (login) {
+                login.render ({
+                    "appid": process.env.VUE_APP_PAYPAL_CLIENT_ID,
+                    "authend":"sandbox",
+                    "scopes": "openid email",
+                    "containerid": "paypal_container",
+                    "responseType": "code id_Token",
+                    "locale": "en-us",
+                    "buttonType": "CWP",
+                    "buttonShape": "pill",
+                    "buttonSize": "lg",
+                    "fullPage": "true",
+                    "returnurl": "https://dev-link-vue.link.stream/app/account/payments/paypal_confirm"
+                })
+            })
+        },
         async handleAddClick() {
             //this.$bus.$emit('modal.addBank.open')
             if (this.state === 3) {
@@ -162,7 +164,8 @@ export default {
             this.state = 3
         },
         async getPaypalInfo() {
-            const response = await api.account.getPaypalAccount(this.userInfo.id)
+            const accountType = localStorage.getItem('paypal_type') 
+            const response = await api.account.getPaypalAccount(this.userInfo.id, accountType)
             if (response.status === 'success') {
                 this.paypalInfo = {
                     payouts_enabled: response.payouts_enabled,
@@ -170,6 +173,10 @@ export default {
                 }
             }
         },
+        deletePaypalAccount() {
+            this.paypalInfo = {}
+            this.initPaypalButton()
+        }
     },
 }
 </script>

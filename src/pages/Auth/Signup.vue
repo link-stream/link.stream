@@ -173,6 +173,7 @@ import { Validator } from 'vee-validate'
 import { setStatusChange } from '~/utils'
 import { api } from '~/services'
 import { authentication } from '~/mixins'
+import Cookies from 'js-cookie'
 
 export default {
     name: 'Signup',
@@ -259,26 +260,46 @@ export default {
                 }
                 this.status.loading.signup = true
                 var params = null
-                if (this.type_client) {
+				var previous_route = Cookies.getJSON('previous_route')
+				if(previous_route !== undefined){
+					params = {
+                        user_name: this.form.name,
+                        email: this.form.email,
+                        password: this.form.password,
+                        type: 'listener',
+                    }
+				}
+				else{
+					if (this.type_client) {
                     params = {
                         user_name: this.form.name,
                         email: this.form.email,
                         password: this.form.password,
                         type: this.type_client,
                     }
-                } else {
-                    params = {
-                        user_name: this.form.name,
-                        email: this.form.email,
-                        password: this.form.password,
-                    }
-                }
+					} else {
+						params = {
+							user_name: this.form.name,
+							email: this.form.email,
+							password: this.form.password,
+						}
+					}
+				}               
 
                 const { status, data, error } = await api.users.signup(params)
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.signup', false)
                     setTimeout(() => {
-                        this.$store.dispatch('auth/signup', { user: data })
+						if(previous_route !== undefined){
+							this.$store.dispatch('auth/login', {
+								user: data,
+								route: previous_route,
+							})
+						}
+						else{
+							this.$store.dispatch('auth/signup', { user: data })
+						}
+                        
                     }, 1500)
                 } else {
                     setStatusChange(this, 'status.error.signup')

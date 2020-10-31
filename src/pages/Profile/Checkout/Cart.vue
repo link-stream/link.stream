@@ -135,6 +135,7 @@ export default {
     },
     async mounted() {
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
+		if (this.session !== undefined) Cookies.remove('previous_route')
         this.params_url = Cookies.getJSON('params_url')
         await this.createItems()
 
@@ -154,6 +155,11 @@ export default {
     methods: {
         checkoutTo() {
             if (this.session === undefined) {
+				var previous_route = {
+                    route: 'payWithCard',
+                    params: ''
+                }
+                Cookies.set('previous_route', previous_route)
                 this.$router
                     .push({
                         name: 'checkoutSignin',

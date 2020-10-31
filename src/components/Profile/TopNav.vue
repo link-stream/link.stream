@@ -64,7 +64,7 @@
                 pill
                 class="bg-transparent text-white btn-login sign-in"
                 size="md"
-                :to="{ name: 'login' }"
+                @click="goLogin()"
             >
                 Sign In
             </b-button>
@@ -152,11 +152,26 @@ export default {
     data: () => ({
         searchString: '',
         session: '',
+		params_url: [],
     }),
     mounted() {
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
+		if (this.session !== undefined) Cookies.remove('previous_route')
+		this.params_url = Cookies.getJSON('params_url')
     },
     methods: {
+		goLogin(){
+            var previous_route = {
+                route: 'publicProfile',
+                params: this.params_url.url_profile
+            }
+            Cookies.set('previous_route', previous_route)
+            this.$router
+                    .push({
+                        name: 'checkoutSignin',
+                    })
+                    .catch(err => {})
+        },
         toggle() {},
         showCart() {
             this.$bus.$emit('modal.addedCart.open')

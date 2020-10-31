@@ -11,7 +11,8 @@
 					></CartItemDark>
 				</div>
 			</div>	
-            <div class="mx-4">
+			<
+            <b-col cols="12" xl="12" lg="12" md="12" class="mx-4">
                 <b-row>
                     <b-col cols="9" xl="8" lg="8" md="7">
                         <span class="summary-details-dark">Subtotal</span>
@@ -67,7 +68,7 @@
                         <span class="details-price-dark">{{ percent }}</span>
                     </b-col>
                 </b-row>
-                <div class="divider"></div>
+                <div class="divider my-3"></div>
                 <b-row class="mt-2">
                     <b-col cols="9" xl="7" lg="7" md="7">
                         <span class="summary-total-dark">Order Total</span>
@@ -77,7 +78,7 @@
                         <span class="total-price-dark">{{ total }}</span>
                     </b-col>
                 </b-row>
-            </div>
+            </b-col>
         </b-card>
     </div>
 </template>

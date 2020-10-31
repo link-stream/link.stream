@@ -11,7 +11,7 @@
 					></CartItemDark>
 				</div>
 			</div>	
-            <div class="mx-4">
+            <b-col cols="12" xl="12" lg="12" md="12" class="mx-4">
                 <b-row>
                     <b-col cols="9" xl="8" lg="8" md="7">
                         <span class="summary-details-dark">Subtotal</span>
@@ -77,7 +77,7 @@
                         <span class="total-price-dark">{{ total }}</span>
                     </b-col>
                 </b-row>
-            </div>
+            </b-col>
         </b-card>
     </div>
 </template>

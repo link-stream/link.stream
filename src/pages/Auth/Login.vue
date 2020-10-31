@@ -185,8 +185,7 @@ export default {
                     email,
                     password,
                 })
-                if (status === 'success') {
-                    var new_route = this.route ? this.route : 'accountDashboard'
+                if (status === 'success') {                    
                     setStatusChange(this, 'status.error.signin', false)
                     setTimeout(() => {
 						var previous_route = Cookies.getJSON('previous_route')

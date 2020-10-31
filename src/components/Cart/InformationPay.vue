@@ -11,6 +11,7 @@
 					></CartItemDark>
 				</div>
 			</div>	
+			<
             <b-col cols="12" xl="12" lg="12" md="12" class="mx-4">
                 <b-row>
                     <b-col cols="9" xl="8" lg="8" md="7">

@@ -109,6 +109,7 @@ export default {
                 paypal_email: this.email,
                 account_type: localStorage.getItem('paypal_type'),
             }
+            console.log(params)
             const response = await api.account.confirmPaypalAccount(params)
             console.log(response)
         }

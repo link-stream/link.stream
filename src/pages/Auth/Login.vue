@@ -127,6 +127,7 @@ import { setStatusChange } from '~/utils'
 import { api } from '~/services'
 import { authentication } from '~/mixins'
 // import { getAuthCookie } from '~/utils/auth'
+import Cookies from 'js-cookie'
 
 export default {
     name: 'Login',
@@ -188,9 +189,10 @@ export default {
                     var new_route = this.route ? this.route : 'accountDashboard'
                     setStatusChange(this, 'status.error.signin', false)
                     setTimeout(() => {
+						var previous_route = Cookies.getJSON('previous_route')
                         this.$store.dispatch('auth/login', {
                             user: data,
-                            route: new_route,
+                            route: previous_route,
                         })
                     }, 1500)
                 } else {

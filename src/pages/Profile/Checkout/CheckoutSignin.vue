@@ -199,9 +199,10 @@ export default {
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.signin', false)
                     setTimeout(() => {
+                        var previous_route = Cookies.getJSON('previous_route')
                         this.$store.dispatch('auth/login', {
                             user: data,
-                            route: 'payWithCard',
+                            route: previous_route,
                         })
                     }, 1500)
                 } else {

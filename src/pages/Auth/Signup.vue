@@ -173,6 +173,7 @@ import { Validator } from 'vee-validate'
 import { setStatusChange } from '~/utils'
 import { api } from '~/services'
 import { authentication } from '~/mixins'
+import Cookies from 'js-cookie'
 
 export default {
     name: 'Signup',
@@ -259,6 +260,8 @@ export default {
                 }
                 this.status.loading.signup = true
                 var params = null
+				var previous_route = Cookies.getJSON('previous_route')
+                if(previous_route.route === 'payWithCard') this.type_client = 'listener'
                 if (this.type_client) {
                     params = {
                         user_name: this.form.name,

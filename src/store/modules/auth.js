@@ -63,7 +63,23 @@ const actions = {
             commit(authTypes.LOGIN, { user })
             setAuthCookie({ id: user.id, token: user.token })
             await dispatch('me/loadAccount', null, { root: true })
-            router.push({ name: route })
+            if(route === undefined){                
+                router.push({ 
+                    name: 'accountDashboard',                    
+                })
+            } else {
+                if(route.route === 'publicProfile'){                
+                    router.push({ 
+                        name: route.route,
+                        params: { url: route.params },
+                    })
+                }
+                if(route.route === 'payWithCard'){                
+                    router.push({ 
+                        name: route.route,                    
+                    })
+                }                 
+            }
         }
     },
 

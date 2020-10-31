@@ -1009,6 +1009,7 @@ export default {
         this.getAllCountries()
     },
     async mounted() {
+		Cookies.remove('previous_route')
         var itemsCookies = Cookies.getJSON(appConstants.cookies.cartItem.name)
         this.params_url = Cookies.getJSON('params_url')
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)

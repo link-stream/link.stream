@@ -67,7 +67,7 @@
                         <span class="details-price-dark">{{ percent }}</span>
                     </b-col>
                 </b-row>
-                <div class="divider"></div>
+                <div class="divider my-3"></div>
                 <b-row class="mt-2">
                     <b-col cols="9" xl="7" lg="7" md="7">
                         <span class="summary-total-dark">Order Total</span>

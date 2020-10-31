@@ -100,6 +100,7 @@ export default {
                     paypal_email: response.paypal_email
                 }
             }
+            console.log(response)
         },
         deletePaypalAccount() {
             this.paypalInfo = {}

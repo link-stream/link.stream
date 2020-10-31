@@ -531,8 +531,8 @@ export const api = {
                 method,
             })
         },
-        async getPaypalAccount(userId) {
-            const endpoint = '/users/paypal_account/' + userId
+        async getPaypalAccount(userId, accountType) {
+            const endpoint = `/users/paypal_account/${userId}/${accountType}`
             const method = METHOD_GET
             return await call({
                 endpoint,
@@ -582,8 +582,8 @@ export const api = {
                 method,
             })
         },
-        async deletePaypalAccount(userId) {
-            const endpoint = `/users/paypal_account/${userId}`
+        async deletePaypalAccount(userId, accountType) {
+            const endpoint = `/users/paypal_account/${userId}/${accountType}`
             const method = METHOD_DELETE
             return await call({
                 endpoint,

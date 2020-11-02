@@ -144,10 +144,10 @@
                 </b-col>
                 <b-col cols="12" class="btn-divider">
                     <div class="separator">or</div>
-                    <GoogleLogin
+                    <a
                         class="g-login-btn-wrap google-component col"
-                        :params="google"
-                        :onSuccess="onGoogleSuccess"
+                        href="#"
+                        @click.prevent="handleClickSignIn"
                     >
                         <spinner-button
                             google
@@ -161,7 +161,7 @@
                             />
                             Sign up with Google
                         </spinner-button>
-                    </GoogleLogin>
+                    </a>
                 </b-col>
             </b-row>
         </b-container>

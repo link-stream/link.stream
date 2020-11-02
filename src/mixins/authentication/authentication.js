@@ -1,16 +1,9 @@
-import GoogleLogin from 'vue-google-login'
 import { setStatusChange } from '~/utils'
 import { api } from '~/services'
 
 export default {
-    components: {
-        GoogleLogin,
-    },
     data() {
         return {
-            google: {
-                client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
-            },
             instagram: {
                 client_id: process.env.VUE_APP_INSTAGRAM_CLIENT_ID,
                 redirect_uri: window.location.href,
@@ -28,7 +21,8 @@ export default {
         }
     },
     methods: {
-        async onGoogleSuccess(googleUser) {
+        async handleClickSignIn() {
+            const googleUser = await this.$gAuth.signIn()
             const { id_token: platform_token } = googleUser.getAuthResponse()
             if (platform_token) {
                 this.status.loading.google = true

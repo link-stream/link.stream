@@ -139,6 +139,9 @@ export default {
             })
         },
         async handleClickSignIn() {
+            if (this.$gAuth.isAuthorized) {
+                await this.$gAuth.signOut()
+            }
             const googleUser = await this.$gAuth.signIn()
             if (!googleUser) {
                 return

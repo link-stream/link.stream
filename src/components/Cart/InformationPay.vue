@@ -1,17 +1,21 @@
 <template>
     <div class="height100">
         <b-card class="cart-item-dark height100 pt-5">
-			<div class="scrollbar style-scrollbar" >
-				<div v-for="(item, index) in itemsCart" :key="index" class="force-overflow">
-					<CartItemDark
-						:artistName="item.artistName"
-						:avatarSrc="item.avatarSrc"
-						:elements="item.elements"
-						:index="item.index"
-					></CartItemDark>
-				</div>
-			</div>	
-			<
+            <div class="scrollbar style-scrollbar">
+                <div
+                    v-for="(item, index) in itemsCart"
+                    :key="index"
+                    class="force-overflow"
+                >
+                    <CartItemDark
+                        :artistName="item.artistName"
+                        :avatarSrc="item.avatarSrc"
+                        :elements="item.elements"
+                        :index="item.index"
+                    ></CartItemDark>
+                </div>
+            </div>
+            <
             <b-col cols="12" xl="12" lg="12" md="12" class="mx-4">
                 <b-row>
                     <b-col cols="9" xl="8" lg="8" md="7">
@@ -127,8 +131,8 @@ export default {
         this.fees = itemsCookies[0].fees
         this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
     },
-	
-	methods: {
+
+    methods: {
         createItems(items) {
             if (items) {
                 this.itemsCart = []

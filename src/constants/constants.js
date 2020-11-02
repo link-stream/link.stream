@@ -65,19 +65,19 @@ export const constants = {
         },
         {
             id: '4',
-            title: 'Follow on Instagram',
-            icon: 'ig',
+            title: 'Follow on Facebook',
+            icon: 'facebook',
         },
         {
             id: '5',
-            title: 'Subscribe to SMS',
+            title: 'Subscribe',
             icon: 'envelope-open',
         },
-        {
-            id: '6',
-            title: 'Subscribe to Emails',
-            icon: 'envelope-open',
-        },
+        // {
+        //     id: '6',
+        //     title: 'Subscribe to Emails',
+        //     icon: 'envelope-open',
+        // },
     ],
     cardImages: [
         {

@@ -21,20 +21,28 @@
 
 <script>
 import { api } from '~/services'
-
+import Cookies from 'js-cookie'
+import { appConstants } from '~/constants'
 export default {
     name: 'SignupConfirm',
+    data() {
+        return {
+            pending_user: null,
+        }
+    },
     mounted() {
         // Redirect to signup page when there is no information of signup user
-        if (!this.$store.getters.pendingUser) {
+        if (!Cookies.getJSON(appConstants.cookies.pendingUser.name)) {
             this.$router.push({ name: 'signup' })
         }
     },
     methods: {
         async resendConfirationEmail() {
-            const { id: user_id } = this.$store.getters.pendingUser
+            this.pending_user = Cookies.getJSON(
+                appConstants.cookies.pendingUser.name
+            )
             const { status, error } = await api.users.resendConfirmEmail({
-                user_id,
+                user_id: this.pending_user.id,
             })
             if (status === 'success') {
                 this.$toast.success(

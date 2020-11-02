@@ -151,27 +151,7 @@
                         >
                             Connect
                         </basic-button>
-                    </li>
-                    <li class="list-item">
-                        <img src="@/assets/img/ico/social-ig.svg" />
-                        <span class="username">
-                            {{ social.instagram || 'Instagram' }}
-                        </span>
-                        <IconButton
-                            v-if="social.instagram"
-                            icon="trash-sm"
-                            class="disconnect-btn"
-                            @click="handleInstagramDisconnect"
-                        />
-                        <basic-button
-                            v-else
-                            variant="link"
-                            class="connect-btn"
-                            @click="handleInstagramConnect"
-                        >
-                            Connect
-                        </basic-button>
-                    </li>
+                    </li>                    
                     <li class="list-item">
                         <img src="@/assets/img/ico/social-soundcloud.svg" />
                         <span class="username">
@@ -377,10 +357,6 @@ export default {
         handleTwitterDisconnect() {
             this.social.twitter = false
             this.form.twitter = ''
-        },
-        handleInstagramConnect() {},
-        handleInstagramDisconnect() {
-            this.social.instagram = false
         },
         handleSoundcloudConnect() {},
         handleSoundcloudDisconnect() {

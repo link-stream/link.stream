@@ -64,7 +64,11 @@
                 </div>
             </div>
         </div>
-        <BeatPackList :beatPacks="value" @remove-item="handleBeatPackRemove" />
+        <BeatPackList 
+            :beatPacks="value" 
+            @remove-item="handleBeatPackRemove" 
+            v-if="value.length || !showBeatPackList"
+        />
     </div>
 </template>
 <script>
@@ -88,6 +92,7 @@ export default {
         return {
             filterText: null,
             showDropdown: false,
+            showBeatPackList: false,
         }
     },
     computed: {
@@ -108,6 +113,7 @@ export default {
         },
     },
     async created() {
+        this.showBeatPackList = this.$route.name === 'accountBeatAdd' || this.$route.name ===  'accountBeatEdit'
         await this.$store.dispatch('me/loadBeatPacks')
         await this.$store.dispatch('me/loadRelatedBeatPacks')
     },

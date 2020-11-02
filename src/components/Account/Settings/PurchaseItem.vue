@@ -111,7 +111,10 @@ export default {
             window.open(this.purchase.download_url, '_self')
             this.loading = false
         },
-        handleDownloadLicense() {},
+        handleDownloadLicense() {
+            const downloadUrl = `${process.env.VUE_APP_API_URL}a/license_pdf/${this.purchase.id}/${this.purchase.item_id}`
+            window.open(downloadUrl, '_blank')
+        },
         handleShareClick() {
             const artItem = {
                 id: this.purchase.id,

@@ -289,18 +289,7 @@ export default {
                 const { status, data, error } = await api.users.signup(params)
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.signup', false)
-                    setTimeout(() => {
-						if(previous_route !== undefined){
-							this.$store.dispatch('auth/login', {
-								user: data,
-								route: previous_route,
-							})
-						}
-						else{
-							this.$store.dispatch('auth/signup', { user: data })
-						}
-                        
-                    }, 1500)
+                    await this.$store.dispatch('auth/signup', { user: data })
                 } else {
                     setStatusChange(this, 'status.error.signup')
                     this.$toast.error(error)

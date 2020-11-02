@@ -19,10 +19,17 @@ export const getPendingUserCookie = () =>
     Cookies.getJSON(appConstants.cookies.pendingUser.name)
 
 export const setPendingUserCookie = value => {
-    Cookies.set(appConstants.cookies.pendingUser.name, value, {
-        expires: appConstants.cookies.pendingUser.expires,
-        secure: process.env === 'production',
-    })
+    Cookies.set(
+        appConstants.cookies.pendingUser.name,
+        {
+            id: value.id,
+            user_name: value.user_name,
+        },
+        {
+            expires: appConstants.cookies.pendingUser.expires,
+            secure: process.env === 'production',
+        }
+    )
 }
 
 export function clearLocalStorage() {

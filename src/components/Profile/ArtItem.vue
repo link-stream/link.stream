@@ -87,7 +87,12 @@
                 @click="handleBuyClick"
                 >Add to cart</basic-button
             >
-            <IconButton class="btn-download" icon="download" v-show="false" />
+            <IconButton 
+                class="btn-download" 
+                icon="download" 
+                v-if="showDownload" 
+                @click="handleDownloadClick" 
+            />
         </div>
     </div>
 </template>
@@ -149,7 +154,13 @@ export default {
     data() {
         return {
             loadingDownload: false,
+            showDownload: false,
         }
+    },
+    created() {
+        this.showDownload =
+            this.artItem.type === 'beat' &&
+            this.artItem.licenses.find(license => license.price === '0.00')
     },
     methods: {
         handleBuyClick() {
@@ -183,7 +194,15 @@ export default {
         },
         handleDownloadClick() {
             this.loadingDownload = true
-            const downloadUrl = `${process.env.VUE_APP_API_URL}a/free_download/${this.profile.id}/${this.artItem.id}/${this.artItem.type}`
+            let downloadUrl = ''
+            if (this.artItem.type === 'pack') {
+                downloadUrl = `${process.env.VUE_APP_API_URL}a/free_download/${this.profile.id}/${this.artItem.id}/${this.artItem.type}`
+            } else {
+                const license = this.artItem.licenses.find(
+                    license => license.price === '0.00'
+                )
+                downloadUrl = `${process.env.VUE_APP_API_URL}a/free_download/${this.profile.id}/${this.artItem.id}/${this.artItem.type}/${license.license_id}`
+            }
             window.open(downloadUrl, '_self')
             this.loadingDownload = false
         },

@@ -92,8 +92,7 @@ export default {
             this.$bus.$emit('modal.addPayment.open')
         },
         async getPaypalInfo() {
-            const accountType = localStorage.getItem('paypal_type') 
-            const response = await api.account.getPaypalAccount(this.user.id, accountType)
+            const response = await api.account.getPaypalAccount(this.user.id, 'payment')
             if (response.status === 'success') {
                 this.paypalInfo = {
                     payouts_enabled: response.payouts_enabled,

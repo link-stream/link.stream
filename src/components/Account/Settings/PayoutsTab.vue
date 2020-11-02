@@ -33,10 +33,8 @@
             />
         </div>
         <div class="paypal">
-            <div v-if="paypalInfo.paypal_email">
-                <bank-item :bankInfo="paypalInfo" type="paypal" @delete="deletePaypalAccount" />
-            </div>
-            <div v-else>
+            <LoadingSpinner class="page-loader" v-if="loadingPaypal" />
+            <div v-if="!loadingPaypal && !paypalInfo.paypal_email">
                 <h6 class="sub-title">PayPal</h6>
                 <ul class="desc-list">
                     <li>Connect using your existing PayPal account</li>
@@ -47,6 +45,10 @@
                     <li>May include fees</li>
                 </ul>
                 <span id='paypal_container'></span>
+                
+            </div>
+            <div v-else-if="paypalInfo.paypal_email">
+                <bank-item :bankInfo="paypalInfo" type="paypal" @delete="deletePaypalAccount" />
             </div>
         </div>
         <AddBankModal />
@@ -69,6 +71,7 @@ export default {
         loginUrl: '#',
         connectUrl: '',
         accountId: '',
+        loadingPaypal: false,
     }),
     computed: {
         ...mapGetters({
@@ -83,8 +86,7 @@ export default {
     },
     async created() {
         this.loading = true
-        // await this.$store.dispatch('me/loadPaymentMethods')
-        await this.getPaypalInfo()
+        this.loadingPaypal = true
         const stripeAccount = await api.account.getStripeAccount(
             this.userInfo.id
         )
@@ -112,9 +114,11 @@ export default {
                     break
             }
         }
+        this.loading = false
+        await this.getPaypalInfo()
         this.initPaypalButton()
         localStorage.setItem('paypal_type', 'payout')
-        this.loading = false
+        this.loadingPaypal = false
     },
     methods: {
         initPaypalButton() {
@@ -164,14 +168,15 @@ export default {
             this.state = 3
         },
         async getPaypalInfo() {
-            const accountType = localStorage.getItem('paypal_type') 
-            const response = await api.account.getPaypalAccount(this.userInfo.id, accountType)
+            const response = await api.account.getPaypalAccount(this.userInfo.id, 'payout')
             if (response.status === 'success') {
                 this.paypalInfo = {
                     payouts_enabled: response.payouts_enabled,
                     paypal_email: response.paypal_email
                 }
-            }
+            } else {
+                this.paypalInfo = {}
+            } 
         },
         deletePaypalAccount() {
             this.paypalInfo = {}

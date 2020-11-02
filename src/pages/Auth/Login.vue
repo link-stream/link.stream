@@ -154,9 +154,6 @@ export default {
             },
         }
     },
-    mounted() {
-        console.log('google key', this.google)
-    },
     methods: {
         validateState(ref) {
             if (

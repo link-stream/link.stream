@@ -7,10 +7,7 @@
                 class="mr-2"
                 color="warning"
             />
-            <img
-                v-if="cardImage"
-                :src="cardImage"
-            />
+            <img v-if="cardImage" :src="cardImage" />
             <b-icon-credit-card v-else class="mr-2" />
         </div>
         <div class="item-body">

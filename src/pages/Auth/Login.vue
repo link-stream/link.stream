@@ -1,5 +1,5 @@
 <template>
-    <div class="page page-login my-4"> 
+    <div class="page page-login my-4">
         <b-container>
             <b-row class="text-center d-flex justify-content-center">
                 <!-- <b-col cols="12" class="my-2">
@@ -93,7 +93,7 @@
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="btn-divider">
-                    <div class="separator">or</div>   
+                    <div class="separator">or</div>
                     <a
                         class="g-login-btn-wrap google-component col"
                         href="#"
@@ -111,7 +111,7 @@
                             />
                             Sign in with Google
                         </spinner-button>
-                    </a>                 
+                    </a>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-3">
                     Don't have an account?
@@ -185,10 +185,10 @@ export default {
                     email,
                     password,
                 })
-                if (status === 'success') {                    
+                if (status === 'success') {
                     setStatusChange(this, 'status.error.signin', false)
                     setTimeout(() => {
-						var previous_route = Cookies.getJSON('previous_route')
+                        var previous_route = Cookies.getJSON('previous_route')
                         this.$store.dispatch('auth/login', {
                             user: data,
                             route: previous_route,

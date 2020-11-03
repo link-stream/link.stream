@@ -97,7 +97,7 @@
                             </template>
                         </vue-select>
                     </b-form-group>
-                    <div class="thumb-upload no-image">
+                    <div class="thumb-upload">
                         <h6>Artwork</h6>
                         <div class="d-flex">
                             <div
@@ -221,7 +221,7 @@
                             </div>
                         </b-col>
                     </b-form-row>
-                    <div class="thumb-upload no-image">
+                    <div class="thumb-upload">
                         <h6>Background image</h6>
                         <div class="d-flex">
                             <div

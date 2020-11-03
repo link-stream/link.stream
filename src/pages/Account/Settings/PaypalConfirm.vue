@@ -1,10 +1,7 @@
 <template>
     <div class="page page-account-settings">
         <h1 class="page-title">
-            <LoadingSpinner
-                class="m-2 float-left"
-                animation="bounce"
-            />
+            <LoadingSpinner class="m-2 float-left" animation="bounce" />
             Processing...
         </h1>
         <h6 class="page-subtitle">
@@ -19,7 +16,7 @@ import { mapGetters } from 'vuex'
 import { api } from '~/services'
 export default {
     name: 'PaypalConfirm',
-    data: () =>({
+    data: () => ({
         auth_code: '',
         access_token: '',
         refresh_token: '',
@@ -47,7 +44,7 @@ export default {
             this.$router.push({
                 name: 'accountSettingsPayouts',
             })
-        } else if( accountType === 'payment') {
+        } else if (accountType === 'payment') {
             this.$router.push({
                 name: 'accountSettingsPayments',
             })
@@ -65,9 +62,8 @@ export default {
             const endpoint = 'https://api.sandbox.paypal.com/v1/oauth2/token'
             const params = {
                 grant_type: 'authorization_code',
-                code: this.auth_code
+                code: this.auth_code,
             }
-
             const { status, data } = await axios({
                 method: 'POST',
                 url: endpoint,
@@ -75,12 +71,11 @@ export default {
                 headers,
                 auth,
             })
-            console.log(data)
             if (status === 200) {
                 this.access_token = data.access_token
                 this.refresh_token = data.refresh_token
             } else {
-                this.$toast.error(response.data.error_description)
+                this.$toast.error(data.error_description)
             }
         },
         async getUserInfo() {
@@ -94,12 +89,11 @@ export default {
                 url: endpoint,
                 headers,
             })
-            console.log(data)
             if (status === 200) {
                 this.user_id = data.user_id
                 this.email = data.emails.find(({ primary }) => primary).value
             } else {
-                this.$toast.error(response.data.error_description)
+                this.$toast.error(data.error_description)
             }
         },
         async savePaypalInfo() {
@@ -109,10 +103,8 @@ export default {
                 paypal_email: this.email,
                 account_type: localStorage.getItem('paypal_type'),
             }
-            console.log(params)
-            const response = await api.account.confirmPaypalAccount(params)
-            console.log(response)
-        }
-    }
+            await api.account.confirmPaypalAccount(params)
+        },
+    },
 }
 </script>

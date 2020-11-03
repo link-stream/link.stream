@@ -26,7 +26,8 @@
                             </span>
                             <span
                                 v-if="
-                                    activity.type.trim().toLowerCase() === 'click' && activity.link
+                                    activity.type.trim().toLowerCase() ===
+                                        'click' && activity.link
                                 "
                             >
                                 :

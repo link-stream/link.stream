@@ -118,7 +118,7 @@
                 </small>
             </div>
             <div v-else class="paypal-action">
-                <span id='paypal_payment'></span>
+                <span id="paypal_payment"></span>
             </div>
         </template>
         <template v-slot:modal-footer>
@@ -268,22 +268,23 @@ export default {
             this.$v.form.$reset()
         },
         initPaypalButton() {
-            paypal.use( ['login'], function (login) {
-                login.render ({
-                    "appid": process.env.VUE_APP_PAYPAL_CLIENT_ID,
-                    "authend":"sandbox",
-                    "scopes": "openid email",
-                    "containerid": "paypal_payment",
-                    "responseType": "code id_Token",
-                    "locale": "en-us",
-                    "buttonType": "CWP",
-                    "buttonShape": "pill",
-                    "buttonSize": "lg",
-                    "fullPage": "true",
-                    "returnurl": "https://dev-link-vue.link.stream/app/account/payments/paypal_confirm"
+            // eslint-disable-next-line
+            paypal.use(['login'], function(login) {
+                login.render({
+                    'appid': process.env.VUE_APP_PAYPAL_CLIENT_ID,
+                    'authend': 'sandbox',
+                    'scopes': 'openid email',
+                    'containerid': 'paypal_payment',
+                    'responseType': 'code id_Token',
+                    'locale': 'en-us',
+                    'buttonType': 'CWP',
+                    'buttonShape': 'pill',
+                    'buttonSize': 'lg',
+                    'fullPage': 'true',
+                    'returnurl': 'https://dev-link-vue.link.stream/app/account/payments/paypal_confirm'
                 })
             })
-        }
+        },
     },
 }
 </script>

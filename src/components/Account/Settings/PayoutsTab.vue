@@ -122,24 +122,24 @@ export default {
     },
     methods: {
         initPaypalButton() {
-            paypal.use( ['login'], function (login) {
-                login.render ({
-                    "appid": process.env.VUE_APP_PAYPAL_CLIENT_ID,
-                    "authend":"sandbox",
-                    "scopes": "openid email",
-                    "containerid": "paypal_container",
-                    "responseType": "code id_Token",
-                    "locale": "en-us",
-                    "buttonType": "CWP",
-                    "buttonShape": "pill",
-                    "buttonSize": "lg",
-                    "fullPage": "true",
-                    "returnurl": "https://dev-link-vue.link.stream/app/account/payments/paypal_confirm"
+            // eslint-disable-next-line
+            paypal.use(['login'], function(login) {
+                login.render({
+                    'appid': process.env.VUE_APP_PAYPAL_CLIENT_ID,
+                    'authend':'sandbox',
+                    'scopes': 'openid email',
+                    'containerid': 'paypal_container',
+                    'responseType': 'code id_Token',
+                    'locale': 'en-us',
+                    'buttonType': 'CWP',
+                    'buttonShape': 'pill',
+                    'buttonSize': 'lg',
+                    'fullPage': 'true',
+                    'returnurl': 'https://dev-link-vue.link.stream/app/account/payments/paypal_confirm'
                 })
             })
         },
         async handleAddClick() {
-            //this.$bus.$emit('modal.addBank.open')
             if (this.state === 3) {
                 const response = await api.account.connectStripeAccount({
                     debug: false,
@@ -181,7 +181,7 @@ export default {
         deletePaypalAccount() {
             this.paypalInfo = {}
             this.initPaypalButton()
-        }
+        },
     },
 }
 </script>

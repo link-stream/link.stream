@@ -167,7 +167,7 @@ export default {
                     status === 'success'
                         ? this.$toast.success(message)
                         : this.$toast.error(error)
-                    this.saving= false
+                    this.saving = false
                 },
             })
         },
@@ -175,10 +175,7 @@ export default {
             const selectedMedia = this.medias.find(
                 ({ id }) => id === this.selectedId
             )
-            this.$emit(
-                'select',
-                selectedMedia.image_name
-            )
+            this.$emit('select', selectedMedia.image_name)
             this.selectedId = -1
             this.close()
         },

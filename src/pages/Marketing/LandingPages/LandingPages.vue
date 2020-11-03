@@ -8,13 +8,13 @@
                 </h6>
             </div>
             <div class="right-col">
-                <basic-button
+                <!-- <basic-button
                     class="btn-create-split"
                     variant="outline-black"
                     @click="handleCreateSplitClick"
                 >
                     Create Split Test
-                </basic-button>
+                </basic-button> -->
                 <basic-button @click="handleCreatePageClick">
                     Create New page
                 </basic-button>
@@ -55,13 +55,6 @@ export default {
     data: () => ({
         loading: false,
         pages: [
-            {
-                type: 'Split Test',
-                title: 'Placeholder Split Test Title',
-                created_at: '2020/07/08 22:05:00',
-                status: 'live',
-                conversion: '',
-            },
             {
                 type: 'Page',
                 title: 'Someone To Love You - Copy',

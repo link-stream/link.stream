@@ -207,7 +207,7 @@ export const api = {
             const method = METHOD_GET
             return await call({ endpoint, method })
         },
-         async getIpAddress() {
+        async getIpAddress() {
             const endpoint = 'profiles/visitor'
             const method = METHOD_GET
             return await call({ endpoint, method })
@@ -973,8 +973,7 @@ export const api = {
                 method,
             })
         },
-		
-		async cardDetails(params) {
+        async cardDetails(params) {
             let endpoint = '/payments/cart_details/'
             const method = METHOD_POST
             return await call({

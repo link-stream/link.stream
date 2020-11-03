@@ -7,7 +7,7 @@ export const menus = [
         label: 'Home',
         to: '/app',
     },
-	{
+    {
         id: 'sales',
         icon: ['fas', 'tachometer-alt'],
         img: 'dollar-sign-solid-nav.svg',
@@ -111,11 +111,11 @@ export const menus = [
                 to: '/app/marketing/subscribers',
                 target: '_self',
             },
-            // {
-            //     label: 'Landing Pages',
-            //     to: '/app/marketing/landing-pages',
-            //     target: '_self',
-            // },
+            {
+                label: 'Landing Pages',
+                to: '/app/marketing/landing-pages',
+                target: '_self',
+            },
             // {
             //     label: 'Ad Promos',
             //     to: '/app/marketing/ad-promos',

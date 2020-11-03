@@ -19,8 +19,12 @@
         justify-content: space-between;
         border-top: 1px solid $gray-330;
         padding: 20px 0;
+        margin-bottom: 80px;
         .btn {
             width: 130px;
+        }
+        @media screen and (max-width: 650px) {
+            margin-bottom: 120px;
         }
     }
 
@@ -181,5 +185,11 @@
                 margin: 0 0 5px 0;
             }
         }
+    }
+}
+.beatpack-container {
+    margin-bottom: 100px;
+    @media screen and (max-width: 650px) {
+        margin-bottom: 150px;
     }
 }

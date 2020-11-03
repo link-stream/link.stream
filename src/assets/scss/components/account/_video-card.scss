@@ -19,6 +19,9 @@
     .card-drag-icon {
         position: relative;
         top: 46px;
+        @media screen and (max-width: 650px) {
+            top: 15px;
+        }
     }
 
     .video-content {

@@ -2,7 +2,7 @@
     <div class="tab InfoTab">
         <h2 class="section-title">Account Info</h2>
         <div class="tab-body">
-            <b-form class="main-info">
+            <b-form class="main-info" v-if="userInfo">
                 <b-form-group label="Username">
                     <b-form-input
                         v-model="$v.form.user_name.$model"

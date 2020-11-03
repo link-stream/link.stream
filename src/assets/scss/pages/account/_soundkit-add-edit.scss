@@ -19,8 +19,12 @@
         justify-content: space-between;
         border-top: 1px solid $gray-330;
         padding: 20px 0;
+        margin-bottom: 100px;
         .btn {
             width: 130px;
+        }
+        @media screen and (max-width: 650px) {
+            margin-bottom: 130px;
         }
     }
 
@@ -159,5 +163,11 @@
                 display: none;
             }
         }
+    }
+}
+.soundkit-draggable {
+    //margin-bottom: 60px;
+    @media screen and (max-width: 650px) {
+        margin-bottom: 150px;
     }
 }

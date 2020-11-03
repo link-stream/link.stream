@@ -261,29 +261,35 @@ export default {
                 this.status.loading.signup = true
                 var params = null
                 var previous_route = Cookies.getJSON('previous_route')
-                if (previous_route !== undefined) {
-                    params = {
-                        user_name: this.form.name,
-                        email: this.form.email,
-                        password: this.form.password,
-                        type: 'listener',
-                    }
-                } else {
-                    if (this.type_client) {
-                        params = {
-                            user_name: this.form.name,
-                            email: this.form.email,
-                            password: this.form.password,
-                            type: this.type_client,
-                        }
-                    } else {
-                        params = {
-                            user_name: this.form.name,
-                            email: this.form.email,
-                            password: this.form.password,
-                        }
-                    }
+                params = {
+                    user_name: this.form.name,
+                    email: this.form.email,
+                    password: this.form.password,
+                    type: `${Cookies.getJSON('user_type')}`,
                 }
+                // if (previous_route !== undefined) {
+                //     params = {
+                //         user_name: this.form.name,
+                //         email: this.form.email,
+                //         password: this.form.password,
+                //         type: `${Cookies.getJSON('user_type')}`,
+                //     }
+                // } else {
+                //     if (this.type_client) {
+                //         params = {
+                //             user_name: this.form.name,
+                //             email: this.form.email,
+                //             password: this.form.password,
+                //             type: this.type_client,
+                //         }
+                //     } else {
+                //         params = {
+                //             user_name: this.form.name,
+                //             email: this.form.email,
+                //             password: this.form.password,
+                //         }
+                //     }
+                // }
 
                 const { status, data, error } = await api.users.signup(params)
                 if (status === 'success') {

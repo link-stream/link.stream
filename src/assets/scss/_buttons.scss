@@ -124,6 +124,7 @@
 }
 
 .TogglerButton {
+    z-index: 0;
     margin-bottom: 0;
     &.toggled {
         .v-switch-core {

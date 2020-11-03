@@ -1,0 +1,46 @@
+.page-signupas {
+    .user-card {
+        border-radius: 0;
+        box-sizing: border-box;
+        min-height: 280px;
+        min-width: 265px;
+        border: 1px solid #d7d7d7;
+        padding: 45px 37px 45px 38px;
+        align-items: center;
+        .user-card-body {
+            color: $black;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 24px;
+            p {
+                max-width: 205px;
+                color: $black;
+                font-size: 13px;
+                letter-spacing: 0;
+                line-height: 21px;
+                font-weight: 500;
+                margin-top: 2px;
+            }
+            .btn-primary-signup {
+                width: 185px;
+                border-radius: 25px;
+                margin-top: 15px;
+            }
+        }
+    }
+    .artist-listener-card {
+        @media screen and (max-width: 767px) {
+            margin-top: 10px;
+        }
+    }
+    .sign-in-span {
+        font-size: 13px;
+        letter-spacing: 0;
+        line-height: 18px;
+        font-weight: 600;
+        .signin-link {
+            font-weight: 400;
+        }
+    }
+}

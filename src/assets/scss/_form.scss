@@ -74,7 +74,7 @@
 
 .BasicSelect {
     cursor: pointer;
-
+    z-index: 0;
     .arrow-icon {
         position: relative;
         top: 1px;
@@ -307,7 +307,7 @@
     }
     .select-menu {
         position: absolute;
-        z-index: 1;
+        z-index: 9;
         display: none;
         width: 100%;
         max-height: 297px;
@@ -373,5 +373,11 @@
         height: 300px;
         border: 1px solid $gray-330;
         padding: 10px;
+    }
+}
+.beats-container-list {
+    margin-bottom: 100px;
+    @media screen and (max-width: 650px) {
+        margin-bottom: 150px;
     }
 }

@@ -53,11 +53,11 @@ export const constants = {
             title: 'Follow on LinkStream',
             icon: 'streamy',
         },
-        {
-            id: '2',
-            title: 'Follow on SoundCloud',
-            icon: 'soundcloud',
-        },
+        // {
+        //     id: '2',
+        //     title: 'Follow on SoundCloud',
+        //     icon: 'soundcloud',
+        // },
         {
             id: '3',
             title: 'Follow on Twitter',

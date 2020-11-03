@@ -5,7 +5,7 @@
                 <router-view :key="$route.fullPath"></router-view>
             </transition>
         </main>
-        <TopNav />
+        <TopNav :user="user" />
         <vue-progress-bar></vue-progress-bar>
         <AddedCartModal />
     </div>
@@ -15,13 +15,28 @@
 import TopNav from '~/components/Profile/TopNav'
 import AddedCartModal from '@/components/Modal/AddedCartModal'
 import Cookies from 'js-cookie'
+import { appConstants } from '~/constants'
+import { api } from '~/services'
 export default {
     name: 'Profile',
     components: {
         TopNav,
         AddedCartModal,
     },
-    mounted() {
+    data() {
+        return {
+            session: [],
+            user: null,
+        }
+    },
+    async mounted() {
+        this.session = Cookies.getJSON(appConstants.cookies.auth.name)
+        if (this.session) {
+            const userResponse = await api.users.getUser(this.session.id)
+            if (userResponse.status === 'success') {
+                this.user = userResponse.data
+            }
+        }
         //Cookies.remove('params_url')
         var fullPath = this.$route.fullPath
         var arrayFullPath = fullPath.split('?')
@@ -30,7 +45,6 @@ export default {
         var url_profile = first_url[1]
 
         var cookiesUrl = Cookies.getJSON('params_url')
-        console.log('cookiesUrl', cookiesUrl)
         if (cookiesUrl === undefined && url_profile !== 'order') {
             //var url_profile = ''
             var utm_source = this.$route.query.utm_source
@@ -40,23 +54,6 @@ export default {
                 ? this.$route.query.ref_id
                 : ''
 
-            // if (arrayFullPath.length > 1) {
-            //     var paramsFullPath = arrayFullPath[1].split('&')
-            //     if (paramsFullPath.length > 1) {
-            //         utm_source = paramsFullPath[0].split('=')[1]
-            //         ref_id = paramsFullPath[1].split('=')[1]
-            //     }
-            //     if (paramsFullPath.length === 1) {
-            //         var param = paramsFullPath[0].split('=')[0]
-            //         if (param === 'utm_source') {
-            //             utm_source = paramsFullPath[0].split('=')[1]
-            //             ref_id = ''
-            //         } else {
-            //             utm_source = ''
-            //             ref_id = paramsFullPath[0].split('=')[1]
-            //         }
-            //     }
-            // }
             var params_url = {
                 url_profile: url_profile,
                 utm_source: utm_source,

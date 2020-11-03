@@ -6,7 +6,7 @@
         <div class="input-group-prepend">
             <button
                 type="button"
-                class="btn btn-outline-secondary"
+                class="btn btn-outline-secondary btn-unlimited"
                 @click="handleUnlimitedClick"
             >
                 Unlimited

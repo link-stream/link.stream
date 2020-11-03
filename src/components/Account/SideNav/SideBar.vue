@@ -17,6 +17,7 @@
                 }"
             >
                 <router-link
+                    v-if="user && (user.type === item.type || item.type === 'both')"
 					@mouseover.native="getImgHover(item)"
                     @mouseleave.native="getImgLeave(item)"
                     :class="{
@@ -38,7 +39,11 @@
                             }"
                             :key="`menu_${index}_${subIndex}`"
                         >
-                            <router-link :to="sub.to" :target="sub.target">
+                            <router-link 
+                                v-if="user && (user.type === sub.type || sub.type === 'both')"
+                                :to="sub.to" 
+                                :target="sub.target"
+                            >
                                 <span>{{ sub.label }}</span>
                             </router-link>
                         </li>

@@ -44,6 +44,7 @@
             </div>
             <LoadingSpinner class="page-loader" v-if="loading" />
             <Container
+                class="link-container"
                 v-else
                 @drop="handleReorder"
                 drag-handle-selector=".card-drag-icon"

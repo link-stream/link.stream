@@ -113,6 +113,13 @@
 }
 .edit-landing-page {
     padding: 0;
+    &.lead {
+        .page-body {
+            .left-col {
+                width: 100%;
+            }
+        }
+    }
     .page-header {
         height: 60px;
         background-color: black;
@@ -148,8 +155,22 @@
             padding: 30px 20px;
             background-color: white;
             box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.39);
+            font-size: px2rem(14);
+            .viz-toggle {
+                .toggle-label {
+                    font-size: px2rem(12);
+                    line-height: px2rem(18);
+                    margin-left: 10px;
+                }
+            }
+            .url-form {
+                font-size: px2rem(14);
+            }
             .title {
                 margin-bottom: 20px;
+            }
+            .form-control {
+                line-height: 1.2;
             }
             .thumb-upload {
                 margin-bottom: 15px;
@@ -333,13 +354,11 @@
 }
 
 .landing-preview-email {
-    width: calc(100% - 32opx);
+    width: 100%;
     height: 100%;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    margin-left: auto;
-    margin-right: auto;
     overflow: auto;
     .landing-content {
         .select-view-type {
@@ -409,6 +428,94 @@
                     .btn-signup {
                         margin: 15px auto;
                     }
+                }
+            }
+        }
+        &.mobile {
+            .phone-frame {
+                width: 350px;
+                border-radius: 29px;
+                border: 3px solid black;
+                background-color: white;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 32px 15px 30px;
+            }
+            .landing-frame {
+                padding: 15px 5px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                .landing-container {
+                    width: 300px;
+                    .landing-header {
+                        padding: 10px 15px;
+                        margin: 0;
+                    }
+                    .landing-body {
+                        padding: 15px;
+                        .text-content {
+                            padding: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.landing-preview-lead {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    overflow: auto;
+    .landing-container {
+        padding: 50px;
+        height: 100%;
+        .landing-header {
+            .landing-logo {
+                max-width: 180px;
+                max-height: 40px;
+                img {
+                    width: 100%;
+                }
+            }
+        }
+        .landing-body {
+            position: relative;
+            height: calc(100% - 150px);
+            .real-body {
+                position: absolute;
+                width: 100%;
+                top: 70%;
+                transform: translateY(-50%);
+            }
+            .text-content {
+                .title {
+                    font-size: px2rem(46);
+                    line-height: px2rem(46);
+                    margin-bottom: 15px;
+                    color: white;
+                }
+                .description {
+                    font-size: px2rem(18);
+                    line-height: px2rem(24);
+                    margin-bottom: 20px;
+                    color: white;
+                }
+                .email-form {
+                    width: 80%;
+                    margin-bottom: 30px;
+                    @include media-breakpoint-down(md) {
+                        width: 100%;
+                    }
+                    .col-form-label {
+                        color: white;
+                    }
+                }
+                .btn-signup {
+                    color: white;
                 }
             }
         }

@@ -4,7 +4,7 @@
         :style="viewType === 'desktop' ? landingBackStyle : ''"
     >
         <div class="landing-content" :class="viewType">
-            <b-row class="d-none d-sm-block">
+            <b-row class="m-0 d-none d-sm-block">
                 <div class="select-view-type">
                     <a
                         href="#"
@@ -44,7 +44,7 @@
                             <b-row>
                                 <b-col
                                     cols="12"
-                                    sm="6"
+                                    :sm="viewType === 'desktop' ? 6 : 12"
                                     class="artwork-container"
                                 >
                                     <img
@@ -54,7 +54,11 @@
                                     />
                                     <img v-else :src="defaultCoverArt" />
                                 </b-col>
-                                <b-col cols="12" sm="6" class="text-content">
+                                <b-col
+                                    cols="12"
+                                    :sm="viewType === 'desktop' ? 6 : 12"
+                                    class="text-content"
+                                >
                                     <h1 class="title">
                                         {{ landingData.headline }}
                                     </h1>

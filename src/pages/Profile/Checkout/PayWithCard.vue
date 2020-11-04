@@ -823,7 +823,7 @@
             >
                 <b-row style="justify-content: center;">
                     <b-col cols="12" xl="11" lg="11" md="11">
-                        <InformationPay />
+                        <InformationPay/>
                     </b-col>
                 </b-row>
             </b-col>
@@ -913,6 +913,7 @@ export default {
     },
     data() {
         return {
+			url_profile: '',
             params_url: [],
             subTotal: 0,
             total: 0,
@@ -1010,7 +1011,12 @@ export default {
     },
     async mounted() {
 		Cookies.remove('previous_route')
-        var itemsCookies = Cookies.getJSON(appConstants.cookies.cartItem.name)
+		
+		var first_url = this.$route.fullPath.split('/')
+        this.url_profile = first_url[1]
+		var itemsCookies = Cookies.getJSON(this.url_profile)
+		
+        //var itemsCookies = Cookies.getJSON(appConstants.cookies.cartItem.name)
         this.params_url = Cookies.getJSON('params_url')
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
         const userResponse = await api.users.getUser(this.session.id)
@@ -1018,7 +1024,7 @@ export default {
             this.$router
                 .push({
                     name: 'publicProfile',
-                    params: { url: this.params_url.url_profile },
+                    params: { url: this.url_profile },
                 })
                 .catch(err => {})
         } else {
@@ -1029,11 +1035,16 @@ export default {
                         : userResponse.data.display_name
                 this.user_photo = userResponse.data_image
             }
-            var cookiesInfoPay = Cookies.getJSON(
-                appConstants.cookies.informationPay.name
+			var cookies_informationPay = this.url_profile + '_informationPay'
+			var cookiesInfoPay = Cookies.getJSON(
+                cookies_informationPay
             )
+			
+            /*var cookiesInfoPay = Cookies.getJSON(
+                appConstants.cookies.informationPay.name
+            )*/
 
-            var items_cart = Cookies.getJSON(appConstants.cookies.cartItem.name)
+            var items_cart = Cookies.getJSON(this.url_profile)
             const params = {
                 data: JSON.stringify(items_cart),
             }
@@ -1068,9 +1079,9 @@ export default {
                 ...deleteCAN,
             ]
             this.country = this.list_countries[0].code
-
+			
             this.informationPay = Cookies.getJSON(
-                appConstants.cookies.informationPay.name
+                cookies_informationPay
             )
 
             this.total = this.informationPay[0].total
@@ -1147,16 +1158,28 @@ export default {
                     email: response.email,
                     id: response.id,
                 }
-                Cookies.set('receipt', receipt)
+				var cookies_receipt = this.url_profile + '_receipt'
+				Cookies.set(cookies_receipt, receipt)				
+                
+				//Cookies.set('receipt', receipt)
                 localStorage.setItem(
                     'download',
                     JSON.stringify(response.download)
                 )
-                Cookies.set(
+				
+				var cookies_infoPay = this.url_profile + '_infoPay'
+				
+				Cookies.set(
+                    cookies_infoPay,
+                    Cookies.getJSON(this.url_profile)
+                )
+                Cookies.remove(this.url_profile)
+				
+                /*Cookies.set(
                     'infoPay',
                     Cookies.getJSON(appConstants.cookies.cartItem.name)
                 )
-                Cookies.remove(appConstants.cookies.cartItem.name)
+                Cookies.remove(appConstants.cookies.cartItem.name)*/
 
                 this.$router
                     .push({
@@ -1166,7 +1189,10 @@ export default {
             } else {
                 this.$toast.error(response.error)
                 this.resetValues()
-                Cookies.remove('receipt')
+				var cookies_receipt = this.url_profile + '_receipt'
+				Cookies.remove(cookies_receipt)
+				
+                //Cookies.remove('receipt')
             }
             this.status_loading_pay = false
         },
@@ -1272,18 +1298,31 @@ export default {
                         email: response.email,
                         id: response.id,
                     }
-                    Cookies.set('receipt', receipt)
+                    //Cookies.set('receipt', receipt)
+					
+					var cookies_receipt = this.url_profile + '_receipt'
+					Cookies.set(cookies_receipt, receipt)
+					
                     localStorage.setItem(
                         'download',
                         JSON.stringify(response.download)
                     )
+					
+					var cookies_infoPay = this.url_profile + '_infoPay'
+				
+					Cookies.set(
+						cookies_infoPay,
+						Cookies.getJSON(this.url_profile)
+					)
+					Cookies.remove(this.url_profile)
+					
 
-                    Cookies.set(
+                    /*Cookies.set(
                         'infoPay',
                         Cookies.getJSON(appConstants.cookies.cartItem.name)
                     )
 
-                    Cookies.remove(appConstants.cookies.cartItem.name)
+                    Cookies.remove(appConstants.cookies.cartItem.name)*/
 
                     this.$router
                         .push({
@@ -1293,6 +1332,10 @@ export default {
                 } else {
                     this.$toast.error(response.error)
                     this.resetValues()
+					
+					var cookies_receipt = this.url_profile + '_receipt'
+					Cookies.remove(cookies_receipt)
+					
                     Cookies.remove('receipt')
                 }
                 this.status_loading_pay = false

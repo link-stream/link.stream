@@ -68,11 +68,16 @@ export default {
         id: {
             type: String,
         },
+		url_profile: {
+            type: String,
+        },
     },
     mounted() {},
     methods: {
         removeItem() {            
-            var cartItems = Cookies.getJSON(appConstants.cookies.cartItem.name)
+            //var cartItems = Cookies.getJSON(appConstants.cookies.cartItem.name)
+			
+			var cartItems = Cookies.getJSON(this.url_profile)
             var cartItem = cartItems.find(aux => aux.id === this.id)
             if (cartItem !== undefined) {
                 const findIndex = cartItems.findIndex(item => {
@@ -97,8 +102,10 @@ export default {
                         )
                     }
                 })
-                cartItems.splice(findIndex, 1)
-                Cookies.set(appConstants.cookies.cartItem.name, cartItems)
+                cartItems.splice(findIndex, 1)			
+                //Cookies.set(appConstants.cookies.cartItem.name, cartItems)
+				
+				Cookies.set(this.url_profile, cartItems)
                 this.$bus.$emit('cart.deleteItems')
             }
 

@@ -14,6 +14,7 @@
                     :price="item.price"
                     :index="item.index"
                     :id="item.id"
+					:url_profile="url_profile"
                 ></ElementArt>
                 <div class="divider"></div>
             </div>
@@ -40,6 +41,9 @@ export default {
         },
         index: {
             type: Number,
+        },
+		url_profile: {
+            type: String,
         },
     },
 }

@@ -118,12 +118,21 @@ export default {
     },
     methods: {
         handleBuyClick() {
+			var name_url = this.profile.url
+		
             var listItems = []
-            listItems =
+            /*listItems =
                 Cookies.getJSON(appConstants.cookies.cartItem.name) ===
                 undefined
                     ? []
-                    : Cookies.getJSON(appConstants.cookies.cartItem.name)
+                    : Cookies.getJSON(appConstants.cookies.cartItem.name)*/
+					
+			listItems =
+                    Cookies.getJSON(name_url) ===
+                    undefined
+                        ? []
+                        : Cookies.getJSON(name_url)
+						
             var cartItem = {
                 type: this.curItem.type,
                 price: this.curItem.price,
@@ -135,8 +144,13 @@ export default {
 			var temp_item = listItems.find(aux => aux.id === cartItem.id)
             if (temp_item === undefined) {
                 listItems.push(cartItem)
-                Cookies.set(appConstants.cookies.cartItem.name, listItems)
-                this.$bus.$emit('modal.addedCart.open')
+				
+                /*Cookies.set(appConstants.cookies.cartItem.name, listItems)
+                this.$bus.$emit('modal.addedCart.open')*/
+				
+				Cookies.set(name_url, listItems)
+                this.$bus.$emit('modal.addedCart.open', name_url)
+				
             } else this.$toast.info('The element is added')            
             
             //this.$store.dispatch('profile/addCartItem', { ...this.curItem })

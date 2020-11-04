@@ -205,12 +205,16 @@ export default {
         searchString: '',
         session: '',
         params_url: [],
-        photo: ''
+        photo: '',
+		url_profile: '',
     }),
     mounted() {
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
         if (this.session !== undefined) Cookies.remove('previous_route')
         this.params_url = Cookies.getJSON('params_url')
+		
+		var first_url = this.$route.fullPath.split('/')
+        this.url_profile = first_url[1]
     },
     watch: {
         user(){
@@ -232,7 +236,7 @@ export default {
         },        
         toggle() {},
         showCart() {
-            this.$bus.$emit('modal.addedCart.open')
+            this.$bus.$emit('modal.addedCart.open', this.url_profile)
         },
         async logout() {
             await this.$store.dispatch('auth/logout')

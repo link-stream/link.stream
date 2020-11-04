@@ -35,10 +35,13 @@ export default {
         cartItem: {
             type: Object,
         },
+		url_profile: {
+            type: String,
+        },
     },
     methods: {
         removeItem() {
-            var cartItems = Cookies.getJSON(appConstants.cookies.cartItem.name)
+            var cartItems = Cookies.getJSON(this.url_profile)
             const findIndex = cartItems.findIndex(item => {
                 if (
                     this.cartItem.track_type === appConstants.tracks.types.beat
@@ -62,8 +65,8 @@ export default {
                 }
             })
             cartItems.splice(findIndex, 1)
-            Cookies.set(appConstants.cookies.cartItem.name, cartItems)
-            this.$bus.$emit('modal.addedCart.open')
+            Cookies.set(this.url_profile, cartItems)
+            this.$bus.$emit('modal.addedCart.open', this.url_profile)
 
             //this.$store.dispatch('profile/removeCartItem', this.cartItem)
         },

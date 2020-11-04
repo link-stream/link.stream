@@ -98,6 +98,11 @@ export default {
     components: {
         CartItemDark,
     },
+	/*props: {
+        url_profile: {
+            type: String,
+        },
+    },*/
     data() {
         return {
             subTotal: 0,
@@ -106,10 +111,17 @@ export default {
             fees: [],
             percent: 0,
             fees_percent: '',
+			url_profile: '',
         }
     },
     async mounted() {
-        var items_cart = Cookies.getJSON(appConstants.cookies.cartItem.name)
+        //var items_cart = Cookies.getJSON(appConstants.cookies.cartItem.name)
+		
+		var first_url = this.$route.fullPath.split('/')
+        this.url_profile = first_url[1]
+		
+		var items_cart = Cookies.getJSON(this.url_profile)
+		console.log('items_cart', items_cart)
         const params = {
             data: JSON.stringify(items_cart),
         }
@@ -120,10 +132,16 @@ export default {
 
         //this.itemsCart = cookiesInfoPay[0]
         this.itemsCart = await this.createItems(items)
-
-        var itemsCookies = Cookies.getJSON(
-            appConstants.cookies.informationPay.name
+		
+		var cookies_informationPay = this.url_profile + '_informationPay'
+		
+		var itemsCookies = Cookies.getJSON(
+            cookies_informationPay
         )
+
+        /*var itemsCookies = Cookies.getJSON(
+            appConstants.cookies.informationPay.name
+        )*/
         //this.itemsCart = itemsCookies[0]
         this.subTotal = itemsCookies[0].sub_total
         this.total = itemsCookies[0].total

@@ -132,22 +132,29 @@ export default {
 
         //this.itemsCart = cookiesInfoPay[0]
         this.itemsCart = await this.createItems(items)
+		if (this.itemsCart.length === 0) {
+            this.$router.push({
+                name: 'publicProfile',
+                params: { url: this.url_profile },
+            })
+        }else{
 		
-		var cookies_informationPay = this.url_profile + '_informationPay'
-		
-		var itemsCookies = Cookies.getJSON(
-            cookies_informationPay
-        )
+			var cookies_informationPay = this.url_profile + '_informationPay'
+			
+			var itemsCookies = Cookies.getJSON(
+				cookies_informationPay
+			)
 
-        /*var itemsCookies = Cookies.getJSON(
-            appConstants.cookies.informationPay.name
-        )*/
-        //this.itemsCart = itemsCookies[0]
-        this.subTotal = itemsCookies[0].sub_total
-        this.total = itemsCookies[0].total
-        this.percent = itemsCookies[0].percent
-        this.fees = itemsCookies[0].fees
-        this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
+			/*var itemsCookies = Cookies.getJSON(
+				appConstants.cookies.informationPay.name
+			)*/
+			//this.itemsCart = itemsCookies[0]
+			this.subTotal = itemsCookies[0].sub_total
+			this.total = itemsCookies[0].total
+			this.percent = itemsCookies[0].percent
+			this.fees = itemsCookies[0].fees
+			this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
+		}
     },
 
     methods: {

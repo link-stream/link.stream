@@ -1020,6 +1020,7 @@ export default {
         this.params_url = Cookies.getJSON('params_url')
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
         const userResponse = await api.users.getUser(this.session.id)
+		console.log('itemsCookies', itemsCookies)
         if (itemsCookies === undefined) {
             this.$router
                 .push({

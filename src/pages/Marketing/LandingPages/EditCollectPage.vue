@@ -15,7 +15,7 @@
         </div>
         <div class="page-body">
             <div class="left-col">
-                <LandingPreviewEmail :landing-data="form" />
+                <LandingPreviewCollect :landing-data="form" />
             </div>
             <div class="right-col">
                 <div class="customize-panel">
@@ -154,23 +154,24 @@
                         <b-form-input
                             v-model="form.headline"
                             required
-                            placeholder="Headline"
+                            placeholder="Title of Your Release"
                         >
                         </b-form-input>
                     </b-form-group>
                     <b-form-group label="Price">
-                        <b-form-input
-                            v-model="form.price"
-                            required
-                            placeholder="Price"
-                        >
-                        </b-form-input>
+                        <b-input-group prepend="$" class="price-input-group">
+                            <b-form-input
+                                v-model="form.price"
+                                required
+                                placeholder="Price"
+                            />
+                        </b-input-group>    
                     </b-form-group>
                     <b-form-group label="Body">
                         <b-form-textarea
                             v-model="form.body"
-                            placeholder="Please enter message content"
-                            rows="3"
+                            placeholder="Add more information about this media here"
+                            rows="5"
                         ></b-form-textarea>
                     </b-form-group>
                     <b-form-row>
@@ -207,6 +208,55 @@
                             </div>
                         </b-col>
                     </b-form-row>
+                    <b-form-group label="Instagram">
+                        <b-form-input
+                            v-model="social.instagram"
+                            placeholder="http://instagram.com"
+                        >
+                        </b-form-input>
+                    </b-form-group>
+                    <b-form-group label="Facebook">
+                        <b-form-input
+                            v-model="social.facebook"
+                            placeholder="http://www.facebook.com"
+                        >
+                        </b-form-input>
+                    </b-form-group>
+                    <b-form-group label="Twitter">
+                        <b-form-input
+                            v-model="social.twitter"
+                            placeholder="http://www.twitter.com"
+                        >
+                        </b-form-input>
+                    </b-form-group>
+                    <b-form-group label="Spotify">
+                        <b-form-input
+                            v-model="social.spotify"
+                            placeholder="https://www.spotify.com"
+                        >
+                        </b-form-input>
+                    </b-form-group>
+                    <b-form-group label="SoundCloud">
+                        <b-form-input
+                            v-model="social.sound_cloud"
+                            placeholder="https://soundcloud.com"
+                        >
+                        </b-form-input>
+                    </b-form-group>
+                    <b-form-group label="Website">
+                        <b-form-input
+                            v-model="social.website"
+                            placeholder="http://www.yourwebsite.com"
+                        >
+                        </b-form-input>
+                    </b-form-group>
+                    <b-form-group label="Email">
+                        <b-form-input
+                            v-model="social.email"
+                            placeholder="your@email.com"
+                        >
+                        </b-form-input>
+                    </b-form-group>
                     <div class="actions">
                         <basic-button class="btn-black btn-save" @click="handleSaveClick">
                             Save
@@ -224,7 +274,7 @@
 <script>
 import { Chrome } from 'vue-color'
 import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
-import LandingPreviewEmail from '@/components/Marketing/LandingPages/LandingPreviewEmail'
+import LandingPreviewCollect from '@/components/Marketing/LandingPages/LandingPreviewCollect'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
 import VueSelect from 'vue-select'
@@ -233,7 +283,7 @@ export default {
     components: {
         'color-picker': Chrome,
         SelectMediaModal,
-        LandingPreviewEmail,
+        LandingPreviewCollect,
         VueSelect,
     },
     data: () => ({
@@ -242,14 +292,22 @@ export default {
             title: '',
             logo: '',
             artwork: '',
-            headline: 'A header that will entice people to sign up',
-            body:
-                'Tell your subscribers about yourself and be sure to let them know what to expect when they subscribe.',
+            headline: '',
+            body: '',
             button_color: '#DC2EA6',
             background_color: '',
             background_image: '',
             promote_id: '',
             price: 0,
+        },
+        social: {
+            instagram: '',
+            facebook: '',
+            twitter: '',
+            spotify: '',
+            sound_cloud: '',
+            website: '',
+            email: '',
         },
         promote: null,
         isButtonColorPicker: false,

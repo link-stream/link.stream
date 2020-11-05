@@ -239,13 +239,9 @@ export default {
             this.$bus.$emit('modal.addedCart.open', this.url_profile)
         },
         async logout() {
-            var previous_route = {
-                route: 'publicProfile',
-                params: this.params_url.url_profile,
-            }
-            Cookies.set('previous_route', previous_route)
+        	const profileUrl = this.params_url.url_profile            
             await this.$store.dispatch('auth/logout')
-            this.$router.push({ name: 'login' })
+            window.location = `/${profileUrl}`
         },
     },
 }

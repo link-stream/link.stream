@@ -34,7 +34,12 @@
                     </b-button>
                 </b-col>
             </b-row>
-            <b-row style="display: flex; justify-content: center;" class="mt-4">
+            <LoadingSpinner class="page-loader" v-if="loading" />
+            <b-row
+                v-else
+                style="display: flex; justify-content: center;"
+                class="mt-4"
+            >
                 <b-col cols="12" xl="10" lg="10">
                     <b-table
                         :fields="fields"
@@ -42,6 +47,7 @@
                         :current-page="currentPage"
                         outlined
                         responsive
+                        stacked="sm"
                         :per-page="per_page"
                         @row-clicked="
                             (item, index, event) => rowClick(item, index, event)
@@ -91,9 +97,11 @@ export default {
                 'items',
             ],
             items_sales: [],
+            loading: false,
         }
     },
     async mounted() {
+        this.loading = true
         var session = Cookies.getJSON(appConstants.cookies.auth.name)
         const response = await api.sales.getCustomerOrders(session.id, '')
         if (response.status === 'success') {
@@ -113,9 +121,9 @@ export default {
                 })
             }
         }
+        this.loading = false
 
         //this.items = response.data
-        console.log('this.items_sales', this.items_sales)
     },
     methods: {
         handlePreviousClick() {

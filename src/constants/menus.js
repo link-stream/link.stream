@@ -174,7 +174,7 @@ export const menus = [
         id: 'shopnow',
         icon: ['fas', 'chart-bar'],
         img: 'basket.svg',
-        active: 'basket.svg',
+        active: 'basket-active.svg',
         label: 'Shop Now',
         to: '/app/shopnow',
         type: 'listener',
@@ -184,12 +184,12 @@ export const menus = [
         icon: ['fas', 'user'],
         img: 'ic-settings.svg',
         active: 'ic-settings-active.svg',
-        label: 'Account Settings',
+        label: 'Account',
         to: '/app/account/info',
         type: 'both',
         subs: [
             {
-                label: 'Account Info',
+                label: 'Settings',
                 to: '/app/account/info',
                 target: '_self',
                 type: 'both',

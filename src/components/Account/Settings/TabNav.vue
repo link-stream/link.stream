@@ -26,7 +26,7 @@ export default {
     data() {
         return {
             tabs: [
-                { title: 'Account', to: 'accountSettingsInfo', userType: 'both'},
+                { title: 'Settings', to: 'accountSettingsInfo', userType: 'both'},
                 { title: 'Purchases', to: 'accountSettingsPurchases',userType: 'both' },
                 { title: 'Payments', to: 'accountSettingsPayments', userType: 'both' },
                 { title: 'Payouts', to: 'accountSettingsPayouts', userType: 'producer' },

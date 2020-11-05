@@ -152,7 +152,7 @@
                             Connect
                         </basic-button>
                     </li>                    
-                    <li class="list-item">
+                    <li class="list-item" v-if="false">
                         <img src="@/assets/img/ico/social-soundcloud.svg" />
                         <span class="username">
                             {{ social.soundcloud || 'SoundCloud' }}

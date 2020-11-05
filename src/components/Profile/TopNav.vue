@@ -239,8 +239,9 @@ export default {
             this.$bus.$emit('modal.addedCart.open', this.url_profile)
         },
         async logout() {
+        	const profileUrl = this.params_url.url_profile            
             await this.$store.dispatch('auth/logout')
-            this.$router.push({ name: 'login' })
+            window.location = `/${profileUrl}`
         },
     },
 }

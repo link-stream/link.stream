@@ -1,5 +1,6 @@
 import { setStatusChange } from '~/utils'
 import { api } from '~/services'
+import Cookies from 'js-cookie'
 
 export default {
     data() {
@@ -28,6 +29,7 @@ export default {
                 this.status.loading.google = true
                 const { status, data, error } = await api.users.googleLogin({
                     platform_token,
+                    type: Cookies.getJSON('user_type'),
                 })
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.google', false)

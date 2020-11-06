@@ -31,6 +31,7 @@ const initialState = () => ({
         userName: '',
         token: '',
     },
+    landingData: {},
 })
 
 const state = initialState()
@@ -173,6 +174,10 @@ const mutations = {
 
     [marketingTypes.SET_GOOGLE_USER_INFO](state, params) {
         state.googleUserInfo = params
+    },
+
+    [marketingTypes.SET_LANDING_DATA](state, { landingData }) {
+        state.landingData = landingData
     },
 }
 
@@ -325,6 +330,10 @@ const actions = {
     async setGoogleUserInfo({ commit }, params) {
         commit(marketingTypes.SET_GOOGLE_USER_INFO, params)
     },
+
+    async setLandingData({ commit }, params) {
+        commit(marketingTypes.SET_LANDING_DATA, { landingData: params })
+    },
 }
 
 const getters = {
@@ -342,6 +351,7 @@ const getters = {
     medias: ({ medias }) => medias,
     promotes: ({ promotes }) => promotes,
     googleUserInfo: ({ googleUserInfo }) => googleUserInfo,
+    landingData: ({ landingData }) => landingData,
 }
 
 export default {

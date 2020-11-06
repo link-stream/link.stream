@@ -57,7 +57,6 @@ export default {
         },
     },
     data: () => ({
-        viewType: 'desktop',
         mediaURL: appConstants.mediaURL,
         defaultLogo: appConstants.emailDefaultLogo,
         footerLogo: appConstants.emailFooterLogo,

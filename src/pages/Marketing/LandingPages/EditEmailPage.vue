@@ -33,7 +33,7 @@
                             <span class="font-weight-bold">URL: </span>
                             <span>{{ fullUrl }}</span>
                         </template>
-                        <b-form-input v-model="form.title" />
+                        <b-form-input v-model="form.url" />
                     </b-form-group>
                     <div class="thumb-upload">
                         <h6>Logo</h6>
@@ -127,7 +127,7 @@
                         <b-form-textarea
                             v-model="form.body"
                             placeholder="Please enter text"
-                            rows="3"
+                            rows="5"
                         ></b-form-textarea>
                     </b-form-group>
                     <b-form-row>
@@ -239,35 +239,49 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <basic-button class="btn-black btn-save" @click="handleSaveClick">
-                            Save
+                        <basic-button
+                            class="btn-preview w-100"
+                            variant="outline-black"
+                            @click="handlePreviewClick"
+                        >
+                            Preview
                         </basic-button>
-                        <basic-button class="btn-publish" @click="handlePublishClick">
-                            Publish
-                        </basic-button>
+                        <div class="d-flex">
+                            <basic-button class="btn-black btn-save" @click="handleSaveClick">
+                                Save
+                            </basic-button>
+                            <basic-button class="btn-publish" @click="handlePublishClick">
+                                Publish
+                            </basic-button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <SelectMediaModal @select="setMedia" />
+        <PreviewLandingModal />
     </b-container>
 </template>
 <script>
 import { Chrome } from 'vue-color'
 import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
 import LandingPreviewEmail from '@/components/Marketing/LandingPages/LandingPreviewEmail'
+import PreviewLandingModal from '@/components/Modal/Marketing/PreviewLandingModal'
 import { appConstants } from '~/constants'
+import { mapGetters } from 'vuex'
 export default {
     name: 'EditEmailLandingPage',
     components: {
         'color-picker': Chrome,
         SelectMediaModal,
         LandingPreviewEmail,
+        PreviewLandingModal,
     },
     data: () => ({
         form: {
+            template_type: 'email',
             is_active: true,
-            title: '',
+            url: '',
             logo: '',
             artwork: '',
             headline: 'A header that will entice people to sign up',
@@ -291,11 +305,18 @@ export default {
         defaultCoverArt: appConstants.defaultCoverArt,
     }),
     computed: {
+        ...mapGetters({
+            landingData: 'marketing/landingData',
+        }),
         fullUrl() {
-            return `${appConstants.baseAppUrl}/${this.form.title}`
+            return `${appConstants.baseAppUrl}/${this.form.url}`
         },
     },
     mounted() {
+        this.form = {
+            ...this.form,
+            ...this.landingData,
+        }
         document.addEventListener('click', this.handleDocumentClick)
     },
     beforeDestroy() {
@@ -360,6 +381,14 @@ export default {
                     this.form.background_image = url
             }
         },
+        async handlePreviewClick() {
+            const params = {
+                ...this.landingData,
+                ...this.form,
+            }
+            await this.$store.dispatch('marketing/setLandingData', params)
+            this.$bus.$emit('modal.previewLanding.open')
+        }
     },
 }
 </script>

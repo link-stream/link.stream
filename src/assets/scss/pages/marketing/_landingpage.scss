@@ -236,10 +236,18 @@
                 margin: 30px -20px 0px;
                 border-top: 1px solid $gray-330;
                 padding: 20px 20px 0px;
-                display: flex;
+                // display: flex;
                 .btn-publish {
-                    margin-left: 10px;
+                    margin-left: auto;
                     padding: 16px 30px;
+                }
+                .btn-preview {
+                    width: 100%;
+                    margin-bottom: 10px;
+                    display: none;
+                    @include media-breakpoint-down(sm) {
+                        display: block;
+                    }
                 }
             }
         }
@@ -597,6 +605,17 @@
                 .btn-signup {
                     color: white;
                 }
+            }
+        }
+    }
+}
+.PreviewLandingModal {
+    .modal-dialog {
+        max-width: 100% !important;
+        .modal-content {
+            padding-bottom: 0;
+            .modal-body {
+                padding: 0;
             }
         }
     }

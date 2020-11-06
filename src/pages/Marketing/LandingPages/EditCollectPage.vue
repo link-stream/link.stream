@@ -33,7 +33,7 @@
                             <span class="font-weight-bold">URL: </span>
                             <span>{{ fullUrl }}</span>
                         </template>
-                        <b-form-input v-model="form.title" />
+                        <b-form-input v-model="form.url" />
                     </b-form-group>
                     <div class="thumb-upload">
                         <h6>Logo</h6>
@@ -258,23 +258,34 @@
                         </b-form-input>
                     </b-form-group>
                     <div class="actions">
-                        <basic-button class="btn-black btn-save" @click="handleSaveClick">
-                            Save
+                        <basic-button
+                            class="btn-preview w-100"
+                            variant="outline-black"
+                            @click="handlePreviewClick"
+                        >
+                            Preview
                         </basic-button>
-                        <basic-button class="btn-publish" @click="handlePublishClick">
-                            Publish
-                        </basic-button>
+                        <div class="d-flex">
+                            <basic-button class="btn-black btn-save" @click="handleSaveClick">
+                                Save
+                            </basic-button>
+                            <basic-button class="btn-publish" @click="handlePublishClick">
+                                Publish
+                            </basic-button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <SelectMediaModal @select="setMedia" />
+        <PreviewLandingModal />
     </b-container>
 </template>
 <script>
 import { Chrome } from 'vue-color'
 import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
 import LandingPreviewCollect from '@/components/Marketing/LandingPages/LandingPreviewCollect'
+import PreviewLandingModal from '@/components/Modal/Marketing/PreviewLandingModal'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
 import VueSelect from 'vue-select'
@@ -284,12 +295,14 @@ export default {
         'color-picker': Chrome,
         SelectMediaModal,
         LandingPreviewCollect,
+        PreviewLandingModal,
         VueSelect,
     },
     data: () => ({
         form: {
+            template_type: 'collect',
             is_active: true,
-            title: '',
+            url: '',
             logo: '',
             artwork: '',
             headline: '',
@@ -325,12 +338,17 @@ export default {
     computed: {
         ...mapGetters({
             promotes: 'marketing/promotes',
+            landingData: 'marketing/landingData',
         }),
         fullUrl() {
-            return `${appConstants.baseAppUrl}/${this.form.title}`
+            return `${appConstants.baseAppUrl}/${this.form.url}`
         },
     },
     mounted() {
+        this.form = {
+            ...this.form,
+            ...this.landingData,
+        }
         this.initPromote()
         document.addEventListener('click', this.handleDocumentClick)
     },
@@ -433,6 +451,14 @@ export default {
             //         ({ id, type }) => id == curId && type == realType
             //     )
             // }
+        },
+        async handlePreviewClick() {
+            const params = {
+                ...this.landingData,
+                ...this.form,
+            }
+            await this.$store.dispatch('marketing/setLandingData', params)
+            this.$bus.$emit('modal.previewLanding.open')
         },
     },
 }

@@ -113,13 +113,6 @@
 }
 .edit-landing-page {
     padding: 0;
-    &.lead {
-        .page-body {
-            .left-col {
-                width: 100%;
-            }
-        }
-    }
     .page-header {
         height: 60px;
         background-color: black;
@@ -606,6 +599,13 @@
                     color: white;
                 }
             }
+        }
+    }
+    @include media-breakpoint-down(sm) {
+        height: calc(100vh - 100px);
+        min-height: 600px;
+        .landing-container {
+            padding: 15px;
         }
     }
 }

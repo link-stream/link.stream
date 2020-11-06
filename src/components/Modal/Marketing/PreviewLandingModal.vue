@@ -15,28 +15,28 @@
                 v-if="landingData.template_type === 'email'"
                 :landing-data="landingData"
             />
-            <!-- <LandingPreviewCollectMobile
+            <LandingPreviewCollectMobile
                 v-if="landingData.template_type === 'collect'"
                 :landing-data="landingData"
             />
-            <LandingPreviewLeadMobile
+            <LandingPreviewLead
                 v-if="landingData.template_type === 'lead'"
                 :landing-data="landingData"
-            /> -->
+            />
         </template>
     </b-modal>
 </template>
 <script>
 import { mapGetters } from 'vuex'
 import LandingPreviewEmailMobile from '~/components/Marketing/LandingPages/LandingPreviewEmailMobile'
-// import LandingPreviewCollectMobile from '~/components/Marketing/LandingPages/LandingPreviewCollectMobile'
-// import LandingPreviewLeadMobile from '~/components/Marketing/LandingPages/LandingPreviewLeadMobile'
+import LandingPreviewCollectMobile from '~/components/Marketing/LandingPages/LandingPreviewCollectMobile'
+import LandingPreviewLead from '~/components/Marketing/LandingPages/LandingPreviewLead'
 export default {
     name: 'PreviewLandingModal',
     components: {
         LandingPreviewEmailMobile,
-        // LandingPreviewCollectMobile,
-        // LandingPreviewLeadMobile,
+        LandingPreviewCollectMobile,
+        LandingPreviewLead,
     },
     data() {
         return {

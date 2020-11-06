@@ -388,7 +388,7 @@ export default {
             }
             await this.$store.dispatch('marketing/setLandingData', params)
             this.$bus.$emit('modal.previewLanding.open')
-        }
+        },
     },
 }
 </script>

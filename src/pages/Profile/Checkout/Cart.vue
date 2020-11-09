@@ -11,6 +11,7 @@
                         :avatarSrc="item.avatarSrc"
                         :elements="item.elements"
                         :index="item.index"
+						:url_profile="url_profile"
                     ></CartItem>
                 </div>
             </b-col>
@@ -82,7 +83,7 @@
                             <b-link
                                 :to="{
                                     name: 'publicProfile',
-                                    params: { url: params_url.url_profile },
+                                    params: { url: url_profile },
                                 }"
                                 class="return-links"
                             >
@@ -118,6 +119,7 @@ export default {
             fees_percent: '',
             params_url: [],
             items_details: [],
+			url_profile: '',
         }
     },
     created() {
@@ -128,7 +130,7 @@ export default {
             if (this.itemsCart.length === 0) {
                 this.$router.push({
                     name: 'publicProfile',
-                    params: { url: this.params_url.url_profile },
+                    params: { url: this.url_profile },
                 })
             }
         },
@@ -137,12 +139,16 @@ export default {
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
 		if (this.session !== undefined) Cookies.remove('previous_route')
         this.params_url = Cookies.getJSON('params_url')
+		
+		var first_url = this.$route.fullPath.split('/')
+        this.url_profile = first_url[1]
+		
         await this.createItems()
 
         if (this.itemsCart.length === 0) {
             this.$router.push({
                 name: 'publicProfile',
-                params: { url: this.params_url.url_profile },
+                params: { url: this.url_profile },
             })
         } else {
             const response = await api.cart.getConfigFees()
@@ -174,7 +180,7 @@ export default {
             }
         },
         async createItems() {
-            var items_cart = Cookies.getJSON(appConstants.cookies.cartItem.name)
+            var items_cart = Cookies.getJSON(this.url_profile)
 
             const params = {
                 data: JSON.stringify(items_cart),
@@ -266,12 +272,17 @@ export default {
             }
 
             var informationPay = [payDetails]
+			
+			var cookies_informationPay = this.url_profile + '_informationPay'
+			
+            Cookies.set(cookies_informationPay, informationPay)
+			
             //var informationPay = [this.itemsCart, payDetails]
 
-            Cookies.set(
+            /*Cookies.set(
                 appConstants.cookies.informationPay.name,
                 informationPay
-            )
+            )*/
         },
         async deleteItems() {
             await this.createItems()

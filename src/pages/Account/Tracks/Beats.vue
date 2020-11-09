@@ -32,7 +32,7 @@
                     }" 
                 >Add a beat</basic-button>
             </div>
-            <Container v-else drag-handle-selector=".card-drag-icon" @drop="handleReorder">
+            <Container v-else drag-handle-selector=".card-drag-icon" @drop="handleReorder" class="beats-container-list">
                 <Draggable v-for="beat in sortableList" :key="beat.id">
                     <BeatCard :beat="beat" />
                 </Draggable>

@@ -108,7 +108,7 @@
                     </div>
                 </main>
             </section>
-            <footer class="fwz-pager">
+            <footer class="fwz-pager add-link-footer">
                 <basic-button
                     class="fwz-prev-btn"
                     variant="secondary"

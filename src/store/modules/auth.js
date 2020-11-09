@@ -19,6 +19,7 @@ const initialState = () => ({
      * @type {object}
      */
     pendingUser: null,
+    userType: '',
 })
 
 const state = {
@@ -42,6 +43,10 @@ const mutations = {
         const { id, token } = user
         state.user = { id, token }
     },
+
+    [authTypes.SET_USER_TYPE](state, { user }) {
+        state.userType = user.type
+    },
 }
 
 const actions = {
@@ -61,6 +66,7 @@ const actions = {
         if (!isEmpty(user)) {
             commit(commonTypes.RESET)
             commit(authTypes.LOGIN, { user })
+            commit(authTypes.SET_USER_TYPE, { user })
             setAuthCookie({ id: user.id, token: user.token })
             await dispatch('me/loadAccount', null, { root: true })
             if(route === undefined){                
@@ -96,8 +102,12 @@ const getters = {
     isLoggedIn: ({ user }) => {
         return () => !!(getAuthCookie() && user)
     },
+    isType: (state) => (type) => {
+        return () => state.userType === type
+    },
     token: ({ user }) => (user ? user.token : null),
     pendingUser: ({ pendingUser }) => pendingUser,
+    userType: ({ userType }) => userType,
 }
 
 export default {

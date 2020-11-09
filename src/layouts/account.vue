@@ -10,7 +10,7 @@
             <transition name="page" mode="out-in">
                 <router-view :key="$route.fullPath"></router-view>
             </transition>
-            <SelectPlanBar v-if="showPlanBar" style="position: sticky; bottom: 0"/>
+            <SelectPlanBar v-if="showPlanBar" style="position: fixed; bottom: 0"/>
         </main>
         <TopNav class="d-lg-none" />
         <SideBar />

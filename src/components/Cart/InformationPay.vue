@@ -1,11 +1,11 @@
 <template>
     <div class="height100">
         <b-card class="cart-item-dark height100 pt-5">
-            <div class="scrollbar style-scrollbar">
+            <div class="scroll_container scroll">
                 <div
                     v-for="(item, index) in itemsCart"
                     :key="index"
-                    class="force-overflow"
+                    class="scroll_content scroll"
                 >
                     <CartItemDark
                         :artistName="item.artistName"
@@ -15,8 +15,8 @@
                     ></CartItemDark>
                 </div>
             </div>
-            <
-            <b-col cols="12" xl="12" lg="12" md="12" class="mx-4">
+
+            <b-col cols="12" xl="12" lg="12" md="12" class="mx-4 mt-3">
                 <b-row>
                     <b-col cols="9" xl="8" lg="8" md="7">
                         <span class="summary-details-dark">Subtotal</span>
@@ -98,6 +98,11 @@ export default {
     components: {
         CartItemDark,
     },
+    /*props: {
+        url_profile: {
+            type: String,
+        },
+    },*/
     data() {
         return {
             subTotal: 0,
@@ -106,10 +111,17 @@ export default {
             fees: [],
             percent: 0,
             fees_percent: '',
+            url_profile: '',
         }
     },
     async mounted() {
-        var items_cart = Cookies.getJSON(appConstants.cookies.cartItem.name)
+        //var items_cart = Cookies.getJSON(appConstants.cookies.cartItem.name)
+
+        var first_url = this.$route.fullPath.split('/')
+        this.url_profile = first_url[1]
+
+        var items_cart = Cookies.getJSON(this.url_profile)
+        console.log('items_cart', items_cart)
         const params = {
             data: JSON.stringify(items_cart),
         }
@@ -120,16 +132,26 @@ export default {
 
         //this.itemsCart = cookiesInfoPay[0]
         this.itemsCart = await this.createItems(items)
+        if (this.itemsCart.length === 0) {
+            this.$router.push({
+                name: 'publicProfile',
+                params: { url: this.url_profile },
+            })
+        } else {
+            var cookies_informationPay = this.url_profile + '_informationPay'
 
-        var itemsCookies = Cookies.getJSON(
-            appConstants.cookies.informationPay.name
-        )
-        //this.itemsCart = itemsCookies[0]
-        this.subTotal = itemsCookies[0].sub_total
-        this.total = itemsCookies[0].total
-        this.percent = itemsCookies[0].percent
-        this.fees = itemsCookies[0].fees
-        this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
+            var itemsCookies = Cookies.getJSON(cookies_informationPay)
+
+            /*var itemsCookies = Cookies.getJSON(
+				appConstants.cookies.informationPay.name
+			)*/
+            //this.itemsCart = itemsCookies[0]
+            this.subTotal = itemsCookies[0].sub_total
+            this.total = itemsCookies[0].total
+            this.percent = itemsCookies[0].percent
+            this.fees = itemsCookies[0].fees
+            this.fees_percent = this.fees.find(aux => aux.type === 'Percent')
+        }
     },
 
     methods: {

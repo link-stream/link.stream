@@ -1,5 +1,5 @@
 <template>
-    <div class="TogglerButtonGroup btn-group btn-group-toggle">
+    <div class="TogglerButtonGroup btn-group btn-group-toggle yes-no-btn">
         <label
             class="btn btn-purple"
             :class="{ active: toggled }"

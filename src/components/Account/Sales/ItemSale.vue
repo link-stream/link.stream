@@ -31,9 +31,12 @@
                             itemSale.item_track_type === 'pack'
                     "
                 >
-                    <b-button pill class="continue-shopping">
-                        View License</b-button
+                    <basic-button class="mt-4 d-block center"
+                        >View License</basic-button
                     >
+                    <!--b-button pill class="continue-shopping">
+                        View License</b-button
+                    >-->
                     <!--IconButton class="mx-2" icon="dot-menu-v" /-->
                 </b-col>
             </b-row>

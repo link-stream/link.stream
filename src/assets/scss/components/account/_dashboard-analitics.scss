@@ -83,6 +83,13 @@
         }
     }
 
+    .container-activity-top {
+        margin-bottom: 100px;
+        @media screen and (max-width: 650px) {
+            margin-bottom: 150px;
+        }
+    }
+
     .DashboardActivity {
         padding: 0 1rem 0 1rem !important;
         margin-bottom: 1px;

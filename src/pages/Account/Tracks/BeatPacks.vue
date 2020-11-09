@@ -41,6 +41,7 @@
                 </basic-button>
             </div>
             <Container
+                class="beatpack-container"
                 v-else
                 drag-handle-selector=".card-drag-icon"
                 @drop="handleReorder"

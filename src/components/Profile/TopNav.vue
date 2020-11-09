@@ -38,12 +38,13 @@
                 direction="right"
             />
         </b-navbar-nav-->
-        <b-navbar-nav class="d-none d-md-block">
+        <b-navbar-nav class="d-none d-md-block" v-if="user && user.type === 'listener'">
             <b-button
                 pill
                 class="bg-transparent text-white btn-login sell-beats"
                 size="md"
                 :to="{ name: 'login' }"
+                :disabled="true"
             >
                 Sell Beats
             </b-button>
@@ -56,7 +57,7 @@
                 Sign Up
             </b-button-->
         </b-navbar-nav>
-        <b-navbar-nav class="d-none d-md-block">
+        <b-navbar-nav class="d-none d-md-block" v-if="user && user.type === 'listener'">
             <div class="vertical_divider"></div>
         </b-navbar-nav>
         <b-navbar-nav v-if="session == undefined">
@@ -69,7 +70,7 @@
                 Sign In
             </b-button>
         </b-navbar-nav>
-        <b-navbar-nav v-else>
+        <b-navbar-nav v-else-if="user && user.type === 'listener'">
             <div class="mx-4">
                 <b-dropdown
                     dropdown
@@ -89,6 +90,7 @@
                             badge-top
                             badge-offset="-0.5em"
                             badge-variant="danger"
+                            :src="photo"
                         ></b-avatar>
                         <font-awesome-icon
                             style="color: #ffffff;"
@@ -96,28 +98,73 @@
                             size="1x"
                         />
                     </template>
-                    <b-dropdown-item id="dropdown-item" href="#" class="py-0"
-                        >Purchases</b-dropdown-item
-                    >
-                    <b-dropdown-item id="dropdown-item" href="#">
+                    <b-dropdown-item
+                        id="dropdown-item"
+                        href="/app/account/purchases"
+                        class="py-0"
+                    >Purchases</b-dropdown-item>
+                    <b-dropdown-item id="dropdown-item" href="/app/account/notifications">
                         <b-row class="pl-3">
                             <span>Notifications (ctd)</span>
                             <div class="oval ml-3 mt-3"></div>
                         </b-row>
                     </b-dropdown-item>
-                    <b-dropdown-item id="dropdown-item" href="#"
-                        >Saved Music</b-dropdown-item
-                    >
-                    <b-dropdown-item id="dropdown-item" href="#"
-                        >Account Settings</b-dropdown-item
-                    >
+                    <b-dropdown-item id="dropdown-item" href="#" :disabled="true">Saved Music</b-dropdown-item>
+                    <b-dropdown-item id="dropdown-item" href="/app/account/info">Account Settings</b-dropdown-item>
                     <b-dropdown-item id="dropdown-item" href="#">
                         <span style="color: #DC2EA6;">Sell your Beats</span>
                     </b-dropdown-item>
                     <b-dropdown-divider class="divider"></b-dropdown-divider>
-                    <b-dropdown-item id="dropdown-item" href="#"
-                        >Sign Out</b-dropdown-item
-                    >
+                    <b-dropdown-item id="dropdown-item" @click="logout">Sign Out</b-dropdown-item>
+                </b-dropdown>
+            </div>
+        </b-navbar-nav>        
+        <b-navbar-nav v-else>            
+            <div class="mx-4">
+                <b-dropdown
+                    dropdown
+                    id="dropdown-dropdown"
+                    no-flip
+                    right
+                    variant="link"
+                    toggle-class="text-decoration-none"
+                    no-caret
+                    menu-class="dropdown-items"
+                >                    
+                    <template v-slot:button-content>                        
+                        <b-avatar
+                            class="mr-2"
+                            size="25px"
+                            badge
+                            badge-top
+                            badge-offset="-0.5em"
+                            badge-variant="danger"
+                            :src="photo"
+                        ></b-avatar>
+                        <font-awesome-icon
+                            style="color: #ffffff;"
+                            :icon="['fas', 'chevron-down']"
+                            size="1x"
+                        />
+                    </template>
+                    <b-dropdown-item
+                        id="dropdown-item"
+                        href="/app/dashboard"
+                        class="py-0"
+                    >Seller Dashboard</b-dropdown-item>
+                    <b-dropdown-item id="dropdown-item" href="/app/account/purchases">
+                        <b-row class="pl-3">
+                            <span>Purchases</span>
+                            <div class="oval ml-3 mt-3"></div>
+                        </b-row>
+                    </b-dropdown-item>
+                    <b-dropdown-item id="dropdown-item" href="#" :disabled="true">Conversations</b-dropdown-item>
+                    <b-dropdown-item id="dropdown-item" href="#" :disabled="true">Saved Music</b-dropdown-item>
+                    <b-dropdown-item id="dropdown-item" href="/app/account/info">
+                        <span>Account Settings</span>
+                    </b-dropdown-item>
+                    <b-dropdown-divider class="divider"></b-dropdown-divider>
+                    <b-dropdown-item id="dropdown-item" @click="logout">Sign Out</b-dropdown-item>
                 </b-dropdown>
             </div>
         </b-navbar-nav>
@@ -140,6 +187,11 @@ export default {
         Logo1,
         ToggleMenu,
     },
+    props: {
+        user: {
+            type: Object,
+        },
+    },
     computed: {
         isHidden() {
             // eslint-disable-next-line
@@ -152,29 +204,44 @@ export default {
     data: () => ({
         searchString: '',
         session: '',
-		params_url: [],
+        params_url: [],
+        photo: '',
+		url_profile: '',
     }),
     mounted() {
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
-		if (this.session !== undefined) Cookies.remove('previous_route')
-		this.params_url = Cookies.getJSON('params_url')
+        if (this.session !== undefined) Cookies.remove('previous_route')
+        this.params_url = Cookies.getJSON('params_url')
+		
+		var first_url = this.$route.fullPath.split('/')
+        this.url_profile = first_url[1]
+    },
+    watch: {
+        user(){
+            this.photo = this.user.data_image
+        },
     },
     methods: {
-		goLogin(){
+        goLogin() {
             var previous_route = {
                 route: 'publicProfile',
-                params: this.params_url.url_profile
+                params: this.params_url.url_profile,
             }
             Cookies.set('previous_route', previous_route)
             this.$router
-                    .push({
-                        name: 'checkoutSignin',
-                    })
-                    .catch(err => {})
-        },
+                .push({
+                    name: 'login',
+                })
+                .catch(err => {})
+        },        
         toggle() {},
         showCart() {
-            this.$bus.$emit('modal.addedCart.open')
+            this.$bus.$emit('modal.addedCart.open', this.url_profile)
+        },
+        async logout() {
+        	const profileUrl = this.params_url.url_profile            
+            await this.$store.dispatch('auth/logout')
+            window.location = `/${profileUrl}`
         },
     },
 }

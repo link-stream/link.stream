@@ -10,6 +10,7 @@
                 v-for="(cartItem, index) in addedCarts"
                 :key="index"
                 :cartItem="cartItem"
+				:url_profile="url_profile"
             />
         </template>
         <template v-slot:modal-footer class="border-top">
@@ -52,10 +53,14 @@ export default {
         return {
             open: false,
             addedCarts: '',
+			url_profile: '',
         }
     },
     created() {
-        this.$bus.$on('modal.addedCart.open', this.handleOpen)
+        //this.$bus.$on('modal.addedCart.open', this.handleOpen)
+		this.$bus.$on('modal.addedCart.open', name_url =>
+            this.handleOpen(name_url)
+        )
         this.$bus.$on('modal.addedCart.close', this.handleClose)
     },
     mounted() {},
@@ -66,8 +71,11 @@ export default {
         handleClose() {
             this.open = false
         },
-        async handleOpen() {
-            var items = Cookies.getJSON(appConstants.cookies.cartItem.name)
+        async handleOpen(name_url) {			
+            //var items = Cookies.getJSON(appConstants.cookies.cartItem.name)
+			
+			this.url_profile = name_url
+			var items = Cookies.getJSON(this.url_profile)
             const params = {
                 data: JSON.stringify(items),
             }

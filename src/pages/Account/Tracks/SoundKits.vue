@@ -41,6 +41,7 @@
                 </basic-button>
             </div>
             <Container
+                class="soundkit-draggable"
                 v-else
                 drag-handle-selector=".card-drag-icon"
                 @drop="handleReorder"

@@ -6,6 +6,7 @@ export const menus = [
         active: 'icon-home-active.svg',
         label: 'Home',
         to: '/app',
+        type: 'producer',
     },
     {
         id: 'sales',
@@ -14,6 +15,7 @@ export const menus = [
         active: 'dollar-sign-solid-active.svg',
         label: 'Sales',
         to: '/app/sales',
+        type: 'producer',
     },
 	{
         id: 'tracks',
@@ -22,26 +24,31 @@ export const menus = [
         active: 'icon-music-active.svg',
         label: 'Your Music',
         to: '/app/beats/manage',
+        type: 'producer',
         subs: [
             {
                 label: 'Beats',
                 to: '/app/beats/manage',
                 target: '_self',
+                type: 'producer',
             },
             {
                 label: 'Licenses',
                 to: '/app/licenses/manage',
                 target: '_self',
+                type: 'producer',
             },
             {
                 label: 'Sound Kits',
                 to: '/app/kits/manage',
                 target: '_self',
+                type: 'producer',
             },
             {
                 label: 'Beat Packs',
                 to: '/app/beat-packs/manage',
                 target: '_self',
+                type: 'producer',
             },
         ],
     },
@@ -52,16 +59,19 @@ export const menus = [
         active: 'icon-link-active.svg',
         label: 'Links',
         to: '/app/links/manage',
+        type: 'producer',
         subs: [
             {
                 label: 'Add new link',
                 to: '/app/links/add',
                 target: '_self',
+                type: 'producer',
             },
             {
                 label: 'Manage links',
                 to: '/app/links/manage',
                 target: '_self',
+                type: 'producer',
             },
         ],
     },
@@ -72,16 +82,19 @@ export const menus = [
         active: 'icon-youtube.svg',
         label: 'Videos',
         to: '/app/videos/manage',
+        type: 'producer',
         subs: [
             {
                 label: 'Add new video',
                 to: '/app/videos/add',
                 target: '_self',
+                type: 'producer',
             },
             {
                 label: 'Manage videos',
                 to: '/app/videos/manage',
                 target: '_self',
+                type: 'producer',
             },
         ],
     },
@@ -92,6 +105,7 @@ export const menus = [
         active: 'icon-chart-bar-active.svg',
         label: 'Analytics',
         to: '/app/analytics',
+        type: 'producer',
     },
 	{
         id: 'marketing',
@@ -100,21 +114,25 @@ export const menus = [
         active: 'bullhorn-solid-active.svg',
         label: 'Marketing',
         to: '/app/marketing/messages',
+        type: 'producer',
         subs: [
             {
                 label: 'Messages',
                 to: '/app/marketing/messages',
                 target: '_self',
+                type: 'producer',
             },
             {
                 label: 'Subscribers',
                 to: '/app/marketing/subscribers',
                 target: '_self',
+                type: 'producer',
             },
             {
                 label: 'Landing Pages',
                 to: '/app/marketing/landing-pages',
                 target: '_self',
+                type: 'producer',
             },
             // {
             //     label: 'Ad Promos',
@@ -125,6 +143,7 @@ export const menus = [
                 label: 'YouTube Uploader',
                 to: '/app/marketing/youtube/uploader',
                 target: '_self',
+                type: 'producer',
             },
         ],
     },
@@ -135,51 +154,69 @@ export const menus = [
         active: 'store-solid-active.svg',
         label: 'Online Store',
         to: '/app/profile/edit',
+        type: 'producer',
         subs: [
             {
                 label: 'Edit Profile',
                 to: '/app/profile/edit',
                 target: '_self',
+                type: 'producer',
             },
             {
                 label: 'View Profile',
                 to: '/user_url',
                 target: '_blank',
+                type: 'producer',
             },
         ],
     },  
+    {
+        id: 'shopnow',
+        icon: ['fas', 'chart-bar'],
+        img: 'basket.svg',
+        active: 'basket-active.svg',
+        label: 'Shop Now',
+        to: '/app/shopnow',
+        type: 'listener',
+    },
     {
         id: 'account',
         icon: ['fas', 'user'],
         img: 'ic-settings.svg',
         active: 'ic-settings-active.svg',
-        label: 'Account Settings',
+        label: 'Account',
         to: '/app/account/info',
+        type: 'both',
         subs: [
             {
-                label: 'Account Info',
+                label: 'Settings',
                 to: '/app/account/info',
                 target: '_self',
+                type: 'both',
             },
             {
                 label: 'Purchases',
                 to: '/app/account/purchases',
                 target: '_self',
+                type: 'both',
             },
             {
                 label: 'Payments',
                 to: '/app/account/payments',
                 target: '_self',
+                type: 'both',
             },
             {
                 label: 'Payouts',
                 to: '/app/account/payouts',
                 target: '_self',
+                type: 'producer',
             },
             {
                 label: 'Notifications',
                 to: '/app/account/notifications',
                 target: '_self',
+                type: 'both',
             },
         ],
     },
@@ -190,5 +227,6 @@ export const menus = [
         active: 'arrow-alt-circle-up-active.svg',
         label: 'Upgrade',
         to: '/app/upgrade',
+        type: 'both',
     },
 ]

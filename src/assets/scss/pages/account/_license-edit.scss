@@ -7,6 +7,11 @@
         }
     }
 
+    .yes-no-btn,
+    .btn-unlimited {
+        z-index: 0;
+    }
+
     .page-body {
         label {
             font-size: px2rem(14);
@@ -21,6 +26,10 @@
         border-top: 1px solid $gray-330;
         padding-top: 20px;
         margin-top: 30px;
+        margin-bottom: 100px;
+        @media screen and (max-width: 650px) {
+            margin-bottom: 150px;
+        }
     }
 
     .viz-toggle {

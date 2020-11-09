@@ -27,7 +27,7 @@
                 </basic-button>
             </div>
         </div>
-        <div class="subscription">
+        <div class="subscription" v-if="user.type !== 'listener'">
             <h2 class="section-title">Subscriptions</h2>
             <h6 class="sub-title">Standard Plan</h6>
             <span>No monthly fee - </span>
@@ -35,7 +35,7 @@
                 Change Plan
             </basic-button>
         </div>
-        <div class="upgrade-pro">
+        <div class="upgrade-pro" v-if="false">
             <b-row>
                 <b-col>
                     <div class="text">

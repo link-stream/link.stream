@@ -60,6 +60,10 @@
         }
         .page-footer {
             padding-top: px2rem(21);
+            margin-bottom: 100px;
+            @media screen and (max-width: 650px) {
+                margin-bottom: 130px;
+            }
         }
     }
     .PurchasesTab {
@@ -293,6 +297,12 @@
     }
 }
 .NotificationsTab {
+    .page-footer {
+        margin-bottom: 100px;
+        @media screen and (max-width: 650px) {
+            margin-bottom: 130px;
+        }
+    }
     .notification {
         margin-bottom: 30px;
         &.ls-update {
@@ -328,6 +338,9 @@
             }
         }
         .item-action {
+            .custom-control-inline {
+                z-index: 0;
+            }
             .custom-control-inline:first-child {
                 margin-right: 30px;
             }

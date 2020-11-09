@@ -178,10 +178,14 @@ export default {
             icon_card: '',
             params_url: [],
             itemsCart: [],
+			url_profile: '',
         }
     },
     watch: {},
     async mounted() {
+		var first_url = this.$route.fullPath.split('/')
+        this.url_profile = first_url[1]
+		
         this.params_url = Cookies.getJSON('params_url')
         this.data_user = this.user.first_name.concat(
             ' ',
@@ -191,11 +195,23 @@ export default {
             ')'
         )
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
-        var infoPay = Cookies.getJSON(appConstants.cookies.informationPay.name)
-        this.receipt = Cookies.getJSON('receipt')
+		
+        /*var infoPay = Cookies.getJSON(appConstants.cookies.informationPay.name)
+        this.receipt = Cookies.getJSON('receipt')*/
+		
+		var cookies_informationPay = this.url_profile + '_informationPay'
+		var infoPay = Cookies.getJSON(cookies_informationPay)
+		
+		var cookies_receipt = this.url_profile + '_receipt'
+		this.receipt = Cookies.getJSON(cookies_receipt)
+		
         this.downloadUrls = JSON.parse(localStorage.getItem('download'))
 
-        var items_cart = Cookies.getJSON('infoPay')
+        //var items_cart = Cookies.getJSON('infoPay')
+		
+		var cookies_infoPay = this.url_profile + '_infoPay'
+		var items_cart = Cookies.getJSON(cookies_infoPay)
+		
         const params = {
             data: JSON.stringify(items_cart),
         }
@@ -301,13 +317,23 @@ export default {
             return this.itemsCart
         },
         cleanCookies() {
-            Cookies.remove(appConstants.cookies.informationPay.name)
+            /*Cookies.remove(appConstants.cookies.informationPay.name)
             Cookies.remove('receipt')
-            Cookies.remove('infoPay')
+            Cookies.remove('infoPay')*/
+			
+			var cookies_informationPay = this.url_profile + '_informationPay'
+			Cookies.remove(cookies_informationPay)
+			
+			var cookies_receipt = this.url_profile + '_receipt'
+			Cookies.remove(cookies_receipt)
+			
+			var cookies_infoPay = this.url_profile + '_infoPay'
+			Cookies.remove(cookies_infoPay)
+			
             this.$router
                 .push({
                     name: 'publicProfile',
-                    params: { url: this.params_url.url_profile },
+                    params: { url: this.url_profile },
                 })
                 .catch(err => {})
         },

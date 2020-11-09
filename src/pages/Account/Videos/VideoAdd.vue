@@ -93,10 +93,10 @@
 
                         <b-form-group label="Visibility">
                             <b-form-radio-group v-model="form.visibility">
-                                <b-form-radio value="1">
+                                <b-form-radio value="1" class="visibility-group">
                                     Public
                                 </b-form-radio>
-                                <b-form-radio value="2">
+                                <b-form-radio value="2" class="visibility-group">
                                     Private
                                 </b-form-radio>
                             </b-form-radio-group>
@@ -105,7 +105,7 @@
                 </main>
             </section>
 
-            <footer class="fwz-pager">
+            <footer class="fwz-pager videos-footer">
                 <basic-button
                     class="fwz-prev-btn"
                     variant="secondary"

@@ -95,7 +95,7 @@
                                 <b-link
                                     :to="{
                                         name: 'publicProfile',
-                                        params: { url: params_url.url_profile },
+                                        params: { url: url_profile },
                                     }"
                                     class="return-links"
                                 >
@@ -128,7 +128,7 @@
                 </b-col>
                 <b-col cols="12" class="fs--1 my-3">
                     Don't have an account?
-                    <b-link to="/signup">Sign up</b-link>
+                    <b-link to="/signup-as">Sign up</b-link>
                 </b-col>
             </b-row>
         </b-container>
@@ -160,10 +160,14 @@ export default {
                     signin: null,
                 },
             },
+			url_profile: '',
         }
     },
     mounted(){
         this.params_url = Cookies.getJSON('params_url')
+		
+		var first_url = this.$route.fullPath.split('/')
+        this.url_profile = first_url[1]
     },
     methods: {
         validateState(ref) {

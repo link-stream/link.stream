@@ -17,20 +17,13 @@
                         rounded="circle"
                         class="avatar"
                     />
-                    <vue-letter-avatar
-                        v-else
-                        :name="user.display_name"
-                        size="40"
-                        :rounded="true"
-                    />
+                    <vue-letter-avatar v-else :name="user.display_name" size="40" :rounded="true" />
                 </span>
                 <span class="user-name">{{ user.display_name }}</span>
                 <font-awesome-icon :icon="['fas', 'chevron-down']" />
                 <font-awesome-icon :icon="['fas', 'chevron-up']" />
             </template>
-            <b-dropdown-item :to="{ name: 'accountProfileEdit' }">
-                Account
-            </b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'accountProfileEdit' }">Account</b-dropdown-item>
             <b-dropdown-item>Features</b-dropdown-item>
             <b-dropdown-item>History</b-dropdown-item>
             <b-dropdown-item>Support</b-dropdown-item>
@@ -48,7 +41,13 @@ export default {
     computed: {
         ...mapGetters({
             user: 'me/user',
+            stores: 'me/stores',
         }),
+    },
+    watch: {
+        user() {
+            console.log('user menu', this.user)
+        },
     },
     methods: {
         async logout() {

@@ -11,6 +11,7 @@ const initialState = () => ({
      * @type {null|object|boolean}
      */
     user: null,
+    stores: [],
     licenses: [],
     videos: [],
     links: [],
@@ -41,6 +42,10 @@ const mutations = {
 
     [meTypes.SET_USER](state, { user }) {
         state.user = user
+    },
+
+    [meTypes.SET_STORES](state, { user }) {
+        state.stores = user.store
     },
 
     [meTypes.SET_PLAN_BAR](state, value) {
@@ -247,6 +252,10 @@ const actions = {
         dispatch('loadProfile')
     },
 
+    loadStores({ commit }, { user }) {
+        commit(meTypes.SET_STORES, { user })
+    },
+
     updateProfile({ commit }, { user }) {
         commit(meTypes.SET_USER, { user })
     },
@@ -258,6 +267,15 @@ const actions = {
             commit(meTypes.SET_USER, { user: data })
         }
         return response
+    },
+
+    async loadGlobalUser({ commit, rootGetters }) {
+        const user = rootGetters['auth/user']
+        const { status, data } = await api.users.loginNew(
+            user.email,
+            user.password
+        )
+        status === 'success' && commit(meTypes.SET_STORES, { user: data })
     },
 
     async loadProfile({ commit, rootGetters }) {
@@ -707,6 +725,7 @@ const getters = {
     notification: ({ notification }) => notification,
     showPlanBar: ({ showPlanBar }) => showPlanBar,
     analyticsData: ({ analyticsData }) => analyticsData,
+    stores: ({ stores }) => stores,
 }
 
 export default {

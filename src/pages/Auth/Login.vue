@@ -40,20 +40,17 @@
                                 data-vv-as="email"
                                 autocomplete="username"
                             ></b-form-input>
-                            <b-form-invalid-feedback id="email-live-feedback">{{
-                                veeErrors.first('input_email')
-                            }}</b-form-invalid-feedback>
+                            <b-form-invalid-feedback
+                                id="email-live-feedback"
+                            >{{ veeErrors.first('input_email') }}</b-form-invalid-feedback>
                         </b-form-group>
 
                         <div class="mb-4 pwd-form-group error-l-75">
                             <label
                                 for="input_password"
                                 class="mb-2 pwd-form-group error-l-75 float-left"
-                                >Password</label
-                            >
-                            <b-link class="float-right" to="/forgot"
-                                >Forgot?</b-link
-                            >
+                            >Password</label>
+                            <b-link class="float-right" to="/forgot">Forgot?</b-link>
                             <b-form-input
                                 id="input_password"
                                 class="pwd-input"
@@ -71,25 +68,18 @@
                                 variant="transparent"
                                 @click="showPwd = !showPwd"
                             >
-                                <b-icon
-                                    font-scale="1"
-                                    :icon="showPwd ? 'eye' : 'eye-slash'"
-                                />
+                                <b-icon font-scale="1" :icon="showPwd ? 'eye' : 'eye-slash'" />
                             </b-button>
                             <b-form-invalid-feedback
                                 id="password-live-feedback"
-                                >{{
-                                    veeErrors.first('input_password')
-                                }}</b-form-invalid-feedback
-                            >
+                            >{{ veeErrors.first('input_password') }}</b-form-invalid-feedback>
                         </div>
                         <spinner-button
                             type="submit"
                             class="auth-btn mt-3 signin-btn"
                             :loading="status.loading.signin"
                             :error="status.error.signin"
-                            >Sign In</spinner-button
-                        >
+                        >Sign In</spinner-button>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="btn-divider">
@@ -105,10 +95,7 @@
                             :loading="status.loading.google"
                             :error="status.error.google"
                         >
-                            <img
-                                class="float-left"
-                                src="@/assets/img/ico/logo_googleg.svg"
-                            />
+                            <img class="float-left" src="@/assets/img/ico/logo_googleg.svg" />
                             Sign in with Google
                         </spinner-button>
                     </a>
@@ -119,6 +106,7 @@
                 </b-col>
             </b-row>
         </b-container>
+        <ChooseStore />
     </div>
 </template>
 
@@ -126,12 +114,15 @@
 import { setStatusChange } from '~/utils'
 import { api } from '~/services'
 import { authentication } from '~/mixins'
-// import { getAuthCookie } from '~/utils/auth'
 import Cookies from 'js-cookie'
+import ChooseStore from '~/components/Modal/ChooseStore'
 
 export default {
     name: 'Login',
     mixins: [authentication],
+    components: {
+        ChooseStore,
+    },
     props: {
         route: {
             type: String,
@@ -181,19 +172,25 @@ export default {
                 }
                 this.status.loading.signin = true
                 const { email, password } = { ...this.form }
-                const { status, data, error } = await api.users.login({
+                const { status, data, error } = await api.users.loginNew({
                     email,
                     password,
                 })
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.signin', false)
-                    setTimeout(() => {
-                        var previous_route = Cookies.getJSON('previous_route')
-                        this.$store.dispatch('auth/login', {
-                            user: data,
-                            route: previous_route,
-                        })
-                    }, 1500)
+                    this.$bus.$emit('modal.chooseStore.open', {
+                        data,
+                        email,
+                        password,
+                    })
+                    // setStatusChange(this, 'status.error.signin', false)
+                    // setTimeout(() => {
+                    //     var previous_route = Cookies.getJSON('previous_route')
+                    //     this.$store.dispatch('auth/loginNew', {
+                    //         user: data,
+                    //         route: previous_route,
+                    //     })
+                    // }, 1500)
                 } else {
                     setStatusChange(this, 'status.error.signin')
                     this.$toast.error(error)

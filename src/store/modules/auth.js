@@ -40,7 +40,12 @@ const mutations = {
     },
 
     [authTypes.LOGIN](state, { user }) {
-        const { id, token } = user
+        const { id, token } = user.store[1]
+        state.user = { id, token }
+    },
+
+    [authTypes.LOGIN_NEW](state, { store }) {
+        const { id, token } = store
         state.user = { id, token }
     },
 
@@ -69,22 +74,52 @@ const actions = {
             commit(authTypes.SET_USER_TYPE, { user })
             setAuthCookie({ id: user.id, token: user.token })
             await dispatch('me/loadAccount', null, { root: true })
-            if(route === undefined){                
-                router.push({ 
-                    name: 'accountDashboard',                    
+            if (route === undefined) {
+                router.push({
+                    name: 'accountDashboard',
                 })
             } else {
-                if(route.route === 'publicProfile'){                
-                    router.push({ 
+                if (route.route === 'publicProfile') {
+                    router.push({
                         name: route.route,
                         params: { url: route.params },
                     })
                 }
-                if(route.route === 'payWithCard'){                
-                    router.push({ 
-                        name: route.route,                    
+                if (route.route === 'payWithCard') {
+                    router.push({
+                        name: route.route,
                     })
-                }                 
+                }
+            }
+        }
+    },
+
+    async loginNew({ commit, dispatch }, { store, user, route }) {
+        if (!isEmpty(user)) {
+            commit(commonTypes.RESET)
+            commit(authTypes.LOGIN_NEW, { store })
+            commit(authTypes.SET_USER_TYPE, { user })
+            setAuthCookie({
+                id: store.id,
+                token: store.token,
+            })
+            await dispatch('me/loadAccount', null, { root: true })
+            if (route === undefined) {
+                router.push({
+                    name: 'accountDashboard',
+                })
+            } else {
+                if (route.route === 'publicProfile') {
+                    router.push({
+                        name: route.route,
+                        params: { url: route.params },
+                    })
+                }
+                if (route.route === 'payWithCard') {
+                    router.push({
+                        name: route.route,
+                    })
+                }
             }
         }
     },
@@ -102,7 +137,7 @@ const getters = {
     isLoggedIn: ({ user }) => {
         return () => !!(getAuthCookie() && user)
     },
-    isType: (state) => (type) => {
+    isType: state => type => {
         return () => state.userType === type
     },
     token: ({ user }) => (user ? user.token : null),

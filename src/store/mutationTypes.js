@@ -10,6 +10,7 @@ export const commonTypes = {
 export const authTypes = {
     SIGNUP: 'SIGNUP',
     LOGIN: 'LOGIN',
+    LOGIN_NEW: 'LOGIN_NEW',
     SET_USER_TYPE: 'SET_USER_TYPE',
 }
 
@@ -29,6 +30,7 @@ export const trackAddWizardTypes = {
 export const meTypes = {
     // User
     SET_USER: 'SET_USER',
+    SET_STORES: 'SET_STORES',
     SET_PLAN_BAR: 'SET_PLAN_BAR',
     SET_DASHBOARD_DATA: 'SET_DASHBOARD_DATA',
     SET_ANALYTICS_DATA: 'SET_ANALYTICS_DATA',

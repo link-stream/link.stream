@@ -144,6 +144,11 @@ export const api = {
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
+        async loginNew(params) {
+            const endpoint = '/users/login_new'
+            const method = METHOD_POST
+            return await call({ endpoint, params, method })
+        },
         async googleLogin(params) {
             const endpoint = '/users/google'
             const method = METHOD_POST

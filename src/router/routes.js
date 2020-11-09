@@ -51,7 +51,9 @@ import {
     SubscriberDetails,
     ImportSubscribers,
     SelectPageTemplate,
-    EditLandingPage,
+    EditEmailLandingPage,
+    EditCollectLandingPage,
+    EditLeadLandingPage,
     EditSplitTest,
     AddVariations,
     ResultSplitTest,
@@ -450,8 +452,20 @@ const routes = [
     },
     {
         path: '/app/marketing/landing-page/edit',
-        name: 'editLandingPage',
-        component: EditLandingPage,
+        name: 'editEmailLandingPage',
+        component: EditEmailLandingPage,
+        meta: { requiresAuth: true, userType: 'producer' },
+    },
+    {
+        path: '/app/marketing/landing-page/edit-collect',
+        name: 'editCollectLandingPage',
+        component: EditCollectLandingPage,
+        meta: { requiresAuth: true, userType: 'producer' },
+    },
+    {
+        path: '/app/marketing/landing-page/edit-lead',
+        name: 'editLeadLandingPage',
+        component: EditLeadLandingPage,
         meta: { requiresAuth: true, userType: 'producer' },
     },
     {

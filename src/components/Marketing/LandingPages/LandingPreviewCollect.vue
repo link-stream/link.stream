@@ -1,6 +1,6 @@
 <template>
     <div
-        class="landing-preview-email"
+        class="landing-preview-email collect"
         :style="viewType === 'desktop' ? landingBackStyle : ''"
     >
         <div class="landing-content" :class="viewType">
@@ -62,15 +62,12 @@
                                     <h1 class="title">
                                         {{ landingData.headline }}
                                     </h1>
+                                    <h3 class="price-title">
+                                        {{ landingData.price | currencyFormat }}
+                                    </h3>
                                     <div class="description">
                                         {{ landingData.body }}
                                     </div>
-                                    <b-form-group label="Name">
-                                        <b-form-input />
-                                    </b-form-group>
-                                    <b-form-group label="Email">
-                                        <b-form-input />
-                                    </b-form-group>
                                     <BasicButton
                                         class="btn-signup"
                                         :style="{
@@ -78,10 +75,26 @@
                                             borderColor: landingData.button_color,
                                         }"
                                     >
-                                        Sign Up
+                                        Buy Now
                                     </BasicButton>
                                 </b-col>
                             </b-row>
+                        </div>
+                        <div class="landing-footer">
+                            <div class="social-share-links">
+                                <a href="#">
+                                    <i class="fab fa-instagram-square"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fab fa-facebook-square"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fab fa-twitter-square"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fas fa-paper-plane"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

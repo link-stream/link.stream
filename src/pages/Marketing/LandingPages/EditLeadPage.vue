@@ -1,5 +1,5 @@
 <template>
-    <b-container fluid class="edit-landing-page">
+    <b-container fluid class="edit-landing-page lead">
         <div class="page-header">
             <a href="#" class="btn-back" @click.prevent="back">
                 <font-awesome-icon :icon="['fas', 'chevron-left']" />
@@ -15,7 +15,7 @@
         </div>
         <div class="page-body">
             <div class="left-col">
-                <LandingPreviewEmail :landing-data="form" />
+                <LandingPreviewLead :landing-data="form" />
             </div>
             <div class="right-col">
                 <div class="customize-panel">
@@ -28,12 +28,12 @@
                             {{ form.is_acitive ? 'Active' : 'Private/Draft' }}
                         </span>
                     </div>
-                    <b-form-group>
+                    <b-form-group class="url-form">
                         <template v-slot:label>
                             <span class="font-weight-bold">URL: </span>
                             <span>{{ fullUrl }}</span>
                         </template>
-                        <b-form-input v-model="form.title" />
+                        <b-form-input v-model="form.url" />
                     </b-form-group>
                     <div class="thumb-upload">
                         <h6>Logo</h6>
@@ -74,47 +74,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="thumb-upload">
-                        <h6>Image</h6>
-                        <div class="d-flex">
-                            <div
-                                v-if="form.artwork"
-                                class="logo-container has-image"
-                            >
-                                <div class="logo">
-                                    <img :src="`${mediaURL}${form.artwork}`" />
-                                </div>
-                                <IconButton
-                                    class="btn-camera"
-                                    icon="photo-camera"
-                                    @click="showSelectMedia('artwork')"
-                                />
-                            </div>
-                            <div v-else class="logo-container">
-                                <div class="logo">
-                                    <IconButton
-                                        class="btn-add-image"
-                                        icon="add-image"
-                                        @click="showSelectMedia('artwork')"
-                                    />
-                                    <p class="lb-add-image">Add Image</p>
-                                </div>
-                            </div>
-                            <div class="text-container">
-                                <div v-if="form.artwork" class="logo-text">
-                                    <h6>Artwork Image</h6>
-                                    <a href="#" @click.prevent="removeArtwork">
-                                        Remove image
-                                    </a>
-                                </div>
-                                <div v-else class="logo-text">
-                                    <small class="text-muted">
-                                        suggested Minimum Size: 600x600
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <b-form-group label="Headline">
                         <b-form-input
                             v-model="form.headline"
@@ -126,12 +85,12 @@
                     <b-form-group label="Body">
                         <b-form-textarea
                             v-model="form.body"
-                            placeholder="Please enter message content"
-                            rows="3"
+                            placeholder="Please enter text"
+                            rows="5"
                         ></b-form-textarea>
                     </b-form-group>
                     <b-form-row>
-                        <b-col>
+                        <b-col cols="6">
                             <div ref="buttonColorPicker">
                                 <b-form-group
                                     label="Button Color"
@@ -158,38 +117,6 @@
                                         v-model="buttonColor"
                                         v-if="isButtonColorPicker"
                                         @input="onChangeButtonColor"
-                                    >
-                                    </color-picker>
-                                </b-form-group>
-                            </div>
-                        </b-col>
-                        <b-col>
-                            <div ref="backColorPicker">
-                                <b-form-group
-                                    label="Background Color"
-                                    class="color-picker-container right-align"
-                                >
-                                    <b-input-group>
-                                        <template v-slot:prepend>
-                                            <a
-                                                class="current-color"
-                                                :class="{
-                                                    nocolor: !form.background_color,
-                                                }"
-                                                :style="{
-                                                    backgroundColor: form.background_color,
-                                                }"
-                                            ></a>
-                                        </template>
-                                        <b-form-input
-                                            v-model="form.background_color"
-                                            class="txt-color-value"
-                                        ></b-form-input>
-                                    </b-input-group>
-                                    <color-picker
-                                        v-model="backColor"
-                                        v-if="isBackColorPicker"
-                                        @input="onChangeBackColor"
                                     >
                                     </color-picker>
                                 </b-form-group>
@@ -239,63 +166,76 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <basic-button class="btn-black btn-save" @click="handleSaveClick">
-                            Save
+                        <basic-button
+                            class="btn-preview w-100"
+                            variant="outline-black"
+                            @click="handlePreviewClick"
+                        >
+                            Preview
                         </basic-button>
-                        <basic-button class="btn-publish" @click="handlePublishClick">
-                            Publish
-                        </basic-button>
+                        <div class="d-flex">
+                            <basic-button class="btn-black btn-save" @click="handleSaveClick">
+                                Save
+                            </basic-button>
+                            <basic-button class="btn-publish" @click="handlePublishClick">
+                                Publish
+                            </basic-button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <SelectMediaModal @select="setMedia" />
+        <PreviewLandingModal />
     </b-container>
 </template>
 <script>
 import { Chrome } from 'vue-color'
 import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
-import LandingPreviewEmail from '@/components/Marketing/LandingPages/LandingPreviewEmail'
+import LandingPreviewLead from '@/components/Marketing/LandingPages/LandingPreviewLead'
+import PreviewLandingModal from '@/components/Modal/Marketing/PreviewLandingModal'
 import { appConstants } from '~/constants'
+import { mapGetters } from 'vuex'
 export default {
-    name: 'EditLandingPage',
+    name: 'EditLeadLandingPage',
     components: {
         'color-picker': Chrome,
         SelectMediaModal,
-        LandingPreviewEmail,
+        LandingPreviewLead,
+        PreviewLandingModal,
     },
     data: () => ({
         form: {
+            template_type: 'lead',
             is_active: true,
-            title: '',
+            url: '',
             logo: '',
-            artwork: '',
-            headline: 'A header that will entice people to sign up',
+            headline: 'Subscribe to our list',
             body:
                 'Tell your subscribers about yourself and be sure to let them know what to expect when they subscribe.',
             button_color: '#DC2EA6',
-            background_color: '',
             background_image: '',
         },
-        
         isButtonColorPicker: false,
         buttonColor: {
             hex: '#DC2EA6',
         },
-        isBackColorPicker: false,
-        backColor: {
-            hex: '',
-        },
         selMediaType: null,
         mediaURL: appConstants.mediaURL,
-        defaultCoverArt: appConstants.defaultCoverArt,
     }),
     computed: {
+        ...mapGetters({
+            landingData: 'marketing/landingData',
+        }),
         fullUrl() {
-            return `${appConstants.baseAppUrl}/${this.form.title}`
+            return `${appConstants.baseAppUrl}/${this.form.url}`
         },
     },
     mounted() {
+        this.form = {
+            ...this.form,
+            ...this.landingData,
+        }
         document.addEventListener('click', this.handleDocumentClick)
     },
     beforeDestroy() {
@@ -312,10 +252,6 @@ export default {
             this.buttonColor = val
             this.form.button_color = val.hex
         },
-        onChangeBackColor(val) {
-            this.backColor = val
-            this.form.background_color = val.hex
-        },
         handleDocumentClick(e) {
             const el = this.$refs.buttonColorPicker
             if (!el) return
@@ -323,13 +259,6 @@ export default {
                 this.isButtonColorPicker = false
             } else {
                 this.isButtonColorPicker = true
-            }
-            const elBack = this.$refs.backColorPicker
-            if (!elBack) return
-            if (!elBack.contains(e.target)) {
-                this.isBackColorPicker = false
-            } else {
-                this.isBackColorPicker = true
             }
         },
         showSelectMedia(type) {
@@ -342,9 +271,6 @@ export default {
             })
         },
         handlePublishClick() {},
-        removeArtwork() {
-            this.form.artwork = ''
-        },
         removeBackgroundImage() {
             this.form.background_image = ''
         },
@@ -353,13 +279,18 @@ export default {
                 case 'logo':
                     this.form.logo = url
                     break
-                case 'artwork':
-                    this.form.artwork = url
-                    break
                 case 'background':
                     this.form.background_image = url
             }
         },
+        async handlePreviewClick() {
+            const params = {
+                ...this.landingData,
+                ...this.form,
+            }
+            await this.$store.dispatch('marketing/setLandingData', params)
+            this.$bus.$emit('modal.previewLanding.open')
+        }
     },
 }
 </script>

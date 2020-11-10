@@ -934,6 +934,40 @@ export const api = {
                 method,
             })
         },
+        async getLandingPages(userId) {
+            let endpoint = 'marketing/landing_page/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
+        async insertLandingPage(params) {
+            let endpoint = 'marketing/landing_page/'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async updateLandingPage(id, params) {
+            let endpoint = 'marketing/landing_page/' + id
+            const method = METHOD_PUT
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async deleteLandingPage(id) {
+            let endpoint = 'marketing/landing_page/' + id
+            const method = METHOD_DELETE
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
     cart: {
         async getConfigFees() {

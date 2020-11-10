@@ -10,18 +10,18 @@
                             class="h3"
                         />
                         <font-awesome-icon
-                            v-else-if="page.type === 'Page'"
+                            v-else-if="page.type === 'Landing_Page'"
                             :icon="['far', 'file-alt']"
                             class="h3"
                         />
                     </div>
                     <div class="text-content">
                         <h4 class="item-title">
-                            {{ page.title }}
+                            {{ page.campaing_name }}
                         </h4>
                         <small class="item-subtitle">
                             <span class="message-type">
-                                {{ page.type }}&nbsp;&middot;&nbsp;
+                                {{ page.type === 'Landing_Page' ? 'Page' : 'Unknown' }}&nbsp;&middot;&nbsp;
                             </span>
                             <span class="message-datetime">
                                 {{ page.created_at | fullDateTime }}
@@ -30,12 +30,12 @@
                     </div>
                 </b-col>
                 <b-col cols="12" sm="2">
-                    <div class="page-status" :class="page.status">
+                    <div class="page-status" :class="page.status.toLowerCase()">
                         {{ page.status }}
                     </div>
                 </b-col>
                 <b-col
-                    v-if="page.type === 'Page' && page.status !== 'draft'"
+                    v-if="page.type === 'Landing_Page' && page.status.toLowerCase() !== 'draft'"
                     cols="12"
                     sm="4"
                 >
@@ -53,7 +53,7 @@
             </b-row>
         </div>
         <BasicButton
-            v-if="page.type === 'Split Test' || page.status === 'draft'"
+            v-if="page.status.toLowerCase() === 'draft'"
             variant="icon"
             title="Edit"
             class="card-edit-btn"

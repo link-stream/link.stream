@@ -6,7 +6,11 @@
             </a>
             <div class="title-container">
                 <span class="title">
-                    {{ form.campaing_name ? form.campaing_name : 'Untitled Landing Page' }}
+                    {{
+                        form.campaing_name
+                            ? form.campaing_name
+                            : 'Untitled Landing Page'
+                    }}
                 </span>
                 <IconButton
                     class="btn-edit"
@@ -206,7 +210,11 @@
                                 class="logo-container has-image"
                             >
                                 <div class="logo">
-                                    <img :src="`${mediaURL}${form.background_image}`" />
+                                    <img
+                                        :src="
+                                            `${mediaURL}${form.background_image}`
+                                        "
+                                    />
                                 </div>
                                 <IconButton
                                     class="btn-camera"
@@ -249,10 +257,16 @@
                             Preview
                         </basic-button>
                         <div class="d-flex">
-                            <basic-button class="btn-black btn-save" @click="handleSaveClick">
+                            <basic-button
+                                class="btn-black btn-save"
+                                @click="handleSaveClick"
+                            >
                                 Save
                             </basic-button>
-                            <basic-button class="btn-publish" @click="handlePublishClick">
+                            <basic-button
+                                class="btn-publish"
+                                @click="handlePublishClick"
+                            >
                                 Publish
                             </basic-button>
                         </div>
@@ -262,7 +276,10 @@
         </div>
         <SelectMediaModal @select="setMedia" />
         <PreviewLandingModal />
-        <EditLandingTitleModal v-if="isEditTitle" @close="isEditTitle = false" />
+        <EditLandingTitleModal
+            v-if="isEditTitle"
+            @close="isEditTitle = false"
+        />
     </b-container>
 </template>
 <script>
@@ -284,6 +301,7 @@ export default {
     },
     data: () => ({
         form: {
+            type: 'Landing_Page',
             template_type: 'email',
             is_active: false,
             campaing_name: '',
@@ -297,7 +315,6 @@ export default {
             background_color: '',
             background_image: '',
         },
-        
         isButtonColorPicker: false,
         buttonColor: {
             hex: '#DC2EA6',
@@ -325,7 +342,9 @@ export default {
             handler(value) {
                 this.form = {
                     ...this.form,
-                    campaing_name: value.campaing_name ? value.campaing_name : '',
+                    campaing_name: value.campaing_name
+                        ? value.campaing_name
+                        : '',
                 }
             },
         },

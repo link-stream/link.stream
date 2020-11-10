@@ -311,6 +311,7 @@ export default {
     },
     data: () => ({
         form: {
+            type: 'Landing_Page',
             template_type: 'collect',
             is_active: false,
             campaing_name: '',

@@ -32,6 +32,7 @@ const initialState = () => ({
         token: '',
     },
     landingData: {},
+    landingPages: [],
 })
 
 const state = initialState()
@@ -178,6 +179,27 @@ const mutations = {
 
     [marketingTypes.SET_LANDING_DATA](state, { landingData }) {
         state.landingData = landingData
+    },
+
+    [marketingTypes.SET_LANDING_PAGES](state, { landingPages }) {
+        state.landingPages = landingPages
+    },
+
+    [marketingTypes.ADD_LANDING_PAGE]({ landingPages }, { landingPage }) {
+        landingPages.push(landingPage)
+    },
+
+    [marketingTypes.UPDATE_LANDING_PAGE]({ landingPages }, { landingPage }) {
+        const index = landingPages.findIndex(({ id }) => id == landingPage.id)
+        index > -1 && landingPages.splice(index, 1, landingPage)
+    },
+
+    [marketingTypes.DELETE_LANDING_PAGE](
+        { landingPages },
+        { landing_page_id }
+    ) {
+        const index = landingPages.findIndex(({ id }) => id == landing_page_id)
+        index > -1 && landingPages.splice(index, 1)
     },
 }
 
@@ -334,6 +356,36 @@ const actions = {
     async setLandingData({ commit }, params) {
         commit(marketingTypes.SET_LANDING_DATA, { landingData: params })
     },
+
+    async getLandingPages({ commit, state, rootGetters }) {
+        if (state.landingPages.length > 0) return
+        const user = rootGetters['auth/user']
+        const response = await api.marketing.getLandingPages(user.id)
+        const { status, data } = response
+        status === 'success' &&
+            commit(marketingTypes.SET_LANDING_PAGES, { landingPages: data })
+    },
+    async insertLandingPage({ commit }, params) {
+        const response = await api.marketing.insertLandingPage(params)
+        const { status, data } = response
+        status === 'success' &&
+            commit(marketingTypes.ADD_LANDING_PAGE, { landingPage: data })
+        return response
+    },
+    async updateLandingPage({ commit }, { id, params }) {
+        const response = await api.marketing.updateLandingPage(id, params)
+        const { status, data } = response
+        status === 'success' &&
+            commit(marketingTypes.UPDATE_LANDING_PAGE, { landingPage: data })
+        return response
+    },
+    async deleteLandingPage({ commit }, { id }) {
+        const response = await api.marketing.deleteLandingPage(id)
+        const { status } = response
+        status === 'success' &&
+            commit(marketingTypes.DELETE_LANDING_PAGE, { landing_page_id: id })
+        return response
+    },
 }
 
 const getters = {
@@ -352,6 +404,7 @@ const getters = {
     promotes: ({ promotes }) => promotes,
     googleUserInfo: ({ googleUserInfo }) => googleUserInfo,
     landingData: ({ landingData }) => landingData,
+    landingPages: ({ landingPages }) => landingPages,
 }
 
 export default {

@@ -6,7 +6,11 @@
             </a>
             <div class="title-container">
                 <span class="title">
-                    {{ form.campaing_name ? form.campaing_name : 'Untitled Landing Page' }}
+                    {{
+                        form.campaing_name
+                            ? form.campaing_name
+                            : 'Untitled Landing Page'
+                    }}
                 </span>
                 <IconButton
                     class="btn-edit"
@@ -133,7 +137,11 @@
                                 class="logo-container has-image"
                             >
                                 <div class="logo">
-                                    <img :src="`${mediaURL}${form.background_image}`" />
+                                    <img
+                                        :src="
+                                            `${mediaURL}${form.background_image}`
+                                        "
+                                    />
                                 </div>
                                 <IconButton
                                     class="btn-camera"
@@ -176,12 +184,20 @@
                             Preview
                         </basic-button>
                         <div class="d-flex">
-                            <basic-button class="btn-black btn-save" @click="handleSaveClick">
+                            <spinner-button
+                                class="btn-black btn-save"
+                                :loading="saving"
+                                @click="handleSaveClick"
+                            >
                                 Save
-                            </basic-button>
-                            <basic-button class="btn-publish" @click="handlePublishClick">
+                            </spinner-button>
+                            <spinner-button
+                                class="btn-publish"
+                                :loading="publishing"
+                                @click="handlePublishClick"
+                            >
                                 Publish
-                            </basic-button>
+                            </spinner-button>
                         </div>
                     </div>
                 </div>
@@ -189,7 +205,10 @@
         </div>
         <SelectMediaModal @select="setMedia" />
         <PreviewLandingModal />
-        <EditLandingTitleModal v-if="isEditTitle" @close="isEditTitle = false" />
+        <EditLandingTitleModal
+            v-if="isEditTitle"
+            @close="isEditTitle = false"
+        />
     </b-container>
 </template>
 <script>
@@ -211,6 +230,7 @@ export default {
     },
     data: () => ({
         form: {
+            type: 'Landing_Page',
             template_type: 'lead',
             is_active: false,
             campaing_name: '',
@@ -229,10 +249,13 @@ export default {
         selMediaType: null,
         mediaURL: appConstants.mediaURL,
         isEditTitle: false,
+        saving: false,
+        publishing: false,
     }),
     computed: {
         ...mapGetters({
             landingData: 'marketing/landingData',
+            user: 'me/user',
         }),
         fullUrl() {
             return `${appConstants.baseAppUrl}/${this.form.url}`
@@ -244,7 +267,9 @@ export default {
             handler(value) {
                 this.form = {
                     ...this.form,
-                    campaing_name: value.campaing_name ? value.campaing_name : '',
+                    campaing_name: value.campaing_name
+                        ? value.campaing_name
+                        : '',
                 }
             },
         },
@@ -253,6 +278,7 @@ export default {
         this.form = {
             ...this.form,
             ...this.landingData,
+            is_acitive: this.landingData.status === 'Active',
         }
         document.addEventListener('click', this.handleDocumentClick)
     },
@@ -285,7 +311,36 @@ export default {
             this.selMediaType = type
             this.$bus.$emit('modal.selectMedia.open')
         },
-        handleSaveClick() {
+        async handleSaveClick() {
+            this.saving = true
+            const params = {
+                ...this.landingData,
+                ...this.form,
+                user_id: this.user.id,
+                status: 'Draft',
+            }
+            console.log(params)
+            let response
+            if (this.landingData.id) {
+                response = await this.$store.dispatch(
+                    'marketing/updateLandingPage',
+                    {
+                        id: this.landingData.id,
+                        params: params,
+                    }
+                )
+            } else {
+                response = await this.$store.dispatch(
+                    'marketing/insertLandingPage',
+                    params
+                )
+            }
+            console.log(response)
+            const { status, message, error } = response
+            status === 'success'
+                ? this.$toast.success(message)
+                : this.$toast.error(error)
+            this.saving == false
             this.$router.push({
                 name: 'landingPages',
             })

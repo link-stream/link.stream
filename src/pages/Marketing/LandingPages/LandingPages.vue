@@ -23,13 +23,13 @@
         <main class="page-body">
             <div class="page-empty" v-if="!loading && !pages.length">
                 <div class="empty-text">
-                    Your pages and tests will appear here.
+                    Your landing pages will appear here.
                 </div>
             </div>
             <LoadingSpinner class="page-loader" v-if="loading" />
             <div v-else-if="pages.length > 0" class="page-list">
                 <h6 class="date-title">
-                    Landing Pages &amp; Tests(
+                    Landing Pages (
                     {{ pages.length }}
                     )
                 </h6>
@@ -46,6 +46,7 @@
 <script>
 import PageCard from '~/components/Marketing/LandingPages/PageCard'
 import CreateSplitModal from '~/components/Modal/Marketing/CreateSplitModal'
+import { mapGetters } from 'vuex'
 export default {
     name: 'LaningPages',
     components: {
@@ -54,33 +55,17 @@ export default {
     },
     data: () => ({
         loading: false,
-        pages: [
-            {
-                type: 'Page',
-                title: 'Someone To Love You - Copy',
-                created_at: '2020/07/08 22:05:00',
-                status: 'draft',
-                conversion: '',
-            },
-            {
-                type: 'Page',
-                title: 'Someone To Love You',
-                created_at: '2020/07/08 22:05:00',
-                status: 'live',
-                conversion: 18,
-            },
-            {
-                type: 'Page',
-                title: 'My First Landing Page',
-                crated_at: '2020/07/07 22:00:00',
-                status: 'inactive',
-                conversion: 8,
-            },
-        ],
     }),
+    computed: {
+        ...mapGetters({
+            pages: 'marketing/landingPages',
+        }),
+    },
     async created() {
         this.loading = true
+        await this.$store.dispatch('marketing/getLandingPages')
         this.loading = false
+        console.log(this.pages)
     },
     methods: {
         handleCreatePageClick() {

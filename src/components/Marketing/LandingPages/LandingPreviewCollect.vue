@@ -31,6 +31,7 @@
                 >
                     <div class="landing-container">
                         <div class="landing-header">
+                            <img :src="user.banner" />
                             <div class="landing-logo">
                                 <img
                                     v-if="landingData.logo"
@@ -104,6 +105,7 @@
 </template>
 <script>
 import { appConstants } from '~/constants'
+import { mapGetters } from 'vuex'
 export default {
     name: 'LandingPreviewEmail',
     props: {
@@ -117,7 +119,13 @@ export default {
         defaultLogo: appConstants.emailDefaultLogo,
         defaultCoverArt: appConstants.defaultCoverArt,
     }),
+    created() {
+        console.log('user',  this.user)
+    },
     computed: {
+        ...mapGetters({
+            user: 'me/user',
+        }),
         landingBackStyle() {
             return {
                 backgroundColor: this.landingData.background_color,

@@ -566,7 +566,6 @@
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: cover;
-                border: 1px solid $gray-330;
                 .landing-container {
                     width: 300px;
                     .landing-header {
@@ -594,6 +593,7 @@
     .landing-container {
         padding: 50px;
         height: 100%;
+        background: $gray-330;
         .landing-header {
             .landing-logo {
                 max-width: 180px;

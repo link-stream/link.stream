@@ -5,7 +5,9 @@
                 <font-awesome-icon :icon="['fas', 'chevron-left']" />
             </a>
             <div class="title-container">
-                <span class="title">Untitled Landing Page</span>
+                <span class="title">
+                    {{ form.campaing_name ? form.campaing_name : 'Untitled Landing Page' }}
+                </span>
                 <IconButton
                     class="btn-edit"
                     icon="edit-white"
@@ -165,7 +167,7 @@
                                 required
                                 placeholder="Price"
                             />
-                        </b-input-group>    
+                        </b-input-group>
                     </b-form-group>
                     <b-form-group label="Body">
                         <b-form-textarea
@@ -266,10 +268,16 @@
                             Preview
                         </basic-button>
                         <div class="d-flex">
-                            <basic-button class="btn-black btn-save" @click="handleSaveClick">
+                            <basic-button
+                                class="btn-black btn-save"
+                                @click="handleSaveClick"
+                            >
                                 Save
                             </basic-button>
-                            <basic-button class="btn-publish" @click="handlePublishClick">
+                            <basic-button
+                                class="btn-publish"
+                                @click="handlePublishClick"
+                            >
                                 Publish
                             </basic-button>
                         </div>
@@ -279,6 +287,7 @@
         </div>
         <SelectMediaModal @select="setMedia" />
         <PreviewLandingModal />
+        <EditLandingTitleModal v-if="isEditTitle" @close="isEditTitle = false" />
     </b-container>
 </template>
 <script>
@@ -286,6 +295,7 @@ import { Chrome } from 'vue-color'
 import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
 import LandingPreviewCollect from '@/components/Marketing/LandingPages/LandingPreviewCollect'
 import PreviewLandingModal from '@/components/Modal/Marketing/PreviewLandingModal'
+import EditLandingTitleModal from '@/components/Modal/Marketing/EditLandingTitleModal'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
 import VueSelect from 'vue-select'
@@ -297,16 +307,19 @@ export default {
         LandingPreviewCollect,
         PreviewLandingModal,
         VueSelect,
+        EditLandingTitleModal,
     },
     data: () => ({
         form: {
             template_type: 'collect',
-            is_active: true,
+            is_active: false,
+            campaing_name: '',
             url: '',
             logo: '',
             artwork: '',
-            headline: '',
-            body: '',
+            headline: 'Release Title',
+            body:
+                "To get started, choose a release to sell from your store. Then, describe what makes this release unique. We'll automatically add a payment form so visitors can buy directly from your LinkStream Store.",
             button_color: '#DC2EA6',
             background_color: '',
             background_image: '',
@@ -334,6 +347,7 @@ export default {
         selMediaType: null,
         mediaURL: appConstants.mediaURL,
         defaultCoverArt: appConstants.defaultCoverArt,
+        isEditTitle: false,
     }),
     computed: {
         ...mapGetters({
@@ -342,6 +356,17 @@ export default {
         }),
         fullUrl() {
             return `${appConstants.baseAppUrl}/${this.form.url}`
+        },
+    },
+    watch: {
+        landingData: {
+            deep: true,
+            handler(value) {
+                this.form = {
+                    ...this.form,
+                    campaing_name: value.campaing_name ? value.campaing_name : '',
+                }
+            },
         },
     },
     mounted() {
@@ -361,7 +386,9 @@ export default {
                 name: 'landingPages',
             })
         },
-        editTitle() {},
+        editTitle() {
+            this.isEditTitle = true
+        },
         onChangeButtonColor(val) {
             this.buttonColor = val
             this.form.button_color = val.hex

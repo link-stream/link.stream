@@ -25,9 +25,9 @@
                 </div>
             </b-row>
             <div class="phone-frame">
-                <div 
+                <div
                     class="landing-frame"
-                    :style="viewType === 'mobile' ? landingBackStyle: ''"
+                    :style="viewType === 'mobile' ? landingBackStyle : ''"
                 >
                     <div class="landing-container">
                         <div class="landing-header">
@@ -50,7 +50,9 @@
                                 >
                                     <img
                                         v-if="landingData.artwork"
-                                        :src="`${mediaURL}${landingData.artwork}`"
+                                        :src="
+                                            `${mediaURL}${landingData.artwork}`
+                                        "
                                         alt="Artwork"
                                     />
                                     <img v-else :src="defaultCoverArt" />
@@ -119,9 +121,6 @@ export default {
         defaultLogo: appConstants.emailDefaultLogo,
         defaultCoverArt: appConstants.defaultCoverArt,
     }),
-    created() {
-        console.log('user',  this.user)
-    },
     computed: {
         ...mapGetters({
             user: 'me/user',

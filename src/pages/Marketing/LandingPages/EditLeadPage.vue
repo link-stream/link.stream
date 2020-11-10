@@ -5,7 +5,9 @@
                 <font-awesome-icon :icon="['fas', 'chevron-left']" />
             </a>
             <div class="title-container">
-                <span class="title">Untitled Landing Page</span>
+                <span class="title">
+                    {{ form.campaing_name ? form.campaing_name : 'Untitled Landing Page' }}
+                </span>
                 <IconButton
                     class="btn-edit"
                     icon="edit-white"
@@ -187,6 +189,7 @@
         </div>
         <SelectMediaModal @select="setMedia" />
         <PreviewLandingModal />
+        <EditLandingTitleModal v-if="isEditTitle" @close="isEditTitle = false" />
     </b-container>
 </template>
 <script>
@@ -194,6 +197,7 @@ import { Chrome } from 'vue-color'
 import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
 import LandingPreviewLead from '@/components/Marketing/LandingPages/LandingPreviewLead'
 import PreviewLandingModal from '@/components/Modal/Marketing/PreviewLandingModal'
+import EditLandingTitleModal from '@/components/Modal/Marketing/EditLandingTitleModal'
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
 export default {
@@ -203,11 +207,13 @@ export default {
         SelectMediaModal,
         LandingPreviewLead,
         PreviewLandingModal,
+        EditLandingTitleModal,
     },
     data: () => ({
         form: {
             template_type: 'lead',
-            is_active: true,
+            is_active: false,
+            campaing_name: '',
             url: '',
             logo: '',
             headline: 'Subscribe to our list',
@@ -222,6 +228,7 @@ export default {
         },
         selMediaType: null,
         mediaURL: appConstants.mediaURL,
+        isEditTitle: false,
     }),
     computed: {
         ...mapGetters({
@@ -229,6 +236,17 @@ export default {
         }),
         fullUrl() {
             return `${appConstants.baseAppUrl}/${this.form.url}`
+        },
+    },
+    watch: {
+        landingData: {
+            deep: true,
+            handler(value) {
+                this.form = {
+                    ...this.form,
+                    campaing_name: value.campaing_name ? value.campaing_name : '',
+                }
+            },
         },
     },
     mounted() {
@@ -247,7 +265,9 @@ export default {
                 name: 'landingPages',
             })
         },
-        editTitle() {},
+        editTitle() {
+            this.isEditTitle = true
+        },
         onChangeButtonColor(val) {
             this.buttonColor = val
             this.form.button_color = val.hex

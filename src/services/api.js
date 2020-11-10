@@ -129,6 +129,11 @@ export const api = {
             const endpoint = '/users/' + id
             return await call({ endpoint })
         },
+        async getStores(user_id) {
+            const method = METHOD_GET
+            const endpoint = '/users/stores/' + user_id
+            return await call({ endpoint, method, showProgress: false })
+        },
         async updateUser(id, params) {
             const endpoint = '/users/' + id
             const method = METHOD_PUT

@@ -44,8 +44,8 @@ const mutations = {
         state.user = user
     },
 
-    [meTypes.SET_STORES](state, { user }) {
-        state.stores = user.store
+    [meTypes.SET_STORES](state, { stores }) {
+        state.stores = stores
     },
 
     [meTypes.SET_PLAN_BAR](state, value) {
@@ -250,10 +250,13 @@ const actions = {
 
     loadAccount({ dispatch }) {
         dispatch('loadProfile')
+        dispatch('loadStores')
     },
 
-    loadStores({ commit }, { user }) {
-        commit(meTypes.SET_STORES, { user })
+    async loadStores({ commit, rootGetters }) {
+        const user = rootGetters['auth/user']
+        const { status, data } = await api.users.getStores(user.user_id)
+        status === 'success' && commit(meTypes.SET_STORES, { stores: data })
     },
 
     updateProfile({ commit }, { user }) {

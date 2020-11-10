@@ -10,7 +10,10 @@
             <transition name="page" mode="out-in">
                 <router-view :key="$route.fullPath"></router-view>
             </transition>
-            <SelectPlanBar v-if="showPlanBar" style="position: fixed; bottom: 0"/>
+            <SelectPlanBar
+                v-if="showPlanBar"
+                style="position: fixed; bottom: 0"
+            />
         </main>
         <TopNav class="d-lg-none" />
         <SideBar />
@@ -45,15 +48,16 @@ export default {
             )
         },
     },
-	watch: {
-        async 'user' () {
+    watch: {
+        async user() {
             if (this.user != null) {
-                this.$store.commit('me/SET_PLAN_BAR', this.user.plan_id === '1')        
-            }                    
-        }
+                this.$store.commit('me/SET_PLAN_BAR', this.user.plan_id === '1')
+            }
+        },
     },
     created() {
         this.$store.dispatch('me/loadProfile')
+        this.$store.dispatch('me/loadStores')
     },
 }
 </script>

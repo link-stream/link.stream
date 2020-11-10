@@ -132,6 +132,7 @@
                 </b-col>
             </b-row>
         </b-container>
+        <ChooseStore />
     </div>
 </template>
 
@@ -140,10 +141,14 @@ import { setStatusChange } from '~/utils'
 import { api } from '~/services'
 import { authentication } from '~/mixins'
 import Cookies from 'js-cookie'
+import ChooseStore from '~/components/Modal/ChooseStore'
 
 export default {
     name: 'Login',
     mixins: [authentication],
+    components: {
+        ChooseStore,
+    },
     data() {
         return {
             params_url: [],
@@ -196,19 +201,30 @@ export default {
                 }
                 this.status.loading.signin = true
                 const { email, password } = { ...this.form }
-                const { status, data, error } = await api.users.login({
+                const { status, data, error } = await api.users.loginNew({
                     email,
                     password,
                 })
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.signin', false)
-                    setTimeout(() => {
+
+                     if (data.type === 'producer' && data.store.length > 1) {
+                        this.$bus.$emit('modal.chooseStore.open', data)
+                    } else {
                         var previous_route = Cookies.getJSON('previous_route')
-                        this.$store.dispatch('auth/login', {
+                        this.$store.dispatch('auth/loginNew', {
+                            store: data.store[0],
                             user: data,
                             route: previous_route,
                         })
-                    }, 1500)
+                    }
+                    // setTimeout(() => {
+                    //     var previous_route = Cookies.getJSON('previous_route')
+                    //     this.$store.dispatch('auth/login', {
+                    //         user: data,
+                    //         route: previous_route,
+                    //     })
+                    // }, 1500)
                 } else {
                     setStatusChange(this, 'status.error.signin')
                     this.$toast.error(error)

@@ -14,3 +14,8 @@
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
 }
+.dropdown-item-avatar {
+    @include border-radius(50%);
+    width: 25px;
+    height: 25px;
+}

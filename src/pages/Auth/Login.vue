@@ -178,19 +178,16 @@ export default {
                 })
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.signin', false)
-                    this.$bus.$emit('modal.chooseStore.open', {
-                        data,
-                        email,
-                        password,
-                    })
-                    // setStatusChange(this, 'status.error.signin', false)
-                    // setTimeout(() => {
-                    //     var previous_route = Cookies.getJSON('previous_route')
-                    //     this.$store.dispatch('auth/loginNew', {
-                    //         user: data,
-                    //         route: previous_route,
-                    //     })
-                    // }, 1500)
+                    if (data.type === 'producer' && data.store.length > 1) {
+                        this.$bus.$emit('modal.chooseStore.open', data)
+                    } else {
+                        var previous_route = Cookies.getJSON('previous_route')
+                        this.$store.dispatch('auth/loginNew', {
+                            store: data.store[0],
+                            user: data,
+                            route: previous_route,
+                        })
+                    }
                 } else {
                     setStatusChange(this, 'status.error.signin')
                     this.$toast.error(error)

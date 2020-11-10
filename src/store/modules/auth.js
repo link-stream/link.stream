@@ -44,9 +44,10 @@ const mutations = {
         state.user = { id, token }
     },
 
-    [authTypes.LOGIN_NEW](state, { store }) {
+    [authTypes.LOGIN_NEW](state, { store, user }) {
+        const user_id = user.id
         const { id, token } = store
-        state.user = { id, token }
+        state.user = { user_id, id, token }
     },
 
     [authTypes.SET_USER_TYPE](state, { user }) {
@@ -97,9 +98,10 @@ const actions = {
     async loginNew({ commit, dispatch }, { store, user, route }) {
         if (!isEmpty(user)) {
             commit(commonTypes.RESET)
-            commit(authTypes.LOGIN_NEW, { store })
+            commit(authTypes.LOGIN_NEW, { store, user })
             commit(authTypes.SET_USER_TYPE, { user })
             setAuthCookie({
+                user_id: user.id,
                 id: store.id,
                 token: store.token,
             })

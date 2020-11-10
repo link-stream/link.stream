@@ -23,6 +23,23 @@
                 <font-awesome-icon :icon="['fas', 'chevron-down']" />
                 <font-awesome-icon :icon="['fas', 'chevron-up']" />
             </template>
+            <div v-if="user.type === 'producer'">
+                <div v-for="(store, index) in stores" :key="index" >
+                    <b-dropdown-item 
+                        :id="`store-name-${index}`" 
+                        :active="store.id === user.id"
+                        @click="changeStore(store)"
+                    >
+                        <b-img
+                            :alt="store.display_name"
+                            :src="store.data_image"
+                            rounded="circle"
+                            class="dropdown-item-avatar"
+                        />
+                        {{ store.url | truncate(16) }}
+                    </b-dropdown-item>
+                </div>
+            </div>            
             <b-dropdown-item :to="{ name: 'accountProfileEdit' }">Account</b-dropdown-item>
             <b-dropdown-item>Features</b-dropdown-item>
             <b-dropdown-item>History</b-dropdown-item>
@@ -35,6 +52,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Cookies from 'js-cookie'
+import { appConstants } from '~/constants'
+import { api } from '~/services'
 
 export default {
     name: 'TopNavUserMenu',
@@ -44,12 +64,20 @@ export default {
             stores: 'me/stores',
         }),
     },
-    watch: {
-        user() {
-            console.log('user menu', this.user)
-        },
-    },
     methods: {
+        async changeStore(store) {
+            if (store.id !== this.user.id) {       
+                const authuser = Cookies.getJSON(appConstants.cookies.auth.name)  
+                const tempUser = { id: authuser.user_id }
+                await this.$store.dispatch('auth/logout')  
+                this.$store.dispatch('auth/loginNew', {
+                    store: store,
+                    user: tempUser,
+                    route: '',
+                })
+                window.location = '/app'
+            }            
+        },
         async logout() {
             await this.$store.dispatch('auth/logout')
             this.$router.push({ name: 'login' })

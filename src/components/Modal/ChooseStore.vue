@@ -13,7 +13,7 @@
                 <b-col v-for="(store, index) in storeItems" :key="index">
                     <div>
                         <div class="store-logo mb-2" @click="signInStore(store)">
-                            <b-avatar size="6rem" variant="secondary"></b-avatar>
+                            <b-avatar size="6rem" variant="secondary" :src="store.data_image"></b-avatar>
                         </div>
                         <span class="mt-4">{{ store.url }}</span>
                     </div>
@@ -32,16 +32,12 @@ export default {
             open: false,
             user: null,
             storeItems: [],
-            email: '',
-            password: '',
         }
     },
     created() {
         this.$bus.$on('modal.chooseStore.open', payload => {
-            this.user = payload.data
-            this.storeItems = payload.data.store
-            this.email = payload.email
-            this.password = payload.password
+            this.user = payload
+            this.storeItems = payload.store
             this.open = true
         })
     },
@@ -52,8 +48,6 @@ export default {
                 this.$store.dispatch('auth/loginNew', {
                     store: store,
                     user: this.user,
-                    email: this.email,
-                    password: this.password,
                     route: previous_route,
                 })
             }, 1500)

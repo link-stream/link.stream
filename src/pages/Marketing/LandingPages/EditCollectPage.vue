@@ -25,7 +25,7 @@
                         Customize your landing page
                     </h1>
                     <div class="viz-toggle mb-3">
-                        <TogglerButton v-model="form.is_acitive" />
+                        <TogglerButton v-model="form.is_acitive" disabled />
                         <span class="toggle-label">
                             {{ form.is_acitive ? 'Active' : 'Private/Draft' }}
                         </span>

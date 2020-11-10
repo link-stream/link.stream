@@ -5,6 +5,7 @@
         :width="42"
         :height="26"
         :margin="2"
+        :disabled="disabled"
         @input="handleInput"
     />
 </template>
@@ -19,6 +20,10 @@ export default {
     },
     props: {
         value: {
+            type: Boolean,
+            default: false,
+        },
+        disabled: {
             type: Boolean,
             default: false,
         },

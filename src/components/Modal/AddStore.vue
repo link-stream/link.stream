@@ -1,5 +1,14 @@
 <template>
-  <b-modal modal-class="ShareArtModal" v-model="open" centered size="lg" hide-footer @hidden="$emit('close')">
+  <b-modal 
+    modal-class="ShareArtModal" 
+    v-model="open" 
+    centered 
+    size="lg" 
+    hide-footer 
+    @hidden="$emit('close')"
+    no-close-on-backdrop
+    no-close-on-esc
+    >
         <template v-slot:modal-header>
             <BasicButton variant="icon" class="modal-close" @click="close" />
             <h2>Store Info</h2>
@@ -94,6 +103,8 @@
 <script>
 import { api } from '~/services'
 import { mapGetters } from 'vuex'
+import Cookies from 'js-cookie'
+import { appConstants } from '~/constants'
 import { Validator } from 'vee-validate'
 import { setStatusChange } from '~/utils'
 export default {
@@ -188,8 +199,20 @@ export default {
                 })
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.addstore', false)
-                    await this.$store.dispatch('me/loadStores')
+                    const authuser = Cookies.getJSON(appConstants.cookies.auth.name)  
+                    const tempUser = { 
+                        id: authuser.user_id,
+                        token: authuser.user_token
+                    }
+                    await this.$store.dispatch('auth/logout')  
+                    this.$store.dispatch('auth/loginNew', {
+                        store: data,
+                        user: tempUser,
+                        route: '',
+                    })
+                    this.status.loading.addstore = false
                     this.close()
+                    window.location = '/app'
                 } else {
                     setStatusChange(this, 'status.error.addstore')
                     this.$toast.error(error)
@@ -198,8 +221,10 @@ export default {
             })
         },
         close() {
-            this.resetForm()
-            this.open = false
+            if (!this.status.loading.addstore) {
+                this.resetForm()
+                this.open = false
+            }            
         },
     }
 }

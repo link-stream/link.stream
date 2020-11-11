@@ -64,6 +64,9 @@
             <template v-slot:button-content>
                 <Icon icon="dot-menu-h" />
             </template>
+            <b-dropdown-item @click="handleViewPageClick">
+                View Landing Page
+            </b-dropdown-item>
             <b-dropdown-item @click="handleViewReportClick">
                 View Report
             </b-dropdown-item>
@@ -104,6 +107,15 @@ export default {
                 name: 'resultSplitTest',
             })
         },
+        handleViewPageClick() {
+            let routeData = this.$router.resolve({
+                name: 'viewLandingPage',
+                params: {
+                    id: this.page.id,
+                },
+            })
+            window.open(routeData.href, '_blank')
+        }
     },
 }
 </script>

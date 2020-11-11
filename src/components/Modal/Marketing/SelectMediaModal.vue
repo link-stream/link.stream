@@ -118,7 +118,6 @@ export default {
         this.$bus.$on('modal.selectMedia.open', this.handleOpen)
         this.$bus.$on('modal.selectMedia.close', this.handleClose)
         await this.$store.dispatch('marketing/getMedias')
-        console.log(this.medias)
     },
     methods: {
         close() {

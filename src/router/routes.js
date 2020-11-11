@@ -54,6 +54,7 @@ import {
     EditEmailLandingPage,
     EditCollectLandingPage,
     EditLeadLandingPage,
+    ViewLandingPage,
     EditSplitTest,
     AddVariations,
     ResultSplitTest,
@@ -466,6 +467,13 @@ const routes = [
         path: '/app/marketing/landing-page/edit-lead',
         name: 'editLeadLandingPage',
         component: EditLeadLandingPage,
+        meta: { requiresAuth: true, userType: 'producer' },
+    },
+    {
+        path: '/app/marketing/landing-page/view/:id',
+        name: 'viewLandingPage',
+        component: ViewLandingPage,
+        props: true,
         meta: { requiresAuth: true, userType: 'producer' },
     },
     {

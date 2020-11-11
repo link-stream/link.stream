@@ -373,7 +373,7 @@ export default {
             },
         },
     },
-    async create() {
+    async created() {
         await this.$store.dispatch('marketing/getMarketingPromotes')
     },
     mounted() {
@@ -481,26 +481,26 @@ export default {
             this.form.promote_id = linkUrl
         },
         initPromote() {
-            // if (this.smsData.promote_id) {
-            //     let aryData = this.smsData.promote_id.split('/')
-            //     const curType = aryData[aryData.length - 2]
-            //     const curId = aryData[aryData.length - 1]
-            //     let realType = ''
-            //     switch (curType) {
-            //         case 'beats':
-            //             realType = 'beat'
-            //             break
-            //         case 'beat-packs':
-            //             realType = 'pack'
-            //             break
-            //         case 'kits':
-            //             realType = 'kit'
-            //             break
-            //     }
-            //     this.promote = this.promotes.find(
-            //         ({ id, type }) => id == curId && type == realType
-            //     )
-            // }
+            if (this.landingData.promote_id) {
+                let aryData = this.landingData.promote_id.split('/')
+                const curType = aryData[aryData.length - 2]
+                const curId = aryData[aryData.length - 1]
+                let realType = ''
+                switch (curType) {
+                    case 'beats':
+                        realType = 'beat'
+                        break
+                    case 'beat-packs':
+                        realType = 'pack'
+                        break
+                    case 'kits':
+                        realType = 'kit'
+                        break
+                }
+                this.promote = this.promotes.find(
+                    ({ id, type }) => id == curId && type == realType
+                )
+            }
         },
         async handlePreviewClick() {
             const params = {

@@ -942,6 +942,14 @@ export const api = {
                 method,
             })
         },
+        async getLandingPage(userId, id) {
+            const endpoint = '/marketing/landing_page/' + userId + '/' + id
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
         async insertLandingPage(params) {
             let endpoint = 'marketing/landing_page/'
             const method = METHOD_POST

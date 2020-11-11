@@ -89,7 +89,7 @@
                             <b-form-group class="mb-4 error-l-110">
                                 <slot name="label">
                                     <label for="display_name">
-                                        Display name
+                                        Store name
                                         <span class="text-danger">*</span>
                                     </label>
                                 </slot>

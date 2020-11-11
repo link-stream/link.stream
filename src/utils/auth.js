@@ -4,10 +4,10 @@ import Cookies from 'js-cookie'
 export const getAuthCookie = () =>
     Cookies.getJSON(appConstants.cookies.auth.name)
 
-export const setAuthCookie = ({ user_id, id, token }) => {
+export const setAuthCookie = ({ user_id, user_token, id, token }) => {
     Cookies.set(
         appConstants.cookies.auth.name,
-        { user_id, id, token },
+        { user_id, user_token, id, token },
         {
             expires: appConstants.cookies.auth.expires,
             secure: process.env === 'production',

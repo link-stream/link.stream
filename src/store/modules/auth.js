@@ -46,8 +46,9 @@ const mutations = {
 
     [authTypes.LOGIN_NEW](state, { store, user }) {
         const user_id = user.id
+        const user_token = user.token
         const { id, token } = store
-        state.user = { user_id, id, token }
+        state.user = { user_id, user_token, id, token }
     },
 
     [authTypes.SET_USER_TYPE](state, { user }) {
@@ -102,6 +103,7 @@ const actions = {
             commit(authTypes.SET_USER_TYPE, { user })
             setAuthCookie({
                 user_id: user.id,
+                user_token: user.token,
                 id: store.id,
                 token: store.token,
             })

@@ -39,7 +39,15 @@
                         {{ store.url | truncate(16) }}
                     </b-dropdown-item>
                 </div>
-            </div>            
+            </div>      
+            <b-dropdown-divider v-if="stores"></b-dropdown-divider>      
+            <b-dropdown-item 
+                @click="addStore" 
+                v-if="user.type === 'producer'" 
+                :disabled="stores.length === 10"
+            >
+                Add store
+            </b-dropdown-item>
             <b-dropdown-item :to="{ name: 'accountProfileEdit' }">Account</b-dropdown-item>
             <b-dropdown-item>Features</b-dropdown-item>
             <b-dropdown-item>History</b-dropdown-item>
@@ -60,6 +68,7 @@ export default {
     name: 'TopNavUserMenu',
     computed: {
         ...mapGetters({
+            auth: 'auth/user',
             user: 'me/user',
             stores: 'me/stores',
         }),
@@ -68,7 +77,10 @@ export default {
         async changeStore(store) {
             if (store.id !== this.user.id) {       
                 const authuser = Cookies.getJSON(appConstants.cookies.auth.name)  
-                const tempUser = { id: authuser.user_id }
+                const tempUser = { 
+                    id: authuser.user_id,
+                    token: authuser.user_token
+                }
                 await this.$store.dispatch('auth/logout')  
                 this.$store.dispatch('auth/loginNew', {
                     store: store,
@@ -77,6 +89,13 @@ export default {
                 })
                 window.location = '/app'
             }            
+        },
+        addStore() {
+            const userInfo = {
+                user_id: this.auth.user_id,
+                user_token: this.auth.user_token,
+            }
+            this.$bus.$emit('modal.addstore.open', userInfo)
         },
         async logout() {
             await this.$store.dispatch('auth/logout')

@@ -17,8 +17,10 @@ const call = async function({
         'X-API-KEY': process.env.VUE_APP_API_KEY,
         'Content-Type': 'application/x-www-form-urlencoded',
     }
+    const authToken = params.user_token === undefined 
+        ? app.$store.getters['auth/token']
+        : params.user_token
 
-    const authToken = app.$store.getters['auth/token']
     if (authToken) {
         headers.Token = authToken
     }
@@ -133,6 +135,12 @@ export const api = {
             const method = METHOD_GET
             const endpoint = '/users/stores/' + user_id
             return await call({ endpoint, method, showProgress: false })
+        },
+        async addStore(params) {
+            console.log('addStore params', params)
+            const method = METHOD_POST
+            const endpoint = '/users/add_store/'
+            return await call({ endpoint, params, method })
         },
         async updateUser(id, params) {
             const endpoint = '/users/' + id

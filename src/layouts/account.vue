@@ -17,6 +17,7 @@
         </main>
         <TopNav class="d-lg-none" />
         <SideBar />
+        <AddStore />
         <vue-progress-bar></vue-progress-bar>
     </div>
 </template>
@@ -25,6 +26,7 @@
 import { mapGetters } from 'vuex'
 import TopNav from '~/components/Account/TopNav/TopNav'
 import SideBar from '~/components/Account/SideNav/SideBar'
+import AddStore from '~/components/Modal/AddStore'
 import SelectPlanBar from '~/components/Account/SideNav/SelectPlanBar'
 export default {
     name: 'Account',
@@ -32,6 +34,7 @@ export default {
         TopNav,
         SideBar,
         SelectPlanBar,
+        AddStore,
     },
     computed: {
         ...mapGetters({

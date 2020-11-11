@@ -283,6 +283,7 @@ const actions = {
 
     async loadProfile({ commit, rootGetters }) {
         const user = rootGetters['auth/user']
+        console.log('loadProfile user', user)
         const { status, data } = await api.users.getUser(user.id)
         status === 'success' && commit(meTypes.SET_USER, { user: data })
     },

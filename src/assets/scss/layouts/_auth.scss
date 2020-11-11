@@ -15,6 +15,7 @@
         text-align: left;
     }
 
+    .page-choose-store,
     .page-login,
     .page-signup {
         .g-login-btn-wrap {
@@ -27,5 +28,48 @@
         .auth-btn {
             width: 300px;
         }
+    }
+
+    .store-col {
+        margin-top: 11px;
+        .store-card {
+            min-height: 70px;
+            max-width: 350px;
+            width: 350px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.22);
+            border: 0;
+            span {
+                text-align: left;
+            }
+            .card-body {
+                width: 100%;
+            }
+            .col-title {
+                padding-left: 10px;
+                .store-display-name {
+                    color: $black;
+                    font-size: 13px;
+                    font-weight: bold;
+                    letter-spacing: 0;
+                    line-height: 20px;
+                }
+                .store-url {
+                    color: $black;
+                    font-size: 11px;
+                    letter-spacing: 0;
+                    line-height: 14px;
+                }
+            }
+        }
+    }
+    .store-chevron-right {
+        color: $black;
+        font-size: 16px;
+        position: absolute;
+        top: 50%;
+        left: 95%;
+        transform: translate(-50%, -50%);
     }
 }

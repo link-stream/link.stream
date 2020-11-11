@@ -11,7 +11,7 @@
                         :avatarSrc="item.avatarSrc"
                         :elements="item.elements"
                         :index="item.index"
-						:url_profile="url_profile"
+                        :url_profile="url_profile"
                     ></CartItem>
                 </div>
             </b-col>
@@ -28,7 +28,11 @@
                         </b-col>
                         <b-col cols="5" sm="6" class="pt-2 text-right">
                             <span class="summary-details-price mr-2">$</span>
-                            <span class="summary-details-price">{{ subTotal.toFixed(2) }}</span>
+                            <span class="summary-details-price">
+                                {{
+                                subTotal.toFixed(2)
+                                }}
+                            </span>
                         </b-col>
                     </b-row>
                     <b-row v-for="(item, index) in fees" :key="index">
@@ -37,7 +41,11 @@
                             v-show="item.value != 0 && item.type != 'Percent'"
                             class="pt-2"
                         >
-                            <span class="card-summary-details">{{ item.name }}</span>
+                            <span class="card-summary-details">
+                                {{
+                                item.name
+                                }}
+                            </span>
                         </b-col>
                         <b-col
                             cols="5"
@@ -46,18 +54,28 @@
                             class="pt-2 text-right"
                         >
                             <span class="summary-details-price mr-2">$</span>
-                            <span
-                                class="summary-details-price text-right"
-                            >{{ parseFloat(item.value).toFixed(2) }}</span>
+                            <span class="summary-details-price text-right">
+                                {{
+                                parseFloat(item.value).toFixed(2)
+                                }}
+                            </span>
                         </b-col>
                     </b-row>
                     <b-row v-show="fees_percent.value != 0">
                         <b-col cols="6" class="pt-2">
-                            <span class="card-summary-details">{{ fees_percent.name }}</span>
+                            <span class="card-summary-details">
+                                {{
+                                fees_percent.name
+                                }}
+                            </span>
                         </b-col>
                         <b-col cols="5" sm="6" class="pt-2 text-right">
                             <span class="summary-details-price mr-2">$</span>
-                            <span class="summary-details-price">{{ percent }}</span>
+                            <span class="summary-details-price">
+                                {{
+                                percent
+                                }}
+                            </span>
                         </b-col>
                     </b-row>
 
@@ -72,10 +90,7 @@
                     </b-row>
                     <b-row>
                         <b-col cols="12" xl="10" lg="11" md="11" sm="12" class="center">
-                            <basic-button                               
-                                class="mt-4 d-block center"
-                                @click="checkoutTo"
-                            >Checkout</basic-button>
+                            <basic-button class="mt-4 d-block center" @click="checkoutTo">Checkout</basic-button>
                         </b-col>
                     </b-row>
                     <b-row class="my-2" align="center" style="justify-content:center;">
@@ -87,7 +102,11 @@
                                 }"
                                 class="return-links"
                             >
-                                <font-awesome-icon :icon="['fas', 'chevron-left']" size="1x" class="mr-2" />Return to profile
+                                <font-awesome-icon
+                                    :icon="['fas', 'chevron-left']"
+                                    size="1x"
+                                    class="mr-2"
+                                />Return to profile
                             </b-link>
                         </b-col>
                     </b-row>
@@ -119,7 +138,7 @@ export default {
             fees_percent: '',
             params_url: [],
             items_details: [],
-			url_profile: '',
+            url_profile: '',
         }
     },
     created() {
@@ -137,12 +156,12 @@ export default {
     },
     async mounted() {
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
-		if (this.session !== undefined) Cookies.remove('previous_route')
+        if (this.session !== undefined) Cookies.remove('previous_route')
         this.params_url = Cookies.getJSON('params_url')
-		
-		var first_url = this.$route.fullPath.split('/')
+
+        var first_url = this.$route.fullPath.split('/')
         this.url_profile = first_url[1]
-		
+
         await this.createItems()
 
         if (this.itemsCart.length === 0) {
@@ -161,9 +180,9 @@ export default {
     methods: {
         checkoutTo() {
             if (this.session === undefined) {
-				var previous_route = {
+                var previous_route = {
                     route: 'payWithCard',
-                    params: ''
+                    params: `${this.url_profile}`,
                 }
                 Cookies.set('previous_route', previous_route)
                 this.$router
@@ -272,11 +291,11 @@ export default {
             }
 
             var informationPay = [payDetails]
-			
-			var cookies_informationPay = this.url_profile + '_informationPay'
-			
+
+            var cookies_informationPay = this.url_profile + '_informationPay'
+
             Cookies.set(cookies_informationPay, informationPay)
-			
+
             //var informationPay = [this.itemsCart, payDetails]
 
             /*Cookies.set(

@@ -6,6 +6,7 @@ import {
     Login,
     Signup,
     SignupAs,
+    YourStores,
     SignupConfirm,
     EmailConfirm,
     PasswordForgot,
@@ -122,6 +123,12 @@ const routes = [
         path: '/signup-as',
         name: 'signupAs',
         component: SignupAs,
+        meta: { requiresGuest: true, layout: 'auth' },
+    },
+    {
+        path: '/your-stores',
+        name: 'yourStores',
+        component: YourStores,
         meta: { requiresGuest: true, layout: 'auth' },
     },
     {

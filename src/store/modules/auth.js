@@ -112,14 +112,17 @@ const actions = {
                 })
             } else {
                 if (route.route === 'publicProfile') {
+                    route.route
                     router.push({
                         name: route.route,
                         params: { url: route.params },
                     })
                 }
                 if (route.route === 'payWithCard') {
+                    route.route
                     router.push({
                         name: route.route,
+                        params: { url: route.params },
                     })
                 }
             }

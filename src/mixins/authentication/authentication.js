@@ -27,15 +27,27 @@ export default {
             const { id_token: platform_token } = googleUser.getAuthResponse()
             if (platform_token) {
                 this.status.loading.google = true
-                const { status, data, error } = await api.users.googleLogin({
+                const { status, data, error } = await api.users.googleLoginNew({
                     platform_token,
                     type: Cookies.getJSON('user_type'),
                 })
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.google', false)
-                    setTimeout(() => {
-                        this.$store.dispatch('auth/login', { user: data })
-                    }, 1500)
+                    if (data.type === 'producer' && data.store.length > 1) {
+                        localStorage.setItem('userStores', JSON.stringify(data))
+                        this.$router
+                            .push({
+                                name: 'yourStores',
+                            })
+                            .catch(err => {})
+                    } else {
+                        var previous_route = Cookies.getJSON('previous_route')
+                        this.$store.dispatch('auth/loginNew', {
+                            store: data.store[0],
+                            user: data,
+                            route: previous_route,
+                        })
+                    }
                 } else {
                     setStatusChange(this, 'status.error.google')
                     this.$toast.error(error)

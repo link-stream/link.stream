@@ -12,13 +12,9 @@
                                 <b-col cols="12" sm="11" class="mt-3">
                                     <div class="d-flex align-items-center">
                                         <div class="streamy-logo">
-                                            <img
-                                                src="@/assets/img/ico/streamy-logo.svg"
-                                            />
+                                            <img src="@/assets/img/ico/streamy-logo.svg" />
                                         </div>
-                                        <span class="link-stream-llc-black pl-3"
-                                            >LinkSream, LLC</span
-                                        >
+                                        <span class="link-stream-llc-black pl-3">LinkSream, LLC</span>
                                     </div>
                                     <b-dropdown
                                         variant="outline-dark"
@@ -34,26 +30,15 @@
                                             <div class="mx-4">
                                                 <b-row>
                                                     <b-col cols="8">
-                                                        <span
-                                                            class="summary-details-dark"
-                                                            >Subtotal</span
-                                                        >
+                                                        <span class="summary-details-dark">Subtotal</span>
                                                     </b-col>
-                                                    <b-col
-                                                        cols="4"
-                                                        class="text-right px-0"
-                                                    >
-                                                        <span
-                                                            class="details-price-dark mr-2"
-                                                            >$</span
-                                                        >
-                                                        <span
-                                                            class="details-price-dark"
-                                                        >
+                                                    <b-col cols="4" class="text-right px-0">
+                                                        <span class="details-price-dark mr-2">$</span>
+                                                        <span class="details-price-dark">
                                                             {{
-                                                                subTotal.toFixed(
-                                                                    2
-                                                                )
+                                                            subTotal.toFixed(
+                                                            2
+                                                            )
                                                             }}
                                                         </span>
                                                     </b-col>
@@ -74,9 +59,7 @@
                                                     >
                                                         <span
                                                             class="summary-details-dark"
-                                                        >
-                                                            {{ item.name }}
-                                                        </span>
+                                                        >{{ item.name }}</span>
                                                     </b-col>
                                                     <b-col
                                                         cols="4"
@@ -87,17 +70,12 @@
                                                         "
                                                         class="pt-2 px-0 text-right"
                                                     >
-                                                        <span
-                                                            class="details-price-dark mr-2"
-                                                            >$</span
-                                                        >
-                                                        <span
-                                                            class="details-price-dark"
-                                                        >
+                                                        <span class="details-price-dark mr-2">$</span>
+                                                        <span class="details-price-dark">
                                                             {{
-                                                                parseFloat(
-                                                                    item.value
-                                                                ).toFixed(2)
+                                                            parseFloat(
+                                                            item.value
+                                                            ).toFixed(2)
                                                             }}
                                                         </span>
                                                     </b-col>
@@ -107,52 +85,28 @@
                                                         fees_percent.value != 0
                                                     "
                                                 >
-                                                    <b-col
-                                                        cols="8"
-                                                        class="pt-2"
-                                                    >
-                                                        <span
-                                                            class="summary-details-dark"
-                                                        >
+                                                    <b-col cols="8" class="pt-2">
+                                                        <span class="summary-details-dark">
                                                             {{
-                                                                fees_percent.name
+                                                            fees_percent.name
                                                             }}
                                                         </span>
                                                     </b-col>
-                                                    <b-col
-                                                        cols="4"
-                                                        class="pt-2 text-right px-0"
-                                                    >
-                                                        <span
-                                                            class="details-price-dark mr-2"
-                                                            >$</span
-                                                        >
+                                                    <b-col cols="4" class="pt-2 text-right px-0">
+                                                        <span class="details-price-dark mr-2">$</span>
                                                         <span
                                                             class="details-price-dark"
-                                                            >{{ percent }}</span
-                                                        >
+                                                        >{{ percent }}</span>
                                                     </b-col>
                                                 </b-row>
                                                 <div class="divider"></div>
                                                 <b-row class="mt-2">
                                                     <b-col cols="8">
-                                                        <span
-                                                            class="summary-total-dark"
-                                                            >Order Total</span
-                                                        >
+                                                        <span class="summary-total-dark">Order Total</span>
                                                     </b-col>
-                                                    <b-col
-                                                        cols="4"
-                                                        class="text-right px-0"
-                                                    >
-                                                        <span
-                                                            class="total-price-dark"
-                                                            >$</span
-                                                        >
-                                                        <span
-                                                            class="total-price-dark"
-                                                            >{{ total }}</span
-                                                        >
+                                                    <b-col cols="4" class="text-right px-0">
+                                                        <span class="total-price-dark">$</span>
+                                                        <span class="total-price-dark">{{ total }}</span>
                                                     </b-col>
                                                 </b-row>
                                             </div>
@@ -162,42 +116,26 @@
                             </b-row>
                         </b-col>
                         <b-col cols="12" class="mt-4">
-                            <b-row
-                                style="justify-content: center;"
-                                class="mt-4"
-                            >
+                            <b-row style="justify-content: center;" class="mt-4">
                                 <b-col cols="12" sm="10">
                                     <span class="information">Information</span>
-                                    <span class="ic-baseline-arrow-next mx-2"
-                                        >></span
-                                    >
+                                    <span class="ic-baseline-arrow-next mx-2">></span>
                                     <span class="payment">Payment</span>
                                 </b-col>
                             </b-row>
                         </b-col>
                         <b-col cols="12" class="mt-4">
-                            <b-row
-                                style="justify-content: center;"
-                                class="mt-3"
-                            >
+                            <b-row style="justify-content: center;" class="mt-3">
                                 <b-col cols="12" sm="10">
                                     <b-card-sub-title>
-                                        <b-avatar
-                                            variant="dark"
-                                            :src="user_photo"
-                                        ></b-avatar>
-                                        <span class="data-user ml-2">
-                                            {{ data_user }}
-                                        </span>
+                                        <b-avatar variant="dark" :src="user_photo"></b-avatar>
+                                        <span class="data-user ml-2">{{ data_user }}</span>
                                     </b-card-sub-title>
                                 </b-col>
                             </b-row>
                         </b-col>
                         <b-col cols="12" class="mt-4">
-                            <b-row
-                                style="justify-content: center;"
-                                class="mt-4"
-                            >
+                            <b-row style="justify-content: center;" class="mt-4">
                                 <b-col cols="12" sm="10">
                                     <b-col cols="12" xl="7" lg="10" md="11">
                                         <div class="tabnav contact-information">
@@ -209,16 +147,13 @@
                                                             'card',
                                                     }"
                                                 >
-                                                    <b-icon-credit-card
-                                                        class="mr-2"
-                                                    />
+                                                    <b-icon-credit-card class="mr-2" />
                                                     <a
                                                         href="#"
                                                         @click.prevent="
                                                             currentTab = 'card'
                                                         "
-                                                        >Pay with card</a
-                                                    >
+                                                    >Pay with card</a>
                                                 </li>
                                                 <li
                                                     :class="{
@@ -240,8 +175,7 @@
                                                             currentTab =
                                                                 'paypal'
                                                         "
-                                                        >Pay with paypal</a
-                                                    >
+                                                    >Pay with paypal</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -249,11 +183,7 @@
                                 </b-col>
                             </b-row>
                         </b-col>
-                        <b-col
-                            cols="12"
-                            v-if="currentTab === 'paypal'"
-                            class="paypal-container"
-                        >
+                        <b-col cols="12" v-if="currentTab === 'paypal'" class="paypal-container">
                             <LoadingSpinner
                                 class="m-2"
                                 animation="bounce"
@@ -278,11 +208,7 @@
                                 "
                             ></PayPal>
                         </b-col>
-                        <b-col
-                            cols="12"
-                            class="mt-4"
-                            v-else-if="currentTab === 'card'"
-                        >
+                        <b-col cols="12" class="mt-4" v-else-if="currentTab === 'card'">
                             <b-row style="justify-content: center;">
                                 <b-col cols="12" sm="10">
                                     <b-form-group
@@ -304,10 +230,7 @@
                                                     : false
                                             "
                                         ></b-form-input>
-                                        <div
-                                            v-if="cardNumber == ''"
-                                            class="toggle-pwd-btn py-0"
-                                        >
+                                        <div v-if="cardNumber == ''" class="toggle-pwd-btn py-0">
                                             <b-img
                                                 class="mr-1"
                                                 fluid
@@ -336,10 +259,7 @@
                                                 src="/static/img/amex.svg"
                                             ></b-img>
                                         </div>
-                                        <div
-                                            v-else
-                                            class="toggle-pwd-btn py-0 mt-2"
-                                        >
+                                        <div v-else class="toggle-pwd-btn py-0 mt-2">
                                             <b-img
                                                 fluid
                                                 width="30px"
@@ -347,13 +267,8 @@
                                                 :src="cardBrandClass"
                                             ></b-img>
                                         </div>
-                                        <div
-                                            v-if="cardErrors.cardNumber"
-                                            class="error"
-                                        >
-                                            <small class="msg-error">
-                                                {{ cardErrors.cardNumber }}
-                                            </small>
+                                        <div v-if="cardErrors.cardNumber" class="error">
+                                            <small class="msg-error">{{ cardErrors.cardNumber }}</small>
                                         </div>
                                     </b-form-group>
                                 </b-col>
@@ -374,13 +289,8 @@
                                             v-cardformat:formatCardExpiry
                                             ref="cardExpInput"
                                         ></b-form-input>
-                                        <div
-                                            v-if="cardErrors.cardExpiry"
-                                            class="error"
-                                        >
-                                            <small class="msg-error">
-                                                {{ cardErrors.cardExpiry }}
-                                            </small>
+                                        <div v-if="cardErrors.cardExpiry" class="error">
+                                            <small class="msg-error">{{ cardErrors.cardExpiry }}</small>
                                         </div>
                                     </b-form-group>
                                 </b-col>
@@ -399,13 +309,8 @@
                                             v-cardformat:formatCardCVC
                                             ref="cardCvcInput"
                                         ></b-form-input>
-                                        <div
-                                            v-if="cardErrors.cardCvc"
-                                            class="error"
-                                        >
-                                            <small class="msg-error">
-                                                {{ cardErrors.cardCvc }}
-                                            </small>
+                                        <div v-if="cardErrors.cardCvc" class="error">
+                                            <small class="msg-error">{{ cardErrors.cardCvc }}</small>
                                         </div>
                                     </b-form-group>
                                 </b-col>
@@ -428,12 +333,11 @@
                                             aria-describedby="nameCard-live-feedback"
                                             data-vv-as="Name on Card"
                                         ></b-form-input>
-                                        <b-form-invalid-feedback
-                                            id="nameCard-live-feedback"
-                                            >{{
-                                                veeErrors.first('nameCard')
-                                            }}</b-form-invalid-feedback
-                                        >
+                                        <b-form-invalid-feedback id="nameCard-live-feedback">
+                                            {{
+                                            veeErrors.first('nameCard')
+                                            }}
+                                        </b-form-invalid-feedback>
                                     </b-form-group>
                                 </b-col>
                             </b-row>
@@ -471,22 +375,16 @@
                                             aria-describedby="zip-live-feedback"
                                             data-vv-as="Zip"
                                         ></b-form-input>
-                                        <b-form-invalid-feedback
-                                            id="zip-live-feedback"
-                                            >{{
-                                                veeErrors.first('zip')
-                                            }}</b-form-invalid-feedback
-                                        >
+                                        <b-form-invalid-feedback id="zip-live-feedback">
+                                            {{
+                                            veeErrors.first('zip')
+                                            }}
+                                        </b-form-invalid-feedback>
                                     </b-form-group>
                                 </b-col>
                             </b-row>
                             <b-row>
-                                <b-col
-                                    cols="12"
-                                    sm="4"
-                                    class="px-0 mt-4"
-                                    align="center"
-                                >
+                                <b-col cols="12" sm="4" class="px-0 mt-4" align="center">
                                     <b-link
                                         :to="{ name: 'cart' }"
                                         target="_self"
@@ -501,21 +399,14 @@
                                 </b-col>
                             </b-row>
                             <b-row>
-                                <b-col
-                                    cols="12"
-                                    sm="5"
-                                    class="px-0 mt-3"
-                                    align="center"
-                                >
+                                <b-col cols="12" sm="5" class="px-0 mt-3" align="center">
                                     <spinner-button
                                         :loading="status_loading_pay"
                                         :disabled="status_loading_pay"
                                         @click="creditCardPayment()"
                                         class="ml-2 continue-to-payment"
                                     >
-                                        <span class="continue-to-payment"
-                                            >Pay $ {{ total }}</span
-                                        >
+                                        <span class="continue-to-payment">Pay $ {{ total }}</span>
                                     </spinner-button>
                                 </b-col>
                             </b-row>
@@ -535,22 +426,19 @@
                                         class="mr-3 card-links"
                                         :to="{ name: 'legal' }"
                                         target="_blank"
-                                        >Refund policy</b-button
-                                    >
+                                    >Refund policy</b-button>
                                     <b-button
                                         variant="link"
                                         class="mr-3 card-links"
                                         :to="{ name: 'legal' }"
                                         target="_blank"
-                                        >Privacy policy</b-button
-                                    >
+                                    >Privacy policy</b-button>
                                     <b-button
                                         variant="link"
                                         class="mr-3 card-links"
                                         :to="{ name: 'legal' }"
                                         target="_blank"
-                                        >Terms of services</b-button
-                                    >
+                                    >Terms of services</b-button>
                                 </b-col>
                             </b-row>
                         </b-col>
@@ -559,9 +447,7 @@
             </b-col>
         </div>
 
-        <div
-            class="page page-login btn-spinner cart ckeckout-pay pt-5 d-none d-md-block"
-        >
+        <div class="page page-login btn-spinner cart ckeckout-pay pt-5 d-none d-md-block">
             <b-col cols="12" xl="8" lg="7" md="6" class="mt-4 pt-4n">
                 <b-form>
                     <b-row>
@@ -575,53 +461,33 @@
                                     class="d-flex align-items-center"
                                 >
                                     <div class="streamy-logo">
-                                        <img
-                                            src="@/assets/img/ico/streamy-logo.svg"
-                                        />
+                                        <img src="@/assets/img/ico/streamy-logo.svg" />
                                     </div>
-                                    <span class="link-stream-llc pl-3"
-                                        >LinkSream, LLC</span
-                                    >
+                                    <span class="link-stream-llc pl-3">LinkSream, LLC</span>
                                 </b-col>
                             </b-row>
                         </b-col>
                         <b-col cols="12">
-                            <b-row
-                                style="justify-content: center;"
-                                class="mt-4"
-                            >
+                            <b-row style="justify-content: center;" class="mt-4">
                                 <b-col cols="12" xl="7" lg="10" md="11">
                                     <span class="information">Information</span>
-                                    <span class="ic-baseline-arrow-next mx-2"
-                                        >></span
-                                    >
+                                    <span class="ic-baseline-arrow-next mx-2">></span>
                                     <span class="payment">Payment</span>
                                 </b-col>
                             </b-row>
                         </b-col>
                         <b-col cols="12">
-                            <b-row
-                                style="justify-content: center;"
-                                class="mt-2"
-                            >
+                            <b-row style="justify-content: center;" class="mt-2">
                                 <b-col cols="12" xl="7" lg="10" md="11">
                                     <b-card-sub-title>
-                                        <b-avatar
-                                            variant="dark"
-                                            :src="user_photo"
-                                        ></b-avatar>
-                                        <span class="data-user ml-2">
-                                            {{ data_user }}
-                                        </span>
+                                        <b-avatar variant="dark" :src="user_photo"></b-avatar>
+                                        <span class="data-user ml-2">{{ data_user }}</span>
                                     </b-card-sub-title>
                                 </b-col>
                             </b-row>
                         </b-col>
                         <b-col cols="12">
-                            <b-row
-                                style="justify-content: center;"
-                                class="mt-3"
-                            >
+                            <b-row style="justify-content: center;" class="mt-3">
                                 <b-col cols="12" xl="7" lg="10" md="11">
                                     <div class="tabnav contact-information">
                                         <ul>
@@ -631,16 +497,13 @@
                                                         currentTab === 'card',
                                                 }"
                                             >
-                                                <b-icon-credit-card
-                                                    class="mr-2"
-                                                />
+                                                <b-icon-credit-card class="mr-2" />
                                                 <a
                                                     href="#"
                                                     @click.prevent="
                                                         currentTab = 'card'
                                                     "
-                                                    >Pay with card</a
-                                                >
+                                                >Pay with card</a>
                                             </li>
                                             <li
                                                 :class="{
@@ -657,19 +520,14 @@
                                                     @click.prevent="
                                                         currentTab = 'paypal'
                                                     "
-                                                    >Pay with paypal</a
-                                                >
+                                                >Pay with paypal</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </b-col>
                             </b-row>
                         </b-col>
-                        <b-col
-                            cols="12"
-                            v-if="currentTab === 'paypal'"
-                            class="paypal-container"
-                        >
+                        <b-col cols="12" v-if="currentTab === 'paypal'" class="paypal-container">
                             <LoadingSpinner
                                 class="m-2"
                                 animation="bounce"
@@ -695,10 +553,7 @@
                             ></PayPal>
                         </b-col>
                         <b-col cols="12" v-else-if="currentTab === 'card'">
-                            <b-row
-                                style="justify-content: center;"
-                                class="mt-3"
-                            >
+                            <b-row style="justify-content: center;" class="mt-3">
                                 <b-col cols="12" xl="7" lg="10" md="11">
                                     <b-form-group
                                         id="input-group-card-info"
@@ -719,10 +574,7 @@
                                                     : false
                                             "
                                         ></b-form-input>
-                                        <div
-                                            v-if="cardNumber == ''"
-                                            class="toggle-pwd-btn py-0"
-                                        >
+                                        <div v-if="cardNumber == ''" class="toggle-pwd-btn py-0">
                                             <b-img
                                                 class="mr-1"
                                                 fluid
@@ -751,10 +603,7 @@
                                                 src="/static/img/amex.svg"
                                             ></b-img>
                                         </div>
-                                        <div
-                                            v-else
-                                            class="toggle-pwd-btn py-0 mt-2"
-                                        >
+                                        <div v-else class="toggle-pwd-btn py-0 mt-2">
                                             <b-img
                                                 fluid
                                                 width="30px"
@@ -762,13 +611,8 @@
                                                 :src="cardBrandClass"
                                             ></b-img>
                                         </div>
-                                        <div
-                                            v-if="cardErrors.cardNumber"
-                                            class="error"
-                                        >
-                                            <small class="msg-error">
-                                                {{ cardErrors.cardNumber }}
-                                            </small>
+                                        <div v-if="cardErrors.cardNumber" class="error">
+                                            <small class="msg-error">{{ cardErrors.cardNumber }}</small>
                                         </div>
                                     </b-form-group>
                                 </b-col>
@@ -789,13 +633,8 @@
                                             v-cardformat:formatCardExpiry
                                             ref="cardExpInput"
                                         ></b-form-input>
-                                        <div
-                                            v-if="cardErrors.cardExpiry"
-                                            class="error"
-                                        >
-                                            <small class="msg-error">
-                                                {{ cardErrors.cardExpiry }}
-                                            </small>
+                                        <div v-if="cardErrors.cardExpiry" class="error">
+                                            <small class="msg-error">{{ cardErrors.cardExpiry }}</small>
                                         </div>
                                     </b-form-group>
                                 </b-col>
@@ -814,13 +653,8 @@
                                             v-cardformat:formatCardCVC
                                             ref="cardCvcInput"
                                         ></b-form-input>
-                                        <div
-                                            v-if="cardErrors.cardCvc"
-                                            class="error"
-                                        >
-                                            <small class="msg-error">
-                                                {{ cardErrors.cardCvc }}
-                                            </small>
+                                        <div v-if="cardErrors.cardCvc" class="error">
+                                            <small class="msg-error">{{ cardErrors.cardCvc }}</small>
                                         </div>
                                     </b-form-group>
                                 </b-col>
@@ -843,12 +677,11 @@
                                             aria-describedby="nameCard-live-feedback"
                                             data-vv-as="Name on Card"
                                         ></b-form-input>
-                                        <b-form-invalid-feedback
-                                            id="nameCard-live-feedback"
-                                            >{{
-                                                veeErrors.first('nameCard')
-                                            }}</b-form-invalid-feedback
-                                        >
+                                        <b-form-invalid-feedback id="nameCard-live-feedback">
+                                            {{
+                                            veeErrors.first('nameCard')
+                                            }}
+                                        </b-form-invalid-feedback>
                                     </b-form-group>
                                 </b-col>
                             </b-row>
@@ -886,23 +719,16 @@
                                             aria-describedby="zip-live-feedback"
                                             data-vv-as="Zip"
                                         ></b-form-input>
-                                        <b-form-invalid-feedback
-                                            id="zip-live-feedback"
-                                            >{{
-                                                veeErrors.first('zip')
-                                            }}</b-form-invalid-feedback
-                                        >
+                                        <b-form-invalid-feedback id="zip-live-feedback">
+                                            {{
+                                            veeErrors.first('zip')
+                                            }}
+                                        </b-form-invalid-feedback>
                                     </b-form-group>
                                 </b-col>
                             </b-row>
                             <b-row style="justify-content: center;">
-                                <b-col
-                                    cols="11"
-                                    xl="4"
-                                    lg="6"
-                                    md="5"
-                                    align="left"
-                                >
+                                <b-col cols="11" xl="4" lg="6" md="5" align="left">
                                     <b-link
                                         :to="{ name: 'cart' }"
                                         target="_self"
@@ -915,23 +741,14 @@
                                         />Return to Cart
                                     </b-link>
                                 </b-col>
-                                <b-col
-                                    cols="11"
-                                    xl="3"
-                                    lg="4"
-                                    md="6"
-                                    align="right"
-                                    class="px-0"
-                                >
+                                <b-col cols="11" xl="3" lg="4" md="6" align="right" class="px-0">
                                     <spinner-button
                                         :loading="status_loading_pay"
                                         :disabled="status_loading_pay"
                                         @click="creditCardPayment()"
                                         class="ml-2 continue-to-payment"
                                     >
-                                        <span class="continue-to-payment"
-                                            >Pay $ {{ total }}</span
-                                        >
+                                        <span class="continue-to-payment">Pay $ {{ total }}</span>
                                     </spinner-button>
                                 </b-col>
                             </b-row>
@@ -945,34 +762,25 @@
                         </b-col>
                         <b-col cols="12" class="mt-3">
                             <b-row style="justify-content: center;">
-                                <b-col
-                                    cols="12"
-                                    xl="7"
-                                    lg="10"
-                                    md="11"
-                                    class="pb-4"
-                                >
+                                <b-col cols="12" xl="7" lg="10" md="11" class="pb-4">
                                     <b-button
                                         variant="link"
                                         class="mr-3 card-links"
                                         :to="{ name: 'legal' }"
                                         target="_blank"
-                                        >Refund policy</b-button
-                                    >
+                                    >Refund policy</b-button>
                                     <b-button
                                         variant="link"
                                         class="mr-3 card-links"
                                         :to="{ name: 'legal' }"
                                         target="_blank"
-                                        >Privacy policy</b-button
-                                    >
+                                    >Privacy policy</b-button>
                                     <b-button
                                         variant="link"
                                         class="mr-3 card-links"
                                         :to="{ name: 'legal' }"
                                         target="_blank"
-                                        >Terms of services</b-button
-                                    >
+                                    >Terms of services</b-button>
                                 </b-col>
                             </b-row>
                         </b-col>
@@ -1190,7 +998,6 @@ export default {
         this.params_url = Cookies.getJSON('params_url')
         this.session = Cookies.getJSON(appConstants.cookies.auth.name)
         const userResponse = await api.users.getUser(this.session.id)
-        console.log('itemsCookies', itemsCookies)
         if (itemsCookies === undefined) {
             this.$router
                 .push({

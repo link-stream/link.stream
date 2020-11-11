@@ -61,9 +61,9 @@ export default {
             session: [],
         }
     },
-    async created() {        
+    async created() {
         const profile = await api.profiles.getProfileMain(this.url)
-        //Visitor Info                         
+        //Visitor Info
         if (!Cookies.getJSON('session_id')) {
             const response = await api.users.getIpAddress()
             const visitorIp = response.visitor_ip.split('.').join('')
@@ -81,7 +81,7 @@ export default {
                 utm_source: utm ? utm : '',
                 ref_id: ref_id ? ref_id : '',
             })
-        } 
+        }
         await this.$store.dispatch('common/loadGenres')
     },
 }

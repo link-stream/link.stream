@@ -40,9 +40,11 @@
                                 data-vv-as="email"
                                 autocomplete="username"
                             ></b-form-input>
-                            <b-form-invalid-feedback
-                                id="email-live-feedback"
-                            >{{ veeErrors.first('input_email') }}</b-form-invalid-feedback>
+                            <b-form-invalid-feedback id="email-live-feedback">
+                                {{
+                                veeErrors.first('input_email')
+                                }}
+                            </b-form-invalid-feedback>
                         </b-form-group>
 
                         <div class="mb-4 pwd-form-group error-l-75">
@@ -70,9 +72,11 @@
                             >
                                 <b-icon font-scale="1" :icon="showPwd ? 'eye' : 'eye-slash'" />
                             </b-button>
-                            <b-form-invalid-feedback
-                                id="password-live-feedback"
-                            >{{ veeErrors.first('input_password') }}</b-form-invalid-feedback>
+                            <b-form-invalid-feedback id="password-live-feedback">
+                                {{
+                                veeErrors.first('input_password')
+                                }}
+                            </b-form-invalid-feedback>
                         </div>
                         <spinner-button
                             type="submit"
@@ -106,7 +110,6 @@
                 </b-col>
             </b-row>
         </b-container>
-        <ChooseStore />
     </div>
 </template>
 
@@ -115,14 +118,10 @@ import { setStatusChange } from '~/utils'
 import { api } from '~/services'
 import { authentication } from '~/mixins'
 import Cookies from 'js-cookie'
-import ChooseStore from '~/components/Modal/ChooseStore'
 
 export default {
     name: 'Login',
     mixins: [authentication],
-    components: {
-        ChooseStore,
-    },
     props: {
         route: {
             type: String,
@@ -179,7 +178,12 @@ export default {
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.signin', false)
                     if (data.type === 'producer' && data.store.length > 1) {
-                        this.$bus.$emit('modal.chooseStore.open', data)
+                        localStorage.setItem('userStores', JSON.stringify(data))
+                        this.$router
+                            .push({
+                                name: 'yourStores',
+                            })
+                            .catch(err => {})
                     } else {
                         var previous_route = Cookies.getJSON('previous_route')
                         this.$store.dispatch('auth/loginNew', {

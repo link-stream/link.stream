@@ -1,5 +1,5 @@
 <template>
-    <div class="page page-login my-4"> 
+    <div class="page page-login my-4">
         <b-container>
             <b-row class="text-center d-flex justify-content-center">
                 <!-- <b-col cols="12" class="my-2">
@@ -40,20 +40,19 @@
                                 data-vv-as="email"
                                 autocomplete="username"
                             ></b-form-input>
-                            <b-form-invalid-feedback id="email-live-feedback">{{
+                            <b-form-invalid-feedback id="email-live-feedback">
+                                {{
                                 veeErrors.first('input_email')
-                            }}</b-form-invalid-feedback>
+                                }}
+                            </b-form-invalid-feedback>
                         </b-form-group>
 
                         <div class="mb-4 pwd-form-group error-l-75">
                             <label
                                 for="input_password"
                                 class="mb-2 pwd-form-group error-l-75 float-left"
-                                >Password</label
-                            >
-                            <b-link class="float-right" to="/forgot"
-                                >Forgot?</b-link
-                            >
+                            >Password</label>
+                            <b-link class="float-right" to="/forgot">Forgot?</b-link>
                             <b-form-input
                                 id="input_password"
                                 class="pwd-input"
@@ -71,25 +70,20 @@
                                 variant="transparent"
                                 @click="showPwd = !showPwd"
                             >
-                                <b-icon
-                                    font-scale="1"
-                                    :icon="showPwd ? 'eye' : 'eye-slash'"
-                                />
+                                <b-icon font-scale="1" :icon="showPwd ? 'eye' : 'eye-slash'" />
                             </b-button>
-                            <b-form-invalid-feedback
-                                id="password-live-feedback"
-                                >{{
-                                    veeErrors.first('input_password')
-                                }}</b-form-invalid-feedback
-                            >
+                            <b-form-invalid-feedback id="password-live-feedback">
+                                {{
+                                veeErrors.first('input_password')
+                                }}
+                            </b-form-invalid-feedback>
                         </div>
                         <spinner-button
                             type="submit"
                             class="auth-btn mt-3 signin-btn"
                             :loading="status.loading.signin"
                             :error="status.error.signin"
-                            >Sign In</spinner-button
-                        >
+                        >Sign In</spinner-button>
                         <b-row class="my-2" align="center" style="justify-content:center;">
                             <b-col cols="12" xl="10" lg="11" md="11" sm="10" class="mt-3">
                                 <b-link
@@ -99,14 +93,18 @@
                                     }"
                                     class="return-links"
                                 >
-                                    <font-awesome-icon :icon="['fas', 'chevron-left']" size="1x" class="mr-2" />Return to profile
+                                    <font-awesome-icon
+                                        :icon="['fas', 'chevron-left']"
+                                        size="1x"
+                                        class="mr-2"
+                                    />Return to profile
                                 </b-link>
                             </b-col>
-                    </b-row>
+                        </b-row>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="btn-divider">
-                    <div class="separator">or</div>   
+                    <div class="separator">or</div>
                     <a
                         class="g-login-btn-wrap google-component col"
                         href="#"
@@ -118,13 +116,10 @@
                             :loading="status.loading.google"
                             :error="status.error.google"
                         >
-                            <img
-                                class="float-left"
-                                src="@/assets/img/ico/logo_googleg.svg"
-                            />
+                            <img class="float-left" src="@/assets/img/ico/logo_googleg.svg" />
                             Sign in with Google
                         </spinner-button>
-                    </a>                 
+                    </a>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-3">
                     Don't have an account?
@@ -132,7 +127,6 @@
                 </b-col>
             </b-row>
         </b-container>
-        <ChooseStore />
     </div>
 </template>
 
@@ -141,14 +135,10 @@ import { setStatusChange } from '~/utils'
 import { api } from '~/services'
 import { authentication } from '~/mixins'
 import Cookies from 'js-cookie'
-import ChooseStore from '~/components/Modal/ChooseStore'
 
 export default {
     name: 'Login',
     mixins: [authentication],
-    components: {
-        ChooseStore,
-    },
     data() {
         return {
             params_url: [],
@@ -165,13 +155,13 @@ export default {
                     signin: null,
                 },
             },
-			url_profile: '',
+            url_profile: '',
         }
     },
-    mounted(){
+    mounted() {
         this.params_url = Cookies.getJSON('params_url')
-		
-		var first_url = this.$route.fullPath.split('/')
+
+        var first_url = this.$route.fullPath.split('/')
         this.url_profile = first_url[1]
     },
     methods: {
@@ -207,9 +197,13 @@ export default {
                 })
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.signin', false)
-
-                     if (data.type === 'producer' && data.store.length > 1) {
-                        this.$bus.$emit('modal.chooseStore.open', data)
+                    if (data.type === 'producer' && data.store.length > 1) {
+                        localStorage.setItem('userStores', JSON.stringify(data))
+                        this.$router
+                            .push({
+                                name: 'yourStores',
+                            })
+                            .catch(err => {})
                     } else {
                         var previous_route = Cookies.getJSON('previous_route')
                         this.$store.dispatch('auth/loginNew', {
@@ -218,13 +212,6 @@ export default {
                             route: previous_route,
                         })
                     }
-                    // setTimeout(() => {
-                    //     var previous_route = Cookies.getJSON('previous_route')
-                    //     this.$store.dispatch('auth/login', {
-                    //         user: data,
-                    //         route: previous_route,
-                    //     })
-                    // }, 1500)
                 } else {
                     setStatusChange(this, 'status.error.signin')
                     this.$toast.error(error)

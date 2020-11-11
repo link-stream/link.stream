@@ -3,7 +3,7 @@
         <b-container>
             <b-row>
                 <b-col cols="12" class="d-flex justify-content-center">
-                    <label class="sign-in-text mb-5">Sign up as</label>
+                    <label class="sign-in-text mb-5">Sign Up As</label>
                 </b-col>
             </b-row>
             <b-row class="text-center d-flex justify-content-center mb-4">

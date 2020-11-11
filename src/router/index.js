@@ -22,11 +22,13 @@ router.beforeResolve((to, from, next) => {
 router.beforeEach(async (to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (store.getters['auth/isLoggedIn']()) {
-            if (to.matched.some(record => record.meta.userType) && store.getters['me/user']) {
+            if (
+                to.matched.some(record => record.meta.userType) &&
+                store.getters['me/user']
+            ) {
                 if (store.getters['me/user'].type === to.meta.userType) {
-                    next()  
-                }                  
-                else next({ name: 'accountSettingsPurchases' })
+                    next()
+                } else next({ name: 'accountSettingsPurchases' })
             } else next()
         } else {
             next({ name: 'login' })

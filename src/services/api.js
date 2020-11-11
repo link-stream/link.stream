@@ -159,6 +159,11 @@ export const api = {
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },
+        async googleLoginNew(params) {
+            const endpoint = '/users/google_new'
+            const method = METHOD_POST
+            return await call({ endpoint, params, method })
+        },
         async instagramLogin(params) {
             const endpoint = '/users/instagram'
             const method = METHOD_POST
@@ -171,6 +176,11 @@ export const api = {
         },
         async signup(params) {
             const endpoint = '/users/registration'
+            const method = METHOD_POST
+            return await call({ endpoint, params, method })
+        },
+        async signupNew(params) {
+            const endpoint = '/users/registration_new'
             const method = METHOD_POST
             return await call({ endpoint, params, method })
         },

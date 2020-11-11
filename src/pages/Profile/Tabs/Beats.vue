@@ -112,14 +112,14 @@ export default {
         if (response.status === 'false') {
             this.$router.push({
                 name: 'home',
-            })            
+            })
         } else {
             await this.$store.dispatch('profile/getProfileBeatsTab', {
                 url: this.url,
             })
             this.user_id = this.$store.getters['profile/profile'].id
         }
-        this.loading = false        
+        this.loading = false
     },
     methods: {
         async updateCurrentItem() {

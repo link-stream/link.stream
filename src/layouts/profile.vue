@@ -42,6 +42,7 @@ export default {
         var arrayFullPath = fullPath.split('?')
 
         var first_url = arrayFullPath[0].split('/')
+
         var url_profile = first_url[1]
 
         var cookiesUrl = Cookies.getJSON('params_url')

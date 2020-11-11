@@ -13,11 +13,9 @@
                         <i class="ig-ico fab fa-instagram fa-lg"></i>
                         Sign up with Instagram
                     </spinner-button>
-                </b-col> -->
+                </b-col>-->
                 <b-col cols="12" class="mt-4">
-                    <label class="sign-in-text">
-                        Sign Up
-                    </label>
+                    <label class="sign-in-text">Sign Up</label>
                 </b-col>
                 <b-col cols="12" class="my-3">
                     <b-form
@@ -54,10 +52,10 @@
                             >
                                 <b-spinner></b-spinner>
                             </b-button>
-                            <b-form-invalid-feedback
-                                id="username-live-feedback"
-                            >
-                                {{ veeErrors.first('input_username') }}
+                            <b-form-invalid-feedback id="username-live-feedback">
+                                {{
+                                veeErrors.first('input_username')
+                                }}
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group
@@ -89,7 +87,9 @@
                                 <b-spinner></b-spinner>
                             </b-button>
                             <b-form-invalid-feedback id="email-live-feedback">
-                                {{ veeErrors.first('input_email') }}
+                                {{
+                                veeErrors.first('input_email')
+                                }}
                             </b-form-invalid-feedback>
                         </b-form-group>
                         <b-form-group
@@ -109,33 +109,23 @@
                                 autocomplete="new-password"
                                 ref="password"
                             ></b-form-input>
-                            <b-form-invalid-feedback
-                                id="password-live-feedback"
-                            >
-                                {{ veeErrors.first('input_password') }}
+                            <b-form-invalid-feedback id="password-live-feedback">
+                                {{
+                                veeErrors.first('input_password')
+                                }}
                             </b-form-invalid-feedback>
                         </b-form-group>
-                        <b-form-group
-                            class="fs--2 text-center text-gray mb-2 px-md-5"
-                        >
+                        <b-form-group class="fs--2 text-center text-gray mb-2 px-md-5">
                             By clicking Sign Up below, you agree to our
-                            <b-link to="/legal" target="_blank">
-                                Terms of Use
-                            </b-link>
-                            &nbsp;and&nbsp;
-                            <b-link to="/legal" target="_blank">
-                                Privacy Policy
-                            </b-link>
-                            .
+                            <b-link to="/legal" target="_blank">Terms of Use</b-link>&nbsp;and&nbsp;
+                            <b-link to="/legal" target="_blank">Privacy Policy</b-link>.
                         </b-form-group>
                         <spinner-button
                             type="submit"
                             class="auth-btn mt-3 signin-btn"
                             :loading="status.loading.signup"
                             :error="status.error.signup"
-                        >
-                            Sign Up
-                        </spinner-button>
+                        >Sign Up</spinner-button>
                     </b-form>
                 </b-col>
                 <b-col cols="12" class="fs--1 my-3">
@@ -155,10 +145,7 @@
                             :loading="status.loading.google"
                             :error="status.error.google"
                         >
-                            <img
-                                class="float-left"
-                                src="@/assets/img/ico/logo_googleg.svg"
-                            />
+                            <img class="float-left" src="@/assets/img/ico/logo_googleg.svg" />
                             Sign up with Google
                         </spinner-button>
                     </a>
@@ -267,31 +254,9 @@ export default {
                     password: this.form.password,
                     type: `${Cookies.getJSON('user_type')}`,
                 }
-                // if (previous_route !== undefined) {
-                //     params = {
-                //         user_name: this.form.name,
-                //         email: this.form.email,
-                //         password: this.form.password,
-                //         type: `${Cookies.getJSON('user_type')}`,
-                //     }
-                // } else {
-                //     if (this.type_client) {
-                //         params = {
-                //             user_name: this.form.name,
-                //             email: this.form.email,
-                //             password: this.form.password,
-                //             type: this.type_client,
-                //         }
-                //     } else {
-                //         params = {
-                //             user_name: this.form.name,
-                //             email: this.form.email,
-                //             password: this.form.password,
-                //         }
-                //     }
-                // }
-
-                const { status, data, error } = await api.users.signup(params)
+                const { status, data, error } = await api.users.signupNew(
+                    params
+                )
                 if (status === 'success') {
                     setStatusChange(this, 'status.error.signup', false)
                     if (previous_route !== undefined) {

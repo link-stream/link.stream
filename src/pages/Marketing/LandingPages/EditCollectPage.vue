@@ -212,49 +212,49 @@
                     </b-form-row>
                     <b-form-group label="Instagram">
                         <b-form-input
-                            v-model="social.instagram"
+                            v-model="form.instagram"
                             placeholder="http://instagram.com"
                         >
                         </b-form-input>
                     </b-form-group>
                     <b-form-group label="Facebook">
                         <b-form-input
-                            v-model="social.facebook"
+                            v-model="form.facebook"
                             placeholder="http://www.facebook.com"
                         >
                         </b-form-input>
                     </b-form-group>
                     <b-form-group label="Twitter">
                         <b-form-input
-                            v-model="social.twitter"
+                            v-model="form.twitter"
                             placeholder="http://www.twitter.com"
                         >
                         </b-form-input>
                     </b-form-group>
                     <b-form-group label="Spotify">
                         <b-form-input
-                            v-model="social.spotify"
+                            v-model="form.spotify"
                             placeholder="https://www.spotify.com"
                         >
                         </b-form-input>
                     </b-form-group>
                     <b-form-group label="SoundCloud">
                         <b-form-input
-                            v-model="social.sound_cloud"
+                            v-model="form.sound_cloud"
                             placeholder="https://soundcloud.com"
                         >
                         </b-form-input>
                     </b-form-group>
                     <b-form-group label="Website">
                         <b-form-input
-                            v-model="social.website"
+                            v-model="form.website"
                             placeholder="http://www.yourwebsite.com"
                         >
                         </b-form-input>
                     </b-form-group>
                     <b-form-group label="Email">
                         <b-form-input
-                            v-model="social.email"
+                            v-model="form.email"
                             placeholder="your@email.com"
                         >
                         </b-form-input>
@@ -268,18 +268,20 @@
                             Preview
                         </basic-button>
                         <div class="d-flex">
-                            <basic-button
+                            <spinner-button
                                 class="btn-black btn-save"
+                                :loading="saving"
                                 @click="handleSaveClick"
                             >
                                 Save
-                            </basic-button>
-                            <basic-button
+                            </spinner-button>
+                            <spinner-button
                                 class="btn-publish"
+                                :loading="publishing"
                                 @click="handlePublishClick"
                             >
                                 Publish
-                            </basic-button>
+                            </spinner-button>
                         </div>
                     </div>
                 </div>
@@ -314,7 +316,7 @@ export default {
             type: 'Landing_Page',
             template_type: 'collect',
             is_active: false,
-            campaing_name: '',
+            campaing_name: 'Untitled Landing Page',
             url: '',
             logo: '',
             artwork: '',
@@ -326,8 +328,6 @@ export default {
             background_image: '',
             promote_id: '',
             price: 0,
-        },
-        social: {
             instagram: '',
             facebook: '',
             twitter: '',
@@ -349,11 +349,14 @@ export default {
         mediaURL: appConstants.mediaURL,
         defaultCoverArt: appConstants.defaultCoverArt,
         isEditTitle: false,
+        saving: false,
+        publishing: false,
     }),
     computed: {
         ...mapGetters({
             promotes: 'marketing/promotes',
             landingData: 'marketing/landingData',
+            user: 'me/user',
         }),
         fullUrl() {
             return `${appConstants.baseAppUrl}/${this.form.url}`
@@ -369,6 +372,9 @@ export default {
                 }
             },
         },
+    },
+    async create() {
+        await this.$store.dispatch('marketing/getMarketingPromotes')
     },
     mounted() {
         this.form = {
@@ -419,11 +425,27 @@ export default {
             this.$bus.$emit('modal.selectMedia.open')
         },
         handleSaveClick() {
-            this.$router.push({
-                name: 'landingPages',
-            })
+            this.saving = true
+            const params = {
+                ...this.landingData,
+                ...this.form,
+                user_id: this.user.id,
+                status: 'Draft',
+            }
+            this.saveLandingPage(params)
+            this.saving = false
         },
-        handlePublishClick() {},
+        handlePublishClick() {
+            this.publishing = true
+            const params = {
+                ...this.landingData,
+                ...this.form,
+                user_id: this.user.id,
+                status: 'Active',
+            }
+            this.saveLandingPage(params)
+            this.publishing = false
+        },
         removeArtwork() {
             this.form.artwork = ''
         },
@@ -487,6 +509,30 @@ export default {
             }
             await this.$store.dispatch('marketing/setLandingData', params)
             this.$bus.$emit('modal.previewLanding.open')
+        },
+        async saveLandingPage(params) {
+            let response
+            if (this.landingData.id) {
+                response = await this.$store.dispatch(
+                    'marketing/updateLandingPage',
+                    {
+                        id: this.landingData.id,
+                        params: params,
+                    }
+                )
+            } else {
+                response = await this.$store.dispatch(
+                    'marketing/insertLandingPage',
+                    params
+                )
+            }
+            const { status, message, error } = response
+            status === 'success'
+                ? this.$toast.success(message)
+                : this.$toast.error(error)
+            this.$router.push({
+                name: 'landingPages',
+            })
         },
     },
 }

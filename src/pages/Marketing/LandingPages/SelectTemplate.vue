@@ -63,7 +63,8 @@ export default {
         ],
     }),
     methods: {
-        showEditPage(type) {
+        async showEditPage(type) {
+            await this.$store.dispatch('marketing/setLandingData', {})
             let routerName = 'editLandingPage'
             switch (type) {
                 case 'email':

@@ -81,7 +81,24 @@ export default {
         },
     },
     methods: {
-        handleEditClick() {},
+        async handleEditClick() {
+            await this.$store.dispatch('marketing/setLandingData', this.page)
+            let routerName = 'editLandingPage'
+            switch (this.page.template_type) {
+                case 'email':
+                    routerName = 'editEmailLandingPage'
+                    break
+                case 'collect':
+                    routerName = 'editCollectLandingPage'
+                    break
+                case 'lead':
+                    routerName = 'editLeadLandingPage'
+                    break
+            }
+            this.$router.push({
+                name: routerName,
+            })
+        },
         handleViewReportClick() {
             this.$router.push({
                 name: 'resultSplitTest',

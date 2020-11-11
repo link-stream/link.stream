@@ -257,18 +257,20 @@
                             Preview
                         </basic-button>
                         <div class="d-flex">
-                            <basic-button
+                            <spinner-button
                                 class="btn-black btn-save"
+                                :loading="saving"
                                 @click="handleSaveClick"
                             >
                                 Save
-                            </basic-button>
-                            <basic-button
+                            </spinner-button>
+                            <spinner-button
                                 class="btn-publish"
+                                :loading="publishing"
                                 @click="handlePublishClick"
                             >
                                 Publish
-                            </basic-button>
+                            </spinner-button>
                         </div>
                     </div>
                 </div>
@@ -304,7 +306,7 @@ export default {
             type: 'Landing_Page',
             template_type: 'email',
             is_active: false,
-            campaing_name: '',
+            campaing_name: 'Untitled Landing Page',
             url: '',
             logo: '',
             artwork: '',
@@ -327,10 +329,13 @@ export default {
         mediaURL: appConstants.mediaURL,
         defaultCoverArt: appConstants.defaultCoverArt,
         isEditTitle: false,
+        saving: false,
+        publishing: false,
     }),
     computed: {
         ...mapGetters({
             landingData: 'marketing/landingData',
+            user: 'me/user',
         }),
         fullUrl() {
             return `${appConstants.baseAppUrl}/${this.form.url}`
@@ -397,11 +402,27 @@ export default {
             this.$bus.$emit('modal.selectMedia.open')
         },
         handleSaveClick() {
-            this.$router.push({
-                name: 'landingPages',
-            })
+            this.saving = true
+            const params = {
+                ...this.landingData,
+                ...this.form,
+                user_id: this.user.id,
+                status: 'Draft',
+            }
+            this.saveLandingPage(params)
+            this.saving = false            
         },
-        handlePublishClick() {},
+        handlePublishClick() {
+            this.publishing = true
+            const params = {
+                ...this.landingData,
+                ...this.form,
+                user_id: this.user.id,
+                status: 'Active',
+            }
+            this.saveLandingPage(params)
+            this.publishing = false
+        },
         removeArtwork() {
             this.form.artwork = ''
         },
@@ -428,6 +449,30 @@ export default {
             await this.$store.dispatch('marketing/setLandingData', params)
             this.$bus.$emit('modal.previewLanding.open')
         },
+        async saveLandingPage(params) {
+            let response
+            if (this.landingData.id) {
+                response = await this.$store.dispatch(
+                    'marketing/updateLandingPage',
+                    {
+                        id: this.landingData.id,
+                        params: params,
+                    }
+                )
+            } else {
+                response = await this.$store.dispatch(
+                    'marketing/insertLandingPage',
+                    params
+                )
+            }
+            const { status, message, error } = response
+            status === 'success'
+                ? this.$toast.success(message)
+                : this.$toast.error(error)
+            this.$router.push({
+                name: 'landingPages',
+            })
+        }
     },
 }
 </script>

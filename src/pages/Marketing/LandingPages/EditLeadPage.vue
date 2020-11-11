@@ -233,7 +233,7 @@ export default {
             type: 'Landing_Page',
             template_type: 'lead',
             is_active: false,
-            campaing_name: '',
+            campaing_name: 'Untitled Landing Page',
             url: '',
             logo: '',
             headline: 'Subscribe to our list',
@@ -311,7 +311,7 @@ export default {
             this.selMediaType = type
             this.$bus.$emit('modal.selectMedia.open')
         },
-        async handleSaveClick() {
+        handleSaveClick() {
             this.saving = true
             const params = {
                 ...this.landingData,
@@ -319,33 +319,20 @@ export default {
                 user_id: this.user.id,
                 status: 'Draft',
             }
-            console.log(params)
-            let response
-            if (this.landingData.id) {
-                response = await this.$store.dispatch(
-                    'marketing/updateLandingPage',
-                    {
-                        id: this.landingData.id,
-                        params: params,
-                    }
-                )
-            } else {
-                response = await this.$store.dispatch(
-                    'marketing/insertLandingPage',
-                    params
-                )
-            }
-            console.log(response)
-            const { status, message, error } = response
-            status === 'success'
-                ? this.$toast.success(message)
-                : this.$toast.error(error)
-            this.saving == false
-            this.$router.push({
-                name: 'landingPages',
-            })
+            this.saveLandingPage(params)
+            this.saving = false
         },
-        handlePublishClick() {},
+        handlePublishClick() {
+            this.publishing = true
+            const params = {
+                ...this.landingData,
+                ...this.form,
+                user_id: this.user.id,
+                status: 'Active',
+            }
+            this.saveLandingPage(params)
+            this.publishing = false
+        },
         removeBackgroundImage() {
             this.form.background_image = ''
         },
@@ -365,7 +352,31 @@ export default {
             }
             await this.$store.dispatch('marketing/setLandingData', params)
             this.$bus.$emit('modal.previewLanding.open')
-        }
+        },
+        async saveLandingPage(params) {
+            let response
+            if (this.landingData.id) {
+                response = await this.$store.dispatch(
+                    'marketing/updateLandingPage',
+                    {
+                        id: this.landingData.id,
+                        params: params,
+                    }
+                )
+            } else {
+                response = await this.$store.dispatch(
+                    'marketing/insertLandingPage',
+                    params
+                )
+            }
+            const { status, message, error } = response
+            status === 'success'
+                ? this.$toast.success(message)
+                : this.$toast.error(error)
+            this.$router.push({
+                name: 'landingPages',
+            })
+        },
     },
 }
 </script>

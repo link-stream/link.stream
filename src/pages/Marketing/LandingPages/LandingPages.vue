@@ -64,6 +64,7 @@ export default {
     async created() {
         this.loading = true
         await this.$store.dispatch('marketing/getLandingPages')
+        await this.$store.dispatch('marketing/getMarketingPromotes')
         this.loading = false
         console.log(this.pages)
     },

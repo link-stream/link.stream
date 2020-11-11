@@ -127,8 +127,9 @@
                                         v-model="form.url"
                                         v-validate="{
                                             required: true,
-                                            min: 8,
                                             uniqueUrl: true,
+                                            regex: /^[a-zA-Z0-9-_]+$/,
+                                            min: 8,                                            
                                         }"
                                         :state="validateState('url')"
                                         aria-describedby="url-live-feedback"

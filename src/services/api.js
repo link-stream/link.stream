@@ -137,7 +137,6 @@ export const api = {
             return await call({ endpoint, method, showProgress: false })
         },
         async addStore(params) {
-            console.log('addStore params', params)
             const method = METHOD_POST
             const endpoint = '/users/add_store/'
             return await call({ endpoint, params, method })

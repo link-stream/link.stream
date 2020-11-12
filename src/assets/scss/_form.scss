@@ -231,7 +231,7 @@
 .SearchInput {
     position: relative;
     input {
-        padding-left: 30px;
+        padding-left: 15px;
         height: 35px;
     }
     .input-icon {
@@ -250,7 +250,7 @@
         right: 15px;
         cursor: pointer;
         &.right {
-            left: 13px;
+            left: 0px;
             right: inherit;
         }
     }

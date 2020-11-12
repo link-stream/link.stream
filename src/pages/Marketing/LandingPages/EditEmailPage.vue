@@ -410,7 +410,7 @@ export default {
                 status: 'Draft',
             }
             this.saveLandingPage(params)
-            this.saving = false            
+            this.saving = false
         },
         handlePublishClick() {
             this.publishing = true
@@ -472,7 +472,7 @@ export default {
             this.$router.push({
                 name: 'landingPages',
             })
-        }
+        },
     },
 }
 </script>

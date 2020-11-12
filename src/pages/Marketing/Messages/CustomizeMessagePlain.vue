@@ -136,7 +136,7 @@ import EmailPreviewPlain from '@/components/Marketing/Messages/EmailPreviewPlain
 import PreviewEmailModal from '@/components/Modal/Marketing/PreviewEmailModal'
 import Editor from '@/components/Form/Editor/Editor.vue'
 import { mapGetters } from 'vuex'
-import { appConstants, emailTemplates } from '~/constants'
+import { appConstants, templates } from '~/constants'
 export default {
     name: 'CustomizeMessagePlain',
     components: {
@@ -229,7 +229,7 @@ export default {
             this.form.body = content
         },
         complieContent() {
-            let mailContent = emailTemplates.plain
+            let mailContent = templates.emails.plain
 
             mailContent = mailContent.replace(
                 'EMAIL_CUSTOM_BACK_COLOR',

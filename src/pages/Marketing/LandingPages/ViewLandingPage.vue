@@ -42,22 +42,26 @@ export default {
             user: 'me/user',
         }),
         currentComponent() {
-            switch(this.page.template_type) {
+            switch (this.page.template_type) {
                 case 'email':
                     return 'LandingPreviewEmail'
                 case 'collect':
                     return 'LandingPreviewCollect'
                 case 'lead':
                     return 'LandingPreviewLead'
+                default:
+                    return 'LandingPreviewLead'
             }
         },
         currentMobileComponent() {
-            switch(this.page.template_type) {
+            switch (this.page.template_type) {
                 case 'email':
                     return 'LandingPreviewEmailMobile'
                 case 'collect':
                     return 'LandingPreviewCollectMobile'
                 case 'lead':
+                    return 'LandingPreviewLead'
+                default:
                     return 'LandingPreviewLead'
             }
         },

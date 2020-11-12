@@ -295,7 +295,7 @@ import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
 import SendTestModal from '@/components/Modal/Marketing/SendTestModal'
 import EmailPreviewRelease from '@/components/Marketing/Messages/EmailPreviewRelease'
 import { mapGetters } from 'vuex'
-import { appConstants, emailTemplates } from '~/constants'
+import { appConstants, templates } from '~/constants'
 import VueSelect from 'vue-select'
 import PreviewEmailModal from '@/components/Modal/Marketing/PreviewEmailModal'
 export default {
@@ -460,7 +460,7 @@ export default {
             }
         },
         complieContent() {
-            let mailContent = emailTemplates.release
+            let mailContent = templates.emails.release
 
             let backUrl = 'none'
             if (this.form.background_image) {

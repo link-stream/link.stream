@@ -124,7 +124,7 @@ import SendTestModal from '@/components/Modal/Marketing/SendTestModal'
 import EmailPreviewVideo from '@/components/Marketing/Messages/EmailPreviewVideo'
 import PreviewEmailModal from '@/components/Modal/Marketing/PreviewEmailModal'
 import { mapGetters } from 'vuex'
-import { appConstants, emailTemplates } from '~/constants'
+import { appConstants, templates } from '~/constants'
 import { getYtVideoThumbUrl } from '~/utils'
 export default {
     name: 'CustomizeMessageVideo',
@@ -202,7 +202,7 @@ export default {
             this.$bus.$emit('modal.sendTest.open')
         },
         complieContent() {
-            let mailContent = emailTemplates.video
+            let mailContent = templates.emails.video
 
             mailContent = mailContent.replace(
                 'EMAIL_CUSTOM_BACK_COLOR',

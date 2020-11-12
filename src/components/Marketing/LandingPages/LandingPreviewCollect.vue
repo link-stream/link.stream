@@ -85,17 +85,60 @@
                         </div>
                         <div class="landing-footer">
                             <div class="social-share-links">
-                                <a href="#">
+                                <a
+                                    v-if="landingData.instagram"
+                                    :href="landingData.instagram"
+                                    target="_blank"
+                                    title="Instagram"
+                                >
                                     <i class="fab fa-instagram-square"></i>
                                 </a>
-                                <a href="#">
+                                <a
+                                    v-if="landingData.facebook"
+                                    :href="landingData.facebook"
+                                    target="_blank"
+                                    title="Facebook"
+                                >
                                     <i class="fab fa-facebook-square"></i>
                                 </a>
-                                <a href="#">
+                                <a
+                                    v-if="landingData.twitter"
+                                    :href="landingData.twitter"
+                                    target="_blank"
+                                    title="Twitter"
+                                >
                                     <i class="fab fa-twitter-square"></i>
                                 </a>
-                                <a href="#">
-                                    <i class="fas fa-paper-plane"></i>
+                                <a
+                                    v-if="landingData.spotify"
+                                    :href="landingData.spotify"
+                                    target="_blank"
+                                    title="Spotify"
+                                >
+                                    <i class="fab fa-spotify custom-icon"></i>
+                                </a>
+                                <a
+                                    v-if="landingData.soundcloud"
+                                    :href="landingData.soundcloud"
+                                    target="_blank"
+                                    title="Soundcloud"
+                                >
+                                    <i class="fab fa-soundcloud custom-icon"></i>
+                                </a>
+                                <a
+                                    v-if="landingData.website"
+                                    :href="landingData.website"
+                                    target="_blank"
+                                    title="Website"
+                                >
+                                    <i class="fas fa-globe custom-icon"></i>
+                                </a>
+                                <a
+                                    v-if="landingData.email"
+                                    :href="`mailto:${landingData.email}`"
+                                    title="Email"
+                                >
+                                    <i class="fas fa-envelope-square"></i>
                                 </a>
                             </div>
                         </div>

@@ -244,7 +244,7 @@
                     </b-form-group>
                     <b-form-group label="SoundCloud">
                         <b-form-input
-                            v-model="form.sound_cloud"
+                            v-model="form.soundcloud"
                             placeholder="https://soundcloud.com"
                         >
                         </b-form-input>
@@ -339,7 +339,7 @@ export default {
             facebook: '',
             twitter: '',
             spotify: '',
-            sound_cloud: '',
+            soundcloud: '',
             website: '',
             email: '',
         },
@@ -601,6 +601,55 @@ export default {
                 'LANDING_CUSTOM_PRICE',
                 priceString
             )
+            if (this.form.instagram) {
+                const socialLink = `<a :href="${this.form.instagram}" target="_blank" title="Instagram"><i class="fab fa-instagram-square"></i></a>`
+                landingContent = landingContent.replace(
+                    'LANDING_CUSTOM_SOCIAL_INSTAGRAM',
+                    socialLink
+                )
+            }
+            if (this.form.facebook) {
+                const socialLink = `<a :href="${this.form.facebook}" target="_blank" title="Facebook"><i class="fab fa-facebook-square"></i></a>`
+                landingContent = landingContent.replace(
+                    'LANDING_CUSTOM_SOCIAL_FACEBOOK',
+                    socialLink
+                )
+            }
+            if (this.form.twitter) {
+                const socialLink = `<a :href="${this.form.twitter}" target="_blank" title="Twitter"><i class="fab fa-twitter-square"></i></a>`
+                landingContent = landingContent.replace(
+                    'LANDING_CUSTOM_SOCIAL_TWITTER',
+                    socialLink
+                )
+            }
+            if (this.form.spotify) {
+                const socialLink = `<a :href="${this.form.spotify}" target="_blank" title="Spotify"><i class="fab fa-spotify custom-icon"></i></a>`
+                landingContent = landingContent.replace(
+                    'LANDING_CUSTOM_SOCIAL_SPOTIFY',
+                    socialLink
+                )
+            }
+            if (this.form.soundcloud) {
+                const socialLink = `<a :href="${this.form.soundcloud}" target="_blank" title="Soundcloud"><i class="fab fa-soundcloud custom-icon"></i></a>`
+                landingContent = landingContent.replace(
+                    'LANDING_CUSTOM_SOCIAL_SOUNDCLOUD',
+                    socialLink
+                )
+            }
+            if (this.form.website) {
+                const socialLink = `<a :href="${this.form.website}" target="_blank" title="Website"><i class="fas fa-globe custom-icon"></i></a>`
+                landingContent = landingContent.replace(
+                    'LANDING_CUSTOM_SOCIAL_WEBSITE',
+                    socialLink
+                )
+            }
+            if (this.form.email) {
+                const socialLink = `<a :href="mailto:${this.form.email}" title="Email"><i class="fas fa-envelope-square"></i></a>`
+                landingContent = landingContent.replace(
+                    'LANDING_CUSTOM_SOCIAL_EMAIL',
+                    socialLink
+                )
+            }
             return landingContent
         },
     },

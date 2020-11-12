@@ -21,7 +21,11 @@
                         </h4>
                         <small class="item-subtitle">
                             <span class="message-type">
-                                {{ page.type === 'Landing_Page' ? 'Page' : 'Unknown' }}&nbsp;&middot;&nbsp;
+                                {{
+                                    page.type === 'Landing_Page'
+                                        ? 'Page'
+                                        : 'Unknown'
+                                }}&nbsp;&middot;&nbsp;
                             </span>
                             <span class="message-datetime">
                                 {{ page.created_at | fullDateTime }}
@@ -35,7 +39,10 @@
                     </div>
                 </b-col>
                 <b-col
-                    v-if="page.type === 'Landing_Page' && page.status.toLowerCase() !== 'draft'"
+                    v-if="
+                        page.type === 'Landing_Page' &&
+                            page.status.toLowerCase() !== 'draft'
+                    "
                     cols="12"
                     sm="4"
                 >
@@ -67,9 +74,9 @@
             <b-dropdown-item @click="handleViewPageClick">
                 View Landing Page
             </b-dropdown-item>
-            <b-dropdown-item @click="handleViewReportClick">
+            <!-- <b-dropdown-item @click="handleViewReportClick">
                 View Report
-            </b-dropdown-item>
+            </b-dropdown-item> -->
         </b-dropdown>
     </div>
 </template>

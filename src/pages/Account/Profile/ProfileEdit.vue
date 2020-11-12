@@ -350,6 +350,7 @@ export default {
         const getUrl = window.location
         this.baseUrl = getUrl.host
         this.getAllCountries()
+        console.log(this.user)
     },
     mounted() {
         // URL availability validations

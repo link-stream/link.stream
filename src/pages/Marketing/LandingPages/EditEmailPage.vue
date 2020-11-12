@@ -290,7 +290,7 @@ import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
 import LandingPreviewEmail from '@/components/Marketing/LandingPages/LandingPreviewEmail'
 import PreviewLandingModal from '@/components/Modal/Marketing/PreviewLandingModal'
 import EditLandingTitleModal from '@/components/Modal/Marketing/EditLandingTitleModal'
-import { appConstants } from '~/constants'
+import { appConstants, templates } from '~/constants'
 import { mapGetters } from 'vuex'
 export default {
     name: 'EditEmailLandingPage',
@@ -408,6 +408,7 @@ export default {
                 ...this.form,
                 user_id: this.user.id,
                 status: 'Draft',
+                content: this.complieContent(),
             }
             this.saveLandingPage(params)
             this.saving = false
@@ -419,6 +420,7 @@ export default {
                 ...this.form,
                 user_id: this.user.id,
                 status: 'Active',
+                content: this.complieContent(),
             }
             this.saveLandingPage(params)
             this.publishing = false
@@ -472,6 +474,61 @@ export default {
             this.$router.push({
                 name: 'landingPages',
             })
+        },
+        complieContent() {
+            let landingContent = templates.pages.email
+
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_PAGE_TITLE',
+                this.form.campaing_name
+            )
+
+            let backUrl = 'none'
+            if (this.form.background_image) {
+                backUrl = `url(${this.mediaURL}${this.form.background_image})`
+            }
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_BACK_IMAGE',
+                backUrl
+            )
+
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_BACK_COLOR',
+                this.form.background_color
+            )
+
+            let logoUrl = `${appConstants.baseAppUrl}${appConstants.emailDefaultLogo}`
+            if (this.form.logo) {
+                logoUrl = `${this.mediaURL}${this.form.logo}`
+            }
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_LOGO',
+                logoUrl
+            )
+
+            let artworkUrl = ''
+            if (this.form.artwork) {
+                artworkUrl = `${this.mediaURL}${this.form.artwork}`
+            }
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_ARTWORK',
+                artworkUrl
+            )
+
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_HEADLINE',
+                this.form.headline
+            )
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_BODY',
+                this.form.body
+            )
+
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_BUTTON_COLOR',
+                this.form.button_color
+            )
+            return landingContent
         },
     },
 }

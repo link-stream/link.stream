@@ -120,7 +120,8 @@
             margin-left: auto;
             margin-right: auto;
             min-height: calc(100vh - 120px);
-            margin-bottom: $main-margin;
+            // margin-bottom: $main-margin;
+            margin-bottom: 100px;
              b {
                 font-weight: 600;
             }

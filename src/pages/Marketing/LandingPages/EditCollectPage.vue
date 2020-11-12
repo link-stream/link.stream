@@ -6,7 +6,11 @@
             </a>
             <div class="title-container">
                 <span class="title">
-                    {{ form.campaing_name ? form.campaing_name : 'Untitled Landing Page' }}
+                    {{
+                        form.campaing_name
+                            ? form.campaing_name
+                            : 'Untitled Landing Page'
+                    }}
                 </span>
                 <IconButton
                     class="btn-edit"
@@ -289,7 +293,10 @@
         </div>
         <SelectMediaModal @select="setMedia" />
         <PreviewLandingModal />
-        <EditLandingTitleModal v-if="isEditTitle" @close="isEditTitle = false" />
+        <EditLandingTitleModal
+            v-if="isEditTitle"
+            @close="isEditTitle = false"
+        />
     </b-container>
 </template>
 <script>
@@ -298,7 +305,7 @@ import SelectMediaModal from '@/components/Modal/Marketing/SelectMediaModal'
 import LandingPreviewCollect from '@/components/Marketing/LandingPages/LandingPreviewCollect'
 import PreviewLandingModal from '@/components/Modal/Marketing/PreviewLandingModal'
 import EditLandingTitleModal from '@/components/Modal/Marketing/EditLandingTitleModal'
-import { appConstants } from '~/constants'
+import { appConstants, templates } from '~/constants'
 import { mapGetters } from 'vuex'
 import VueSelect from 'vue-select'
 export default {
@@ -368,13 +375,16 @@ export default {
             handler(value) {
                 this.form = {
                     ...this.form,
-                    campaing_name: value.campaing_name ? value.campaing_name : '',
+                    campaing_name: value.campaing_name
+                        ? value.campaing_name
+                        : '',
                 }
             },
         },
     },
     async created() {
         await this.$store.dispatch('marketing/getMarketingPromotes')
+        console.log(this.user)
     },
     mounted() {
         this.form = {
@@ -431,6 +441,7 @@ export default {
                 ...this.form,
                 user_id: this.user.id,
                 status: 'Draft',
+                content: this.complieContent(),
             }
             this.saveLandingPage(params)
             this.saving = false
@@ -442,6 +453,7 @@ export default {
                 ...this.form,
                 user_id: this.user.id,
                 status: 'Active',
+                content: this.complieContent(),
             }
             this.saveLandingPage(params)
             this.publishing = false
@@ -533,6 +545,63 @@ export default {
             this.$router.push({
                 name: 'landingPages',
             })
+        },
+        complieContent() {
+            let landingContent = templates.pages.collect
+
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_PAGE_TITLE',
+                this.form.campaing_name
+            )
+
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_BANNER',
+                this.user.banner
+            )
+
+            let logoUrl = `${appConstants.baseAppUrl}${appConstants.emailDefaultLogo}`
+            if (this.form.logo) {
+                logoUrl = `${this.mediaURL}${this.form.logo}`
+            }
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_LOGO',
+                logoUrl
+            )
+
+            let artworkUrl = ''
+            if (this.form.artwork) {
+                artworkUrl = `${this.mediaURL}${this.form.artwork}`
+            }
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_ARTWORK',
+                artworkUrl
+            )
+
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_HEADLINE',
+                this.form.headline
+            )
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_BODY',
+                this.form.body
+            )
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_BUTTON_LINK',
+                this.form.promote_id
+            )
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_BUTTON_COLOR',
+                this.form.button_color
+            )
+
+            const priceString = this.$options.filters.currencyFormat(
+                this.form.price
+            )
+            landingContent = landingContent.replace(
+                'LANDING_CUSTOM_PRICE',
+                priceString
+            )
+            return landingContent
         },
     },
 }

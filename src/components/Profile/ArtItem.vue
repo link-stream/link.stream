@@ -1,7 +1,8 @@
 <template>
     <div class="art-item">
         <a href="#" class="img-container" @click.prevent="selectImage">
-            <img :src="artItem.coverart" />
+            <img v-if="!isloading" :src="loadingImage" />
+            <img v-show="isloading" :src="artItem.coverart" @load="isloading = true" />
             <LoadingSpinner
                 v-if="selected && individualLoading && artItem.type === 'beat'"
                 class="center-img"
@@ -155,6 +156,8 @@ export default {
         return {
             loadingDownload: false,
             showDownload: false,
+            loadingImage: appConstants.defaultProfileCoverArt,
+            isloading: false,
         }
     },
     created() {

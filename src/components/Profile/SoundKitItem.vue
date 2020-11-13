@@ -5,7 +5,8 @@
             class="img-container"
             @click.prevent="$emit('select', index)"
         >
-            <img :src="artItem.coverart" />
+            <img v-if="!isloading" :src="loadingImage" />
+            <img v-show="isloading" :src="artItem.coverart" @load="isloading = true" />
             <LoadingSpinner
                 v-if="selected && individualLoading"
                 class="center-img"
@@ -102,6 +103,8 @@ export default {
     data: () => ({
         isShowShare: false,
         loadingDownload: false,
+        loadingImage: appConstants.defaultProfileCoverArt,
+        isloading: false,
     }),
     computed: {
         ...mapGetters({

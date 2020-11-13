@@ -240,7 +240,7 @@ export default {
             this.moreArtists = moreArtists.map(artist => {
                 return {
                     ...artist,
-                    coverart: artist.data_image || appConstants.defaultCoverArt,
+                    coverart: artist.data_image || appConstants.defaultProfileCoverArt,
                     producer_name: this.profile.display_name,
                 }
             })
@@ -248,7 +248,7 @@ export default {
         this.kit = {
             ...kit,
             type: 'kit',
-            coverart: kit.data_image || appConstants.defaultCoverArt,
+            coverart: kit.data_image || appConstants.defaultProfileCoverArt,
             src: kit.data_tagged_file,
         }
         this.samples = []

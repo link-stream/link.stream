@@ -271,7 +271,7 @@ const getters = {
         return beats.map(beat => {
             return {
                 ...beat,
-                coverart: beat.data_image || appConstants.defaultCoverArt,
+                coverart: beat.data_image || appConstants.defaultProfileCoverArt,
             }
         })
     },
@@ -284,7 +284,7 @@ const getters = {
         return soundKits.map(soundKit => {
             return {
                 ...soundKit,
-                coverart: soundKit.data_image || appConstants.defaultCoverArt,
+                coverart: soundKit.data_image || appConstants.defaultProfileCoverArt,
             }
         })
     },

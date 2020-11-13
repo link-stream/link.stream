@@ -250,14 +250,14 @@ export default {
 
         this.pack = {
             ...pack,
-            coverart: pack.data_image || appConstants.defaultCoverArt,
+            coverart: pack.data_image || appConstants.defaultProfileCoverArt,
         }
 
         if (moreArtists.length) {
             this.moreArtists = moreArtists.map(artist => {
                 return {
                     ...artist,
-                    coverart: artist.data_image || appConstants.defaultCoverArt,
+                    coverart: artist.data_image || appConstants.defaultProfileCoverArt,
                     producer_name: this.profile.display_name,
                 }
             })

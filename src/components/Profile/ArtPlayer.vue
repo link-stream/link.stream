@@ -171,7 +171,7 @@ export default {
                       )
             this.playerItem = {
                 id: item.id,
-                coverart: item.data_image || appConstants.defaultCoverArt,
+                coverart: item.data_image || appConstants.defaultProfileCoverArt,
                 title: item.title,
                 producer_name: this.profile.display_name,
                 src: '',

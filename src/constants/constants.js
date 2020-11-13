@@ -5,6 +5,7 @@ export const constants = {
         key: 'ls',
     },
     defaultCoverArt: '/static/img/no-coverart.jpg',
+    defaultProfileCoverArt: '/static/img/missing-artwork.svg',
     cookies: {
         auth: {
             name: 'ls',

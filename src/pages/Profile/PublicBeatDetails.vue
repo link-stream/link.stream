@@ -258,7 +258,7 @@ export default {
             this.moreArtists = moreArtists.map((artist) => {
                 return {
                     ...artist,
-                    coverart: artist.data_image || appConstants.defaultCoverArt,
+                    coverart: artist.data_image || appConstants.defaultProfileCoverArt,
                     plays: 0,
                 }
             })
@@ -269,7 +269,7 @@ export default {
             id: beat.id,
             type: beat.type,
             title: beat.title,
-            coverart: beat.data_image || appConstants.defaultCoverArt,
+            coverart: beat.data_image || appConstants.defaultProfileCoverArt,
             tags: beat.tags
                 ? beat.tags.split(', ').map((tag) => ({
                       text: tag,
@@ -311,7 +311,7 @@ export default {
         this.form = form
         this.beat = {
             ...beat,
-            coverart: beat.data_image || appConstants.defaultCoverArt,
+            coverart: beat.data_image || appConstants.defaultProfileCoverArt,
         }
 
         // Merge beat licenses into licenses

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="270px" height="270px" viewBox="0 0 270 270" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Missing-Artwork-Large</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Missing-Artwork---Current-Copy" transform="translate(-10.000000, -12.000000)">
+            <g id="Missing-Artwork-Large" transform="translate(10.000000, 12.000000)">
+                <polygon id="Rectangle" fill="#F5F5F5" fill-rule="nonzero" points="0 0 270 0 270 270 0 270"></polygon>
+                <g id="icon-image-alt" transform="translate(107.601476, 107.601476)">
+                    <g id="Icon" transform="translate(6.553510, 6.553510)" fill="#D1D1D1" fill-rule="nonzero">
+                        <path d="M4.7937708,41.1050676 L36.5661556,41.1050676 C39.0729274,41.1050676 41.1050676,39.0729274 41.1050676,36.5661556 L41.1050676,4.7937708 C41.1050676,2.28699886 39.0729274,0.254858701 36.5661556,0.254858701 L4.7937708,0.254858701 C2.28699886,0.254858701 0.254858701,2.28699886 0.254858701,4.7937708 L0.254858701,36.5661556 C0.254858701,39.0729274 2.28699886,41.1050676 4.7937708,41.1050676 Z M11.602139,25.2188753 L16.9648636,30.5815999 L25.2188753,18.4105071 L36.5661556,34.2966995 L4.7937708,34.2966995 L11.602139,25.2188753 Z" id="Icon-Shape"></path>
+                    </g>
+                    <rect id="ViewBox" x="0" y="0" width="54.4669453" height="54.4669453"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

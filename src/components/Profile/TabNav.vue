@@ -24,9 +24,7 @@
                         :key="tab.to"
                         :class="{
                             active:
-                                $route.name === tab.to ||
-                                ($route.name === 'publicProfile' &&
-                                    tab.to === 'profileBeats'),
+                                $route.name === tab.to || isProfileMain(tab),
                         }"
                     >
                         <router-link :to="{ name: tab.to }">
@@ -34,6 +32,7 @@
                         </router-link>
                     </li>
                 </ul>
+                {{ $route.name }}
                 <basic-button
                     v-if="curRouteName != 'profileAbout'"
                     variant="outline-light"
@@ -134,6 +133,13 @@ export default {
                         params
                     )
             }
+        },
+        isProfileMain(tab) {
+            return (
+                (this.$route.name === 'publicProfile' ||
+                    this.$route.name === 'accountProfileView') &&
+                tab.to === 'profileBeats'
+            )
         },
     },
 }

@@ -1,14 +1,19 @@
 <template>
     <div class="beats-container">
-        <p
-            v-if="!loading && !beats.length"
-            class="text-center my-5"
-        >There are no public beats or beat packs.</p>
+        <p v-if="!loading && !beats.length" class="text-center my-5">
+            There are no public beats or beat packs.
+        </p>
         <LoadingSpinner class="page-loader" v-if="loading" />
 
         <div v-else>
             <b-form-row>
-                <b-col cols="12" lg="3" md="6" v-for="(item, index) in beats" :key="index">
+                <b-col
+                    cols="12"
+                    lg="3"
+                    md="6"
+                    v-for="(item, index) in beats"
+                    :key="index"
+                >
                     <ArtItem
                         :artItem="item"
                         :selected="index === currentIndex"
@@ -20,7 +25,13 @@
                 </b-col>
             </b-form-row>
             <div class="text-center mb-5">
-                <basic-button variant="outline-black" size="md" class="btn-view-more">View More</basic-button>
+                <basic-button
+                    variant="outline-black"
+                    size="md"
+                    class="btn-view-more"
+                >
+                    View More
+                </basic-button>
             </div>
         </div>
         <BuyLicenseModal @close="handleCloseBuy" />
@@ -112,14 +123,14 @@ export default {
         if (response.status === 'false') {
             this.$router.push({
                 name: 'home',
-            })            
+            })
         } else {
             await this.$store.dispatch('profile/getProfileBeatsTab', {
                 url: this.url,
             })
             this.user_id = this.$store.getters['profile/profile'].id
         }
-        this.loading = false        
+        this.loading = false
     },
     methods: {
         async updateCurrentItem() {

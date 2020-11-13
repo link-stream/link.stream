@@ -16,6 +16,12 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
                 width: inherit;
+                display: none;
+            }
+            &:hover {
+                .center-img {
+                    display: block;
+                }
             }
         }
         .art-desc {

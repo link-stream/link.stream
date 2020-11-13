@@ -3,17 +3,17 @@
         <a href="#" class="img-container" @click.prevent="selectImage">
             <img :src="artItem.coverart" />
             <LoadingSpinner
-                v-if="selected && individualLoading"
+                v-if="selected && individualLoading && artItem.type === 'beat'"
                 class="center-img"
                 animation="bounce"
             />
             <img
-                v-if="selected && !individualLoading && status"
+                v-if="selected && !individualLoading && status && artItem.type === 'beat'"
                 src="@/assets/img/ico/pause-red.svg"
                 class="center-img"
             />
             <img
-                v-if="selected && !individualLoading && !status"
+                v-if="!individualLoading && (!selected || !status) && artItem.type === 'beat'"
                 src="@/assets/img/ico/play-red.svg"
                 class="center-img"
             />

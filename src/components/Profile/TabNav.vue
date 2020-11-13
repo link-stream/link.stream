@@ -32,7 +32,6 @@
                         </router-link>
                     </li>
                 </ul>
-                {{ $route.name }}
                 <basic-button
                     v-if="curRouteName != 'profileAbout'"
                     variant="outline-light"

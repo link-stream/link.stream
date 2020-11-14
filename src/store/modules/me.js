@@ -272,6 +272,15 @@ const actions = {
         return response
     },
 
+    async updateUserAccount({ commit }, { id, params }) {
+        const response = await api.users.updateUserAccount(id, params)
+        const { status, data } = response
+        if (status === 'success') {
+            commit(meTypes.SET_USER, { user: data })
+        }
+        return response
+    },
+
     async loadGlobalUser({ commit, rootGetters }) {
         const user = rootGetters['auth/user']
         const { status, data } = await api.users.loginNew(
@@ -283,7 +292,6 @@ const actions = {
 
     async loadProfile({ commit, rootGetters }) {
         const user = rootGetters['auth/user']
-        console.log('loadProfile user', user)
         const { status, data } = await api.users.getUser(user.id)
         status === 'success' && commit(meTypes.SET_USER, { user: data })
     },
@@ -573,9 +581,36 @@ const actions = {
             commit(meTypes.SET_PURCHASES, { purchases: data })
     },
 
+    async loadPurchasesNew({ commit, rootGetters }) {
+        if (state.purchases.length) {
+            return
+        }
+        const user = rootGetters['auth/user']
+        const params = { user_token: user.user_token }
+        const { status, data } = await api.account.getPurchasesNew(
+            user.user_id,
+            params
+        )
+        status === 'success' &&
+            commit(meTypes.SET_PURCHASES, { purchases: data })
+    },
+
     async loadPaymentMethods({ state, commit }) {
         const { status, data } = await api.account.getPaymentMethodsByUser(
             state.user.id
+        )
+        commit({
+            type: meTypes.SET_PAYMENT_METHODS,
+            paymentMethods: status === 'success' ? data : [],
+        })
+    },
+
+    async loadPaymentMethodsNew({ commit, rootGetters }) {
+        const user = rootGetters['auth/user']
+        const params = { user_token: user.user_token }
+        const { status, data } = await api.account.getPaymentMethodsByUserNew(
+            user.user_id,
+            params
         )
         commit({
             type: meTypes.SET_PAYMENT_METHODS,
@@ -608,6 +643,19 @@ const actions = {
         return response
     },
 
+    async deletePaymentMethodNew({ commit, rootGetters }, paymentMethod) {
+        const user = rootGetters['auth/user']
+        const params = { user_token: user.user_token }
+        const response = await api.account.deletePaymentMethod(
+            paymentMethod.id,
+            params
+        )
+        const { status } = response
+        status === 'success' &&
+            commit(meTypes.DELETE_PAYMENT_METHOD, { paymentMethod })
+        return response
+    },
+
     async addBankInfo({ commit }, { params }) {
         commit(meTypes.SET_BANK_INFO, { params })
         return {
@@ -618,6 +666,21 @@ const actions = {
 
     async loadNotification({ state, commit }) {
         const response = await api.account.getNotification(state.user.id)
+        const { status, data } = response
+        status === 'success' &&
+            commit({
+                type: meTypes.SET_NOTIFICATION,
+                notification: data.length > 0 ? data[0] : {},
+            })
+    },
+
+    async loadNotificationNew({ commit, rootGetters }) {
+        const user = rootGetters['auth/user']
+        const params = { user_token: user.user_token }
+        const response = await api.account.getNotificationNew(
+            user.user_id,
+            params
+        )
         const { status, data } = response
         status === 'success' &&
             commit({

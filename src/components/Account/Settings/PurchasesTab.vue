@@ -74,7 +74,8 @@ export default {
     }),
     async created() {
         this.loading = true
-        await this.$store.dispatch('me/loadPurchases')
+        //await this.$store.dispatch('me/loadPurchases')
+        await this.$store.dispatch('me/loadPurchasesNew')
         this.loading = false
     },
      methods: {

@@ -112,7 +112,7 @@
                         </b-col>
                         <b-col cols="12">
                             <b-form-group
-                                label="Profile URL"
+                                label="Store URL"
                                 class="mb-4 error-l-100"
                             >
                                 <label class="small text-muted">

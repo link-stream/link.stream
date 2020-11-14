@@ -1087,7 +1087,8 @@ export default {
             )
             this.status_loading_pay = true
             let p_data = {
-                user_id: this.session.id,
+                user_id: this.session.user_id,
+                user_token: this.session.user_token,
                 utm_source: this.params_url.utm_source,
                 ref_id: this.params_url.ref_id,
                 country: temp_country.country,
@@ -1124,7 +1125,8 @@ export default {
             const params = {
                 data: JSON.stringify(p_data),
             }
-            const response = await api.cart.paypalPayment(params)
+            //const response = await api.cart.paypalPayment(params)
+            const response = await api.cart.paypalPaymentNew(params)
             if (response.status === 'success') {
                 var receipt = {
                     billingCC: response.billingCC,
@@ -1223,7 +1225,8 @@ export default {
                 var temp_country = this.list_countries.find(
                     aux => aux.code === this.country
                 )
-                this.array.user_id = this.session.id
+                this.array.user_id = this.session.user_id
+                this.array.user_token = this.session.user_token
                 this.array.utm_source = this.params_url.utm_source
                 this.array.ref_id = this.params_url.ref_id
                 this.array.payment.exp_month = this.cardExpiry.substring(0, 2)
@@ -1261,7 +1264,8 @@ export default {
                 const params = {
                     data: JSON.stringify(this.array),
                 }
-                const response = await api.cart.creditCardPayment(params)
+                //const response = await api.cart.creditCardPayment(params)
+                const response = await api.cart.creditCardPaymentNew(params)
                 if (response.status === 'success') {
                     var receipt = {
                         billingCC: response.billingCC,

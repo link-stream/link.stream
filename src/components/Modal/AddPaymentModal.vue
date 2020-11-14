@@ -168,6 +168,7 @@ export default {
     computed: {
         ...mapGetters({
             user: 'me/user',
+            auth: 'auth/user',
         }),
     },
     validations: {
@@ -237,7 +238,9 @@ export default {
             }
             this.saving = true
             const params = {
-                user_id: this.user.id,
+                //user_id: this.user.id,
+                user_id: this.auth.user_id,
+                user_token: this.auth.user_token,
                 ...this.form,
             }
             params.cc_number = params.cc_number.replace(/\s/g, '')
@@ -249,7 +252,8 @@ export default {
             } = await this.$store.dispatch('me/createPaymentMethod', { params })
             if (status === 'success') {
                 this.$toast.success(message)
-                await this.$store.dispatch('me/loadPaymentMethods')
+                //await this.$store.dispatch('me/loadPaymentMethods')
+                await this.$store.dispatch('me/loadPaymentMethodsNew')
             } else {
                 this.$toast.error(error)
             }

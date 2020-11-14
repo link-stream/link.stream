@@ -36,3 +36,13 @@
         }
     }
 }
+.user-menu {
+    @include scrollbarHidden;
+    .user-dropdown {
+        max-height: 500px !important;
+        overflow: auto;
+        @include media-breakpoint-up(xs) {
+            max-height: 400px !important;
+        }
+    }
+}

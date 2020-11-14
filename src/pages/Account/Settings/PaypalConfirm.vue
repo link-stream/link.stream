@@ -26,9 +26,11 @@ export default {
     computed: {
         ...mapGetters({
             user: 'me/user',
+            auth: 'auth/user',
         }),
     },
     async created() {
+        console.log('paypal confirm')
         this.auth_code = this.$route.query.code
         if (this.auth_code) {
             await this.getAccessToken()
@@ -97,13 +99,22 @@ export default {
             }
         },
         async savePaypalInfo() {
+            console.log('savePaypalInfo')
+            // const params = {
+            //     user_id: this.user.id,
+            //     paypal_user_id: this.user_id,
+            //     paypal_email: this.email,
+            //     account_type: localStorage.getItem('paypal_type'),
+            // }
+            // await api.account.confirmPaypalAccount(params)
             const params = {
-                user_id: this.user.id,
+                user_token: this.auth.user_token,
+                user_id: this.auth.user_id,
                 paypal_user_id: this.user_id,
                 paypal_email: this.email,
                 account_type: localStorage.getItem('paypal_type'),
             }
-            await api.account.confirmPaypalAccount(params)
+            await api.account.confirmPaypalAccountNew(params)
         },
     },
 }

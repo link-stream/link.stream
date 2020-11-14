@@ -35,7 +35,7 @@
 
     ul.main-menu li {
         position: relative;
-        
+
         a {
             display: flex;
             padding-left: 10px;
@@ -45,7 +45,7 @@
             color: $main-menu-color;
             text-decoration: none;
             font-size: px2rem(14);
-			.nav-img {
+            .nav-img {
                 margin-left: 12px;
                 margin-right: 12px;
                 margin-bottom: 0.25 * $spacer;
@@ -55,14 +55,14 @@
                 width: 40px;
             }
 
-            &:hover{
+            &:hover {
                 color: $main-menu-active-color;
                 background: #212121;
             }
         }
 
         &.active {
-            &>a {
+            & > a {
                 color: $main-menu-active-color;
                 &:not(.has-submenu) {
                     &:after {
@@ -120,17 +120,28 @@
         transform: translateX(-$main-menu-width);
     }
     .user-nav {
+        margin-top: 15px;
         @include media-breakpoint-up(lg) {
             position: fixed;
             bottom: 10px;
         }
-        @include media-breakpoint-down(lg) {
-            margin-top: 70px;
-        }
         .user-menu {
-			position: fixed;
+            @include scrollbarHidden;
+            position: fixed;
             bottom: 10px;
             margin-left: 20px;
+            //max-height: 500px;
+            .container-fluid {
+                padding-right: 0;
+                padding-left: 0;
+            }
+            .user-dropdown {
+                max-height: 500px !important;
+                overflow: auto;
+                @include media-breakpoint-up(xs) {
+                    max-height: 400px !important;
+                }
+            }
             .dropdown {
                 .dropdown-toggle {
                     .avatar {

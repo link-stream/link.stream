@@ -65,6 +65,7 @@ export default {
     computed: {
         ...mapGetters({
             user: 'me/user',
+            auth: 'auth/user',
         }),
         cardImage() {
             const findIndex = appConstants.cardImages.findIndex(
@@ -80,9 +81,15 @@ export default {
     methods: {
         async deletePaymentMethod() {
             if (this.type === 'paypal') {
-                const response = await api.account.deletePaypalAccount(
-                    this.user.id,
-                    localStorage.getItem('paypal_type')
+                // const response = await api.account.deletePaypalAccount(
+                //     this.user.id,
+                //     localStorage.getItem('paypal_type')
+                // )
+                const params = { user_token: this.auth.user_token }
+                const response = await api.account.deletePaypalAccountNew(
+                    this.auth.user_id,                    
+                    localStorage.getItem('paypal_type'),
+                    params,
                 )
                 if (response.status !== 'success') {
                     this.$toast.error(

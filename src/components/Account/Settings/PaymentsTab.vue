@@ -73,6 +73,7 @@ export default {
         ...mapGetters({
             paymentMethods: 'me/paymentMethods',
             user: 'me/user',
+            auth: 'auth/user',
         }),
     },
     components: {
@@ -82,7 +83,8 @@ export default {
     },
     async created() {
         this.loading = true
-        await this.$store.dispatch('me/loadPaymentMethods')
+        //await this.$store.dispatch('me/loadPaymentMethods')
+        await this.$store.dispatch('me/loadPaymentMethodsNew')
         localStorage.setItem('paypal_type', 'payment')
         await this.getPaypalInfo()
         this.loading = false
@@ -92,14 +94,19 @@ export default {
             this.$bus.$emit('modal.addPayment.open')
         },
         async getPaypalInfo() {
-            const response = await api.account.getPaypalAccount(this.user.id, 'payment')
+            //const response = await api.account.getPaypalAccount(this.user.id, 'payment')
+            const params = { user_token: this.auth.user_token }
+            const response = await api.account.getPaypalAccountNew(
+                this.auth.user_id, 
+                'payment', 
+                params
+            )            
             if (response.status === 'success') {
                 this.paypalInfo = {
                     payouts_enabled: response.payouts_enabled,
                     paypal_email: response.paypal_email
                 }
             }
-            console.log(response)
         },
         deletePaypalAccount() {
             this.paypalInfo = {}

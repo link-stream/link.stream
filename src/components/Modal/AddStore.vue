@@ -26,7 +26,7 @@
                             <b-form-group
                                 label="Store Name"
                                 label-for="input_store_name"
-                                class="mb-3 error-l-110 email-form-group"
+                                class="mb-3 error-l-110 store-form-group"
                             >
                                 <b-form-input
                                     id="input_store_name"
@@ -87,7 +87,7 @@
                         <b-col cols="12" class="text-center">
                             <spinner-button
                                 type="submit"
-                                class="auth-btn mt-3 signin-btn"
+                                class="auth-btn mt-3 create-store-btn"
                                 :loading="status.loading.addstore"
                                 :error="status.error.addstore"
                             >Create Store</spinner-button>

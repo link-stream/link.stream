@@ -33,6 +33,10 @@
     .store-col {
         margin-top: 11px;
         .store-card {
+            &:active,
+            &:focus {
+                outline: 0 !important;
+            }
             min-height: 70px;
             max-width: 350px;
             width: 350px;

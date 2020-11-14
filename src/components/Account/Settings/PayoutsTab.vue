@@ -27,6 +27,7 @@
             <StripeItem
                 v-else-if="payoutsEnabled"
                 :user="userInfo"
+                :user_id="auth.user_id"
                 :url="loginUrl"
                 :accountId="accountId"
                 @delete="deleteStripeAccount"
@@ -39,13 +40,12 @@
                 <ul class="desc-list">
                     <li>Connect using your existing PayPal account</li>
                     <li>
-                        Paypal is required to split the profit share of sales from
-                        collaborations.
+                        Paypal is required to split the profit share of sales
+                        from collaborations.
                     </li>
                     <li>May include fees</li>
                 </ul>
-                <span id='paypal_container'></span>
-                
+                <span id="paypal_container"></span>
             </div>
             <div v-else-if="paypalInfo.paypal_email">
                 <bank-item :bankInfo="paypalInfo" type="paypal" @delete="deletePaypalAccount" />
@@ -77,6 +77,7 @@ export default {
         ...mapGetters({
             bankInfo: 'me/bankInfo',
             userInfo: 'me/user',
+            auth: 'auth/user',
         }),
     },
     components: {
@@ -87,8 +88,13 @@ export default {
     async created() {
         this.loading = true
         this.loadingPaypal = true
-        const stripeAccount = await api.account.getStripeAccount(
-            this.userInfo.id
+        // const stripeAccount = await api.account.getStripeAccount(
+        //     this.userInfo.id
+        // )
+        const params = { user_token: this.auth.user_token }
+        const stripeAccount = await api.account.getStripeAccountNew(
+            this.auth.user_id,
+            params
         )
         if (stripeAccount.status === 'success' && stripeAccount.data) {
             switch (stripeAccount.data.status) {
@@ -125,31 +131,37 @@ export default {
             // eslint-disable-next-line
             paypal.use(['login'], function(login) {
                 login.render({
-                    'appid': process.env.VUE_APP_PAYPAL_CLIENT_ID,
-                    'authend':'sandbox',
-                    'scopes': 'openid email',
-                    'containerid': 'paypal_container',
-                    'responseType': 'code id_Token',
-                    'locale': 'en-us',
-                    'buttonType': 'CWP',
-                    'buttonShape': 'pill',
-                    'buttonSize': 'lg',
-                    'fullPage': 'true',
-                    'returnurl': 'https://dev-link-vue.link.stream/app/account/payments/paypal_confirm'
+                    appid: process.env.VUE_APP_PAYPAL_CLIENT_ID,
+                    authend: 'sandbox',
+                    scopes: 'openid email',
+                    containerid: 'paypal_container',
+                    responseType: 'code id_Token',
+                    locale: 'en-us',
+                    buttonType: 'CWP',
+                    buttonShape: 'pill',
+                    buttonSize: 'lg',
+                    fullPage: 'true',
+                    returnurl:
+                        'https://dev-link-vue.link.stream/app/account/payments/paypal_confirm',
                 })
             })
         },
         async handleAddClick() {
             if (this.state === 3) {
-                const response = await api.account.connectStripeAccount({
-                    debug: false,
-                    user_id: this.userInfo.id,
+                // const response = await api.account.connectStripeAccount({
+                //     debug: false,
+                //     user_id: this.userInfo.id,
+                // })
+                const response = await api.account.connectStripeAccountNew({
+                    debug: true,
+                    user_id: this.auth.user_id,
+                    user_token: this.auth.user_token,
                 })
                 if (response.status === 'success') {
                     this.accountId = response.account_id
                     localStorage.setItem(
                         'user_id',
-                        JSON.stringify(this.userInfo.id)
+                        JSON.stringify(this.auth.user_id)
                     )
                     localStorage.setItem(
                         'account_id',
@@ -168,15 +180,21 @@ export default {
             this.state = 3
         },
         async getPaypalInfo() {
-            const response = await api.account.getPaypalAccount(this.userInfo.id, 'payout')
+            //const response = await api.account.getPaypalAccount(this.userInfo.id, 'payout')
+            const params = { user_token: this.auth.user_token }
+            const response = await api.account.getPaypalAccountNew(
+                this.auth.user_id,
+                'payout',
+                params
+            )
             if (response.status === 'success') {
                 this.paypalInfo = {
                     payouts_enabled: response.payouts_enabled,
-                    paypal_email: response.paypal_email
+                    paypal_email: response.paypal_email,
                 }
             } else {
                 this.paypalInfo = {}
-            } 
+            }
         },
         deletePaypalAccount() {
             this.paypalInfo = {}

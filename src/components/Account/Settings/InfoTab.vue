@@ -21,7 +21,7 @@
                         </template>
                     </b-form-invalid-feedback>
                 </b-form-group>
-                <b-form-group label="Display Name">
+                <!-- <b-form-group label="Display Name">
                     <b-form-input
                         v-model="$v.form.display_name.$model"
                         placeholder="Display Name"
@@ -32,7 +32,7 @@
                             Enter a display name.
                         </template>
                     </b-form-invalid-feedback>
-                </b-form-group>
+                </b-form-group> -->
                 <b-form-group label="Email">
                     <b-form-input
                         v-model="$v.form.email.$model"
@@ -230,7 +230,7 @@ export default {
         return {
             form: {
                 user_name: '',
-                display_name: '',
+                // display_name: '',
                 email: '',
                 timezone: '',
                 country: '',
@@ -252,6 +252,7 @@ export default {
     },
     computed: {
         ...mapGetters({
+            auth: 'auth/user',
             userInfo: 'me/user',
             timezones: 'common/timezones',
         }),
@@ -268,9 +269,9 @@ export default {
                     )
                 },
             },
-            display_name: {
-                required,
-            },
+            // display_name: {
+            //     required,
+            // },
             email: {
                 required,
                 email,
@@ -370,7 +371,7 @@ export default {
             this.saving = true
             const {
                 user_name,
-                display_name,
+                // display_name,
                 email,
                 timezone,
                 country,
@@ -381,7 +382,7 @@ export default {
             } = this.form
             const params = {
                 user_name,
-                display_name,
+                // display_name,
                 email,
                 timezone,
                 country,
@@ -389,11 +390,12 @@ export default {
                 password,
                 facebook,
                 twitter,
+                user_token: this.auth.user_token,
             }
             const { status, error } = await this.$store.dispatch(
-                'me/updateUser',
+                'me/updateUserAccount',
                 {
-                    id: this.userInfo.id,
+                    id: this.auth.user_id,
                     params,
                 }
             )

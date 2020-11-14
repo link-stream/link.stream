@@ -1,60 +1,65 @@
 <template>
     <div class="user-menu position-relative d-inline-block" v-if="user">
-        <b-dropdown
-            class="dropdown-menu-right"
-            right
-            variant="link"
-            toggle-class="text-decoration-none"
-            menu-class="position-absolute"
-            no-caret
-        >
-            <template slot="button-content">
-                <span>
-                    <b-img
-                        v-if="user"
-                        :alt="user.display_name"
-                        :src="user.photo"
-                        rounded="circle"
-                        class="avatar"
-                    />
-                    <vue-letter-avatar v-else :name="user.display_name" size="40" :rounded="true" />
-                </span>
-                <span class="user-name">{{ user.display_name }}</span>
-                <font-awesome-icon :icon="['fas', 'chevron-down']" />
-                <font-awesome-icon :icon="['fas', 'chevron-up']" />
-            </template>
-            <div v-if="user.type === 'producer'">
-                <div v-for="(store, index) in stores" :key="index" >
-                    <b-dropdown-item 
-                        :id="`store-name-${index}`" 
-                        :active="store.id === user.id"
-                        @click="changeStore(store)"
-                    >
+        <b-container fluid>
+            <b-dropdown
+                class="dropdown-menu-right "
+                dropup
+                right
+                variant="link"
+                toggle-class="text-decoration-none"            
+                no-caret
+            >            
+                <template slot="button-content">
+                    <span>
                         <b-img
-                            :alt="store.display_name"
-                            :src="store.data_image"
+                            v-if="user"
+                            :alt="user.display_name"
+                            :src="user.photo"
                             rounded="circle"
-                            class="dropdown-item-avatar"
+                            class="avatar"
                         />
-                        {{ store.url | truncate(16) }}
+                        <vue-letter-avatar v-else :name="user.display_name" size="40" :rounded="true" />
+                    </span>
+                    <span class="user-name">{{ user.display_name }}</span>
+                    <font-awesome-icon :icon="['fas', 'chevron-down']" />
+                    <font-awesome-icon :icon="['fas', 'chevron-up']" />
+                </template>
+                <div class="user-dropdown">
+                    <div v-if="user.type === 'producer'">
+                        <div v-for="(store, index) in stores" :key="index" >
+                            <b-dropdown-item 
+                                :id="`store-name-${index}`" 
+                                :active="store.id === user.id"
+                                @click="changeStore(store)"
+                            >
+                                <b-img
+                                    :alt="store.display_name"
+                                    :src="store.data_image"
+                                    rounded="circle"
+                                    class="dropdown-item-avatar"
+                                />
+                                {{ store.url | truncate(16) }}
+                            </b-dropdown-item>
+                        </div>
+                    </div>      
+                    <b-dropdown-divider v-if="user.type === 'producer'" />      
+                    <b-dropdown-item 
+                        @click="addStore" 
+                        v-if="user.type === 'producer'" 
+                        :disabled="stores.length === 10"
+                    >
+                        Add store
                     </b-dropdown-item>
-                </div>
-            </div>      
-            <b-dropdown-divider v-if="stores"></b-dropdown-divider>      
-            <b-dropdown-item 
-                @click="addStore" 
-                v-if="user.type === 'producer'" 
-                :disabled="stores.length === 10"
-            >
-                Add store
-            </b-dropdown-item>
-            <b-dropdown-item :to="{ name: 'accountProfileEdit' }">Account</b-dropdown-item>
-            <b-dropdown-item>Features</b-dropdown-item>
-            <b-dropdown-item>History</b-dropdown-item>
-            <b-dropdown-item>Support</b-dropdown-item>
-            <b-dropdown-divider />
-            <b-dropdown-item @click="logout">Sign out</b-dropdown-item>
-        </b-dropdown>
+                    <b-dropdown-item :to="{ name: 'accountProfileEdit' }">Account</b-dropdown-item>
+                    <b-dropdown-item>Features</b-dropdown-item>
+                    <b-dropdown-item>History</b-dropdown-item>
+                    <b-dropdown-item>Support</b-dropdown-item>
+                    <b-dropdown-divider />
+                    <b-dropdown-item @click="logout">Sign out</b-dropdown-item>
+                </div>                
+            </b-dropdown>
+        </b-container>
+        
     </div>
 </template>
 

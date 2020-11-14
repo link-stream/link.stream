@@ -16,14 +16,10 @@
     }
 
     .fwz-pager {
-        margin-bottom: 100px;
         flex-direction: row;
         justify-content: space-between;
         .fwz-next-btn {
             margin-bottom: 0;
-        }
-        @media screen and (max-width: 650px) {
-            margin-bottom: 150px;
         }
     }
 

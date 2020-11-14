@@ -28,6 +28,10 @@ export default {
             type: Object,
             required: true,
         },
+        user_id: {
+            type: String,
+            required: true,
+        },
         url: {
             type: String,
             required: true,
@@ -41,7 +45,7 @@ export default {
         makePrimary() {},
         async deleteStripeAccount() {
             const response = await api.account.deleteStripeAccount(
-                this.user.id,
+                this.user_id,
                 this.accountId
             )
             if (response.status !== 'success') {

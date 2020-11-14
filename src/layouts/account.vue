@@ -6,18 +6,15 @@
                 'is-shown': loading,
             }"
         />-->
-        <main class="layout-content">
+        <main class="layout-content" style="margin-bottom: -50px;">
             <transition name="page" mode="out-in">
                 <router-view :key="$route.fullPath"></router-view>
             </transition>
-            <SelectPlanBar
-                v-if="showPlanBar"
-                style="position: fixed; bottom: 0"
-            />
         </main>
         <TopNav class="d-lg-none" />
         <SideBar />
-        <AddStore />
+        <AddStore />        
+        <SelectPlanBar v-if="showPlanBar" />
         <vue-progress-bar></vue-progress-bar>
     </div>
 </template>

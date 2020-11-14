@@ -16,7 +16,6 @@ export default {
             user_id: JSON.parse(localStorage.getItem('user_id')),
             account_id: JSON.parse(localStorage.getItem('account_id')),
         })
-        console.log('response decline', response)
         this.$router
             .push({
                 name: 'accountSettingsPayouts',

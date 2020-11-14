@@ -57,9 +57,12 @@ export default {
         return {
             user: null,
             storeItems: [],
+            baseUrl: '',
         }
     },
     created() {
+        const getUrl = window.location
+        this.baseUrl = getUrl.host
         const data = JSON.parse(localStorage.getItem('userStores'))
         this.user = data
         this.storeItems = data.store
@@ -68,7 +71,7 @@ export default {
     methods: {
         displayUrl(url) {
             const appUrl = process.env.VUE_APP_URL
-            return `${appUrl}/${url}`
+            return `${this.baseUrl}/${url}`
         },
         signInStore(store) {
             setTimeout(() => {

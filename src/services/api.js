@@ -17,9 +17,11 @@ const call = async function({
         'X-API-KEY': process.env.VUE_APP_API_KEY,
         'Content-Type': 'application/x-www-form-urlencoded',
     }
-    const authToken = params.user_token === undefined 
-        ? app.$store.getters['auth/token']
-        : params.user_token
+
+    const authToken =
+        params.user_token === undefined
+            ? app.$store.getters['auth/token']
+            : params.user_token
 
     if (authToken) {
         headers.Token = authToken
@@ -143,6 +145,11 @@ export const api = {
         },
         async updateUser(id, params) {
             const endpoint = '/users/' + id
+            const method = METHOD_PUT
+            return await call({ endpoint, params, method })
+        },
+        async updateUserAccount(id, params) {
+            const endpoint = '/users/user_account/' + id
             const method = METHOD_PUT
             return await call({ endpoint, params, method })
         },
@@ -498,11 +505,29 @@ export const api = {
                 method,
             })
         },
+        async getPurchasesNew(userId, params) {
+            const endpoint = '/users/purchases/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
         async getPaymentMethodsByUser(userId) {
             const endpoint = '/users/payment_method/' + userId
             const method = METHOD_GET
             return await call({
                 endpoint,
+                method,
+            })
+        },
+        async getPaymentMethodsByUserNew(userId, params) {
+            const endpoint = '/users/payment_method/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                params,
                 method,
             })
         },
@@ -524,11 +549,12 @@ export const api = {
                 method,
             })
         },
-        async deletePaymentMethod(id) {
+        async deletePaymentMethod(id, params) {
             const endpoint = '/users/payment_method/' + id
             const method = METHOD_DELETE
             return await call({
                 endpoint,
+                params,
                 method,
             })
         },
@@ -537,6 +563,15 @@ export const api = {
             const method = METHOD_GET
             return await call({
                 endpoint,
+                method,
+            })
+        },
+        async getNotificationNew(userId, params) {
+            const endpoint = '/users/notification/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                params,
                 method,
             })
         },
@@ -558,6 +593,16 @@ export const api = {
                 method,
             })
         },
+        async confirmPaypalAccountNew(params) {
+            console.log('confirmPaypalAccountNew params', params)
+            const endpoint = '/users/confirm_paypal_account_new/'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
         async getPaypalAccount(userId, accountType) {
             const endpoint = `/users/paypal_account/${userId}/${accountType}`
             const method = METHOD_GET
@@ -566,8 +611,26 @@ export const api = {
                 method,
             })
         },
+        async getPaypalAccountNew(userId, accountType, params) {
+            const endpoint = `/users/paypal_account/${userId}/${accountType}`
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
         async connectStripeAccount(params) {
             const endpoint = '/users/connect_stripe_account'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async connectStripeAccountNew(params) {
+            const endpoint = '/users/connect_stripe_account_new'
             const method = METHOD_POST
             return await call({
                 endpoint,
@@ -589,6 +652,15 @@ export const api = {
             const method = METHOD_GET
             return await call({
                 endpoint,
+                method,
+            })
+        },
+        async getStripeAccountNew(userId, params) {
+            const endpoint = '/users/stripe_account/' + userId
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                params,
                 method,
             })
         },
@@ -614,6 +686,15 @@ export const api = {
             const method = METHOD_DELETE
             return await call({
                 endpoint,
+                method,
+            })
+        },
+        async deletePaypalAccountNew(userId, accountType, params) {
+            const endpoint = `/users/paypal_account/${userId}/${accountType}`
+            const method = METHOD_DELETE
+            return await call({
+                endpoint,
+                params,
                 method,
             })
         },
@@ -982,8 +1063,28 @@ export const api = {
             })
         },
 
+        async creditCardPaymentNew(params) {
+            let endpoint = '/payments/cc_payment_new'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+
         async paypalPayment(params) {
             let endpoint = '/payments/paypal_payment'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+
+        async paypalPaymentNew(params) {
+            let endpoint = '/payments/paypal_payment_new'
             const method = METHOD_POST
             return await call({
                 endpoint,

@@ -1,9 +1,10 @@
 .select-plan-bar {
-    position: absolute;
+    position: fixed;
+    bottom: 0;
     left: 0;
     right: 0;
     min-height: 80px;
-    background: linear-gradient(45deg, #A624D2 0%, #CE5353 47.8%, #FFB02D 100%);
+    background: linear-gradient(45deg, #a624d2 0%, #ce5353 47.8%, #ffb02d 100%);
     span {
         font-size: px2rem(14);
         font-weight: 600;
@@ -17,8 +18,22 @@
     line-height: 80px;
     text-align: center;
     color: white;
-    @include media-breakpoint-down(sm) {
-        line-height: 60px;
-        margin-top: 40px;
+    @include media-breakpoint-down(xs) {
+        span {
+            font-size: px2rem(14);
+            font-weight: 500;
+        }
+        .btn-upgrade {
+            background-color: transparent;
+            color: white;
+            border-width: 2px;
+            margin-left: 10px;
+            padding: 10px;
+        }
+        line-height: 1.4;
     }
+}
+.push {
+    height: 120px;
+    margin-top: 30px;
 }

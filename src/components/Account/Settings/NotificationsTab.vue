@@ -174,7 +174,7 @@
                     </div>
                 </div>
             </div>
-            <footer class="page-footer border-top mt-3 pt-3">
+            <footer class="border-top mt-3 pt-3">
                 <basic-button
                     class="cancel-btn"
                     variant="secondary"
@@ -204,6 +204,7 @@ export default {
     computed: {
         ...mapGetters({
             notification: 'me/notification',
+            auth: 'auth/user',
         }),
     },
     data: () => ({
@@ -211,7 +212,8 @@ export default {
         saving: false,
     }),
     async created() {
-        await this.$store.dispatch('me/loadNotification')
+        //await this.$store.dispatch('me/loadNotification')
+        await this.$store.dispatch('me/loadNotificationNew')
         this.resetForm()
     },
     methods: {
@@ -220,6 +222,7 @@ export default {
             Object.entries(this.form).forEach(([key, value]) => {
                 params[key] = value ? 1 : 0
             })
+            params.user_token = this.auth.user_token
             this.saving = true
             const { status, message, error } = await this.$store.dispatch(
                 'me/updateNotification',

@@ -1,9 +1,5 @@
 <template>
-    <div
-        class="sidebar"
-        @click.stop="() => {}"
-        :class="menuStatus ? 'show-menu' : 'hide-menu'"
-    >
+    <div class="sidebar" @click.stop="() => {}" :class="menuStatus ? 'show-menu' : 'hide-menu'">
         <b-navbar-brand to="/">
             <img src="@/assets/img/ico/logo.svg" />
             <span>LinkStream</span>
@@ -17,15 +13,18 @@
                 }"
             >
                 <router-link
-                    v-if="user && (user.type === item.type || item.type === 'both')"
-					@mouseover.native="getImgHover(item)"
+                    v-if="
+                        user &&
+                            (user.type === item.type || item.type === 'both')
+                    "
+                    @mouseover.native="getImgHover(item)"
                     @mouseleave.native="getImgLeave(item)"
                     :class="{
                         'has-submenu': item.subs && item.subs.length > 0,
                     }"
                     :to="item.to"
                 >
-                    <img :src="getImgUrl(item)"  :id="item.id" class="nav-img"/>     
+                    <img :src="getImgUrl(item)" :id="item.id" class="nav-img" />
                     {{ item.label }}
                 </router-link>
                 <div class="sub-menu" v-if="item.subs && item.subs.length > 0">
@@ -39,9 +38,13 @@
                             }"
                             :key="`menu_${index}_${subIndex}`"
                         >
-                            <router-link 
-                                v-if="user && (user.type === sub.type || sub.type === 'both')"
-                                :to="sub.to" 
+                            <router-link
+                                v-if="
+                                    user &&
+                                        (user.type === sub.type ||
+                                            sub.type === 'both')
+                                "
+                                :to="sub.to"
                                 :target="sub.target"
                             >
                                 <span>{{ sub.label }}</span>
@@ -129,33 +132,41 @@ export default {
                 this.$store.commit('setMenuStatus', false)
             }
         },
-		getImgUrl(item) {
+        getImgUrl(item) {
             this.selectMenu()
-            return (this.selectedParentMenu === item.id) 
-                ? require('@/assets/img/ico/' + item.active) 
+            return this.selectedParentMenu === item.id
+                ? require('@/assets/img/ico/' + item.active)
                 : require('@/assets/img/ico/' + item.img)
         },
         getImgHover(item) {
-            return document.getElementById(`${item.id}`).src = require('@/assets/img/ico/' + item.active) 
+            return (document.getElementById(
+                `${item.id}`
+            ).src = require('@/assets/img/ico/' + item.active))
         },
         getImgLeave(item) {
             this.selectMenu()
-            return (this.selectedParentMenu === item.id) 
-                ? document.getElementById(`${item.id}`).src = require('@/assets/img/ico/' + item.active) 
-                : document.getElementById(`${item.id}`).src = require('@/assets/img/ico/' + item.img)
+            return this.selectedParentMenu === item.id
+                ? (document.getElementById(
+                      `${item.id}`
+                  ).src = require('@/assets/img/ico/' + item.active))
+                : (document.getElementById(
+                      `${item.id}`
+                  ).src = require('@/assets/img/ico/' + item.img))
         },
     },
     watch: {
-		user() {
-            if (this.user != null){
+        user() {
+            if (this.user != null) {
                 const menuIndex = this.menuItems.findIndex(
                     menuItems => menuItems.id === 'profile'
                 )
                 const submenuIndex = this.menuItems[menuIndex].subs.findIndex(
-                    submenu => submenu.label === 'View Profile'
+                    submenu => submenu.label === 'View Store'
                 )
-                this.menuItems[menuIndex].subs[submenuIndex].to = `/${this.user.url}`
-            }             
+                this.menuItems[menuIndex].subs[
+                    submenuIndex
+                ].to = `/${this.user.url}`
+            }
         },
         $route(to, from) {
             if (to.path !== from.path) {

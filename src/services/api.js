@@ -138,6 +138,10 @@ export const api = {
             const endpoint = '/users/stores/' + user_id
             return await call({ endpoint, method, showProgress: false })
         },
+        async getUserAccount(id, params) {
+            const endpoint = '/users/user_account/' + id
+            return await call({ endpoint, params })
+        },
         async addStore(params) {
             const method = METHOD_POST
             const endpoint = '/users/add_store/'
@@ -149,6 +153,7 @@ export const api = {
             return await call({ endpoint, params, method })
         },
         async updateUserAccount(id, params) {
+            console.log('api id', id)
             const endpoint = '/users/user_account/' + id
             const method = METHOD_PUT
             return await call({ endpoint, params, method })

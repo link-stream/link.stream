@@ -17,7 +17,7 @@ export const menus = [
         to: '/app/sales',
         type: 'producer',
     },
-	{
+    {
         id: 'tracks',
         icon: ['fas', 'music'],
         img: 'icon-tracks.svg',
@@ -52,10 +52,10 @@ export const menus = [
             },
         ],
     },
-	{
+    {
         id: 'links',
         icon: ['fas', 'link'],
-		img: 'icon-link.svg',
+        img: 'icon-link.svg',
         active: 'icon-link-active.svg',
         label: 'Links',
         to: '/app/links/manage',
@@ -75,10 +75,10 @@ export const menus = [
             },
         ],
     },
-	{
+    {
         id: 'videos',
         icon: ['fas', 'play-circle'],
-		img: 'icon-youtube-active.svg',
+        img: 'icon-youtube-active.svg',
         active: 'icon-youtube.svg',
         label: 'Videos',
         to: '/app/videos/manage',
@@ -98,7 +98,7 @@ export const menus = [
             },
         ],
     },
-	{
+    {
         id: 'analytics',
         icon: ['fas', 'chart-bar'],
         img: 'icon-chart-bar.svg',
@@ -107,10 +107,10 @@ export const menus = [
         to: '/app/analytics',
         type: 'producer',
     },
-	{
+    {
         id: 'marketing',
         icon: ['fas', 'bullhorn'],
-		img: 'bullhorn-solid.svg',
+        img: 'bullhorn-solid.svg',
         active: 'bullhorn-solid-active.svg',
         label: 'Marketing',
         to: '/app/marketing/messages',
@@ -157,19 +157,19 @@ export const menus = [
         type: 'producer',
         subs: [
             {
-                label: 'Edit Profile',
+                label: 'Edit Store',
                 to: '/app/profile/edit',
                 target: '_self',
                 type: 'producer',
             },
             {
-                label: 'View Profile',
+                label: 'View Store',
                 to: '/user_url',
                 target: '_blank',
                 type: 'producer',
             },
         ],
-    },  
+    },
     {
         id: 'shopnow',
         icon: ['fas', 'chart-bar'],
@@ -223,7 +223,7 @@ export const menus = [
     {
         id: 'upgrade',
         icon: ['fas', 'arrow-circle-up'],
-		img: 'arrow-alt-circle-up.svg',
+        img: 'arrow-alt-circle-up.svg',
         active: 'arrow-alt-circle-up-active.svg',
         label: 'Upgrade',
         to: '/app/upgrade',

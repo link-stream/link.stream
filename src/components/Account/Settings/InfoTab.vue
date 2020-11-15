@@ -3,120 +3,139 @@
         <h2 class="section-title">Account Info</h2>
         <div class="tab-body">
             <b-form class="main-info" v-if="userInfo">
-                <b-form-group label="Username">
-                    <b-form-input
-                        v-model="$v.form.user_name.$model"
-                        placeholder="Username"
-                        :state="!$v.form.user_name.$error"
-                    ></b-form-input>
-                    <b-form-invalid-feedback>
-                        <template v-if="!$v.form.user_name.required">
-                            Enter a user name.
-                        </template>
-                        <template v-else-if="!$v.form.user_name.minLength">
-                            The user name must have at least 5 letters.
-                        </template>
-                        <template v-else-if="!$v.form.user_name.uniqueUsername">
-                            The user name exists, pick a new one.
-                        </template>
-                    </b-form-invalid-feedback>
-                </b-form-group>
-                <!-- <b-form-group label="Display Name">
-                    <b-form-input
-                        v-model="$v.form.display_name.$model"
-                        placeholder="Display Name"
-                        :state="!$v.form.display_name.$error"
-                    ></b-form-input>
-                    <b-form-invalid-feedback>
-                        <template v-if="!$v.form.display_name.required">
-                            Enter a display name.
-                        </template>
-                    </b-form-invalid-feedback>
-                </b-form-group> -->
-                <b-form-group label="Email">
-                    <b-form-input
-                        v-model="$v.form.email.$model"
-                        type="email"
-                        placeholder="Email"
-                        :state="!$v.form.email.$error"
-                    ></b-form-input>
-                    <b-form-invalid-feedback>
-                        <template v-if="!$v.form.email.required">
-                            Enter a email.
-                        </template>
-                        <template v-else-if="!$v.form.email.email">
-                            Enter a vaild email.
-                        </template>
-                        <template v-else-if="!$v.form.email.uniqueEmail">
-                            The current email exists, pick a new one.
-                        </template>
-                    </b-form-invalid-feedback>
-                </b-form-group>
-                <b-form-group label="Country">
-                    <BasicSelect
-                        v-model="form.country"
-                        :options="allCountries"
-                        :reduce="country => country.code"
-                        label="country"
-                    />
-                </b-form-group>
-                <b-form-group label="Time Zone">
-                    <BasicSelect
-                        v-model="form.timezone"
-                        :options="timezones"
-                        :reduce="timezone => timezone.id"
-                        label="zone"
-                        placeholder="Select Time Zone"
-                    />
-                </b-form-group>
-                <b-form-group label="Current Password">
-                    <b-form-input
-                        v-model="form.current_password"
-                        placeholder="Current Password"
-                        autocomplete="new-password"
-                        type="password"
-                    ></b-form-input>
-                </b-form-group>
-                <b-form-group label="New Password">
-                    <b-form-input
-                        v-model="$v.form.password.$model"
-                        placeholder="New Password"
-                        type="password"
-                        :state="!$v.form.password.$error"
-                    ></b-form-input>
-                    <b-form-invalid-feedback>
-                        <template v-if="!$v.form.password.required">
-                            Enter a password.
-                        </template>
-                        <template v-else-if="!$v.form.password.minLength">
-                            Password must have at least 8 letters.
-                        </template>
-                    </b-form-invalid-feedback>
-                </b-form-group>
-                <b-form-group label="Confirm Password">
-                    <b-form-input
-                        v-model="$v.form.confirm_password.$model"
-                        placeholder="Confirm Password"
-                        type="password"
-                        :state="!$v.form.confirm_password.$error"
-                    ></b-form-input>
-                    <b-form-invalid-feedback>
-                        <template
-                            v-if="!$v.form.confirm_password.sameAsPassword"
-                        >
-                            Password must be identical.
-                        </template>
-                    </b-form-invalid-feedback>
-                </b-form-group>
+                <b-container class="account-info-container">
+                    <b-row>
+                        <b-col cols="12">
+                            <b-form-group label="Username">
+                                <b-form-input
+                                    v-model="$v.form.user_name.$model"
+                                    placeholder="Username"
+                                    :state="!$v.form.user_name.$error"
+                                ></b-form-input>
+                                <b-form-invalid-feedback>
+                                    <template v-if="!$v.form.user_name.required">Enter a user name.</template>
+                                    <template v-else-if="!$v.form.user_name.minLength">
+                                        The user name must have at least 5
+                                        letters.
+                                    </template>
+                                    <template
+                                        v-else-if="
+                                            !$v.form.user_name.uniqueUsername
+                                        "
+                                    >The user name exists, pick a new one.</template>
+                                </b-form-invalid-feedback>
+                            </b-form-group>
+                        </b-col>
+                        <b-col sm="6">
+                            <b-form-group label="First name">
+                                <b-form-input
+                                    v-model="$v.form.first_name.$model"
+                                    placeholder="First name"
+                                    :state="!$v.form.first_name.$error"
+                                ></b-form-input>
+                                <b-form-invalid-feedback>
+                                    <template
+                                        v-if="!$v.form.first_name.required"
+                                    >Enter user first name.</template>
+                                </b-form-invalid-feedback>
+                            </b-form-group>
+                        </b-col>
+                        <b-col sm="6">
+                            <b-form-group label="Last name">
+                                <b-form-input
+                                    v-model="$v.form.last_name.$model"
+                                    placeholder="Last name"
+                                    :state="!$v.form.last_name.$error"
+                                ></b-form-input>
+                                <b-form-invalid-feedback>
+                                    <template
+                                        v-if="!$v.form.last_name.required"
+                                    >Enter user last name.</template>
+                                </b-form-invalid-feedback>
+                            </b-form-group>
+                        </b-col>
+                        <b-col cols="12">
+                            <b-form-group label="Email">
+                                <b-form-input
+                                    v-model="$v.form.email.$model"
+                                    type="email"
+                                    placeholder="Email"
+                                    :state="!$v.form.email.$error"
+                                ></b-form-input>
+                                <b-form-invalid-feedback>
+                                    <template v-if="!$v.form.email.required">Enter a email.</template>
+                                    <template v-else-if="!$v.form.email.email">Enter a vaild email.</template>
+                                    <template v-else-if="!$v.form.email.uniqueEmail">
+                                        The current email exists, pick a new
+                                        one.
+                                    </template>
+                                </b-form-invalid-feedback>
+                            </b-form-group>
+                        </b-col>
+                        <b-col cols="12">
+                            <b-form-group label="Time Zone">
+                                <BasicSelect
+                                    v-model="form.timezone"
+                                    :options="timezones"
+                                    :reduce="timezone => timezone.id"
+                                    label="zone"
+                                    placeholder="Select Time Zone"
+                                />
+                            </b-form-group>
+                        </b-col>
+                        <b-col cols="12">
+                            <b-form-group label="Current Password">
+                                <b-form-input
+                                    v-model="form.current_password"
+                                    placeholder="Current Password"
+                                    autocomplete="new-password"
+                                    type="password"
+                                ></b-form-input>
+                            </b-form-group>
+                        </b-col>
+                        <b-col cols="12">
+                            <b-form-group label="New Password">
+                                <b-form-input
+                                    v-model="$v.form.password.$model"
+                                    placeholder="New Password"
+                                    type="password"
+                                    :state="!$v.form.password.$error"
+                                ></b-form-input>
+                                <b-form-invalid-feedback>
+                                    <template v-if="!$v.form.password.required">Enter a password.</template>
+                                    <template
+                                        v-else-if="!$v.form.password.minLength"
+                                    >Password must have at least 8 letters.</template>
+                                </b-form-invalid-feedback>
+                            </b-form-group>
+                        </b-col>
+                        <b-col cols="12">
+                            <b-form-group label="Confirm Password">
+                                <b-form-input
+                                    v-model="$v.form.confirm_password.$model"
+                                    placeholder="Confirm Password"
+                                    type="password"
+                                    :state="!$v.form.confirm_password.$error"
+                                ></b-form-input>
+                                <b-form-invalid-feedback>
+                                    <template
+                                        v-if="
+                                            !$v.form.confirm_password
+                                                .sameAsPassword
+                                        "
+                                    >Password must be identical.</template>
+                                </b-form-invalid-feedback>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+                </b-container>
             </b-form>
             <h2 class="section-title">Connected Accounts</h2>
             <div class="social-accounts border-top">
                 <ul>
                     <li class="list-item list-item-fb">
                         <i class="fab fa-facebook"></i>
-                        <span class="username">
-                            {{ social.facebook || 'Facebook' }}
-                        </span>
+                        <span class="username">{{ social.facebook || 'Facebook' }}</span>
                         <IconButton
                             v-if="social.facebook"
                             icon="trash-sm"
@@ -128,15 +147,11 @@
                             variant="link"
                             class="connect-btn"
                             @click="handleFbConnect"
-                        >
-                            Connect
-                        </basic-button>
+                        >Connect</basic-button>
                     </li>
                     <li class="list-item list-item-twitter">
                         <i class="fab fa-twitter"></i>
-                        <span class="username">
-                            {{ social.twitter || 'Twitter' }}
-                        </span>
+                        <span class="username">{{ social.twitter || 'Twitter' }}</span>
                         <IconButton
                             v-if="social.twitter"
                             icon="trash-sm"
@@ -148,15 +163,11 @@
                             variant="link"
                             class="connect-btn"
                             @click="handleTwitterConnect"
-                        >
-                            Connect
-                        </basic-button>
-                    </li>                    
+                        >Connect</basic-button>
+                    </li>
                     <li class="list-item" v-if="false">
                         <img src="@/assets/img/ico/social-soundcloud.svg" />
-                        <span class="username">
-                            {{ social.soundcloud || 'SoundCloud' }}
-                        </span>
+                        <span class="username">{{ social.soundcloud || 'SoundCloud' }}</span>
                         <IconButton
                             v-if="social.soundcloud"
                             icon="trash-sm"
@@ -168,9 +179,7 @@
                             variant="link"
                             class="connect-btn"
                             @click="handleSoundcloudConnect"
-                        >
-                            Connect
-                        </basic-button>
+                        >Connect</basic-button>
                     </li>
                 </ul>
             </div>
@@ -181,25 +190,19 @@
                     size="md"
                     :disabled="saving"
                     @click="handleCancelClick"
-                >
-                    Cancel
-                </basic-button>
+                >Cancel</basic-button>
                 <spinner-button
                     size="md"
                     :loading="saving"
                     @click="handleSaveClick"
                     class="float-right d-none d-md-block"
-                >
-                    Save Changes
-                </spinner-button>
+                >Save Changes</spinner-button>
                 <spinner-button
                     size="md"
                     :loading="saving"
                     @click="handleSaveClick"
                     class="float-right d-md-none"
-                >
-                    Save
-                </spinner-button>
+                >Save</spinner-button>
             </footer>
         </div>
     </div>
@@ -218,7 +221,6 @@ import {
     sameAs,
 } from 'vuelidate/lib/validators'
 import { api } from '~/services'
-const iso3311a2 = require('iso-3166-1-alpha-2')
 
 firebase.initializeApp(appConstants.firebaseConfig)
 const fbProvider = new firebase.auth.FacebookAuthProvider()
@@ -228,12 +230,13 @@ export default {
     name: 'InfoTab',
     data() {
         return {
+            userInfo: null,
             form: {
                 user_name: '',
-                // display_name: '',
+                first_name: '',
+                last_name: '',
                 email: '',
                 timezone: '',
-                country: '',
                 current_password: '',
                 password: '',
                 confirm_password: '',
@@ -247,13 +250,12 @@ export default {
                 soundcloud: false,
             },
             saving: false,
-            allCountries: [],
         }
     },
     computed: {
         ...mapGetters({
             auth: 'auth/user',
-            userInfo: 'me/user',
+            //userInfo: 'me/user',
             timezones: 'common/timezones',
         }),
     },
@@ -269,9 +271,12 @@ export default {
                     )
                 },
             },
-            // display_name: {
-            //     required,
-            // },
+            first_name: {
+                required,
+            },
+            last_name: {
+                required,
+            },
             email: {
                 required,
                 email,
@@ -294,21 +299,14 @@ export default {
         },
     },
     async created() {
+        const { data, status } = await this.$store.dispatch('me/getUserAccount')
+        if (status === 'success') {
+            this.userInfo = data
+        }
         this.resetForm()
         await this.$store.dispatch('common/loadTimezones')
-        this.getAllCountries()
     },
     methods: {
-        getAllCountries() {
-            this.allCountries = []
-            const countries = iso3311a2.getData()
-            for (const [key, value] of Object.entries(countries)) {
-                this.allCountries.push({
-                    code: key,
-                    country: value,
-                })
-            }
-        },
         async availabilityValidator(field, value) {
             if (!value) {
                 return true
@@ -371,10 +369,10 @@ export default {
             this.saving = true
             const {
                 user_name,
-                // display_name,
+                first_name,
+                last_name,
                 email,
                 timezone,
-                country,
                 current_password,
                 password,
                 facebook,
@@ -382,20 +380,25 @@ export default {
             } = this.form
             const params = {
                 user_name,
-                // display_name,
+                first_name,
+                last_name,
                 email,
                 timezone,
-                country,
                 current_password,
                 password,
                 facebook,
                 twitter,
-                user_token: this.auth.user_token,
             }
+            // const { status, error } = await this.$store.dispatch(
+            //     'me/updateUserAccount',
+            //     {
+            //         id: this.auth.user_id,
+            //         params,
+            //     }
+            // )
             const { status, error } = await this.$store.dispatch(
-                'me/updateUserAccount',
+                'me/updateUserAccountNew',
                 {
-                    id: this.auth.user_id,
                     params,
                 }
             )

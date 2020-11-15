@@ -272,12 +272,26 @@ const actions = {
         return response
     },
 
+    async getUserAccount({ rootGetters }) {
+        const user = rootGetters['auth/user']
+        const params = { user_token: user.user_token }
+        const response = await api.users.getUserAccount(user.user_id, params)
+        return response
+    },
+
     async updateUserAccount({ commit }, { id, params }) {
         const response = await api.users.updateUserAccount(id, params)
         const { status, data } = response
         if (status === 'success') {
             commit(meTypes.SET_USER, { user: data })
         }
+        return response
+    },
+
+    async updateUserAccountNew({ rootGetters }, { params }) {
+        const user = rootGetters['auth/user']
+        params.user_token = user.user_token
+        const response = await api.users.updateUserAccount(user.user_id, params)
         return response
     },
 

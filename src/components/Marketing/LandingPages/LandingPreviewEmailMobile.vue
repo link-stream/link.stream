@@ -15,7 +15,11 @@
                     </div>
                     <div class="landing-body">
                         <b-row class="m-0">
-                            <b-col cols="12" sm="6" class="artwork-container p-0">
+                            <b-col
+                                cols="12"
+                                sm="6"
+                                class="artwork-container p-0"
+                            >
                                 <img
                                     v-if="landingData.artwork"
                                     :src="`${mediaURL}${landingData.artwork}`"

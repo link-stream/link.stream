@@ -30,7 +30,12 @@
                     :style="viewType === 'mobile' ? landingBackStyle : ''"
                 >
                     <div class="landing-container">
-                        <div class="landing-header" :class="{ 'desktop-mobile': viewType === 'mobile' }">
+                        <div
+                            class="landing-header"
+                            :class="{
+                                'desktop-mobile': viewType === 'mobile',
+                            }"
+                        >
                             <img :src="user.banner" />
                             <div class="landing-logo">
                                 <img
@@ -61,7 +66,9 @@
                                     cols="12"
                                     :sm="viewType === 'desktop' ? 6 : 12"
                                     class="text-content"
-                                    :class="{ 'desktop-mobile': viewType === 'mobile' }"
+                                    :class="{
+                                        'desktop-mobile': viewType === 'mobile',
+                                    }"
                                 >
                                     <h1 class="title">
                                         {{ landingData.headline }}
@@ -124,7 +131,9 @@
                                     target="_blank"
                                     title="Soundcloud"
                                 >
-                                    <i class="fab fa-soundcloud custom-icon"></i>
+                                    <i
+                                        class="fab fa-soundcloud custom-icon"
+                                    ></i>
                                 </a>
                                 <a
                                     v-if="landingData.website"

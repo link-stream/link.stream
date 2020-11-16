@@ -25,9 +25,9 @@
                 </div>
             </b-row>
             <div class="phone-frame">
-                <div 
+                <div
                     class="landing-frame"
-                    :style="viewType === 'mobile' ? landingBackStyle: ''"
+                    :style="viewType === 'mobile' ? landingBackStyle : ''"
                 >
                     <div class="landing-container">
                         <div class="landing-header">
@@ -49,7 +49,9 @@
                                 >
                                     <img
                                         v-if="landingData.artwork"
-                                        :src="`${mediaURL}${landingData.artwork}`"
+                                        :src="
+                                            `${mediaURL}${landingData.artwork}`
+                                        "
                                         alt="Artwork"
                                     />
                                     <img v-else :src="defaultCoverArt" />
@@ -58,7 +60,9 @@
                                     cols="12"
                                     :sm="viewType === 'desktop' ? 6 : 12"
                                     class="text-content"
-                                    :class="{ 'desktop-mobile': viewType === 'mobile' }"
+                                    :class="{
+                                        'desktop-mobile': viewType === 'mobile',
+                                    }"
                                 >
                                     <h1 class="title">
                                         {{ landingData.headline }}

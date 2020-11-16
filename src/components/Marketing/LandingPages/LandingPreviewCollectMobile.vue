@@ -4,7 +4,7 @@
             <div class="landing-frame" :style="landingBackStyle">
                 <div class="landing-container">
                     <div class="landing-header">
-                        <img :src="user.banner" />
+                        <img :src="user ? user.banner : bannerUrl" />
                         <div class="landing-logo">
                             <img
                                 v-if="landingData.logo"
@@ -15,8 +15,8 @@
                         </div>
                     </div>
                     <div class="landing-body">
-                        <b-row>
-                            <b-col cols="12" class="artwork-container">
+                        <b-row class="m-0">
+                            <b-col cols="12" sm="6" class="artwork-container p-0">
                                 <img
                                     v-if="landingData.artwork"
                                     :src="`${mediaURL}${landingData.artwork}`"
@@ -24,7 +24,7 @@
                                 />
                                 <img v-else :src="defaultCoverArt" />
                             </b-col>
-                            <b-col cols="12" class="text-content">
+                            <b-col cols="12" sm="6" class="text-content">
                                 <h1 class="title">
                                     {{ landingData.headline }}
                                 </h1>
@@ -113,18 +113,32 @@
 <script>
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
+import { api } from '~/services'
 export default {
     name: 'LandingPreviewEmail',
     props: {
         landingData: {
             type: Object,
         },
+        url: {
+            type: String,
+        }
     },
     data: () => ({
         mediaURL: appConstants.mediaURL,
         defaultLogo: appConstants.emailDefaultLogo,
         defaultCoverArt: appConstants.defaultCoverArt,
+        bannerUrl: '',
     }),
+    async created() {
+        if (this.url) {
+            const { status, data, error } = await api.profiles.getProfileMain(this.url)
+            console.log(data)
+            if (status === 'success') {
+                this.bannerUrl = appConstants.mediaURL + data.banner
+            }
+        }
+    },
     computed: {
         ...mapGetters({
             user: 'me/user',

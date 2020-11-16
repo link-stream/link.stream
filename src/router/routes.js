@@ -55,6 +55,7 @@ import {
     EditCollectLandingPage,
     EditLeadLandingPage,
     ViewLandingPage,
+    ShowLandingPage,
     EditSplitTest,
     AddVariations,
     ResultSplitTest,
@@ -609,6 +610,13 @@ const routes = [
         component: CheckoutReceipt,
         props: true,
         meta: { layout: 'profile' },
+    },
+    {
+        path: '/:url/lp/:id',
+        name: 'showLandingPage',
+        component: ShowLandingPage,
+        props: true,
+        // meta: { layout: 'profile' },
     },
 
     // 404 catch all

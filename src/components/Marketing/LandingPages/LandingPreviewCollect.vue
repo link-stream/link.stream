@@ -30,7 +30,7 @@
                     :style="viewType === 'mobile' ? landingBackStyle : ''"
                 >
                     <div class="landing-container">
-                        <div class="landing-header">
+                        <div class="landing-header" :class="{ 'desktop-mobile': viewType === 'mobile' }">
                             <img :src="user.banner" />
                             <div class="landing-logo">
                                 <img
@@ -42,11 +42,11 @@
                             </div>
                         </div>
                         <div class="landing-body">
-                            <b-row>
+                            <b-row class="m-0">
                                 <b-col
                                     cols="12"
                                     :sm="viewType === 'desktop' ? 6 : 12"
-                                    class="artwork-container"
+                                    class="artwork-container p-0"
                                 >
                                     <img
                                         v-if="landingData.artwork"
@@ -61,6 +61,7 @@
                                     cols="12"
                                     :sm="viewType === 'desktop' ? 6 : 12"
                                     class="text-content"
+                                    :class="{ 'desktop-mobile': viewType === 'mobile' }"
                                 >
                                     <h1 class="title">
                                         {{ landingData.headline }}

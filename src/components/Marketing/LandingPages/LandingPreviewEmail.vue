@@ -41,11 +41,11 @@
                             </div>
                         </div>
                         <div class="landing-body">
-                            <b-row>
+                            <b-row class="m-0">
                                 <b-col
                                     cols="12"
                                     :sm="viewType === 'desktop' ? 6 : 12"
-                                    class="artwork-container"
+                                    class="artwork-container p-0"
                                 >
                                     <img
                                         v-if="landingData.artwork"
@@ -58,6 +58,7 @@
                                     cols="12"
                                     :sm="viewType === 'desktop' ? 6 : 12"
                                     class="text-content"
+                                    :class="{ 'desktop-mobile': viewType === 'mobile' }"
                                 >
                                     <h1 class="title">
                                         {{ landingData.headline }}

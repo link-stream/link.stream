@@ -761,6 +761,14 @@ export const api = {
                 method,
             })
         },
+        async getLandingPage(url) {
+            const endpoint = '/profiles/landing_page/' + url
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
     marketing: {
         async getMessageSendto(userId) {

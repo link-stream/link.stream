@@ -14,8 +14,8 @@
                         </div>
                     </div>
                     <div class="landing-body">
-                        <b-row>
-                            <b-col cols="12" class="artwork-container">
+                        <b-row class="m-0">
+                            <b-col cols="12" sm="6" class="artwork-container p-0">
                                 <img
                                     v-if="landingData.artwork"
                                     :src="`${mediaURL}${landingData.artwork}`"
@@ -23,7 +23,7 @@
                                 />
                                 <img v-else :src="defaultCoverArt" />
                             </b-col>
-                            <b-col cols="12" class="text-content">
+                            <b-col cols="12" sm="6" class="text-content">
                                 <h1 class="title">
                                     {{ landingData.headline }}
                                 </h1>

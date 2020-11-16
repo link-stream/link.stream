@@ -38,7 +38,7 @@ export default {
             user: 'me/user',
         }),
         fullUrl() {
-            return `${appConstants.baseAppUrl}/${this.form.url}`
+            return `${appConstants.baseAppUrl}/${this.user.url}/lp/${this.form.url}`
         },
     },
     watch: {
@@ -73,6 +73,7 @@ export default {
         }
         this.$v.form.$touch()
         document.addEventListener('click', this.handleDocumentClick)
+        console.log(this.user)
     },
     beforeDestroy() {
         document.removeEventListener('click', this.handleDocumentClick)

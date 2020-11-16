@@ -443,7 +443,12 @@
                         .landing-header {
                             margin-top: 0px;
                             padding: 0;
-                            min-height: 75px;
+                            &.desktop-mobile {
+                                min-height: 75px;
+                            }
+                            @include media-breakpoint-down(sm) {
+                                min-height: 75px;
+                            }
                             .landing-logo {
                                 transform: translateY(-50%);
                                 left: 30px;

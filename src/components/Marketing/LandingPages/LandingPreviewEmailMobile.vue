@@ -34,18 +34,51 @@
                                 <div class="description">
                                     {{ landingData.body }}
                                 </div>
-                                <b-form-group label="Name">
-                                    <b-form-input />
-                                </b-form-group>
-                                <b-form-group label="Email">
-                                    <b-form-input />
-                                </b-form-group>
+                                <div v-if="url">
+                                    <b-form-group label="Name">
+                                        <b-form-input
+                                            v-model="$v.form.name.$model"
+                                            placeholder="Name"
+                                            :state="!$v.form.name.$error"
+                                        ></b-form-input>
+                                        <b-form-invalid-feedback>
+                                            <template v-if="!$v.form.name.required">
+                                                Enter a name.
+                                            </template>
+                                        </b-form-invalid-feedback>
+                                    </b-form-group>
+                                    <b-form-group label="Email">
+                                        <b-form-input
+                                            v-model="$v.form.email.$model"
+                                            type="email"
+                                            placeholder="Email"
+                                            :state="!$v.form.email.$error"
+                                        ></b-form-input>
+                                        <b-form-invalid-feedback>
+                                            <template v-if="!$v.form.email.required">
+                                                Enter a email.
+                                            </template>
+                                            <template v-else-if="!$v.form.email.email">
+                                                Enter a vaild email.
+                                            </template>
+                                        </b-form-invalid-feedback>
+                                    </b-form-group>
+                                </div>
+                                <div v-else>
+                                    <b-form-group label="Name">
+                                        <b-form-input />
+                                    </b-form-group>
+                                    <b-form-group label="Email">
+                                        <b-form-input />
+                                    </b-form-group>
+                                </div>
                                 <BasicButton
                                     class="btn-signup"
                                     :style="{
                                         backgroundColor: landingData.button_color,
                                         borderColor: landingData.button_color,
                                     }"
+                                    @click="handleSignupClick()"
                                 >
                                     Sign Up
                                 </BasicButton>
@@ -59,23 +92,69 @@
 </template>
 <script>
 import { appConstants } from '~/constants'
+import { api } from '~/services'
+import { required, email } from 'vuelidate/lib/validators'
 export default {
     name: 'LandingPreviewEmailMobile',
     props: {
         landingData: {
             type: Object,
         },
+        url: {
+            type: String,
+        },
     },
     data: () => ({
         mediaURL: appConstants.mediaURL,
         defaultLogo: appConstants.emailDefaultLogo,
         defaultCoverArt: appConstants.defaultCoverArt,
+        form: {
+            email: '',
+            name: '',
+        },
     }),
+    validations: {
+        form: {
+            email: {
+                required,
+                email,
+            },
+            name: {
+                required,
+            },
+        },
+    },
     computed: {
         landingBackStyle() {
             return {
                 backgroundColor: this.landingData.background_color,
                 backgroundImage: `url(${this.mediaURL}${this.landingData.background_image})`,
+            }
+        },
+    },
+    methods: {
+        async handleSignupClick() {
+            if (!this.url) return
+            this.$v.form.$touch()
+            if (this.$v.form.$invalid) {
+                return
+            }
+            const params = {
+                landing_page_id: this.landingData.id,
+                user_id: this.landingData.user_id,
+                email: this.form.email,
+                name: this.form.name,
+            }
+            console.log(params)
+            const {
+                status,
+                message,
+                error,
+            } = await api.profiles.addPageSubscriber(params)
+            if (status === 'success') {
+                this.$toast.success(message)
+            } else {
+                this.$toast.error(error)
             }
         },
     },

@@ -769,6 +769,24 @@ export const api = {
                 method,
             })
         },
+        async addPageVisitor(params) {
+            const endpoint = '/profiles/landing_page_visitor'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
+        async addPageSubscriber(params) {
+            const endpoint = '/profiles/landing_page_subscriber'
+            const method = METHOD_POST
+            return await call({
+                endpoint,
+                params,
+                method,
+            })
+        },
     },
     marketing: {
         async getMessageSendto(userId) {

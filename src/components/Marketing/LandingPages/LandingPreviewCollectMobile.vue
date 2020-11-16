@@ -44,6 +44,7 @@
                                         backgroundColor: landingData.button_color,
                                         borderColor: landingData.button_color,
                                     }"
+                                    @click="handleBuyNowClick()"
                                 >
                                     Buy Now
                                 </BasicButton>
@@ -137,9 +138,8 @@ export default {
     async created() {
         if (this.url) {
             const { status, data } = await api.profiles.getProfileMain(this.url)
-            console.log(data)
             if (status === 'success') {
-                this.bannerUrl = appConstants.mediaURL + data.banner
+                this.bannerUrl = data.banner
             }
         }
     },
@@ -154,5 +154,10 @@ export default {
             }
         },
     },
+    methods: {
+        handleBuyNowClick() {
+            window.open(this.landingData.promote_id, '_blank')
+        }
+    }
 }
 </script>

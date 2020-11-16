@@ -59,6 +59,11 @@ export default {
         const { status, data, error } = response
         if (status === 'success') {
             this.page = data
+            const response = await api.profiles.addPageVisitor({
+                landing_page_id: data.id,
+                user_id: data.user_id,
+            })
+            console.log(response)
         } else {
             this.$toast.error(error)
             this.$router.push({ name: '404' })

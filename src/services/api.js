@@ -984,6 +984,17 @@ export const api = {
                 method,
             })
         },
+        async getLandingPageAvailability(url, id) {
+            let endpoint = 'marketing/landing_page_availability/' + url
+            if (id) {
+                endpoint += '/' + id
+            }
+            const method = METHOD_GET
+            return await call({
+                endpoint,
+                method,
+            })
+        },
     },
     cart: {
         async getConfigFees() {

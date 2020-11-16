@@ -5,6 +5,9 @@ import EditLandingTitleModal from '@/components/Modal/Marketing/EditLandingTitle
 import { appConstants } from '~/constants'
 import { mapGetters } from 'vuex'
 import VueSelect from 'vue-select'
+import { api } from '~/services'
+import { required, minLength } from 'vuelidate/lib/validators'
+
 export default {
     components: {
         'color-picker': Chrome,
@@ -51,12 +54,24 @@ export default {
             },
         },
     },
+    validations: {
+        form: {
+            url: {
+                required,
+                minLength: minLength(5),
+                uniqueUrl(value) {
+                    return this.availabilityValidator(value)
+                },
+            },
+        },
+    },
     mounted() {
         this.form = {
             ...this.form,
             ...this.landingData,
             is_acitive: this.landingData.status === 'Active',
         }
+        this.$v.form.$touch()
         document.addEventListener('click', this.handleDocumentClick)
     },
     beforeDestroy() {
@@ -100,6 +115,10 @@ export default {
             this.$bus.$emit('modal.selectMedia.open')
         },
         async handleSaveClick() {
+            this.$v.form.$touch()
+            if (this.$v.form.$invalid) {
+                return
+            }
             this.saving = true
             const params = {
                 ...this.landingData,
@@ -112,6 +131,10 @@ export default {
             this.saving = false
         },
         async handlePublishClick() {
+            
+            if (this.$v.form.$invalid) {
+                return
+            }
             this.publishing = true
             const params = {
                 ...this.landingData,
@@ -172,6 +195,15 @@ export default {
             this.$router.push({
                 name: 'landingPages',
             })
+        },
+        async availabilityValidator(url) {
+            if (!url) return
+            const id = this.landingData.id ? this.landingData.id : ''
+            const { status } = await api.marketing.getLandingPageAvailability(
+                url,
+                id
+            )
+            return status === 'success'
         },
     },
 }

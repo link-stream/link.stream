@@ -39,7 +39,22 @@
                             <span class="font-weight-bold">URL: </span>
                             <span>{{ fullUrl }}</span>
                         </template>
-                        <b-form-input v-model="form.url" />
+                        <b-form-input
+                            v-model="$v.form.url.$model"
+                            placeholder="URL"
+                            :state="!$v.form.url.$error"
+                        />
+                        <b-form-invalid-feedback>
+                            <template v-if="!$v.form.url.required">
+                                Enter the URL.
+                            </template>
+                            <template v-else-if="!$v.form.url.minLength">
+                                The URL must have at least 5 letters.
+                            </template>
+                            <template v-else-if="!$v.form.url.uniqueUsername">
+                                The URL exists, enter a new one.
+                            </template>
+                        </b-form-invalid-feedback>
                     </b-form-group>
                     <div class="thumb-upload">
                         <h6>Logo</h6>
